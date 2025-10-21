@@ -1,0 +1,84 @@
+{
+  "categories": [
+    {
+      "id": "cat_imaging",
+      "name": "Imaging",
+      "slug": "imaging",
+      "emoji": "🩻",
+      "description": "X-rays, MRIs, CT scans, ultrasounds, ...",
+      "procedureCount": 247,
+      "priceRange": { "min": 100, "max": 5000 }
+    },
+
+    {
+      "id": "cat_lab_work",
+      "name": "Lab Work",
+      "slug": "lab-work",
+      "emoji": "🔬",
+      "description": "Blood tests, biopsies, ...",
+      "procedureCount": 47,
+      "priceRange": { "min": 100, "max": 500 }
+    },
+
+    {
+      "id": "cat_surgery",
+      "name": "Surgery",
+      "slug": "surgery",
+      "emoji": "🏥",
+      "description": "Surgery (ex: Joint replacement, appendectomy, ...)",
+      "procedureCount": 421,
+      "priceRange": { "min": 1000, "max": 100000}
+    },
+
+    {
+      "id": "cat_emergency_care",
+      "name": "Emergency Care",
+      "slug": "emergency-care",
+      "emoji": "🚑",
+      "description": "Emergency Care",
+      "procedureCount": 50,
+      "priceRange": { "min": 135, "max": 1230}
+    },
+
+    {
+      "id": "cat_maternity",
+      "name": "Maternity",
+      "slug": "maternity",
+      "emoji": "🤰",
+      "description": "Maternity",
+      "procedureCount": 24,
+      "priceRange": { "min": 10400, "max": 54780 }
+    },
+
+    {
+      "id": "cat_cancer_treatment",
+      "name": "Cancer Treatment",
+      "slug": "cancer-treatment",
+      "emoji": "💊",
+      "description": "Cancer Treatment (Chimo, ...)",
+      "procedureCount": 70,
+      "priceRange": { "min": 120, "max": 1300}
+    },
+
+    {
+      "id": "cat_mental_health",
+      "name": "Mental Health",
+      "slug": "mental-health",
+      "emoji": "🧠",
+      "description": "Mental Health",
+      "procedureCount": 10,
+      "priceRange": { "min": 80, "max": 530}
+    },
+
+    {
+      "id": "cat_physical_therapy",
+      "name": "Physical Therapy",
+      "slug": "physical-therapy",
+      "emoji": "🏃",
+      "description": "Physical Therapy",
+      "procedureCount": 25,
+      "priceRange": { "min": 75, "max": 645 }
+    },
+    
+  ]
+}
