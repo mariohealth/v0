@@ -1,0 +1,5 @@
+id,categoryId,name
+"fam_mri",
+"fam_xray",
+"fam_ct_scan",
+"fam_ultrasounds"
