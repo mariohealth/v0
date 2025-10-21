@@ -1,16 +1,48 @@
-Joint Replacement >
-  - Total Knee Replacement
-  - Partial Knee Replacement
-  - Hip Replacement
-  - Shoulder Replacement
-
-Service Category: Surgery
-  └─ Procedure Family: Joint Replacement
-      ├─ Procedure: Total Knee Replacement
-      │   ├─ Billing Code: MS-DRG 0468 (standard)
-      │   ├─ Billing Code: MS-DRG 0467 (with CC)
-      │   └─ Billing Code: MS-DRG 0466 (with MCC)
-      │
-      └─ Procedure: Hip Replacement
-          ├─ Billing Code: MS-DRG 0470 (standard)
-          └─ Billing Code: MS-DRG 0469 (with complications)
+{
+  "procedures": [
+    {
+      "id": "proc_tot_knee_replace",
+      "name": "Total Knee Replacement",
+      "slug": "total-knee-replacement",
+      "description": "...",
+      "averagePrice": 2800,
+      "priceRange": { "min": 1200, "max": 4500 },
+      "providerCount": 47,
+      "hasVariants": true,      // Has with/without contrast options
+      "variantCount": 3
+    },
+    {
+      "id": "proc_partial_knee_replace",
+      "name": "Partial Knee Replacement",
+      "slug": "partial-knee-replacement",
+      "description": "...",
+      "averagePrice": 1800,
+      "priceRange": { "min": 800, "max": 2500 },
+      "providerCount": 41,
+      "hasVariants": true,      // Has with/without contrast options
+      "variantCount": 2
+    },
+    {
+      "id": "proc_hip_replace",
+      "name": "Hip Replacement",
+      "slug": "hip-replacement",
+      "description": "...",
+      "averagePrice": 1800,
+      "priceRange": { "min": 800, "max": 2500 },
+      "providerCount": 41,
+      "hasVariants": true,      // Has with/without contrast options
+      "variantCount": 2
+    },
+    {
+      "id": "proc_shoulder_replacement",
+      "name": "Shoulder Replacement",
+      "slug": "shoulder-replacement",
+      "description": "...",
+      "averagePrice": 1800,
+      "priceRange": { "min": 800, "max": 2500 },
+      "providerCount": 41,
+      "hasVariants": true,      // Has with/without contrast options
+      "variantCount": 2
+    },
+  ]
+}
