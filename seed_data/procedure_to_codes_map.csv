@@ -9,4 +9,29 @@ Service Category: Surgery
           ├─ Billing Code: MS-DRG 0470 (standard)
           └─ Billing Code: MS-DRG 0469 (with complications)
 
-          
+  Service Category: Lab Work
+  └─ Procedure Family: Blood Tests
+      ├─ Procedure: Complete Blood Count (CBC)
+      │   └─ Billing Code: 85025 (automated)
+      │
+      ├─ Procedure: Comprehensive Metabolic Panel
+      │   └─ Billing Code: 80053
+      │
+      └─ Procedure: Lipid Panel (Cholesterol)
+
+
+Service Category: Imaging
+  └─ Procedure Family: MRI Scans
+      ├─ Procedure: Brain MRI
+      │   ├─ Billing Code: 70551 (without contrast)
+      │   ├─ Billing Code: 70552 (with contrast)
+      │   └─ Billing Code: 70553 (with and without contrast)
+      │
+      ├─ Procedure: Spine MRI
+      │   ├─ Billing Code: 72148 (lumbar, no contrast)
+      │   └─ Billing Code: 72149 (lumbar, with contrast)
+      │
+      └─ Procedure: Knee MRI
+          ├─ Billing Code: 73721 (without contrast)
+          └─ Billing Code: 73722 (with contrast)
+      
