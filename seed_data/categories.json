@@ -9,7 +9,16 @@
       "procedureCount": 247,
       "priceRange": { "min": 100, "max": 5000 }
     },
-
+    
+    {
+      "id": "cat_vax",
+      "name": "Vaccines",
+      "slug": "vaccines",
+      "emoji": "💉",
+      "description": "Vaccines (Flu, Hep-B, ...)",
+      "procedureCount": 27,
+      "priceRange": { "min": 100, "max": 500 }
+    },
     {
       "id": "cat_lab_work",
       "name": "Lab Work",
