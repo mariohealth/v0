@@ -1,5 +1,36 @@
-Imaging > 
-  - MRI Scans
-  - X-Rays
-  - CT Scans
-  - Ultrasounds
+{
+  "families": [
+    {
+      "id": "fam_mri",
+      "name": "MRI Scans",
+      "slug": "mri-scans",
+      "description": "Detailed imaging using magnetic fields",
+      "procedureCount": 12,
+      "priceRange": { "min": 500, "max": 5000}
+    },
+    {
+      "id": "fam_xray",
+      "name": "X-Rays",
+      "slug": "x-rays",
+      "description": "X-Rays (...)",
+      "procedureCount": 35,
+      "priceRange": { "min": 100, "max": 800}
+    },
+    {
+      "id": "fam_ct_scan",
+      "name": "CT Scans",
+      "slug": "ct-scans",
+      "description": "CT Scans (...)",
+      "procedureCount": 16,
+      "priceRange": { "min": 340, "max": 700}
+    },
+    {
+      "id": "fam_ultrasounds",
+      "name": "Ultrasounds",
+      "slug": "ultrasounds",
+      "description": "Ultrasounds (...)",
+      "procedureCount": 32,
+      "priceRange": { "min": 215, "max": 130}
+    },
+  ]
+}

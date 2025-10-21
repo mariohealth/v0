@@ -3,3 +3,14 @@ Joint Replacement >
   - Partial Knee Replacement
   - Hip Replacement
   - Shoulder Replacement
+
+Service Category: Surgery
+  └─ Procedure Family: Joint Replacement
+      ├─ Procedure: Total Knee Replacement
+      │   ├─ Billing Code: MS-DRG 0468 (standard)
+      │   ├─ Billing Code: MS-DRG 0467 (with CC)
+      │   └─ Billing Code: MS-DRG 0466 (with MCC)
+      │
+      └─ Procedure: Hip Replacement
+          ├─ Billing Code: MS-DRG 0470 (standard)
+          └─ Billing Code: MS-DRG 0469 (with complications)

@@ -1,5 +1,48 @@
-MRI Scans >
-  - Brain MRI
-  - Spine MRI
-  - Knee MRI
-  - Abdominal MRI
+{
+  "procedures": [
+    {
+      "id": "proc_brain_mri",
+      "name": "Brain MRI",
+      "slug": "brain-mri",
+      "description": "...",
+      "averagePrice": 2800,
+      "priceRange": { "min": 1200, "max": 4500 },
+      "providerCount": 47,
+      "hasVariants": true,      // Has with/without contrast options
+      "variantCount": 3
+    },
+    {
+      "id": "proc_spine_mri",
+      "name": "Spine MRI",
+      "slug": "spine-mri",
+      "description": "...",
+      "averagePrice": 1800,
+      "priceRange": { "min": 800, "max": 2500 },
+      "providerCount": 41,
+      "hasVariants": true,      // Has with/without contrast options
+      "variantCount": 2
+    },
+    {
+      "id": "proc_knee_mri",
+      "name": "Knee MRI",
+      "slug": "knee-mri",
+      "description": "...",
+      "averagePrice": 1800,
+      "priceRange": { "min": 800, "max": 2500 },
+      "providerCount": 41,
+      "hasVariants": true,      // Has with/without contrast options
+      "variantCount": 2
+    },
+    {
+      "id": "proc_abdominal_mri",
+      "name": "Abdominal MRI",
+      "slug": "abdominal-mri",
+      "description": "...",
+      "averagePrice": 1800,
+      "priceRange": { "min": 800, "max": 2500 },
+      "providerCount": 41,
+      "hasVariants": true,      // Has with/without contrast options
+      "variantCount": 2
+    },
+  ]
+}
