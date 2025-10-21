@@ -1,37 +1,24 @@
-Service Category: Surgery
-  └─ Procedure Family: Joint Replacement
-      ├─ Procedure: Total Knee Replacement
-      │   ├─ Billing Code: MS-DRG 0468 (standard)
-      │   ├─ Billing Code: MS-DRG 0467 (with CC)
-      │   └─ Billing Code: MS-DRG 0466 (with MCC)
-      │
-      └─ Procedure: Hip Replacement
-          ├─ Billing Code: MS-DRG 0470 (standard)
-          └─ Billing Code: MS-DRG 0469 (with complications)
+procedure_id,billing_code_type,billing_code
+"proc_tot_knee_replace","MS-DRG","0466"
+"proc_tot_knee_replace","MS-DRG","0467"
+"proc_tot_knee_replace","MS-DRG","0468"
+"proc_hip_replace","MS-DRG","0469"
+"proc_hip_replace","MS-DRG","0470"
 
-  Service Category: Lab Work
-  └─ Procedure Family: Blood Tests
-      ├─ Procedure: Complete Blood Count (CBC)
-      │   └─ Billing Code: 85025 (automated)
-      │
-      ├─ Procedure: Comprehensive Metabolic Panel
-      │   └─ Billing Code: 80053
-      │
-      └─ Procedure: Lipid Panel (Cholesterol)
+"proc_complete_blood_count","CPT","85025"
+"proc_comprehensive_metabolic_panel","CPT","80053"
+"proc_lipid_panel","CPT","?????"
+
+"proc_brain_mri","CPT","70551"
+"proc_brain_mri","CPT","70552"
+"proc_brain_mri","CPT","70553"
+
+"proc_spine_mri","CPT","72148"
+"proc_spine_mri","CPT","72149"
 
 
-Service Category: Imaging
-  └─ Procedure Family: MRI Scans
-      ├─ Procedure: Brain MRI
-      │   ├─ Billing Code: 70551 (without contrast)
-      │   ├─ Billing Code: 70552 (with contrast)
-      │   └─ Billing Code: 70553 (with and without contrast)
-      │
-      ├─ Procedure: Spine MRI
-      │   ├─ Billing Code: 72148 (lumbar, no contrast)
-      │   └─ Billing Code: 72149 (lumbar, with contrast)
-      │
-      └─ Procedure: Knee MRI
-          ├─ Billing Code: 73721 (without contrast)
-          └─ Billing Code: 73722 (with contrast)
+"proc_knee_mri","CPT","73721"
+"proc_knee_mri","CPT","73722"
+
+
       
