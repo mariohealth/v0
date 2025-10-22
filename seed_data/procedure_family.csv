@@ -1,9 +1,41 @@
 id,categoryId,name,slug,description
-fam_mri,cat_imaging,MRI Scans (Magnetic Resonance Imaging),mri-scans,...
-fam_xray,cat_imaging,X-Rays (Radiology),x-rays,...
-fam_ct_scan,cat_imaging,CT Scans (Computed Tomography),ct-scans,...
-fam_ultrasound,cat_imaging,Ultrasounds,ultrasounds,...
-fam_joint_replacement,cat_surgery,Joint Replacement,joint-replacement,...
-fam_cardiac_surgery,cat_surgery,Cardiac Surgery,cardiac-surgery,...
-fam_gastro_surgery,cat_surgery,Gastrointestinal Surgery,gastrointestinal-surgery,...
-fam_blood_test,cat_lab_work,Blood Test,blood-test,...
+fam_anesthesia,???,,,
+fam_biopsy,cat_lab_work,,,
+fam_blood_test,cat_lab_work,Blood Test,blood-test,
+fam_care_planning,,,,
+fam_chemotherapy,cat_cancer_treatment,,,
+fam_chiropractic,cat_physical_therapy,,,
+fam_chronic_care,,,,
+fam_colonoscopy,,,,
+fam_ct_scan,cat_imaging,CT Scans (Computed Tomography),ct-scans,
+fam_dxa,cat_imaging,DXA (Dual-energy X-ray absorptiometry),,
+fam_ecg,,,,
+fam_emergency,cat_emergency_care,,,
+fam_endoscopy,,,,
+fam_hearing,,,,
+fam_hearing_speech,,,,
+fam_home_visit,,,,
+fam_hospital_care,,,,
+fam_immunoassay,cat_lab_work,,,
+fam_immunostaining,cat_lab_work,,,
+fam_joint_clinical_procedure,cat_surgery,,,
+fam_joint_replacement,cat_surgery,,,
+fam_lung_test,,,,
+fam_mammography,cat_imaging,,,
+fam_mental_health_eval,cat_mental_health,,,
+fam_mental_health_screening,cat_mental_health,,,
+fam_mental_health_therapy,cat_mental_health,,,
+fam_mri,cat_imaging,MRI Scans (Magnetic Resonance Imaging),mri-scans,
+fam_nursing_facility_care,,,,
+fam_office_visit,,,,
+fam_physical_therapy,cat_physical_therapy,,,
+fam_sedation,,,,
+fam_skin,,,,
+fam_smear_test,cat_lab_work,,,
+fam_tele_medicine,,,,
+fam_training,,,,
+fam_ultrasound,cat_imaging,Ultrasounds,ultrasounds,
+fam_urine_test,cat_lab_work,,,
+fam_vaccine,cat_vaccine,,,
+fam_vision,,,,
+fam_x_ray,cat_imaging,X-Rays (Radiology),x-rays,
