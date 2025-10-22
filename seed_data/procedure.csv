@@ -1,9 +1,9 @@
-id,familyId,name
-"proc_brain_mri",
-"proc_spine_mri",
-"proc_knee_mri",
-"proc_complete_blood_count",
-"proc_comprehensive_metabolic_panel",
-"proc_lipid_panel",
-"proc_tot_knee_replace",
-"proc_hip_replace",
+id,familyId,name,description
+"proc_brain_mri","fam_mri","Brain MRI","..."
+"proc_spine_mri","fam_mri","Spine MRI","..."
+"proc_knee_mri","fam_mri","Knee MRI","..."
+"proc_complete_blood_count","fam_blood_test","Complete Blood Count (CBC)","..."
+"proc_comprehensive_metabolic_panel","fam_blood_test","Comprehensive Metabolic Panel","..."
+"proc_lipid_panel","fam_blood_test","Lipid Panel","..."
+"proc_tot_knee_replace","fam_joint_replacement","Total Knee Replacement","..."
+"proc_hip_replace","fam_joint_replacement","Hip Replacement","..."

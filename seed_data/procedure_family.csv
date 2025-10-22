@@ -1,5 +1,9 @@
-id,categoryId,name
-"fam_mri",
-"fam_xray",
-"fam_ct_scan",
-"fam_ultrasounds"
+id,categoryId,name,slug,description
+"fam_mri","cat_imaging","MRI Scans","mri-scans","..."
+"fam_xray","cat_imaging","X-Rays","x-rays","..."
+"fam_ct_scan","cat_imaging","CT Scans","ct-scans","..."
+"fam_ultrasounds","cat_imaging","Ultrasounds","ultrasounds","..."
+"fam_joint_replacement","cat_surgery","Joint Replacement","joint-replacement","..."
+"fam_cardiac_surgery","cat_surgery","Cardiac Surgery","cardiac-surgery","..."
+"fam_gastro_surgery","cat_surgery","Gastrointestinal Surgery","gastrointestinal-surgery","..."
+"fam_blood_test","cat_lab_work","Blood Test","blood-test","..."
