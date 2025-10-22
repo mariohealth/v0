@@ -1,11 +1,26 @@
 id,name,slug,emoji,description
-cat_imaging,Imaging,imaging,🩻,"X-rays, MRIs, CT scans, ultrasounds, ..."
-cat_testing,Testing,testing,📈,"ECG, breathing, hearing, seeing"
-cat_vaccine,Vaccines,vaccines,💉🦠,"Vaccines (Flu, Hep-B, ...)"
-cat_lab_work,Lab Work,lab-work,🧪🔬,"Blood tests, biopsies, ..."
-cat_surgery,Surgery,surgery,🏥,"Surgery (ex: Joint replacement, appendectomy, ...)"
-cat_emergency_care,Emergency Care,emergency-care,🚑,...
-cat_maternity,Maternity,maternity,🤰,...
 cat_cancer_treatment,Cancer Treatment,cancer-treatment,💊,...
+cat_emergency_care,Emergency Care,emergency-care,🚑,...
+cat_examination,Exams,examination,🩺,"Exams such as colonoscopy, endoscopies, ..."
+cat_imaging,Imaging,imaging,🩻,"X-rays, MRIs, CT scans, ultrasounds, ..."
+cat_lab_work,Lab Work,lab-work,🧪🔬,"Blood tests, biopsies, ..."
+cat_maternity,Maternity,maternity,🤰,...
 cat_mental_health,Mental Health,mental-health,🧠😌,...
 cat_physical_therapy,Physical Therapy,physical-therapy,🏃,...
+cat_surgery,Surgery,surgery,🏥,"Surgery (ex: Joint replacement, appendectomy, ...)"
+cat_testing,Testing,testing,📈,"ECG, breathing, hearing, seeing"
+cat_vaccine,Vaccines,vaccines,💉🦠,"Vaccines (Flu, Hep-B, ...)"
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
