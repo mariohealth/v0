@@ -14,7 +14,8 @@ Deploy to Cloud Run:
 gcloud run deploy mario-health-api \
   --image us-central1-docker.pkg.dev/mario-mrf-data/docker-repo/mario-health-api \
   --region us-central1 \
-  --platform managed
+  --platform managed \
+  --allow-unauthenticated
 ```
 When prompted, set the environment variables:
 - `SUPABASE_URL`
