@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from config import DATABASE_URL
 
 def load_csv_to_db(csv_path, table_name, if_exists="replace"):
-    """Load a CSV file into the Supabase Postgres database."""
+    """Load a CSV file into the Postgres database."""
     print(f"Loading {csv_path} → {table_name}")
     df = pd.read_csv(csv_path)
     engine = create_engine(DATABASE_URL)
