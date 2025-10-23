@@ -4,7 +4,7 @@ from app.config import settings
 
 router = APIRouter()
 
-@router.get("")
+@router.get(path="")
 async def search(q: str = Query(..., min_length=1), x_api_key: str = Header(None)):
     if settings.API_KEY and x_api_key != settings.API_KEY:
         raise HTTPException(status_code=401, detail="Unauthorized")
