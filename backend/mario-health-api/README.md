@@ -1,4 +1,4 @@
-#  Mario Health API (FastAPI + Google Cloud Run)
+# 💊 Mario Health API (FastAPI + Google Cloud Run)
 
 ## ✨ Features
 
