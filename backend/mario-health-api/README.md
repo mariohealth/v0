@@ -31,20 +31,12 @@ Deploy to Cloud Run:
 ```
 gcloud run deploy mario-health-api \
   --image us-central1-docker.pkg.dev/mario-mrf-data/docker-repo/mario-health-api \
-  --region us-central1 \
-  --platform managed \
-  --allow-unauthenticated
-  
-  NEW:
-  gcloud run deploy mario-health-api \
-  --image us-central1-docker.pkg.dev/mario-mrf-data/docker-repo/mario-health-api \
   --update-env-vars SUPABASE_URL="https://anvremdouphhucqrxgoq.supabase.co" \
   --update-secrets=SUPABASE_KEY=supabase-default-secret-key:latest \
   --region us-central1 \
   --platform managed \
   --allow-unauthenticated
 ```
-
 
 ## Test your deployment
 From your command line:

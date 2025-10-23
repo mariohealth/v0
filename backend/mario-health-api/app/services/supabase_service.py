@@ -10,3 +10,9 @@ def search_products(query: str):
         .limit(20) \
         .execute()
     return result.data
+
+def list_procedure_categories():
+    result = supabase.table("procedure_categories") \
+        .select("*") \
+        .execute()
+    return result.data
