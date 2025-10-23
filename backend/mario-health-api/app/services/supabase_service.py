@@ -12,7 +12,7 @@ def search_products(query: str):
     return result.data
 
 def list_procedure_categories():
-    result = supabase.table("procedure_categories") \
+    result = supabase.table("procedure_category") \
         .select("*") \
         .execute()
     return result.data
