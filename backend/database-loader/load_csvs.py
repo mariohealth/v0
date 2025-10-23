@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.pool import NullPool
 from config import DATABASE_URL
 
@@ -8,7 +8,8 @@ def test_connection(engine):
     """Verify the DB connection before loading."""
     try:
         with engine.connect() as conn:
-            conn.execute("SELECT 1")
+            query = text("SELECT 1")
+            conn.execute(query)
         print("✅ Database connection OK")
     except Exception as e:
         raise RuntimeError(f"❌ DB connection failed: {e}")
