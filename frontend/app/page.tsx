@@ -1,7 +1,7 @@
 'use client'
 
 import { MarioHeader } from '../src/components/mario-header'
-import { HeroSearch } from '../src/components/hero-search'
+import SearchBar from '../src/components/home/SearchBar'
 import { SavingsCard } from '../src/components/savings-card'
 import { ProcedureCard } from '../src/components/procedure-card'
 import { ActionListItem } from '../src/components/action-list-item'
@@ -17,9 +17,9 @@ export default function Home() {
       {/* Main Content - Scrollable with padding for fixed header/nav */}
       <main className="pt-16 pb-24 px-4 max-w-md mx-auto">
         
-        {/* Hero Section with Search */}
+        {/* Hero Section with NEW Search */}
         <section className="mt-6">
-          <HeroSearch />
+          <SearchBar />
         </section>
         
         {/* Savings Card - Only for returning users */}
