@@ -13,5 +13,5 @@ pip install -r requirements.txt
 
 ## Run
 ```
-python3 load_csvs.p
+python3 load_csvs.py
 ```
