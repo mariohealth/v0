@@ -1,4 +1,4 @@
-id,categoryId,name,slug,description
+id,category_id,name,slug,description
 fam_anesthesia,???,,,
 fam_biopsy,cat_lab_work,Biopsies,biopsies,
 fam_blood_test,cat_lab_work,Blood tests,blood-test,

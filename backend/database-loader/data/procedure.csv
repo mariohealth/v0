@@ -1,4 +1,4 @@
-id,familyId,name,description
+id,family_id,name,description
 proc_abdomen_pelvis_ct_scan,fam_ct_scan,CT scan of abdomen and pelvis ,
 proc_abdomen_ultrasound,fam_ultrasound,Ultrasound of abdomen,
 proc_abdomen_x_ray,fam_x_ray,X-ray of abdomen,
