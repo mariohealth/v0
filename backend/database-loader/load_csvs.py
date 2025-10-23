@@ -14,7 +14,7 @@ def test_connection(engine):
     except Exception as e:
         raise RuntimeError(f"❌ DB connection failed: {e}")
 
-def load_csv_to_db(engine, csv_path, table_name, if_exists="replace"):
+def load_csv_to_db(engine, csv_path, table_name, if_exists="append"):
     """Load a CSV file into a Postgres table."""
     print(f"📥 Loading {csv_path} → table '{table_name}'")
     df = pd.read_csv(csv_path)
