@@ -1,4 +1,22 @@
-# Deploy to Google Cloud Run
+#  Mario Health API (FastAPI + Google Cloud Run)
+
+## ✨ Features
+
+- ⚡ **FastAPI** for high-performance APIs in Python  
+- 🪄 **Supabase** as the Postgres backend  
+- 🐳 Containerized with **Docker**  
+- ☁️ Serverless hosting via **Google Cloud Run**  
+
+## 🧰 Prerequisites
+
+Before running or deploying, make sure you have:
+
+- ✅ Python 3.10+  
+- 🐳 [Docker](https://www.docker.com/)  
+- 🪣 [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed & authenticated  
+- 🐘 A [Supabase](https://supabase.com/) project with a table (e.g. `products`)
+
+## Deploy to Google Cloud Run
 
 Install & configure Google Cloud SDK:
 ```
@@ -28,7 +46,7 @@ gcloud run deploy mario-health-api \
 ```
 
 
-# Test your deployment
+## Test your deployment
 From your command line:
 
 Test root endpoint:
