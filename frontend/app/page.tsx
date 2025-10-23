@@ -1,9 +1,12 @@
-import MarioHeader from '@/components/mario-header'
-import HeroSearch from '@/components/hero-search'
-import SavingsCard from '@/components/savings-card'
-import ProcedureCard from '@/components/procedure-card'
-import ActionListItem from '@/components/action-list-item'
-import BottomNav from '@/components/bottom-nav'
+'use client'
+
+import { MarioHeader } from '../src/components/mario-header'
+import { HeroSearch } from '../src/components/hero-search'
+import { SavingsCard } from '../src/components/savings-card'
+import { ProcedureCard } from '../src/components/procedure-card'
+import { ActionListItem } from '../src/components/action-list-item'
+import { BottomNav } from '../src/components/bottom-nav'
+import { Stethoscope, UserRound, Pill, Phone } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -74,30 +77,30 @@ export default function Home() {
         {/* Common Actions */}
         <section className="mt-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Common Actions</h2>
-          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
+          <div className="bg-white rounded-xl overflow-hidden shadow-sm divide-y divide-gray-100">
             <ActionListItem 
-              icon="🩺"
+              icon={Stethoscope}
               title="Browse Procedures"
-              description="Find and compare medical procedures"
-              href="/search"
+              subtitle="Find and compare medical procedures"
+              onClick={() => console.log('Browse Procedures clicked')}
             />
             <ActionListItem 
-              icon="👨‍⚕️"
+              icon={UserRound}
               title="Find Doctors"
-              description="Search by specialty and location"
-              href="/search?type=doctors"
+              subtitle="Search by specialty and location"
+              onClick={() => console.log('Find Doctors clicked')}
             />
             <ActionListItem 
-              icon="💊"
+              icon={Pill}
               title="Medications"
-              description="Compare prescription prices"
-              href="/search?type=medications"
+              subtitle="Compare prescription prices"
+              onClick={() => console.log('Medications clicked')}
             />
             <ActionListItem 
-              icon="📞"
+              icon={Phone}
               title="MarioCare"
-              description="On-demand urgent care (24/7), scheduled primary"
-              href="/mariocare"
+              subtitle="On-demand urgent care (24/7), scheduled primary"
+              onClick={() => console.log('MarioCare clicked')}
             />
           </div>
         </section>
