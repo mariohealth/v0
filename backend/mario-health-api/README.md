@@ -16,6 +16,11 @@ Before running or deploying, make sure you have:
 - 🪣 [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed & authenticated  
 - 🐘 A [Supabase](https://supabase.com/) project with a table (e.g. `products`)
 
+## Deploy on your local machine
+```
+???
+```
+
 ## Deploy to Google Cloud Run
 
 Install & configure Google Cloud SDK:
@@ -32,13 +37,15 @@ Deploy to Cloud Run:
 gcloud run deploy mario-health-api \
   --image us-central1-docker.pkg.dev/mario-mrf-data/docker-repo/mario-health-api \
   --update-env-vars SUPABASE_URL="https://anvremdouphhucqrxgoq.supabase.co" \
-  --update-secrets=SUPABASE_KEY=supabase-default-secret-key:latest \
   --region us-central1 \
   --platform managed \
   --allow-unauthenticated
+  
+  maybe not needed every time:
+  --update-secrets=SUPABASE_KEY=supabase-default-secret-key:latest \
 ```
 
-## Test your deployment
+## Test your cloud deployment
 From your command line:
 
 Test root endpoint:
