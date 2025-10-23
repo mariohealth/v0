@@ -1,5 +1,7 @@
+DROP TABLE IF EXISTS procedure;
 CREATE TABLE IF NOT EXISTS procedure (
-    customer_id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL
+    id TEXT PRIMARY KEY,
+    familyId TEXT NOT NULL,
+    name TEXT UNIQUE NOT NULL,
+    description TEXT
 );
