@@ -60,6 +60,13 @@ export interface Provider {
   wheelchairAccessible?: boolean;
   requiresReferral?: boolean;
   newPatientAccepted?: boolean;
+
+  // --- Additional fields for components ---
+  negotiatedRate?: number;
+  standardRate?: number;
+  savings?: number;
+  savingsPercent?: number;
+  insurance?: string[];
 }
 
 export const mockProviders: Provider[] = [
@@ -101,22 +108,29 @@ export const mockProviders: Provider[] = [
     wheelchairAccessible: true,
     requiresReferral: false,
     newPatientAccepted: true,
+
+    // Additional fields for components
+    negotiatedRate: 450,
+    standardRate: 750,
+    savings: 300,
+    savingsPercent: 40,
+    insurance: ['UnitedHealthcare', 'Aetna', 'Cigna', 'Blue Cross'],
     images: [
       {
         id: 'img1',
-        url: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800',
+        url: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&auto=format&fit=crop',
         alt: 'Hospital exterior',
         type: 'facility',
       },
       {
         id: 'img2',
-        url: 'https://images.unsplash.com/photo-1632833239869-a37e3a5806d2?w=800',
+        url: 'https://images.unsplash.com/photo-1632833239869-a37e3a5806d2?w=800&auto=format&fit=crop',
         alt: 'Modern waiting area',
         type: 'facility',
       },
       {
         id: 'img3',
-        url: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=800',
+        url: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=800&auto=format&fit=crop',
         alt: 'Medical equipment',
         type: 'equipment',
       },
