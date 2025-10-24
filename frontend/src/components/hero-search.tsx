@@ -15,11 +15,12 @@ export function HeroSearch() {
 
         {/* Search Input */}
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
           <input
             type="text"
             placeholder="Search services, doctors, or meds..."
             className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-gray-300 focus:border-[#4DA1A9] focus:outline-none text-base sm:h-16 sm:text-lg"
+            aria-label="Search for healthcare services"
           />
         </div>
 
@@ -27,10 +28,11 @@ export function HeroSearch() {
         <Button
           variant="outline"
           className="w-full h-12 border-2 border-[#4DA1A9] text-[#4DA1A9] hover:bg-[#4DA1A9]/5 rounded-xl font-medium bg-transparent sm:h-14 sm:text-lg"
+          aria-label="Ask MarioAI for help"
         >
-          <Sparkles className="w-4 h-4 mr-2 sm:w-5 sm:h-5" />
+          <Sparkles className="w-4 h-4 mr-2 sm:w-5 sm:h-5" aria-hidden="true" />
           Ask MarioAI
-          <Sparkles className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
+          <Sparkles className="w-4 h-4 ml-2 sm:w-5 sm:h-5" aria-hidden="true" />
         </Button>
       </div>
     </section>

@@ -50,7 +50,8 @@ export default function Home() {
         <section className="mt-6">
           <button
             onClick={() => alert('Coming soon! Would you find AI chat helpful for searching healthcare?')}
-            className="w-full py-3 px-4 border-2 border-[#4DA1A9] text-[#4DA1A9] rounded-full font-medium hover:bg-[#4DA1A9] hover:text-white transition-colors"
+            className="w-full py-3 px-4 border-2 border-[#4DA1A9] text-[#4DA1A9] rounded-full font-medium hover:bg-[#4DA1A9] hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#4DA1A9] focus:ring-offset-2"
+            aria-label="Ask MarioAI for help (coming soon)"
           >
             🤖 Ask MarioAI anything...
           </button>
@@ -59,13 +60,22 @@ export default function Home() {
         {/* Quick Action Chips */}
         <section className="mt-6">
           <div className="flex gap-2 overflow-x-auto pb-2">
-            <button className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50">
+            <button 
+              className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+              aria-label="I have a health concern"
+            >
               ✨ I have a health concern
             </button>
-            <button className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50">
+            <button 
+              className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+              aria-label="Book a visit"
+            >
               📅 Book a visit
             </button>
-            <button className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50">
+            <button 
+              className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+              aria-label="Prescription renewal"
+            >
               💊 Rx renewal
             </button>
           </div>

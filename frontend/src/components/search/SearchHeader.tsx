@@ -39,10 +39,10 @@ export default function SearchHeader({
         <div className="flex items-center gap-3 mb-4">
           <button
             onClick={() => router.back()}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
             aria-label="Go back"
           >
-            <ArrowLeft className="w-5 h-5 text-gray-600" />
+            <ArrowLeft className="w-5 h-5 text-gray-600" aria-hidden="true" />
           </button>
           <div>
             <h1 className="text-xl font-semibold text-gray-900">
@@ -58,7 +58,7 @@ export default function SearchHeader({
         <div className="flex flex-col sm:flex-row gap-3">
           {/* Procedure input */}
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" aria-hidden="true" />
             <input
               type="text"
               placeholder="Search procedures or tests..."
@@ -66,12 +66,13 @@ export default function SearchHeader({
               onChange={(e) => setQuery(e.target.value)}
               onKeyPress={handleKeyPress}
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              aria-label="Search for procedures or tests"
             />
           </div>
 
           {/* Location input */}
           <div className="sm:w-64 relative">
-            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" aria-hidden="true" />
             <input
               type="text"
               placeholder="New York, NY"
@@ -79,15 +80,17 @@ export default function SearchHeader({
               onChange={(e) => setLocation(e.target.value)}
               onKeyPress={handleKeyPress}
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              aria-label="Enter your location"
             />
           </div>
 
           {/* Search button */}
           <button
             onClick={handleSearch}
-            className="sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2"
+            className="sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+            aria-label="Search for providers"
           >
-            <Search className="w-5 h-5" />
+            <Search className="w-5 h-5" aria-hidden="true" />
             <span>Search</span>
           </button>
         </div>

@@ -28,11 +28,13 @@ export function BottomNav() {
               key={item.id}
               onClick={() => setActive(item.id)}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 flex-1 h-full transition-colors",
+                "flex flex-col items-center justify-center gap-1 flex-1 h-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2",
                 isActive ? "text-[#2E5077]" : "text-gray-500",
               )}
+              aria-label={`Navigate to ${item.label}`}
+              aria-current={isActive ? "page" : undefined}
             >
-              <Icon className="w-6 h-6" />
+              <Icon className="w-6 h-6" aria-hidden="true" />
               <span className="text-xs font-medium">{item.label}</span>
             </button>
           )

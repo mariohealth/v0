@@ -19,8 +19,8 @@ export default function ProviderCard({ provider, onBook }: ProviderCardProps) {
   };
 
   return (
-    <Link href={`/provider/${provider.id}`} className="block">
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <Link href={`/provider/${provider.id}`} className="block" aria-label={`View details for ${provider.name}`}>
+      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:ring-offset-2">
         {/* Image placeholder */}
         <div className="relative h-40 sm:h-48 bg-gradient-to-br from-emerald-50 to-emerald-100">
           <div className="absolute inset-0 flex items-center justify-center">
@@ -120,7 +120,8 @@ export default function ProviderCard({ provider, onBook }: ProviderCardProps) {
 
             <button
               onClick={handleBookClick}
-              className="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-2 sm:px-6 sm:py-2.5 rounded-lg font-semibold transition-colors duration-200 text-xs sm:text-sm whitespace-nowrap min-h-[44px] min-w-[80px] flex items-center justify-center"
+              className="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-2 sm:px-6 sm:py-2.5 rounded-lg font-semibold transition-colors duration-200 text-xs sm:text-sm whitespace-nowrap min-h-[44px] min-w-[80px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+              aria-label={`Book appointment with ${provider.name}`}
             >
               Book Now
             </button>

@@ -22,7 +22,10 @@ export function MarioHeader() {
 
         {/* Right: Demo Dropdown */}
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-1 text-sm text-gray-700 hover:text-gray-900 focus:outline-none">
+          <DropdownMenuTrigger 
+            className="flex items-center gap-1 text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded-md px-2 py-1"
+            aria-label="Select demo mode"
+          >
             {selectedDemo}
             <ChevronDown className="w-4 h-4" />
           </DropdownMenuTrigger>
