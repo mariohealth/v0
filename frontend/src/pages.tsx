@@ -1,11 +1,11 @@
-import { MarioHeader } from "@/components/mario-header"
-import { HeroSearch } from "@/components/hero-search"
-import { SavingsCard } from "@/components/savings-card"
-import { ProcedureCard } from "@/components/procedure-card"
-import { ProviderCard } from "@/components/provider-card"
-import { ActionListItem } from "@/components/action-list-item"
-import { BottomNav } from "@/components/bottom-nav"
-import { Search, Stethoscope, User, FileText, Sparkles } from "lucide-react"
+import { MarioHeader } from '@/components/mario-header';
+import { HeroSearch } from '@/components/hero-search';
+import { SavingsCard } from '@/components/savings-card';
+import { ProcedureCard } from '@/components/procedure-card';
+import { ProviderCard } from '@/components/provider-card';
+import { ActionListItem } from '@/components/action-list-item';
+import { BottomNav } from '@/components/bottom-nav';
+import { Search, Stethoscope, User, FileText, Sparkles } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -21,8 +21,18 @@ export default function Home() {
         <section className="px-4 mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Save on These</h2>
           <div className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4">
-            <ProcedureCard title="MRI Scan (Brain)" price="$850" originalPrice="$1,400" discount="39% off" />
-            <ProcedureCard title="Annual Physical Exam" price="$95" originalPrice="$220" discount="57% off" />
+            <ProcedureCard
+              title="MRI Scan (Brain)"
+              price="$850"
+              originalPrice="$1,400"
+              discount="39% off"
+            />
+            <ProcedureCard
+              title="Annual Physical Exam"
+              price="$95"
+              originalPrice="$220"
+              discount="57% off"
+            />
           </div>
         </section>
 
@@ -67,8 +77,16 @@ export default function Home() {
         <section className="px-4 mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Common Actions</h2>
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 divide-y divide-gray-200">
-            <ActionListItem icon={FileText} title="Browse Procedures" subtitle="Find and compare medical procedures" />
-            <ActionListItem icon={Stethoscope} title="Find Doctors" subtitle="Search by specialty and location" />
+            <ActionListItem
+              icon={FileText}
+              title="Browse Procedures"
+              subtitle="Find and compare medical procedures"
+            />
+            <ActionListItem
+              icon={Stethoscope}
+              title="Find Doctors"
+              subtitle="Search by specialty and location"
+            />
             <ActionListItem
               icon={User}
               title="MarioCare"
@@ -80,5 +98,5 @@ export default function Home() {
 
       <BottomNav />
     </div>
-  )
+  );
 }

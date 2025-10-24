@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect, Suspense } from "react";
-import SearchHeader from "@/src/components/search/SearchHeader";
-import SearchFilters, { FilterState } from "@/src/components/search/SearchFilters";
-import ProviderCard from "@/src/components/providers/ProviderCard";
-import { mockProviders, filterProviders, Provider } from "@/src/lib/mockData";
-import { SlidersHorizontal } from "lucide-react";
+import { useSearchParams } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import SearchHeader from '@/src/components/search/SearchHeader';
+import SearchFilters, { FilterState } from '@/src/components/search/SearchFilters';
+import ProviderCard from '@/src/components/providers/ProviderCard';
+import { mockProviders, filterProviders, Provider } from '@/src/lib/mockData';
+import { SlidersHorizontal } from 'lucide-react';
 
 function SearchResults() {
   const searchParams = useSearchParams();
-  const query = searchParams.get("q") || "";
-  const location = searchParams.get("location") || "New York, NY";
+  const query = searchParams.get('q') || '';
+  const location = searchParams.get('location') || 'New York, NY';
 
   const [filteredProviders, setFilteredProviders] = useState<Provider[]>(mockProviders);
   const [filters, setFilters] = useState<FilterState>({
@@ -19,7 +19,7 @@ function SearchResults() {
     types: [],
     minRating: 0,
   });
-  const [sortBy, setSortBy] = useState<"price" | "rating" | "distance">("price");
+  const [sortBy, setSortBy] = useState<'price' | 'rating' | 'distance'>('price');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Apply filters and sorting
@@ -35,11 +35,11 @@ function SearchResults() {
     // Apply sorting
     results = [...results].sort((a, b) => {
       switch (sortBy) {
-        case "price":
+        case 'price':
           return a.price - b.price;
-        case "rating":
+        case 'rating':
           return b.rating - a.rating;
-        case "distance":
+        case 'distance':
           return parseFloat(a.distance) - parseFloat(b.distance);
         default:
           return 0;
@@ -54,7 +54,7 @@ function SearchResults() {
   };
 
   const handleBookProvider = (providerId: string) => {
-    console.log("Booking provider:", providerId);
+    console.log('Booking provider:', providerId);
     alert(`Booking functionality coming soon! Provider ID: ${providerId}`);
   };
 
@@ -118,7 +118,8 @@ function SearchResults() {
                   Showing <span className="font-semibold">{filteredProviders.length}</span> results
                   {query && (
                     <>
-                      {" "}for <span className="font-semibold">"{query}"</span>
+                      {' '}
+                      for <span className="font-semibold">"{query}"</span>
                     </>
                   )}
                 </p>
@@ -144,11 +145,7 @@ function SearchResults() {
             {filteredProviders.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {filteredProviders.map((provider) => (
-                  <ProviderCard
-                    key={provider.id}
-                    provider={provider}
-                    onBook={handleBookProvider}
-                  />
+                  <ProviderCard key={provider.id} provider={provider} onBook={handleBookProvider} />
                 ))}
               </div>
             ) : (
@@ -157,9 +154,7 @@ function SearchResults() {
                   <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <SlidersHorizontal className="w-8 h-8 text-gray-400" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    No results found
-                  </h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">No results found</h3>
                   <p className="text-gray-600 mb-4">
                     Try adjusting your filters or search terms to find more providers.
                   </p>
@@ -187,14 +182,16 @@ function SearchResults() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
-          <p className="mt-4 text-gray-600">Loading search results...</p>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+            <p className="mt-4 text-gray-600">Loading search results...</p>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <SearchResults />
     </Suspense>
   );
