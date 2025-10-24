@@ -1,0 +1,12 @@
+You are helping build Mario Health MVP.
+
+Tech Stack:
+- Next.js 14, TypeScript, Tailwind CSS, Supabase
+
+Code Style:
+- Functional React components
+- TypeScript for everything
+- Tailwind utility classes
+- Keep components small
+
+Reference Mario Health PRD and Design Doc for requirements.

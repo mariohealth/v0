@@ -79,25 +79,25 @@ export default function Home() {
             <ActionListItem
               icon={Stethoscope}
               title="Browse Procedures"
-              subtitle="Find and compare medical procedures"
+              description="Find and compare medical procedures"
               onClick={() => console.log('Browse Procedures clicked')}
             />
             <ActionListItem
               icon={UserRound}
               title="Find Doctors"
-              subtitle="Search by specialty and location"
+              description="Search by specialty and location"
               onClick={() => console.log('Find Doctors clicked')}
             />
             <ActionListItem
               icon={Pill}
               title="Medications"
-              subtitle="Compare prescription prices"
+              description="Compare prescription prices"
               onClick={() => console.log('Medications clicked')}
             />
             <ActionListItem
               icon={Phone}
               title="MarioCare"
-              subtitle="On-demand urgent care (24/7), scheduled primary"
+              description="On-demand urgent care (24/7), scheduled primary"
               onClick={() => console.log('MarioCare clicked')}
             />
           </div>

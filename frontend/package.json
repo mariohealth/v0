@@ -1,12 +1,15 @@
 {
-  "name": "my-v0-project",
+  "name": "mario-health-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
+    "preview": "next build && next start"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -48,9 +51,9 @@
     "lucide-react": "^0.454.0",
     "next": "16.0.0",
     "next-themes": "^0.4.6",
-    "react": "19.2.0",
+    "react": "^18.3.1",
     "react-day-picker": "9.8.0",
-    "react-dom": "19.2.0",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.60.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",
