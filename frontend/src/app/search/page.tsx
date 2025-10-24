@@ -4,16 +4,17 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
 import SearchHeader from "@/src/components/search/SearchHeader";
 import SearchFilters, { FilterState } from "@/src/components/search/SearchFilters";
-import ProviderCard from "@/src/components/providers/ProviderCard";
+import SearchResults from "@/src/components/search/SearchResults";
 import { mockProviders, filterProviders, Provider } from "@/src/lib/mockData";
 import { SlidersHorizontal } from "lucide-react";
 
-function SearchResults() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const location = searchParams.get("location") || "New York, NY";
 
   const [filteredProviders, setFilteredProviders] = useState<Provider[]>(mockProviders);
+  const [isLoading, setIsLoading] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     priceRange: [0, 2000],
     types: [],
@@ -24,33 +25,49 @@ function SearchResults() {
 
   // Apply filters and sorting
   useEffect(() => {
-    let results = filterProviders(
-      mockProviders,
-      query,
-      filters.priceRange,
-      filters.types,
-      filters.minRating
-    );
+    setIsLoading(true);
+    
+    // Simulate API delay
+    const timer = setTimeout(() => {
+      let results = filterProviders(
+        mockProviders,
+        query,
+        filters.priceRange,
+        filters.types,
+        filters.minRating
+      );
 
-    // Apply sorting
-    results = [...results].sort((a, b) => {
-      switch (sortBy) {
-        case "price":
-          return a.price - b.price;
-        case "rating":
-          return b.rating - a.rating;
-        case "distance":
-          return parseFloat(a.distance) - parseFloat(b.distance);
-        default:
-          return 0;
-      }
-    });
+      // Apply sorting
+      results = [...results].sort((a, b) => {
+        switch (sortBy) {
+          case "price":
+            return a.price - b.price;
+          case "rating":
+            return b.rating - a.rating;
+          case "distance":
+            return parseFloat(a.distance) - parseFloat(b.distance);
+          default:
+            return 0;
+        }
+      });
 
-    setFilteredProviders(results);
+      setFilteredProviders(results);
+      setIsLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [query, filters, sortBy]);
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);
+  };
+
+  const handleClearFilters = () => {
+    setFilters({
+      priceRange: [0, 2000],
+      types: [],
+      minRating: 0,
+    });
   };
 
   const handleBookProvider = (providerId: string) => {
@@ -150,43 +167,12 @@ function SearchResults() {
             </div>
 
             {/* Provider cards */}
-            {filteredProviders.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredProviders.map((provider) => (
-                  <ProviderCard
-                    key={provider.id}
-                    provider={provider}
-                    onBook={handleBookProvider}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-                <div className="max-w-md mx-auto">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <SlidersHorizontal className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    No results found
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Try adjusting your filters or search terms to find more providers.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setFilters({
-                        priceRange: [0, 2000],
-                        types: [],
-                        minRating: 0,
-                      });
-                    }}
-                    className="text-emerald-600 hover:text-emerald-700 font-medium"
-                  >
-                    Clear all filters
-                  </button>
-                </div>
-              </div>
-            )}
+            <SearchResults 
+              providers={filteredProviders}
+              isLoading={isLoading}
+              onBookProvider={handleBookProvider}
+              onClearFilters={handleClearFilters}
+            />
           </div>
         </div>
       </div>
@@ -204,7 +190,7 @@ export default function SearchPage() {
         </div>
       </div>
     }>
-      <SearchResults />
+      <SearchPageContent />
     </Suspense>
   );
 }
