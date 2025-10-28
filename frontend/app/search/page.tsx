@@ -5,9 +5,11 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import SearchHeader from '@/components/search/SearchHeader';
 import SearchFilters, { FilterState } from '@/components/search/SearchFilters';
+import { SearchRefinement } from '@/components/search/SearchRefinement';
 import { searchProcedures, type SearchResult } from '@/lib/backend-api';
 import { usePreferences } from '@/lib/contexts/PreferencesContext';
-import { SlidersHorizontal, DollarSign, MapPin, Users } from 'lucide-react';
+import { SORT_OPTIONS, getDefaultSortPreference, saveSortPreference, type SortOption } from '@/lib/search-utils';
+import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown } from 'lucide-react';
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -25,8 +27,14 @@ function SearchResults() {
     types: [],
     minRating: 0,
   });
-  const [sortBy, setSortBy] = useState<'price' | 'rating' | 'distance'>('price');
+  const [sortBy, setSortBy] = useState<SortOption>(getDefaultSortPreference());
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [refinementQuery, setRefinementQuery] = useState('');
+  
+  // Load saved sort preference
+  useEffect(() => {
+    setSortBy(getDefaultSortPreference());
+  }, []);
 
   // Fetch search results from API
   // API: GET /api/v1/search?q={query}&zip={zip}&radius={radius}
@@ -63,21 +71,55 @@ function SearchResults() {
     setFilters(newFilters);
   };
 
+  const handleRefinementChange = (newQuery: string) => {
+    setRefinementQuery(newQuery);
+  };
+
+  const handleSortChange = (newSort: SortOption) => {
+    setSortBy(newSort);
+    saveSortPreference(newSort);
+  };
+
   // Filter and sort search results based on UI filters
-  const filteredResults = searchResults.filter(result => {
-    const avgPrice = result.avgPrice;
-    if (avgPrice < filters.priceRange[0] || avgPrice > filters.priceRange[1]) {
-      return false;
-    }
-    return true;
-  }).sort((a, b) => {
-    switch (sortBy) {
-      case 'price':
-        return a.avgPrice - b.avgPrice;
-      default:
-        return 0;
-    }
-  });
+  const filteredResults = searchResults
+    .filter(result => {
+      // Price range filter
+      const avgPrice = result.avgPrice;
+      if (avgPrice < filters.priceRange[0] || avgPrice > filters.priceRange[1]) {
+        return false;
+      }
+      
+      // Refinement query filter (search within results)
+      if (refinementQuery) {
+        const query = refinementQuery.toLowerCase();
+        const matches = 
+          result.procedureName.toLowerCase().includes(query) ||
+          result.familyName.toLowerCase().includes(query) ||
+          result.categoryName.toLowerCase().includes(query);
+        
+        if (!matches) {
+          return false;
+        }
+      }
+      
+      return true;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'price-asc':
+          return a.avgPrice - b.avgPrice;
+        case 'price-desc':
+          return b.avgPrice - a.avgPrice;
+        case 'name-asc':
+          return a.procedureName.localeCompare(b.procedureName);
+        case 'name-desc':
+          return b.procedureName.localeCompare(a.procedureName);
+        case 'distance':
+          return (a.nearestDistanceMiles || 0) - (b.nearestDistanceMiles || 0);
+        default:
+          return 0;
+      }
+    });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -149,10 +191,16 @@ function SearchResults() {
 
             {!loading && !error && (
               <>
+                {/* Search Refinement */}
+                <SearchRefinement
+                  onRefine={handleRefinementChange}
+                  resultCount={searchResults.length}
+                />
+
                 <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <p className="text-sm text-gray-600">
-                      Showing <span className="font-semibold">{filteredResults.length}</span> results
+                      Showing <span className="font-semibold">{filteredResults.length}</span> of <span className="font-semibold">{searchResults.length}</span> results
                       {query && (
                         <>
                           {' '}
@@ -168,10 +216,14 @@ function SearchResults() {
                       <select
                         id="sort"
                         value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value as any)}
+                        onChange={(e) => handleSortChange(e.target.value as SortOption)}
                         className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       >
-                        <option value="price">Lowest Price</option>
+                        {SORT_OPTIONS.map(option => (
+                          <option key={option.option} value={option.option}>
+                            {option.label}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
