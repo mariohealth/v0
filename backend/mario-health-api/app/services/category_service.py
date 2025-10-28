@@ -17,6 +17,7 @@ class CategoryService:
                 id=c["id"],
                 name=c["name"],
                 slug=c["slug"],
+                emoji=c["emoji"],
                 description=c.get("description"),
                 family_count=c["family_count"]
             )

@@ -6,6 +6,7 @@ class Category(BaseModel):
     id: str
     name: str
     slug: str
+    emoji: str
     description: str | None = None
     family_count: int = Field(default=0, ge=0)
 
@@ -21,6 +22,7 @@ class CategoriesResponse(BaseModel):
                         "id": "cat_001",
                         "name": "Radiology",
                         "slug": "radiology",
+                        "emoji": "",
                         "description": "Medical imaging procedures",
                         "family_count": 5
                     },
@@ -28,6 +30,7 @@ class CategoriesResponse(BaseModel):
                         "id": "cat_002",
                         "name": "Laboratory",
                         "slug": "laboratory",
+                        "emoji": "",
                         "description": "Lab tests and diagnostics",
                         "family_count": 12
                     }
