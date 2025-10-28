@@ -218,7 +218,7 @@ export function Navbar() {
                     </div>
                 </div>
             )}
-            
+
             {/* Preferences Modal */}
             <PreferencesModal isOpen={showPreferences} onClose={() => setShowPreferences(false)} />
         </>
@@ -243,8 +243,8 @@ function MobileNavLink({
             href={href}
             onClick={onClick}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${active
-                    ? 'bg-primary/10 text-primary font-semibold'
-                    : 'text-gray-700 hover:bg-gray-100'
+                ? 'bg-primary/10 text-primary font-semibold'
+                : 'text-gray-700 hover:bg-gray-100'
                 }`}
         >
             <span className="flex-shrink-0">{icon}</span>

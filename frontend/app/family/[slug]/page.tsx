@@ -3,10 +3,13 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Filter, SortAsc, Clock, DollarSign } from 'lucide-react';
-import { getProceduresByFamily, type Procedure } from '@/lib/backend-api';
+import { Filter, SortAsc, Clock, DollarSign } from 'lucide-react';
+import { getProceduresByFamily, getFamiliesByCategory, getCategories, type Procedure } from '@/lib/backend-api';
 import { SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
+import { BreadcrumbNav } from '@/components/navigation/BreadcrumbNav';
+import { BackButton } from '@/components/navigation/BackButton';
+import { ProcedureCard } from '@/components/taxonomy/ProcedureCard';
 
 type SortOption = 'name' | 'price-low' | 'price-high';
 
@@ -17,6 +20,7 @@ type FamilyInfo = {
   procedureCount: number;
   categoryName?: string;
   categorySlug?: string;
+  categoryId?: string;
 };
 
 export default function FamilyPage() {
@@ -43,12 +47,26 @@ export default function FamilyPage() {
         setError(null);
 
         const data = await getProceduresByFamily(slug);
+        
+        // Fetch category info
+        const [categories, familiesData] = await Promise.all([
+          getCategories(),
+          data.procedures.length > 0 ? getFamiliesByCategory(data.procedures[0].categorySlug || '') : Promise.resolve({ families: [] })
+        ]);
+
+        // Find category
+        const category = categories.find(c => 
+          data.familyCategorySlug ? c.slug === data.familyCategorySlug : false
+        );
 
         setFamily({
           name: data.familyName,
           slug: data.familySlug,
           description: data.familyDescription || data.familyName,
           procedureCount: data.procedures.length,
+          categoryName: category?.name,
+          categorySlug: category?.slug,
+          categoryId: category?.id,
         });
 
         setProcedures(data.procedures);
@@ -128,28 +146,27 @@ export default function FamilyPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Breadcrumb Navigation */}
-      <div className="bg-muted/30 border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground transition">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-foreground">{family.name}</span>
-          </nav>
+      {/* Breadcrumb Bar */}
+      <div className="bg-muted/30 border-b sticky top-16 z-40">
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          <BreadcrumbNav 
+            items={[
+              ...(family.categorySlug && family.categoryName ? [
+                { label: family.categoryName, href: `/category/${family.categorySlug}` }
+              ] : []),
+              { label: family.name, href: `/family/${family.slug}` }
+            ]}
+          />
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Back Button */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Home
-        </Link>
+        {family.categorySlug && (
+          <div className="mb-6">
+            <BackButton href={`/category/${family.categorySlug}`} label={`Back to ${family.categoryName}`} variant="minimal" />
+          </div>
+        )}
 
         {/* Header Section */}
         <div className="mb-8">
@@ -225,7 +242,18 @@ export default function FamilyPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProcedures.map((procedure) => (
-              <ProcedureCard key={procedure.id} procedure={procedure} />
+              <ProcedureCard 
+                key={procedure.id} 
+                id={procedure.id}
+                name={procedure.name}
+                description={procedure.description}
+                avgPrice={procedure.avgPrice || undefined}
+                minPrice={procedure.minPrice || undefined}
+                maxPrice={procedure.maxPrice || undefined}
+                priceCount={procedure.priceCount}
+                familyName={family.name}
+                categoryName={family.categoryName}
+              />
             ))}
           </div>
         )}

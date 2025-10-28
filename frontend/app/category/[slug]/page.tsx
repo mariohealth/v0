@@ -3,10 +3,13 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Filter, SortAsc } from 'lucide-react';
+import { Filter, SortAsc } from 'lucide-react';
 import { getFamiliesByCategory, getCategories, type Family, type Category } from '@/lib/backend-api';
 import { LoadingSpinner, SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
+import { BreadcrumbNav } from '@/components/navigation/BreadcrumbNav';
+import { BackButton } from '@/components/navigation/BackButton';
+import { FamilyCard } from '@/components/taxonomy/FamilyCard';
 
 export default function CategoryPage() {
     const params = useParams();
@@ -90,27 +93,44 @@ export default function CategoryPage() {
     }
 
     return (
-        <div className="min-h-screen p-4">
-            <div className="max-w-7xl mx-auto">
-                {/* Breadcrumb */}
-                <Link href="/" className="inline-flex items-center gap-2 text-primary hover:underline mb-8">
-                    <ArrowLeft className="h-4 w-4" />
-                    Back to Home
-                </Link>
+        <div className="min-h-screen">
+            {/* Breadcrumb Bar */}
+            <div className="bg-muted/30 border-b sticky top-16 z-40">
+                <div className="max-w-7xl mx-auto px-4 py-3">
+                    <BreadcrumbNav 
+                        items={[
+                            { label: category.name, href: `/category/${category.slug}` }
+                        ]}
+                    />
+                </div>
+            </div>
 
-                {/* Header */}
-                <div className="mb-8">
-                    <div className="flex items-center gap-4 mb-4">
-                        <span className="text-5xl">{category.emoji}</span>
-                        <div>
-                            <h1 className="text-4xl font-bold">{category.name}</h1>
-                            {category.description && <p className="text-muted-foreground mt-2">{category.description}</p>}
+            <div className="p-4">
+                <div className="max-w-7xl mx-auto">
+                    {/* Back Button */}
+                    <div className="mb-6">
+                        <BackButton href="/" label="Back to Categories" variant="minimal" />
+                    </div>
+
+                    {/* Header */}
+                    <div className="mb-8">
+                        <div className="flex items-center gap-4 mb-4">
+                            <span className="text-5xl">{category.emoji}</span>
+                            <div className="flex-1">
+                                <h1 className="text-4xl font-bold">{category.name}</h1>
+                                {category.description && (
+                                    <p className="text-muted-foreground mt-2 text-lg">
+                                        {category.description}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <span className="font-semibold">{families.length} families available</span>
+                            <span>•</span>
+                            <span>Browse and compare procedures</span>
                         </div>
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                        {families.length} families available
-                    </p>
-                </div>
 
                 {/* Filters & Sort */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -150,7 +170,15 @@ export default function CategoryPage() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {sortedFamilies.map((family) => (
-                            <FamilyCard key={family.slug} family={family} />
+                            <FamilyCard 
+                                key={family.id} 
+                                id={family.id}
+                                name={family.name}
+                                slug={family.slug}
+                                description={family.description}
+                                procedureCount={family.procedureCount}
+                                categoryName={category.name}
+                            />
                         ))}
                     </div>
                 )}
@@ -159,33 +187,4 @@ export default function CategoryPage() {
     );
 }
 
-function FamilyCard({ family }: { family: Family }) {
-    return (
-        <Link
-            href={`/family/${family.slug}`}
-            className="block bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1"
-        >
-            <div className="space-y-4">
-                <div>
-                    <h3 className="text-xl font-semibold mb-2">{family.name}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                        {family.description}
-                    </p>
-                </div>
-
-                <div className="pt-4 border-t">
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-muted-foreground">
-                            {family.procedureCount} procedures
-                        </span>
-                    </div>
-                </div>
-
-                <div className="text-sm text-primary font-medium">
-                    View procedures →
-                </div>
-            </div>
-        </Link>
-    );
-}
 

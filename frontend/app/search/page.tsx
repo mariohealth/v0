@@ -14,9 +14,9 @@ function SearchResults() {
   const query = searchParams.get('q') || '';
   const locationParam = searchParams.get('location') || '';
   const radiusParam = searchParams.get('radius');
-  
+
   const { defaultRadius, defaultZip } = usePreferences();
-  
+
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -41,11 +41,11 @@ function SearchResults() {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Use location from params or preference, radius from params or preference
         const zip = locationParam || defaultZip || undefined;
         const radius = radiusParam ? parseInt(radiusParam) : (defaultRadius || 25);
-        
+
         const results = await searchProcedures(query, zip, radius);
         setSearchResults(results);
       } catch (err) {
