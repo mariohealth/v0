@@ -12,6 +12,7 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from app.api.v1.endpoints import categories, families, procedures, search, billing_codes
 import os
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(
@@ -25,12 +26,25 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Manage application lifespan events."""
     # Startup
+    logger.info("\n" + ASCII_ART)
     logger.info("🚀 Mario Health API starting up...")
     logger.info("📚 Docs available at: /docs")
     logger.info("🔍 Health check at: /health")
     yield
     # Shutdown
     logger.info("👋 Mario Health API shutting down...")
+
+# Load ASCII art
+def load_ascii_art():
+    """Load ASCII art from file."""
+    try:
+        ascii_file = Path(__file__).parent.parent / "dr_mario.txt"
+        with open(ascii_file, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return "🏥 Mario Health API"
+
+ASCII_ART = load_ascii_art()
 
 # Create FastAPI app
 app = FastAPI(
