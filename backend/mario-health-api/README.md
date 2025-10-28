@@ -36,7 +36,7 @@ SUPABASE_KEY=your-anon-or-service-key
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 # Then test (from a different terminal)
-curl http://localhost:8000/api/v1/categories/radiology/families
+curl http://localhost:8000/api/v1/categories/imaging/families
 
 # Deactivate venv if needed
 deactivate
