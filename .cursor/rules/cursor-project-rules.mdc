@@ -1,0 +1,106 @@
+# ==========================================================
+#  Mario Health – Cursor Project Rules (Auto-Push to Main)
+#  Author: Arman Zaman (AZ)
+# ==========================================================
+
+project:
+  name: "Mario Health"
+  description: "Next.js 14 + TypeScript + Tailwind CSS + Supabase MVP for Mario Health"
+  owner: "Arman Zaman"
+  collaborators: ["AC (Ahmed Caruso)"]
+  default_branch: "main"
+
+rules:
+
+  # -------------------------
+  # 🧠 GIT & COMMIT WORKFLOW
+  # -------------------------
+  - Always read `git diff` before committing.
+  - Summarize changes by file/component.
+  - Commit using clear, conventional commit messages (feat:, fix:, refactor:, docs:, chore:, style:, test:).
+  - Stage and commit automatically.
+  - Always push directly to the `main` branch after every successful commit using:
+      git push origin main
+  - If push fails due to divergence:
+      - Pull with rebase (git pull --rebase origin main)
+      - Resolve conflicts
+      - Retry push
+  - Report back with commit summary and push confirmation.
+  - Do not create or switch branches unless explicitly told.
+
+  # -------------------------
+  # 🧩 CODE QUALITY & STYLE
+  # -------------------------
+  - Follow Next.js 14 App Router structure (`app/` directory).
+  - Use TypeScript strictly with proper interfaces and prop types.
+  - Use 'use client' only where necessary.
+  - Always include loading, error, and empty states for async UI.
+  - Avoid `any` type; use explicit types or `unknown`.
+  - Prefer functional components and hooks.
+  - Maintain consistent absolute imports (`@/components/...`).
+  - Run `npm run lint` before committing.
+
+  # -------------------------
+  # 🎨 DESIGN & UI GUIDELINES
+  # -------------------------
+  - Use Tailwind CSS for all styling.
+  - Use `clsx` + `tailwind-merge` via `cn()` helper in `lib/utils.ts`.
+  - Follow Mario Health brand palette:
+      primary: "#2E5077"
+      accent: "#4DA1A9"
+      support: "#79D7BE"
+      background: "#F6F4F0"
+  - Use Inter and Nunito fonts.
+  - Use lucide-react icons consistently.
+  - Match Figma spacing, typography, and layout.
+  - Ensure all components are mobile responsive and accessible.
+
+  # -------------------------
+  # 🧱 PROJECT STRUCTURE
+  # -------------------------
+  - Pages → `app/`
+  - Components → `components/` (grouped logically)
+  - Utilities → `lib/`
+  - Types → `src/types/`
+  - Config → `frontend/next.config.ts` + `.env.example`
+  - File naming:
+      - Components: PascalCase (SearchBar.tsx)
+      - Hooks/utils: camelCase (useNetworkStatus.ts)
+  - Include `index.ts` exports for reusable modules.
+
+  # -------------------------
+  # 🔌 API & DATA INTEGRATION
+  # -------------------------
+  - Use `lib/api-client.ts` for all network requests.
+  - Toggle mock vs real via `NEXT_PUBLIC_USE_MOCK` in `.env.local`.
+  - Keep mock data (`lib/mock-data.ts`) aligned with backend schema.
+  - Update TypeScript interfaces before connecting new endpoints.
+  - Validate data types before rendering.
+
+  # -------------------------
+  # 📘 DOCUMENTATION
+  # -------------------------
+  - Update README.md whenever setup or dependencies change.
+  - Add new env variables to `.env.example`.
+  - Maintain `docs/` folder for API and design documentation.
+  - Add or update `docs/CONTEXT_GUIDE.md` if roadmap or design priorities change.
+
+  # -------------------------
+  # 🤖 AI BEHAVIOR
+  # -------------------------
+  - Before generating code, confirm the target path and purpose.
+  - When creating multiple files, show proposed structure first.
+  - After completion:
+      1. Read `git diff`
+      2. Summarize by file
+      3. Commit with descriptive message
+      4. Push directly to `main`
+  - Always output what changed, dependencies to install, and next steps.
+  - Never create duplicate or redundant files.
+  - Keep explanations concise but complete.
+  - Ask for confirmation before deleting or overwriting existing code.
+
+notes:
+  - All changes go directly to `main` by default.
+  - No need to manually push; commits are automatically pushed after each successful change.
+  - This setup assumes solo development or small-team MVP workflow.

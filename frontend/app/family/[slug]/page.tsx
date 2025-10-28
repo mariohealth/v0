@@ -4,23 +4,27 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Filter, SortAsc, Clock, DollarSign } from 'lucide-react';
-import {
-  mockApi,
-  type ProcedureFamily,
-  type Procedure,
-  MOCK_CATEGORIES
-} from '@/lib/mock-data';
+import { getProceduresByFamily, type Procedure } from '@/lib/backend-api';
 import { SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
 
 type SortOption = 'name' | 'price-low' | 'price-high';
+
+type FamilyInfo = {
+  name: string;
+  slug: string;
+  description: string;
+  procedureCount: number;
+  categoryName?: string;
+  categorySlug?: string;
+};
 
 export default function FamilyPage() {
   const params = useParams();
   const router = useRouter();
   const slug = params.slug as string;
 
-  const [family, setFamily] = useState<ProcedureFamily | null>(null);
+  const [family, setFamily] = useState<FamilyInfo | null>(null);
   const [procedures, setProcedures] = useState<Procedure[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,25 +35,23 @@ export default function FamilyPage() {
   const [debouncedQuery, setDebouncedQuery] = useState('');
 
   // Fetch family and procedures
+  // API: GET /api/v1/families/{slug}/procedures
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const [familyData, proceduresData] = await Promise.all([
-          mockApi.getFamilyBySlug(slug),
-          mockApi.getProcedures(slug, undefined)
-        ]);
-
-        if (!familyData) {
-          setError('Family not found');
-          setLoading(false);
-          return;
-        }
-
-        setFamily(familyData);
-        setProcedures(proceduresData || []);
+        const data = await getProceduresByFamily(slug);
+        
+        setFamily({
+          name: data.familyName,
+          slug: data.familySlug,
+          description: data.familyDescription || data.familyName,
+          procedureCount: data.procedures.length,
+        });
+        
+        setProcedures(data.procedures);
       } catch (err) {
         setError('Failed to load family data');
         console.error(err);
@@ -76,23 +78,20 @@ export default function FamilyPage() {
       if (!debouncedQuery) return true;
       const query = debouncedQuery.toLowerCase();
       return p.name.toLowerCase().includes(query) ||
-        p.description.toLowerCase().includes(query);
+        (p.description && p.description.toLowerCase().includes(query));
     })
     .sort((a, b) => {
       switch (sortBy) {
         case 'name':
           return a.name.localeCompare(b.name);
         case 'price-low':
-          return a.averagePrice - b.averagePrice;
+          return (a.avgPrice || 0) - (b.avgPrice || 0);
         case 'price-high':
-          return b.averagePrice - a.averagePrice;
+          return (b.avgPrice || 0) - (a.avgPrice || 0);
         default:
           return 0;
       }
     });
-
-  // Get category for breadcrumb
-  const category = family ? MOCK_CATEGORIES.find(c => c.slug === family.categorySlug) : null;
 
   // Loading state
   if (loading) {
@@ -137,17 +136,6 @@ export default function FamilyPage() {
               Home
             </Link>
             <span>/</span>
-            {category && (
-              <>
-                <Link
-                  href={`/category/${category.slug}`}
-                  className="hover:text-foreground transition"
-                >
-                  {category.name}
-                </Link>
-                <span>/</span>
-              </>
-            )}
             <span className="text-foreground">{family.name}</span>
           </nav>
         </div>
@@ -156,28 +144,23 @@ export default function FamilyPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Back Button */}
         <Link
-          href={category ? `/category/${category.slug}` : '/'}
+          href="/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to {category?.name || 'Home'}
+          Back to Home
         </Link>
 
         {/* Header Section */}
         <div className="mb-8">
-          <div className="flex items-start gap-4 mb-4">
-            {family.icon && (
-              <div className="text-6xl">{family.icon}</div>
-            )}
-            <div className="flex-1">
-              <h1 className="text-4xl font-bold mb-2">{family.name}</h1>
-              <p className="text-muted-foreground text-lg mb-4">
-                {family.description}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {family.procedureCount} procedures available
-              </p>
-            </div>
+          <div className="mb-4">
+            <h1 className="text-4xl font-bold mb-2">{family.name}</h1>
+            <p className="text-muted-foreground text-lg mb-4">
+              {family.description}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {family.procedureCount} procedures available
+            </p>
           </div>
         </div>
 
@@ -253,51 +236,46 @@ export default function FamilyPage() {
 
 // Procedure Card Component
 function ProcedureCard({ procedure }: { procedure: Procedure }) {
+  const avgPrice = procedure.avgPrice || 0;
+  const minPrice = procedure.minPrice || avgPrice;
+  const maxPrice = procedure.maxPrice || avgPrice;
+  
   return (
     <Link href={`/procedure/${procedure.id}`}>
       <div className="bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1 h-full flex flex-col">
         {/* Header */}
         <div className="mb-4">
           <h3 className="text-xl font-semibold mb-2">{procedure.name}</h3>
-          <p className="text-sm text-muted-foreground line-clamp-2">
-            {procedure.description}
-          </p>
+          {procedure.description && (
+            <p className="text-sm text-muted-foreground line-clamp-2">
+              {procedure.description}
+            </p>
+          )}
         </div>
 
         {/* Details Section */}
         <div className="mt-auto">
-          <div className="flex items-baseline gap-2 mb-2">
-            <DollarSign className="h-5 w-5 text-primary flex-shrink-0" />
-            <div>
-              <p className="text-2xl font-bold text-primary">
-                RM {procedure.averagePrice.toLocaleString()}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Range: RM {procedure.priceRange.min.toLocaleString()} - RM {procedure.priceRange.max.toLocaleString()}
-              </p>
-            </div>
-          </div>
-
-          {/* Additional Info */}
-          {procedure.typicalDuration && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-              <Clock className="h-4 w-4" />
-              <span>{procedure.typicalDuration}</span>
+          {avgPrice > 0 && (
+            <div className="flex items-baseline gap-2 mb-2">
+              <DollarSign className="h-5 w-5 text-primary flex-shrink-0" />
+              <div>
+                <p className="text-2xl font-bold text-primary">
+                  RM {avgPrice.toLocaleString()}
+                </p>
+                {(minPrice !== maxPrice) && (
+                  <p className="text-xs text-muted-foreground">
+                    Range: RM {minPrice.toLocaleString()} - RM {maxPrice.toLocaleString()}
+                  </p>
+                )}
+              </div>
             </div>
           )}
 
-          {/* Common Reasons */}
-          {procedure.commonReasons && procedure.commonReasons.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-3">
-              {procedure.commonReasons.slice(0, 2).map((reason, idx) => (
-                <span
-                  key={idx}
-                  className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-muted text-muted-foreground"
-                >
-                  {reason}
-                </span>
-              ))}
-            </div>
+          {/* Price Count */}
+          {procedure.priceCount > 0 && (
+            <p className="text-xs text-muted-foreground">
+              {procedure.priceCount} price point{procedure.priceCount !== 1 ? 's' : ''} available
+            </p>
           )}
 
           {/* Footer */}

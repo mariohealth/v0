@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, TrendingUp, Shield, DollarSign } from 'lucide-react';
-import { MOCK_CATEGORIES, type Category } from '@/lib/mock-data';
+import { getCategories, type Category } from '@/lib/backend-api';
 import { LoadingSpinner, SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { SearchResults } from '@/components/search-results';
@@ -15,15 +15,17 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Simulate API call with mock data
+    // Fetch categories from real backend API
+    // Endpoint: GET /api/v1/categories
     const fetchCategories = async () => {
       try {
         setLoading(true);
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 500));
-        setCategories(MOCK_CATEGORIES);
+        setError(null);
+        const data = await getCategories();
+        setCategories(data);
       } catch (err) {
-        setError('Failed to load categories');
+        console.error('Failed to load categories:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load categories');
       } finally {
         setLoading(false);
       }
@@ -166,12 +168,12 @@ function CategoryCard({ category }: { category: Category }) {
       className="block bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1"
     >
       <div className="flex items-start gap-4">
-        <div className="text-4xl">{category.icon}</div>
+        <div className="text-4xl">{category.emoji}</div>
         <div className="flex-1 space-y-2">
           <h3 className="text-xl font-semibold">{category.name}</h3>
           <p className="text-sm text-muted-foreground">{category.description}</p>
           <p className="text-sm text-primary font-medium">
-            {category.procedureCount} procedures
+            {category.familyCount} families
           </p>
         </div>
       </div>

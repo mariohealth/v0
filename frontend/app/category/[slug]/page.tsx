@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Filter, SortAsc } from 'lucide-react';
-import { mockApi, type ProcedureFamily, type Category, MOCK_CATEGORIES } from '@/lib/mock-data';
+import { getFamiliesByCategory, getCategories, type Family, type Category } from '@/lib/backend-api';
 import { LoadingSpinner, SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
 
@@ -13,30 +13,38 @@ export default function CategoryPage() {
     const categorySlug = params.slug as string;
 
     const [category, setCategory] = useState<Category | null>(null);
-    const [families, setFamilies] = useState<ProcedureFamily[]>([]);
+    const [families, setFamilies] = useState<Family[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [sortBy, setSortBy] = useState<'name'>('name');
 
     useEffect(() => {
+        // Fetch families from real backend API
+        // API: GET /api/v1/categories/{slug}/families
+        // Also fetch all categories to get full category details
         const fetchData = async () => {
             try {
                 setLoading(true);
                 setError(null);
 
-                // Find category
-                const foundCategory = MOCK_CATEGORIES.find(c => c.slug === categorySlug);
-                if (!foundCategory) {
+                const [familiesData, allCategories] = await Promise.all([
+                    getFamiliesByCategory(categorySlug),
+                    getCategories()
+                ]);
+
+                // Find the full category details from all categories
+                const fullCategory = allCategories.find(c => c.slug === categorySlug);
+
+                if (!fullCategory) {
                     setError('Category not found');
                     return;
                 }
-                setCategory(foundCategory);
 
-                // Fetch families for this category
-                const data = await mockApi.getFamilies(categorySlug);
-                setFamilies(data);
+                setCategory(fullCategory);
+                setFamilies(familiesData.families);
             } catch (err) {
-                setError('Failed to load families');
+                console.error('Failed to load category families:', err);
+                setError(err instanceof Error ? err.message : 'Failed to load families');
             } finally {
                 setLoading(false);
             }
@@ -93,10 +101,10 @@ export default function CategoryPage() {
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex items-center gap-4 mb-4">
-                        <span className="text-5xl">{category.icon}</span>
+                        <span className="text-5xl">{category.emoji}</span>
                         <div>
                             <h1 className="text-4xl font-bold">{category.name}</h1>
-                            <p className="text-muted-foreground mt-2">{category.description}</p>
+                            {category.description && <p className="text-muted-foreground mt-2">{category.description}</p>}
                         </div>
                     </div>
                     <p className="text-sm text-muted-foreground">
@@ -142,7 +150,7 @@ export default function CategoryPage() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {sortedFamilies.map((family) => (
-                            <FamilyCard key={family.id} family={family} />
+                            <FamilyCard key={family.slug} family={family} />
                         ))}
                     </div>
                 )}
@@ -151,7 +159,7 @@ export default function CategoryPage() {
     );
 }
 
-function FamilyCard({ family }: { family: ProcedureFamily }) {
+function FamilyCard({ family }: { family: Family }) {
     return (
         <Link
             href={`/family/${family.slug}`}

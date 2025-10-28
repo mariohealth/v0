@@ -91,6 +91,7 @@ class FamilyProceduresResponse(BaseModel):
     """Response for GET /api/v1/families/{slug}/procedures."""
     family_slug: str
     family_name: str
+    family_description: str | None = None
     procedures: List[Procedure]
 
     class Config:
@@ -98,6 +99,7 @@ class FamilyProceduresResponse(BaseModel):
             "example": {
                 "family_slug": "x-ray",
                 "family_name": "X-Ray",
+                "family_description": "Diagnostic X-ray imaging procedures",
                 "procedures": [
                     {
                         "id": "proc_001",

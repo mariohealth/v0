@@ -1,19 +1,20 @@
 'use client';
 
+// API: GET /api/v1/procedures/{slug}
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, TrendingUp, TrendingDown, DollarSign, MapPin, Star, CheckCircle2 } from 'lucide-react';
-import { getProcedureById, getQuotesForProcedure, MOCK_CATEGORIES, type Procedure, type PriceQuote } from '@/lib/mock-data';
+import { getProcedureDetail, type ProcedureDetail, type CarrierPrice } from '@/lib/backend-api';
 import { SkeletonCard } from '@/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
 
 export default function ProcedurePage() {
     const params = useParams();
-    const procedureId = params.id as string;
+    const procedureSlug = params.slug as string;
 
-    const [procedure, setProcedure] = useState<Procedure | null>(null);
-    const [quotes, setQuotes] = useState<PriceQuote[]>([]);
+    const [procedure, setProcedure] = useState<ProcedureDetail | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -23,26 +24,17 @@ export default function ProcedurePage() {
                 setLoading(true);
                 setError(null);
 
-                // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 600));
-
-                const foundProcedure = getProcedureById(procedureId);
-                if (!foundProcedure) {
-                    setError('Procedure not found');
-                    return;
-                }
-
-                setProcedure(foundProcedure);
-                setQuotes(getQuotesForProcedure(procedureId));
+                const data = await getProcedureDetail(procedureSlug);
+                setProcedure(data);
             } catch (err) {
-                setError('Failed to load procedure details');
+                setError(err instanceof Error ? err.message : 'Failed to load procedure details');
             } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
-    }, [procedureId]);
+    }, [procedureSlug]);
 
     if (loading) {
         return (
@@ -76,11 +68,9 @@ export default function ProcedurePage() {
         );
     }
 
-    // Find category for breadcrumb
-    const category = MOCK_CATEGORIES.find(c => c.slug === procedure.category);
-
-    const savingsFromMin = procedure.averagePrice - procedure.priceRange.min;
-    const savingsToMax = procedure.priceRange.max - procedure.averagePrice;
+    // Price calculations from backend data
+    const savingsFromMin = procedure.avgPrice && procedure.minPrice ? procedure.avgPrice - procedure.minPrice : 0;
+    const savingsToMax = procedure.maxPrice && procedure.avgPrice ? procedure.maxPrice - procedure.avgPrice : 0;
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -99,17 +89,19 @@ export default function ProcedurePage() {
                 <div className="bg-white rounded-lg border p-8 mb-8">
                     <div className="space-y-6">
                         {/* Category breadcrumb */}
-                        {category && (
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-                                <span>/</span>
-                                <Link href={`/category/${category.slug}`} className="hover:text-primary transition-colors">
-                                    {category.name}
-                                </Link>
-                                <span>/</span>
-                                <span className="text-foreground">{procedure.name}</span>
-                            </div>
-                        )}
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+                            <span>/</span>
+                            <Link href={`/category/${procedure.categorySlug}`} className="hover:text-primary transition-colors">
+                                {procedure.categoryName}
+                            </Link>
+                            <span>/</span>
+                            <Link href={`/family/${procedure.familySlug}`} className="hover:text-primary transition-colors">
+                                {procedure.familyName}
+                            </Link>
+                            <span>/</span>
+                            <span className="text-foreground">{procedure.name}</span>
+                        </div>
 
                         {/* Title and Description */}
                         <div>
@@ -118,65 +110,72 @@ export default function ProcedurePage() {
                         </div>
 
                         {/* Price Range Visualization */}
-                        <div className="space-y-4">
-                            <div className="flex items-baseline gap-4">
-                                <div className="flex items-center gap-2">
-                                    <DollarSign className="h-8 w-8 text-muted-foreground" />
-                                    <span className="text-5xl font-bold text-primary">
-                                        RM {procedure.averagePrice}
-                                    </span>
+                        {procedure.avgPrice && (
+                            <div className="space-y-4">
+                                <div className="flex items-baseline gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <DollarSign className="h-8 w-8 text-muted-foreground" />
+                                        <span className="text-5xl font-bold text-primary">
+                                            ${procedure.avgPrice}
+                                        </span>
+                                    </div>
+                                    <span className="text-sm text-muted-foreground">average price</span>
                                 </div>
-                                <span className="text-sm text-muted-foreground">average price</span>
-                            </div>
 
-                            {/* Price Range Bar */}
-                            <div className="space-y-2">
-                                <div className="flex justify-between text-xs text-muted-foreground mb-1">
-                                    <span>Lowest: RM {procedure.priceRange.min}</span>
-                                    <span>Highest: RM {procedure.priceRange.max}</span>
-                                </div>
-                                <div className="relative h-4 bg-muted rounded-full overflow-hidden">
-                                    <div className="absolute inset-0 flex">
-                                        {/* Current average position indicator */}
-                                        <div
-                                            className="h-full w-1 bg-primary absolute z-10"
-                                            style={{
-                                                left: `${((procedure.averagePrice - procedure.priceRange.min) / (procedure.priceRange.max - procedure.priceRange.min)) * 100}%`
-                                            }}
-                                        />
+                                {/* Price Range Bar */}
+                                {procedure.minPrice && procedure.maxPrice && (
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-xs text-muted-foreground mb-1">
+                                            <span>Lowest: ${procedure.minPrice}</span>
+                                            <span>Highest: ${procedure.maxPrice}</span>
+                                        </div>
+                                        <div className="relative h-4 bg-muted rounded-full overflow-hidden">
+                                            <div className="absolute inset-0 flex">
+                                                {/* Current average position indicator */}
+                                                {procedure.avgPrice && (
+                                                    <div
+                                                        className="h-full w-1 bg-primary absolute z-10"
+                                                        style={{
+                                                            left: `${((procedure.avgPrice - procedure.minPrice) / (procedure.maxPrice - procedure.minPrice)) * 100}%`
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
+                                            <div
+                                                className="h-full bg-gradient-to-r from-green-500 to-yellow-500 absolute"
+                                                style={{ width: '100%' }}
+                                            />
+                                        </div>
+                                        <div className="flex justify-between text-xs">
+                                            <div className="flex items-center gap-1 text-green-600">
+                                                <TrendingDown className="h-3 w-3" />
+                                                <span>Save up to ${savingsFromMin.toFixed(0)}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1 text-yellow-600">
+                                                <span>Could spend up to ${savingsToMax.toFixed(0)} more</span>
+                                                <TrendingUp className="h-3 w-3" />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div
-                                        className="h-full bg-gradient-to-r from-green-500 to-yellow-500 absolute"
-                                        style={{ width: '100%' }}
-                                    />
-                                </div>
-                                <div className="flex justify-between text-xs">
-                                    <div className="flex items-center gap-1 text-green-600">
-                                        <TrendingDown className="h-3 w-3" />
-                                        <span>Save up to RM {savingsFromMin.toFixed(0)}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1 text-yellow-600">
-                                        <span>Could spend up to RM {savingsToMax.toFixed(0)} more</span>
-                                        <TrendingUp className="h-3 w-3" />
-                                    </div>
-                                </div>
-                            </div>
+                                )}
 
-                            {/* Price Stats */}
-                            <div className="grid grid-cols-3 gap-4 pt-4 border-t">
-                                <div className="text-center">
-                                    <div className="text-2xl font-bold text-primary">RM {procedure.priceRange.min}</div>
-                                    <div className="text-xs text-muted-foreground mt-1">Minimum</div>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-2xl font-bold text-primary">RM {procedure.averagePrice}</div>
-                                    <div className="text-xs text-muted-foreground mt-1">Average</div>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-2xl font-bold text-primary">RM {procedure.priceRange.max}</div>
-                                    <div className="text-xs text-muted-foreground mt-1">Maximum</div>
+                                {/* Price Stats */}
+                                <div className="grid grid-cols-3 gap-4 pt-4 border-t">
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-primary">${procedure.minPrice || 'N/A'}</div>
+                                        <div className="text-xs text-muted-foreground mt-1">Minimum</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-primary">${procedure.avgPrice || 'N/A'}</div>
+                                        <div className="text-xs text-muted-foreground mt-1">Average</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl font-bold text-primary">${procedure.maxPrice || 'N/A'}</div>
+                                        <div className="text-xs text-muted-foreground mt-1">Maximum</div>
+                                    </div>
                                 </div>
                             </div>
+                        )}
 
                             {/* CTA Button */}
                             <div className="pt-6">
@@ -191,29 +190,20 @@ export default function ProcedurePage() {
                     </div>
                 </div>
 
-                {/* Providers Section */}
-                <div>
-                    <h2 className="text-2xl font-bold mb-6">
-                        Providers Offering This Procedure
-                    </h2>
+                {/* Carrier Prices Section */}
+                {procedure.carrierPrices && procedure.carrierPrices.length > 0 && (
+                    <div>
+                        <h2 className="text-2xl font-bold mb-6">
+                            Pricing by Insurance Carrier
+                        </h2>
 
-                    {quotes.length === 0 ? (
-                        <EmptyState
-                            title="No providers found"
-                            message="We couldn't find any providers offering this procedure."
-                            action={{
-                                label: 'Browse All Categories',
-                                onClick: () => window.location.href = '/'
-                            }}
-                        />
-                    ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {quotes.map((quote) => (
-                                <QuoteCard key={quote.id} quote={quote} />
+                            {procedure.carrierPrices.map((carrierPrice, index) => (
+                                <CarrierPriceCard key={`${carrierPrice.carrierId}-${index}`} price={carrierPrice} />
                             ))}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </div>
     );
