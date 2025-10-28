@@ -20,4 +20,3 @@ BEGIN
     ORDER BY pc.name;
 END;
 $$ LANGUAGE plpgsql;
-   
