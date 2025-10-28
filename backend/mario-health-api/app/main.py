@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # from app.routes import search, procedure_categories
-from app.api.v1.endpoints import categories
+from app.api.v1.endpoints import categories, families
 
 app = FastAPI(
     title="Mario Health API",
@@ -26,12 +26,8 @@ app.add_middleware(
 )
 
 # Register routes
-# app.include_router(search.router, prefix="/search", tags=["search"])
-# app.include_router(procedure_categories.router)
-app.include_router(
-    categories.router,
-    prefix="/api/v1"
-)
+app.include_router(categories.router, prefix="/api/v1")
+app.include_router(families.router, prefix="/api/v1")
 
 @app.get("/")
 async def root():
