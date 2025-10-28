@@ -1,4 +1,5 @@
 """Procedure-related models."""
+
 from pydantic import BaseModel, Field
 from typing import List
 from decimal import Decimal
@@ -6,6 +7,7 @@ from decimal import Decimal
 
 class CarrierPrice(BaseModel):
     """Individual carrier pricing."""
+
     carrier_id: str
     carrier_name: str
     price: Decimal
@@ -23,13 +25,14 @@ class CarrierPrice(BaseModel):
                 "currency": "USD",
                 "plan_type": "PPO",
                 "network_status": "in-network",
-                "last_updated": "2025-10-15"
+                "last_updated": "2025-10-15",
             }
         }
 
 
 class Procedure(BaseModel):
     """Procedure summary (used in family listings)."""
+
     id: str
     name: str
     description: str | None = None
@@ -41,6 +44,7 @@ class Procedure(BaseModel):
 
 class ProcedureDetail(BaseModel):
     """Detailed procedure information with all pricing."""
+
     id: str
     name: str
     slug: str
@@ -82,13 +86,14 @@ class ProcedureDetail(BaseModel):
                 "max_price": "250.00",
                 "avg_price": "120.50",
                 "median_price": "115.00",
-                "carrier_prices": []
+                "carrier_prices": [],
             }
         }
 
 
 class FamilyProceduresResponse(BaseModel):
     """Response for GET /api/v1/families/{slug}/procedures."""
+
     family_slug: str
     family_name: str
     family_description: str | None = None
@@ -108,8 +113,8 @@ class FamilyProceduresResponse(BaseModel):
                         "min_price": "45.00",
                         "max_price": "250.00",
                         "avg_price": "120.50",
-                        "price_count": 5
+                        "price_count": 5,
                     }
-                ]
+                ],
             }
         }

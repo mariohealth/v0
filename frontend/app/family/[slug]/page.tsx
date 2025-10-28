@@ -43,14 +43,14 @@ export default function FamilyPage() {
         setError(null);
 
         const data = await getProceduresByFamily(slug);
-        
+
         setFamily({
           name: data.familyName,
           slug: data.familySlug,
           description: data.familyDescription || data.familyName,
           procedureCount: data.procedures.length,
         });
-        
+
         setProcedures(data.procedures);
       } catch (err) {
         setError('Failed to load family data');
@@ -239,7 +239,7 @@ function ProcedureCard({ procedure }: { procedure: Procedure }) {
   const avgPrice = procedure.avgPrice || 0;
   const minPrice = procedure.minPrice || avgPrice;
   const maxPrice = procedure.maxPrice || avgPrice;
-  
+
   return (
     <Link href={`/procedure/${procedure.id}`}>
       <div className="bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1 h-full flex flex-col">
