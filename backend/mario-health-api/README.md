@@ -37,6 +37,9 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 # Then test (from a different terminal)
 curl http://localhost:8000/api/v1/categories/radiology/families
+
+# Deactivate venv if needed
+deactivate
 ```
 
 ## Deploy to Google Cloud Run
