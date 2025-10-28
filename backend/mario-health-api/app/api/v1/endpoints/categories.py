@@ -1,10 +1,18 @@
 from fastapi import APIRouter, HTTPException, Depends
 from supabase import Client
 from app.core.dependencies import get_supabase
-from app.models.category import CategoryFamiliesResponse
+from app.models.category import CategoriesResponse, CategoryFamiliesResponse
 from app.services.category_service import CategoryService
 
 router = APIRouter(prefix="/categories", tags=["categories"])
+
+@router.get("", response_model=CategoriesResponse)
+async def get_categories(
+    supabase: Client = Depends(get_supabase)
+):
+    """Get all procedure categories with family counts."""
+    service = CategoryService(supabase)
+    return await service.get_all_categories()
 
 @router.get("/{slug}/families", response_model=CategoryFamiliesResponse)
 async def get_category_families(
