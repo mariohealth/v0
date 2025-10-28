@@ -33,6 +33,12 @@ from app.models.billing_code import (
     BillingCodeDetail,
 )
 
+# Provider models
+from app.models.provider import (
+    ProviderProcedurePricing,
+    ProviderDetail,
+)
+
 __all__ = [
     # Category
     "Category",
@@ -52,4 +58,7 @@ __all__ = [
     "CodeType",
     "BillingCodeProcedureMapping",
     "BillingCodeDetail",
+    # Provider
+    "ProviderProcedurePricing",
+    "ProviderDetail",
 ]
