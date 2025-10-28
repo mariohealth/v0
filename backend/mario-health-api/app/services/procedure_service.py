@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from supabase import Client
-from app.models.category import ProcedureDetail, CarrierPrice
+from app.models import ProcedureDetail, CarrierPrice
 from decimal import Decimal
 
 
@@ -54,7 +54,6 @@ class ProcedureService:
             name=proc["name"],
             slug=proc["slug"],
             description=proc.get("description"),
-            cpt_code=proc.get("cpt_code"),
             family_id=proc["family_id"],
             family_name=proc["family_name"],
             family_slug=proc["family_slug"],

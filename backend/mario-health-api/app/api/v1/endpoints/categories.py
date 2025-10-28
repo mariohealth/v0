@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from supabase import Client
 from app.core.dependencies import get_supabase
-from app.models.category import CategoriesResponse, CategoryFamiliesResponse
+from app.models import CategoriesResponse, CategoryFamiliesResponse
 from app.services.category_service import CategoryService
 
 router = APIRouter(prefix="/categories", tags=["categories"])

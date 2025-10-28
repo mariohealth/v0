@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from supabase import Client
-from app.models.category import Procedure, FamilyProceduresResponse
+from app.models import Procedure, FamilyProceduresResponse
 from decimal import Decimal
 
 

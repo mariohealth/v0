@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from supabase import Client
 from app.core.dependencies import get_supabase
-from app.models.category import ProcedureDetail
+from app.models import ProcedureDetail
 from app.services.procedure_service import ProcedureService
 
 router = APIRouter(prefix="/procedures", tags=["procedures"])

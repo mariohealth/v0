@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from supabase import Client
-from app.models.category import Category, CategoriesResponse, Family, CategoryFamiliesResponse
+from app.models import Category, CategoriesResponse, Family, CategoryFamiliesResponse
 
 
 class CategoryService:

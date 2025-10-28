@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from supabase import Client
 from app.core.dependencies import get_supabase
-from app.models.category import FamilyProceduresResponse
+from app.models import FamilyProceduresResponse
 from app.services.family_service import FamilyService
 
 router = APIRouter(prefix="/families", tags=["families"])
