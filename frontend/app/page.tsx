@@ -7,6 +7,7 @@ import { getCategories, type Category } from '@/lib/backend-api';
 import { LoadingSpinner, SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { SearchResults } from '@/components/search-results';
+import { CategoryCard } from '@/components/taxonomy/CategoryCard';
 
 export default function HomePage() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -116,8 +117,18 @@ export default function HomePage() {
 
           {!loading && !error && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {categories.map((category) => (
-                <CategoryCard key={category.id} category={category} />
+              {categories.map((category, index) => (
+                <CategoryCard 
+                  key={category.id} 
+                  id={category.id}
+                  name={category.name}
+                  slug={category.slug}
+                  emoji={category.emoji}
+                  description={category.description}
+                  familyCount={category.familyCount}
+                  isPopular={index < 2}
+                  isTrending={index === 0}
+                />
               ))}
             </div>
           )}
@@ -158,25 +169,5 @@ function FeatureCard({
       <h3 className="text-xl font-semibold">{title}</h3>
       <p className="text-muted-foreground">{description}</p>
     </div>
-  );
-}
-
-function CategoryCard({ category }: { category: Category }) {
-  return (
-    <Link
-      href={`/category/${category.slug}`}
-      className="block bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1"
-    >
-      <div className="flex items-start gap-4">
-        <div className="text-4xl">{category.emoji}</div>
-        <div className="flex-1 space-y-2">
-          <h3 className="text-xl font-semibold">{category.name}</h3>
-          <p className="text-sm text-muted-foreground">{category.description}</p>
-          <p className="text-sm text-primary font-medium">
-            {category.familyCount} families
-          </p>
-        </div>
-      </div>
-    </Link>
   );
 }
