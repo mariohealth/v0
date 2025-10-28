@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, TrendingUp, Shield, DollarSign } from 'lucide-react';
-import { MOCK_CATEGORIES, type Category } from '@/src/lib/mock-data';
-import { LoadingSpinner, SkeletonGrid } from '@/src/components/ui/loading-spinner';
-import { ErrorMessage } from '@/src/components/ui/error-message';
-import { SearchResults } from '@/src/components/search-results';
+import { MOCK_CATEGORIES, type Category } from '@/lib/mock-data';
+import { LoadingSpinner, SkeletonGrid } from '@/components/ui/loading-spinner';
+import { ErrorMessage } from '@/components/ui/error-message';
+import { SearchResults } from '@/components/search-results';
 
 export default function HomePage() {
   const [categories, setCategories] = useState<Category[]>([]);

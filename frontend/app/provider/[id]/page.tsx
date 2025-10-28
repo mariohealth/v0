@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
-import { mockProviders } from '@/src/lib/mockData';
-import ProviderDetailHeader from '@/src/components/provider/ProviderDetailHeader';
-import ProviderGallery from '@/src/components/provider/ProviderGallery';
-import ProviderInfo from '@/src/components/provider/ProviderInfo';
-import ProviderReviews from '@/src/components/provider/ProviderReviews';
-import BookingSection from '@/src/components/booking/BookingSection';
+import { mockProviders } from '@/lib/mockData';
+import ProviderDetailHeader from '@/components/provider/ProviderDetailHeader';
+import ProviderGallery from '@/components/provider/ProviderGallery';
+import ProviderInfo from '@/components/provider/ProviderInfo';
+import ProviderReviews from '@/components/provider/ProviderReviews';
+import BookingSection from '@/components/booking/BookingSection';
 
 export default async function ProviderDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;

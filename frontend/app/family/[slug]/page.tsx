@@ -9,9 +9,9 @@ import {
   type ProcedureFamily, 
   type Procedure,
   MOCK_CATEGORIES 
-} from '@/src/lib/mock-data';
-import { SkeletonGrid } from '@/src/components/ui/loading-spinner';
-import { ErrorMessage, EmptyState } from '@/src/components/ui/error-message';
+} from '@/lib/mock-data';
+import { SkeletonGrid } from '@/components/ui/loading-spinner';
+import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
 
 type SortOption = 'name' | 'price-low' | 'price-high';
 

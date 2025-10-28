@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { ErrorBoundary } from '@/src/components/ErrorBoundary';
-import { ErrorTestButton } from '@/src/components/error-test-button';
-import { Navbar } from '@/src/components/navbar';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { ErrorTestButton } from '@/components/error-test-button';
+import { Navbar } from '@/components/navbar';
 
 export const metadata: Metadata = {
   title: 'Mario Health',

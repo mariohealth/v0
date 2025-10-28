@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, TrendingUp, TrendingDown, DollarSign, MapPin, Star, CheckCircle2 } from 'lucide-react';
-import { getProcedureById, getQuotesForProcedure, MOCK_CATEGORIES, type Procedure, type PriceQuote } from '@/src/lib/mock-data';
-import { SkeletonCard } from '@/src/components/ui/loading-spinner';
-import { ErrorMessage, EmptyState } from '@/src/components/ui/error-message';
+import { getProcedureById, getQuotesForProcedure, MOCK_CATEGORIES, type Procedure, type PriceQuote } from '@/lib/mock-data';
+import { SkeletonCard } from '@/components/ui/loading-spinner';
+import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
 
 export default function ProcedurePage() {
     const params = useParams();

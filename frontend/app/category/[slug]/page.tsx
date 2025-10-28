@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Filter, SortAsc } from 'lucide-react';
-import { mockApi, type ProcedureFamily, type Category, MOCK_CATEGORIES } from '@/src/lib/mock-data';
-import { LoadingSpinner, SkeletonGrid } from '@/src/components/ui/loading-spinner';
-import { ErrorMessage, EmptyState } from '@/src/components/ui/error-message';
+import { mockApi, type ProcedureFamily, type Category, MOCK_CATEGORIES } from '@/lib/mock-data';
+import { LoadingSpinner, SkeletonGrid } from '@/components/ui/loading-spinner';
+import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
 
 export default function CategoryPage() {
     const params = useParams();

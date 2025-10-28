@@ -2,10 +2,10 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
-import SearchHeader from '@/src/components/search/SearchHeader';
-import SearchFilters, { FilterState } from '@/src/components/search/SearchFilters';
-import ProviderCard from '@/src/components/providers/ProviderCard';
-import { mockProviders, filterProviders, Provider } from '@/src/lib/mockData';
+import SearchHeader from '@/components/search/SearchHeader';
+import SearchFilters, { FilterState } from '@/components/search/SearchFilters';
+import ProviderCard from '@/components/providers/ProviderCard';
+import { mockProviders, filterProviders, Provider } from '@/lib/mockData';
 import { SlidersHorizontal } from 'lucide-react';
 
 function SearchResults() {
