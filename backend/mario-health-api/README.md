@@ -34,6 +34,9 @@ SUPABASE_KEY=your-anon-or-service-key
 
 # From your backend/ directory
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# Then test (from a different terminal)
+curl http://localhost:8000/api/v1/categories/radiology/families
 ```
 
 ## Deploy to Google Cloud Run
