@@ -10,7 +10,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-from app.api.v1.endpoints import categories, families, procedures, search
+from app.api.v1.endpoints import categories, families, procedures, search, billing_codes
 import os
 
 # Configure logging
@@ -85,6 +85,7 @@ app.include_router(categories.router, prefix="/api/v1")
 app.include_router(families.router, prefix="/api/v1")
 app.include_router(procedures.router, prefix="/api/v1")
 app.include_router(search.router, prefix="/api/v1")
+app.include_router(billing_codes.router, prefix="/api/v1")
 
 # Root endpoints
 @app.get("/", tags=["root"])

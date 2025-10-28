@@ -32,10 +32,10 @@ def main():
     test_connection(engine)
 
     data_dir = "data"
-    csv_files = [f for f in os.listdir(data_dir) if f.endswith(".csv")]
+    csv_files = sorted([f for f in os.listdir(data_dir) if f.endswith(".csv")])
 
     for file in csv_files:
-        table_name = os.path.splitext(file)[0]
+        table_name = os.path.splitext(file)[0].replace("1_","").replace("2_","")
         load_csv_to_db(engine, os.path.join(data_dir, file), table_name)
 
     print("\n🎉 All CSV files loaded successfully!")

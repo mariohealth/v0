@@ -26,6 +26,13 @@ from app.models.search import (
     SearchResponse,
 )
 
+# Billing code models
+from app.models.billing_code import (
+    CodeType,
+    BillingCodeProcedureMapping,
+    BillingCodeDetail,
+)
+
 __all__ = [
     # Category
     "Category",
@@ -41,4 +48,8 @@ __all__ = [
     # Search
     "SearchResult",
     "SearchResponse",
+    # Billing codes
+    "CodeType",
+    "BillingCodeProcedureMapping",
+    "BillingCodeDetail",
 ]

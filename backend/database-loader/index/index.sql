@@ -5,3 +5,7 @@ CREATE INDEX IF NOT EXISTS idx_provider_location_zip ON provider_location (zip_c
 CREATE INDEX IF NOT EXISTS idx_procedure_pricing_provider ON procedure_pricing (provider_id);
 CREATE INDEX IF NOT EXISTS idx_procedure_pricing_procedure ON procedure_pricing (procedure_id);
 CREATE INDEX IF NOT EXISTS idx_procedure_name_search ON procedure USING gin (name gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_billing_code_code ON procedure_billing_code(code);
+CREATE INDEX IF NOT EXISTS idx_billing_code_type ON procedure_billing_code(code_type);
+CREATE INDEX IF NOT EXISTS idx_billing_code_procedure ON procedure_billing_code(procedure_id);
+CREATE INDEX IF NOT EXISTS idx_billing_code_code_type ON procedure_billing_code(code, code_type);
