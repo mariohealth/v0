@@ -1,11 +1,29 @@
 from fastapi import HTTPException
 from supabase import Client
-from app.models.category import Family, CategoryFamiliesResponse
+from app.models.category import Category, CategoriesResponse, Family, CategoryFamiliesResponse
 
 
 class CategoryService:
     def __init__(self, supabase: Client):
         self.supabase = supabase
+
+    async def get_all_categories(self) -> CategoriesResponse:
+        """Fetch all categories with family counts."""
+
+        result = self.supabase.rpc("get_categories_with_counts").execute()
+
+        categories = [
+            Category(
+                id=c["id"],
+                name=c["name"],
+                slug=c["slug"],
+                description=c.get("description"),
+                family_count=c["family_count"]
+            )
+            for c in result.data
+        ]
+
+        return CategoriesResponse(categories=categories)
 
     async def get_families_by_category(self, slug: str) -> CategoryFamiliesResponse:
         """Fetch families for a category with procedure counts."""
