@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Filter, SortAsc } from 'lucide-react';
-import { mockApi, type Procedure, type Category, MOCK_CATEGORIES } from '@/src/lib/mock-data';
+import { mockApi, type ProcedureFamily, type Category, MOCK_CATEGORIES } from '@/src/lib/mock-data';
 import { LoadingSpinner, SkeletonGrid } from '@/src/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/src/components/ui/error-message';
 
@@ -13,10 +13,10 @@ export default function CategoryPage() {
     const categorySlug = params.slug as string;
 
     const [category, setCategory] = useState<Category | null>(null);
-    const [procedures, setProcedures] = useState<Procedure[]>([]);
+    const [families, setFamilies] = useState<ProcedureFamily[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [sortBy, setSortBy] = useState<'name' | 'price'>('name');
+    const [sortBy, setSortBy] = useState<'name'>('name');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,11 +32,11 @@ export default function CategoryPage() {
                 }
                 setCategory(foundCategory);
 
-                // Fetch procedures for this category
-                const data = await mockApi.getProcedures(categorySlug);
-                setProcedures(data);
+                // Fetch families for this category
+                const data = await mockApi.getFamilies(categorySlug);
+                setFamilies(data);
             } catch (err) {
-                setError('Failed to load procedures');
+                setError('Failed to load families');
             } finally {
                 setLoading(false);
             }
@@ -45,11 +45,11 @@ export default function CategoryPage() {
         fetchData();
     }, [categorySlug]);
 
-    const sortedProcedures = [...procedures].sort((a, b) => {
+    const sortedFamilies = [...families].sort((a, b) => {
         if (sortBy === 'name') {
             return a.name.localeCompare(b.name);
         }
-        return a.averagePrice - b.averagePrice;
+        return 0;
     });
 
     if (loading) {
@@ -100,7 +100,7 @@ export default function CategoryPage() {
                         </div>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                        {procedures.length} procedures available
+                        {families.length} families available
                     </p>
                 </div>
 
@@ -129,11 +129,11 @@ export default function CategoryPage() {
                     </div>
                 </div>
 
-                {/* Procedures Grid */}
-                {sortedProcedures.length === 0 ? (
+                {/* Families Grid */}
+                {sortedFamilies.length === 0 ? (
                     <EmptyState
-                        title="No procedures found"
-                        message="We couldn't find any procedures in this category."
+                        title="No families found"
+                        message="We couldn't find any procedure families in this category."
                         action={{
                             label: 'Browse All Categories',
                             onClick: () => window.location.href = '/'
@@ -141,8 +141,8 @@ export default function CategoryPage() {
                     />
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {sortedProcedures.map((procedure) => (
-                            <ProcedureCard key={procedure.id} procedure={procedure} />
+                        {sortedFamilies.map((family) => (
+                            <FamilyCard key={family.id} family={family} />
                         ))}
                     </div>
                 )}
@@ -151,34 +151,30 @@ export default function CategoryPage() {
     );
 }
 
-function ProcedureCard({ procedure }: { procedure: Procedure }) {
+function FamilyCard({ family }: { family: ProcedureFamily }) {
     return (
         <Link
-            href={`/procedure/${procedure.id}`}
+            href={`/family/${family.slug}`}
             className="block bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1"
         >
             <div className="space-y-4">
                 <div>
-                    <h3 className="text-xl font-semibold mb-2">{procedure.name}</h3>
+                    <h3 className="text-xl font-semibold mb-2">{family.name}</h3>
                     <p className="text-sm text-muted-foreground line-clamp-2">
-                        {procedure.description}
+                        {family.description}
                     </p>
                 </div>
 
                 <div className="pt-4 border-t">
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-bold text-primary">
-                            RM {procedure.averagePrice}
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold text-muted-foreground">
+                            {family.procedureCount} procedures
                         </span>
-                        <span className="text-sm text-muted-foreground">avg</span>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                        Range: RM {procedure.priceRange.min} - RM {procedure.priceRange.max}
-                    </p>
                 </div>
 
                 <div className="text-sm text-primary font-medium">
-                    View providers →
+                    View procedures →
                 </div>
             </div>
         </Link>
