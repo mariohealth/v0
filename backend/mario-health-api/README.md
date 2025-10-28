@@ -32,7 +32,8 @@ pip install --no-cache-dir -r requirements.txt
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your-anon-or-service-key
 
-
+# From your backend/ directory
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ## Deploy to Google Cloud Run
