@@ -82,23 +82,23 @@ export interface ProcedureDetail {
     name: string;
     slug: string;
     description?: string;
-    
+
     // Family context
     familyId: string;
     familyName: string;
     familySlug: string;
-    
+
     // Category context
     categoryId: string;
     categoryName: string;
     categorySlug: string;
-    
+
     // Pricing summary
     minPrice: number | null;
     maxPrice: number | null;
     avgPrice: number | null;
     medianPrice: number | null;
-    
+
     // All carrier prices
     carrierPrices: CarrierPrice[];
 }
@@ -358,23 +358,23 @@ function transformProcedureDetail(raw: any): ProcedureDetail {
         name: raw.name,
         slug: raw.slug,
         description: raw.description,
-        
+
         // Family context
         familyId: raw.family_id,
         familyName: raw.family_name,
         familySlug: raw.family_slug,
-        
+
         // Category context
         categoryId: raw.category_id,
         categoryName: raw.category_name,
         categorySlug: raw.category_slug,
-        
+
         // Pricing summary
         minPrice: raw.min_price,
         maxPrice: raw.max_price,
         avgPrice: raw.avg_price,
         medianPrice: raw.median_price,
-        
+
         // All carrier prices
         carrierPrices: (raw.carrier_prices || []).map(transformCarrierPrice),
     };
