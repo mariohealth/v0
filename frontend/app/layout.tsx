@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ErrorBoundary } from '@/src/components/ErrorBoundary';
-// import { ErrorTest } from '@/src/components/error-test'; // Temporarily uncomment to test error boundary
+import { ErrorTestButton } from '@/src/components/error-test-button';
+import { Navbar } from '@/src/components/navbar';
 
 export const metadata: Metadata = {
   title: 'Mario Health',
@@ -17,9 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <ErrorBoundary>
+          <Navbar />
           {children}
-          {/* Temporarily uncomment to test error boundary */}
-          {/* {process.env.NODE_ENV === 'development' && <ErrorTest />} */}
+          {/* Temporarily added for error boundary testing - remove after verification */}
+          {process.env.NODE_ENV === 'development' && <ErrorTestButton />}
         </ErrorBoundary>
       </body>
     </html>
