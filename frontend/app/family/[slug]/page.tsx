@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Filter, SortAsc, Clock, DollarSign } from 'lucide-react';
-import { 
-  mockApi, 
-  type ProcedureFamily, 
+import {
+  mockApi,
+  type ProcedureFamily,
   type Procedure,
-  MOCK_CATEGORIES 
+  MOCK_CATEGORIES
 } from '@/lib/mock-data';
 import { SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
@@ -24,7 +24,7 @@ export default function FamilyPage() {
   const [procedures, setProcedures] = useState<Procedure[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // UI state
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<SortOption>('name');
@@ -75,8 +75,8 @@ export default function FamilyPage() {
     .filter(p => {
       if (!debouncedQuery) return true;
       const query = debouncedQuery.toLowerCase();
-      return p.name.toLowerCase().includes(query) || 
-             p.description.toLowerCase().includes(query);
+      return p.name.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query);
     })
     .sort((a, b) => {
       switch (sortBy) {
@@ -139,7 +139,7 @@ export default function FamilyPage() {
             <span>/</span>
             {category && (
               <>
-                <Link 
+                <Link
                   href={`/category/${category.slug}`}
                   className="hover:text-foreground transition"
                 >
@@ -229,12 +229,12 @@ export default function FamilyPage() {
           <EmptyState
             title="No Procedures Found"
             message={
-              searchQuery 
+              searchQuery
                 ? 'No procedures match your search. Try different keywords.'
                 : 'No procedures available in this family.'
             }
             action={
-              searchQuery 
+              searchQuery
                 ? { label: 'Clear Search', onClick: () => setSearchQuery('') }
                 : { label: 'Browse All Categories', onClick: () => router.push('/') }
             }

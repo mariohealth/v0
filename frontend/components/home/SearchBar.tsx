@@ -24,58 +24,54 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-xl p-6">
-        <div className="flex flex-col md:flex-row gap-4">
+    <div className="w-full">
+      <div className="bg-white rounded-2xl shadow-lg p-6">
+        {/* Title */}
+        <div className="mb-4">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            Find affordable healthcare
+          </h1>
+          <p className="text-gray-600">
+            Compare prices and book appointments
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-3">
           {/* Procedure input */}
-          <div className="flex-1 relative">
-            <label htmlFor="procedure" className="block text-sm font-medium text-gray-700 mb-2">
-              What do you need?
-            </label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                id="procedure"
-                type="text"
-                placeholder="Search procedures or tests (e.g., MRI, Blood Test)"
-                value={procedure}
-                onChange={(e) => setProcedure(e.target.value)}
-                onKeyPress={handleKeyPress}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              />
-            </div>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search procedures or tests (e.g., MRI, Blood Test)"
+              value={procedure}
+              onChange={(e) => setProcedure(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="w-full pl-10 pr-4 py-3 min-h-[44px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-base"
+            />
           </div>
 
           {/* Location input */}
-          <div className="md:w-64 relative">
-            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
-              Where?
-            </label>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                id="location"
-                type="text"
-                placeholder="City or ZIP code"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                onKeyPress={handleKeyPress}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              />
-            </div>
+          <div className="relative">
+            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="City or ZIP code"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="w-full pl-10 pr-4 py-3 min-h-[44px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-base"
+            />
           </div>
 
           {/* Search button */}
-          <div className="md:self-end">
-            <button
-              onClick={handleSearch}
-              disabled={!procedure.trim()}
-              className="w-full md:w-auto bg-emerald-500 hover:bg-emerald-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2"
-            >
-              <Search className="w-5 h-5" />
-              <span>Search</span>
-            </button>
-          </div>
+          <button
+            onClick={handleSearch}
+            disabled={!procedure.trim()}
+            className="w-full bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-6 py-3 min-h-[44px] rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
+          >
+            <Search className="w-5 h-5" />
+            <span>Search</span>
+          </button>
         </div>
 
         {/* Quick search suggestions */}
@@ -91,7 +87,7 @@ export default function SearchBar() {
                     `/search?q=${encodeURIComponent(suggestion)}&location=${encodeURIComponent(location)}`
                   );
                 }}
-                className="px-3 py-1.5 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 text-gray-700 text-sm rounded-full transition-colors"
+                className="px-3 py-2 min-h-[44px] bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 active:bg-emerald-100 active:scale-[0.95] text-gray-700 text-sm rounded-full transition-all duration-150 flex items-center"
               >
                 {suggestion}
               </button>
