@@ -10,25 +10,31 @@ class CategoryService:
     async def get_families_by_category(self, slug: str) -> CategoryFamiliesResponse:
         """Fetch families for a category with procedure counts."""
 
-        # Validate category exists
-        category_result = self.supabase.table("procedure_category") \
-            .select("id, slug") \
-            .eq("slug", slug) \
-            .limit(1) \
-            .execute()
+        # Call the RPC function
+        result = self.supabase.rpc(
+            "get_families_with_counts",
+            {"category_slug_input": slug}
+        ).execute()
 
-        if not category_result.data:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Category '{slug}' not found"
+        if not result.data:
+            # Verify category exists
+            category_check = self.supabase.table("procedure_category") \
+                .select("id") \
+                .eq("slug", slug) \
+                .limit(1) \
+                .execute()
+
+            if not category_check.data:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Category '{slug}' not found"
+                )
+
+            # Category exists but has no families
+            return CategoryFamiliesResponse(
+                category_slug=slug,
+                families=[]
             )
-
-        # Fetch families with procedure counts
-        families_result = self.supabase.table("procedure_family") \
-            .select("id, name, slug, description, procedure(count)") \
-            .eq("category_slug", slug) \
-            .order("name") \
-            .execute()
 
         families = [
             Family(
@@ -36,9 +42,9 @@ class CategoryService:
                 name=f["name"],
                 slug=f["slug"],
                 description=f.get("description"),
-                procedure_count=f["procedure"][0]["count"] if f.get("procedure") else 0
+                procedure_count=f["procedure_count"]
             )
-            for f in families_result.data
+            for f in result.data
         ]
 
         return CategoryFamiliesResponse(
