@@ -15,4 +15,5 @@ pip install -r requirements.txt (if not already done)
 ```
 python3 create_schema.py
 python3 load_csvs.py
+python3 create_function.py
 ```
