@@ -10,7 +10,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-from app.api.v1.endpoints import categories, families, procedures, search, billing_codes, providers
+from app.api.v1.endpoints import categories, families, procedures, search, billing_codes, providers, user_preferences
 import os
 from pathlib import Path
 
@@ -101,6 +101,7 @@ app.include_router(procedures.router, prefix="/api/v1")
 app.include_router(search.router, prefix="/api/v1")
 app.include_router(billing_codes.router, prefix="/api/v1")
 app.include_router(providers.router, prefix="/api/v1")
+app.include_router(user_preferences.router, prefix="/api/v1/user")
 
 # Root endpoints
 @app.get("/", tags=["root"])

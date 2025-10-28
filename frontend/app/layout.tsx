@@ -3,6 +3,7 @@ import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorTestButton } from '@/components/error-test-button';
 import { Navbar } from '@/components/navbar';
+import { PreferencesProvider } from '@/lib/contexts/PreferencesContext';
 
 export const metadata: Metadata = {
   title: 'Mario Health',
@@ -18,10 +19,12 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <ErrorBoundary>
-          <Navbar />
-          {children}
-          {/* Temporarily added for error boundary testing - remove after verification */}
-          {process.env.NODE_ENV === 'development' && <ErrorTestButton />}
+          <PreferencesProvider>
+            <Navbar />
+            {children}
+            {/* Temporarily added for error boundary testing - remove after verification */}
+            {process.env.NODE_ENV === 'development' && <ErrorTestButton />}
+          </PreferencesProvider>
         </ErrorBoundary>
       </body>
     </html>

@@ -39,6 +39,15 @@ from app.models.provider import (
     ProviderDetail,
 )
 
+# User preferences models
+from app.models.user_preferences import (
+    SavedLocation,
+    Notifications,
+    UserPreferences,
+    UserPreferencesResponse,
+    UserPreferencesUpdateRequest,
+)
+
 __all__ = [
     # Category
     "Category",
@@ -61,4 +70,10 @@ __all__ = [
     # Provider
     "ProviderProcedurePricing",
     "ProviderDetail",
+    # User preferences
+    "SavedLocation",
+    "Notifications",
+    "UserPreferences",
+    "UserPreferencesResponse",
+    "UserPreferencesUpdateRequest",
 ]
