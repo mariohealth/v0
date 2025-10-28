@@ -6,12 +6,17 @@ import Link from 'next/link';
 import SearchHeader from '@/components/search/SearchHeader';
 import SearchFilters, { FilterState } from '@/components/search/SearchFilters';
 import { searchProcedures, type SearchResult } from '@/lib/backend-api';
+import { usePreferences } from '@/lib/contexts/PreferencesContext';
 import { SlidersHorizontal, DollarSign, MapPin, Users } from 'lucide-react';
 
 function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
-
+  const locationParam = searchParams.get('location') || '';
+  const radiusParam = searchParams.get('radius');
+  
+  const { defaultRadius, defaultZip } = usePreferences();
+  
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +41,12 @@ function SearchResults() {
       try {
         setLoading(true);
         setError(null);
-        const results = await searchProcedures(query, undefined, 25);
+        
+        // Use location from params or preference, radius from params or preference
+        const zip = locationParam || defaultZip || undefined;
+        const radius = radiusParam ? parseInt(radiusParam) : (defaultRadius || 25);
+        
+        const results = await searchProcedures(query, zip, radius);
         setSearchResults(results);
       } catch (err) {
         console.error('Failed to search procedures:', err);
@@ -47,7 +57,7 @@ function SearchResults() {
     };
 
     fetchResults();
-  }, [query]);
+  }, [query, locationParam, radiusParam, defaultRadius, defaultZip]);
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);

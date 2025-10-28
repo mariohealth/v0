@@ -191,6 +191,16 @@ export function Navbar() {
                                     active={false}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 />
+                                <MobileNavLink
+                                    href="#"
+                                    icon={<Settings className="w-5 h-5" />}
+                                    label="Preferences"
+                                    active={false}
+                                    onClick={() => {
+                                        setShowPreferences(true);
+                                        setIsMobileMenuOpen(false);
+                                    }}
+                                />
                             </div>
                         </nav>
 
