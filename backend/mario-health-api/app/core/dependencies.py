@@ -1,6 +1,8 @@
 from supabase import create_client, Client
 from functools import lru_cache
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 @lru_cache()
