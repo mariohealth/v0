@@ -67,6 +67,42 @@ export interface SearchResult {
     nearestDistanceMiles?: number;
 }
 
+export interface CarrierPrice {
+    carrierId: string;
+    carrierName: string;
+    price: number;
+    currency: string;
+    planType?: string;
+    networkStatus?: string;
+    lastUpdated?: string;
+}
+
+export interface ProcedureDetail {
+    id: string;
+    name: string;
+    slug: string;
+    description?: string;
+    
+    // Family context
+    familyId: string;
+    familyName: string;
+    familySlug: string;
+    
+    // Category context
+    categoryId: string;
+    categoryName: string;
+    categorySlug: string;
+    
+    // Pricing summary
+    minPrice: number | null;
+    maxPrice: number | null;
+    avgPrice: number | null;
+    medianPrice: number | null;
+    
+    // All carrier prices
+    carrierPrices: CarrierPrice[];
+}
+
 /**
  * Generic fetch wrapper with error handling, analytics, and CORS detection
  */
@@ -298,10 +334,73 @@ export async function searchProcedures(
     }
 }
 
+/**
+ * Transform snake_case to camelCase for carrier prices
+ */
+function transformCarrierPrice(raw: any): CarrierPrice {
+    return {
+        carrierId: raw.carrier_id,
+        carrierName: raw.carrier_name,
+        price: raw.price,
+        currency: raw.currency,
+        planType: raw.plan_type,
+        networkStatus: raw.network_status,
+        lastUpdated: raw.last_updated,
+    };
+}
+
+/**
+ * Transform snake_case to camelCase for procedure detail
+ */
+function transformProcedureDetail(raw: any): ProcedureDetail {
+    return {
+        id: raw.id,
+        name: raw.name,
+        slug: raw.slug,
+        description: raw.description,
+        
+        // Family context
+        familyId: raw.family_id,
+        familyName: raw.family_name,
+        familySlug: raw.family_slug,
+        
+        // Category context
+        categoryId: raw.category_id,
+        categoryName: raw.category_name,
+        categorySlug: raw.category_slug,
+        
+        // Pricing summary
+        minPrice: raw.min_price,
+        maxPrice: raw.max_price,
+        avgPrice: raw.avg_price,
+        medianPrice: raw.median_price,
+        
+        // All carrier prices
+        carrierPrices: (raw.carrier_prices || []).map(transformCarrierPrice),
+    };
+}
+
+/**
+ * Get detailed information about a specific procedure
+ * Endpoint: GET /api/v1/procedures/{slug}
+ * @param slug - Procedure slug (e.g., 'chest-x-ray-2-views')
+ * @returns Detailed procedure information with pricing
+ */
+export async function getProcedureDetail(slug: string): Promise<ProcedureDetail> {
+    try {
+        const data = await fetchFromApi<any>(`/api/v1/procedures/${slug}`);
+        return transformProcedureDetail(data);
+    } catch (error) {
+        console.error(`Failed to fetch procedure detail for '${slug}':`, error);
+        throw new Error(`Failed to get procedure detail for '${slug}': ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+}
+
 // Export for use in components
 export const backendApi = {
     getCategories,
     getFamiliesByCategory,
     getProceduresByFamily,
     searchProcedures,
+    getProcedureDetail,
 };

@@ -209,57 +209,30 @@ export default function ProcedurePage() {
     );
 }
 
-function QuoteCard({ quote }: { quote: PriceQuote }) {
-    const { provider } = quote;
-
+function CarrierPriceCard({ price }: { price: CarrierPrice }) {
     return (
-        <Link
-            href={`/provider/${provider.id}`}
-            className="block bg-white border rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1"
-        >
+        <div className="block bg-white border rounded-lg p-6 hover:shadow-lg transition-all">
             <div className="space-y-4">
                 {/* Header */}
                 <div className="flex items-start justify-between">
                     <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                            <h3 className="text-xl font-semibold">{provider.name}</h3>
-                            {provider.verified && (
-                                <CheckCircle2 className="h-5 w-5 text-blue-500" />
-                            )}
+                        <h3 className="text-xl font-semibold mb-2">{price.carrierName}</h3>
+                        {price.planType && (
+                            <p className="text-sm text-muted-foreground capitalize">{price.planType}</p>
+                        )}
+                    </div>
+                </div>
+
+                {/* Network Status */}
+                {price.networkStatus && (
+                    <div className="flex items-center gap-2">
+                        <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                            price.networkStatus === 'in-network' 
+                                ? 'bg-green-100 text-green-800' 
+                                : 'bg-orange-100 text-orange-800'
+                        }`}>
+                            {price.networkStatus}
                         </div>
-                        <p className="text-sm text-muted-foreground capitalize">{provider.type}</p>
-                    </div>
-                </div>
-
-                {/* Rating */}
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="font-semibold">{provider.rating}</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">
-                        ({provider.reviewCount} reviews)
-                    </span>
-                </div>
-
-                {/* Location */}
-                <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                    <div>
-                        <div className="font-medium">{provider.location.city}, {provider.location.state}</div>
-                        <div className="text-xs">{provider.location.address}</div>
-                    </div>
-                </div>
-
-                {/* Inclusions & Exclusions */}
-                {quote.inclusions.length > 0 && (
-                    <div className="text-sm">
-                        <div className="font-medium text-green-600 mb-1">Included:</div>
-                        <ul className="list-disc list-inside text-muted-foreground space-y-0.5">
-                            {quote.inclusions.slice(0, 2).map((item, idx) => (
-                                <li key={idx} className="text-xs">{item}</li>
-                            ))}
-                        </ul>
                     </div>
                 )}
 
@@ -267,18 +240,24 @@ function QuoteCard({ quote }: { quote: PriceQuote }) {
                 <div className="pt-4 border-t">
                     <div className="flex items-baseline justify-between">
                         <div>
-                            <div className="text-2xl font-bold text-primary">
-                                RM {quote.price}
+                            <div className="text-3xl font-bold text-primary">
+                                ${price.price}
                             </div>
-                            <div className="text-xs text-muted-foreground">Starting price</div>
+                            <div className="text-xs text-muted-foreground">
+                                {price.currency}
+                            </div>
                         </div>
-                        <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition text-sm font-medium">
-                            View Details →
-                        </button>
                     </div>
                 </div>
+
+                {/* Last Updated */}
+                {price.lastUpdated && (
+                    <div className="text-xs text-muted-foreground">
+                        Last updated: {new Date(price.lastUpdated).toLocaleDateString()}
+                    </div>
+                )}
             </div>
-        </Link>
+        </div>
     );
 }
 
