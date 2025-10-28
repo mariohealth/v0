@@ -11,7 +11,7 @@ class CategoryService:
         """Fetch families for a category with procedure counts."""
 
         # Validate category exists
-        category_result = self.supabase.table("categories") \
+        category_result = self.supabase.table("procedure_category") \
             .select("id, slug") \
             .eq("slug", slug) \
             .limit(1) \
@@ -24,7 +24,7 @@ class CategoryService:
             )
 
         # Fetch families with procedure counts
-        families_result = self.supabase.table("families") \
+        families_result = self.supabase.table("procedure_family") \
             .select("id, name, slug, description, procedures(count)") \
             .eq("category_slug", slug) \
             .order("name") \
