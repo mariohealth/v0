@@ -17,7 +17,7 @@ export function BottomNav() {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-200 z-50">
+    <nav className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-200 z-50 safe-area-bottom">
       <div className="flex items-center justify-around h-full px-2">
         {navItems.map((item) => {
           const Icon = item.icon
@@ -28,7 +28,7 @@ export function BottomNav() {
               key={item.id}
               onClick={() => setActive(item.id)}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 flex-1 h-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2",
+                "flex flex-col items-center justify-center gap-1 flex-1 h-full min-h-[44px] transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 active:scale-95 active:bg-gray-50 touch-feedback",
                 isActive ? "text-[#2E5077]" : "text-gray-500",
               )}
               aria-label={`Navigate to ${item.label}`}

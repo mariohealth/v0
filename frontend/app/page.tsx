@@ -2,7 +2,8 @@
 
 import { MarioHeader } from '../src/components/mario-header';
 import SearchBar from '../src/components/home/SearchBar';
-import { SavingsCard } from '../src/components/savings-card';
+// import { SavingsCard } from '../src/components/savings-card';
+import SavingsCard from '../src/components/savings-card';
 import { ProcedureCard } from '../src/components/procedure-card';
 import { ActionListItem } from '../src/components/action-list-item';
 import { BottomNav } from '../src/components/bottom-nav';

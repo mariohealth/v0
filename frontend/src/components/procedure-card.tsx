@@ -20,7 +20,7 @@ export function ProcedureCard({ title, price, originalPrice, discount }: Procedu
         </div>
       </div>
 
-      <Button className="w-full bg-[#2E5077] hover:bg-[#2E5077]/90 text-white rounded-lg h-10 text-sm sm:text-base">Find Savings</Button>
+      <Button className="w-full bg-[#2E5077] hover:bg-[#2E5077]/90 active:bg-[#2E5077]/80 active:scale-[0.98] text-white rounded-lg h-11 min-h-[44px] text-sm sm:text-base transition-all duration-150">Find Savings</Button>
     </div>
   )
 }

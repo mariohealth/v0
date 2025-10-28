@@ -119,7 +119,104 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* iOS-specific fixes */
+  input[type="text"],
+  input[type="search"],
+  textarea {
+    font-size: 16px;
+    /* Prevents zoom on iOS */
+    -webkit-appearance: none;
+    border-radius: 0.5rem;
+  }
+
+  /* Prevent iOS zoom on input focus */
+  @media screen and (max-width: 768px) {
+
+    input[type="text"],
+    input[type="search"],
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+
+  /* iOS safe area support */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Touch feedback improvements */
+  .touch-feedback {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Smooth scrolling for iOS */
+  .scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Landscape orientation optimizations */
+  @media screen and (orientation: landscape) and (max-height: 500px) {
+    .landscape-compact {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .landscape-hide {
+      display: none;
+    }
+
+    .landscape-small {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Mobile-specific optimizations */
+  @media screen and (max-width: 768px) {
+    .mobile-full-width {
+      width: 100%;
+    }
+
+    .mobile-stack {
+      flex-direction: column;
+    }
+
+    .mobile-center {
+      text-align: center;
+    }
+  }
+
+  /* Shimmer animation for loading states */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
   }
 }

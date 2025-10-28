@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:mobile": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit",
-    "preview": "next build && next start"
+    "preview": "next build && next start",
+    "test:mobile": "lighthouse http://localhost:3000 --view --preset=perf"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

@@ -46,7 +46,7 @@ export default function SearchBar() {
               value={procedure}
               onChange={(e) => setProcedure(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 min-h-[44px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-base"
             />
           </div>
 
@@ -59,7 +59,7 @@ export default function SearchBar() {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 min-h-[44px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-base"
             />
           </div>
 
@@ -67,7 +67,7 @@ export default function SearchBar() {
           <button
             onClick={handleSearch}
             disabled={!procedure.trim()}
-            className="w-full bg-emerald-500 hover:bg-emerald-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2"
+            className="w-full bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-6 py-3 min-h-[44px] rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
           >
             <Search className="w-5 h-5" />
             <span>Search</span>
@@ -87,7 +87,7 @@ export default function SearchBar() {
                     `/search?q=${encodeURIComponent(suggestion)}&location=${encodeURIComponent(location)}`
                   );
                 }}
-                className="px-3 py-1.5 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 text-gray-700 text-sm rounded-full transition-colors"
+                className="px-3 py-2 min-h-[44px] bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 active:bg-emerald-100 active:scale-[0.95] text-gray-700 text-sm rounded-full transition-all duration-150 flex items-center"
               >
                 {suggestion}
               </button>

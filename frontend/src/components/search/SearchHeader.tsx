@@ -39,7 +39,7 @@ export default function SearchHeader({
         <div className="flex items-center gap-3 mb-4">
           <button
             onClick={() => router.back()}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+            className="p-2 min-h-[44px] min-w-[44px] hover:bg-gray-100 active:bg-gray-200 active:scale-[0.95] rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 flex items-center justify-center"
             aria-label="Go back"
           >
             <ArrowLeft className="w-5 h-5 text-gray-600" aria-hidden="true" />
@@ -65,7 +65,7 @@ export default function SearchHeader({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 min-h-[44px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-base"
               aria-label="Search for procedures or tests"
             />
           </div>
@@ -79,7 +79,7 @@ export default function SearchHeader({
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 min-h-[44px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-base"
               aria-label="Enter your location"
             />
           </div>
@@ -87,7 +87,7 @@ export default function SearchHeader({
           {/* Search button */}
           <button
             onClick={handleSearch}
-            className="sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+            className="sm:w-auto bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 active:scale-[0.98] text-white px-6 py-3 min-h-[44px] rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
             aria-label="Search for providers"
           >
             <Search className="w-5 h-5" aria-hidden="true" />

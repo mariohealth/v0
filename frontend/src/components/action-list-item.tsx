@@ -23,7 +23,7 @@ export function ActionListItem({ icon: Icon, title, description, href, onClick }
   };
 
   const content = (
-    <div className="w-full flex items-center gap-4 p-4 hover:bg-gray-50 rounded-lg transition-colors text-left">
+    <div className="w-full flex items-center gap-4 p-4 min-h-[44px] hover:bg-gray-50 active:bg-gray-100 active:scale-[0.98] rounded-lg transition-all duration-150 text-left">
       {/* Icon */}
       <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
         {typeof Icon === 'string' ? (

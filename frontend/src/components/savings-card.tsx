@@ -1,9 +1,9 @@
 interface SavingsCardProps {
-  amount: number;
-  message: string;
+  amount?: number
+  message?: string
 }
 
-export function SavingsCard({ amount, message }: SavingsCardProps) {
+export default function SavingsCard({ amount = 0, message = 'in savings' }: SavingsCardProps) {
   return (
     <div className="mx-4 mb-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">

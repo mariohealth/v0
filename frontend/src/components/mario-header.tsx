@@ -10,7 +10,7 @@ export function MarioHeader() {
   const demoOptions = ["Returning User", "Landing", "Login", "Sign Up", "MarioCare", "Ask AI"]
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-gray-200">
+    <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-gray-200 safe-area-top">
       <div className="flex items-center justify-between h-full px-4">
         {/* Left: Logo */}
         <div className="flex items-center gap-2">
@@ -22,7 +22,7 @@ export function MarioHeader() {
 
         {/* Right: Demo Dropdown */}
         <DropdownMenu>
-          <DropdownMenuTrigger 
+          <DropdownMenuTrigger
             className="flex items-center gap-1 text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded-md px-2 py-1"
             aria-label="Select demo mode"
           >
