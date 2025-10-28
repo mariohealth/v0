@@ -18,7 +18,21 @@ Before running or deploying, make sure you have:
 
 ## Deploy on your local machine
 ```
-???
+# Create virtual environment (if not already done)
+python -m venv venv
+
+# Activate it
+# On Mac/Linux:
+source venv/bin/activate
+
+# Install requirements in virtual env (if not already done)
+pip install --no-cache-dir -r requirements.txt
+
+# Set the following variables in .env to their correct value
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_KEY=your-anon-or-service-key
+
+
 ```
 
 ## Deploy to Google Cloud Run
