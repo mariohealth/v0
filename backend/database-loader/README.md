@@ -6,9 +6,9 @@ A simple Python tool to upload local CSV files into our Postgres database.
 
 ```
 cd database-loader
-python3 -m venv venv
+python3 -m venv venv (if not already done)
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt (if not already done)
 ```
 
 ## Run

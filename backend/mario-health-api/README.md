@@ -23,7 +23,7 @@ python -m venv venv
 
 # Activate it
 # On Mac/Linux:
-source venv/bin/activate
+source .venv/bin/activate
 
 # Install requirements in virtual env (if not already done)
 pip install --no-cache-dir -r requirements.txt

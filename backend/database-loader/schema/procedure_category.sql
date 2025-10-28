@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS procedure_category;
+DROP TABLE IF EXISTS procedure_category CASCADE;
 CREATE TABLE IF NOT EXISTS procedure_category (
     id TEXT PRIMARY KEY,
     name TEXT UNIQUE NOT NULL,
