@@ -1,112 +1,180 @@
 'use client';
 
-import { MarioHeader } from '../src/components/mario-header';
-import SearchBar from '../src/components/home/SearchBar';
-// import { SavingsCard } from '../src/components/savings-card';
-import SavingsCard from '../src/components/savings-card';
-import { ProcedureCard } from '../src/components/procedure-card';
-import { ActionListItem } from '../src/components/action-list-item';
-import { BottomNav } from '../src/components/bottom-nav';
-import { Stethoscope, UserRound, Pill, Phone } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Search, TrendingUp, Shield, DollarSign } from 'lucide-react';
+import { MOCK_CATEGORIES, type Category } from '@/src/lib/mock-data';
+import { LoadingSpinner, SkeletonGrid } from '@/src/components/ui/loading-spinner';
+import { ErrorMessage } from '@/src/components/ui/error-message';
+import { SearchResults } from '@/src/components/search-results';
 
-export default function Home() {
+export default function HomePage() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    // Simulate API call with mock data
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setCategories(MOCK_CATEGORIES);
+      } catch (err) {
+        setError('Failed to load categories');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header - Fixed Top */}
-      <MarioHeader />
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-primary/10 to-background py-20 px-4">
+        <div className="max-w-7xl mx-auto text-center space-y-6">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Compare Healthcare Prices
+            <span className="block text-primary mt-2">Save Money, Choose Better</span>
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Find transparent pricing for medical procedures across Malaysia.
+            Compare hospitals, clinics, and specialists in one place.
+          </p>
 
-      {/* Main Content - Scrollable with padding for fixed header/nav */}
-      <main className="pt-16 pb-24 px-4 max-w-md mx-auto">
-        {/* Hero Section with NEW Search */}
-        <section className="mt-6">
-          <SearchBar />
-        </section>
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto mt-8">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search procedures, tests, or treatments..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 rounded-lg border bg-background text-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+              />
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              Try: "Dental cleaning", "MRI scan", "Blood test"
+            </p>
+          </div>
 
-        {/* Savings Card - Only for returning users */}
-        <section className="mt-6">
-          <SavingsCard amount={1247} message="this year with Mario" />
-        </section>
+          {/* Search Results */}
+          <div className="max-w-7xl mx-auto mt-8 px-4">
+            <SearchResults searchQuery={searchQuery} />
+          </div>
+        </div>
+      </section>
 
-        {/* Save on These Section */}
-        <section className="mt-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Save on These</h2>
-          <div className="space-y-4">
-            <ProcedureCard
-              title="MRI Scan (Brain)"
-              price={850}
-              originalPrice={1400}
-              discount={39}
+      {/* Features Section */}
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <FeatureCard
+              icon={<DollarSign className="h-8 w-8" />}
+              title="Transparent Pricing"
+              description="See real costs upfront. No surprises, no hidden fees."
             />
-            <ProcedureCard
-              title="Annual Physical Exam"
-              price={95}
-              originalPrice={220}
-              discount={57}
+            <FeatureCard
+              icon={<Shield className="h-8 w-8" />}
+              title="Verified Providers"
+              description="All hospitals and clinics are verified and licensed."
+            />
+            <FeatureCard
+              icon={<TrendingUp className="h-8 w-8" />}
+              title="Best Value"
+              description="Compare prices and find the best deals for your needs."
             />
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Ask MarioAI - Coming Soon */}
-        <section className="mt-6">
-          <button
-            onClick={() =>
-              alert('Coming soon! Would you find AI chat helpful for searching healthcare?')
-            }
-            className="w-full py-3 px-4 border-2 border-[#4DA1A9] text-[#4DA1A9] rounded-full font-medium hover:bg-[#4DA1A9] hover:text-white transition-colors"
+      {/* Categories Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Browse by Category</h2>
+            <p className="text-muted-foreground">
+              Explore healthcare services organized by specialty
+            </p>
+          </div>
+
+          {loading && <SkeletonGrid count={6} />}
+
+          {error && (
+            <ErrorMessage
+              message={error}
+              onRetry={() => window.location.reload()}
+            />
+          )}
+
+          {!loading && !error && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {categories.map((category) => (
+                <CategoryCard key={category.id} category={category} />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 px-4 bg-primary text-primary-foreground">
+        <div className="max-w-4xl mx-auto text-center space-y-6">
+          <h2 className="text-3xl font-bold">Ready to Save on Healthcare?</h2>
+          <p className="text-lg opacity-90">
+            Start comparing prices now and make informed healthcare decisions
+          </p>
+          <Link
+            href="/search"
+            className="inline-block bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition"
           >
-            🤖 Ask MarioAI anything...
-          </button>
-        </section>
-
-        {/* Quick Action Chips */}
-        <section className="mt-6">
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            <button className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50">
-              ✨ I have a health concern
-            </button>
-            <button className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50">
-              📅 Book a visit
-            </button>
-            <button className="px-4 py-2 bg-white rounded-full text-sm font-medium text-[#2E5077] border border-gray-200 whitespace-nowrap hover:bg-gray-50">
-              💊 Rx renewal
-            </button>
-          </div>
-        </section>
-
-        {/* Common Actions */}
-        <section className="mt-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Common Actions</h2>
-          <div className="bg-white rounded-xl overflow-hidden shadow-sm divide-y divide-gray-100">
-            <ActionListItem
-              icon={Stethoscope}
-              title="Browse Procedures"
-              description="Find and compare medical procedures"
-              onClick={() => console.log('Browse Procedures clicked')}
-            />
-            <ActionListItem
-              icon={UserRound}
-              title="Find Doctors"
-              description="Search by specialty and location"
-              onClick={() => console.log('Find Doctors clicked')}
-            />
-            <ActionListItem
-              icon={Pill}
-              title="Medications"
-              description="Compare prescription prices"
-              onClick={() => console.log('Medications clicked')}
-            />
-            <ActionListItem
-              icon={Phone}
-              title="MarioCare"
-              description="On-demand urgent care (24/7), scheduled primary"
-              onClick={() => console.log('MarioCare clicked')}
-            />
-          </div>
-        </section>
-      </main>
-
-      {/* Bottom Navigation - Fixed Bottom */}
-      <BottomNav />
+            Start Searching
+          </Link>
+        </div>
+      </section>
     </div>
+  );
+}
+
+function FeatureCard({
+  icon,
+  title,
+  description
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string
+}) {
+  return (
+    <div className="bg-background rounded-lg p-6 space-y-4 border">
+      <div className="text-primary">{icon}</div>
+      <h3 className="text-xl font-semibold">{title}</h3>
+      <p className="text-muted-foreground">{description}</p>
+    </div>
+  );
+}
+
+function CategoryCard({ category }: { category: Category }) {
+  return (
+    <Link
+      href={`/category/${category.slug}`}
+      className="block bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1"
+    >
+      <div className="flex items-start gap-4">
+        <div className="text-4xl">{category.icon}</div>
+        <div className="flex-1 space-y-2">
+          <h3 className="text-xl font-semibold">{category.name}</h3>
+          <p className="text-sm text-muted-foreground">{category.description}</p>
+          <p className="text-sm text-primary font-medium">
+            {category.procedureCount} procedures
+          </p>
+        </div>
+      </div>
+    </Link>
   );
 }
