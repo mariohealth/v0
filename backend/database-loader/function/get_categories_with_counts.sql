@@ -1,8 +1,10 @@
+DROP FUNCTION IF EXISTS get_categories_with_counts();
 CREATE OR REPLACE FUNCTION get_categories_with_counts()
 RETURNS TABLE (
     id TEXT,
     name TEXT,
     slug TEXT,
+    emoji TEXT,
     description TEXT,
     family_count BIGINT
 ) AS $$
@@ -12,6 +14,7 @@ BEGIN
         pc.id,
         pc.name,
         pc.slug,
+        pc.emoji,
         pc.description,
         COUNT(pf.id) as family_count
     FROM procedure_category pc
