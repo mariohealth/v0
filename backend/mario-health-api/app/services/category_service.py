@@ -25,7 +25,7 @@ class CategoryService:
 
         # Fetch families with procedure counts
         families_result = self.supabase.table("procedure_family") \
-            .select("id, name, slug, description, procedures(count)") \
+            .select("id, name, slug, description, procedure(count)") \
             .eq("category_slug", slug) \
             .order("name") \
             .execute()
@@ -36,7 +36,7 @@ class CategoryService:
                 name=f["name"],
                 slug=f["slug"],
                 description=f.get("description"),
-                procedure_count=f["procedures"][0]["count"] if f.get("procedures") else 0
+                procedure_count=f["procedure"][0]["count"] if f.get("procedure") else 0
             )
             for f in families_result.data
         ]
