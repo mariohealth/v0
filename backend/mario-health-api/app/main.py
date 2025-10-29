@@ -19,6 +19,7 @@ from app.api.v1.endpoints import (
     providers,
     user_preferences,
     saved_searches,
+    whoami,
 )
 import os
 from pathlib import Path
@@ -67,7 +68,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS middleware
+# CORS middleware configuration
+# Note: localhost:3000 is explicitly included for local development
 ALLOWED_ORIGINS_STR = os.getenv(
     "ALLOWED_ORIGINS",
     "http://localhost:3000,http://127.0.0.1:3000,https://mario.health,https://www.mario.health,https://mario-health-ifzy.vercel.app",
@@ -75,14 +77,23 @@ ALLOWED_ORIGINS_STR = os.getenv(
 # Strip whitespace from each origin to prevent CORS issues
 ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS_STR.split(",") if origin.strip()]
 
+# Verify localhost:3000 is in the list
+if "http://localhost:3000" not in ALLOWED_ORIGINS and "http://127.0.0.1:3000" not in ALLOWED_ORIGINS:
+    logger.warning("⚠️  WARNING: localhost:3000 not found in ALLOWED_ORIGINS! Adding it for local development.")
+    if "http://localhost:3000" not in ALLOWED_ORIGINS:
+        ALLOWED_ORIGINS.append("http://localhost:3000")
+
 # Google OAuth2 allowed audiences
+# These should match the client IDs from your Google OAuth2 credentials
+# For Cloud Run identity tokens, the audience should be the Cloud Run service URL
+# For regular Google ID tokens, the audience should be the OAuth2 client ID
 GOOGLE_ALLOWED_AUDIENCES_STR = os.getenv("GOOGLE_ALLOWED_AUDIENCES", "")
 GOOGLE_ALLOWED_AUDIENCES = [
     aud.strip() for aud in GOOGLE_ALLOWED_AUDIENCES_STR.split(",") if aud.strip()
 ]
 
 logger.info(f"🔒 CORS configured with allowed origins: {ALLOWED_ORIGINS}")
-logger.info(f"🔐 Google OAuth2 allowed audiences: {GOOGLE_ALLOWED_AUDIENCES if GOOGLE_ALLOWED_AUDIENCES else 'NOT CONFIGURED'}")
+logger.info(f"🔐 Google OAuth2 allowed audiences: {GOOGLE_ALLOWED_AUDIENCES if GOOGLE_ALLOWED_AUDIENCES else 'NOT CONFIGURED - Token verification will fail'}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -132,6 +143,7 @@ app.include_router(billing_codes.router, prefix="/api/v1")
 app.include_router(providers.router, prefix="/api/v1")
 app.include_router(user_preferences.router, prefix="/api/v1/user")
 app.include_router(saved_searches.router, prefix="/api/v1/user")
+app.include_router(whoami.router, prefix="/api/v1")  # Debug endpoint for authentication
 
 
 # Root endpoints
