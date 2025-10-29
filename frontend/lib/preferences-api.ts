@@ -6,6 +6,7 @@
  */
 
 import { UserPreferences } from '@/types/preferences';
+import { getAuthToken } from './auth-token';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-72178908097.us-central1.run.app';
 
@@ -46,12 +47,25 @@ export async function getPreferencesFromAPI(): Promise<UserPreferences> {
       throw new Error('User ID not found');
     }
 
+    const token = await getAuthToken();
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    // Log outgoing headers for debugging
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      console.log(`[API Request] GET ${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`, {
+        headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
+      });
+    }
+
     const response = await fetch(`${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        // TODO: Add authentication header
-      },
+      headers,
     });
 
     if (!response.ok) {
@@ -88,12 +102,25 @@ export async function savePreferencesToAPI(preferences: UserPreferences): Promis
       return;
     }
 
+    const token = await getAuthToken();
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    // Log outgoing headers for debugging
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      console.log(`[API Request] PUT ${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`, {
+        headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
+      });
+    }
+
     const response = await fetch(`${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        // TODO: Add authentication header
-      },
+      headers,
       body: JSON.stringify({ preferences }),
     });
 

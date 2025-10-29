@@ -4,6 +4,8 @@
  * Handles API calls for saved searches
  */
 
+import { getAuthToken } from './auth-token';
+
 const SAVED_SEARCHES_ENDPOINT = '/api/v1/user/saved-searches';
 
 export interface SavedSearch {
@@ -31,12 +33,25 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-721
  */
 export async function getSavedSearches(): Promise<SavedSearch[]> {
     try {
+        const token = await getAuthToken();
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        // Log outgoing headers for debugging
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+            console.log(`[API Request] GET ${API_URL}${SAVED_SEARCHES_ENDPOINT}`, {
+                headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
+            });
+        }
+
         const response = await fetch(`${API_URL}${SAVED_SEARCHES_ENDPOINT}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                // TODO: Add authentication header
-            },
+            headers,
         });
 
         if (!response.ok) {
@@ -56,12 +71,25 @@ export async function getSavedSearches(): Promise<SavedSearch[]> {
  */
 export async function createSavedSearch(request: SavedSearchCreateRequest): Promise<SavedSearch> {
     try {
+        const token = await getAuthToken();
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        // Log outgoing headers for debugging
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+            console.log(`[API Request] POST ${API_URL}${SAVED_SEARCHES_ENDPOINT}`, {
+                headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
+            });
+        }
+
         const response = await fetch(`${API_URL}${SAVED_SEARCHES_ENDPOINT}`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // TODO: Add authentication header
-            },
+            headers,
             body: JSON.stringify(request),
         });
 
@@ -82,12 +110,25 @@ export async function createSavedSearch(request: SavedSearchCreateRequest): Prom
  */
 export async function deleteSavedSearch(searchId: string): Promise<void> {
     try {
+        const token = await getAuthToken();
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        // Log outgoing headers for debugging
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+            console.log(`[API Request] DELETE ${API_URL}${SAVED_SEARCHES_ENDPOINT}/${searchId}`, {
+                headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
+            });
+        }
+
         const response = await fetch(`${API_URL}${SAVED_SEARCHES_ENDPOINT}/${searchId}`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                // TODO: Add authentication header
-            },
+            headers,
         });
 
         if (!response.ok && response.status !== 204) {

@@ -15,6 +15,7 @@
  */
 
 import { trackApiCall, trackError } from './analytics';
+import { getAuthToken } from './auth-token';
 
 // Configuration
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-72178908097.us-central1.run.app';
@@ -117,12 +118,29 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
     const startTime = performance.now();
 
     try {
+        // Get auth token for Authorization header
+        const token = await getAuthToken();
+        
+        // Build headers with Authorization if token is available
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            ...(options.headers as Record<string, string> || {}),
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        // Log outgoing headers for debugging
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+            console.log(`[API Request] ${options.method || 'GET'} ${url}`, {
+                headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
+            });
+        }
+
         const response = await fetch(url, {
             ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers,
-            },
+            headers,
         });
 
         const duration = Math.round(performance.now() - startTime);

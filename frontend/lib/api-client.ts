@@ -3,6 +3,7 @@
 
 import { mockApi } from './mock-data';
 import type { Category, Procedure, Provider } from './mock-data';
+import { getAuthToken } from './auth-token';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true';
@@ -23,12 +24,29 @@ class ApiClient {
 
         const url = `${this.baseUrl}${endpoint}`;
 
+        // Get auth token for Authorization header
+        const token = await getAuthToken();
+        
+        // Build headers with Authorization if token is available
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            ...(options.headers as Record<string, string> || {}),
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        // Log outgoing headers for debugging
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+            console.log(`[API Request] ${options.method || 'GET'} ${url}`, {
+                headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
+            });
+        }
+
         const config: RequestInit = {
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers,
-            },
             ...options,
+            headers,
         };
 
         const response = await fetch(url, config);
