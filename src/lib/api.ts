@@ -187,7 +187,7 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
       if (response.status === 401 || response.status === 403) {
         // Clear token cache and retry once
         tokenCache = { token: null, expiresAt: 0 };
-        
+
         try {
           const newToken = await getAuthToken();
           const retryResponse = await fetch(url, {
