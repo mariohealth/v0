@@ -26,6 +26,7 @@ interface FamilyCardProps {
   categoryName?: string;
   categorySlug?: string;
   isPopular?: boolean;
+  className?: string;
 }
 
 export function FamilyCard({
@@ -39,11 +40,12 @@ export function FamilyCard({
   categoryName,
   categorySlug,
   isPopular = false,
+  className = '',
 }: FamilyCardProps) {
   return (
     <Link
       href={`/family/${slug}`}
-      className="group relative block bg-card border rounded-xl p-6 hover:border-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+      className={`group relative block bg-card border rounded-xl p-6 hover:border-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${className}`}
     >
       <div className="space-y-4">
         {/* Header */}

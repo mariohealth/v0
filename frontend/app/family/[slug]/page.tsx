@@ -152,9 +152,17 @@ export default function FamilyPage() {
           <BreadcrumbNav 
             items={[
               ...(family.categorySlug && family.categoryName ? [
-                { label: family.categoryName, href: `/category/${family.categorySlug}` }
+                { 
+                  label: family.categoryName, 
+                  href: `/category/${family.categorySlug}` 
+                }
               ] : []),
-              { label: family.name, href: `/family/${family.slug}` }
+              { 
+                label: family.name, 
+                href: `/family/${family.slug}`,
+                count: family.procedureCount,
+                countLabel: 'procedures'
+              }
             ]}
           />
         </div>
@@ -175,14 +183,16 @@ export default function FamilyPage() {
             <p className="text-muted-foreground text-lg mb-4">
               {family.description}
             </p>
-            <p className="text-sm text-muted-foreground">
-              {family.procedureCount} procedures available
-            </p>
+            <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
+              <span className="font-semibold text-foreground">
+                {family.procedureCount} {family.procedureCount === 1 ? 'procedure' : 'procedures'} available
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Filters & Sort Bar */}
-        <div className="bg-card border rounded-lg p-4 mb-6">
+        {/* Filters & Sort Bar - Sticky on Mobile */}
+        <div className="sticky top-[73px] md:static z-30 bg-card/95 backdrop-blur-sm border rounded-lg p-4 mb-6 md:bg-card md:backdrop-blur-none">
           <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
             {/* Search Input */}
             <div className="flex-1">
