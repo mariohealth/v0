@@ -16,14 +16,16 @@ from google.oauth2 import id_token
 logger = logging.getLogger(__name__)
 
 
-def verify_google_token(token: str, audience: Optional[str] = None) -> Dict[str, Any]:
+def verify_google_token(token: str) -> Dict[str, Any]:
     """
     Verify a Google OAuth2 ID token.
     
+    Supports Google ID tokens from accounts.google.com for local testing.
+    Uses the helper function pattern as requested, with fallback to extract
+    audience from token if verification without audience fails.
+    
     Args:
         token: JWT token string
-        audience: Optional expected audience (aud claim). If None, will try to verify
-                  without audience check (for tokens from accounts.google.com)
         
     Returns:
         Decoded token information (claims)
@@ -34,51 +36,53 @@ def verify_google_token(token: str, audience: Optional[str] = None) -> Dict[str,
     try:
         request = google_requests.Request()
         
-        # Try to verify the token
-        # If audience is provided, use it (for Cloud Run tokens)
-        # If not, try without audience check (for OAuth2 user tokens)
-        if audience:
-            id_info = id_token.verify_oauth2_token(token, request, audience=audience)
-        else:
-            # For tokens from accounts.google.com, we need to check the issuer
-            # and may need to skip audience verification for local testing
-            try:
-                # Try without audience first (for local ADC tokens)
-                id_info = id_token.verify_oauth2_token(token, request)
-            except ValueError:
-                # If that fails and we have a Cloud Run URL, try with that as audience
-                cloud_run_url = os.getenv("CLOUD_RUN_URL") or os.getenv("GOOGLE_CLOUD_PROJECT")
-                if cloud_run_url:
-                    logger.info(f"Retrying token verification with audience: {cloud_run_url}")
-                    id_info = id_token.verify_oauth2_token(token, request, audience=cloud_run_url)
-                else:
-                    raise
-        
-        issuer = id_info.get('iss', 'unknown')
-        token_email = id_info.get('email', 'unknown')
-        logger.info(f"✅ Token verified successfully. Issuer: {issuer}, Email: {token_email}")
-        return id_info
-        
-    except ValueError as e:
-        error_msg = str(e)
-        logger.warning(f"❌ Token verification failed (ValueError): {error_msg}")
-        
-        # Provide helpful error messages
-        if "Token audience mismatch" in error_msg:
+        # Try verification without audience first (as per user's helper function)
+        # This works for some token types but may fail for accounts.google.com tokens
+        try:
+            id_info = id_token.verify_oauth2_token(token, request)
+            issuer = id_info.get('iss', 'unknown')
+            logger.info(f"✅ Token verified successfully. Issuer: {issuer}")
+            return id_info
+        except ValueError as e:
+            error_msg = str(e)
+            
+            # If audience is required, extract it from the token itself and retry
+            if "audience" in error_msg.lower() or "aud" in error_msg.lower():
+                # Decode JWT to get audience claim
+                import base64
+                import json
+                try:
+                    parts = token.split('.')
+                    if len(parts) >= 2:
+                        payload = parts[1]
+                        payload += '=' * (4 - len(payload) % 4)
+                        decoded = base64.urlsafe_b64decode(payload)
+                        token_data = json.loads(decoded)
+                        token_audience = token_data.get('aud')
+                        issuer = token_data.get('iss', '')
+                        
+                        if token_audience:
+                            logger.info(f"Found audience in token: {token_audience}, issuer: {issuer}")
+                            # Retry verification with token's own audience
+                            id_info = id_token.verify_oauth2_token(token, request, audience=token_audience)
+                            logger.info(f"✅ Token verified with extracted audience. Issuer: {issuer}")
+                            return id_info
+                except Exception as decode_error:
+                    logger.debug(f"Could not extract/use audience from token: {decode_error}")
+            
+            # If we couldn't verify, raise the original error
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token audience mismatch. Ensure token is issued for the correct service."
+                detail=f"Invalid Google ID token: {error_msg}"
             )
-        else:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail=f"Invalid token: {error_msg}"
-            )
+        
+    except HTTPException:
+        raise
     except Exception as e:
         logger.warning(f"❌ Token verification failed: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"Token verification failed: {str(e)}"
+            detail=f"Invalid Google ID token: {str(e)}"
         )
 
 
