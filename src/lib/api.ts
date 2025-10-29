@@ -52,7 +52,92 @@ if (!API_BASE_URL || API_BASE_URL === 'your_api_url') {
 }
 
 /**
- * Generic fetch wrapper with error handling, analytics, and CORS detection
+ * Token cache for storing authentication tokens in memory
+ */
+interface TokenCache {
+  token: string | null;
+  expiresAt: number; // Timestamp in milliseconds
+}
+
+let tokenCache: TokenCache = {
+  token: null,
+  expiresAt: 0,
+};
+
+// Buffer time before expiration to refresh token (5 minutes)
+const TOKEN_REFRESH_BUFFER = 5 * 60 * 1000;
+
+/**
+ * Check if the current token is valid and not expired
+ */
+function isTokenValid(): boolean {
+  if (!tokenCache.token) {
+    return false;
+  }
+  // Check if token expires within the buffer time
+  return Date.now() < (tokenCache.expiresAt - TOKEN_REFRESH_BUFFER);
+}
+
+/**
+ * Get authentication token from Next.js API route
+ * Includes caching and automatic refresh
+ * 
+ * @returns Promise with the identity token
+ * @throws Error if token generation fails
+ */
+export async function getAuthToken(): Promise<string> {
+  // Return cached token if still valid
+  if (isTokenValid()) {
+    return tokenCache.token!;
+  }
+
+  try {
+    // Fetch new token from Next.js API route
+    const response = await fetch('/api/auth/token', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const errorMessage = errorData.error || `Failed to get auth token: ${response.status}`;
+      
+      trackError(new Error(errorMessage), { endpoint: '/api/auth/token', status: response.status });
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    
+    if (!data.token) {
+      throw new Error('No token returned from auth endpoint');
+    }
+
+    // Cache the token
+    // Calculate expiration time (default to 50 minutes if not provided, to account for buffer)
+    const expiresIn = data.expiresIn || 3600;
+    tokenCache = {
+      token: data.token,
+      expiresAt: Date.now() + (expiresIn * 1000),
+    };
+
+    return data.token;
+  } catch (error) {
+    // Clear cache on error
+    tokenCache = { token: null, expiresAt: 0 };
+    
+    if (error instanceof Error) {
+      trackError(error, { endpoint: '/api/auth/token' });
+      throw new Error(`Authentication failed: ${error.message}`);
+    }
+    
+    throw new Error('Authentication failed: Unknown error');
+  }
+}
+
+/**
+ * Generic fetch wrapper with error handling, analytics, CORS detection, and authentication
  */
 async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   if (!API_BASE_URL || API_BASE_URL === 'your_api_url') {
@@ -64,11 +149,22 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
   const url = `${API_BASE_URL}${endpoint}`;
   const startTime = performance.now();
 
+  // Get authentication token
+  let authToken: string;
+  try {
+    authToken = await getAuthToken();
+  } catch (error) {
+    const authError = error instanceof Error ? error : new Error('Failed to get authentication token');
+    trackError(authError, { endpoint, errorType: 'auth' });
+    throw new Error(`Authentication failed: ${authError.message}`);
+  }
+
   try {
     const response = await fetch(url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`,
         ...options.headers,
       },
     });
@@ -85,6 +181,33 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
         errorMessage = errorData.message || errorData.detail || errorMessage;
       } catch {
         errorMessage = errorText || errorMessage;
+      }
+
+      // Handle 401 Unauthorized - token may have expired, try refreshing
+      if (response.status === 401) {
+        // Clear token cache and retry once
+        tokenCache = { token: null, expiresAt: 0 };
+        
+        try {
+          const newToken = await getAuthToken();
+          const retryResponse = await fetch(url, {
+            ...options,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${newToken}`,
+              ...options.headers,
+            },
+          });
+
+          if (retryResponse.ok) {
+            const data = await retryResponse.json();
+            trackApiCall(endpoint, duration, retryResponse.status);
+            return data;
+          }
+        } catch (retryError) {
+          // Retry failed, proceed with original error
+          trackError(new Error('Token refresh retry failed'), { endpoint, status: 401 });
+        }
       }
 
       const apiError = new Error(`API request failed (${response.status}): ${errorMessage}`);
