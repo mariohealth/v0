@@ -17,7 +17,7 @@ Before running or deploying, make sure you have:
 - 🐘 A [Supabase](https://supabase.com/) project with a table (e.g. `products`)
 
 ## Deploy on your local machine
-```
+```bash
 # Create virtual environment (if not already done)
 python -m venv venv
 
@@ -44,11 +44,11 @@ deactivate
 
 ## Deploy to Google Cloud Run
 ### 1. Verify you're in the right directory
-```
+```bash
 pwd # Should be in mario-health/backend/mario-health-api/
 ```
 ### 2. Start Docker Desktop on your local machine and test locally first
-```
+```bash
 docker build -t mario-health-api-test .
 docker run -p 8080:8080 \
   -e SUPABASE_URL="https://anvremdouphhucqrxgoq.supabase.co" \
@@ -57,7 +57,7 @@ docker run -p 8080:8080 \
 ```
 
 ### 3. Test in another terminal
-```
+```bash
 curl http://localhost:8080/health
 curl http://localhost:8080/api/v1/categories
 ```
@@ -65,12 +65,12 @@ curl http://localhost:8080/api/v1/categories
 ### 4. If works, proceed with deployment
 
 Install & configure Google Cloud SDK:
-```
+```bash
 gcloud auth login
 gcloud config set project mario-mrf-data
 ```
 Use the deployment script
-```
+```bash
 chmod +x deploy.sh # make it executable (if not already done)
 
 ./deploy.sh

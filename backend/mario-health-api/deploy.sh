@@ -21,12 +21,6 @@ fi
 
 SUPABASE_URL=${SUPABASE_URL:-"https://anvremdouphhucqrxgoq.supabase.co"}
 
-if [ -z "$SUPABASE_KEY" ]; then
-    echo "⚠️  SUPABASE_KEY not found in .env"
-    echo "Please enter your Supabase key:"
-    read -s SUPABASE_KEY
-fi
-
 # Step 1: Build Docker image
 echo ""
 echo "📦 Step 1: Building Docker image..."
