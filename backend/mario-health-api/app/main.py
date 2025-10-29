@@ -68,10 +68,17 @@ app = FastAPI(
 )
 
 # CORS middleware
-ALLOWED_ORIGINS = os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:3000,https://mariohealth.com,https://www.mariohealth.com",
-).split(",")
+# ALLOWED_ORIGINS = os.getenv(
+#     "ALLOWED_ORIGINS",
+#     "http://localhost:3000,https://mario.health,https://www.mario.health"
+# ).split(",")
+
+ALLOWED_ORIGINS = ["http://localhost:3000",
+                   "http://127.0.0.1:300"
+                   "https://mario.health",
+                   "https://www.mario.health",
+                   "https://mario-health-ifzy.vercel.app"
+                   ]
 
 app.add_middleware(
     CORSMiddleware,
@@ -148,8 +155,7 @@ def health_check():
         "environment": os.getenv("ENVIRONMENT", "development"),
     }
 
-
-# Optional: Add middleware for request logging
+# Add middleware for request logging
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     """Log all incoming requests."""
