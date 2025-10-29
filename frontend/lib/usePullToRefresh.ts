@@ -30,7 +30,7 @@ export function usePullToRefresh({
     const startY = useRef(0);
     const currentY = useRef(0);
     const isAtTop = useRef(false);
-    const containerRef = useRef<HTMLElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (disabled || !containerRef.current) return;

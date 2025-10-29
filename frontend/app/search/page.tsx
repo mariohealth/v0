@@ -14,7 +14,8 @@ import { searchProcedures, type SearchResult } from '@/lib/backend-api';
 import { usePreferences } from '@/lib/contexts/PreferencesContext';
 import { SORT_OPTIONS, getDefaultSortPreference, saveSortPreference, type SortOption } from '@/lib/search-utils';
 import { saveSearch } from '@/lib/saved-searches';
-import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown, Bookmark, BookmarkCheck } from 'lucide-react';
+import { findRelatedProcedures } from '@/lib/related-procedures';
+import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown, Bookmark, BookmarkCheck, CheckSquare, Square } from 'lucide-react';
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -37,6 +38,14 @@ function SearchResults() {
   const [refinementQuery, setRefinementQuery] = useState('');
   const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
   const [isSearchSaved, setIsSearchSaved] = useState(false);
+  const [relatedProcedures, setRelatedProcedures] = useState<Array<{
+    id: string;
+    slug: string;
+    name: string;
+    category: string;
+    family: string;
+    score: number;
+  }>>([]);
 
   // Load saved sort preference
   useEffect(() => {
@@ -121,15 +130,14 @@ function SearchResults() {
     try {
       const { saveSearch } = await import('@/lib/saved-searches');
       await saveSearch({
-        user_id: 'guest_user', // TODO: Replace with actual user ID
         query,
         location: locationParam || defaultZip || undefined,
         filters: {
-          price_range: filters.priceRange || undefined,
+          priceRange: filters.priceRange || undefined,
           types: filters.types || [],
-          min_rating: filters.minRating || undefined,
+          minRating: filters.minRating || undefined,
         },
-        alert_enabled: false,
+        alertEnabled: false,
       });
       setIsSearchSaved(true);
     } catch (error) {
@@ -291,12 +299,25 @@ function SearchResults() {
 
                 {/* Related Procedures */}
                 {relatedProcedures.length > 0 && (
-                  <RelatedProcedures
-                    currentQuery={query}
-                    currentCategory={filteredResults[0]?.categoryName}
-                    relatedProcedures={relatedProcedures}
-                    onSelect={handleRelatedSelect}
-                  />
+                  <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <SlidersHorizontal className="w-5 h-5 text-emerald-600" />
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        People also searched for
+                      </h3>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {relatedProcedures.map((procedure) => (
+                        <Link
+                          key={procedure.id}
+                          href={`/procedure/${procedure.slug}`}
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full hover:bg-emerald-100 transition-colors text-sm font-medium"
+                        >
+                          {procedure.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 )}
 
                 <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
@@ -406,11 +427,13 @@ function SearchResults() {
 function ProcedureCard({
   result,
   isSelected = false,
-  onToggleCompare
+  onToggleCompare,
+  searchTerms = []
 }: {
   result: SearchResult;
   isSelected?: boolean;
   onToggleCompare?: () => void;
+  searchTerms?: string[];
 }) {
   return (
     <div className="relative bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1">
