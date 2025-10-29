@@ -470,4 +470,5 @@ export type {
     TimeSlot,
     ApiError,
     ApiResponse,
+    SearchError,
 } from '../types/api';
