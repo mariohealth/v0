@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import path from 'path';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -6,8 +7,9 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
   // Set turbopack root to frontend directory for monorepo setup
+  // This silences the warning about multiple lockfiles
   turbopack: {
-    root: process.cwd(),
+    root: path.resolve(__dirname),
   },
   images: {
     formats: ['image/webp', 'image/avif'],
