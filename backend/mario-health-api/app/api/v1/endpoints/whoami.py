@@ -13,14 +13,12 @@ router = APIRouter(prefix="/whoami", tags=["auth"])
 
 
 @router.get("")
-async def whoami(
-    user: Dict[str, Any] = Depends(require_auth)
-):
+async def whoami(user: Dict[str, Any] = Depends(require_auth)):
     """
     Debug endpoint that returns authenticated user information from token claims.
-    
+
     Requires authentication - will return 401 if no valid token is provided.
-    
+
     Returns:
         Dictionary containing:
         - authenticated: true
@@ -36,7 +34,7 @@ async def whoami(
             "issuer": user.get("iss", "N/A"),
             "audience": user.get("aud", "N/A"),
         }
-        
+
         return {
             "authenticated": True,
             "user_info": user_info,
@@ -50,7 +48,7 @@ async def whoami(
                 "authenticated": False,
                 "error": str(e),
                 "message": "Error processing token claims",
-            }
+            },
         )
 
 
@@ -58,9 +56,9 @@ async def whoami(
 async def whoami_test():
     """
     Test endpoint that does NOT require authentication.
-    
+
     Returns error details to help debug authentication issues.
-    
+
     Returns:
         Information about the endpoint and how to use it
     """
@@ -71,6 +69,5 @@ async def whoami_test():
             "to_test_auth": "Send a GET request to /api/v1/whoami (without /test) with Authorization: Bearer <token> header",
             "token_required": True,
             "expected_response": "Returns token claims if valid, 401 if invalid or missing",
-        }
+        },
     }
-

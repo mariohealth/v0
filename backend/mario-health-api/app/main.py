@@ -75,11 +75,18 @@ ALLOWED_ORIGINS_STR = os.getenv(
     "http://localhost:3000,http://127.0.0.1:3000,https://mario.health,https://www.mario.health,https://mario-health-ifzy.vercel.app",
 )
 # Strip whitespace from each origin to prevent CORS issues
-ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS_STR.split(",") if origin.strip()]
+ALLOWED_ORIGINS = [
+    origin.strip() for origin in ALLOWED_ORIGINS_STR.split(",") if origin.strip()
+]
 
 # Verify localhost:3000 is in the list
-if "http://localhost:3000" not in ALLOWED_ORIGINS and "http://127.0.0.1:3000" not in ALLOWED_ORIGINS:
-    logger.warning("⚠️  WARNING: localhost:3000 not found in ALLOWED_ORIGINS! Adding it for local development.")
+if (
+    "http://localhost:3000" not in ALLOWED_ORIGINS
+    and "http://127.0.0.1:3000" not in ALLOWED_ORIGINS
+):
+    logger.warning(
+        "⚠️  WARNING: localhost:3000 not found in ALLOWED_ORIGINS! Adding it for local development."
+    )
     if "http://localhost:3000" not in ALLOWED_ORIGINS:
         ALLOWED_ORIGINS.append("http://localhost:3000")
 
@@ -93,7 +100,9 @@ GOOGLE_ALLOWED_AUDIENCES = [
 ]
 
 logger.info(f"🔒 CORS configured with allowed origins: {ALLOWED_ORIGINS}")
-logger.info(f"🔐 Google OAuth2 allowed audiences: {GOOGLE_ALLOWED_AUDIENCES if GOOGLE_ALLOWED_AUDIENCES else 'NOT CONFIGURED - Token verification will fail'}")
+logger.info(
+    f"🔐 Google OAuth2 allowed audiences: {GOOGLE_ALLOWED_AUDIENCES if GOOGLE_ALLOWED_AUDIENCES else 'NOT CONFIGURED - Token verification will fail'}"
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -171,6 +180,7 @@ def health_check():
         "environment": os.getenv("ENVIRONMENT", "development"),
     }
 
+
 # Add middleware for request logging
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
@@ -179,20 +189,22 @@ async def log_requests(request: Request, call_next):
     auth_header = request.headers.get("authorization", "")
     if auth_header:
         # Show first 30 chars only
-        auth_preview = auth_header[:30] + "..." if len(auth_header) > 30 else auth_header
+        auth_preview = (
+            auth_header[:30] + "..." if len(auth_header) > 30 else auth_header
+        )
         logger.info(f"{request.method} {request.url.path} | Auth: {auth_preview}")
-    
+
     # Log origin header for CORS debugging
     origin = request.headers.get("origin", "")
     if origin:
         logger.info(f"  Origin: {origin}")
-    
+
     response = await call_next(request)
-    
+
     # Log CORS headers in response
     cors_origin = response.headers.get("access-control-allow-origin", "")
     if cors_origin:
         logger.info(f"  CORS Allowed Origin: {cors_origin}")
-    
+
     logger.info(f"Response status: {response.status_code}")
     return response

@@ -5,7 +5,7 @@ Supports two types of tokens:
 1. Google Cloud Identity Tokens (for Cloud Run services)
    - Audience: Cloud Run service URL (e.g., https://service.run.app)
    - Issuer: https://accounts.google.com (for service account tokens)
-   
+
 2. Google OAuth2 ID Tokens (for user authentication)
    - Audience: OAuth2 client ID
    - Issuer: accounts.google.com or https://accounts.google.com
@@ -24,72 +24,80 @@ logger = logging.getLogger(__name__)
 def get_allowed_audiences() -> List[str]:
     """
     Get list of allowed audiences from environment variable.
-    
+
     Supports both:
     - Google OAuth2 client IDs (for user OAuth tokens)
     - Cloud Run service URLs (for service account identity tokens)
-    
+
     Returns:
         List of allowed audience strings, stripped of whitespace
     """
     audiences_str = os.getenv("GOOGLE_ALLOWED_AUDIENCES", "")
     if not audiences_str:
         return []
-    
+
     # Split by comma and strip whitespace
     audiences = [aud.strip() for aud in audiences_str.split(",") if aud.strip()]
-    
+
     # Log what types of audiences we expect
-    cloud_run_urls = [a for a in audiences if a.startswith("https://") and ".run.app" in a]
+    cloud_run_urls = [
+        a for a in audiences if a.startswith("https://") and ".run.app" in a
+    ]
     oauth_client_ids = [a for a in audiences if not a.startswith("https://")]
-    
+
     if cloud_run_urls:
-        logger.info(f"📌 Configured Cloud Run service URLs as audiences: {cloud_run_urls}")
+        logger.info(
+            f"📌 Configured Cloud Run service URLs as audiences: {cloud_run_urls}"
+        )
     if oauth_client_ids:
         logger.info(f"📌 Configured OAuth2 client IDs as audiences: {oauth_client_ids}")
-    
+
     return audiences
 
 
 def verify_google_id_token_strict(token: str) -> Dict[str, Any]:
     """
     Strictly verify a Google OAuth2 ID token.
-    
+
     Requirements:
     - Issuer must be exactly "accounts.google.com" or "https://accounts.google.com"
     - Audience (aud) must match one of the configured GOOGLE_ALLOWED_AUDIENCES
     - Does NOT auto-extract audience; requires explicit configuration
-    
+
     Args:
         token: JWT token string
-        
+
     Returns:
         Decoded token information (claims)
-        
+
     Raises:
         HTTPException: If token verification fails or requirements not met
     """
     allowed_audiences = get_allowed_audiences()
-    
+
     # Log configuration for debugging
-    logger.info(f"🔍 Token verification started. Allowed audiences: {allowed_audiences}")
-    
+    logger.info(
+        f"🔍 Token verification started. Allowed audiences: {allowed_audiences}"
+    )
+
     if not allowed_audiences:
-        logger.warning("⚠️ GOOGLE_ALLOWED_AUDIENCES not configured. Token verification will fail.")
+        logger.warning(
+            "⚠️ GOOGLE_ALLOWED_AUDIENCES not configured. Token verification will fail."
+        )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Google token verification not configured. GOOGLE_ALLOWED_AUDIENCES must be set.",
         )
-    
+
     request = google_requests.Request()
-    
+
     # Try each allowed audience until one succeeds
     last_error = None
     for audience in allowed_audiences:
         try:
             logger.debug(f"🔄 Attempting token verification with audience: {audience}")
             id_info = id_token.verify_oauth2_token(token, request, audience=audience)
-            
+
             # Extract and log token claims for debugging
             issuer = id_info.get("iss", "")
             token_audience = id_info.get("aud", "")
@@ -97,7 +105,7 @@ def verify_google_id_token_strict(token: str) -> Dict[str, Any]:
             email_verified = id_info.get("email_verified", False)
             sub = id_info.get("sub", "N/A")
             exp = id_info.get("exp", "N/A")
-            
+
             # Log all token claims for debugging
             logger.info(f"📋 Decoded token claims:")
             logger.info(f"   - Issuer (iss): {issuer}")
@@ -107,7 +115,7 @@ def verify_google_id_token_strict(token: str) -> Dict[str, Any]:
             logger.info(f"   - Email: {email}")
             logger.info(f"   - Email verified: {email_verified}")
             logger.info(f"   - Expiration (exp): {exp}")
-            
+
             # Verify issuer is from Google
             # Accept both user OAuth2 tokens (accounts.google.com) and service account tokens (https://accounts.google.com)
             valid_issuers = (
@@ -116,33 +124,42 @@ def verify_google_id_token_strict(token: str) -> Dict[str, Any]:
                 "https://securetoken.google.com",  # Firebase/service account tokens
             )
             if issuer not in valid_issuers:
-                logger.error(f"❌ Invalid token issuer: {issuer}. Expected one of: {valid_issuers}")
+                logger.error(
+                    f"❌ Invalid token issuer: {issuer}. Expected one of: {valid_issuers}"
+                )
                 raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
                     detail=f"Invalid token issuer: {issuer}. Expected Google issuer.",
                 )
-            
+
             # Verify audience matches
             if token_audience != audience:
-                logger.warning(f"⚠️ Token audience ({token_audience}) does not match expected ({audience}), trying next audience...")
+                logger.warning(
+                    f"⚠️ Token audience ({token_audience}) does not match expected ({audience}), trying next audience..."
+                )
                 continue  # Try next audience
-            
+
             logger.info(
                 f"✅ Token verified successfully. Issuer: {issuer}, Audience: {token_audience}, Email: {email}"
             )
             return id_info
-            
+
         except ValueError as e:
             last_error = str(e)
-            logger.warning(f"⚠️ Token verification failed with audience {audience}: {str(e)}")
+            logger.warning(
+                f"⚠️ Token verification failed with audience {audience}: {str(e)}"
+            )
             continue  # Try next audience
         except HTTPException:
             raise
         except Exception as e:
-            logger.error(f"❌ Unexpected error during token verification: {str(e)}", exc_info=True)
+            logger.error(
+                f"❌ Unexpected error during token verification: {str(e)}",
+                exc_info=True,
+            )
             last_error = str(e)
             continue
-    
+
     # If we get here, no audience matched
     logger.error(
         f"❌ Token verification failed: Token audience does not match any allowed audience. "

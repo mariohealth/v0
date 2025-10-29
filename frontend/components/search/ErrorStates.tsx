@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchError } from './api';
+import { SearchError } from '@/types/api';
 import { AlertTriangle, Wifi, Clock, Shield, RefreshCw, XCircle } from 'lucide-react';
 
 interface ErrorDisplayProps {

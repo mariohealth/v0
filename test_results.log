@@ -1,0 +1,42 @@
+
+======================================================================
+Mario Health E2E CORS & Authentication Test Suite
+======================================================================
+
+======================================================================
+TEST: 1. Backend Health Check
+======================================================================
+✗ FAILED: Backend is not accessible
+  url: http://127.0.0.1:8000
+  suggestion: Start backend with: cd backend/mario-health-api && uvicorn app.main:app --reload
+
+⚠ Backend is not running. Some tests will be skipped.
+  Start backend with: cd backend/mario-health-api && uvicorn app.main:app --reload
+
+======================================================================
+TEST: 2. Frontend Token Endpoint Check
+======================================================================
+✓ PASSED: Token retrieved successfully
+  token_preview: eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4NDg5MjEyMmUyOTM5Zm...
+  token_length: 938
+
+  Token Claims (decoded):
+    iss: https://accounts.google.com
+    aud: 764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com
+    exp: 1761775764
+    email: arman@mario.health
+
+======================================================================
+TEST SUMMARY
+======================================================================
+Passed: 1
+Failed: 1
+Warnings: 0
+
+======================================================================
+FAILURES DETAILED:
+======================================================================
+
+✗ Backend is not accessible
+  url: http://127.0.0.1:8000
+  suggestion: Start backend with: cd backend/mario-health-api && uvicorn app.main:app --reload
