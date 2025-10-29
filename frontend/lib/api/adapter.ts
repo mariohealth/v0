@@ -11,6 +11,7 @@
  */
 
 import { mockProviders, filterProviders, Provider, TimeSlot, Review } from '../mockData';
+import { getAuthToken } from './auth-token';
 
 // Environment configuration
 const USE_MOCK_API = process.env.NEXT_PUBLIC_USE_MOCK_API === 'true';
@@ -606,12 +607,29 @@ class RealApiClient {
     ): Promise<T> {
         const url = `${this.baseUrl}${endpoint}`;
 
+        // Get auth token for Authorization header
+        const token = await getAuthToken();
+        
+        // Build headers with Authorization if token is available
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            ...(options.headers as Record<string, string> || {}),
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        // Log outgoing headers for debugging
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+            console.log(`[API Request] ${options.method || 'GET'} ${url}`, {
+                headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
+            });
+        }
+
         const config: RequestInit = {
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers,
-            },
             ...options,
+            headers,
         };
 
         const requestPromise = fetch(url, config).then(async (response) => {

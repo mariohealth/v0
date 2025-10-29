@@ -65,23 +65,23 @@ export interface ProcedureDetail {
   name: string;
   slug: string;
   description?: string;
-  
+
   // Family context
   familyId: string;
   familyName: string;
   familySlug: string;
-  
+
   // Category context
   categoryId: string;
   categoryName: string;
   categorySlug: string;
-  
+
   // Pricing summary
   minPrice: number | null;
   maxPrice: number | null;
   avgPrice: number | null;
   medianPrice: number | null;
-  
+
   // All carrier prices
   carrierPrices: CarrierPrice[];
 }
@@ -100,16 +100,16 @@ export interface SearchResult {
   procedureId: string;
   procedureName: string;
   procedureSlug: string;
-  
+
   familyName: string;
   familySlug: string;
   categoryName: string;
   categorySlug: string;
-  
+
   bestPrice: number;
   avgPrice: number;
   priceRange: string;
-  
+
   providerCount: number;
   nearestProvider?: string;
   nearestDistanceMiles?: number;
@@ -118,7 +118,7 @@ export interface SearchResult {
 export interface ProviderDetail {
   providerId: string;
   providerName: string;
-  
+
   // Location info
   address?: string;
   city?: string;
@@ -126,16 +126,16 @@ export interface ProviderDetail {
   zipCode?: string;
   latitude?: number;
   longitude?: number;
-  
+
   // Contact info
   phone?: string;
-  
+
   // Statistics
   totalProcedures: number;
   avgPrice: number | null;
   minPrice: number | null;
   maxPrice: number | null;
-  
+
   // All procedures offered by this provider
   procedures: ProviderProcedurePricing[];
 }
@@ -144,12 +144,12 @@ export interface ProviderProcedurePricing {
   procedureId: string;
   procedureName: string;
   procedureSlug: string;
-  
+
   familyName: string;
   familySlug: string;
   categoryName: string;
   categorySlug: string;
-  
+
   // Pricing info
   price: number;
   carrierId: string;
@@ -162,18 +162,18 @@ export interface BillingCodeProcedureMapping {
   procedureName: string;
   procedureSlug: string;
   procedureDescription?: string;
-  
+
   familyName: string;
   familySlug: string;
   categoryName: string;
   categorySlug: string;
-  
+
   // Pricing summary for this procedure
   minPrice: number | null;
   maxPrice: number | null;
   avgPrice: number | null;
   providerCount: number;
-  
+
   // Code metadata
   codeType: string;
   isPrimary: boolean;
@@ -183,10 +183,10 @@ export interface BillingCodeDetail {
   code: string;
   codeType?: string;
   description?: string;
-  
+
   // All procedures that use this billing code
   procedures: BillingCodeProcedureMapping[];
-  
+
   // Aggregate pricing across all procedures
   overallMinPrice: number | null;
   overallMaxPrice: number | null;
@@ -249,23 +249,23 @@ export function transformProcedureDetail(raw: RawProcedureDetail): ProcedureDeta
     name: raw.name,
     slug: raw.slug,
     description: raw.description,
-    
+
     // Family context
     familyId: raw.family_id,
     familyName: raw.family_name,
     familySlug: raw.family_slug,
-    
+
     // Category context
     categoryId: raw.category_id,
     categoryName: raw.category_name,
     categorySlug: raw.category_slug,
-    
+
     // Pricing summary
     minPrice: raw.min_price,
     maxPrice: raw.max_price,
     avgPrice: raw.avg_price,
     medianPrice: raw.median_price,
-    
+
     // All carrier prices
     carrierPrices: raw.carrier_prices.map(transformCarrierPrice),
   };
@@ -294,16 +294,16 @@ export function transformSearchResult(raw: RawSearchResult): SearchResult {
     procedureId: raw.procedure_id,
     procedureName: raw.procedure_name,
     procedureSlug: raw.procedure_slug,
-    
+
     familyName: raw.family_name,
     familySlug: raw.family_slug,
     categoryName: raw.category_name,
     categorySlug: raw.category_slug,
-    
+
     bestPrice: raw.best_price,
     avgPrice: raw.avg_price,
     priceRange: raw.price_range,
-    
+
     providerCount: raw.provider_count,
     nearestProvider: raw.nearest_provider,
     nearestDistanceMiles: raw.nearest_distance_miles,
@@ -317,7 +317,7 @@ export function transformProviderDetail(raw: RawProviderDetail): ProviderDetail 
   return {
     providerId: raw.provider_id,
     providerName: raw.provider_name,
-    
+
     // Location info
     address: raw.address,
     city: raw.city,
@@ -325,16 +325,16 @@ export function transformProviderDetail(raw: RawProviderDetail): ProviderDetail 
     zipCode: raw.zip_code,
     latitude: raw.latitude,
     longitude: raw.longitude,
-    
+
     // Contact info
     phone: raw.phone,
-    
+
     // Statistics
     totalProcedures: raw.total_procedures,
     avgPrice: raw.avg_price,
     minPrice: raw.min_price,
     maxPrice: raw.max_price,
-    
+
     // All procedures offered by this provider
     procedures: raw.procedures.map(transformProviderProcedure),
   };
@@ -348,12 +348,12 @@ export function transformProviderProcedure(raw: RawProviderProcedure): ProviderP
     procedureId: raw.procedure_id,
     procedureName: raw.procedure_name,
     procedureSlug: raw.procedure_slug,
-    
+
     familyName: raw.family_name,
     familySlug: raw.family_slug,
     categoryName: raw.category_name,
     categorySlug: raw.category_slug,
-    
+
     // Pricing info
     price: raw.price,
     carrierId: raw.carrier_id,
@@ -412,18 +412,18 @@ function transformBillingCodeProcedure(raw: RawBillingCodeProcedureMapping): Bil
     procedureName: raw.procedure_name,
     procedureSlug: raw.procedure_slug,
     procedureDescription: raw.procedure_description,
-    
+
     familyName: raw.family_name,
     familySlug: raw.family_slug,
     categoryName: raw.category_name,
     categorySlug: raw.category_slug,
-    
+
     // Pricing summary for this procedure
     minPrice: raw.min_price,
     maxPrice: raw.max_price,
     avgPrice: raw.avg_price,
     providerCount: raw.provider_count,
-    
+
     // Code metadata
     codeType: raw.code_type,
     isPrimary: raw.is_primary,
@@ -438,10 +438,10 @@ export function transformBillingCodeDetail(raw: RawBillingCodeDetail): BillingCo
     code: raw.code,
     codeType: raw.code_type,
     description: raw.description,
-    
+
     // All procedures that use this billing code
     procedures: raw.procedures.map(transformBillingCodeProcedure),
-    
+
     // Aggregate pricing across all procedures
     overallMinPrice: raw.overall_min_price,
     overallMaxPrice: raw.overall_max_price,

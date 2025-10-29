@@ -44,14 +44,100 @@ import {
 import { trackApiCall, trackError } from './analytics';
 
 // Configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-72178908097.us-central1.run.app';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-ei5wbr4h5a-uc.a.run.app';
+const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || 'v1';
 
 if (!API_BASE_URL || API_BASE_URL === 'your_api_url') {
   console.error('⚠️  NEXT_PUBLIC_API_URL is not configured. Please set it in your .env.local file.');
 }
 
 /**
- * Generic fetch wrapper with error handling, analytics, and CORS detection
+ * Token cache for storing authentication tokens in memory
+ */
+interface TokenCache {
+  token: string | null;
+  expiresAt: number; // Timestamp in milliseconds
+}
+
+let tokenCache: TokenCache = {
+  token: null,
+  expiresAt: 0,
+};
+
+// Buffer time before expiration to refresh token (5 minutes)
+const TOKEN_REFRESH_BUFFER = 5 * 60 * 1000;
+
+/**
+ * Check if the current token is valid and not expired
+ */
+function isTokenValid(): boolean {
+  if (!tokenCache.token) {
+    return false;
+  }
+  // Check if token expires within the buffer time
+  return Date.now() < (tokenCache.expiresAt - TOKEN_REFRESH_BUFFER);
+}
+
+/**
+ * Get authentication token from Next.js API route
+ * Includes caching and automatic refresh
+ * 
+ * @returns Promise with the identity token
+ * @throws Error if token generation fails
+ */
+export async function getAuthToken(): Promise<string> {
+  // Return cached token if still valid
+  if (isTokenValid()) {
+    return tokenCache.token!;
+  }
+
+  try {
+    // Fetch new token from Next.js API route
+    const response = await fetch('/api/auth/token', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const errorMessage = errorData.error || `Failed to get auth token: ${response.status}`;
+
+      trackError(new Error(errorMessage), { endpoint: '/api/auth/token', status: response.status });
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+
+    if (!data.token) {
+      throw new Error('No token returned from auth endpoint');
+    }
+
+    // Cache the token
+    // Calculate expiration time (default to 50 minutes if not provided, to account for buffer)
+    const expiresIn = data.expiresIn || 3600;
+    tokenCache = {
+      token: data.token,
+      expiresAt: Date.now() + (expiresIn * 1000),
+    };
+
+    return data.token;
+  } catch (error) {
+    // Clear cache on error
+    tokenCache = { token: null, expiresAt: 0 };
+
+    if (error instanceof Error) {
+      trackError(error, { endpoint: '/api/auth/token' });
+      throw new Error(`Authentication failed: ${error.message}`);
+    }
+
+    throw new Error('Authentication failed: Unknown error');
+  }
+}
+
+/**
+ * Generic fetch wrapper with error handling, analytics, CORS detection, and authentication
  */
 async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   if (!API_BASE_URL || API_BASE_URL === 'your_api_url') {
@@ -63,11 +149,22 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
   const url = `${API_BASE_URL}${endpoint}`;
   const startTime = performance.now();
 
+  // Get authentication token
+  let authToken: string;
+  try {
+    authToken = await getAuthToken();
+  } catch (error) {
+    const authError = error instanceof Error ? error : new Error('Failed to get authentication token');
+    trackError(authError, { endpoint, errorType: 'auth' });
+    throw new Error(`Authentication failed: ${authError.message}`);
+  }
+
   try {
     const response = await fetch(url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`,
         ...options.headers,
       },
     });
@@ -86,6 +183,43 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
         errorMessage = errorText || errorMessage;
       }
 
+      // Handle 401 Unauthorized - token may have expired, try refreshing
+      if (response.status === 401 || response.status === 403) {
+        // Clear token cache and retry once
+        tokenCache = { token: null, expiresAt: 0 };
+
+        try {
+          const newToken = await getAuthToken();
+          const retryResponse = await fetch(url, {
+            ...options,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${newToken}`,
+              ...options.headers,
+            },
+          });
+
+          if (retryResponse.ok) {
+            const data = await retryResponse.json();
+            trackApiCall(endpoint, duration, retryResponse.status);
+            return data;
+          }
+        } catch (retryError) {
+          // Retry failed, throw user-friendly auth error
+          const authError = new Error('Authentication failed. Please refresh.');
+          trackError(authError, { endpoint, status: response.status });
+          throw authError;
+        }
+      }
+
+      // Handle server errors (500, 502, 503, 504)
+      if (response.status >= 500) {
+        const serverError = new Error('Server error. Please try again later.');
+        trackApiCall(endpoint, duration, status, serverError.message);
+        trackError(serverError, { endpoint, status, duration });
+        throw serverError;
+      }
+
       const apiError = new Error(`API request failed (${response.status}): ${errorMessage}`);
       trackApiCall(endpoint, duration, status, apiError.message);
       trackError(apiError, { endpoint, status, duration });
@@ -100,21 +234,58 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
   } catch (error) {
     const duration = Math.round(performance.now() - startTime);
 
-    // Detect CORS errors specifically
+    // Detect CORS errors specifically (check first, as they're a subset of network errors)
     if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+      // Check if it's likely a CORS error (no response received, browser blocked)
+      // CORS errors typically manifest as TypeError: Failed to fetch with no response
       const corsError = new Error(
-        `CORS Error: The backend needs to allow requests from your domain.\n\n` +
-        `Ask AC to add this to backend CORS settings:\n` +
-        `ALLOWED_ORIGINS = [\n` +
-        `    'http://localhost:3000',\n` +
-        `    'https://your-vercel-app.vercel.app'\n` +
-        `]`
+        'CORS Error: The backend needs to allow requests from your domain. Contact the backend team.'
       );
 
       trackApiCall(endpoint, duration, 0, 'CORS Error');
       trackError(corsError, { endpoint, duration, errorType: 'CORS' });
 
       throw corsError;
+    }
+
+    // Handle other network errors (connection issues, timeout, etc.)
+    if (error instanceof TypeError && (
+      error.message.includes('NetworkError') ||
+      error.message.includes('network') ||
+      error.message.includes('timeout')
+    )) {
+      const networkError = new Error('Network error. Check your connection.');
+      trackApiCall(endpoint, duration, 0, 'Network Error');
+      trackError(networkError, { endpoint, duration, errorType: 'Network' });
+      throw networkError;
+    }
+
+    // Handle authentication errors (already handled above in 401 check, but catch any others)
+    if (error instanceof Error && (
+      error.message.includes('401') ||
+      error.message.includes('403') ||
+      error.message.includes('Unauthorized') ||
+      error.message.includes('Forbidden') ||
+      error.message.includes('Authentication failed')
+    )) {
+      const authError = new Error('Authentication failed. Please refresh.');
+      trackApiCall(endpoint, duration, 0, 'Auth Error');
+      trackError(authError, { endpoint, duration, errorType: 'Auth' });
+      throw authError;
+    }
+
+    // Handle server errors
+    if (error instanceof Error && (
+      error.message.includes('500') ||
+      error.message.includes('502') ||
+      error.message.includes('503') ||
+      error.message.includes('504') ||
+      error.message.includes('Server error')
+    )) {
+      const serverError = new Error('Server error. Please try again later.');
+      trackApiCall(endpoint, duration, 0, 'Server Error');
+      trackError(serverError, { endpoint, duration, errorType: 'Server' });
+      throw serverError;
     }
 
     if (error instanceof Error) {
@@ -131,17 +302,51 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
 }
 
 /**
- * Get all procedure categories
+ * Base fetch wrapper with error handling
+ * @param endpoint - API endpoint path (without base URL and version)
+ * @param options - Fetch options
+ * @returns Promise with typed response
+ */
+export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  const fullEndpoint = endpoint.startsWith('/')
+    ? `/api/${API_VERSION}${endpoint}`
+    : `/api/${API_VERSION}/${endpoint}`;
+  return fetchFromApi<T>(fullEndpoint, options);
+}
+
+/**
+ * Health check endpoint
+ * @returns Health status response
+ */
+export async function fetchHealthCheck(): Promise<{ status: string; message?: string }> {
+  try {
+    return await fetchApi<{ status: string; message?: string }>('/health');
+  } catch (error) {
+    console.error('Failed to fetch health check:', error);
+    throw new Error(`Health check failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+/**
+ * Fetch all categories
  * @returns Array of categories with family counts
  */
-export async function getCategories(): Promise<Category[]> {
+export async function fetchCategories(): Promise<Category[]> {
   try {
-    const raw = await fetchFromApi<RawCategories>('/api/v1/categories');
+    const raw = await fetchApi<RawCategories>('/categories');
     return transformCategories(raw);
   } catch (error) {
     console.error('Failed to fetch categories:', error);
     throw new Error(`Failed to get categories: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
+}
+
+/**
+ * Get all procedure categories (legacy function, kept for backward compatibility)
+ * @returns Array of categories with family counts
+ */
+export async function getCategories(): Promise<Category[]> {
+  return fetchCategories();
 }
 
 /**

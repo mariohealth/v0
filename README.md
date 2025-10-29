@@ -33,53 +33,117 @@ Healthcare price transparency platform.
 ## 🚀 Quick Start
 
 ### Frontend Setup
+
+1. **Install dependencies:**
 ```bash
 cd frontend
 npm install
+```
+
+2. **Configure environment:**
+```bash
+# Copy example env file
+cp env.example .env.local
+
+# Edit .env.local and set:
+# NEXT_PUBLIC_API_URL=https://mario-health-api-72178908097.us-central1.run.app
+# NEXT_PUBLIC_USE_MOCK_API=false
+```
+
+3. **Start development server:**
+```bash
 npm run dev
 # Access at http://localhost:3000
 ```
 
+4. **Verify API connection:**
+- Visit `http://localhost:3000/api-status` to check API health
+- Check browser console for any errors
+- Test search functionality to ensure API calls work
+
 ### Backend Setup
+
+The backend is already deployed on Google Cloud Run. To run locally:
+
 ```bash
 cd backend/mario-health-api
 pip install -r requirements.txt
 uvicorn app.main:app --reload
-# API available at http://localhost:3000/api
+# API available at http://localhost:8000
 ```
+
+**Note:** If running backend locally, update `NEXT_PUBLIC_API_URL` in `.env.local` to `http://localhost:8000`.
 
 ## 🔌 API Integration
 
+### Backend API
+
+**Production API URL:** `https://mario-health-api-72178908097.us-central1.run.app`
+
+The frontend integrates with a FastAPI backend running on Google Cloud Run. All API calls automatically convert between backend's snake_case responses and frontend's camelCase types.
+
 ### Current Status
-- ✅ **Procedure Search**: Basic search functionality
-- ✅ **Procedure Categories**: Category listing
-- 🟡 **Provider Search**: Partial implementation
-- 🔴 **Provider Details**: Not implemented
+- ✅ **Categories**: Get all procedure categories with family counts
+- ✅ **Families**: Get families for a category
+- ✅ **Procedures**: Get procedures for a family with pricing
+- ✅ **Search**: Search procedures by name with optional location filtering
+- ✅ **Provider Details**: Get provider information with procedures and pricing
+- ✅ **Procedure Details**: Get detailed procedure info with all carrier pricing
 - 🔴 **Booking System**: Not implemented
 - 🔴 **Insurance Verification**: Not implemented
+
+### Environment Variables
+
+Configure these in `.env.local` (frontend) or your deployment platform:
+
+```bash
+# Required - Backend API URL
+NEXT_PUBLIC_API_URL=https://mario-health-api-72178908097.us-central1.run.app
+
+# Required - Set to 'false' to use real API
+NEXT_PUBLIC_USE_MOCK_API=false
+
+# Optional - API performance settings
+NEXT_PUBLIC_API_TIMEOUT=10000
+NEXT_PUBLIC_API_MAX_RETRIES=3
+NEXT_PUBLIC_API_RETRY_DELAY=1000
+```
+
+**Important:** Set `NEXT_PUBLIC_USE_MOCK_API=false` to use the real backend API. Mock mode is for development only.
+
+### API Endpoints
+
+All endpoints are documented in `/src/lib/api.ts` and use automatic snake_case → camelCase transformation.
+
+```typescript
+// Get all categories
+GET /api/v1/categories
+
+// Get families for a category
+GET /api/v1/categories/{slug}/families
+
+// Get procedures for a family
+GET /api/v1/families/{slug}/procedures
+
+// Get procedure detail
+GET /api/v1/procedures/{slug}
+
+// Search procedures
+GET /api/v1/search?q=chest&zip=02138&radius=25
+
+// Get provider detail
+GET /api/v1/providers/{id}
+
+// Get billing code detail
+GET /api/v1/codes/{code}?code_type=CPT
+```
 
 ### Integration Documentation
 - **[Complete Integration Guide](./docs/INTEGRATION_GUIDE.md)** - Detailed API specs, types, and examples
 - **[Monday Integration Call](./docs/MONDAY_INTEGRATION.md)** - Handoff checklist and success criteria
 - **[API Contract](./docs/API_CONTRACT.md)** - Formal API specification
-
-### Key Endpoints
-```bash
-# Search providers (HIGH PRIORITY - Missing)
-GET /api/search?procedure=MRI%20scan&location=New%20York%2C%20NY
-
-# Get provider details (HIGH PRIORITY - Missing)
-GET /api/providers/:id
-
-# Create booking (HIGH PRIORITY - Missing)
-POST /api/bookings
-
-# Get procedures (✅ Working)
-GET /api/procedures?q=MRI
-
-# Get categories (✅ Working)
-GET /api/procedure-categories
-```
+- **[Deployment Checklist](./docs/DEPLOYMENT_CHECKLIST.md)** - Pre-deployment verification guide
+- **[Swagger API Docs](https://mario-health-api-72178908097.us-central1.run.app/docs)** - Interactive API documentation
 
 ### TypeScript Types
 All API types are centralized in `/frontend/src/types/api.ts`:
@@ -117,15 +181,88 @@ npm run test
 npm run test:e2e
 ```
 
+### API Integration Testing
+
+Test the integration between frontend and backend:
+
+```bash
+# Run integration tests
+npx tsx scripts/test-integration.ts
+
+# Test individual API endpoints
+npx tsx scripts/test-api.ts
+```
+
+The integration tests validate:
+- ✅ All API endpoints are accessible
+- ✅ Response structure matches TypeScript types
+- ✅ Error handling works correctly
+- ✅ Response times are acceptable
+
 ### Backend Testing
 ```bash
 cd backend/mario-health-api
 python -m pytest
 ```
 
-### Integration Testing
+### Manual API Testing
+
+1. **Using Swagger UI:**
+   - Visit https://mario-health-api-72178908097.us-central1.run.app/docs
+   - Test endpoints interactively
+   - View response schemas
+
+2. **Using API Status Dashboard (Development):**
+   - Visit `http://localhost:3000/api-status`
+   - Shows real-time API health
+   - Tests all endpoints automatically
+
+### Integration Testing Resources
 - Use the [Integration Guide](./docs/INTEGRATION_GUIDE.md) for API testing
 - Follow the [Monday Integration Checklist](./docs/MONDAY_INTEGRATION.md) for handoff testing
+- Check [Deployment Checklist](./docs/DEPLOYMENT_CHECKLIST.md) for pre-deployment verification
+
+## 🛠️ Development Workflow
+
+### Testing API Connection
+
+1. **Check API Status:**
+   ```bash
+   curl https://mario-health-api-72178908097.us-central1.run.app/health
+   ```
+
+2. **Test Categories Endpoint:**
+   ```bash
+   curl https://mario-health-api-72178908097.us-central1.run.app/api/v1/categories
+   ```
+
+3. **View Integration Status:**
+   - Run integration tests: `npx tsx scripts/test-integration.ts`
+   - Check API Status page: `http://localhost:3000/api-status`
+
+### Common Issues
+
+**CORS Errors:**
+- Backend needs to allow your domain in CORS settings
+- Check backend logs for blocked requests
+- Contact backend team (AC) to update CORS configuration
+
+**Timeouts:**
+- Check network tab in DevTools
+- Verify API URL is correct
+- Check backend health endpoint
+
+**404 Errors:**
+- Verify endpoint path is correct
+- Check backend routes match frontend expectations
+- Review API version (`/api/v1/`)
+
+### Debugging
+
+- **DevTools Component**: Bottom-right corner in development mode
+- **API Status Dashboard**: Visit `/api-status` page
+- **Browser Console**: Check for API errors
+- **Network Tab**: Inspect request/response payloads
 
 ## 📊 Development Status
 

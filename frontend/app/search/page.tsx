@@ -2,68 +2,202 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
+import Link from 'next/link';
 import SearchHeader from '@/components/search/SearchHeader';
 import SearchFilters, { FilterState } from '@/components/search/SearchFilters';
-import ProviderCard from '@/components/providers/ProviderCard';
-import { mockProviders, filterProviders, Provider } from '@/lib/mockData';
-import { SlidersHorizontal } from 'lucide-react';
+import { SearchRefinement } from '@/components/search/SearchRefinement';
+import { RelatedProcedures } from '@/components/search/RelatedProcedures';
+import { BulkCompareBar } from '@/components/search/BulkCompareBar';
+import { CompareCheckbox } from '@/components/search/CompareCheckbox';
+import { HighlightedText } from '@/components/search/HighlightedText';
+import { searchProcedures, type SearchResult } from '@/lib/backend-api';
+import { usePreferences } from '@/lib/contexts/PreferencesContext';
+import { SORT_OPTIONS, getDefaultSortPreference, saveSortPreference, type SortOption } from '@/lib/search-utils';
+import { saveSearch } from '@/lib/saved-searches';
+import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown, Bookmark, BookmarkCheck } from 'lucide-react';
 
 function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
-  const location = searchParams.get('location') || 'New York, NY';
+  const locationParam = searchParams.get('location') || '';
+  const radiusParam = searchParams.get('radius');
 
-  const [filteredProviders, setFilteredProviders] = useState<Provider[]>(mockProviders);
+  const { defaultRadius, defaultZip } = usePreferences();
+
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState<FilterState>({
     priceRange: [0, 2000],
     types: [],
     minRating: 0,
   });
-  const [sortBy, setSortBy] = useState<'price' | 'rating' | 'distance'>('price');
+  const [sortBy, setSortBy] = useState<SortOption>(getDefaultSortPreference());
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [refinementQuery, setRefinementQuery] = useState('');
+  const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
+  const [isSearchSaved, setIsSearchSaved] = useState(false);
 
-  // Apply filters and sorting
+  // Load saved sort preference
   useEffect(() => {
-    let results = filterProviders(
-      mockProviders,
-      query,
-      filters.priceRange,
-      filters.types,
-      filters.minRating
-    );
+    setSortBy(getDefaultSortPreference());
+  }, []);
 
-    // Apply sorting
-    results = [...results].sort((a, b) => {
-      switch (sortBy) {
-        case 'price':
-          return a.price - b.price;
-        case 'rating':
-          return b.rating - a.rating;
-        case 'distance':
-          return parseFloat(a.distance) - parseFloat(b.distance);
-        default:
-          return 0;
+  // Fetch search results from API
+  // API: GET /api/v1/search?q={query}&zip={zip}&radius={radius}
+  useEffect(() => {
+    const fetchResults = async () => {
+      if (!query || query.length < 2) {
+        setSearchResults([]);
+        setLoading(false);
+        return;
       }
-    });
 
-    setFilteredProviders(results);
-  }, [query, filters, sortBy]);
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Use location from params or preference, radius from params or preference
+        const zip = locationParam || defaultZip || undefined;
+        const radius = radiusParam ? parseInt(radiusParam) : (defaultRadius || 25);
+
+        const results = await searchProcedures(query, zip, radius);
+        setSearchResults(results);
+
+        // Find related procedures
+        if (results.length > 0) {
+          const related = findRelatedProcedures(query, results, results, 5);
+          setRelatedProcedures(related);
+        } else {
+          setRelatedProcedures([]);
+        }
+      } catch (err) {
+        console.error('Failed to search procedures:', err);
+        setError(err instanceof Error ? err.message : 'Failed to search procedures');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchResults();
+  }, [query, locationParam, radiusParam, defaultRadius, defaultZip]);
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);
   };
 
-  const handleBookProvider = (providerId: string) => {
-    console.log('Booking provider:', providerId);
-    alert(`Booking functionality coming soon! Provider ID: ${providerId}`);
+  const handleRefinementChange = (newQuery: string) => {
+    setRefinementQuery(newQuery);
   };
 
+  const handleSortChange = (newSort: SortOption) => {
+    setSortBy(newSort);
+    saveSortPreference(newSort);
+  };
+
+  const handleToggleCompare = (id: string, isSelected: boolean) => {
+    if (selectedForCompare.length >= 5 && !isSelected) {
+      // Max limit reached
+      return;
+    }
+    if (isSelected) {
+      setSelectedForCompare(prev => [...prev, id]);
+    } else {
+      setSelectedForCompare(prev => prev.filter(i => i !== id));
+    }
+  };
+
+  const handleClearCompare = () => {
+    setSelectedForCompare([]);
+  };
+
+  const handleCompare = (ids: string[]) => {
+    // Navigate to compare page - handled by BulkCompareBar
+  };
+
+  const handleSaveSearch = async () => {
+    if (!query || isSearchSaved) return;
+
+    try {
+      const { saveSearch } = await import('@/lib/saved-searches');
+      await saveSearch({
+        user_id: 'guest_user', // TODO: Replace with actual user ID
+        query,
+        location: locationParam || defaultZip || undefined,
+        filters: {
+          price_range: filters.priceRange || undefined,
+          types: filters.types || [],
+          min_rating: filters.minRating || undefined,
+        },
+        alert_enabled: false,
+      });
+      setIsSearchSaved(true);
+    } catch (error) {
+      console.error('Failed to save search:', error);
+    }
+  };
+
+  // Extract search terms for highlighting
+  const searchTerms = refinementQuery
+    ? refinementQuery.toLowerCase().split(/\s+/).filter(t => t.length > 2)
+    : [];
+
+
+  const handleRelatedSelect = (procedureName: string) => {
+    // Navigate to search with related procedure
+    const zip = locationParam || defaultZip || undefined;
+    const radius = radiusParam ? parseInt(radiusParam) : (defaultRadius || 25);
+    // This would trigger a new search
+    window.location.href = `/search?q=${encodeURIComponent(procedureName)}&location=${encodeURIComponent(zip || '')}`;
+  };
+
+  // Filter and sort search results based on UI filters
+  const filteredResults = searchResults
+    .filter(result => {
+      // Price range filter
+      const avgPrice = result.avgPrice;
+      if (avgPrice < filters.priceRange[0] || avgPrice > filters.priceRange[1]) {
+        return false;
+      }
+
+      // Refinement query filter (search within results)
+      if (refinementQuery) {
+        const query = refinementQuery.toLowerCase();
+        const matches =
+          result.procedureName.toLowerCase().includes(query) ||
+          result.familyName.toLowerCase().includes(query) ||
+          result.categoryName.toLowerCase().includes(query);
+
+        if (!matches) {
+          return false;
+        }
+      }
+
+      return true;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'price-asc':
+          return a.avgPrice - b.avgPrice;
+        case 'price-desc':
+          return b.avgPrice - a.avgPrice;
+        case 'name-asc':
+          return a.procedureName.localeCompare(b.procedureName);
+        case 'name-desc':
+          return b.procedureName.localeCompare(a.procedureName);
+        case 'distance':
+          return (a.nearestDistanceMiles || 0) - (b.nearestDistanceMiles || 0);
+        default:
+          return 0;
+      }
+    });
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-24">
       <SearchHeader
         initialQuery={query}
-        initialLocation={location}
-        resultCount={filteredProviders.length}
+        initialLocation=""
+        resultCount={filteredResults.length}
       />
 
       <div className="max-w-7xl mx-auto px-4 py-6">
@@ -103,7 +237,7 @@ function SearchResults() {
                       onClick={() => setShowMobileFilters(false)}
                       className="w-full bg-emerald-500 text-white py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-colors"
                     >
-                      Show {filteredProviders.length} Results
+                      Show {filteredResults.length} Results
                     </button>
                   </div>
                 </div>
@@ -112,70 +246,277 @@ function SearchResults() {
           </div>
 
           <div className="flex-1">
-            <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <p className="text-sm text-gray-600">
-                  Showing <span className="font-semibold">{filteredProviders.length}</span> results
-                  {query && (
-                    <>
-                      {' '}
-                      for <span className="font-semibold">"{query}"</span>
-                    </>
-                  )}
-                </p>
-
-                <div className="flex items-center gap-2">
-                  <label htmlFor="sort" className="text-sm text-gray-600 whitespace-nowrap">
-                    Sort by:
-                  </label>
-                  <select
-                    id="sort"
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as any)}
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                  >
-                    <option value="price">Lowest Price</option>
-                    <option value="rating">Highest Rated</option>
-                    <option value="distance">Nearest</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {filteredProviders.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredProviders.map((provider) => (
-                  <ProviderCard key={provider.id} provider={provider} onBook={handleBookProvider} />
-                ))}
-              </div>
-            ) : (
+            {loading && (
               <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-                <div className="max-w-md mx-auto">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <SlidersHorizontal className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">No results found</h3>
-                  <p className="text-gray-600 mb-4">
-                    Try adjusting your filters or search terms to find more providers.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setFilters({
-                        priceRange: [0, 2000],
-                        types: [],
-                        minRating: 0,
-                      });
-                    }}
-                    className="text-emerald-600 hover:text-emerald-700 font-medium"
-                  >
-                    Clear all filters
-                  </button>
-                </div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4"></div>
+                <p className="text-gray-600">Searching procedures...</p>
               </div>
+            )}
+
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                <h3 className="font-semibold text-red-900 mb-2">Search Error</h3>
+                <p className="text-red-700">{error}</p>
+              </div>
+            )}
+
+            {!loading && !error && (
+              <>
+                {/* Save Search Button */}
+                {query && !isSearchSaved && (
+                  <div className="mb-4">
+                    <button
+                      onClick={handleSaveSearch}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition-colors text-sm font-medium"
+                    >
+                      <Bookmark className="w-4 h-4" />
+                      Save this search
+                    </button>
+                  </div>
+                )}
+
+                {isSearchSaved && (
+                  <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg text-sm">
+                    <BookmarkCheck className="w-4 h-4" />
+                    Search saved
+                  </div>
+                )}
+
+                {/* Search Refinement */}
+                <SearchRefinement
+                  onRefine={handleRefinementChange}
+                  resultCount={searchResults.length}
+                  searchTerms={searchTerms}
+                />
+
+                {/* Related Procedures */}
+                {relatedProcedures.length > 0 && (
+                  <RelatedProcedures
+                    currentQuery={query}
+                    currentCategory={filteredResults[0]?.categoryName}
+                    relatedProcedures={relatedProcedures}
+                    onSelect={handleRelatedSelect}
+                  />
+                )}
+
+                <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <p className="text-sm text-gray-600">
+                      Showing <span className="font-semibold">{filteredResults.length}</span> of <span className="font-semibold">{searchResults.length}</span> results
+                      {query && (
+                        <>
+                          {' '}
+                          for <span className="font-semibold">"{query}"</span>
+                        </>
+                      )}
+                    </p>
+
+                    <div className="flex items-center gap-2">
+                      <label htmlFor="sort" className="text-sm text-gray-600 whitespace-nowrap">
+                        Sort by:
+                      </label>
+                      <select
+                        id="sort"
+                        value={sortBy}
+                        onChange={(e) => handleSortChange(e.target.value as SortOption)}
+                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      >
+                        {SORT_OPTIONS.map(option => (
+                          <option key={option.option} value={option.option}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {filteredResults.length > 0 ? (
+                  <>
+                    {/* Related Procedures */}
+                    {filteredResults.length > 0 && (
+                      <RelatedProcedures
+                        currentProcedure={filteredResults[0]}
+                        allResults={searchResults}
+                        maxItems={5}
+                      />
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {filteredResults.map((result) => (
+                        <div key={result.procedureId} className="relative">
+                          <div className="absolute top-4 left-4 z-10">
+                            <CompareCheckbox
+                              procedureId={result.procedureId}
+                              selectedIds={selectedForCompare}
+                              onToggle={handleToggleCompare}
+                            />
+                          </div>
+                          <ProcedureCard
+                            result={result}
+                            searchTerms={searchTerms}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+                    <div className="max-w-md mx-auto">
+                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <SlidersHorizontal className="w-8 h-8 text-gray-400" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No results found</h3>
+                      <p className="text-gray-600 mb-4">
+                        Try adjusting your filters or search terms to find more procedures.
+                      </p>
+                      <button
+                        onClick={() => {
+                          setFilters({
+                            priceRange: [0, 2000],
+                            types: [],
+                            minRating: 0,
+                          });
+                        }}
+                        className="text-emerald-600 hover:text-emerald-700 font-medium"
+                      >
+                        Clear all filters
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
       </div>
+
+      {/* Bulk Compare Bar */}
+      <BulkCompareBar
+        selectedIds={selectedForCompare}
+        maxSelection={5}
+        onClearSelection={handleClearCompare}
+        onCompare={handleCompare}
+      />
+    </div>
+  );
+}
+
+// Procedure Card Component for Search Results
+function ProcedureCard({
+  result,
+  isSelected = false,
+  onToggleCompare
+}: {
+  result: SearchResult;
+  isSelected?: boolean;
+  onToggleCompare?: () => void;
+}) {
+  return (
+    <div className="relative bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1">
+      {/* Compare Checkbox */}
+      {onToggleCompare && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onToggleCompare();
+          }}
+          className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded transition-colors"
+          aria-label={isSelected ? 'Remove from comparison' : 'Add to comparison'}
+        >
+          {isSelected ? (
+            <CheckSquare className="w-5 h-5 text-emerald-600" />
+          ) : (
+            <Square className="w-5 h-5 text-gray-400" />
+          )}
+        </button>
+      )}
+
+      <Link
+        href={`/procedure/${result.procedureSlug}`}
+        className="block"
+      >
+        <div className="space-y-4">
+          {/* Header */}
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              {searchTerms.length > 0 ? (
+                <HighlightedText text={result.procedureName} searchTerms={searchTerms} />
+              ) : (
+                result.procedureName
+              )}
+            </h3>
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <span>
+                {searchTerms.length > 0 ? (
+                  <HighlightedText text={result.familyName} searchTerms={searchTerms} />
+                ) : (
+                  result.familyName
+                )}
+              </span>
+              <span>•</span>
+              <span>
+                {searchTerms.length > 0 ? (
+                  <HighlightedText text={result.categoryName} searchTerms={searchTerms} />
+                ) : (
+                  result.categoryName
+                )}
+              </span>
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex items-center gap-2">
+              <DollarSign className="h-5 w-5 text-green-600" />
+              <div>
+                <div className="text-lg font-bold text-gray-900">
+                  ${result.avgPrice}
+                </div>
+                <div className="text-xs text-gray-500">Average</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-blue-600" />
+              <div>
+                <div className="text-lg font-bold text-gray-900">
+                  {result.providerCount}
+                </div>
+                <div className="text-xs text-gray-500">Providers</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Price Range */}
+          <div className="pt-3 border-t border-gray-200">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <span>Price Range:</span>
+              <span className="font-semibold text-gray-900">{result.priceRange}</span>
+            </div>
+          </div>
+
+          {/* Location (if available) */}
+          {result.nearestProvider && (
+            <div className="pt-2">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <MapPin className="h-4 w-4" />
+                <span>{result.nearestProvider}</span>
+                {result.nearestDistanceMiles && (
+                  <span className="ml-auto">{result.nearestDistanceMiles.toFixed(1)} mi away</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="pt-3 border-t border-gray-200">
+            <div className="text-emerald-600 font-medium text-sm hover:text-emerald-700">
+              View details →
+            </div>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 }

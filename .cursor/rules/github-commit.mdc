@@ -1,0 +1,13 @@
+For every feature or code change implemented:
+- Read the current git diff.
+- Summarize the changes by file/component.
+- Stage and commit all changes using a clear, descriptive conventional commit message.
+- Push automatically to the current branch using:
+    git push origin $(git branch --show-current)
+- If push fails, pull with rebase, resolve, and retry.
+- Report the commit summary and push status.
+
+Always use conventional prefixes (feat:, fix:, refactor:, docs:, chore:, style:, test:).
+---
+alwaysApply: true
+---

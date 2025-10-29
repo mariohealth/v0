@@ -10,16 +10,25 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-from app.api.v1.endpoints import categories, families, procedures, search, billing_codes, providers
+from app.api.v1.endpoints import (
+    categories,
+    families,
+    procedures,
+    search,
+    billing_codes,
+    providers,
+    user_preferences,
+    saved_searches,
+)
 import os
 from pathlib import Path
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
+
 
 # Lifespan context manager for startup/shutdown
 @asynccontextmanager
@@ -34,6 +43,7 @@ async def lifespan(app: FastAPI):
     # Shutdown
     logger.info("👋 Mario Health API shutting down...")
 
+
 # Load ASCII art
 def load_ascii_art():
     """Load ASCII art from file."""
@@ -43,6 +53,7 @@ def load_ascii_art():
             return f.read()
     except FileNotFoundError:
         return "🏥 Mario Health API"
+
 
 ASCII_ART = load_ascii_art()
 
@@ -77,6 +88,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Global exception handlers
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -89,6 +101,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         },
     )
 
+
 @app.exception_handler(Exception)
 async def general_exception_handler(request: Request, exc: Exception):
     """Catch-all exception handler."""
@@ -97,9 +110,14 @@ async def general_exception_handler(request: Request, exc: Exception):
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={
             "detail": "Internal server error",
-            "message": str(exc) if os.getenv("DEBUG", "false").lower() == "true" else "An error occurred"
+            "message": (
+                str(exc)
+                if os.getenv("DEBUG", "false").lower() == "true"
+                else "An error occurred"
+            ),
         },
     )
+
 
 # Mount API v1 routers
 app.include_router(categories.router, prefix="/api/v1")
@@ -108,6 +126,9 @@ app.include_router(procedures.router, prefix="/api/v1")
 app.include_router(search.router, prefix="/api/v1")
 app.include_router(billing_codes.router, prefix="/api/v1")
 app.include_router(providers.router, prefix="/api/v1")
+app.include_router(user_preferences.router, prefix="/api/v1/user")
+app.include_router(saved_searches.router, prefix="/api/v1/user")
+
 
 # Root endpoints
 @app.get("/", tags=["root"])
@@ -121,8 +142,9 @@ def root():
         "endpoints": {
             "categories": "/api/v1/categories",
             "search": "/api/v1/search",
-        }
+        },
     }
+
 
 @app.get("/health", tags=["root"])
 def health_check():
