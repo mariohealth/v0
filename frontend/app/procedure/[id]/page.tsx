@@ -205,7 +205,7 @@ export default function ProcedurePage() {
                 </div>
             )}
         </div>
-        </div >
+    </div>
     );
 }
 
