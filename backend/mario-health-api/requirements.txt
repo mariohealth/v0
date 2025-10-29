@@ -4,3 +4,6 @@ supabase==2.22.3
 python-dotenv==1.0.0
 pydantic==2.12.3
 pydantic-core==2.41.4
+pytest
+httpx
+google-auth>=2.0.0
