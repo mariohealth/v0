@@ -760,27 +760,103 @@ CREATE TABLE time_slots (
 
 ### Common Issues
 
-#### 1. CORS Errors
-**Problem**: Frontend can't connect to backend API
-**Solution**: Ensure CORS middleware is configured in FastAPI:
+#### 1. CORS Errors ⚠️ **CRITICAL - BACKEND CONFIGURATION REQUIRED**
+**Problem**: Frontend can't connect to backend API. Error message: "CORS Error: The backend needs to allow requests from your domain."
+
+**Root Cause**: The backend API must explicitly allow requests from the frontend domain. This is a security feature of browsers.
+
+**Solution for AC (Backend Team)**: 
+Configure CORS middleware in FastAPI to allow requests from frontend domains:
+
 ```python
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://mariohealth.com"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "https://mariohealth.com",
+        "https://www.mariohealth.com",
+        "https://mario-health-frontend.vercel.app",  # Add your Vercel domain
+        # Add any other production/staging domains
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 ```
 
-#### 2. API Key Authentication
+**Important Notes**:
+- The `allow_origins` list must include ALL domains that will make requests to the API
+- For development, `http://localhost:3000` is required
+- For production, add your Vercel/deployment domain
+- Wildcard origins (`["*"]`) should NOT be used in production
+- If using authentication (Bearer tokens), `allow_credentials=True` is required
+
+**Frontend Error Handling**: 
+The frontend now detects CORS errors and displays: "CORS Error: The backend needs to allow requests from your domain. Contact the backend team."
+
+**Testing**: 
+1. Start frontend: `npm run dev` (runs on http://localhost:3000)
+2. Attempt API call from browser
+3. Check browser console for CORS errors
+4. Verify backend logs show the OPTIONS preflight request
+
+**Status**: ⚠️ AC needs to configure CORS settings in the backend before frontend can successfully connect.
+
+#### 2. Network Errors
+**Problem**: "Network error. Check your connection."
+
+**Common Causes**:
+- Backend API is not running
+- Incorrect API URL in `NEXT_PUBLIC_API_URL`
+- Network connectivity issues
+- Firewall blocking requests
+
+**Solution**:
+1. Verify backend is running: `curl http://localhost:8000/health`
+2. Check `NEXT_PUBLIC_API_URL` in `.env.local`
+3. Test API directly with `curl` or Postman
+4. Check browser Network tab for failed requests
+
+#### 3. Authentication Errors (401/403)
+**Problem**: "Authentication failed. Please refresh."
+
+**Common Causes**:
+- Missing or invalid API key
+- Token expired
+- Insufficient permissions
+
+**Solution**:
+1. Verify API key is set in environment variables
+2. Check token expiration (GCP identity tokens expire after 1 hour)
+3. Refresh the page to get a new token
+4. For GCP Cloud Run, ensure service account has proper IAM permissions
+
+#### 4. Server Errors (500/502/503)
+**Problem**: "Server error. Please try again later."
+
+**Common Causes**:
+- Backend application crashed
+- Database connection issues
+- Internal server errors
+
+**Solution**:
+1. Check backend logs for error details
+2. Verify database connectivity
+3. Check backend health endpoint
+4. Retry the request after a few seconds
+
+#### 5. API Key Authentication
 **Problem**: 401 Unauthorized errors
 **Solution**: Ensure API key is passed in headers:
 ```bash
 curl -H "X-API-Key: your-api-key" http://localhost:3000/api/search
 ```
 
-#### 3. Data Type Mismatches
+#### 6. Data Type Mismatches
 **Problem**: Frontend expects different data structure than backend provides
 **Solution**: Match the exact TypeScript interfaces in `/frontend/src/types/api.ts`
 
@@ -790,11 +866,46 @@ curl -H "X-API-Key: your-api-key" http://localhost:3000/api/search
 - `id`, `name`, `rating`, `reviewCount`, `price`, `address`, `distance`
 - Optional but recommended: `phone`, `website`, `images`, `availability`
 
-#### 5. Date/Time Format Issues
+#### 7. Date/Time Format Issues
 **Problem**: Date parsing errors in frontend
 **Solution**: Use consistent formats:
 - Dates: `YYYY-MM-DD` (ISO format)
 - Times: `HH:MM` (24-hour format)
+
+---
+
+## 🧪 Testing Checklist
+
+Before deploying to production, verify:
+
+### ✅ Frontend Testing
+- [ ] All API endpoints respond correctly
+- [ ] No CORS errors in browser console
+- [ ] Error messages display correctly (network, auth, server errors)
+- [ ] Loading states work properly
+- [ ] Retry functionality works
+- [ ] Authentication tokens refresh automatically
+
+### ✅ Backend Testing
+- [ ] CORS configured for all frontend domains
+- [ ] Health check endpoint responds
+- [ ] Authentication middleware works
+- [ ] Error responses follow expected format
+- [ ] Rate limiting configured (if applicable)
+
+### ✅ Integration Testing
+- [ ] Frontend can connect to backend API
+- [ ] API responses match expected TypeScript types
+- [ ] Error handling works end-to-end
+- [ ] Authentication flow works correctly
+- [ ] Search functionality returns expected results
+
+### ✅ Error Scenarios
+- [ ] Network disconnection handled gracefully
+- [ ] 401 errors trigger token refresh
+- [ ] 500 errors show user-friendly message
+- [ ] CORS errors display helpful message
+- [ ] Timeout errors handled correctly
 
 ### Error Response Format
 

@@ -103,13 +103,13 @@ export async function getAuthToken(): Promise<string> {
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       const errorMessage = errorData.error || `Failed to get auth token: ${response.status}`;
-      
+
       trackError(new Error(errorMessage), { endpoint: '/api/auth/token', status: response.status });
       throw new Error(errorMessage);
     }
 
     const data = await response.json();
-    
+
     if (!data.token) {
       throw new Error('No token returned from auth endpoint');
     }
@@ -126,12 +126,12 @@ export async function getAuthToken(): Promise<string> {
   } catch (error) {
     // Clear cache on error
     tokenCache = { token: null, expiresAt: 0 };
-    
+
     if (error instanceof Error) {
       trackError(error, { endpoint: '/api/auth/token' });
       throw new Error(`Authentication failed: ${error.message}`);
     }
-    
+
     throw new Error('Authentication failed: Unknown error');
   }
 }
@@ -184,7 +184,7 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
       }
 
       // Handle 401 Unauthorized - token may have expired, try refreshing
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 403) {
         // Clear token cache and retry once
         tokenCache = { token: null, expiresAt: 0 };
         
@@ -205,9 +205,19 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
             return data;
           }
         } catch (retryError) {
-          // Retry failed, proceed with original error
-          trackError(new Error('Token refresh retry failed'), { endpoint, status: 401 });
+          // Retry failed, throw user-friendly auth error
+          const authError = new Error('Authentication failed. Please refresh.');
+          trackError(authError, { endpoint, status: response.status });
+          throw authError;
         }
+      }
+
+      // Handle server errors (500, 502, 503, 504)
+      if (response.status >= 500) {
+        const serverError = new Error('Server error. Please try again later.');
+        trackApiCall(endpoint, duration, status, serverError.message);
+        trackError(serverError, { endpoint, status, duration });
+        throw serverError;
       }
 
       const apiError = new Error(`API request failed (${response.status}): ${errorMessage}`);
@@ -224,21 +234,58 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
   } catch (error) {
     const duration = Math.round(performance.now() - startTime);
 
-    // Detect CORS errors specifically
+    // Detect CORS errors specifically (check first, as they're a subset of network errors)
     if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+      // Check if it's likely a CORS error (no response received, browser blocked)
+      // CORS errors typically manifest as TypeError: Failed to fetch with no response
       const corsError = new Error(
-        `CORS Error: The backend needs to allow requests from your domain.\n\n` +
-        `Ask AC to add this to backend CORS settings:\n` +
-        `ALLOWED_ORIGINS = [\n` +
-        `    'http://localhost:3000',\n` +
-        `    'https://your-vercel-app.vercel.app'\n` +
-        `]`
+        'CORS Error: The backend needs to allow requests from your domain. Contact the backend team.'
       );
 
       trackApiCall(endpoint, duration, 0, 'CORS Error');
       trackError(corsError, { endpoint, duration, errorType: 'CORS' });
 
       throw corsError;
+    }
+
+    // Handle other network errors (connection issues, timeout, etc.)
+    if (error instanceof TypeError && (
+      error.message.includes('NetworkError') ||
+      error.message.includes('network') ||
+      error.message.includes('timeout')
+    )) {
+      const networkError = new Error('Network error. Check your connection.');
+      trackApiCall(endpoint, duration, 0, 'Network Error');
+      trackError(networkError, { endpoint, duration, errorType: 'Network' });
+      throw networkError;
+    }
+
+    // Handle authentication errors (already handled above in 401 check, but catch any others)
+    if (error instanceof Error && (
+      error.message.includes('401') ||
+      error.message.includes('403') ||
+      error.message.includes('Unauthorized') ||
+      error.message.includes('Forbidden') ||
+      error.message.includes('Authentication failed')
+    )) {
+      const authError = new Error('Authentication failed. Please refresh.');
+      trackApiCall(endpoint, duration, 0, 'Auth Error');
+      trackError(authError, { endpoint, duration, errorType: 'Auth' });
+      throw authError;
+    }
+
+    // Handle server errors
+    if (error instanceof Error && (
+      error.message.includes('500') ||
+      error.message.includes('502') ||
+      error.message.includes('503') ||
+      error.message.includes('504') ||
+      error.message.includes('Server error')
+    )) {
+      const serverError = new Error('Server error. Please try again later.');
+      trackApiCall(endpoint, duration, 0, 'Server Error');
+      trackError(serverError, { endpoint, duration, errorType: 'Server' });
+      throw serverError;
     }
 
     if (error instanceof Error) {
@@ -261,8 +308,8 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
  * @returns Promise with typed response
  */
 export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const fullEndpoint = endpoint.startsWith('/') 
-    ? `/api/${API_VERSION}${endpoint}` 
+  const fullEndpoint = endpoint.startsWith('/')
+    ? `/api/${API_VERSION}${endpoint}`
     : `/api/${API_VERSION}/${endpoint}`;
   return fetchFromApi<T>(fullEndpoint, options);
 }
