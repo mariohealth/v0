@@ -19,14 +19,14 @@ interface RelatedProceduresProps {
   maxItems?: number;
 }
 
-export function RelatedProcedures({ 
-  currentProcedure, 
+export function RelatedProcedures({
+  currentProcedure,
   allResults,
-  maxItems = 5 
+  maxItems = 5
 }: RelatedProceduresProps) {
   // Find related procedures based on same category or family
   const related = allResults
-    .filter(result => 
+    .filter(result =>
       result.procedureId !== currentProcedure.procedureId &&
       (
         result.categorySlug === currentProcedure.categorySlug ||
@@ -47,7 +47,7 @@ export function RelatedProcedures({
           People also searched for
         </h3>
       </div>
-      
+
       <div className="flex flex-wrap gap-2">
         {related.map((procedure) => (
           <Link

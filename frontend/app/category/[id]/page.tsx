@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Filter, SortAsc } from 'lucide-react';
+import { Filter, SortAsc, ArrowLeft } from 'lucide-react';
 import { getFamiliesByCategory, getCategories, type Family, type Category } from '@/lib/backend-api';
 import { LoadingSpinner, SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
@@ -14,7 +14,7 @@ import { Tooltip } from '@/components/ui/Tooltip';
 
 export default function CategoryPage() {
     const params = useParams();
-    const categorySlug = params.slug as string;
+    const categorySlug = params.id as string;
 
     const [category, setCategory] = useState<Category | null>(null);
     const [families, setFamilies] = useState<Family[]>([]);
@@ -74,7 +74,7 @@ export default function CategoryPage() {
             switch (e.key) {
                 case 'ArrowDown':
                     e.preventDefault();
-                    setFocusedIndex((prev) => 
+                    setFocusedIndex((prev) =>
                         prev < sortedFamilies.length - 1 ? prev + 1 : prev
                     );
                     break;
@@ -106,13 +106,6 @@ export default function CategoryPage() {
             });
         }
     }, [focusedIndex]);
-
-    const sortedFamilies = [...families].sort((a, b) => {
-        if (sortBy === 'name') {
-            return a.name.localeCompare(b.name);
-        }
-        return 0;
-    });
 
     if (loading) {
         return (
@@ -148,10 +141,10 @@ export default function CategoryPage() {
             {/* Breadcrumb Bar */}
             <div className="bg-muted/30 border-b sticky top-16 z-40">
                 <div className="max-w-7xl mx-auto px-4 py-3">
-                    <BreadcrumbNav 
+                    <BreadcrumbNav
                         items={[
-                            { 
-                                label: category.name, 
+                            {
+                                label: category.name,
                                 href: `/category/${category.slug}`,
                                 count: families.length,
                                 countLabel: 'families'
@@ -179,7 +172,7 @@ export default function CategoryPage() {
                                         <p className="text-muted-foreground text-lg">
                                             {category.description}
                                         </p>
-                                        <Tooltip 
+                                        <Tooltip
                                             content={category.description}
                                             position="top"
                                             triggerIcon
@@ -197,69 +190,69 @@ export default function CategoryPage() {
                         </div>
                     </div>
 
-                {/* Filters & Sort - Sticky on Mobile */}
-                <div className="sticky top-[73px] md:static z-30 bg-background/95 backdrop-blur-sm py-4 md:py-0 -mx-4 px-4 md:mx-0 mb-8 border-b md:border-none">
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <div className="flex-1">
-                            <input
-                                type="text"
-                                placeholder="Search families..."
-                                className="w-full px-4 py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px]"
-                            />
-                        </div>
-                    <div className="flex gap-2">
-                        <select
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value as 'name' | 'price')}
-                            className="px-4 py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                        >
-                            <option value="name">Sort by Name</option>
-                            <option value="price">Sort by Price</option>
-                        </select>
-                        <button className="px-4 py-2 rounded-lg border bg-background hover:bg-accent flex items-center gap-2">
-                            <Filter className="h-4 w-4" />
-                            Filters
-                        </button>
-                    </div>
-                </div>
-
-                {/* Families Grid */}
-                {sortedFamilies.length === 0 ? (
-                    <EmptyState
-                        title="No families found"
-                        message="We couldn't find any procedure families in this category."
-                        action={{
-                            label: 'Browse All Categories',
-                            onClick: () => window.location.href = '/'
-                        }}
-                    />
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {sortedFamilies.map((family, index) => (
-                            <div
-                                key={family.id}
-                                ref={(el) => {
-                                    if (el) {
-                                        cardRefs.current[index] = el.querySelector('a') as HTMLAnchorElement;
-                                    }
-                                }}
-                            >
-                                <FamilyCard 
-                                    id={family.id}
-                                    name={family.name}
-                                    slug={family.slug}
-                                    description={family.description}
-                                    procedureCount={family.procedureCount}
-                                    categoryName={category.name}
-                                    className={focusedIndex === index ? 'ring-2 ring-primary' : ''}
+                    {/* Filters & Sort - Sticky on Mobile */}
+                    <div className="sticky top-[73px] md:static z-30 bg-background/95 backdrop-blur-sm py-4 md:py-0 -mx-4 px-4 md:mx-0 mb-8 border-b md:border-none">
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex-1">
+                                <input
+                                    type="text"
+                                    placeholder="Search families..."
+                                    className="w-full px-4 py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px]"
                                 />
                             </div>
-                        ))}
+                            <div className="flex gap-2">
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value as 'name' | 'price')}
+                                    className="px-4 py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                                >
+                                    <option value="name">Sort by Name</option>
+                                    <option value="price">Sort by Price</option>
+                                </select>
+                                <button className="px-4 py-2 rounded-lg border bg-background hover:bg-accent flex items-center gap-2">
+                                    <Filter className="h-4 w-4" />
+                                    Filters
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Families Grid */}
+                        {sortedFamilies.length === 0 ? (
+                            <EmptyState
+                                title="No families found"
+                                message="We couldn't find any procedure families in this category."
+                                action={{
+                                    label: 'Browse All Categories',
+                                    onClick: () => window.location.href = '/'
+                                }}
+                            />
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {sortedFamilies.map((family, index) => (
+                                    <div
+                                        key={family.id}
+                                        ref={(el) => {
+                                            if (el) {
+                                                cardRefs.current[index] = el.querySelector('a') as HTMLAnchorElement;
+                                            }
+                                        }}
+                                    >
+                                        <FamilyCard
+                                            id={family.id}
+                                            name={family.name}
+                                            slug={family.slug}
+                                            description={family.description}
+                                            procedureCount={family.procedureCount}
+                                            categoryName={category.name}
+                                            className={focusedIndex === index ? 'ring-2 ring-primary' : ''}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-        </div>
-    );
+                </div>
+                );
 }
 
 

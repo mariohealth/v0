@@ -29,23 +29,23 @@ interface BreadcrumbNavProps {
   showHome?: boolean;
 }
 
-export function BreadcrumbNav({ 
-  items, 
+export function BreadcrumbNav({
+  items,
   className = '',
-  showHome = true 
+  showHome = true
 }: BreadcrumbNavProps) {
   const pathname = usePathname();
-  
+
   // Ensure Home is first if not present and showHome is true
   const allItems: BreadcrumbItem[] = showHome
     ? [
-        { label: 'Home', href: '/' },
-        ...items
-      ]
+      { label: 'Home', href: '/' },
+      ...items
+    ]
     : items;
 
   return (
-    <nav 
+    <nav
       className={`flex items-center gap-2 text-sm text-muted-foreground ${className}`}
       aria-label="Breadcrumb"
     >
@@ -65,7 +65,7 @@ export function BreadcrumbNav({
                   <Home className="w-4 h-4" />
                 </Link>
               ) : index === allItems.length - 1 ? (
-                <span 
+                <span
                   className={`font-semibold ${isActive ? 'text-foreground' : 'text-muted-foreground'} flex items-center gap-2`}
                 >
                   <span>{item.label}</span>

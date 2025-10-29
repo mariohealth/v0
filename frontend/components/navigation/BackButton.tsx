@@ -25,9 +25,9 @@ interface BackButtonProps {
 // Store scroll positions by pathname
 const scrollPositions = new Map<string, number>();
 
-export function BackButton({ 
-  href, 
-  label = 'Back', 
+export function BackButton({
+  href,
+  label = 'Back',
   variant = 'default',
   onClick,
   preserveScroll = true

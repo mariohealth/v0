@@ -21,7 +21,7 @@ export interface SavedSearch {
 }
 
 export interface SavedSearchCreateRequest {
-  search: SavedSearch;
+    search: SavedSearch;
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-72178908097.us-central1.run.app';
@@ -103,12 +103,12 @@ export async function deleteSavedSearch(searchId: string): Promise<void> {
  * Save a search (simplified wrapper for createSavedSearch)
  */
 export async function saveSearch(search: SavedSearch): Promise<string> {
-  try {
-    const response = await createSavedSearch({ search });
-    return response.id || '';
-  } catch (error) {
-    console.error('Failed to save search:', error);
-    throw error;
-  }
+    try {
+        const response = await createSavedSearch({ search });
+        return response.id || '';
+    } catch (error) {
+        console.error('Failed to save search:', error);
+        throw error;
+    }
 }
 

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Filter, SortAsc, Clock, DollarSign } from 'lucide-react';
+import { Filter, SortAsc, Clock, DollarSign, ArrowLeft } from 'lucide-react';
 import { getProceduresByFamily, getFamiliesByCategory, getCategories, type Procedure } from '@/lib/backend-api';
 import { SkeletonGrid } from '@/components/ui/loading-spinner';
 import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
@@ -26,7 +26,7 @@ type FamilyInfo = {
 export default function FamilyPage() {
   const params = useParams();
   const router = useRouter();
-  const slug = params.slug as string;
+  const slug = params.id as string;
 
   const [family, setFamily] = useState<FamilyInfo | null>(null);
   const [procedures, setProcedures] = useState<Procedure[]>([]);
@@ -47,7 +47,7 @@ export default function FamilyPage() {
         setError(null);
 
         const data = await getProceduresByFamily(slug);
-        
+
         // Fetch category info
         const [categories, familiesData] = await Promise.all([
           getCategories(),
@@ -55,7 +55,7 @@ export default function FamilyPage() {
         ]);
 
         // Find category
-        const category = categories.find(c => 
+        const category = categories.find(c =>
           data.familyCategorySlug ? c.slug === data.familyCategorySlug : false
         );
 
@@ -149,16 +149,16 @@ export default function FamilyPage() {
       {/* Breadcrumb Bar */}
       <div className="bg-muted/30 border-b sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 py-3">
-          <BreadcrumbNav 
+          <BreadcrumbNav
             items={[
               ...(family.categorySlug && family.categoryName ? [
-                { 
-                  label: family.categoryName, 
-                  href: `/category/${family.categorySlug}` 
+                {
+                  label: family.categoryName,
+                  href: `/category/${family.categorySlug}`
                 }
               ] : []),
-              { 
-                label: family.name, 
+              {
+                label: family.name,
                 href: `/family/${family.slug}`,
                 count: family.procedureCount,
                 countLabel: 'procedures'
@@ -252,8 +252,8 @@ export default function FamilyPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProcedures.map((procedure) => (
-              <ProcedureCard 
-                key={procedure.id} 
+              <ProcedureCard
+                key={procedure.id}
                 id={procedure.id}
                 name={procedure.name}
                 description={procedure.description}

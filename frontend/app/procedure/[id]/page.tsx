@@ -12,7 +12,7 @@ import { ErrorMessage, EmptyState } from '@/components/ui/error-message';
 
 export default function ProcedurePage() {
     const params = useParams();
-    const procedureSlug = params.slug as string;
+    const procedureSlug = params.id as string;
 
     const [procedure, setProcedure] = useState<ProcedureDetail | null>(null);
     const [loading, setLoading] = useState(true);
