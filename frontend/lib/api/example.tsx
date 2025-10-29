@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Example usage of the API Adapter
  * 
@@ -5,8 +7,9 @@
  * and how easy it is to switch between mock and real APIs.
  */
 
-import { useState } from 'react';
-import { apiAdapter, searchProviders, getProviderDetails } from './adapter';
+import React, { useState } from 'react';
+import { apiAdapter, searchProviders, getProviderDetails, SearchParams } from './adapter';
+import { Provider } from '../mockData';
 
 // Example 1: Using the adapter instance directly
 export async function searchProvidersExample() {
@@ -56,11 +59,11 @@ export function checkApiMode() {
 
 // Example 4: React component usage
 export function ProviderSearchComponent() {
-    const [providers, setProviders] = useState([]);
+    const [providers, setProviders] = useState<Provider[]>([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSearch = async (searchParams) => {
+    const handleSearch = async (searchParams: SearchParams) => {
         setLoading(true);
         setError(null);
 
@@ -69,28 +72,14 @@ export function ProviderSearchComponent() {
             const results = await searchProviders(searchParams);
             setProviders(results.providers);
         } catch (err) {
-            setError(err.message);
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
         } finally {
             setLoading(false);
         }
     };
 
-    return (
-        <div>
-        {/* Your search UI here */ }
-      { loading && <div>Searching...</div> }
-    { error && <div>Error: { error } </div> }
-    {
-        providers.map(provider => (
-            <div key= { provider.id } >
-            <h3>{ provider.name } </h3>
-            < p > Rating: { provider.rating } / 5 </p>
-            < p > Price: ${ provider.price } </p>
-        </div>
-        ))
-    }
-    </div>
-  );
+    // Example component - replace with your actual JSX implementation
+    return null; // Placeholder - implement your search UI here
 }
 
 // Example 5: Environment switching demonstration

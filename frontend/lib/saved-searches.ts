@@ -5,7 +5,7 @@
  * Falls back to localStorage for guest users
  */
 
-import { UserPreferences } from './preferences-api';
+import { UserPreferences } from '../types/preferences';
 
 export interface SavedSearch {
     id: string;

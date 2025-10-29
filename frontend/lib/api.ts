@@ -49,7 +49,7 @@ class ApiClient {
 
         // Get auth token for Authorization header
         const token = await getAuthToken();
-        
+
         // Build headers with Authorization if token is available
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',

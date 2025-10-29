@@ -11,7 +11,7 @@
  */
 
 import { mockProviders, filterProviders, Provider, TimeSlot, Review } from '../mockData';
-import { getAuthToken } from './auth-token';
+import { getAuthToken } from '../auth-token';
 
 // Environment configuration
 const USE_MOCK_API = process.env.NEXT_PUBLIC_USE_MOCK_API === 'true';
@@ -609,7 +609,7 @@ class RealApiClient {
 
         // Get auth token for Authorization header
         const token = await getAuthToken();
-        
+
         // Build headers with Authorization if token is available
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
@@ -768,7 +768,7 @@ class RealApiClient {
     }
 
     async getAvailableTimeSlots(providerId: string, date?: string): Promise<TimeSlot[]> {
-        return withRetry(async () => {
+        return withRetry<TimeSlot[]>(async () => {
             const endpoint = `/providers/${providerId}/time-slots${date ? `?date=${date}` : ''}`;
             logRequest('GET', endpoint);
             const startTime = Date.now();
@@ -796,12 +796,26 @@ class RealApiClient {
             coinsurance?: number;
         };
     }> {
-        return withRetry(async () => {
+        return withRetry<{
+            verified: boolean;
+            coverage: {
+                copay?: number;
+                deductible?: number;
+                coinsurance?: number;
+            };
+        }>(async () => {
             logRequest('POST', '/insurance/verify', { memberId, providerId });
             const startTime = Date.now();
 
             try {
-                const response = await this.request('/insurance/verify', {
+                const response = await this.request<{
+                    verified: boolean;
+                    coverage: {
+                        copay?: number;
+                        deductible?: number;
+                        coinsurance?: number;
+                    };
+                }>('/insurance/verify', {
                     method: 'POST',
                     body: JSON.stringify({ memberId, providerId }),
                 });
@@ -827,13 +841,29 @@ class RealApiClient {
             averagePrice: number;
         }>;
     }> {
-        return withRetry(async () => {
+        return withRetry<{
+            procedures: Array<{
+                id: string;
+                name: string;
+                category: string;
+                description: string;
+                averagePrice: number;
+            }>;
+        }>(async () => {
             const endpoint = `/procedures${query ? `?q=${encodeURIComponent(query)}` : ''}`;
             logRequest('GET', endpoint);
             const startTime = Date.now();
 
             try {
-                const response = await this.request(endpoint);
+                const response = await this.request<{
+                    procedures: Array<{
+                        id: string;
+                        name: string;
+                        category: string;
+                        description: string;
+                        averagePrice: number;
+                    }>;
+                }>(endpoint);
 
                 const duration = Date.now() - startTime;
                 logResponse('GET', endpoint, response, duration);
@@ -854,12 +884,24 @@ class RealApiClient {
             logo?: string;
         }>;
     }> {
-        return withRetry(async () => {
+        return withRetry<{
+            providers: Array<{
+                id: string;
+                name: string;
+                logo?: string;
+            }>;
+        }>(async () => {
             logRequest('GET', '/insurance/providers');
             const startTime = Date.now();
 
             try {
-                const response = await this.request('/insurance/providers');
+                const response = await this.request<{
+                    providers: Array<{
+                        id: string;
+                        name: string;
+                        logo?: string;
+                    }>;
+                }>('/insurance/providers');
 
                 const duration = Date.now() - startTime;
                 logResponse('GET', '/insurance/providers', response, duration);
@@ -976,14 +1018,4 @@ export const verifyInsurance = (memberId: string, providerId: string) =>
 export const getProcedures = (query?: string) => apiAdapter.getProcedures(query);
 export const getInsuranceProviders = () => apiAdapter.getInsuranceProviders();
 
-// Export types
-export type {
-    SearchParams,
-    SearchResponse,
-    BookingData,
-    BookingResponse,
-    ApiError,
-    Provider,
-    TimeSlot,
-    Review,
-};
+// Types are already exported above as interfaces

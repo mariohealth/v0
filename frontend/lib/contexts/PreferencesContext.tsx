@@ -10,8 +10,8 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { UserPreferences } from '@/types/preferences';
 import { getPreferences, savePreferences } from '@/lib/preferences-storage';
-import { 
-  getPreferencesFromAPI, 
+import {
+  getPreferencesFromAPI,
   savePreferencesToAPI,
   syncPreferencesOnLogin
 } from '@/lib/preferences-api';
@@ -20,12 +20,12 @@ interface PreferencesContextType {
   preferences: UserPreferences;
   loading: boolean;
   error: string | null;
-  
+
   // Actions
   updatePreferences: (updates: Partial<UserPreferences>) => Promise<void>;
   resetPreferences: () => Promise<void>;
   refreshPreferences: () => Promise<void>;
-  
+
   // Convenience getters
   defaultZip: string | undefined;
   defaultRadius: number;
@@ -65,7 +65,7 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Try to load from API first (for authenticated users)
       // Falls back to localStorage automatically
       const prefs = await getPreferencesFromAPI();
@@ -73,7 +73,7 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
     } catch (err) {
       console.error('Failed to load preferences:', err);
       setError(err instanceof Error ? err.message : 'Failed to load preferences');
-      
+
       // Fallback to localStorage
       try {
         const localPrefs = getPreferences();
@@ -89,17 +89,17 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
   const updatePreferences = useCallback(async (updates: Partial<UserPreferences>) => {
     try {
       setError(null);
-      
+
       const updated = {
         ...preferences,
         ...updates,
       };
-      
+
       setPreferences(updated);
-      
+
       // Save to localStorage immediately
       savePreferences(updated);
-      
+
       // Sync to API if authenticated
       await savePreferencesToAPI(updated);
     } catch (err) {
@@ -111,7 +111,7 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
   const resetPreferences = useCallback(async () => {
     try {
       setError(null);
-      
+
       const defaultPrefs: UserPreferences = {
         defaultZip: undefined,
         defaultRadius: 50,
@@ -123,7 +123,7 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
           sms: false,
         },
       };
-      
+
       setPreferences(defaultPrefs);
       savePreferences(defaultPrefs);
       await savePreferencesToAPI(defaultPrefs);
@@ -133,8 +133,8 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
     }
   }, []);
 
-  const refreshPreferences = useCallback(() => {
-    loadPreferences();
+  const refreshPreferences = useCallback(async () => {
+    await loadPreferences();
   }, []);
 
   const value: PreferencesContextType = {
@@ -144,7 +144,7 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
     updatePreferences,
     resetPreferences,
     refreshPreferences,
-    
+
     // Convenience getters
     defaultZip: preferences.defaultZip,
     defaultRadius: preferences.defaultRadius ?? 50,

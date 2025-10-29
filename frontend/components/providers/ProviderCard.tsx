@@ -1,5 +1,5 @@
 import { Star, MapPin, Clock, Shield, TrendingDown } from "lucide-react";
-import { Provider } from "@/lib/mockData";
+import { Provider } from "@/types/api";
 import Link from "next/link";
 
 interface ProviderCardProps {
@@ -38,9 +38,11 @@ export default function ProviderCard({ provider, onBook }: ProviderCardProps) {
           )}
 
           {/* Type badge */}
-          <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-white/90 backdrop-blur-sm px-2 py-1 sm:px-3 rounded-full text-xs font-medium text-gray-700 capitalize">
-            {provider.type.replace('_', ' ')}
-          </div>
+          {provider.type && (
+            <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-white/90 backdrop-blur-sm px-2 py-1 sm:px-3 rounded-full text-xs font-medium text-gray-700 capitalize">
+              {provider.type.replace('_', ' ')}
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -50,7 +52,9 @@ export default function ProviderCard({ provider, onBook }: ProviderCardProps) {
             <h3 className="font-semibold text-base sm:text-lg text-gray-900 mb-1 line-clamp-2">
               {provider.name}
             </h3>
-            <p className="text-xs sm:text-sm text-gray-600">{provider.neighborhood}</p>
+            {provider.neighborhood && (
+              <p className="text-xs sm:text-sm text-gray-600">{provider.neighborhood}</p>
+            )}
           </div>
 
           {/* Badges */}
@@ -93,10 +97,12 @@ export default function ProviderCard({ provider, onBook }: ProviderCardProps) {
           </div>
 
           {/* Availability */}
-          <div className="flex items-center gap-2 mb-4 text-xs sm:text-sm text-gray-600">
-            <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-            <span className="truncate">{provider.availability}</span>
-          </div>
+          {provider.availability && (
+            <div className="flex items-center gap-2 mb-4 text-xs sm:text-sm text-gray-600">
+              <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+              <span className="truncate">{provider.availability}</span>
+            </div>
+          )}
 
           {/* Price & CTA */}
           <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-gray-100 gap-3">

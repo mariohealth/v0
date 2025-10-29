@@ -27,65 +27,66 @@ export class SearchTestUtils {
     // Simulate network timeout
     simulateTimeout(): void {
         this.simulatedErrors.set('timeout', {
+            name: 'TimeoutError',
             type: 'TIMEOUT_ERROR',
             message: 'Request timed out after 30 seconds',
-            code: 'timeout_error',
             statusCode: 408,
             retryable: true
-        });
+        } as SearchError);
     }
 
     // Simulate network error
     simulateNetworkError(): void {
         this.simulatedErrors.set('network', {
+            name: 'NetworkError',
             type: 'NETWORK_ERROR',
             message: 'Network connection failed. Please check your internet connection.',
-            code: 'network_error',
             retryable: true,
             details: { originalError: 'Failed to fetch' }
-        });
+        } as SearchError);
     }
 
     // Simulate rate limiting
     simulateRateLimit(): void {
         this.simulatedErrors.set('rateLimit', {
+            name: 'RateLimitError',
             type: 'RATE_LIMIT_ERROR',
             message: 'Too many requests. Please try again later.',
-            code: 'rate_limit_error',
             statusCode: 429,
             retryAfter: 60,
             retryable: true
-        });
+        } as SearchError);
     }
 
     // Simulate malformed response
     simulateMalformedResponse(): void {
         this.simulatedErrors.set('malformed', {
+            name: 'MalformedResponseError',
             type: 'MALFORMED_RESPONSE',
             message: 'Invalid response format from search API',
-            code: 'malformed_response',
+            retryable: false,
             details: { receivedData: { invalid: 'data' } }
-        });
+        } as SearchError);
     }
 
     // Simulate empty results
     simulateEmptyResults(): void {
         this.simulatedErrors.set('empty', {
+            name: 'EmptyResultsError',
             type: 'EMPTY_RESULTS',
             message: 'No providers match your search criteria',
-            code: 'empty_results',
             statusCode: 404
-        });
+        } as SearchError);
     }
 
     // Simulate validation error
     simulateValidationError(): void {
         this.simulatedErrors.set('validation', {
+            name: 'ValidationError',
             type: 'VALIDATION_ERROR',
             message: 'Procedure name is too long (max 200 characters)',
-            code: 'validation_error',
             statusCode: 400
-        });
+        } as SearchError);
     }
 
     // Clear all simulated errors
