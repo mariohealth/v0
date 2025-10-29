@@ -12,7 +12,6 @@ import { searchProcedures, type SearchResult } from '@/lib/backend-api';
 import { usePreferences } from '@/lib/contexts/PreferencesContext';
 import { SORT_OPTIONS, getDefaultSortPreference, saveSortPreference, type SortOption } from '@/lib/search-utils';
 import { findRelatedProcedures } from '@/lib/related-procedures';
-import { getCompareSelection, addToCompare, removeFromCompare, clearCompareSelection, type CompareItem } from '@/lib/compare-storage';
 import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown, CheckSquare, Square } from 'lucide-react';
 
 function SearchResults() {
@@ -135,32 +134,6 @@ function SearchResults() {
     ? refinementQuery.toLowerCase().split(/\s+/).filter(t => t.length > 2)
     : [];
 
-  const handleToggleCompare = (result: SearchResult) => {
-    const item: CompareItem = {
-      id: result.procedureId,
-      name: result.procedureName,
-      category: result.categoryName,
-    };
-
-    if (selectedForCompare.includes(result.procedureId)) {
-      removeFromCompare(result.procedureId);
-      setSelectedForCompare(prev => prev.filter(id => id !== result.procedureId));
-    } else {
-      if (addToCompare(item)) {
-        setSelectedForCompare(prev => [...prev, result.procedureId]);
-      }
-    }
-  };
-
-  const handleClearCompare = () => {
-    clearCompareSelection();
-    setSelectedForCompare([]);
-  };
-
-  const handleRemoveFromCompare = (id: string) => {
-    removeFromCompare(id);
-    setSelectedForCompare(prev => prev.filter(itemId => itemId !== id));
-  };
 
   const handleRelatedSelect = (procedureName: string) => {
     // Navigate to search with related procedure
