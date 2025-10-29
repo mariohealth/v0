@@ -7,3 +7,4 @@ pydantic-core==2.41.4
 pytest
 httpx
 google-auth>=2.0.0
+requests>=2.31.0
