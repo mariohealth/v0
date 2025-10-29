@@ -24,3 +24,8 @@ Icon[
 Network Trash Folder
 Temporary Items
 .apdisk
+.vercel
+
+# Environment variables
+.env.local
+.env*.local

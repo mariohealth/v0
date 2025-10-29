@@ -44,7 +44,8 @@ import {
 import { trackApiCall, trackError } from './analytics';
 
 // Configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-72178908097.us-central1.run.app';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-ei5wbr4h5a-uc.a.run.app';
+const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || 'v1';
 
 if (!API_BASE_URL || API_BASE_URL === 'your_api_url') {
   console.error('⚠️  NEXT_PUBLIC_API_URL is not configured. Please set it in your .env.local file.');
@@ -131,17 +132,51 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
 }
 
 /**
- * Get all procedure categories
+ * Base fetch wrapper with error handling
+ * @param endpoint - API endpoint path (without base URL and version)
+ * @param options - Fetch options
+ * @returns Promise with typed response
+ */
+export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  const fullEndpoint = endpoint.startsWith('/') 
+    ? `/api/${API_VERSION}${endpoint}` 
+    : `/api/${API_VERSION}/${endpoint}`;
+  return fetchFromApi<T>(fullEndpoint, options);
+}
+
+/**
+ * Health check endpoint
+ * @returns Health status response
+ */
+export async function fetchHealthCheck(): Promise<{ status: string; message?: string }> {
+  try {
+    return await fetchApi<{ status: string; message?: string }>('/health');
+  } catch (error) {
+    console.error('Failed to fetch health check:', error);
+    throw new Error(`Health check failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+/**
+ * Fetch all categories
  * @returns Array of categories with family counts
  */
-export async function getCategories(): Promise<Category[]> {
+export async function fetchCategories(): Promise<Category[]> {
   try {
-    const raw = await fetchFromApi<RawCategories>('/api/v1/categories');
+    const raw = await fetchApi<RawCategories>('/categories');
     return transformCategories(raw);
   } catch (error) {
     console.error('Failed to fetch categories:', error);
     throw new Error(`Failed to get categories: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
+}
+
+/**
+ * Get all procedure categories (legacy function, kept for backward compatibility)
+ * @returns Array of categories with family counts
+ */
+export async function getCategories(): Promise<Category[]> {
+  return fetchCategories();
 }
 
 /**
