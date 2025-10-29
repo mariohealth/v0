@@ -34,7 +34,7 @@ class UserPreferences(BaseModel):
     saved_locations: Optional[List[SavedLocation]] = Field(default_factory=list)
     
     # Language preference
-    language: Optional[str] = Field("en", regex="^[a-z]{2}$")
+    language: Optional[str] = Field("en", pattern="^[a-z]{2}$")
     
     # Notification preferences
     notifications: Optional[Notifications] = Field(default_factory=Notifications)
