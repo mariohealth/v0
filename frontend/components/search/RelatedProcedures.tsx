@@ -3,32 +3,39 @@
 /**
  * Related Procedures Component
  * 
- * Shows related procedures that people also searched for
+ * Shows "People also searched for" based on:
+ * - Category similarity
+ * - Search co-occurrence
+ * - Popular procedures
  */
 
 import Link from 'next/link';
-import { TrendingUp } from 'lucide-react';
-
-interface RelatedProcedure {
-  id: string;
-  slug: string;
-  name: string;
-}
+import { TrendingUp, ArrowRight } from 'lucide-react';
+import type { SearchResult } from '@/lib/backend-api';
 
 interface RelatedProceduresProps {
-  currentQuery: string;
-  currentCategory?: string;
-  relatedProcedures: RelatedProcedure[];
-  onSelect: (procedure: string) => void;
+  currentProcedure: SearchResult;
+  allResults: SearchResult[];
+  maxItems?: number;
 }
 
-export function RelatedProcedures({
-  currentQuery,
-  currentCategory,
-  relatedProcedures,
-  onSelect,
+export function RelatedProcedures({ 
+  currentProcedure, 
+  allResults,
+  maxItems = 5 
 }: RelatedProceduresProps) {
-  if (relatedProcedures.length === 0) {
+  // Find related procedures based on same category or family
+  const related = allResults
+    .filter(result => 
+      result.procedureId !== currentProcedure.procedureId &&
+      (
+        result.categorySlug === currentProcedure.categorySlug ||
+        result.familySlug === currentProcedure.familySlug
+      )
+    )
+    .slice(0, maxItems);
+
+  if (related.length === 0) {
     return null;
   }
 
@@ -36,20 +43,23 @@ export function RelatedProcedures({
     <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
       <div className="flex items-center gap-2 mb-4">
         <TrendingUp className="w-5 h-5 text-emerald-600" />
-        <h3 className="font-semibold text-gray-900">People also searched for</h3>
+        <h3 className="text-lg font-semibold text-gray-900">
+          People also searched for
+        </h3>
       </div>
+      
       <div className="flex flex-wrap gap-2">
-        {relatedProcedures.map((procedure) => (
-          <button
-            key={procedure.id}
-            onClick={() => onSelect(procedure.name)}
-            className="px-4 py-2 bg-gray-100 hover:bg-emerald-100 text-gray-700 hover:text-emerald-700 rounded-full text-sm font-medium transition-colors"
+        {related.map((procedure) => (
+          <Link
+            key={procedure.procedureId}
+            href={`/procedure/${procedure.procedureSlug}`}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full hover:bg-emerald-100 transition-colors text-sm font-medium group"
           >
-            {procedure.name}
-          </button>
+            <span>{procedure.procedureName}</span>
+            <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
         ))}
       </div>
     </div>
   );
 }
-

@@ -36,15 +36,10 @@ function SearchResults() {
   const [refinementQuery, setRefinementQuery] = useState('');
   const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
   const [isSearchSaved, setIsSearchSaved] = useState(false);
-  const [showRelated, setShowRelated] = useState(true);
-  const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
-  const [relatedProcedures, setRelatedProcedures] = useState<Array<{id: string; slug: string; name: string}>>([]);
-  
-  // Load saved sort preference and compare selection
+
+  // Load saved sort preference
   useEffect(() => {
     setSortBy(getDefaultSortPreference());
-    const saved = getCompareSelection();
-    setSelectedForCompare(saved.map(item => item.id));
   }, []);
 
   // Fetch search results from API
@@ -67,7 +62,7 @@ function SearchResults() {
 
         const results = await searchProcedures(query, zip, radius);
         setSearchResults(results);
-        
+
         // Find related procedures
         if (results.length > 0) {
           const related = findRelatedProcedures(query, results, results, 5);
@@ -117,7 +112,7 @@ function SearchResults() {
 
   const handleSaveSearch = async () => {
     if (!query || isSearchSaved) return;
-    
+
     try {
       await saveSearch({
         query,
@@ -183,20 +178,20 @@ function SearchResults() {
       if (avgPrice < filters.priceRange[0] || avgPrice > filters.priceRange[1]) {
         return false;
       }
-      
+
       // Refinement query filter (search within results)
       if (refinementQuery) {
         const query = refinementQuery.toLowerCase();
-        const matches = 
+        const matches =
           result.procedureName.toLowerCase().includes(query) ||
           result.familyName.toLowerCase().includes(query) ||
           result.categoryName.toLowerCase().includes(query);
-        
+
         if (!matches) {
           return false;
         }
       }
-      
+
       return true;
     })
     .sort((a, b) => {
@@ -286,10 +281,31 @@ function SearchResults() {
 
             {!loading && !error && (
               <>
+                {/* Save Search Button */}
+                {query && !isSearchSaved && (
+                  <div className="mb-4">
+                    <button
+                      onClick={handleSaveSearch}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition-colors text-sm font-medium"
+                    >
+                      <Bookmark className="w-4 h-4" />
+                      Save this search
+                    </button>
+                  </div>
+                )}
+
+                {isSearchSaved && (
+                  <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg text-sm">
+                    <BookmarkCheck className="w-4 h-4" />
+                    Search saved
+                  </div>
+                )}
+
                 {/* Search Refinement */}
                 <SearchRefinement
                   onRefine={handleRefinementChange}
                   resultCount={searchResults.length}
+                  searchTerms={searchTerms}
                 />
 
                 {/* Related Procedures */}
@@ -335,16 +351,33 @@ function SearchResults() {
                 </div>
 
                 {filteredResults.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {filteredResults.map((result) => (
-                      <ProcedureCard 
-                        key={result.procedureId} 
-                        result={result}
-                        isSelected={selectedForCompare.includes(result.procedureId)}
-                        onToggleCompare={() => handleToggleCompare(result)}
+                  <>
+                    {/* Related Procedures */}
+                    {filteredResults.length > 0 && (
+                      <RelatedProcedures
+                        currentProcedure={filteredResults[0]}
+                        allResults={searchResults}
                       />
-                    ))}
-                  </div>
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {filteredResults.map((result) => (
+                        <div key={result.procedureId} className="relative">
+                          <div className="absolute top-4 left-4 z-10">
+                            <CompareCheckbox
+                              procedureId={result.procedureId}
+                              selectedIds={selectedForCompare}
+                              onToggle={handleToggleCompare}
+                            />
+                          </div>
+                          <ProcedureCard
+                            result={result}
+                            searchTerms={searchTerms}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </>
                 ) : (
                   <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
                     <div className="max-w-md mx-auto">
@@ -376,28 +409,23 @@ function SearchResults() {
         </div>
       </div>
 
-      {/* Compare Bar */}
-      <CompareBar
-        selectedItems={selectedForCompare}
+      {/* Bulk Compare Bar */}
+      <BulkCompareBar
+        selectedIds={selectedForCompare}
         maxSelection={5}
-        onClear={handleClearCompare}
-        onRemove={handleRemoveFromCompare}
-        items={filteredResults.map(r => ({
-          id: r.procedureId,
-          name: r.procedureName,
-          category: r.categoryName,
-        }))}
+        onClearSelection={handleClearCompare}
+        onCompare={handleCompare}
       />
     </div>
   );
 }
 
 // Procedure Card Component for Search Results
-function ProcedureCard({ 
-  result, 
+function ProcedureCard({
+  result,
   isSelected = false,
-  onToggleCompare 
-}: { 
+  onToggleCompare
+}: {
   result: SearchResult;
   isSelected?: boolean;
   onToggleCompare?: () => void;
@@ -422,72 +450,90 @@ function ProcedureCard({
           )}
         </button>
       )}
-      
+
       <Link
         href={`/procedure/${result.procedureSlug}`}
         className="block"
       >
-      <div className="space-y-4">
-        {/* Header */}
-        <div>
-          <h3 className="text-xl font-semibold mb-2">{result.procedureName}</h3>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span>{result.familyName}</span>
-            <span>•</span>
-            <span>{result.categoryName}</span>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center gap-2">
-            <DollarSign className="h-5 w-5 text-green-600" />
-            <div>
-              <div className="text-lg font-bold text-gray-900">
-                ${result.avgPrice}
-              </div>
-              <div className="text-xs text-gray-500">Average</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-blue-600" />
-            <div>
-              <div className="text-lg font-bold text-gray-900">
-                {result.providerCount}
-              </div>
-              <div className="text-xs text-gray-500">Providers</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Price Range */}
-        <div className="pt-3 border-t border-gray-200">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span>Price Range:</span>
-            <span className="font-semibold text-gray-900">{result.priceRange}</span>
-          </div>
-        </div>
-
-        {/* Location (if available) */}
-        {result.nearestProvider && (
-          <div className="pt-2">
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <MapPin className="h-4 w-4" />
-              <span>{result.nearestProvider}</span>
-              {result.nearestDistanceMiles && (
-                <span className="ml-auto">{result.nearestDistanceMiles.toFixed(1)} mi away</span>
+        <div className="space-y-4">
+          {/* Header */}
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              {searchTerms.length > 0 ? (
+                <HighlightedText text={result.procedureName} searchTerms={searchTerms} />
+              ) : (
+                result.procedureName
               )}
+            </h3>
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <span>
+                {searchTerms.length > 0 ? (
+                  <HighlightedText text={result.familyName} searchTerms={searchTerms} />
+                ) : (
+                  result.familyName
+                )}
+              </span>
+              <span>•</span>
+              <span>
+                {searchTerms.length > 0 ? (
+                  <HighlightedText text={result.categoryName} searchTerms={searchTerms} />
+                ) : (
+                  result.categoryName
+                )}
+              </span>
             </div>
           </div>
-        )}
 
-        {/* Footer */}
-        <div className="pt-3 border-t border-gray-200">
-          <div className="text-emerald-600 font-medium text-sm hover:text-emerald-700">
-            View details →
+          {/* Stats */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex items-center gap-2">
+              <DollarSign className="h-5 w-5 text-green-600" />
+              <div>
+                <div className="text-lg font-bold text-gray-900">
+                  ${result.avgPrice}
+                </div>
+                <div className="text-xs text-gray-500">Average</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-blue-600" />
+              <div>
+                <div className="text-lg font-bold text-gray-900">
+                  {result.providerCount}
+                </div>
+                <div className="text-xs text-gray-500">Providers</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Price Range */}
+          <div className="pt-3 border-t border-gray-200">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <span>Price Range:</span>
+              <span className="font-semibold text-gray-900">{result.priceRange}</span>
+            </div>
+          </div>
+
+          {/* Location (if available) */}
+          {result.nearestProvider && (
+            <div className="pt-2">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <MapPin className="h-4 w-4" />
+                <span>{result.nearestProvider}</span>
+                {result.nearestDistanceMiles && (
+                  <span className="ml-auto">{result.nearestDistanceMiles.toFixed(1)} mi away</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="pt-3 border-t border-gray-200">
+            <div className="text-emerald-600 font-medium text-sm hover:text-emerald-700">
+              View details →
+            </div>
           </div>
         </div>
-      </div>
       </Link>
     </div>
   );

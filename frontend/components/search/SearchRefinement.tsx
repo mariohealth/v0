@@ -3,18 +3,24 @@
 /**
  * Search Refinement Component
  * 
- * Allows users to search within search results
+ * Allows users to search within search results with highlighting
  */
 
 import { useState } from 'react';
 import { Search, X } from 'lucide-react';
+import { highlightText } from '@/lib/search-utils';
 
 interface SearchRefinementProps {
   onRefine: (query: string) => void;
   resultCount: number;
+  searchTerms?: string[];
 }
 
-export function SearchRefinement({ onRefine, resultCount }: SearchRefinementProps) {
+export function SearchRefinement({ 
+  onRefine, 
+  resultCount,
+  searchTerms = []
+}: SearchRefinementProps) {
   const [refinementQuery, setRefinementQuery] = useState('');
 
   const handleRefine = (query: string) => {
@@ -46,6 +52,7 @@ export function SearchRefinement({ onRefine, resultCount }: SearchRefinementProp
           <button
             onClick={handleClear}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded"
+            aria-label="Clear refinement"
           >
             <X className="w-4 h-4 text-gray-500" />
           </button>
@@ -57,6 +64,27 @@ export function SearchRefinement({ onRefine, resultCount }: SearchRefinementProp
         </p>
       )}
     </div>
+  );
+}
+
+/**
+ * Highlight search terms in text
+ */
+export function HighlightedText({ 
+  text, 
+  searchTerms 
+}: { 
+  text: string; 
+  searchTerms: string[];
+}) {
+  if (!searchTerms || searchTerms.length === 0) {
+    return <>{text}</>;
+  }
+
+  const highlightedHtml = highlightText(text, searchTerms);
+  
+  return (
+    <span dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
   );
 }
 
