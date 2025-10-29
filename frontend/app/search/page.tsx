@@ -6,10 +6,14 @@ import Link from 'next/link';
 import SearchHeader from '@/components/search/SearchHeader';
 import SearchFilters, { FilterState } from '@/components/search/SearchFilters';
 import { SearchRefinement } from '@/components/search/SearchRefinement';
+import { RelatedProcedures } from '@/components/search/RelatedProcedures';
+import { CompareBar } from '@/components/search/CompareBar';
 import { searchProcedures, type SearchResult } from '@/lib/backend-api';
 import { usePreferences } from '@/lib/contexts/PreferencesContext';
 import { SORT_OPTIONS, getDefaultSortPreference, saveSortPreference, type SortOption } from '@/lib/search-utils';
-import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown } from 'lucide-react';
+import { findRelatedProcedures } from '@/lib/related-procedures';
+import { getCompareSelection, addToCompare, removeFromCompare, clearCompareSelection, type CompareItem } from '@/lib/compare-storage';
+import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown, CheckSquare, Square } from 'lucide-react';
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -30,10 +34,17 @@ function SearchResults() {
   const [sortBy, setSortBy] = useState<SortOption>(getDefaultSortPreference());
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [refinementQuery, setRefinementQuery] = useState('');
+  const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
+  const [isSearchSaved, setIsSearchSaved] = useState(false);
+  const [showRelated, setShowRelated] = useState(true);
+  const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
+  const [relatedProcedures, setRelatedProcedures] = useState<Array<{id: string; slug: string; name: string}>>([]);
   
-  // Load saved sort preference
+  // Load saved sort preference and compare selection
   useEffect(() => {
     setSortBy(getDefaultSortPreference());
+    const saved = getCompareSelection();
+    setSelectedForCompare(saved.map(item => item.id));
   }, []);
 
   // Fetch search results from API
@@ -56,6 +67,14 @@ function SearchResults() {
 
         const results = await searchProcedures(query, zip, radius);
         setSearchResults(results);
+        
+        // Find related procedures
+        if (results.length > 0) {
+          const related = findRelatedProcedures(query, results, results, 5);
+          setRelatedProcedures(related);
+        } else {
+          setRelatedProcedures([]);
+        }
       } catch (err) {
         console.error('Failed to search procedures:', err);
         setError(err instanceof Error ? err.message : 'Failed to search procedures');
@@ -78,6 +97,82 @@ function SearchResults() {
   const handleSortChange = (newSort: SortOption) => {
     setSortBy(newSort);
     saveSortPreference(newSort);
+  };
+
+  const handleToggleCompare = (id: string, isSelected: boolean) => {
+    if (isSelected) {
+      setSelectedForCompare(prev => [...prev, id]);
+    } else {
+      setSelectedForCompare(prev => prev.filter(i => i !== id));
+    }
+  };
+
+  const handleClearCompare = () => {
+    setSelectedForCompare([]);
+  };
+
+  const handleCompare = (ids: string[]) => {
+    // Navigate to compare page - handled by BulkCompareBar
+  };
+
+  const handleSaveSearch = async () => {
+    if (!query || isSearchSaved) return;
+    
+    try {
+      await saveSearch({
+        query,
+        location: locationParam || defaultZip || undefined,
+        filters: {
+          priceRange: filters.priceRange,
+          types: filters.types,
+          minRating: filters.minRating,
+        },
+        alertEnabled: false,
+      });
+      setIsSearchSaved(true);
+    } catch (error) {
+      console.error('Failed to save search:', error);
+    }
+  };
+
+  // Extract search terms for highlighting
+  const searchTerms = refinementQuery
+    ? refinementQuery.toLowerCase().split(/\s+/).filter(t => t.length > 2)
+    : [];
+
+  const handleToggleCompare = (result: SearchResult) => {
+    const item: CompareItem = {
+      id: result.procedureId,
+      name: result.procedureName,
+      category: result.categoryName,
+    };
+
+    if (selectedForCompare.includes(result.procedureId)) {
+      removeFromCompare(result.procedureId);
+      setSelectedForCompare(prev => prev.filter(id => id !== result.procedureId));
+    } else {
+      if (addToCompare(item)) {
+        setSelectedForCompare(prev => [...prev, result.procedureId]);
+      }
+    }
+  };
+
+  const handleClearCompare = () => {
+    clearCompareSelection();
+    setSelectedForCompare([]);
+  };
+
+  const handleRemoveFromCompare = (id: string) => {
+    removeFromCompare(id);
+    setSelectedForCompare(prev => prev.filter(itemId => itemId !== id));
+  };
+
+  const handleRelatedSelect = (procedureName: string) => {
+    // Navigate to search with related procedure
+    const zip = locationParam || defaultZip || undefined;
+    const radius = radiusParam ? parseInt(radiusParam) : (defaultRadius || 25);
+    // This would trigger a new search
+    window.location.href = `/search?q=${encodeURIComponent(procedureName)}&location=${encodeURIComponent(zip || '')}`;
   };
 
   // Filter and sort search results based on UI filters
@@ -122,7 +217,7 @@ function SearchResults() {
     });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-24">
       <SearchHeader
         initialQuery={query}
         initialLocation=""
@@ -197,6 +292,16 @@ function SearchResults() {
                   resultCount={searchResults.length}
                 />
 
+                {/* Related Procedures */}
+                {relatedProcedures.length > 0 && (
+                  <RelatedProcedures
+                    currentQuery={query}
+                    currentCategory={filteredResults[0]?.categoryName}
+                    relatedProcedures={relatedProcedures}
+                    onSelect={handleRelatedSelect}
+                  />
+                )}
+
                 <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <p className="text-sm text-gray-600">
@@ -232,7 +337,12 @@ function SearchResults() {
                 {filteredResults.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {filteredResults.map((result) => (
-                      <ProcedureCard key={result.procedureId} result={result} />
+                      <ProcedureCard 
+                        key={result.procedureId} 
+                        result={result}
+                        isSelected={selectedForCompare.includes(result.procedureId)}
+                        onToggleCompare={() => handleToggleCompare(result)}
+                      />
                     ))}
                   </div>
                 ) : (
@@ -265,17 +375,58 @@ function SearchResults() {
           </div>
         </div>
       </div>
+
+      {/* Compare Bar */}
+      <CompareBar
+        selectedItems={selectedForCompare}
+        maxSelection={5}
+        onClear={handleClearCompare}
+        onRemove={handleRemoveFromCompare}
+        items={filteredResults.map(r => ({
+          id: r.procedureId,
+          name: r.procedureName,
+          category: r.categoryName,
+        }))}
+      />
     </div>
   );
 }
 
 // Procedure Card Component for Search Results
-function ProcedureCard({ result }: { result: SearchResult }) {
+function ProcedureCard({ 
+  result, 
+  isSelected = false,
+  onToggleCompare 
+}: { 
+  result: SearchResult;
+  isSelected?: boolean;
+  onToggleCompare?: () => void;
+}) {
   return (
-    <Link
-      href={`/procedure/${result.procedureSlug}`}
-      className="block bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1"
-    >
+    <div className="relative bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all hover:-translate-y-1">
+      {/* Compare Checkbox */}
+      {onToggleCompare && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onToggleCompare();
+          }}
+          className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded transition-colors"
+          aria-label={isSelected ? 'Remove from comparison' : 'Add to comparison'}
+        >
+          {isSelected ? (
+            <CheckSquare className="w-5 h-5 text-emerald-600" />
+          ) : (
+            <Square className="w-5 h-5 text-gray-400" />
+          )}
+        </button>
+      )}
+      
+      <Link
+        href={`/procedure/${result.procedureSlug}`}
+        className="block"
+      >
       <div className="space-y-4">
         {/* Header */}
         <div>
@@ -337,7 +488,8 @@ function ProcedureCard({ result }: { result: SearchResult }) {
           </div>
         </div>
       </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
