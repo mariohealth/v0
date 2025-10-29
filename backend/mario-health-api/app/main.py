@@ -75,7 +75,14 @@ ALLOWED_ORIGINS_STR = os.getenv(
 # Strip whitespace from each origin to prevent CORS issues
 ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS_STR.split(",") if origin.strip()]
 
+# Google OAuth2 allowed audiences
+GOOGLE_ALLOWED_AUDIENCES_STR = os.getenv("GOOGLE_ALLOWED_AUDIENCES", "")
+GOOGLE_ALLOWED_AUDIENCES = [
+    aud.strip() for aud in GOOGLE_ALLOWED_AUDIENCES_STR.split(",") if aud.strip()
+]
+
 logger.info(f"🔒 CORS configured with allowed origins: {ALLOWED_ORIGINS}")
+logger.info(f"🔐 Google OAuth2 allowed audiences: {GOOGLE_ALLOWED_AUDIENCES if GOOGLE_ALLOWED_AUDIENCES else 'NOT CONFIGURED'}")
 
 app.add_middleware(
     CORSMiddleware,
