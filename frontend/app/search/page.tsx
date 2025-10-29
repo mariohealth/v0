@@ -7,12 +7,14 @@ import SearchHeader from '@/components/search/SearchHeader';
 import SearchFilters, { FilterState } from '@/components/search/SearchFilters';
 import { SearchRefinement } from '@/components/search/SearchRefinement';
 import { RelatedProcedures } from '@/components/search/RelatedProcedures';
-import { CompareBar } from '@/components/search/CompareBar';
+import { BulkCompareBar } from '@/components/search/BulkCompareBar';
+import { CompareCheckbox } from '@/components/search/CompareCheckbox';
+import { HighlightedText } from '@/components/search/HighlightedText';
 import { searchProcedures, type SearchResult } from '@/lib/backend-api';
 import { usePreferences } from '@/lib/contexts/PreferencesContext';
 import { SORT_OPTIONS, getDefaultSortPreference, saveSortPreference, type SortOption } from '@/lib/search-utils';
-import { findRelatedProcedures } from '@/lib/related-procedures';
-import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown, CheckSquare, Square } from 'lucide-react';
+import { saveSearch } from '@/lib/saved-searches-api';
+import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown, Bookmark, BookmarkCheck } from 'lucide-react';
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -94,6 +96,10 @@ function SearchResults() {
   };
 
   const handleToggleCompare = (id: string, isSelected: boolean) => {
+    if (selectedForCompare.length >= 5 && !isSelected) {
+      // Max limit reached
+      return;
+    }
     if (isSelected) {
       setSelectedForCompare(prev => [...prev, id]);
     } else {
@@ -113,15 +119,17 @@ function SearchResults() {
     if (!query || isSearchSaved) return;
 
     try {
+      const { saveSearch } = await import('@/lib/saved-searches-api');
       await saveSearch({
+        user_id: 'guest_user', // TODO: Replace with actual user ID
         query,
         location: locationParam || defaultZip || undefined,
         filters: {
-          priceRange: filters.priceRange,
-          types: filters.types,
-          minRating: filters.minRating,
+          price_range: filters.priceRange || undefined,
+          types: filters.types || [],
+          min_rating: filters.minRating || undefined,
         },
-        alertEnabled: false,
+        alert_enabled: false,
       });
       setIsSearchSaved(true);
     } catch (error) {
@@ -325,13 +333,14 @@ function SearchResults() {
 
                 {filteredResults.length > 0 ? (
                   <>
-                    {/* Related Procedures */}
-                    {filteredResults.length > 0 && (
-                      <RelatedProcedures
-                        currentProcedure={filteredResults[0]}
-                        allResults={searchResults}
-                      />
-                    )}
+                 {/* Related Procedures */}
+                 {filteredResults.length > 0 && (
+                   <RelatedProcedures
+                     currentProcedure={filteredResults[0]}
+                     allResults={searchResults}
+                     maxItems={5}
+                   />
+                 )}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {filteredResults.map((result) => (

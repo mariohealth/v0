@@ -3,47 +3,45 @@
 /**
  * Compare Checkbox Component
  * 
- * Checkbox for selecting procedures for bulk comparison
+ * Checkbox for selecting procedures to compare
  */
 
-import { useState, useEffect } from 'react';
+import { CheckSquare, Square } from 'lucide-react';
 
 interface CompareCheckboxProps {
   procedureId: string;
   selectedIds: string[];
-  maxSelection?: number;
   onToggle: (id: string, isSelected: boolean) => void;
-  disabled?: boolean;
 }
 
-export function CompareCheckbox({
-  procedureId,
+export function CompareCheckbox({ 
+  procedureId, 
   selectedIds,
-  maxSelection = 5,
-  onToggle,
-  disabled = false,
+  onToggle 
 }: CompareCheckboxProps) {
   const isSelected = selectedIds.includes(procedureId);
-  const isMaxReached = selectedIds.length >= maxSelection && !isSelected;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (disabled || isMaxReached) {
-      return;
-    }
-    onToggle(procedureId, e.target.checked);
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onToggle(procedureId, isSelected);
   };
 
   return (
-    <label className="inline-flex items-center cursor-pointer">
-      <input
-        type="checkbox"
-        checked={isSelected}
-        onChange={handleChange}
-        disabled={disabled || isMaxReached}
-        className="w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500 focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label={`Select ${procedureId} for comparison`}
-      />
-    </label>
+    <button
+      onClick={handleClick}
+      className={`p-2 rounded-lg transition-colors ${
+        isSelected 
+          ? 'bg-emerald-100 hover:bg-emerald-200' 
+          : 'bg-white/90 hover:bg-gray-100 border border-gray-200'
+      }`}
+      aria-label={isSelected ? 'Remove from comparison' : 'Add to comparison'}
+    >
+      {isSelected ? (
+        <CheckSquare className="w-5 h-5 text-emerald-600" />
+      ) : (
+        <Square className="w-5 h-5 text-gray-400" />
+      )}
+    </button>
   );
 }
-

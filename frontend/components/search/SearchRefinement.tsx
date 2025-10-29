@@ -8,7 +8,6 @@
 
 import { useState } from 'react';
 import { Search, X } from 'lucide-react';
-import { highlightText } from '@/lib/search-utils';
 
 interface SearchRefinementProps {
   onRefine: (query: string) => void;
@@ -16,8 +15,8 @@ interface SearchRefinementProps {
   searchTerms?: string[];
 }
 
-export function SearchRefinement({ 
-  onRefine, 
+export function SearchRefinement({
+  onRefine,
   resultCount,
   searchTerms = []
 }: SearchRefinementProps) {
@@ -67,24 +66,4 @@ export function SearchRefinement({
   );
 }
 
-/**
- * Highlight search terms in text
- */
-export function HighlightedText({ 
-  text, 
-  searchTerms 
-}: { 
-  text: string; 
-  searchTerms: string[];
-}) {
-  if (!searchTerms || searchTerms.length === 0) {
-    return <>{text}</>;
-  }
-
-  const highlightedHtml = highlightText(text, searchTerms);
-  
-  return (
-    <span dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
-  );
-}
 
