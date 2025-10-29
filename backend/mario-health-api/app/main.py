@@ -57,10 +57,17 @@ app = FastAPI(
 )
 
 # CORS middleware
-ALLOWED_ORIGINS = os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:3000,https://mario.health,https://www.mario.health"
-).split(",")
+# ALLOWED_ORIGINS = os.getenv(
+#     "ALLOWED_ORIGINS",
+#     "http://localhost:3000,https://mario.health,https://www.mario.health"
+# ).split(",")
+
+ALLOWED_ORIGINS = ["http://localhost:3000",
+                   "http://127.0.0.1:300"
+                   "https://mario.health",
+                   "https://www.mario.health",
+                   "https://mario-health-ifzy.vercel.app"
+                   ]
 
 app.add_middleware(
     CORSMiddleware,
