@@ -3,7 +3,7 @@
     "outputDirectory": ".next",
     "framework": "nextjs",
     "env": {
-        "NEXT_PUBLIC_API_URL": "@api-url"
+        "NEXT_PUBLIC_API_URL": " "
     },
     "functions": {
         "app/api/**/*.ts": {
