@@ -43,27 +43,37 @@ deactivate
 ```
 
 ## Deploy to Google Cloud Run
+### 1. Verify you're in the right directory
+```
+pwd # Should be in mario-health/backend/mario-health-api/
+```
+### 2. Start Docker Desktop on your local machine and test locally first
+```
+docker build -t mario-health-api-test .
+docker run -p 8080:8080 \
+  -e SUPABASE_URL="https://anvremdouphhucqrxgoq.supabase.co" \
+  -e SUPABASE_KEY="your-key" \
+  mario-health-api-test
+```
+
+### 3. Test in another terminal
+```
+curl http://localhost:8080/health
+curl http://localhost:8080/api/v1/categories
+```
+
+### 4. If works, proceed with deployment
 
 Install & configure Google Cloud SDK:
 ```
 gcloud auth login
 gcloud config set project mario-mrf-data
 ```
-Build container image:
+Use the deployment script
 ```
-gcloud builds submit --tag us-central1-docker.pkg.dev/mario-mrf-data/docker-repo/mario-health-api
-```
-Deploy to Cloud Run:
-```
-gcloud run deploy mario-health-api \
-  --image us-central1-docker.pkg.dev/mario-mrf-data/docker-repo/mario-health-api \
-  --update-env-vars SUPABASE_URL="https://anvremdouphhucqrxgoq.supabase.co" \
-  --region us-central1 \
-  --platform managed \
-  --allow-unauthenticated
-  
-  maybe not needed every time:
-  --update-secrets=SUPABASE_KEY=supabase-default-secret-key:latest \
+chmod +x deploy.sh # make it executable (if not already done)
+
+./deploy.sh
 ```
 
 ## Test your cloud deployment
