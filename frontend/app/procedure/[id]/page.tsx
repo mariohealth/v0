@@ -192,7 +192,7 @@ export default function ProcedurePage() {
 
             {/* Carrier Prices Section */}
             {procedure.carrierPrices && procedure.carrierPrices.length > 0 && (
-                <div>
+                <div className="max-w-7xl mx-auto px-4 py-8">
                     <h2 className="text-2xl font-bold mb-6">
                         Pricing by Insurance Carrier
                     </h2>
@@ -205,7 +205,6 @@ export default function ProcedurePage() {
                 </div>
             )}
         </div>
-    </div>
     );
 }
 
@@ -227,8 +226,8 @@ function CarrierPriceCard({ price }: { price: CarrierPrice }) {
                 {price.networkStatus && (
                     <div className="flex items-center gap-2">
                         <div className={`px-3 py-1 rounded-full text-xs font-medium ${price.networkStatus === 'in-network'
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-orange-100 text-orange-800'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-orange-100 text-orange-800'
                             }`}>
                             {price.networkStatus}
                         </div>

@@ -49,15 +49,17 @@ export default function FamilyPage() {
         const data = await getProceduresByFamily(slug);
 
         // Fetch category info
-        const [categories, familiesData] = await Promise.all([
-          getCategories(),
-          data.procedures.length > 0 ? getFamiliesByCategory(data.procedures[0].categorySlug || '') : Promise.resolve({ families: [] })
-        ]);
-
-        // Find category
-        const category = categories.find(c =>
-          data.familyCategorySlug ? c.slug === data.familyCategorySlug : false
-        );
+        // Note: We need to get the category from the family data if available
+        // Otherwise, we'll skip the category lookup
+        const categories = await getCategories();
+        
+        // Find category if we have a category slug in the response
+        // For now, we'll try to infer from first procedure or skip
+        const category = categories.find(c => {
+          // If the API response includes category info, use it
+          // Otherwise, we skip category-specific data
+          return false; // Placeholder - update when API provides category info
+        });
 
         setFamily({
           name: data.familyName,

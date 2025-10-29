@@ -20,7 +20,7 @@ export default function CategoryPage() {
     const [families, setFamilies] = useState<Family[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [sortBy, setSortBy] = useState<'name'>('name');
+    const [sortBy, setSortBy] = useState<'name' | 'price'>('name');
     const [focusedIndex, setFocusedIndex] = useState<number>(-1);
     const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
@@ -252,7 +252,9 @@ export default function CategoryPage() {
                         )}
                     </div>
                 </div>
-                );
+            </div>
+        </div>
+    );
 }
 
 

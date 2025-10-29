@@ -191,7 +191,6 @@ export default function SearchHeader({
             </span>
           </div>
         )}
-        </div>
       </div>
     </div>
   );
