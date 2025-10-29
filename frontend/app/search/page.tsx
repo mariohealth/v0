@@ -13,7 +13,7 @@ import { HighlightedText } from '@/components/search/HighlightedText';
 import { searchProcedures, type SearchResult } from '@/lib/backend-api';
 import { usePreferences } from '@/lib/contexts/PreferencesContext';
 import { SORT_OPTIONS, getDefaultSortPreference, saveSortPreference, type SortOption } from '@/lib/search-utils';
-import { saveSearch } from '@/lib/saved-searches-api';
+import { saveSearch } from '@/lib/saved-searches';
 import { SlidersHorizontal, DollarSign, MapPin, Users, ChevronDown, Bookmark, BookmarkCheck } from 'lucide-react';
 
 function SearchResults() {
@@ -119,7 +119,7 @@ function SearchResults() {
     if (!query || isSearchSaved) return;
 
     try {
-      const { saveSearch } = await import('@/lib/saved-searches-api');
+      const { saveSearch } = await import('@/lib/saved-searches');
       await saveSearch({
         user_id: 'guest_user', // TODO: Replace with actual user ID
         query,
@@ -333,14 +333,14 @@ function SearchResults() {
 
                 {filteredResults.length > 0 ? (
                   <>
-                 {/* Related Procedures */}
-                 {filteredResults.length > 0 && (
-                   <RelatedProcedures
-                     currentProcedure={filteredResults[0]}
-                     allResults={searchResults}
-                     maxItems={5}
-                   />
-                 )}
+                    {/* Related Procedures */}
+                    {filteredResults.length > 0 && (
+                      <RelatedProcedures
+                        currentProcedure={filteredResults[0]}
+                        allResults={searchResults}
+                        maxItems={5}
+                      />
+                    )}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {filteredResults.map((result) => (
