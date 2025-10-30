@@ -11,6 +11,8 @@ __pycache__/
 .Python
 venv/
 env/
+ENV/
+.venv/
 
 # Logs
 logs/*.log

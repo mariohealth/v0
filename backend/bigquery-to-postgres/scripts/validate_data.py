@@ -4,10 +4,16 @@ Data validation checks for all tables
 Run this after sync to verify data quality
 """
 
+import os
+import sys
+
+# Add project root to Python path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 from config.tables import TABLES
-import os
 
 load_dotenv()
 

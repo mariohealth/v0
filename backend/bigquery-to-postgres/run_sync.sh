@@ -3,6 +3,13 @@
 
 set -e
 
+# Check if virtual environment is activated
+if [ -z "$VIRTUAL_ENV" ]; then
+    echo "⚠️  Virtual environment not activated!"
+    echo "Run: source venv/bin/activate"
+    exit 1
+fi
+
 # Parse arguments
 FULL_REFRESH=""
 TABLES=""
@@ -36,6 +43,11 @@ done
 echo "🚀 Starting BigQuery → Postgres sync..."
 
 # Load environment variables
+if [ ! -f ".env" ]; then
+    echo "❌ .env file not found!"
+    echo "Run: cp .env.example .env"
+    exit 1
+fi
 source .env
 
 # Create logs directory

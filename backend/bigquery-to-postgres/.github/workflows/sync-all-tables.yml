@@ -12,6 +12,11 @@ on:
         type: boolean
         default: false
 
+# Add permissions for Workload Identity Federation
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -28,12 +33,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Create GCP credentials file
-        run: echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+      # Authenticate to Google Cloud using Workload Identity Federation
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
 
       - name: Run multi-table sync
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp-key.json
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           BIGQUERY_DATASET: ${{ secrets.BIGQUERY_DATASET }}
           POSTGRES_DB_URL: ${{ secrets.POSTGRES_DB_URL }}

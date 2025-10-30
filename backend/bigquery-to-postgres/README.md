@@ -4,48 +4,112 @@ Automated pipeline for syncing multiple healthcare data tables from BigQuery to 
 
 ## 🚀 Quick Start
 
-### 1. Clone & Install
+### 1. Clone Repository
 ```bash
-git clone <repo-url>
+git clone 
 cd bigquery-to-postgres
+```
+
+### 2. Set Up Python Virtual Environment
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+
+# On Windows:
+# venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 2. Configure Environment
+### 4. Configure Environment
 ```bash
 cp .env.example .env
-# Edit .env with your credentials
+# Edit .env with your credentials (use your favorite editor)
+nano .env  # or vim, code, etc.
 ```
 
-### 3. Configure Tables
-Edit `config/tables.py` to add/remove tables or change sync modes.
-
-### 4. Set up Postgres Schemas
+### 5. Configure Tables
+Edit `config/tables.py` to add/remove tables or change sync modes:
 ```bash
-psql $POSTGRES_DB_URL < config/postgres_schemas.sql
+nano config/tables.py  # or vim, code, etc.
 ```
 
-### 5. Run Sync
-
-**Sync all tables:**
+### 6. Set Up Postgres Schemas
 ```bash
+python scripts/setup_schemas.py
+```
+
+### 7. Run Your First Sync
+
+**Test with a single table first:**
+```bash
+python scripts/sync_data.py zip_codes
+```
+
+**Once confirmed working, sync all tables:**
+```bash
+chmod +x run_sync.sh
 ./run_sync.sh
 ```
 
-**Sync specific tables:**
+### 8. Deactivate Virtual Environment (when done)
 ```bash
-./run_sync.sh --tables healthcare_prices carriers
+deactivate
 ```
 
-**Force full refresh:**
+## 💡 Virtual Environment Tips
+
+**Why use a virtual environment?**
+- Isolates project dependencies from system Python
+- Prevents version conflicts with other projects
+- Makes dependency management cleaner
+
+**Reactivating for future sessions:**
 ```bash
+cd bigquery-to-postgres
+source venv/bin/activate  # macOS/Linux
+# venv\Scripts\activate   # Windows
+```
+
+**Updating dependencies:**
+```bash
+source venv/bin/activate
+pip install --upgrade -r requirements.txt
+```
+
+## 🎯 Quick Command Reference
+```bash
+# Sync all tables (respects sync_mode in config)
+./run_sync.sh
+
+# Force full refresh of all tables
 ./run_sync.sh --full-refresh
-```
 
-**Single table:**
-```bash
+# Sync only specific tables
+./run_sync.sh --tables healthcare_prices carriers
+
+# Sync specific tables with full refresh
+./run_sync.sh --tables healthcare_prices --full-refresh
+
+# Sync single table (respects sync_mode)
 python scripts/sync_data.py healthcare_prices
-python scripts/sync_data.py carriers --full-refresh
+
+# Force full refresh of single table
+python scripts/sync_data.py healthcare_prices --full-refresh
+
+# Validate all tables
+python scripts/validate_data.py
+
+# Validate specific table
+python scripts/validate_data.py --table healthcare_prices
 ```
 
 ## 📊 Table Configuration
@@ -74,6 +138,45 @@ Tables are configured in `config/tables.py`:
 - Best for: Large tables with append-only or time-stamped updates
 - Requires `incremental_column` (e.g., `last_updated`)
 - Example: Provider networks, transaction logs
+
+## 🔒 Security: Workload Identity Federation
+
+This project uses **Workload Identity Federation** instead of service account keys for GitHub Actions, following Google Cloud's security best practices.
+
+### Why Workload Identity Federation?
+
+✅ **No long-lived credentials** - No JSON keys to manage or rotate  
+✅ **Automatic token rotation** - Tokens expire after each workflow run  
+✅ **Least privilege** - Service account only accessible from your GitHub repo  
+✅ **Audit trail** - All access logged in Cloud Audit Logs  
+
+### Local Development
+
+For local development, you still need credentials. Choose one option:
+
+**Option 1: Application Default Credentials (Recommended)**
+```bash
+# Authenticate with your Google account
+gcloud auth application-default login
+
+# No need to set GOOGLE_APPLICATION_CREDENTIALS
+```
+
+**Option 2: Service Account Key (for CI/CD environments only)**
+```bash
+# Download key only if absolutely necessary
+gcloud iam service-accounts keys create ~/key.json \
+    --iam-account=github-bigquery-sync@your-project.iam.gserviceaccount.com
+
+# Set in .env
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
+
+# ⚠️ Never commit this key to Git!
+```
+
+### Setup Instructions
+
+See [WORKLOAD_IDENTITY_SETUP.md](WORKLOAD_IDENTITY_SETUP.md) for detailed setup steps.
 
 ## 📅 Automated Schedule
 
