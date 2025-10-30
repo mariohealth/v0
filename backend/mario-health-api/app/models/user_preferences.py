@@ -42,7 +42,7 @@ class UserPreferences(BaseModel):
     # Timestamp
     updated_at: Optional[datetime] = Field(default_factory=datetime.utcnow)
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "user_id": "user_123",

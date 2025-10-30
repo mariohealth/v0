@@ -32,7 +32,7 @@ class SearchResponse(BaseModel):
     results_count: int
     results: List[SearchResult]
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "query": "chest x-ray",

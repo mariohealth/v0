@@ -17,7 +17,7 @@ class CategoryFamiliesResponse(BaseModel):
     category_slug: str
     families: List[Family]
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "category_slug": "radiology",

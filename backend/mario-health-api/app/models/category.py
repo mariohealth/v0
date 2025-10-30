@@ -17,7 +17,7 @@ class CategoriesResponse(BaseModel):
     """Response for GET /api/v1/categories."""
     categories: List[Category]
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "categories": [

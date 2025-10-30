@@ -47,7 +47,7 @@ class ProviderDetail(BaseModel):
     # All procedures offered by this provider
     procedures: List[ProviderProcedurePricing] = []
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "provider_id": "prov_001",

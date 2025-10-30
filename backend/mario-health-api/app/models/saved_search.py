@@ -8,7 +8,7 @@ from datetime import datetime
 class SearchFilters(BaseModel):
     """Search filter preferences."""
 
-    price_range: Optional[List[float]] = Field(None, min_items=2, max_items=2)
+    price_range: Optional[List[float]] = Field(None, min_length=2, max_length=2)
     types: Optional[List[str]] = Field(default_factory=list)
     min_rating: Optional[float] = Field(None, ge=0, le=5)
 
@@ -26,7 +26,7 @@ class SavedSearch(BaseModel):
     )
     created_at: Optional[datetime] = Field(default_factory=datetime.utcnow)
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "user_id": "user_123",

@@ -11,3 +11,6 @@ __pycache__/
 # VSCode / IDE
 .vscode/
 .idea/
+
+# Test coverage
+.coverage

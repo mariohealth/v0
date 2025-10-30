@@ -16,7 +16,7 @@ class CarrierPrice(BaseModel):
     network_status: str | None = None
     last_updated: str | None = None
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "carrier_id": "carrier_001",
@@ -69,7 +69,7 @@ class ProcedureDetail(BaseModel):
     # All carrier prices
     carrier_prices: List[CarrierPrice] = []
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "id": "proc_001",
@@ -99,7 +99,7 @@ class FamilyProceduresResponse(BaseModel):
     family_description: str | None = None
     procedures: List[Procedure]
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "family_slug": "x-ray",

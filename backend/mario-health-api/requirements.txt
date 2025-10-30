@@ -4,7 +4,11 @@ supabase==2.22.3
 python-dotenv==1.0.0
 pydantic==2.12.3
 pydantic-core==2.41.4
-pytest
-httpx
 google-auth>=2.0.0
 requests>=2.31.0
+
+# Testing dependencies
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+httpx==0.28.1

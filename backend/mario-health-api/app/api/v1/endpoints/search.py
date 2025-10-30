@@ -9,7 +9,7 @@ router = APIRouter(prefix="/search", tags=["search"])
 @router.get("", response_model=SearchResponse)
 async def search_procedures(
     q: str = Query(..., min_length=2, description="Search query (procedure name)"),
-    zip: str | None = Query(None, regex=r"^\d{5}$", description="5-digit ZIP code"),
+    zip: str | None = Query(None, pattern=r"^\d{5}$", description="5-digit ZIP code"),
     radius: int = Query(25, ge=1, le=100, description="Search radius in miles"),
     supabase: Client = Depends(get_supabase)
 ):

@@ -54,7 +54,7 @@ class BillingCodeDetail(BaseModel):
     overall_avg_price: Decimal | None = None
     total_providers: int = 0
 
-    class Config:
+    class ConfigDict:
         json_schema_extra = {
             "example": {
                 "code": "71046",
