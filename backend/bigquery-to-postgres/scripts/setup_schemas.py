@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
-Set up Postgres schemas without requiring psql command
-Handles dollar-quoted strings (PostgreSQL functions/triggers)
+Set up Postgres schemas from organized SQL files
+Executes files in order: extensions → functions → tables → indexes → triggers → constraints
 """
 
 import os
 import sys
-import re
+import glob
 
-# Add project root to Python path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
@@ -18,70 +17,48 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def split_sql_statements(sql_content):
-    """
-    Split SQL content into statements, respecting dollar-quoted strings.
-    PostgreSQL functions use $$ delimiters which can contain semicolons.
-    """
-    statements = []
-    current_statement = []
-    in_dollar_quote = False
-    dollar_quote_tag = None
+def execute_sql_file(conn, filepath):
+    """Execute a single SQL file"""
+    filename = os.path.basename(filepath)
+    print(f"  📄 Executing: {filename}")
 
-    lines = sql_content.split('\n')
+    with open(filepath, 'r') as f:
+        sql_content = f.read()
 
-    for line in lines:
-        # Skip empty lines and comments
-        stripped = line.strip()
-        if not stripped or stripped.startswith('--'):
-            continue
+    # Skip empty files
+    if not sql_content.strip():
+        print(f"     ⏭️  Skipped (empty)")
+        return
 
-        # Check for dollar quote start/end
-        dollar_quotes = re.findall(r'\$([a-zA-Z_]*)\$', line)
-
-        for quote in dollar_quotes:
-            quote_marker = f'${quote}$'
-            if not in_dollar_quote:
-                # Starting a dollar quote
-                in_dollar_quote = True
-                dollar_quote_tag = quote_marker
-            elif dollar_quote_tag == quote_marker:
-                # Ending the dollar quote
-                in_dollar_quote = False
-                dollar_quote_tag = None
-
-        current_statement.append(line)
-
-        # If we're not in a dollar quote and line ends with semicolon, it's end of statement
-        if not in_dollar_quote and stripped.endswith(';'):
-            statement = '\n'.join(current_statement).strip()
-            if statement:
-                statements.append(statement)
-            current_statement = []
-
-    # Add any remaining statement
-    if current_statement:
-        statement = '\n'.join(current_statement).strip()
-        if statement and not statement.startswith('--'):
-            statements.append(statement)
-
-    return statements
+    try:
+        conn.execute(text(sql_content))
+        conn.commit()
+        print(f"     ✅ Success")
+    except Exception as e:
+        print(f"     ❌ Error: {str(e)[:100]}")
+        raise
 
 
 def setup_schemas():
-    """Create all Postgres tables from schema file"""
+    """Execute all SQL files in order"""
 
-    # Read schema file
-    schema_file = os.path.join(project_root, 'config', 'postgres_schemas.sql')
+    sql_dir = os.path.join(project_root, 'config', 'sql')
 
-    if not os.path.exists(schema_file):
-        print(f"❌ Schema file not found: {schema_file}")
+    if not os.path.exists(sql_dir):
+        print(f"❌ SQL directory not found: {sql_dir}")
         sys.exit(1)
 
-    with open(schema_file, 'r') as f:
-        schema_sql = f.read()
+    # Define execution order
+    file_order = [
+        '00_extensions.sql',
+        '01_functions.sql',
+        '02_tables/*.sql',  # All files in tables directory
+        '03_indexes.sql',
+        '04_triggers.sql',
+        '05_constraints.sql',
+        '06_views.sql',
+    ]
 
-    # Connect to Postgres
     db_url = os.getenv('POSTGRES_DB_URL')
     if not db_url:
         print("❌ POSTGRES_DB_URL not set in .env")
@@ -91,31 +68,35 @@ def setup_schemas():
     engine = create_engine(db_url)
 
     try:
-        # Split SQL into statements
-        statements = split_sql_statements(schema_sql)
-
-        print(f"📝 Found {len(statements)} SQL statements to execute")
-
         with engine.connect() as conn:
-            for i, statement in enumerate(statements, 1):
-                # Print abbreviated statement for tracking
-                first_line = statement.split('\n')[0][:60]
-                print(f"  [{i}/{len(statements)}] {first_line}...")
+            print(f"\n🏗️  Setting up database schema...\n")
 
-                try:
-                    conn.execute(text(statement))
-                    conn.commit()
-                except Exception as e:
-                    print(f"\n❌ Error executing statement {i}:")
-                    print(f"Statement: {statement[:200]}...")
-                    print(f"Error: {e}")
-                    raise
+            for pattern in file_order:
+                filepath_pattern = os.path.join(sql_dir, pattern)
 
-        print("\n✅ All schemas created successfully!")
+                # Handle wildcards (e.g., 02_tables/*.sql)
+                if '*' in pattern:
+                    files = sorted(glob.glob(filepath_pattern))
+                    if not files:
+                        print(f"⚠️  No files found matching: {pattern}")
+                        continue
 
-        # Verify key objects
+                    print(f"\n📁 {os.path.dirname(pattern)}/")
+                    for filepath in files:
+                        execute_sql_file(conn, filepath)
+                else:
+                    # Single file
+                    if os.path.exists(filepath_pattern):
+                        print(f"\n📝 {pattern}")
+                        execute_sql_file(conn, filepath_pattern)
+                    else:
+                        print(f"⏭️  Skipping {pattern} (file not found)")
+
+        print("\n✅ All schemas created successfully!\n")
+
+        # Verify setup
         with engine.connect() as conn:
-            # Check tables
+            # Tables
             result = conn.execute(text("""
                                        SELECT table_name
                                        FROM information_schema.tables
@@ -124,10 +105,9 @@ def setup_schemas():
                                        ORDER BY table_name
                                        """))
             tables = [row[0] for row in result]
+            print(f"📊 Tables: {', '.join(tables)}")
 
-            print(f"\n📊 Tables created: {', '.join(tables)}")
-
-            # Check functions
+            # Functions
             result = conn.execute(text("""
                                        SELECT routine_name
                                        FROM information_schema.routines
@@ -136,11 +116,10 @@ def setup_schemas():
                                        ORDER BY routine_name
                                        """))
             functions = [row[0] for row in result]
-
             if functions:
-                print(f"⚙️  Functions created: {', '.join(functions)}")
+                print(f"⚙️  Functions: {', '.join(functions)}")
 
-            # Check triggers
+            # Triggers
             result = conn.execute(text("""
                                        SELECT DISTINCT trigger_name
                                        FROM information_schema.triggers
@@ -148,12 +127,22 @@ def setup_schemas():
                                        ORDER BY trigger_name
                                        """))
             triggers = [row[0] for row in result]
-
             if triggers:
-                print(f"🔧 Triggers created: {', '.join(triggers)}")
+                print(f"🔧 Triggers: {', '.join(triggers)}")
+
+            # Views
+            result = conn.execute(text("""
+                                       SELECT table_name
+                                       FROM information_schema.views
+                                       WHERE table_schema = 'public'
+                                       ORDER BY table_name
+                                       """))
+            views = [row[0] for row in result]
+            if views:
+                print(f"👁️  Views: {', '.join(views)}")
 
     except Exception as e:
-        print(f"\n❌ Error creating schemas: {e}")
+        print(f"\n❌ Error setting up schemas: {e}")
         sys.exit(1)
 
 
