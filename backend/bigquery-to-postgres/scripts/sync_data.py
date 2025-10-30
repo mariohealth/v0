@@ -49,7 +49,6 @@ class DataSync:
         logger.info(f"Extracting data from BigQuery: {self.dataset}.{self.bq_table}")
 
         if query is None:
-            # Build query based on sync mode
             if self.sync_mode == 'incremental' and self.config.get('incremental_column'):
                 query = self._build_incremental_query()
             else:
@@ -75,7 +74,6 @@ class DataSync:
                 )
                 max_value = result.scalar()
         except:
-            # Table doesn't exist yet, do full sync
             max_value = None
 
         if max_value:
@@ -105,6 +103,21 @@ class DataSync:
             if null_counts.any():
                 logger.warning(f"Null values found:\n{null_counts[null_counts > 0]}")
 
+        # Special validation for zip_codes table
+        if self.pg_table == 'zip_codes':
+            # Check for invalid coordinates
+            if 'latitude' in df.columns:
+                invalid_lat = ((df['latitude'] < -90) | (df['latitude'] > 90)).sum()
+                if invalid_lat > 0:
+                    logger.warning(f"Found {invalid_lat} rows with invalid latitude")
+                    df = df[(df['latitude'] >= -90) & (df['latitude'] <= 90)]
+
+            if 'longitude' in df.columns:
+                invalid_lon = ((df['longitude'] < -180) | (df['longitude'] > 180)).sum()
+                if invalid_lon > 0:
+                    logger.warning(f"Found {invalid_lon} rows with invalid longitude")
+                    df = df[(df['longitude'] >= -180) & (df['longitude'] <= 180)]
+
         # Check for duplicates
         duplicates = df.duplicated().sum()
         if duplicates > 0:
@@ -116,34 +129,90 @@ class DataSync:
 
     def load_to_postgres(self, df, force_full_refresh=False):
         """Load data into Postgres"""
-        if_exists = 'replace' if (self.sync_mode == 'full_refresh' or force_full_refresh) else 'append'
+        is_full_refresh = self.sync_mode == 'full_refresh' or force_full_refresh
 
         logger.info(f"Loading {len(df)} rows to Postgres table: {self.pg_table}")
-        logger.info(f"Mode: {if_exists.upper()}")
+        logger.info(f"Mode: {'FULL REFRESH' if is_full_refresh else 'INCREMENTAL'}")
+
+        # Drop location column if it exists (trigger will populate it)
+        if 'location' in df.columns:
+            logger.info("Dropping 'location' column - will be auto-populated by trigger")
+            df = df.drop(columns=['location'])
 
         try:
-            # Use chunking for large datasets
-            chunksize = 10000
-            total_chunks = len(df) // chunksize + (1 if len(df) % chunksize else 0)
-
-            for i, chunk_start in enumerate(range(0, len(df), chunksize)):
-                chunk_end = min(chunk_start + chunksize, len(df))
-                chunk = df[chunk_start:chunk_end]
-
-                chunk.to_sql(
-                    self.pg_table,
-                    self.pg_engine,
-                    if_exists='append' if i > 0 else if_exists,
-                    index=False,
-                    method='multi'
-                )
-                logger.info(f"Loaded chunk {i + 1}/{total_chunks}")
+            if is_full_refresh:
+                # Use TRUNCATE + INSERT to preserve schema/triggers
+                self._load_full_refresh(df)
+            else:
+                # Append mode - simple insert
+                self._load_incremental(df)
 
             logger.info("✅ Data load complete")
+
+            # Verify trigger execution for zip_codes
+            if self.pg_table == 'zip_codes':
+                self._verify_location_trigger()
 
         except Exception as e:
             logger.error(f"Postgres load failed: {e}")
             raise
+
+    def _load_full_refresh(self, df):
+        """Load with TRUNCATE to preserve schema"""
+        logger.info("Using TRUNCATE + INSERT to preserve schema and triggers")
+
+        with self.pg_engine.connect() as conn:
+            # Truncate existing data
+            logger.info(f"Truncating table: {self.pg_table}")
+            conn.execute(text(f"TRUNCATE TABLE {self.pg_table} CASCADE"))
+            conn.commit()
+
+            # Insert new data in chunks
+            self._insert_chunks(df)
+
+    def _load_incremental(self, df):
+        """Load with simple append"""
+        logger.info("Appending new data")
+        self._insert_chunks(df)
+
+    def _insert_chunks(self, df):
+        """Insert data in chunks using pandas to_sql"""
+        chunksize = 10000
+        total_chunks = len(df) // chunksize + (1 if len(df) % chunksize else 0)
+
+        for i, chunk_start in enumerate(range(0, len(df), chunksize)):
+            chunk_end = min(chunk_start + chunksize, len(df))
+            chunk = df[chunk_start:chunk_end]
+
+            chunk.to_sql(
+                self.pg_table,
+                self.pg_engine,
+                if_exists='append',  # Always append after TRUNCATE
+                index=False,
+                method='multi'
+            )
+            logger.info(f"Loaded chunk {i + 1}/{total_chunks}")
+
+    def _verify_location_trigger(self):
+        """Verify that location column was populated by trigger"""
+        logger.info("Verifying location trigger execution...")
+
+        with self.pg_engine.connect() as conn:
+            result = conn.execute(text(f"""
+                SELECT 
+                    COUNT(*) as total_rows,
+                    COUNT(location) as rows_with_location,
+                    COUNT(*) - COUNT(location) as rows_without_location
+                FROM {self.pg_table}
+            """))
+            row = result.fetchone()
+
+            logger.info(f"Total rows: {row[0]}")
+            logger.info(f"Rows with location: {row[1]}")
+            logger.info(f"Rows without location: {row[2]}")
+
+            if row[2] > 0:
+                logger.warning(f"⚠️  {row[2]} rows missing location data (likely NULL lat/lon)")
 
     def verify_sync(self, original_count):
         """Verify data loaded correctly"""
@@ -211,4 +280,3 @@ if __name__ == "__main__":
     table_config = TABLES[args.table]
     syncer = DataSync(table_config)
     syncer.run(force_full_refresh=args.full_refresh)
-    

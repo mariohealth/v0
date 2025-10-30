@@ -8,7 +8,7 @@ TABLES = {
         'bigquery_table': 'zip_codes',
         'postgres_table': 'zip_codes',
         'primary_key': 'zip_code',
-        'required_columns': ['city', 'county', 'state_code', 'latitude', 'longitude', 'location'],
+        'required_columns': ['city', 'county', 'state_code', 'latitude', 'longitude'],
         'sync_mode': 'full_refresh',  # 'full_refresh' or 'incremental'
         'incremental_column': None,  # e.g., 'last_updated' for incremental
     }

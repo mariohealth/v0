@@ -1,9 +1,19 @@
+# BigQuery
 google-cloud-bigquery==3.38.0
-pandas==2.3.3
-psycopg2-binary==2.9.9
-sqlalchemy==2.0.44
-python-dotenv==1.2.1
+google-cloud-bigquery-storage==2.34.0
 db_dtypes==1.4.3
 
+# Database
+psycopg2-binary==2.9.9
+sqlalchemy==2.0.44
+
+# Data processing
+pandas==2.3.3
+pyarrow==22.0.0
+
+# Configuration# Configuration
+python-dotenv==1.2.1
+
+# Testing
 pytest==7.4.3
 pytest-cov==4.1.0

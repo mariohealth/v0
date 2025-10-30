@@ -36,16 +36,25 @@ def run_validation_checks(table_name=None):
 
         checks = {
             'Total rows': f"SELECT COUNT(*) FROM {pg_table}",
-            'Null required fields': None,  # Custom per table
         }
 
         # Add table-specific checks
-        if pg_table == 'healthcare_prices':
+        if pg_table == 'zip_codes':
+            checks.update({
+                'Null zip codes': f"SELECT COUNT(*) FROM {pg_table} WHERE zip_code IS NULL",
+                'Null coordinates': f"SELECT COUNT(*) FROM {pg_table} WHERE latitude IS NULL OR longitude IS NULL",
+                'Rows with location': f"SELECT COUNT(*) FROM {pg_table} WHERE location IS NOT NULL",
+                'Location coverage %': f"SELECT ROUND(100.0 * COUNT(location) / NULLIF(COUNT(*), 0), 2) FROM {pg_table}",
+                'Invalid latitude': f"SELECT COUNT(*) FROM {pg_table} WHERE latitude < -90 OR latitude > 90",
+                'Invalid longitude': f"SELECT COUNT(*) FROM {pg_table} WHERE longitude < -180 OR longitude > 180",
+            })
+        elif pg_table == 'healthcare_prices':
             checks.update({
                 'Null prices': f"SELECT COUNT(*) FROM {pg_table} WHERE price IS NULL",
                 'Negative prices': f"SELECT COUNT(*) FROM {pg_table} WHERE price < 0",
                 'Unique CPT codes': f"SELECT COUNT(DISTINCT cpt_code) FROM {pg_table}",
                 'Unique carriers': f"SELECT COUNT(DISTINCT carrier_name) FROM {pg_table}",
+                'Rows with zip code': f"SELECT COUNT(*) FROM {pg_table} WHERE service_zip_code IS NOT NULL",
             })
         elif pg_table == 'carriers':
             checks.update({
@@ -57,7 +66,11 @@ def run_validation_checks(table_name=None):
             })
         elif pg_table == 'provider_networks':
             checks.update({
-                'Orphaned providers': f"SELECT COUNT(*) FROM {pg_table} WHERE carrier_id NOT IN (SELECT carrier_id FROM carriers)",
+                'Orphaned providers': f"""
+                    SELECT COUNT(*) FROM {pg_table} 
+                    WHERE carrier_id IS NOT NULL 
+                    AND carrier_id NOT IN (SELECT carrier_id FROM carriers)
+                """,
             })
 
         with engine.connect() as conn:
@@ -65,9 +78,15 @@ def run_validation_checks(table_name=None):
                 if query:
                     try:
                         result = conn.execute(text(query)).scalar()
-                        print(f"{check_name:.<40} {result:>10,}")
+
+                        # Format percentage
+                        if '%' in check_name:
+                            print(f"{check_name:.<40} {result:>10}%")
+                        else:
+                            print(f"{check_name:.<40} {result:>10,}")
                     except Exception as e:
                         print(f"{check_name:.<40} {'ERROR':>10}")
+                        print(f"  Error: {str(e)[:50]}")
 
         print()
 

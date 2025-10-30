@@ -1,16 +1,67 @@
 -- Postgres schemas for all synced tables
 -- Run this once to create all table structures
 
+-- Enable PostGIS extension (if not already enabled)
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+-- ============================================================================
+-- FUNCTIONS
+-- ============================================================================
+
+-- Function to automatically update location from lat/lon coordinates
+DROP FUNCTION IF EXISTS update_location_from_coords() CASCADE;
+CREATE OR REPLACE FUNCTION update_location_from_coords()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Only update if latitude and longitude are not null
+    IF NEW.latitude IS NOT NULL AND NEW.longitude IS NOT NULL THEN
+        NEW.location = ST_SetSRID(ST_MakePoint(NEW.longitude, NEW.latitude), 4326)::geography;
+    ELSE
+        NEW.location = NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+COMMENT ON FUNCTION update_location_from_coords() IS
+'Automatically creates a PostGIS geography point from latitude and longitude columns';
+
+-- ============================================================================
+-- TABLES
+-- ============================================================================
+
 -- Zip codes
-    CREATE TABLE IF NOT EXISTS zip_codes (
+DROP TABLE IF EXISTS zip_codes;
+CREATE TABLE IF NOT EXISTS zip_codes (
     zip_code TEXT PRIMARY KEY,
     city TEXT,
     county TEXT,
     state_code TEXT,
     latitude NUMERIC NOT NULL,
     longitude NUMERIC NOT NULL,
-    location GEOGRAPHY(POINT, 4326),
+    location GEOGRAPHY(POINT, 4326), -- Auto-populated by trigger
+    last_updated TIMESTAMP DEFAULT NOW(),
+
+    -- Constraints
+    CONSTRAINT valid_latitude CHECK (latitude BETWEEN -90 AND 90),
+    CONSTRAINT valid_longitude CHECK (longitude BETWEEN -180 AND 180)
 );
+
+-- Trigger to auto-update location from coordinates
+DROP TRIGGER IF EXISTS zip_codes_update_location ON zip_codes;
+CREATE TRIGGER zip_codes_update_location
+    BEFORE INSERT OR UPDATE OF latitude, longitude
+    ON zip_codes
+    FOR EACH ROW
+    EXECUTE FUNCTION update_location_from_coords();
+
+-- Indexes
+CREATE INDEX IF NOT EXISTS idx_zip_code ON zip_codes(zip_code);
+CREATE INDEX IF NOT EXISTS idx_zip_location ON zip_codes USING GIST(location);
+CREATE INDEX IF NOT EXISTS idx_zip_state ON zip_codes(state_code);
+
+COMMENT ON TABLE zip_codes IS 'US zip code geographic data with auto-populated PostGIS location';
+COMMENT ON COLUMN zip_codes.location IS 'Auto-generated from latitude/longitude via trigger';
 
 -- -- Healthcare Prices
 -- CREATE TABLE IF NOT EXISTS healthcare_prices (
