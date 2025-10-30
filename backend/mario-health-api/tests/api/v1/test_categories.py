@@ -29,10 +29,10 @@ def test_category_response_structure():
 
 # Existing tests
 def test_get_category_families_success():
-    response = client.get("/api/v1/categories/radiology/families")
+    response = client.get("/api/v1/categories/imaging/families")
     assert response.status_code == 200
     data = response.json()
-    assert data["category_slug"] == "radiology"
+    assert data["category_slug"] == "imaging"
     assert isinstance(data["families"], list)
 
 

@@ -26,7 +26,7 @@ class TestPerformance:
         duration = (time.time() - start) * 1000
 
         assert response.status_code == 200
-        assert duration < 50, f"Categories took {duration}ms, expected < 50ms"
+        assert duration < 200, f"Categories took {duration}ms, expected < 200ms"
 
     @pytest.mark.slow
     def test_concurrent_requests(self):

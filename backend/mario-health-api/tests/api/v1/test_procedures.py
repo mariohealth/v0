@@ -6,10 +6,10 @@ client = TestClient(app)
 
 
 def test_get_procedure_detail_success():
-    response = client.get("/api/v1/procedures/chest-x-ray-2-views")
+    response = client.get("/api/v1/procedures/chest-x-ray")
     assert response.status_code == 200
     data = response.json()
-    assert data["slug"] == "chest-x-ray-2-views"
+    assert data["slug"] == "chest-x-ray"
     assert "name" in data
     assert "family_slug" in data
     assert "category_slug" in data
@@ -22,7 +22,7 @@ def test_get_procedure_detail_not_found():
 
 
 def test_procedure_detail_structure():
-    response = client.get("/api/v1/procedures/chest-x-ray-2-views")
+    response = client.get("/api/v1/procedures/chest-x-ray")
     data = response.json()
 
     # Required fields
@@ -41,7 +41,7 @@ def test_procedure_detail_structure():
 
 
 def test_carrier_prices_structure():
-    response = client.get("/api/v1/procedures/chest-x-ray-2-views")
+    response = client.get("/api/v1/procedures/chest-x-ray")
     prices = response.json()["carrier_prices"]
 
     if prices:  # If carrier prices exist
