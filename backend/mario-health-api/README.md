@@ -26,14 +26,14 @@ python -m venv venv
 source .venv/bin/activate
 
 # Install requirements in virtual env (if not already done)
-pip install --no-cache-dir -r requirements.txt
+pip3 install --no-cache-dir -r requirements.txt
 
 # Set the following variables in .env to their correct value
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your-anon-or-service-key
 
 # From your backend/ directory
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+python3 -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 # Then test (from a different terminal)
 curl http://localhost:8000/api/v1/categories/imaging/families
