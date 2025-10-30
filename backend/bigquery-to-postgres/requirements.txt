@@ -1,0 +1,5 @@
+google-cloud-bigquery==3.38.0
+pandas==2.3.3
+psycopg2-binary==2.9.9
+sqlalchemy==2.9.22
+python-dotenv==1.2.1

@@ -1,0 +1,63 @@
+name: Sync Single Table
+
+on:
+  workflow_dispatch:
+    inputs:
+      table:
+        description: 'Table to sync'
+        required: true
+        type: choice
+        options:
+          - healthcare_prices
+          - carriers
+          - cpt_codes
+          - provider_networks
+      full_refresh:
+        description: 'Force full refresh'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create GCP credentials file
+        run: echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+
+      - name: Run single table sync
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp-key.json
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          BIGQUERY_DATASET: ${{ secrets.BIGQUERY_DATASET }}
+          POSTGRES_DB_URL: ${{ secrets.POSTGRES_DB_URL }}
+        run: |
+          if [ "${{ inputs.full_refresh }}" == "true" ]; then
+            python scripts/sync_data.py ${{ inputs.table }} --full-refresh
+          else
+            python scripts/sync_data.py ${{ inputs.table }}
+          fi
+
+      - name: Validate data
+        env:
+          POSTGRES_DB_URL: ${{ secrets.POSTGRES_DB_URL }}
+        run: python scripts/validate_data.py --table ${{ inputs.table }}
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sync-logs-${{ inputs.table }}
+          path: logs/

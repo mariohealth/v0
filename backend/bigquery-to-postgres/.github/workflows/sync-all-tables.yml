@@ -1,0 +1,57 @@
+name: Sync All Tables
+
+on:
+  schedule:
+    # Every Sunday at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+    inputs:
+      full_refresh:
+        description: 'Force full refresh for all tables'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create GCP credentials file
+        run: echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+
+      - name: Run multi-table sync
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp-key.json
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          BIGQUERY_DATASET: ${{ secrets.BIGQUERY_DATASET }}
+          POSTGRES_DB_URL: ${{ secrets.POSTGRES_DB_URL }}
+        run: |
+          if [ "${{ inputs.full_refresh }}" == "true" ]; then
+            python scripts/sync_all.py --full-refresh
+          else
+            python scripts/sync_all.py
+          fi
+
+      - name: Validate all data
+        env:
+          POSTGRES_DB_URL: ${{ secrets.POSTGRES_DB_URL }}
+        run: python scripts/validate_data.py
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sync-logs
+          path: logs/
