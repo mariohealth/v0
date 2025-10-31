@@ -1,0 +1,35 @@
+# dbt will ignore files matching these patterns
+
+# Version control
+.git/
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+venv/
+env/
+
+# dbt artifacts
+target/
+dbt_packages/
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Documentation
+docs/
+*.md
+
+# Data files
+*.json
+*.parquet
+
+# Temporary files
+*.tmp
+*.bak

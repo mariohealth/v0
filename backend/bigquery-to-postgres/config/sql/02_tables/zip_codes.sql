@@ -17,5 +17,11 @@ CREATE TABLE IF NOT EXISTS zip_codes (
     CONSTRAINT valid_longitude CHECK (longitude BETWEEN -180 AND 180)
 );
 
+-- Row-level security (if using Supabase RLS)
+ALTER TABLE zip_codes ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public read access" ON zip_codes
+    FOR SELECT USING (true);
+
 COMMENT ON TABLE zip_codes IS 'US zip code geographic data with auto-populated PostGIS location';
 COMMENT ON COLUMN zip_codes.location IS 'Auto-generated from latitude/longitude via trigger';

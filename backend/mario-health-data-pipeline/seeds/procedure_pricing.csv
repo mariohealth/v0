@@ -1,0 +1,4 @@
+id,procedure_id,provider_id,carrier_id,carrier_name,price
+pri_1,proc_abdomen_pelvis_ct_scan,1003005794,carrier_1,cigna,324.00
+pri_2,proc_abdomen_pelvis_ct_scan,1003005794,carrier_2,united_healthcare,222.00
+pri_3,proc_abdomen_pelvis_ct_scan,1003005794,carrier_3,aetna,208.90

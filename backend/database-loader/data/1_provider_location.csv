@@ -1,2 +1,0 @@
-id,provider_id,provider_name,address,city,state,zip_code,latitude,longitude,location,phone,created_at,updated_at
-prov_1,prov_1,"Mount Sinai",123 5th Ave,New York,NY,10021,40.76963,-73.95899,,+123456789

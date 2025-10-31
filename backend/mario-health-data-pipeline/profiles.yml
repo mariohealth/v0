@@ -1,0 +1,23 @@
+mario_health:
+#  target: prod
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: mario-mrf-data
+      dataset: analytics_dev_staging
+      threads: 4
+      timeout_seconds: 300
+      location: US
+      priority: interactive
+
+#    prod:
+#      type: bigquery
+#      method: service-account
+#      project: mario-mrf-data
+#      dataset: analytics
+#      threads: 8
+#      timeout_seconds: 300
+#      location: US
+#      priority: interactive
