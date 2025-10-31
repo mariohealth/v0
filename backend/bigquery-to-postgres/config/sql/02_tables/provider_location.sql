@@ -15,3 +15,8 @@ CREATE TABLE IF NOT EXISTS provider_location (
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
+-- Row-level security (if using Supabase RLS)
+ALTER TABLE provider_location ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public read access" ON provider_location
+    FOR SELECT USING (true);

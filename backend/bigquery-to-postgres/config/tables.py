@@ -11,7 +11,24 @@ TABLES = {
         'required_columns': ['city', 'county', 'state_code', 'latitude', 'longitude'],
         'sync_mode': 'full_refresh',  # 'full_refresh' or 'incremental'
         'incremental_column': None,  # e.g., 'last_updated' for incremental
-    }
+    },
+
+    'provider_location': {
+        'bigquery_table': 'provider_location',
+        'postgres_table': 'provider_location',
+        'primary_key': 'id',
+        'required_columns': ['provider_id',
+                             'provider_name',
+                             'address',
+                             'city',
+                             'state',
+                             'zip_code',
+                             'latitude',
+                             'longitude',
+                             'phone'],
+        'sync_mode': 'full_refresh',  # 'full_refresh' or 'incremental'
+        'incremental_column': None,  # e.g., 'last_updated' for incremental
+    },
 
     # 'healthcare_prices': {
     #     'bigquery_table': 'healthcare_pricing_data',
