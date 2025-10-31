@@ -1,0 +1,112 @@
+# dbt_project.yml
+# Main configuration file for Mario Health data pipeline
+
+name: 'mario_health'
+version: '1.0.0'
+config-version: 2
+
+# Project profile (references profiles.yml)
+profile: 'mario_health'
+
+# Directories
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Output directories
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Model configurations
+models:
+  mario_health:
+    # Default materialization for all models
+    +materialized: table
+    
+    # Staging models (raw data cleaning)
+    staging:
+      +materialized: table
+      +schema: staging
+      +tags: ["staging", "daily"]
+      
+      # BigQuery-specific optimizations
+      +partition_by:
+        field: effective_date
+        data_type: timestamp
+        granularity: day
+      
+      +cluster_by:
+        - cpt_code
+        - carrier
+    
+    # Intermediate models (business logic)
+    intermediate:
+      +materialized: table
+      +schema: intermediate
+      +tags: ["intermediate", "daily"]
+    
+    # Marts (final analytics tables)
+    marts:
+      +materialized: table
+      +schema: marts
+      +tags: ["marts", "daily"]
+      
+      # Production marts optimized for performance
+      +partition_by:
+        field: created_at
+        data_type: timestamp
+        granularity: day
+      
+      +cluster_by:
+        - procedure_family_id
+        - cpt_code
+
+# Seed configurations (CSV files loaded to BigQuery)
+seeds:
+  mario_health:
+    +schema: seeds
+    +tags: ["seed_data"]
+    
+    # Taxonomy seed data
+    seed_taxonomy:
+      +column_types:
+        id: STRING
+        name: STRING
+        slug: STRING
+
+# Test configurations
+tests:
+  mario_health:
+    +store_failures: true
+    +schema: test_results
+
+# Documentation
+docs-paths: ["docs"]
+
+# Hooks (run before/after dbt operations)
+on-run-start:
+  - "{{ log('Starting Mario Health data pipeline...', info=True) }}"
+
+on-run-end:
+  - "{{ log('Pipeline complete!', info=True) }}"
+
+# Variables (accessible in models via {{ var('variable_name') }})
+vars:
+  # Date ranges
+  start_date: '2024-01-01'
+  
+  # Business logic thresholds
+  min_provider_count: 3
+  max_price_threshold: 100000
+  
+  # Carriers
+  supported_carriers: ['UHC', 'Aetna', 'Cigna', 'Blue Cross', 'Humana']
+  
+  # Sprint/phase tracking
+  current_sprint: 1
+  mvp_cpt_codes: 10

@@ -1,0 +1,108 @@
+version: 2
+
+# Data sources (raw tables in BigQuery)
+sources:
+  - name: analytics
+    description: Raw data loaded by Python ingestion scripts
+    database: mario-health-prod
+    schema: analytics
+    tables:
+      - name: raw_healthcare_prices
+        description: Raw pricing data from carriers (UHC, Aetna, etc.)
+        columns:
+          - name: cpt_code
+            description: CPT procedure code
+          - name: procedure_name
+            description: Name of medical procedure
+          - name: provider_name
+            description: Healthcare provider name
+          - name: price
+            description: Procedure price in USD
+          - name: carrier
+            description: Insurance carrier (UHC, Aetna, etc.)
+          - name: effective_date
+            description: Date when price becomes effective
+
+# dbt models
+models:
+  - name: stg_procedures
+    description: |
+      Cleaned and normalized healthcare pricing data.
+      
+      Transformations:
+      - Standardize CPT codes (uppercase, trimmed)
+      - Remove invalid records (null codes, negative prices)
+      - Calculate price statistics per CPT code
+      - Add search-friendly fields
+    
+    columns:
+      - name: cpt_code
+        description: CPT procedure code (standardized)
+        tests:
+          - unique
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: "^[0-9]{5}$"
+      
+      - name: procedure_name
+        description: Medical procedure name (cleaned)
+        tests:
+          - not_null
+      
+      - name: procedure_name_searchable
+        description: Lowercase procedure name for search
+        tests:
+          - not_null
+      
+      - name: provider_name
+        description: Healthcare provider name
+        tests:
+          - not_null
+      
+      - name: price
+        description: Procedure price in USD
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "> 0"
+              config:
+                severity: error
+          - dbt_utils.expression_is_true:
+              expression: "< 100000"
+              config:
+                severity: warn  # Warning, not error
+      
+      - name: carrier
+        description: Insurance carrier
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['UHC', 'Aetna', 'Cigna', 'Blue Cross', 'Humana']
+      
+      - name: price_median
+        description: Median price for this CPT code across all providers
+      
+      - name: provider_count
+        description: Number of providers offering this procedure
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 1"
+      
+      - name: effective_date
+        description: Date when price becomes effective
+        tests:
+          - not_null
+      
+      - name: processed_at
+        description: Timestamp when record was processed by dbt
+        tests:
+          - not_null
+
+# Additional tests at model level
+  - name: stg_procedures
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - cpt_code
+            - provider_name
+            - carrier

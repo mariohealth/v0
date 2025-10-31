@@ -29,10 +29,10 @@ This pipeline ingests healthcare pricing data from various carriers (UHC, Aetna,
 ```bash
 # Clone repository
 git clone <your-repo-url>
-cd mario-health-data
+cd mario-health-data-pipeline
 
 # Create virtual environment
-python -m venv venv
+python3 -m venv venv
 
 # Activate virtual environment
 # macOS/Linux:
@@ -44,47 +44,14 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### **Step 2: GCP Setup** (10 minutes)
+### **Step 2: GCP Setup**
 
-1. **Create GCP Project** (if you haven't already)
+1. **Authenticate with your dev account**
    ```bash
-   gcloud projects create mario-health-prod --name="Mario Health"
-   gcloud config set project mario-health-prod
+   gcloud auth application-default login
    ```
 
-2. **Enable BigQuery API**
-   ```bash
-   gcloud services enable bigquery.googleapis.com
-   ```
-
-3. **Create Service Account**
-   ```bash
-   gcloud iam service-accounts create mario-data-pipeline \
-     --display-name "Mario Data Pipeline"
-   ```
-
-4. **Grant BigQuery Permissions**
-   ```bash
-   gcloud projects add-iam-policy-binding mario-health-prod \
-     --member="serviceAccount:mario-data-pipeline@mario-health-prod.iam.gserviceaccount.com" \
-     --role="roles/bigquery.admin"
-   ```
-
-5. **Download Service Account Key**
-   ```bash
-   gcloud iam service-accounts keys create gcp-credentials.json \
-     --iam-account=mario-data-pipeline@mario-health-prod.iam.gserviceaccount.com
-   ```
-   
-   ⚠️ **Security:** This file contains sensitive credentials. Never commit it to git!
-
-6. **Create BigQuery Datasets**
-   ```bash
-   bq mk --dataset --location=US mario-health-prod:analytics
-   bq mk --dataset --location=US mario-health-prod:analytics_dev
-   ```
-
-### **Step 3: Configure dbt** (2 minutes)
+### **Step 3: Configure dbt**
 
 1. **Update `profiles.yml`** with your GCP project ID:
    ```yaml
@@ -159,33 +126,6 @@ dbt docs serve
 ```
 
 Opens at `http://localhost:8080` with interactive lineage graphs.
-
----
-
-## 📁 Project Structure
-
-```
-mario-health-data/
-├── models/                      # dbt SQL models
-│   ├── staging/                 # Raw data cleaning
-│   │   ├── stg_procedures.sql
-│   │   └── schema.yml          # Tests & documentation
-│   ├── intermediate/            # Business logic
-│   │   └── int_cpt_enrichment.sql
-│   └── marts/                   # Final analytics tables
-│       └── searchable_procedures.sql
-│
-├── scripts/                     # Python ingestion scripts
-│   ├── ingest_uhc_data.py
-│   └── refresh_carriers.py
-│
-├── dbt_project.yml             # dbt project config
-├── profiles.yml                # BigQuery connection
-├── orchestrate.py              # Pipeline runner (Cloud Run)
-├── requirements.txt            # Python dependencies
-│
-└── gcp-credentials.json        # 🔒 GCP key (DO NOT COMMIT)
-```
 
 ---
 
