@@ -1,0 +1,24 @@
+mario_health:
+  target: prod
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: mario-health-prod  # Replace with your GCP project ID
+      dataset: analytics_dev
+      threads: 4
+      timeout_seconds: 300
+      location: US
+      priority: interactive
+      keyfile: /secrets/gcp-credentials.json  # Mounted from Cloud Run secret
+      
+    prod:
+      type: bigquery
+      method: service-account
+      project: mario-health-prod  # Replace with your GCP project ID
+      dataset: analytics
+      threads: 8
+      timeout_seconds: 300
+      location: US
+      priority: interactive
+      keyfile: /secrets/gcp-credentials.json

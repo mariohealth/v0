@@ -1,0 +1,21 @@
+# dbt for BigQuery transformations
+dbt-bigquery==1.7.4
+
+# Python data processing
+pandas==2.1.4
+numpy==1.26.2
+
+# Google Cloud clients
+google-cloud-bigquery==3.14.1
+google-cloud-storage==2.14.0
+
+# API clients (add as needed)
+requests==2.31.0
+supabase==2.3.0
+
+# Utilities
+python-dotenv==1.0.0
+flask==3.0.0
+
+# Optional: Monitoring/logging
+# google-cloud-logging==3.8.0
