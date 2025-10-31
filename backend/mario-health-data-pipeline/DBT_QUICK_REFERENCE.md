@@ -43,6 +43,12 @@ dbt test
 
 ## 🛠️ Common Commands
 
+### **Loading Seeds**
+```bash
+dbt seed
+dbt seed --select "country_codes"
+```
+
 ### **Running Models**
 
 ```bash

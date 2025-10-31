@@ -31,59 +31,12 @@ models:
     # Staging models (raw data cleaning)
     staging:
       +materialized: table
-      +schema: staging
-      +tags: ["staging", "daily"]
-      
-      # BigQuery-specific optimizations
-#      +partition_by:
-#        field: effective_date
-#        data_type: timestamp
-#        granularity: day
-#
-#      +cluster_by:
-#        - cpt_code
-#        - carrier
-    
-    # Intermediate models (business logic)
-    intermediate:
-      +materialized: table
-      +schema: intermediate
-      +tags: ["intermediate", "daily"]
-    
-    # Marts (final analytics tables)
-    marts:
-      +materialized: table
-      +schema: marts
-      +tags: ["marts", "daily"]
-      
-      # Production marts optimized for performance
-      +partition_by:
-        field: created_at
-        data_type: timestamp
-        granularity: day
-      
-      +cluster_by:
-        - procedure_family_id
-        - cpt_code
+      +tags: ["staging"]
 
 # Seed configurations (CSV files loaded to BigQuery)
 seeds:
   mario_health:
-    +schema: seeds
-    +tags: ["seed_data"]
-    
-    # Taxonomy seed data
-    seed_taxonomy:
-      +column_types:
-        id: STRING
-        name: STRING
-        slug: STRING
-
-# Test configurations
-tests:
-  mario_health:
-    +store_failures: true
-    +schema: test_results
+    +schema: analytics_dev
 
 # Documentation
 docs-paths: ["docs"]
@@ -99,14 +52,14 @@ on-run-end:
 vars:
   # Date ranges
   start_date: '2024-01-01'
-  
+
   # Business logic thresholds
   min_provider_count: 3
   max_price_threshold: 100000
-  
+
   # Carriers
   supported_carriers: ['UHC', 'Aetna', 'Cigna', 'Blue Cross', 'Humana']
-  
+
   # Sprint/phase tracking
   current_sprint: 1
   mvp_cpt_codes: 10

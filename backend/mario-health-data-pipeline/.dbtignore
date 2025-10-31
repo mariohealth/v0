@@ -27,7 +27,6 @@ docs/
 *.md
 
 # Data files
-*.csv
 *.json
 *.parquet
 
