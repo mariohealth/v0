@@ -1,5 +1,6 @@
 -- User Preferences Table
 -- Stores user preferences for personalized experience
+DROP TABLE IF EXISTS user_preferences CASCADE;
 
 CREATE TABLE IF NOT EXISTS user_preferences (
     user_id VARCHAR(255) PRIMARY KEY,
@@ -13,11 +14,11 @@ CREATE TABLE IF NOT EXISTS user_preferences (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create index on user_id for faster lookups
-CREATE INDEX IF NOT EXISTS idx_user_preferences_user_id ON user_preferences(user_id);
+-- Row-level security (if using Supabase RLS)
+ALTER TABLE user_preferences ENABLE ROW LEVEL SECURITY;
 
--- Create index on created_at for analytics
-CREATE INDEX IF NOT EXISTS idx_user_preferences_created_at ON user_preferences(created_at);
+CREATE POLICY "Public read access" ON user_preferences
+    FOR SELECT USING (true);
 
 -- Add comment to table
 COMMENT ON TABLE user_preferences IS 'Stores user preferences including location defaults, insurance preferences, and saved locations';

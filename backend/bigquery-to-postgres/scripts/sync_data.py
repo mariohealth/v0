@@ -101,7 +101,7 @@ class DataSync:
         if self.required_columns:
             null_counts = df[self.required_columns].isnull().sum()
             if null_counts.any():
-                logger.warning(f"Null values found:\n{null_counts[null_counts > 0]}")
+                logger.warning(f"⚠️ Null values found:\n{null_counts[null_counts > 0]}")
 
         # Special validation for zip_codes table
         if self.pg_table == 'zip_codes':
@@ -109,19 +109,19 @@ class DataSync:
             if 'latitude' in df.columns:
                 invalid_lat = ((df['latitude'] < -90) | (df['latitude'] > 90)).sum()
                 if invalid_lat > 0:
-                    logger.warning(f"Found {invalid_lat} rows with invalid latitude")
+                    logger.warning(f"⚠️ Found {invalid_lat} rows with invalid latitude")
                     df = df[(df['latitude'] >= -90) & (df['latitude'] <= 90)]
 
             if 'longitude' in df.columns:
                 invalid_lon = ((df['longitude'] < -180) | (df['longitude'] > 180)).sum()
                 if invalid_lon > 0:
-                    logger.warning(f"Found {invalid_lon} rows with invalid longitude")
+                    logger.warning(f"⚠️ Found {invalid_lon} rows with invalid longitude")
                     df = df[(df['longitude'] >= -180) & (df['longitude'] <= 180)]
 
         # Check for duplicates
         duplicates = df.duplicated().sum()
         if duplicates > 0:
-            logger.warning(f"Found {duplicates} duplicate rows - removing")
+            logger.warning(f"⚠️ Found {duplicates} duplicate rows - removing")
             df = df.drop_duplicates()
 
         logger.info(f"Validation complete. Final row count: {len(df)}")

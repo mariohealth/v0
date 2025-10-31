@@ -10,3 +10,4 @@ cat_physical_therapy,Physical Therapy,physical-therapy,🏃,...
 cat_surgery,Surgery,surgery,🏥,"Surgery (ex: Joint replacement, appendectomy, ...)"
 cat_testing,Testing,testing,📈,"ECG, breathing, hearing, seeing"
 cat_vaccine,Vaccines,vaccines,💉🦠,"Vaccines (Flu, Hep-B, ...)"
+cat_unknown,Unknown,unknown,🤷,"Unknown"

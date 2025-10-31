@@ -6,7 +6,7 @@ mario_health:
       type: bigquery
       method: oauth
       project: mario-mrf-data
-      dataset: analytics_dev
+      dataset: analytics_dev_staging
       threads: 4
       timeout_seconds: 300
       location: US

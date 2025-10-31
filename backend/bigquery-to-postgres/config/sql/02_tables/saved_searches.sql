@@ -1,6 +1,8 @@
 -- Saved Searches Table
 -- Stores user's saved searches for quick re-execution and alerts
 
+DROP TABLE IF EXISTS saved_searches CASCADE;
+
 CREATE TABLE IF NOT EXISTS saved_searches (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id VARCHAR(255) NOT NULL,
@@ -12,14 +14,11 @@ CREATE TABLE IF NOT EXISTS saved_searches (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create index on user_id for faster lookups
-CREATE INDEX IF NOT EXISTS idx_saved_searches_user_id ON saved_searches(user_id);
+-- Row-level security (if using Supabase RLS)
+ALTER TABLE saved_searches ENABLE ROW LEVEL SECURITY;
 
--- Create index on created_at for sorting
-CREATE INDEX IF NOT EXISTS idx_saved_searches_created_at ON saved_searches(created_at);
-
--- Create index on query for search functionality
-CREATE INDEX IF NOT EXISTS idx_saved_searches_query ON saved_searches(query);
+CREATE POLICY "Public read access" ON saved_searches
+    FOR SELECT USING (true);
 
 -- Add comment to table
 COMMENT ON TABLE saved_searches IS 'Stores user saved searches with query, location, filters, and alert preferences';

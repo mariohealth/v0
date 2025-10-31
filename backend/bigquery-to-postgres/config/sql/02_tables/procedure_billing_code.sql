@@ -19,6 +19,12 @@ ALTER TABLE procedure_billing_code
 ADD CONSTRAINT check_valid_code_type
 CHECK (code_type IN ('CPT', 'HCPCS', 'MS-DRG', 'G-CODE', 'ICD-10-PCS', 'ICD-10-CM', 'CDT', 'DRG', '???'));
 
+-- Row-level security (if using Supabase RLS)
+ALTER TABLE procedure_billing_code ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public read access" ON procedure_billing_code
+    FOR SELECT USING (true);
+
 -- Comment for documentation
 COMMENT ON TABLE procedure_billing_code IS 'Maps procedures to various medical billing codes (CPT, HCPCS, G-codes, ICD-10-PCS, etc.)';
 COMMENT ON COLUMN procedure_billing_code.code_type IS 'Type of billing code: CPT, HCPCS, G-CODE, ICD-10-PCS, ICD-10-CM, CDT, DRG';

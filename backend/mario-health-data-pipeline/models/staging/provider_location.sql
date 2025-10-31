@@ -38,3 +38,6 @@ LEFT JOIN
   -- left join because I want to see how many zip codes are incorrect in the NPI data
 ON
   t0.zip_code = t_zip.zip_code
+WHERE -- I use t_zip. in the where statement because I trust Google more than the NPI data for spelling
+    UPPER(t_zip.city) = 'NEW YORK CITY'
+    AND UPPER(t_zip.state_code) = 'NY'

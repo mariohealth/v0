@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS procedure_pricing (
     updated_at TIMESTAMP
 );
 
--- Foreign key from procedure_pricing to provider_location
-ALTER TABLE procedure_pricing
-ADD CONSTRAINT fk_provider_location
-FOREIGN KEY (provider_id) REFERENCES provider_location(provider_id);
+-- Row-level security (if using Supabase RLS)
+ALTER TABLE procedure_pricing ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public read access" ON procedure_pricing
+    FOR SELECT USING (true);

@@ -9,3 +9,9 @@ CREATE TABLE IF NOT EXISTS procedure (
      FOREIGN KEY (family_id)
      REFERENCES procedure_family (id)
 );
+
+-- Row-level security (if using Supabase RLS)
+ALTER TABLE procedure ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public read access" ON procedure
+    FOR SELECT USING (true);
