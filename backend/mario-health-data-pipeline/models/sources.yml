@@ -1,53 +1,76 @@
 version: 2
 
-# Define raw data sources loaded by Python scripts
 sources:
-  - name: analytics
-    description: Raw data loaded by Python ingestion scripts
-    database: mario-health-prod  # Replace with your GCP project ID
-    schema: analytics
-    
+  - name: bigquery-public-data
+    description: bla
+    database: bigquery-public-data
+    schema: geo_us_boundaries
+
     tables:
-      - name: raw_healthcare_prices
+      - name: zip_codes
         description: |
-          Raw pricing data from healthcare carriers (UHC, Aetna, etc.)
-          Loaded by: scripts/ingest_uhc_data.py and similar scripts
-        
-        columns:
-          - name: cpt_code
-            description: CPT procedure code (5-digit)
-            tests:
-              - not_null
-          
-          - name: procedure_name
-            description: Medical procedure name
-            tests:
-              - not_null
-          
-          - name: provider_name
-            description: Healthcare provider/facility name
-            tests:
-              - not_null
-          
-          - name: price
-            description: Procedure price in USD
-            tests:
-              - not_null
-          
-          - name: carrier
-            description: Insurance carrier (UHC, Aetna, etc.)
-            tests:
-              - not_null
-              - accepted_values:
-                  values: ['UHC', 'Aetna', 'Cigna', 'Blue Cross', 'Humana']
-          
-          - name: effective_date
-            description: Date when pricing becomes effective
-            tests:
-              - not_null
-        
-        # Freshness check - warn if data is over 2 days old
-        loaded_at_field: effective_date
-        freshness:
-          warn_after: {count: 2, period: day}
-          error_after: {count: 7, period: day}
+         Bla bla
+
+  - name: mario-mrf-data
+    description: files that I manually uploaded into Big Query
+    database: mario-mrf-data
+    schema: test_arnaud
+
+    tables:
+      - name: npidata_pfile_20050523-20250907
+        description: downloaded from the CMS website and loaded in Big Query with the UI
+
+
+
+#   Example of industry standard below:
+
+# Define raw data sources loaded by Python scripts
+#  - name: analytics
+#    description: Raw data loaded by Python ingestion scripts
+#    database: mario-health-prod  # Replace with your GCP project ID
+#    schema: analytics
+#
+#    tables:
+#      - name: raw_healthcare_prices
+#        description: |
+#          Raw pricing data from healthcare carriers (UHC, Aetna, etc.)
+#          Loaded by: scripts/ingest_uhc_data.py and similar scripts
+#
+#        columns:
+#          - name: cpt_code
+#            description: CPT procedure code (5-digit)
+#            tests:
+#              - not_null
+#
+#          - name: procedure_name
+#            description: Medical procedure name
+#            tests:
+#              - not_null
+#
+#          - name: provider_name
+#            description: Healthcare provider/facility name
+#            tests:
+#              - not_null
+#
+#          - name: price
+#            description: Procedure price in USD
+#            tests:
+#              - not_null
+#
+#          - name: carrier
+#            description: Insurance carrier (UHC, Aetna, etc.)
+#            tests:
+#              - not_null
+#              - accepted_values:
+#                  values: ['UHC', 'Aetna', 'Cigna', 'Blue Cross', 'Humana']
+#
+#          - name: effective_date
+#            description: Date when pricing becomes effective
+#            tests:
+#              - not_null
+#
+#        # Freshness check - warn if data is over 2 days old
+#        loaded_at_field: effective_date
+#        freshness:
+#          warn_after: {count: 2, period: day}
+#          error_after: {count: 7, period: day}

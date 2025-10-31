@@ -35,14 +35,14 @@ models:
       +tags: ["staging", "daily"]
       
       # BigQuery-specific optimizations
-      +partition_by:
-        field: effective_date
-        data_type: timestamp
-        granularity: day
-      
-      +cluster_by:
-        - cpt_code
-        - carrier
+#      +partition_by:
+#        field: effective_date
+#        data_type: timestamp
+#        granularity: day
+#
+#      +cluster_by:
+#        - cpt_code
+#        - carrier
     
     # Intermediate models (business logic)
     intermediate:
