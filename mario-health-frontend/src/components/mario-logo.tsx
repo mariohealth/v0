@@ -1,5 +1,7 @@
 import { cn } from './ui/utils';
-import marioLogo from 'figma:asset/14dd42739444e8035ce3f11f46006e30fca6c4a7.png';
+
+// Placeholder logo - replace with actual logo asset when available
+const marioLogo = '/placeholders/mario-logo.png';
 
 interface MarioLogoProps {
   variant?: 'full' | 'icon' | 'reversed' | 'monochrome';
