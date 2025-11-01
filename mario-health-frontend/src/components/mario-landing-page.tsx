@@ -7,11 +7,11 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { MarioSmartSearch } from './mario-smart-search';
 import { type AutocompleteSuggestion } from './mario-autocomplete';
 import { Sheet, SheetContent, SheetTrigger, SheetPortal, SheetOverlay } from './ui/sheet';
-import { 
-  Search, 
-  Pill, 
-  Building2, 
-  Gift, 
+import {
+  Search,
+  Pill,
+  Building2,
+  Gift,
   ArrowRight,
   Lock,
   Settings,
@@ -41,9 +41,12 @@ interface MarioLandingPageProps {
 
 export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbout, onNavigateToTransparency, onNavigateToContact, onNavigateToEmployers, onNavigateToPrivacy }: MarioLandingPageProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    // Initialize desktop state after mount
+    setIsDesktop(typeof window !== 'undefined' && window.innerWidth >= 768);
+
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 768);
       if (window.innerWidth >= 768) {
@@ -82,8 +85,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
           <div className="flex items-center justify-between" style={{ height: '64px' }}>
             {/* Logo */}
             <div className="flex items-center">
-              <span 
-                style={{ 
+              <span
+                style={{
                   color: '#2E5077',
                   fontSize: '20px',
                   fontWeight: '700',
@@ -98,10 +101,10 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             {isDesktop ? (
               <>
                 <nav className="hidden md:flex items-center" style={{ gap: '32px' }}>
-                  <a 
-                    href="#" 
+                  <a
+                    href="#"
                     className="mario-transition hover:opacity-75 mario-focus-ring"
-                    style={{ 
+                    style={{
                       color: '#2E5077',
                       fontSize: '15px',
                       fontWeight: '500'
@@ -109,10 +112,10 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                   >
                     Prescription Savings
                   </a>
-                  <a 
-                    href="#" 
+                  <a
+                    href="#"
                     className="mario-transition hover:opacity-75 mario-focus-ring"
-                    style={{ 
+                    style={{
                       color: '#2E5077',
                       fontSize: '15px',
                       fontWeight: '500'
@@ -120,10 +123,10 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                   >
                     Telehealth
                   </a>
-                  <a 
-                    href="#" 
+                  <a
+                    href="#"
                     className="mario-transition hover:opacity-75 mario-focus-ring"
-                    style={{ 
+                    style={{
                       color: '#2E5077',
                       fontSize: '15px',
                       fontWeight: '500'
@@ -131,10 +134,10 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                   >
                     Health Services
                   </a>
-                  <a 
-                    href="#" 
+                  <a
+                    href="#"
                     className="mario-transition hover:opacity-75 mario-focus-ring"
-                    style={{ 
+                    style={{
                       color: '#2E5077',
                       fontSize: '15px',
                       fontWeight: '500'
@@ -145,11 +148,11 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 </nav>
 
                 <div className="flex items-center" style={{ gap: '12px' }}>
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     onClick={onLogin}
                     className="mario-transition mario-focus-ring"
-                    style={{ 
+                    style={{
                       color: '#2E5077',
                       fontSize: '15px',
                       fontWeight: '500'
@@ -157,10 +160,10 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                   >
                     Login
                   </Button>
-                  <Button 
+                  <Button
                     onClick={onSignUp}
                     className="mario-transition mario-button-scale mario-focus-ring"
-                    style={{ 
+                    style={{
                       backgroundColor: '#2E5077',
                       color: 'white',
                       height: '48px',
@@ -187,17 +190,17 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent 
+                <SheetContent
                   side="right"
                   className="w-[280px] p-0"
-                  style={{ 
+                  style={{
                     backgroundColor: '#FFFFFF',
                     borderLeft: '1px solid #E0E0E0'
                   }}
                 >
-                  <nav 
+                  <nav
                     className="flex flex-col h-full"
-                    style={{ 
+                    style={{
                       paddingTop: '32px',
                       paddingLeft: '24px',
                       paddingRight: '24px'
@@ -381,8 +384,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                     </div>
 
                     {/* Divider */}
-                    <div 
-                      style={{ 
+                    <div
+                      style={{
                         height: '1px',
                         backgroundColor: '#E0E0E0',
                         margin: '20px 0'
@@ -465,9 +468,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
       <section style={{ padding: isDesktop ? '64px 80px' : '64px 16px' }}>
         <div className="mx-auto text-center" style={{ maxWidth: '640px' }}>
           {/* Headline */}
-          <h1 
+          <h1
             className="mx-auto"
-            style={{ 
+            style={{
               fontSize: isDesktop ? '32px' : '28px',
               fontWeight: '700',
               lineHeight: '1.2',
@@ -496,7 +499,7 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             <Button
               onClick={onSignUp}
               className="mario-transition mario-button-scale mario-focus-ring"
-              style={{ 
+              style={{
                 backgroundColor: '#2E5077',
                 color: 'white',
                 height: '48px',
@@ -513,7 +516,7 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               variant="outline"
               onClick={onLogin}
               className="mario-transition mario-button-scale mario-focus-ring"
-              style={{ 
+              style={{
                 border: '1px solid #2E5077',
                 backgroundColor: 'transparent',
                 color: '#2E5077',
@@ -535,18 +538,18 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
           <div className="grid md:grid-cols-3" style={{ gap: isDesktop ? '24px' : '16px' }}>
             {/* Save on Prescriptions */}
-            <Card 
+            <Card
               className="text-center mario-shadow-card mario-transition hover:mario-shadow-elevated"
-              style={{ 
+              style={{
                 padding: '16px',
                 borderRadius: '16px',
                 backgroundColor: 'white',
                 border: 'none'
               }}
             >
-              <div 
-                className="mx-auto rounded-full flex items-center justify-center" 
-                style={{ 
+              <div
+                className="mx-auto rounded-full flex items-center justify-center"
+                style={{
                   width: '56px',
                   height: '56px',
                   backgroundColor: 'rgba(121, 215, 190, 0.1)',
@@ -555,8 +558,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 <Pill style={{ width: '40px', height: '40px', color: '#2E5077' }} />
               </div>
-              <h3 
-                style={{ 
+              <h3
+                style={{
                   fontSize: '16px',
                   fontWeight: '600',
                   color: '#2E5077',
@@ -565,8 +568,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 Save on Prescriptions
               </h3>
-              <p 
-                style={{ 
+              <p
+                style={{
                   fontSize: '14px',
                   fontWeight: '400',
                   color: '#667085',
@@ -578,18 +581,18 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             </Card>
 
             {/* Transparent Provider Costs */}
-            <Card 
+            <Card
               className="text-center mario-shadow-card mario-transition hover:mario-shadow-elevated"
-              style={{ 
+              style={{
                 padding: '16px',
                 borderRadius: '16px',
                 backgroundColor: 'white',
                 border: 'none'
               }}
             >
-              <div 
-                className="mx-auto rounded-full flex items-center justify-center" 
-                style={{ 
+              <div
+                className="mx-auto rounded-full flex items-center justify-center"
+                style={{
                   width: '56px',
                   height: '56px',
                   backgroundColor: 'rgba(77, 161, 169, 0.1)',
@@ -598,8 +601,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 <Building2 style={{ width: '40px', height: '40px', color: '#2E5077' }} />
               </div>
-              <h3 
-                style={{ 
+              <h3
+                style={{
                   fontSize: '16px',
                   fontWeight: '600',
                   color: '#2E5077',
@@ -608,8 +611,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 Transparent Provider Costs
               </h3>
-              <p 
-                style={{ 
+              <p
+                style={{
                   fontSize: '14px',
                   fontWeight: '400',
                   color: '#667085',
@@ -621,18 +624,18 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             </Card>
 
             {/* Earn Rewards */}
-            <Card 
+            <Card
               className="text-center mario-shadow-card mario-transition hover:mario-shadow-elevated"
-              style={{ 
+              style={{
                 padding: '16px',
                 borderRadius: '16px',
                 backgroundColor: 'white',
                 border: 'none'
               }}
             >
-              <div 
-                className="mx-auto rounded-full flex items-center justify-center" 
-                style={{ 
+              <div
+                className="mx-auto rounded-full flex items-center justify-center"
+                style={{
                   width: '56px',
                   height: '56px',
                   backgroundColor: 'rgba(46, 80, 119, 0.1)',
@@ -641,8 +644,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 <Gift style={{ width: '40px', height: '40px', color: '#2E5077' }} />
               </div>
-              <h3 
-                style={{ 
+              <h3
+                style={{
                   fontSize: '16px',
                   fontWeight: '600',
                   color: '#2E5077',
@@ -651,8 +654,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 Earn Rewards
               </h3>
-              <p 
-                style={{ 
+              <p
+                style={{
                   fontSize: '14px',
                   fontWeight: '400',
                   color: '#667085',
@@ -671,8 +674,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
           {/* Section Header */}
           <div className="text-center" style={{ marginBottom: '24px' }}>
-            <h2 
-              style={{ 
+            <h2
+              style={{
                 fontSize: '18px',
                 fontWeight: '700',
                 color: '#2E5077',
@@ -681,8 +684,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             >
               How It Works
             </h2>
-            <p 
-              style={{ 
+            <p
+              style={{
                 fontSize: '14px',
                 fontWeight: '400',
                 color: '#667085'
@@ -694,18 +697,18 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
 
           <div className="grid md:grid-cols-3" style={{ gap: isDesktop ? '24px' : '16px' }}>
             {/* Step 1 */}
-            <Card 
+            <Card
               className="text-center mario-shadow-card relative"
-              style={{ 
+              style={{
                 padding: '16px',
                 borderRadius: '16px',
                 backgroundColor: 'white',
                 border: 'none'
               }}
             >
-              <div 
+              <div
                 className="absolute rounded-full flex items-center justify-center"
-                style={{ 
+                style={{
                   width: '24px',
                   height: '24px',
                   top: '-12px',
@@ -720,9 +723,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 1
               </div>
               <div style={{ paddingTop: '12px' }}>
-                <div 
-                  className="mx-auto rounded-full flex items-center justify-center" 
-                  style={{ 
+                <div
+                  className="mx-auto rounded-full flex items-center justify-center"
+                  style={{
                     width: '40px',
                     height: '40px',
                     backgroundColor: 'rgba(77, 161, 169, 0.1)',
@@ -731,8 +734,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 >
                   <Search style={{ width: '24px', height: '24px', color: '#2E5077' }} />
                 </div>
-                <h3 
-                  style={{ 
+                <h3
+                  style={{
                     fontSize: '16px',
                     fontWeight: '600',
                     color: '#2E5077',
@@ -741,8 +744,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 >
                   Search
                 </h3>
-                <p 
-                  style={{ 
+                <p
+                  style={{
                     fontSize: '14px',
                     fontWeight: '400',
                     color: '#667085',
@@ -755,18 +758,18 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             </Card>
 
             {/* Step 2 */}
-            <Card 
+            <Card
               className="text-center mario-shadow-card relative"
-              style={{ 
+              style={{
                 padding: '16px',
                 borderRadius: '16px',
                 backgroundColor: 'white',
                 border: 'none'
               }}
             >
-              <div 
+              <div
                 className="absolute rounded-full flex items-center justify-center"
-                style={{ 
+                style={{
                   width: '24px',
                   height: '24px',
                   top: '-12px',
@@ -781,9 +784,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 2
               </div>
               <div style={{ paddingTop: '12px' }}>
-                <div 
-                  className="mx-auto rounded-full flex items-center justify-center" 
-                  style={{ 
+                <div
+                  className="mx-auto rounded-full flex items-center justify-center"
+                  style={{
                     width: '40px',
                     height: '40px',
                     backgroundColor: 'rgba(121, 215, 190, 0.1)',
@@ -792,8 +795,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 >
                   <TrendingDown style={{ width: '24px', height: '24px', color: '#2E5077' }} />
                 </div>
-                <h3 
-                  style={{ 
+                <h3
+                  style={{
                     fontSize: '16px',
                     fontWeight: '600',
                     color: '#2E5077',
@@ -802,8 +805,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 >
                   Compare
                 </h3>
-                <p 
-                  style={{ 
+                <p
+                  style={{
                     fontSize: '14px',
                     fontWeight: '400',
                     color: '#667085',
@@ -816,18 +819,18 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             </Card>
 
             {/* Step 3 */}
-            <Card 
+            <Card
               className="text-center mario-shadow-card relative"
-              style={{ 
+              style={{
                 padding: '16px',
                 borderRadius: '16px',
                 backgroundColor: 'white',
                 border: 'none'
               }}
             >
-              <div 
+              <div
                 className="absolute rounded-full flex items-center justify-center"
-                style={{ 
+                style={{
                   width: '24px',
                   height: '24px',
                   top: '-12px',
@@ -842,9 +845,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 3
               </div>
               <div style={{ paddingTop: '12px' }}>
-                <div 
-                  className="mx-auto rounded-full flex items-center justify-center" 
-                  style={{ 
+                <div
+                  className="mx-auto rounded-full flex items-center justify-center"
+                  style={{
                     width: '40px',
                     height: '40px',
                     backgroundColor: 'rgba(46, 80, 119, 0.1)',
@@ -853,8 +856,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 >
                   <Award style={{ width: '24px', height: '24px', color: '#2E5077' }} />
                 </div>
-                <h3 
-                  style={{ 
+                <h3
+                  style={{
                     fontSize: '16px',
                     fontWeight: '600',
                     color: '#2E5077',
@@ -863,8 +866,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                 >
                   Save & Earn
                 </h3>
-                <p 
-                  style={{ 
+                <p
+                  style={{
                     fontSize: '14px',
                     fontWeight: '400',
                     color: '#667085',
@@ -884,8 +887,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
           {/* Section Header */}
           <div className="text-center" style={{ marginBottom: '24px' }}>
-            <h2 
-              style={{ 
+            <h2
+              style={{
                 fontSize: '18px',
                 fontWeight: '700',
                 color: '#2E5077',
@@ -894,8 +897,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             >
               See the Savings
             </h2>
-            <p 
-              style={{ 
+            <p
+              style={{
                 fontSize: '14px',
                 fontWeight: '400',
                 color: '#667085'
@@ -907,9 +910,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
 
           <div className="grid lg:grid-cols-2" style={{ gap: isDesktop ? '24px' : '16px' }}>
             {/* Medication Example */}
-            <Card 
+            <Card
               className="mario-shadow-card"
-              style={{ 
+              style={{
                 padding: '16px',
                 borderRadius: '16px',
                 backgroundColor: 'white',
@@ -918,8 +921,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             >
               <div className="flex items-start justify-between" style={{ marginBottom: '12px' }}>
                 <div>
-                  <h3 
-                    style={{ 
+                  <h3
+                    style={{
                       fontSize: '16px',
                       fontWeight: '600',
                       color: '#2E5077',
@@ -932,8 +935,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                     30-day supply
                   </p>
                 </div>
-                <Badge 
-                  style={{ 
+                <Badge
+                  style={{
                     backgroundColor: 'rgba(121, 215, 190, 0.15)',
                     color: '#2E5077',
                     fontSize: '12px',
@@ -956,7 +959,7 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                   <span style={{ fontSize: '14px', color: '#667085' }}>Insurance Price</span>
                   <span style={{ fontSize: '14px', fontWeight: '500', color: '#2E5077' }}>$45.00</span>
                 </div>
-                <div 
+                <div
                   className="flex items-center justify-between border-t"
                   style={{ paddingTop: '12px', marginTop: '4px', borderTopColor: '#E5E7EB' }}
                 >
@@ -970,9 +973,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             </Card>
 
             {/* Procedure Example - MRI Knee */}
-            <Card 
+            <Card
               className="mario-shadow-card"
-              style={{ 
+              style={{
                 padding: '16px',
                 borderRadius: '16px',
                 backgroundColor: 'white',
@@ -981,8 +984,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             >
               <div className="flex items-start justify-between" style={{ marginBottom: '12px' }}>
                 <div>
-                  <h3 
-                    style={{ 
+                  <h3
+                    style={{
                       fontSize: '16px',
                       fontWeight: '600',
                       color: '#2E5077',
@@ -1010,15 +1013,15 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
                   <span style={{ fontSize: '14px', color: '#667085' }}>Hospital estimate</span>
                   <span className="line-through" style={{ fontSize: '14px', fontWeight: '500', color: '#999999' }}>$2,400</span>
                 </div>
-                <div 
+                <div
                   className="flex items-center justify-between border-t"
                   style={{ paddingTop: '12px', marginTop: '4px', borderTopColor: '#E5E7EB' }}
                 >
                   <span style={{ fontSize: '14px', fontWeight: '600', color: '#2E5077' }}>Your cost</span>
                   <div className="text-right">
                     <div style={{ fontSize: '24px', fontWeight: '700', color: '#2E5077', marginBottom: '4px' }}>$680</div>
-                    <Badge 
-                      style={{ 
+                    <Badge
+                      style={{
                         backgroundColor: 'rgba(121, 215, 190, 0.15)',
                         color: '#2E5077',
                         fontSize: '12px',
@@ -1043,9 +1046,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
         <div className="mx-auto" style={{ maxWidth: '1280px', padding: isDesktop ? '0 80px' : '0' }}>
           <div className="grid md:grid-cols-3 text-center" style={{ gap: isDesktop ? '40px' : '24px' }}>
             <div className="flex flex-col items-center">
-              <div 
-                className="rounded-full flex items-center justify-center" 
-                style={{ 
+              <div
+                className="rounded-full flex items-center justify-center"
+                style={{
                   width: '48px',
                   height: '48px',
                   backgroundColor: 'rgba(46, 80, 119, 0.1)',
@@ -1054,8 +1057,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 <Lock style={{ width: '24px', height: '24px', color: '#2E5077' }} />
               </div>
-              <h4 
-                style={{ 
+              <h4
+                style={{
                   fontSize: '16px',
                   fontWeight: '600',
                   color: '#2E5077',
@@ -1064,8 +1067,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 HIPAA Compliant
               </h4>
-              <p 
-                style={{ 
+              <p
+                style={{
                   fontSize: '14px',
                   fontWeight: '400',
                   color: '#667085',
@@ -1077,9 +1080,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             </div>
 
             <div className="flex flex-col items-center">
-              <div 
-                className="rounded-full flex items-center justify-center" 
-                style={{ 
+              <div
+                className="rounded-full flex items-center justify-center"
+                style={{
                   width: '48px',
                   height: '48px',
                   backgroundColor: 'rgba(77, 161, 169, 0.1)',
@@ -1088,8 +1091,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 <Settings style={{ width: '24px', height: '24px', color: '#2E5077' }} />
               </div>
-              <h4 
-                style={{ 
+              <h4
+                style={{
                   fontSize: '16px',
                   fontWeight: '600',
                   color: '#2E5077',
@@ -1098,8 +1101,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 Real-Time MRF Pricing Data
               </h4>
-              <p 
-                style={{ 
+              <p
+                style={{
                   fontSize: '14px',
                   fontWeight: '400',
                   color: '#667085',
@@ -1111,9 +1114,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             </div>
 
             <div className="flex flex-col items-center">
-              <div 
-                className="rounded-full flex items-center justify-center" 
-                style={{ 
+              <div
+                className="rounded-full flex items-center justify-center"
+                style={{
                   width: '48px',
                   height: '48px',
                   backgroundColor: 'rgba(121, 215, 190, 0.1)',
@@ -1122,8 +1125,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 <ShieldCheck style={{ width: '24px', height: '24px', color: '#2E5077' }} />
               </div>
-              <h4 
-                style={{ 
+              <h4
+                style={{
                   fontSize: '16px',
                   fontWeight: '600',
                   color: '#2E5077',
@@ -1132,8 +1135,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 Secure & Private by Design
               </h4>
-              <p 
-                style={{ 
+              <p
+                style={{
                   fontSize: '14px',
                   fontWeight: '400',
                   color: '#667085',
@@ -1154,8 +1157,8 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
       </section>
 
       {/* Footer */}
-      <footer 
-        style={{ 
+      <footer
+        style={{
           padding: '32px 16px',
           backgroundColor: '#F9F9F9',
           borderTop: '2px solid rgba(77, 161, 169, 0.2)'
@@ -1164,13 +1167,13 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
         <div className="mx-auto" style={{ maxWidth: '1280px', padding: isDesktop ? '0 80px' : '0' }}>
           <div className="flex flex-col md:flex-row items-center justify-between" style={{ gap: '24px' }}>
             <div className="flex flex-wrap items-center justify-center" style={{ gap: '24px' }}>
-              <button 
+              <button
                 onClick={(e) => {
                   e.preventDefault();
                   onNavigateToAbout?.();
                 }}
                 className="mario-transition hover:opacity-75 mario-focus-ring"
-                style={{ 
+                style={{
                   fontSize: '14px',
                   color: '#2E5077',
                   fontWeight: '500',
@@ -1184,13 +1187,13 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 About
               </button>
-              <button 
+              <button
                 onClick={(e) => {
                   e.preventDefault();
                   onNavigateToTransparency?.();
                 }}
                 className="mario-transition hover:opacity-75 mario-focus-ring"
-                style={{ 
+                style={{
                   fontSize: '14px',
                   color: '#2E5077',
                   fontWeight: '500',
@@ -1204,13 +1207,13 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               >
                 Transparency Statement
               </button>
-              <button 
+              <button
                 onClick={(e) => {
                   e.preventDefault();
                   onNavigateToContact?.();
                 }}
                 className="mario-transition hover:opacity-75 mario-focus-ring"
-                style={{ 
+                style={{
                   fontSize: '14px',
                   color: '#2E5077',
                   fontWeight: '500',
@@ -1229,7 +1232,7 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             <Button
               onClick={onSignUp}
               className="mario-transition mario-button-scale mario-focus-ring"
-              style={{ 
+              style={{
                 backgroundColor: '#2E5077',
                 color: 'white',
                 height: '48px',
@@ -1244,9 +1247,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
             </Button>
           </div>
 
-          <div 
-            className="text-center border-t" 
-            style={{ 
+          <div
+            className="text-center border-t"
+            style={{
               marginTop: '32px',
               paddingTop: '32px',
               borderTopColor: '#E0E0E0'
