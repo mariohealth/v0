@@ -116,13 +116,13 @@ export function MarioAuthLogin({
       } else {
         setAuthState('success');
         setShowConfetti(true);
-        console.log('Success! Redirecting…');
+        console.log('Mock login success, redirecting...');
         
-        // Redirect after success message
+        // Redirect immediately after success
         setTimeout(() => {
           onAuthSuccess?.();
           router.push('/search'); // Redirect to search/homepage after login
-        }, 1500);
+        }, 500); // Reduced delay for faster redirect
       }
     } catch (err) {
       setAuthState('error');
@@ -163,12 +163,16 @@ export function MarioAuthLogin({
         setAuthState('error');
         setAuthError(error.message || `${provider} sign-in failed. Please try again.`);
       } else {
-        // OAuth redirect will happen automatically
-        if (provider === 'google') {
-          onGoogleLogin?.();
-        } else {
-          onAppleLogin?.();
-        }
+        // Mock OAuth - redirect immediately
+        console.log(`Mock ${provider} login success, redirecting...`);
+        setTimeout(() => {
+          router.push('/search');
+          if (provider === 'google') {
+            onGoogleLogin?.();
+          } else {
+            onAppleLogin?.();
+          }
+        }, 500);
       }
     } catch (err) {
       setAuthState('error');
