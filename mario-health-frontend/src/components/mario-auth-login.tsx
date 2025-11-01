@@ -1,5 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 import { MarioLogoLockup } from './mario-logo-lockup';
 import { Eye, EyeOff, CheckCircle, AlertCircle, X } from 'lucide-react';
 
@@ -36,6 +38,8 @@ export function MarioAuthLogin({
   mockAuthSuccess = true,
   onAuthSuccess
 }: LoginProps) {
+  const router = useRouter();
+  const supabase = createClient();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +49,7 @@ export function MarioAuthLogin({
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   
-  // Mock auth flow state
+  // Auth flow state
   const [authState, setAuthState] = useState<AuthState>('default');
   const [authError, setAuthError] = useState('');
   const [showConfetti, setShowConfetti] = useState(false);
@@ -94,29 +98,40 @@ export function MarioAuthLogin({
     setFocusedField(null);
   };
 
-  // Mock auth flow handler
-  const simulateAuth = (authMethod: string) => {
-    console.log(`${authMethod} clicked`);
+  // Supabase auth handler
+  const handleLogin = async (email: string, password: string) => {
     setAuthState('loading');
     setAuthError('');
 
-    setTimeout(() => {
-      if (mockAuthSuccess) {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setAuthState('error');
+        setAuthError(error.message || 'Sign-in failed. Please try again.');
+        onLogin?.(email, password); // Call callback for backward compatibility
+      } else {
         setAuthState('success');
         setShowConfetti(true);
+        console.log('Success! Redirecting…');
         
         // Redirect after success message
         setTimeout(() => {
           onAuthSuccess?.();
+          router.push('/search'); // Redirect to search/homepage after login
         }, 1500);
-      } else {
-        setAuthState('error');
-        setAuthError('Sign-in failed. Please try again.');
       }
-    }, mockAuthDelay);
+    } catch (err) {
+      setAuthState('error');
+      setAuthError('An unexpected error occurred. Please try again.');
+      onLogin?.(email, password); // Call callback for backward compatibility
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setEmailTouched(true);
     setPasswordTouched(true);
@@ -128,17 +143,36 @@ export function MarioAuthLogin({
     setPasswordError(passwordErr);
     
     if (!emailErr && !passwordErr) {
-      simulateAuth('Email sign-in');
-      onLogin?.(email, password);
+      await handleLogin(email, password);
     }
   };
 
-  const handleSocialLogin = (provider: 'google' | 'apple') => {
-    simulateAuth(`${provider} sign-in`);
-    if (provider === 'google') {
-      onGoogleLogin?.();
-    } else {
-      onAppleLogin?.();
+  const handleSocialLogin = async (provider: 'google' | 'apple') => {
+    setAuthState('loading');
+    setAuthError('');
+
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: provider === 'google' ? 'google' : 'apple',
+        options: {
+          redirectTo: `${window.location.origin}/search`,
+        },
+      });
+
+      if (error) {
+        setAuthState('error');
+        setAuthError(error.message || `${provider} sign-in failed. Please try again.`);
+      } else {
+        // OAuth redirect will happen automatically
+        if (provider === 'google') {
+          onGoogleLogin?.();
+        } else {
+          onAppleLogin?.();
+        }
+      }
+    } catch (err) {
+      setAuthState('error');
+      setAuthError(`An unexpected error occurred during ${provider} sign-in. Please try again.`);
     }
   };
 
