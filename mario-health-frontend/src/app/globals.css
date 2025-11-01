@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://rsms.me/inter/inter.css');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 @custom-variant dark (&:is(.dark *));
@@ -6,7 +10,7 @@
   /* Mario Health Design System */
   --font-size: 16px;
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+
   /* Color Tokens */
   --mario-primary-blue: #2E5077;
   --mario-accent-teal: #4DA1A9;
@@ -20,12 +24,12 @@
   --mario-error: #D32F2F;
   --mario-warning: #FFA726;
   --mario-border: #E0E0E0;
-  
+
   /* State Colors */
   --mario-primary-hover: #254260;
   --mario-primary-active: #1c3349;
   --mario-focus-ring: #79D7BE;
-  
+
   /* Semantic Mapping */
   --background: var(--mario-neutral-bg);
   --foreground: var(--mario-text-primary);
@@ -82,7 +86,7 @@
   --mario-error: #F44336;
   --mario-warning: #FF9800;
   --mario-border: #333333;
-  
+
   --background: var(--mario-neutral-bg);
   --foreground: var(--mario-text-primary);
   --card: var(--mario-surface-white);
@@ -160,7 +164,8 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
   }
 
   body {
@@ -174,31 +179,36 @@
 @layer base {
   :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
     h1 {
-      font-size: 2rem; /* 32px desktop */
+      font-size: 2rem;
+      /* 32px desktop */
       font-weight: var(--font-weight-bold);
       line-height: 1.25;
     }
 
     h2 {
-      font-size: 1.5rem; /* 24px desktop */
+      font-size: 1.5rem;
+      /* 24px desktop */
       font-weight: var(--font-weight-semibold);
       line-height: 1.33;
     }
 
     h3 {
-      font-size: 1.25rem; /* 20px desktop */
+      font-size: 1.25rem;
+      /* 20px desktop */
       font-weight: var(--font-weight-semibold);
       line-height: 1.4;
     }
 
     h4 {
-      font-size: 1rem; /* 16px */
+      font-size: 1rem;
+      /* 16px */
       font-weight: var(--font-weight-semibold);
       line-height: 1.5;
     }
 
     p {
-      font-size: 1rem; /* 16px large body */
+      font-size: 1rem;
+      /* 16px large body */
       font-weight: var(--font-weight-normal);
       line-height: 1.5;
     }
@@ -223,13 +233,15 @@
     }
 
     small {
-      font-size: 0.875rem; /* 14px body regular */
+      font-size: 0.875rem;
+      /* 14px body regular */
       font-weight: var(--font-weight-normal);
       line-height: 1.57;
     }
 
     .caption {
-      font-size: 0.75rem; /* 12px caption */
+      font-size: 0.75rem;
+      /* 12px caption */
       font-weight: var(--font-weight-normal);
       line-height: 1.33;
     }
@@ -239,15 +251,18 @@
   @media (max-width: 600px) {
     :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
       h1 {
-        font-size: 1.5rem; /* 24px mobile */
+        font-size: 1.5rem;
+        /* 24px mobile */
       }
 
       h2 {
-        font-size: 1.25rem; /* 20px mobile */
+        font-size: 1.25rem;
+        /* 20px mobile */
       }
 
       h3 {
-        font-size: 1.125rem; /* 18px mobile */
+        font-size: 1.125rem;
+        /* 18px mobile */
       }
     }
   }
@@ -388,6 +403,7 @@ body {
       opacity: 0;
       transform: translateY(10px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -404,6 +420,7 @@ body {
       transform: translateY(-100vh) rotate(0deg);
       opacity: 1;
     }
+
     to {
       transform: translateY(100vh) rotate(360deg);
       opacity: 0;
@@ -420,6 +437,7 @@ body {
       opacity: 0;
       transform: translateY(10px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -428,9 +446,12 @@ body {
 
   /* Typing indicator pulse animation */
   @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 0.4;
     }
+
     50% {
       opacity: 1;
     }
@@ -442,9 +463,12 @@ body {
   }
 
   @keyframes floatPulse {
-    0%, 100% {
+
+    0%,
+    100% {
       box-shadow: 0 4px 12px rgba(77, 161, 169, 0.4);
     }
+
     50% {
       box-shadow: 0 4px 20px rgba(77, 161, 169, 0.6);
     }
@@ -461,6 +485,7 @@ body {
       transform: translateY(100%);
       opacity: 0;
     }
+
     to {
       transform: translateY(0);
       opacity: 1;
@@ -472,6 +497,7 @@ body {
     from {
       opacity: 1;
     }
+
     to {
       opacity: 0;
     }
@@ -497,7 +523,7 @@ body {
   }
 
   /* Toast stacking gap */
-  [data-sonner-toast] + [data-sonner-toast] {
+  [data-sonner-toast]+[data-sonner-toast] {
     margin-top: 8px;
   }
 
@@ -594,7 +620,7 @@ body {
   }
 
   /* Prevent interaction with bottom nav during toast */
-  .toast-active ~ [data-bottom-nav] {
+  .toast-active~[data-bottom-nav] {
     pointer-events: none;
   }
 
