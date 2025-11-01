@@ -15,7 +15,7 @@ import {
   Target
 } from 'lucide-react';
 import type { MedicationData } from '@/lib/data/mario-medication-data';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface MarioMedicationDetailProps {
   medication: MedicationData;
