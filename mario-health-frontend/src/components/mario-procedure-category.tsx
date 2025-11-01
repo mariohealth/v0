@@ -3,7 +3,7 @@ import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { ArrowLeft, MapPin, TrendingDown, Sparkles } from 'lucide-react';
-import { procedureCategories, type Procedure } from '../data/mario-procedures-data';
+import { procedureCategories, type Procedure } from '@/lib/data/mario-procedures-data';
 
 interface MarioProcedureCategoryProps {
   categoryId: string;

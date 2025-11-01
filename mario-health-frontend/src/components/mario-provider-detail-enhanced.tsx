@@ -26,7 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Separator } from './ui/separator';
 import { Progress } from './ui/progress';
-import { type Provider } from '../data/healthcare-data';
+import { type Provider } from '@/lib/data/healthcare-data';
 
 interface ProviderDetailProps {
   provider: Provider;

@@ -19,7 +19,7 @@ import {
   getProviderHospitalPairingsBySpecialty,
   getUniqueHospitalCount,
   type ProviderHospitalPairing 
-} from '../data/mario-doctors-data';
+} from '@/lib/data/mario-doctors-data';
 
 interface MarioSpecialtyDoctorsProps {
   specialtyId: string;

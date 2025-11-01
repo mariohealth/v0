@@ -26,7 +26,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { cn } from './ui/utils';
 import { MarioAIConcierge } from './mario-ai-concierge';
-import { type Provider } from '../data/healthcare-data';
+import { type Provider } from '@/lib/data/healthcare-data';
 
 interface ProviderDetailCompleteProps {
   provider: Provider;

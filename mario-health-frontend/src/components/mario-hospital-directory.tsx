@@ -5,7 +5,7 @@ import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { Input } from './ui/input';
 import { useState } from 'react';
-import type { HospitalInfo, ProviderHospitalPairing } from '../data/mario-doctors-data';
+import type { HospitalInfo, ProviderHospitalPairing } from '@/lib/data/mario-doctors-data';
 
 interface MarioHospitalDirectoryProps {
   hospital: HospitalInfo;

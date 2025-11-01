@@ -21,7 +21,7 @@ import {
 import { Slider } from './ui/slider';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Label } from './ui/label';
-import { getSearchSuggestions, type SearchSuggestion } from '../data/healthcare-data';
+import { getSearchSuggestions, type SearchSuggestion } from '@/lib/data/healthcare-data';
 
 interface SearchBarProps {
   onSearch: (query: string, type?: 'service' | 'medication' | 'provider') => void;

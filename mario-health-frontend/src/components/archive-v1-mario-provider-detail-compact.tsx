@@ -60,7 +60,7 @@ import {
   Clock,
   ArrowLeft
 } from 'lucide-react';
-import { MarioProvider } from '../data/mario-provider-data';
+import { MarioProvider } from '@/lib/data/mario-provider-data';
 
 interface MarioProviderDetailProps {
   provider: MarioProvider;

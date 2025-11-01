@@ -1,8 +1,8 @@
 'use client'
 import { motion, AnimatePresence } from 'motion/react';
 import { User, Activity, SearchSlash, Building2, Pill } from 'lucide-react';
-import { doctors, specialties, hospitals, Doctor, Specialty, HospitalInfo } from '../data/mario-doctors-data';
-import { searchMedications, type MedicationData } from '../data/mario-medication-data';
+import { doctors, specialties, hospitals, Doctor, Specialty, HospitalInfo } from '@/lib/data/mario-doctors-data';
+import { searchMedications, type MedicationData } from '@/lib/data/mario-medication-data';
 
 export type AutocompleteCategory = 'doctor' | 'specialty' | 'hospital' | 'medication';
 

@@ -14,7 +14,7 @@ import {
   Truck,
   Store
 } from 'lucide-react';
-import type { MedicationData } from '../data/mario-medication-data';
+import type { MedicationData } from '@/lib/data/mario-medication-data';
 import { toast } from 'sonner@2.0.3';
 
 interface PharmacyComparison {

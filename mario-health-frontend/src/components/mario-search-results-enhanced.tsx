@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { cn } from './ui/utils';
-import { searchProviders, type Provider } from '../data/healthcare-data';
+import { searchProviders, type Provider } from '@/lib/data/healthcare-data';
 
 interface SearchFilters {
   sortBy: 'best_value' | 'price' | 'distance' | 'rating';

@@ -17,7 +17,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { MarioAIBookingChat } from './mario-ai-booking-chat';
-import type { Doctor } from '../data/mario-search-service';
+import type { Doctor } from '@/lib/data/mario-search-service';
 
 interface MarioDoctorDetailProps {
   doctor: Doctor;

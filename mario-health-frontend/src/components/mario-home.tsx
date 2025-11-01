@@ -5,7 +5,7 @@ import { Card } from './ui/card';
 import { Progress } from './ui/progress';
 import { Badge } from './ui/badge';
 import { MarioSmartSearch } from './mario-smart-search';
-import { type SearchSuggestion } from '../data/healthcare-data';
+import { type SearchSuggestion } from '@/lib/data/healthcare-data';
 import { cn } from './ui/utils';
 import aiGlyph from 'figma:asset/be45d2fdb826eadb9df8b88213c90c19c77e04b0.png';
 import { 

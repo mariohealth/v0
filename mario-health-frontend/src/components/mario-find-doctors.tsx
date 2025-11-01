@@ -2,7 +2,7 @@
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { ChevronRight, Users, ArrowLeft } from 'lucide-react';
-import { specialties, type Specialty } from '../data/mario-doctors-data';
+import { specialties, type Specialty } from '@/lib/data/mario-doctors-data';
 
 interface MarioFindDoctorsProps {
   onSpecialtySelect: (specialtyId: string) => void;

@@ -16,8 +16,8 @@ import {
   X
 } from 'lucide-react';
 import { MarioBookingFlow } from './mario-booking-flow';
-import { searchData } from '../data/mario-search-data';
-import conversationData from '../data/mario_search_results.json';
+import { searchData } from '@/lib/data/mario-search-data';
+import conversationData from '@/lib/data/mario_search_results.json';
 
 interface Message {
   id: string;

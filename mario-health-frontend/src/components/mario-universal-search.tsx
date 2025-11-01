@@ -4,7 +4,7 @@ import { Search, X, Loader2 } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { cn } from './ui/utils';
-import { getSearchSuggestions, type SearchSuggestion } from '../data/healthcare-data';
+import { getSearchSuggestions, type SearchSuggestion } from '@/lib/data/healthcare-data';
 
 interface UniversalSearchProps {
   placeholder?: string;

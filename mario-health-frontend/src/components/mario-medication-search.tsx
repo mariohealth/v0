@@ -29,7 +29,7 @@ import { Separator } from './ui/separator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { type Medication } from '../data/healthcare-data';
+import { type Medication } from '@/lib/data/healthcare-data';
 
 interface MedicationSearchResultsProps {
   medication: Medication;

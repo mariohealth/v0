@@ -4,11 +4,11 @@ import { ArrowLeft, MapPin, Star, SlidersHorizontal, Map, Navigation, Award } fr
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { motion } from 'motion/react';
-import { bloodTestProviders, sortBloodTestProviders, filterBloodTestProviders, type BloodTestProvider } from '../data/mario-blood-test-data';
-import { mriProviders, sortMRIProviders, filterMRIProviders, type MRIProvider } from '../data/mario-mri-data';
-import { colonoscopyProviders, sortColonoscopyProviders, filterColonoscopyProviders, type ColonoscopyProvider } from '../data/mario-colonoscopy-data';
-import { mammogramProviders, sortMammogramProviders, filterMammogramProviders, type MammogramProvider } from '../data/mario-mammogram-data';
-import { annualPhysicalProviders, sortAnnualPhysicalProviders, filterAnnualPhysicalProviders, type AnnualPhysicalProvider } from '../data/mario-annual-physical-data';
+import { bloodTestProviders, sortBloodTestProviders, filterBloodTestProviders, type BloodTestProvider } from '@/lib/data/mario-blood-test-data';
+import { mriProviders, sortMRIProviders, filterMRIProviders, type MRIProvider } from '@/lib/data/mario-mri-data';
+import { colonoscopyProviders, sortColonoscopyProviders, filterColonoscopyProviders, type ColonoscopyProvider } from '@/lib/data/mario-colonoscopy-data';
+import { mammogramProviders, sortMammogramProviders, filterMammogramProviders, type MammogramProvider } from '@/lib/data/mario-mammogram-data';
+import { annualPhysicalProviders, sortAnnualPhysicalProviders, filterAnnualPhysicalProviders, type AnnualPhysicalProvider } from '@/lib/data/mario-annual-physical-data';
 import {
   DropdownMenu,
   DropdownMenuContent,

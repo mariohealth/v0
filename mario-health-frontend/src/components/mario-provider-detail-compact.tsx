@@ -24,8 +24,8 @@
  */
 
 import { MarioProviderHospitalDetail } from './mario-provider-hospital-detail';
-import { MarioProvider } from '../data/mario-provider-data';
-import { ProviderHospitalPairing } from '../data/mario-doctors-data';
+import { MarioProvider } from '@/lib/data/mario-provider-data';
+import { ProviderHospitalPairing } from '@/lib/data/mario-doctors-data';
 
 interface MarioProviderDetailProps {
   provider: MarioProvider;

@@ -3,7 +3,7 @@ import { ArrowLeft, Phone, MapPin, Clock, Building2, CheckCircle2, User, Chevron
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
-import type { ProviderHospitalPairing } from '../data/mario-doctors-data';
+import type { ProviderHospitalPairing } from '@/lib/data/mario-doctors-data';
 
 interface HospitalInfo {
   id: string;

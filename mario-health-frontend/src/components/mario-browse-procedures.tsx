@@ -1,7 +1,7 @@
 'use client'
 import { Card } from './ui/card';
 import { ChevronRight, Scan, Beaker, Shield, Stethoscope, HeartPulse, Activity } from 'lucide-react';
-import { procedureCategories, type ProcedureCategory } from '../data/mario-procedures-data';
+import { procedureCategories, type ProcedureCategory } from '@/lib/data/mario-procedures-data';
 
 interface MarioBrowseProceduresProps {
   onCategorySelect: (categoryId: string) => void;

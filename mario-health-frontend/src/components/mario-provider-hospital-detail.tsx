@@ -19,7 +19,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { MarioAIBookingChat } from './mario-ai-booking-chat';
-import type { ProviderHospitalPairing } from '../data/mario-doctors-data';
+import type { ProviderHospitalPairing } from '@/lib/data/mario-doctors-data';
 
 interface MarioProviderHospitalDetailProps {
   pairing: ProviderHospitalPairing;
