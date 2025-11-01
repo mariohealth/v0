@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -16,12 +17,19 @@ interface MarioLoginProps {
 }
 
 export function MarioLogin({ onLogin, onSignUp, onBack, showBackButton = false }: MarioLoginProps) {
+  const router = useRouter();
   const [biometricPulse, setBiometricPulse] = useState(false);
   const [loginMethod, setLoginMethod] = useState<'biometric' | 'email' | 'username' | null>(null);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoginSuccess = () => {
+    console.log("Mock login success, redirecting...");
+    onLogin(); // Call the callback
+    router.push("/search"); // Immediately redirect to /search
+  };
 
   const handleBiometricAuth = async () => {
     setBiometricPulse(true);
@@ -31,8 +39,8 @@ export function MarioLogin({ onLogin, onSignUp, onBack, showBackButton = false }
     setTimeout(() => {
       setBiometricPulse(false);
       setIsLoading(false);
-      onLogin();
-    }, 2000);
+      handleLoginSuccess();
+    }, 1000); // Reduced delay
   };
 
   const handleEmailLogin = async (e: React.FormEvent) => {
@@ -42,8 +50,8 @@ export function MarioLogin({ onLogin, onSignUp, onBack, showBackButton = false }
     // Simulate login
     setTimeout(() => {
       setIsLoading(false);
-      onLogin();
-    }, 1500);
+      handleLoginSuccess();
+    }, 500); // Reduced delay for faster redirect
   };
 
   const handleUsernameLogin = async (e: React.FormEvent) => {
@@ -53,8 +61,8 @@ export function MarioLogin({ onLogin, onSignUp, onBack, showBackButton = false }
     // Simulate login
     setTimeout(() => {
       setIsLoading(false);
-      onLogin();
-    }, 1500);
+      handleLoginSuccess();
+    }, 500); // Reduced delay for faster redirect
   };
 
   return (

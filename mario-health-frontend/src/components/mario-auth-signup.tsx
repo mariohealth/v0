@@ -1,5 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 import { MarioLogoLockup } from './mario-logo-lockup';
 import { Eye, EyeOff, Building2, CheckCircle, AlertCircle, X } from 'lucide-react';
 
@@ -40,6 +42,8 @@ export function MarioAuthSignup({
   mockAuthSuccess = true,
   onAuthSuccess
 }: SignupProps) {
+  const router = useRouter();
+  const supabase = createClient();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +53,7 @@ export function MarioAuthSignup({
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   
-  // Mock auth flow state
+  // Auth flow state
   const [authState, setAuthState] = useState<AuthState>('default');
   const [authError, setAuthError] = useState('');
   const [showConfetti, setShowConfetti] = useState(false);
@@ -101,29 +105,40 @@ export function MarioAuthSignup({
     setFocusedField(null);
   };
 
-  // Mock auth flow handler
-  const simulateAuth = (authMethod: string) => {
-    console.log(`${authMethod} clicked`);
+  // Supabase auth handler for signup
+  const handleSignup = async (email: string, password: string) => {
     setAuthState('loading');
     setAuthError('');
 
-    setTimeout(() => {
-      if (mockAuthSuccess) {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        setAuthState('error');
+        setAuthError(error.message || 'Sign-up failed. Please try again.');
+        onSignUp?.(email, password); // Call callback for backward compatibility
+      } else {
         setAuthState('success');
         setShowConfetti(true);
+        console.log('Mock signup success, redirecting...');
         
-        // Redirect after success message
+        // Redirect immediately after success
         setTimeout(() => {
           onAuthSuccess?.();
-        }, 1500);
-      } else {
-        setAuthState('error');
-        setAuthError('Sign-up failed. Please try again.');
+          router.push('/search'); // Redirect to search/homepage after signup
+        }, 500); // Reduced delay for faster redirect
       }
-    }, mockAuthDelay);
+    } catch (err) {
+      setAuthState('error');
+      setAuthError('An unexpected error occurred. Please try again.');
+      onSignUp?.(email, password); // Call callback for backward compatibility
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setEmailTouched(true);
     setPasswordTouched(true);
@@ -135,8 +150,49 @@ export function MarioAuthSignup({
     setPasswordError(passwordErr);
     
     if (!emailErr && !passwordErr) {
-      simulateAuth('Email signup');
-      onSignUp?.(email, password);
+      await handleSignup(email, password);
+    }
+  };
+
+  const handleSocialSignup = async (provider: 'google' | 'apple' | 'sso') => {
+    setAuthState('loading');
+    setAuthError('');
+
+    try {
+      if (provider === 'sso') {
+        // Mock SSO - just redirect
+        console.log('Mock SSO signup success, redirecting...');
+        setTimeout(() => {
+          router.push('/search');
+          onSSOSignUp?.();
+        }, 500);
+      } else {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: provider === 'google' ? 'google' : 'apple',
+          options: {
+            redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/search`,
+          },
+        });
+
+        if (error) {
+          setAuthState('error');
+          setAuthError(error.message || `${provider} sign-up failed. Please try again.`);
+        } else {
+          // Mock OAuth - redirect immediately
+          console.log(`Mock ${provider} signup success, redirecting...`);
+          setTimeout(() => {
+            router.push('/search');
+            if (provider === 'google') {
+              onGoogleSignUp?.();
+            } else {
+              onAppleSignUp?.();
+            }
+          }, 500);
+        }
+      }
+    } catch (err) {
+      setAuthState('error');
+      setAuthError(`An unexpected error occurred during ${provider} sign-up. Please try again.`);
     }
   };
 
@@ -208,9 +264,9 @@ export function MarioAuthSignup({
             onPasswordBlur={handlePasswordBlur}
             onTogglePassword={() => setShowPassword(!showPassword)}
             onSubmit={handleSubmit}
-            onGoogleSignUp={() => simulateAuth('Google sign-up')}
-            onAppleSignUp={() => simulateAuth('Apple sign-up')}
-            onSSOSignUp={() => simulateAuth('Employer SSO')}
+            onGoogleSignUp={() => handleSocialSignup('google')}
+            onAppleSignUp={() => handleSocialSignup('apple')}
+            onSSOSignUp={() => handleSocialSignup('sso')}
             onLoginClick={onLoginClick}
             onDismissError={() => setAuthState('default')}
             setFocusedField={setFocusedField}
