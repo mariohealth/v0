@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { MarioSearchResultsEnhanced as MarioSearchResults } from '@/components/mario-search-results-enhanced'
-import { searchProviders } from '@/lib/api/providers'
+import { providers } from '@/lib/data/mario-provider-data'
 
 interface ResultsPageProps {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -27,42 +27,59 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
     const params = await searchParams
     const query = (params.q as string) || ''
 
-    // Fetch provider data from Supabase
+    // Use mock data instead of Supabase fetch
     let providerResults: any[] = []
 
     if (query) {
-        const result = await searchProviders(query, {}, 1, 20)
-        // Transform Supabase data to match component's expected format
-        providerResults = result.providers.map(p => ({
-            id: p.id,
-            name: p.name,
-            specialty: p.specialty || 'General',
-            type: 'doctor' as const,
-            address: p.address || '',
-            city: p.city || '',
-            state: p.state || '',
-            zipCode: p.zip_code || '',
-            phone: p.phone || '',
-            website: p.website || undefined,
-            distance: 5, // TODO: Calculate from user location
-            inNetwork: true, // TODO: Check from user insurance
-            rating: p.rating || 0,
-            reviewCount: p.review_count || 0,
-            hours: {},
-            services: [],
-            acceptedInsurance: [],
-            about: '',
-            costs: {
-                'Office Visit': {
-                    total: 150,
-                    median: 180,
-                    savings: 30,
-                    percentSavings: 17
+        const queryLower = query.toLowerCase()
+        
+        // Search providers from mock data
+        providerResults = providers
+            .filter(p => 
+                p.name.toLowerCase().includes(queryLower) ||
+                p.specialty.toLowerCase().includes(queryLower)
+            )
+            .map(p => ({
+                id: p.id,
+                name: p.name,
+                specialty: p.specialty,
+                type: 'doctor' as const,
+                address: '',
+                city: '',
+                state: '',
+                zipCode: '',
+                phone: '',
+                website: undefined,
+                distance: '2.5 miles',
+                inNetwork: p.network === 'In-Network',
+                rating: parseFloat(p.rating) || 0,
+                reviewCount: parseInt(p.reviews) || 0,
+                hours: {},
+                services: [],
+                acceptedInsurance: p.insuranceAccepted || [],
+                about: p.bio || '',
+                costs: {
+                    'Office Visit': p.appointmentCosts?.[0] ? {
+                        total: parseInt(p.appointmentCosts[0].price.replace('$', '')) || 150,
+                        median: Math.round(parseInt(p.appointmentCosts[0].price.replace('$', '')) * 1.2) || 180,
+                        savings: Math.round((parseInt(p.appointmentCosts[0].price.replace('$', '')) * 1.2) - (parseInt(p.appointmentCosts[0].price.replace('$', '')) || 150)),
+                        percentSavings: 17
+                    } : {
+                        total: 150,
+                        median: 180,
+                        savings: 30,
+                        percentSavings: 17
+                    }
+                },
+                marioPick: p.marioPick || false,
+                marioPoints: 0,
+                location: {
+                    address: '',
+                    city: '',
+                    state: '',
+                    zip: ''
                 }
-            },
-            marioPick: false,
-            marioPoints: 0
-        }))
+            }))
     }
 
     return (

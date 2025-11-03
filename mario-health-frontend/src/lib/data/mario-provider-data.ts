@@ -131,3 +131,6 @@ export function getProviderById(id: string): MarioProvider | undefined {
 export function getAllProviders(): MarioProvider[] {
   return marioProviderData.providers;
 }
+
+// Export providers array directly for easier imports
+export const providers = marioProviderData.providers;

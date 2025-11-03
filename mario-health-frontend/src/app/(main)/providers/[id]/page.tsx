@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { ProviderDetailClient } from './ProviderDetailClient'
-import { getProviderById } from '@/lib/api/providers'
+import { getProviderById } from '@/lib/data/mario-provider-data'
 import type { Metadata } from 'next'
 
 interface ProviderDetailPageProps {
@@ -17,19 +17,23 @@ export async function generateMetadata({ params }: ProviderDetailPageProps): Pro
         }
     }
 
+    const marioProvider = getProviderById(id)
+    const providerName = marioProvider?.name || 'Provider'
+    const providerSpecialty = marioProvider?.specialty || ''
+    
     return {
-        title: `${providerData.provider.name} - Mario Health`,
-        description: providerData.provider.specialty
-            ? `Find ${providerData.provider.name}, ${providerData.provider.specialty} provider on Mario Health`
-            : `Find ${providerData.provider.name} on Mario Health`,
+        title: `${providerName} - Mario Health`,
+        description: providerSpecialty
+            ? `Find ${providerName}, ${providerSpecialty} provider on Mario Health`
+            : `Find ${providerName} on Mario Health`,
     }
 }
 
 export default async function ProviderDetailRoute({ params }: ProviderDetailPageProps) {
     const { id } = await params
-    const providerData = await getProviderById(id)
+    const marioProvider = getProviderById(id)
 
-    if (!providerData) {
+    if (!marioProvider) {
         return (
             <div className="container mx-auto px-4 py-8 text-center">
                 <h1 className="text-2xl font-bold mb-4">Provider not found</h1>
@@ -38,41 +42,46 @@ export default async function ProviderDetailRoute({ params }: ProviderDetailPage
         )
     }
 
-    // Transform Supabase provider data to match component's expected format
+    // Transform mock provider data to match component's expected format
     const transformedProvider = {
-        id: providerData.provider.id,
-        name: providerData.provider.name,
-        specialty: providerData.provider.specialty || 'General',
+        id: marioProvider.id,
+        name: marioProvider.name,
+        specialty: marioProvider.specialty || 'General',
         type: 'doctor' as const,
-        address: providerData.provider.address || '',
-        city: providerData.provider.city || '',
-        state: providerData.provider.state || '',
-        zipCode: providerData.provider.zip_code || '',
-        phone: providerData.provider.phone || '',
-        website: providerData.provider.website || undefined,
-        distance: 5,
-        inNetwork: true,
-        rating: providerData.provider.rating || 0,
-        reviewCount: providerData.provider.review_count || 0,
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        phone: '',
+        website: undefined,
+        distance: '2.5 miles',
+        inNetwork: marioProvider.network === 'In-Network',
+        rating: parseFloat(marioProvider.rating) || 0,
+        reviewCount: parseInt(marioProvider.reviews) || 0,
         hours: {},
         services: [],
-        acceptedInsurance: [],
-        about: '',
+        acceptedInsurance: marioProvider.insuranceAccepted || [],
+        about: marioProvider.bio || '',
         costs: {
-            'Office Visit': {
+            'Office Visit': marioProvider.appointmentCosts?.[0] ? {
+                total: parseInt(marioProvider.appointmentCosts[0].price.replace('$', '')) || 150,
+                median: Math.round(parseInt(marioProvider.appointmentCosts[0].price.replace('$', '')) * 1.2) || 180,
+                savings: Math.round((parseInt(marioProvider.appointmentCosts[0].price.replace('$', '')) * 1.2) - (parseInt(marioProvider.appointmentCosts[0].price.replace('$', '')))) || 30,
+                percentSavings: 17
+            } : {
                 total: 150,
                 median: 180,
                 savings: 30,
                 percentSavings: 17
             }
         },
-        marioPick: false,
+        marioPick: marioProvider.marioPick || false,
         marioPoints: 0,
         location: {
-            address: providerData.provider.address || '',
-            city: providerData.provider.city || '',
-            state: providerData.provider.state || '',
-            zip: providerData.provider.zip_code || ''
+            address: '',
+            city: '',
+            state: '',
+            zip: ''
         }
     }
 

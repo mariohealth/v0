@@ -16,6 +16,13 @@ export interface ProcedureCategory {
   procedures: Procedure[];
 }
 
+// Export all procedures as a flat array
+export function getAllProcedures(): Procedure[] {
+  return procedureCategories.flatMap(cat => cat.procedures);
+}
+
+export const procedures = getAllProcedures();
+
 export const procedureCategories: ProcedureCategory[] = [
   {
     id: "imaging",
