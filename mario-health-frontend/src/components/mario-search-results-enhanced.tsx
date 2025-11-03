@@ -104,67 +104,68 @@ export function MarioSearchResultsEnhanced({
         return r.distance <= filters.maxDistance;
       });
 
-    // Price range filter (using MRI cost as example)
-    filtered = filtered.filter(r => {
-      const cost = r.costs?.['MRI']?.total || 0;
-      return cost >= filters.priceRange[0] && cost <= filters.priceRange[1];
-    });
+      // Price range filter (using MRI cost as example)
+      filtered = filtered.filter(r => {
+        const cost = r.costs?.['MRI']?.total || 0;
+        return cost >= filters.priceRange[0] && cost <= filters.priceRange[1];
+      });
 
-    // Sort results
-    switch (filters.sortBy) {
-      case 'price':
-        filtered.sort((a, b) => {
-          const aCost = a.costs?.['MRI']?.total || 0;
-          const bCost = b.costs?.['MRI']?.total || 0;
-          return aCost - bCost;
-        });
-        break;
-      case 'distance':
-        filtered.sort((a, b) => a.distance - b.distance);
-        break;
-      case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating);
-        break;
-      case 'best_value':
-      default:
-        // Mario's Pick first, then by best value combination
-        filtered.sort((a, b) => {
-          if (a.marioPick && !b.marioPick) return -1;
-          if (!a.marioPick && b.marioPick) return 1;
-          return a.distance - b.distance;
-        });
-        break;
-    }
+      // Sort results
+      switch (filters.sortBy) {
+        case 'price':
+          filtered.sort((a, b) => {
+            const aCost = a.costs?.['MRI']?.total || 0;
+            const bCost = b.costs?.['MRI']?.total || 0;
+            return aCost - bCost;
+          });
+          break;
+        case 'distance':
+          filtered.sort((a, b) => a.distance - b.distance);
+          break;
+        case 'rating':
+          filtered.sort((a, b) => b.rating - a.rating);
+          break;
+        case 'best_value':
+        default:
+          // Mario's Pick first, then by best value combination
+          filtered.sort((a, b) => {
+            if (a.marioPick && !b.marioPick) return -1;
+            if (!a.marioPick && b.marioPick) return 1;
+            return a.distance - b.distance;
+          });
+          break;
+      }
 
       setFilteredResults(Array.isArray(filtered) ? filtered : []);
+
+      // Update active filter chips
+      const chips: FilterChip[] = [];
+      
+      if (filters.network === 'in_network') {
+        chips.push({ key: 'network', label: 'In-Network Only', value: 'in_network' });
+      } else if (filters.network === 'out_network') {
+        chips.push({ key: 'network', label: 'Out-of-Network Only', value: 'out_network' });
+      }
+      
+      if (filters.sortBy !== 'best_value') {
+        const sortLabels = {
+          price: 'Price ↑',
+          distance: 'Distance ↑', 
+          rating: 'Rating ↓'
+        };
+        chips.push({ 
+          key: 'sort', 
+          label: `Sort: ${sortLabels[filters.sortBy]}`, 
+          value: filters.sortBy 
+        });
+      }
+
+      setActiveFilters(chips);
     } catch (err) {
       console.error('Error applying filters:', err);
       setFilteredResults([]);
+      setActiveFilters([]);
     }
-
-    // Update active filter chips
-    const chips: FilterChip[] = [];
-    
-    if (filters.network === 'in_network') {
-      chips.push({ key: 'network', label: 'In-Network Only', value: 'in_network' });
-    } else if (filters.network === 'out_network') {
-      chips.push({ key: 'network', label: 'Out-of-Network Only', value: 'out_network' });
-    }
-    
-    if (filters.sortBy !== 'best_value') {
-      const sortLabels = {
-        price: 'Price ↑',
-        distance: 'Distance ↑', 
-        rating: 'Rating ↓'
-      };
-      chips.push({ 
-        key: 'sort', 
-        label: `Sort: ${sortLabels[filters.sortBy]}`, 
-        value: filters.sortBy 
-      });
-    }
-
-    setActiveFilters(chips);
   }, [results, filters]);
 
   const handleFilterChange = (key: keyof SearchFilters, value: any) => {
