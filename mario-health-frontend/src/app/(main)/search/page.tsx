@@ -1,13 +1,24 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { MarioHome } from '@/components/mario-home'
-import { MarioSmartSearch } from '@/components/mario-smart-search'
+import { useSearchPersistence } from '@/lib/hooks/use-search-persistence'
 
 export default function SearchPage() {
     const router = useRouter()
+    const { searchState, updateQuery } = useSearchPersistence()
+
+    // Restore saved search state on mount
+    useEffect(() => {
+        if (searchState.query) {
+            // You can restore the query to the search input if needed
+            // This depends on how MarioHome component handles initial query
+        }
+    }, [])
 
     const handleSearch = (query: string) => {
+        updateQuery(query)
         if (query.trim()) {
             router.push(`/results?q=${encodeURIComponent(query)}`)
         } else {
@@ -20,11 +31,11 @@ export default function SearchPage() {
     }
 
     const handleFindDoctors = () => {
-        router.push('/doctors')
+        router.push('/find-doctors')
     }
 
     const handleFindMedication = () => {
-        router.push('/medications')
+        router.push('/find-medication')
     }
 
     const handleMarioCare = () => {

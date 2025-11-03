@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { ProviderDetailWrapper } from '@/components/mario-provider-detail-enhanced'
+import { ProviderDetailClient } from './ProviderDetailClient'
 import { getProviderById } from '@/lib/api/providers'
 import type { Metadata } from 'next'
 
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: ProviderDetailPageProps): Pro
     }
 }
 
-export default async function ProviderDetailPage({ params }: ProviderDetailPageProps) {
+export default async function ProviderDetailRoute({ params }: ProviderDetailPageProps) {
     const { id } = await params
     const providerData = await getProviderById(id)
 
@@ -67,12 +67,18 @@ export default async function ProviderDetailPage({ params }: ProviderDetailPageP
             }
         },
         marioPick: false,
-        marioPoints: 0
+        marioPoints: 0,
+        location: {
+            address: providerData.provider.address || '',
+            city: providerData.provider.city || '',
+            state: providerData.provider.state || '',
+            zip: providerData.provider.zip_code || ''
+        }
     }
 
     return (
         <Suspense fallback={<div>Loading provider...</div>}>
-            <ProviderDetailWrapper provider={transformedProvider} />
+            <ProviderDetailClient provider={transformedProvider} />
         </Suspense>
     )
 }

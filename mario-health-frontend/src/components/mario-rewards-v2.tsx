@@ -1,4 +1,3 @@
-'use client'
 import { useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
@@ -8,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 import { toast } from 'sonner';
+import { useMarioPoints } from '@/lib/contexts/mario-points-context';
 import {
   Gift,
   Trophy,
@@ -64,7 +64,15 @@ interface RedemptionHistoryItem {
 }
 
 export function MarioRewardsV2({ onBack }: RewardsProps) {
-  const [currentPoints] = useState(1250);
+  // Use context for points if available, otherwise default
+  let currentPoints = 1250;
+  try {
+    const context = useMarioPoints();
+    currentPoints = context.points;
+  } catch {
+    // Context not available, use default
+    currentPoints = 1250;
+  }
   const [nextMilestone] = useState(1500);
   const [selectedReward, setSelectedReward] = useState<Reward | null>(null);
   const [preventiveCareOpen, setPreventiveCareOpen] = useState(true);

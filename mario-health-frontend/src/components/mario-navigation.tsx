@@ -32,7 +32,7 @@ interface BottomNavProps {
 export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   const pathname = usePathname()
   const tabs = [
-    { id: 'search', href: '/search', icon: Search, label: 'Search' },
+    { id: 'home', href: '/home', icon: Search, label: 'Home' },
     { id: 'health', href: '/health-hub', icon: Home, label: 'Health Hub' },
     { id: 'rewards', href: '/rewards', icon: Gift, label: 'Rewards' },
     { id: 'profile', href: '/profile', icon: User, label: 'Profile' }
@@ -40,11 +40,11 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
 
   const getActiveTab = () => {
     if (activeTab) return activeTab
-    if (pathname?.startsWith('/search') || pathname === '/') return 'search'
+    if (pathname?.startsWith('/home') || pathname?.startsWith('/search') || pathname === '/') return 'home'
     if (pathname?.startsWith('/health')) return 'health'
     if (pathname?.startsWith('/rewards')) return 'rewards'
     if (pathname?.startsWith('/profile')) return 'profile'
-    return 'search'
+    return 'home'
   }
 
   const currentTab = getActiveTab()
@@ -175,18 +175,18 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
   const [searchValue, setSearchValue] = useState('');
 
   const menuItems = [
-    { id: 'home', href: '/search', label: 'Home' },
-    { id: 'providers', href: '/providers', label: 'Providers' },
-    { id: 'medications', href: '/medications', label: 'Medications' },
+    { id: 'home', href: '/home', label: 'Home' },
+    { id: 'providers', href: '/find-doctors', label: 'Doctors' },
+    { id: 'medications', href: '/find-medication', label: 'Medications' },
     { id: 'health-hub', href: '/health-hub', label: 'Health Hub' },
     { id: 'rewards', href: '/rewards', label: 'Rewards' }
   ];
 
   const getActiveItem = () => {
     if (activeItem) return activeItem
-    if (pathname === '/search' || pathname === '/') return 'home'
-    if (pathname?.startsWith('/providers')) return 'providers'
-    if (pathname?.startsWith('/medications')) return 'medications'
+    if (pathname === '/home' || pathname === '/search' || pathname === '/') return 'home'
+    if (pathname?.startsWith('/find-doctors') || pathname?.startsWith('/doctors')) return 'providers'
+    if (pathname?.startsWith('/find-medication') || pathname?.startsWith('/medications')) return 'medications'
     if (pathname?.startsWith('/health')) return 'health-hub'
     if (pathname?.startsWith('/rewards')) return 'rewards'
     return 'home'
@@ -198,24 +198,61 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
     <div className="hidden md:block bg-card h-16 sticky top-0 z-40 mario-shadow-card">
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href="/search" className="-ml-3">
+          <Link href="/home" className="-ml-3">
             <MarioLogo variant="full" size="md" />
           </Link>
 
           <nav className="flex items-center gap-6">
-            {menuItems.map(({ id, href, label }) => (
-              <Link
-                key={id}
-                href={href}
-                onClick={() => onItemChange?.(id)}
-                className={`text-sm font-medium mario-transition ${currentActiveItem === id
-                    ? 'text-primary border-b-2 border-primary pb-4'
-                    : 'text-muted-foreground hover:text-foreground'
-                  }`}
-              >
-                {label}
-              </Link>
-            ))}
+            <Link
+              href="/home"
+              className={`text-sm font-medium mario-transition ${
+                currentActiveItem === 'home'
+                  ? 'text-primary border-b-2 border-primary pb-4'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/search"
+              className={`text-sm font-medium mario-transition ${
+                currentActiveItem === 'search'
+                  ? 'text-primary border-b-2 border-primary pb-4'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Search
+            </Link>
+            <Link
+              href="/health-hub"
+              className={`text-sm font-medium mario-transition ${
+                currentActiveItem === 'health-hub'
+                  ? 'text-primary border-b-2 border-primary pb-4'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Health Hub
+            </Link>
+            <Link
+              href="/rewards"
+              className={`text-sm font-medium mario-transition ${
+                currentActiveItem === 'rewards'
+                  ? 'text-primary border-b-2 border-primary pb-4'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Rewards
+            </Link>
+            <Link
+              href="/profile"
+              className={`text-sm font-medium mario-transition ${
+                currentActiveItem === 'profile'
+                  ? 'text-primary border-b-2 border-primary pb-4'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Profile
+            </Link>
           </nav>
         </div>
 

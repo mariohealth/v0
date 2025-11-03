@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
-import { DesktopNav, BottomNav } from '@/components/mario-navigation'
+'use client'
 
-export const metadata: Metadata = {
-    title: "Mario Health - Healthcare Price Comparison",
-    description: "Compare healthcare prices and find affordable providers",
-};
+import { DesktopNav, BottomNav } from '@/components/mario-navigation'
+import { MarioPointsProvider } from '@/lib/contexts/mario-points-context'
+import { Toaster } from 'sonner'
 
 export default function MainLayout({
     children,
@@ -12,13 +10,14 @@ export default function MainLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <>
+        <MarioPointsProvider>
             <DesktopNav />
             <main className="min-h-screen pb-14 md:pb-0">
                 {children}
             </main>
             <BottomNav />
-        </>
+            <Toaster position="bottom-center" richColors />
+        </MarioPointsProvider>
     );
 }
 

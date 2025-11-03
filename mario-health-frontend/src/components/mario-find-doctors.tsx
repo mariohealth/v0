@@ -1,4 +1,3 @@
-'use client'
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { ChevronRight, Users, ArrowLeft } from 'lucide-react';

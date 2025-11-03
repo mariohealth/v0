@@ -1,4 +1,3 @@
-'use client'
 import { useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
@@ -469,10 +468,12 @@ function CancelConfirmationModal({
 // Main Component
 export function MarioConciergeRequests({
   onMessageConcierge,
-  onAskConcierge
+  onAskConcierge,
+  onRequestSubmitted
 }: {
   onMessageConcierge?: (requestId: string) => void;
   onAskConcierge?: () => void;
+  onRequestSubmitted?: () => void;
 }) {
   // Sample concierge request data with U.S. locations and USD
   const [requests, setRequests] = useState([
