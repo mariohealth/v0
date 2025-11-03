@@ -404,13 +404,13 @@ export function MarioSearchResultsEnhanced({
               if (!result || typeof result !== 'object') return null;
               return (
                 <Card 
-                  key={result.id} 
-                className={cn(
-                  "p-6 cursor-pointer",
-                  "mario-transition mario-hover-provider"
-                )}
-                onClick={() => result && handleResultClick(result)}
-              >
+                  key={result.id}
+                  className={cn(
+                    "p-6 cursor-pointer",
+                    "mario-transition mario-hover-provider"
+                  )}
+                  onClick={() => result && handleResultClick(result)}
+                >
                 {result.marioPick && (
                   <div className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium mb-4 inline-flex items-center gap-2">
                     <Target className="h-4 w-4" />
