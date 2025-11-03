@@ -64,32 +64,45 @@ export function MarioSearchResultsEnhanced({
 
   // Load results on mount or when query changes
   useEffect(() => {
-    if (initialResults) {
-      setResults(initialResults);
-    } else {
-      // Use mock search function
-      const searchResults = searchProviders(query, {
-        inNetworkOnly: filters.network === 'in_network',
-        maxDistance: filters.maxDistance,
-        sortBy: filters.sortBy
-      });
-      setResults(searchResults);
+    try {
+      if (initialResults && Array.isArray(initialResults)) {
+        setResults(initialResults);
+      } else {
+        // Use mock search function
+        const searchResults = searchProviders(query, {
+          inNetworkOnly: filters.network === 'in_network',
+          maxDistance: filters.maxDistance,
+          sortBy: filters.sortBy
+        });
+        setResults(Array.isArray(searchResults) ? searchResults : []);
+      }
+    } catch (err) {
+      console.error('Error loading search results:', err);
+      setResults([]);
     }
-  }, [query, initialResults]);
+  }, [query, initialResults, filters]);
 
   // Apply filters whenever filters or results change
   useEffect(() => {
-    let filtered = [...results];
+    try {
+      if (!Array.isArray(results)) {
+        setFilteredResults([]);
+        return;
+      }
+      let filtered = [...results];
 
-    // Network filter
-    if (filters.network === 'in_network') {
-      filtered = filtered.filter(r => r.inNetwork);
-    } else if (filters.network === 'out_network') {
-      filtered = filtered.filter(r => !r.inNetwork);
-    }
+      // Network filter
+      if (filters.network === 'in_network') {
+        filtered = filtered.filter(r => r && r.inNetwork === true);
+      } else if (filters.network === 'out_network') {
+        filtered = filtered.filter(r => r && r.inNetwork === false);
+      }
 
-    // Distance filter
-    filtered = filtered.filter(r => r.distance <= filters.maxDistance);
+      // Distance filter
+      filtered = filtered.filter(r => {
+        if (!r || typeof r.distance !== 'number') return false;
+        return r.distance <= filters.maxDistance;
+      });
 
     // Price range filter (using MRI cost as example)
     filtered = filtered.filter(r => {
@@ -123,7 +136,11 @@ export function MarioSearchResultsEnhanced({
         break;
     }
 
-    setFilteredResults(filtered);
+      setFilteredResults(Array.isArray(filtered) ? filtered : []);
+    } catch (err) {
+      console.error('Error applying filters:', err);
+      setFilteredResults([]);
+    }
 
     // Update active filter chips
     const chips: FilterChip[] = [];
@@ -349,7 +366,7 @@ export function MarioSearchResultsEnhanced({
           {/* Active Filter Chips */}
           {activeFilters.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-3">
-              {activeFilters.map((chip) => (
+              {Array.isArray(activeFilters) && activeFilters.length > 0 ? activeFilters.map((chip) => (
                 <div
                   key={chip.key}
                   className="flex items-center gap-1 bg-muted text-muted-foreground px-2 py-1 rounded-full text-xs"
@@ -383,14 +400,16 @@ export function MarioSearchResultsEnhanced({
           </div>
         ) : (
           <div className="space-y-4">
-            {filteredResults.map((result) => (
+            {Array.isArray(filteredResults) && filteredResults.length > 0 ? filteredResults.map((result) => {
+              if (!result || typeof result !== 'object') return null;
+              return (
               <Card 
                 key={result.id} 
                 className={cn(
                   "p-6 cursor-pointer",
                   "mario-transition mario-hover-provider"
                 )}
-                onClick={() => handleResultClick(result)}
+                onClick={() => result && handleResultClick(result)}
               >
                 {result.marioPick && (
                   <div className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium mb-4 inline-flex items-center gap-2">

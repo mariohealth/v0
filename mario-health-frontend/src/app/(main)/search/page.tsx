@@ -18,10 +18,15 @@ export default function SearchPage() {
     }, [])
 
     const handleSearch = (query: string) => {
-        updateQuery(query)
-        if (query.trim()) {
-            router.push(`/results?q=${encodeURIComponent(query)}`)
-        } else {
+        try {
+            updateQuery(query)
+            if (query && query.trim()) {
+                router.push(`/results?q=${encodeURIComponent(query.trim())}`)
+            } else {
+                router.push('/search')
+            }
+        } catch (err) {
+            console.error('Error handling search:', err)
             router.push('/search')
         }
     }
