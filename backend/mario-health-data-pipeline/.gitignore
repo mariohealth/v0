@@ -90,12 +90,12 @@ tmp/
 .dockerignore
 
 # Data files (comment out if you want to commit small test data)
-*.csv
-*.xlsx
-*.parquet
-*.json
-data/
-!seed-taxonomy.json
+#*.csv
+#*.xlsx
+#*.parquet
+#*.json
+#data/
+#!seed-taxonomy.json
 
 # Logs
 *.log
