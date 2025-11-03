@@ -19,6 +19,22 @@ sources:
     tables:
       - name: npidata_pfile_20050523-20250907
         description: downloaded from the CMS website and loaded in Big Query with the UI
+      - name: cigna_nvidia_in_network_rates
+        description: | 
+          This BigQuery table is built from all the JSON files stored in mariohc-mrf-prod-usa/test_arnaud/cigna_nvidia_output_sharded
+          The original file from Cigna was named "nvidia_2025-10-01_cigna-health-life-insurance-company_national-oap_in-network-rates.json"
+          I ran a Python script on my own laptop to split that 1.34 GB zipped file into smaller JSONs
+          I believe it applies to ALL Cigna National OAP plans for October 2025, not just for Nvidia
+      - name: cigna_nvidia_provider_reference
+        description: |
+          This table is built from one of the first few rows of the file from above "nvidia_2025-10-01_cigna-health-life-insurance-company_national-oap_in-network-rates.json"
+      - name: uhc_apple_in_network_rates
+        description: |
+          This table is built from all the JSON files stored in mariohc-mrf-prod-usa/test_arnaud/in-network-rates-sharded
+          The original file from UHC was named "2025-09-01_United-HealthCare-Services--Inc-_Third-Party-Administrator_PP1-00_P3_in-network-rates.json"
+          I ran a Python script on my own laptop to split that file into smaller JSONs
+          I believe it applies to ALL UHC PP1-00_P3 plans for SEPTEMBER 2025, not just for Apple
+          
 
 
 
