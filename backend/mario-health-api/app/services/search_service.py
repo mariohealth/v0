@@ -13,23 +13,23 @@ class SearchService:
             zip_code: str | None = None,
             radius_miles: int = 25
     ) -> SearchResponse:
-        """Search procedures with optional location filtering."""
+        """Search procedures with optional location filtering.
+
+        Uses PostgreSQL full-text search + fuzzy matching for intelligent results.
+        Results are ranked by relevance score (match_score).
+        """
+
+        # Prepare RPC parameters
+        rpc_params = {"search_query": query}
 
         if zip_code:
-            result = self.supabase.rpc(
-                "search_procedures",
-                {
-                    "search_query": query,
-                    "zip_code_input": zip_code,
-                    "radius_miles": radius_miles
-                }
-            ).execute()
-        else:
-            result = self.supabase.rpc(
-                "search_procedures",
-                {"search_query": query}
-            ).execute()
+            rpc_params["zip_code_input"] = zip_code
+            rpc_params["radius_miles"] = radius_miles
 
+        # Call the database function
+        result = self.supabase.rpc("search_procedures_v2", rpc_params).execute()
+
+        # Transform results
         results = [
             SearchResult(
                 procedure_id=r["procedure_id"],
@@ -44,7 +44,12 @@ class SearchService:
                 price_range=f"${r['best_price']} - ${r['max_price']}",
                 provider_count=r["provider_count"],
                 nearest_provider=r.get("nearest_provider"),
-                nearest_distance_miles=float(r["nearest_distance_miles"]) if r.get("nearest_distance_miles") else None
+                nearest_distance_miles=(
+                    float(r["nearest_distance_miles"])
+                    if r.get("nearest_distance_miles")
+                    else None
+                ),
+                match_score=float(r["match_score"])  # NEW: Include relevance score
             )
             for r in result.data
         ]
