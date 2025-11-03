@@ -403,8 +403,8 @@ export function MarioSearchResultsEnhanced({
             {Array.isArray(filteredResults) && filteredResults.length > 0 ? filteredResults.map((result) => {
               if (!result || typeof result !== 'object') return null;
               return (
-              <Card 
-                key={result.id} 
+                <Card 
+                  key={result.id} 
                 className={cn(
                   "p-6 cursor-pointer",
                   "mario-transition mario-hover-provider"
@@ -498,7 +498,13 @@ export function MarioSearchResultsEnhanced({
                   </div>
                 </div>
               </Card>
-            ))}
+              );
+            }).filter(Boolean) : (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">No results found</p>
+                <p className="text-sm text-muted-foreground">Try adjusting your search or filters</p>
+              </div>
+            )}
           </div>
         )}
       </div>
