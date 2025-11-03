@@ -132,5 +132,5 @@ export function getAllProviders(): MarioProvider[] {
   return marioProviderData.providers;
 }
 
-// Export providers array directly for easier imports
+// Export providers array for easy access
 export const providers = marioProviderData.providers;

@@ -47,7 +47,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
             p.category?.toLowerCase().includes(queryLower)
         )
         
-        // Transform providers
+        // Transform providers to match component format
         providerResults = filteredProviders.map(p => ({
             id: p.id,
             name: p.name,
