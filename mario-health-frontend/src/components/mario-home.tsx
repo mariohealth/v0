@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Progress } from './ui/progress';
@@ -221,6 +221,34 @@ interface HomeProps {
 }
 
 export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenAIWithPrompt, onBrowseProcedures, onFindDoctors, onFindMedication, onMarioCare }: HomeProps) {
+  const [isSearchSticky, setIsSearchSticky] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // Detect when hero section scrolls out of viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When hero is NOT intersecting (scrolled past), make search sticky
+        setIsSearchSticky(!entry.isIntersecting);
+      },
+      { 
+        threshold: 0,
+        rootMargin: '0px'
+      }
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
+    return () => {
+      if (heroRef.current) {
+        observer.unobserve(heroRef.current);
+      }
+      observer.disconnect();
+    };
+  }, []);
+
   const commonSearches = [
     "MRI Scan", "Annual Physical", "Mammogram", "Colonoscopy", 
     "Blood Work", "X-Ray", "Dermatologist", "Cardiologist"
@@ -296,21 +324,11 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
-      {/* Sticky Search Container - Desktop Only */}
-      <div className="hidden md:block sticky top-16 z-40 bg-background border-b border-border transition-shadow duration-200 shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-3">
-          <MarioSmartSearch 
-            onSearch={onSearch || ((query) => console.log('Search:', query))}
-            autoFocus={!isReturningUser}
-          />
-        </div>
-      </div>
-
       <div className="max-w-4xl mx-auto">
         {/* Top Content with Adjusted Spacing */}
         <div className="pt-8 px-4 pb-4 md:pt-24">
-          {/* 1. Hero Heading */}
-          <div className="space-y-1 mb-6">
+          {/* 1. Hero Heading - with ref for intersection observer */}
+          <div ref={heroRef} className="space-y-1 mb-6">
             <h1 className="text-[#1A1A1A] font-medium animate-in fade-in duration-300 ease-in" style={{
               fontSize: 'clamp(22px, 3.5vw, 30px)',
               lineHeight: '1.3'
@@ -324,6 +342,17 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
             }}>
               Save with Mario.
             </p>
+          </div>
+
+          {/* Desktop Search - Initially scrolls normally, becomes sticky when hero scrolls away */}
+          <div className={cn(
+            "hidden md:block mb-3 transition-all duration-200",
+            isSearchSticky && "sticky top-16 z-40 bg-background border-b border-border shadow-sm -mx-4 px-4 py-3 mb-0"
+          )}>
+            <MarioSmartSearch 
+              onSearch={onSearch || ((query) => console.log('Search:', query))}
+              autoFocus={!isReturningUser}
+            />
           </div>
 
           {/* Mobile Search - Scrolls Normally */}
