@@ -367,7 +367,7 @@ export function MarioSearchResultsEnhanced({
           {/* Active Filter Chips */}
           {activeFilters.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-3">
-              {Array.isArray(activeFilters) && activeFilters.length > 0 ? activeFilters.map((chip) => (
+              {Array.isArray(activeFilters) && activeFilters.map((chip) => (
                 <div
                   key={chip.key}
                   className="flex items-center gap-1 bg-muted text-muted-foreground px-2 py-1 rounded-full text-xs"
