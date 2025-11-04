@@ -28,12 +28,12 @@ t1 AS (
 
 t2 AS ( -- for some reason there are still multiple prices for a given billing code and provider group id so we have to aggregate
       SELECT
-        billing_code,
+        CAST(billing_code AS STRING) AS billing_code,
         billing_code_type,
-        billing_code_type_version,
+        CAST(billing_code_type_version AS STRING) AS billing_code_type_version,
         description,
         name,
-        provider_group_id,
+        CAST(provider_group_id AS STRING) AS provider_group_id,
         negotiation_arrangement,
         ROUND(AVG(negotiated_rate), 2) AS negotiated_rate_avg,
         ARRAY_AGG(billing_class) AS billing_class_array,
@@ -44,13 +44,13 @@ t2 AS ( -- for some reason there are still multiple prices for a given billing c
       WHERE
           negotiated_type <> 'percentage' -- percentages are not dollar amounts so we exclude them
       GROUP BY
-        billing_code,
-        billing_code_type,
-        billing_code_type_version,
-        description,
-        name,
-        provider_group_id,
-        negotiation_arrangement
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
 )
 
 SELECT
