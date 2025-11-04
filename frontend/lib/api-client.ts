@@ -63,7 +63,7 @@ class ApiClient {
         if (USE_MOCK) {
             return mockApi.getCategories();
         }
-        return this.request<Category[]>('/categories');
+        return this.request<Category[]>('/api/v1/categories');
     }
 
     // Procedures
@@ -82,14 +82,14 @@ class ApiClient {
             if (!procedure) throw new Error('Procedure not found');
             return procedure;
         }
-        return this.request<Procedure>(`/procedures/${id}`);
+        return this.request<Procedure>(`/api/v1/procedures/${id}`);
     }
 
     async searchProcedures(query: string): Promise<Procedure[]> {
         if (USE_MOCK) {
             return mockApi.searchProcedures(query);
         }
-        return this.request<Procedure[]>(`/procedures/search?q=${encodeURIComponent(query)}`);
+        return this.request<Procedure[]>(`/api/v1/search?q=${encodeURIComponent(query)}`);
     }
 
     // Providers
@@ -108,7 +108,7 @@ class ApiClient {
             if (!provider) throw new Error('Provider not found');
             return provider;
         }
-        return this.request<Provider>(`/providers/${id}`);
+        return this.request<Provider>(`/api/v1/providers/${id}`);
     }
 }
 
