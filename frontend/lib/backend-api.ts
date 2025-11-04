@@ -358,6 +358,13 @@ export async function searchProcedures(
             `/api/v1/search?${params.toString()}`
         );
 
+        console.log("✅ Live search API called:", {
+            endpoint: `/api/v1/search?${params.toString()}`,
+            query: data.query,
+            results_count: data.results_count,
+            results_length: data.results?.length || 0,
+        });
+
         console.log("🔍 Search response:", {
             query: data.query,
             results_count: data.results_count,
