@@ -43,7 +43,14 @@ export async function updateSession(request: NextRequest) {
     // Redirect logged-in users away from auth pages
     if ((request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup') && user) {
         const url = request.nextUrl.clone()
-        url.pathname = '/search'
+        url.pathname = '/home'
+        return NextResponse.redirect(url)
+    }
+
+    // Protect /home route - redirect to login if not authenticated
+    if (request.nextUrl.pathname === '/home' && !user) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/login'
         return NextResponse.redirect(url)
     }
 

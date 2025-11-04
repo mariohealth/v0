@@ -296,9 +296,19 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
+      {/* Sticky Search Container - Desktop Only */}
+      <div className="hidden md:block sticky top-16 z-40 bg-background border-b border-border transition-shadow duration-200 shadow-sm">
+        <div className="max-w-4xl mx-auto px-4 py-3">
+          <MarioSmartSearch 
+            onSearch={onSearch || ((query) => console.log('Search:', query))}
+            autoFocus={!isReturningUser}
+          />
+        </div>
+      </div>
+
       <div className="max-w-4xl mx-auto">
         {/* Top Content with Adjusted Spacing */}
-        <div className="pt-8 px-4 pb-4">
+        <div className="pt-8 px-4 pb-4 md:pt-24">
           {/* 1. Hero Heading */}
           <div className="space-y-1 mb-6">
             <h1 className="text-[#1A1A1A] font-medium animate-in fade-in duration-300 ease-in" style={{
@@ -316,14 +326,31 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
             </p>
           </div>
 
-          {/* 2. Main Search Bar */}
-          <div className="space-y-3">
+          {/* Mobile Search - Scrolls Normally */}
+          <div className="md:hidden space-y-3">
             <MarioSmartSearch 
               onSearch={onSearch || ((query) => console.log('Search:', query))}
               autoFocus={!isReturningUser}
             />
             
             {/* MarioAI Quick Access Chip */}
+            <button
+              onClick={() => onOpenAI?.()}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mario-transition hover:opacity-80 active:scale-95"
+              style={{
+                backgroundColor: '#E9F6F5',
+                border: '1px solid #4DA1A9'
+              }}
+            >
+              <Sparkles className="h-4 w-4" style={{ color: '#4DA1A9' }} />
+              <span className="text-sm font-medium" style={{ color: '#2E5077' }}>
+                Ask MarioAI 🩺
+              </span>
+            </button>
+          </div>
+
+          {/* Desktop MarioAI Quick Access Chip - Below Hero Heading */}
+          <div className="hidden md:block mt-3">
             <button
               onClick={() => onOpenAI?.()}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full mario-transition hover:opacity-80 active:scale-95"

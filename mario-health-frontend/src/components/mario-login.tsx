@@ -28,7 +28,7 @@ export function MarioLogin({ onLogin, onSignUp, onBack, showBackButton = false }
   const handleLoginSuccess = () => {
     console.log("Mock login success, redirecting...");
     onLogin(); // Call the callback
-    router.push("/search"); // Immediately redirect to /search
+    router.push("/home"); // Immediately redirect to /home
   };
 
   const handleBiometricAuth = async () => {

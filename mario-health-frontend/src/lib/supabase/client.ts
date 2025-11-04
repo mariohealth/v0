@@ -50,7 +50,7 @@ export function createClient() {
       }),
       signInWithOAuth: async () => ({
         data: {
-          url: `${typeof window !== 'undefined' ? window.location.origin : ''}/search`,
+          url: `${typeof window !== 'undefined' ? window.location.origin : ''}/home`,
           provider: 'google',
         },
         error: null,
