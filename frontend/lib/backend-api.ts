@@ -331,28 +331,39 @@ export async function getProceduresByFamily(slug: string): Promise<{ familySlug:
     }
 }
 
+// Default search parameters
+const DEFAULT_ZIP = "10001";
+const DEFAULT_RADIUS = 25;
+
 /**
  * Search for procedures
  * Endpoint: GET /api/v1/search?q={query}&zip={zip}&radius={radius}
  * @param query - Search query (e.g., 'chest', 'mri')
- * @param zip - Optional 5-digit ZIP code for location-based search
+ * @param zip - Optional 5-digit ZIP code for location-based search (defaults to "10001")
  * @param radius - Optional search radius in miles (default: 25)
  * @returns Search results with procedure information
  */
 export async function searchProcedures(
     query: string,
     zip?: string,
-    radius: number = 25
+    radius: number = DEFAULT_RADIUS
 ): Promise<SearchResult[]> {
     try {
+        // Use default ZIP if none provided
+        const effectiveZip = zip || DEFAULT_ZIP;
+        const effectiveRadius = radius || DEFAULT_RADIUS;
+
         const params = new URLSearchParams({
             q: query,
+            zip_code: effectiveZip,
+            radius: effectiveRadius.toString(),
         });
 
-        if (zip) {
-            params.append('zip_code', zip);
-        }
-        params.append('radius', radius.toString());
+        console.log("✅ Search called with:", {
+            query,
+            zip: effectiveZip,
+            radius: effectiveRadius,
+        });
 
         const data = await fetchFromApi<{ query: string; location?: string; radius_miles: number; results_count: number; results: any[] }>(
             `/api/v1/search?${params.toString()}`

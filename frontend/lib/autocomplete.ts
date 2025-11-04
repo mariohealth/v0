@@ -13,7 +13,8 @@ export async function getAutocompleteSuggestions(
   }
 
   try {
-    const results = await searchProcedures(query, undefined, 25);
+    // searchProcedures will use default zip_code and radius if not provided
+    const results = await searchProcedures(query);
     return results
       .slice(0, limit)
       .map(result => ({
