@@ -247,6 +247,19 @@ function transformProcedure(raw: any): Procedure {
  * Transform snake_case to camelCase for search results
  */
 function transformSearchResult(raw: any): SearchResult {
+    // Convert string prices to numbers (backend returns them as strings)
+    const bestPrice = typeof raw.best_price === 'string' 
+        ? parseFloat(raw.best_price) 
+        : typeof raw.best_price === 'number' 
+            ? raw.best_price 
+            : 0;
+    
+    const avgPrice = typeof raw.avg_price === 'string' 
+        ? parseFloat(raw.avg_price) 
+        : typeof raw.avg_price === 'number' 
+            ? raw.avg_price 
+            : 0;
+    
     return {
         procedureId: raw.procedure_id,
         procedureName: raw.procedure_name,
@@ -255,8 +268,8 @@ function transformSearchResult(raw: any): SearchResult {
         familySlug: raw.family_slug,
         categoryName: raw.category_name,
         categorySlug: raw.category_slug,
-        bestPrice: raw.best_price,
-        avgPrice: raw.avg_price,
+        bestPrice,
+        avgPrice,
         priceRange: raw.price_range,
         providerCount: raw.provider_count,
         nearestProvider: raw.nearest_provider,
@@ -345,7 +358,27 @@ export async function searchProcedures(
             `/api/v1/search?${params.toString()}`
         );
 
-        return data.results.map(transformSearchResult);
+        console.log("🔍 Search response:", {
+            query: data.query,
+            results_count: data.results_count,
+            results_length: data.results?.length || 0,
+            first_result: data.results?.[0] || null
+        });
+
+        // Ensure results array exists and is not empty
+        if (!data.results || !Array.isArray(data.results) || data.results.length === 0) {
+            console.log("⚠️  No results returned from API");
+            return [];
+        }
+
+        const transformedResults = data.results.map(transformSearchResult);
+        
+        console.log("🧠 Transformed results:", {
+            count: transformedResults.length,
+            first_result: transformedResults[0] || null
+        });
+
+        return transformedResults;
     } catch (error) {
         console.error(`Failed to search procedures for '${query}':`, error);
         throw new Error(`Failed to search procedures: ${error instanceof Error ? error.message : 'Unknown error'}`);
