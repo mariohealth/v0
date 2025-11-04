@@ -173,7 +173,6 @@ interface DesktopNavProps {
 
 export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: DesktopNavProps) {
   const pathname = usePathname()
-  const [searchValue, setSearchValue] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const supabase = createClient();
 
@@ -202,8 +201,6 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
 
   const menuItems = [
     { id: 'home', href: '/home', label: 'Home', requiresAuth: true },
-    { id: 'providers', href: '/find-doctors', label: 'Doctors', requiresAuth: false },
-    { id: 'medications', href: '/find-medication', label: 'Medications', requiresAuth: false },
     { id: 'health-hub', href: '/health-hub', label: 'Health Hub', requiresAuth: false },
     { id: 'rewards', href: '/rewards', label: 'Rewards', requiresAuth: false }
   ];
@@ -214,8 +211,6 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
   const getActiveItem = () => {
     if (activeItem) return activeItem
     if (pathname === '/home' || pathname === '/') return 'home'
-    if (pathname?.startsWith('/find-doctors') || pathname?.startsWith('/doctors')) return 'providers'
-    if (pathname?.startsWith('/find-medication') || pathname?.startsWith('/medications')) return 'medications'
     if (pathname?.startsWith('/health')) return 'health-hub'
     if (pathname?.startsWith('/rewards')) return 'rewards'
     return 'home'
@@ -259,16 +254,6 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search providers, procedures..."
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              className="pl-10 w-80"
-            />
-          </div>
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative mario-button-scale">
