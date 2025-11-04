@@ -10,12 +10,12 @@ import { cn } from './ui/utils';
 
 // Placeholder AI glyph - replace with actual asset when available
 const aiGlyph = '/placeholders/ai-glyph.png';
-import { 
-  Search, 
-  Heart, 
-  Calendar, 
-  Shield, 
-  Gift, 
+import {
+  Search,
+  Heart,
+  Calendar,
+  Shield,
+  Gift,
   User,
   Stethoscope,
   Pill,
@@ -37,9 +37,9 @@ interface QuickActionProps {
 
 function QuickAction({ icon: Icon, title, description, onClick }: QuickActionProps) {
   return (
-    <Card 
-      className="p-2 cursor-pointer mario-transition mario-hover-primary mario-button-scale mario-shadow-card" 
-      onClick={onClick} 
+    <Card
+      className="p-2 cursor-pointer mario-transition mario-hover-primary mario-button-scale mario-shadow-card"
+      onClick={onClick}
       style={{ border: '1px solid transparent' }}
     >
       <div className="flex items-center gap-2.5">
@@ -89,18 +89,18 @@ interface RecentSearchProps {
 
 function MarioAIBox({ onClick, onQuickAction }: { onClick: () => void; onQuickAction?: (prompt: string) => void }) {
   const [isFocused, setIsFocused] = useState(false);
-  
+
   const quickActions = [
-    { 
-      label: "I have a health concern", 
+    {
+      label: "I have a health concern",
       action: () => onQuickAction?.("I've been experiencing chest tightness and shortness of breath lately")
     },
-    { 
-      label: "Book a visit", 
+    {
+      label: "Book a visit",
       action: () => onQuickAction?.("I need to book an appointment with a doctor. Can you help me find one?")
     },
-    { 
-      label: "Rx renewal", 
+    {
+      label: "Rx renewal",
       action: () => onQuickAction?.("I need to refill my prescription for Lisinopril 10mg. Can you help me with that?")
     }
   ];
@@ -109,20 +109,20 @@ function MarioAIBox({ onClick, onQuickAction }: { onClick: () => void; onQuickAc
     <div className="space-y-3">
       {/* MarioAI Search Bar - Secondary */}
       <div className="relative">
-        <div 
+        <div
           className={cn(
             "w-full px-4 py-3 mario-transition flex items-center relative",
             "transition-all duration-200",
-            isFocused 
-              ? "border-2 border-[#4DA1A9]" 
+            isFocused
+              ? "border-2 border-[#4DA1A9]"
               : "border border-[#4DA1A9]"
           )}
-          style={{ 
+          style={{
             backgroundColor: '#FFFFFF',
             borderRadius: '12px',
             height: '48px',
-            boxShadow: isFocused 
-              ? '0 4px 16px rgba(77, 161, 169, 0.15)' 
+            boxShadow: isFocused
+              ? '0 4px 16px rgba(77, 161, 169, 0.15)'
               : '0 2px 8px rgba(0, 0, 0, 0.08)'
           }}
         >
@@ -141,7 +141,7 @@ function MarioAIBox({ onClick, onQuickAction }: { onClick: () => void; onQuickAc
           />
         </div>
       </div>
-      
+
       {/* Quick Actions Pills */}
       <div className="flex gap-2 overflow-x-auto pb-1">
         {quickActions.map((action, index) => (
@@ -176,8 +176,8 @@ interface SavingsCardProps {
 
 function SavingsCard({ name, medianPrice, discountedPrice, savingsPercent, onClick }: SavingsCardProps) {
   return (
-    <Card 
-      className="flex-shrink-0 w-48 h-52 p-4 cursor-pointer mario-transition mario-hover-primary mario-button-scale mario-shadow-card" 
+    <Card
+      className="flex-shrink-0 w-48 h-52 p-4 cursor-pointer mario-transition mario-hover-primary mario-button-scale mario-shadow-card"
       onClick={onClick}
     >
       <div className="space-y-4 h-full flex flex-col">
@@ -185,7 +185,7 @@ function SavingsCard({ name, medianPrice, discountedPrice, savingsPercent, onCli
         <div>
           <h3 className="font-medium text-sm leading-tight">{name}</h3>
         </div>
-        
+
         {/* Pricing - Balanced 18-20px */}
         <div className="flex-1 space-y-3">
           <div className="text-xl font-bold text-primary leading-none">{discountedPrice}</div>
@@ -196,9 +196,9 @@ function SavingsCard({ name, medianPrice, discountedPrice, savingsPercent, onCli
             </div>
           </div>
         </div>
-        
+
         {/* Find Savings Button */}
-        <Button 
+        <Button
           className="w-full mario-button-scale bg-primary text-white hover:bg-primary/90"
           size="sm"
         >
@@ -223,6 +223,7 @@ interface HomeProps {
 export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenAIWithPrompt, onBrowseProcedures, onFindDoctors, onFindMedication, onMarioCare }: HomeProps) {
   const [isSearchSticky, setIsSearchSticky] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+  const searchBarRef = useRef<HTMLDivElement>(null);
 
   // Detect when hero section scrolls out of viewport
   useEffect(() => {
@@ -231,7 +232,7 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
         // When hero is NOT intersecting (scrolled past), make search sticky
         setIsSearchSticky(!entry.isIntersecting);
       },
-      { 
+      {
         threshold: 0,
         rootMargin: '0px'
       }
@@ -250,7 +251,7 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
   }, []);
 
   const commonSearches = [
-    "MRI Scan", "Annual Physical", "Mammogram", "Colonoscopy", 
+    "MRI Scan", "Annual Physical", "Mammogram", "Colonoscopy",
     "Blood Work", "X-Ray", "Dermatologist", "Cardiologist"
   ];
 
@@ -283,7 +284,7 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
 
   const recentSearchesPills = [
     "MRI Scan - Brain",
-    "Dr. Sarah Johnson", 
+    "Dr. Sarah Johnson",
     "Lipitor 20mg",
     "Annual Physical",
     "Blood Work"
@@ -324,9 +325,12 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
-      <div className="max-w-4xl mx-auto">
-        {/* Top Content with Adjusted Spacing */}
-        <div className="pt-8 px-4 pb-4 md:pt-24">
+      {/* Ensure content starts below nav on desktop */}
+      <div className="hidden md:block" style={{ height: '64px' }} aria-hidden="true" />
+
+      {/* Hero Section - Ensure it starts below nav on desktop */}
+      <div className="max-w-4xl mx-auto md:scroll-mt-16">
+        <div className="pt-8 px-4 pb-4 md:pt-8">
           {/* 1. Hero Heading - with ref for intersection observer */}
           <div ref={heroRef} className="space-y-1 mb-6">
             <h1 className="text-[#1A1A1A] font-medium animate-in fade-in duration-300 ease-in" style={{
@@ -343,25 +347,40 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
               Save with Mario.
             </p>
           </div>
+        </div>
+      </div>
 
-          {/* Desktop Search - Initially scrolls normally, becomes sticky when hero scrolls away */}
-          <div className={cn(
-            "hidden md:block mb-3 transition-all duration-200",
-            isSearchSticky && "sticky top-16 z-40 bg-background border-b border-border shadow-sm -mx-4 px-4 py-3 mb-0"
-          )}>
-            <MarioSmartSearch 
-              onSearch={onSearch || ((query) => console.log('Search:', query))}
-              autoFocus={!isReturningUser}
-            />
-          </div>
+      {/* Desktop Search - Conditionally sticky when hero scrolls away */}
+      <div
+        ref={searchBarRef}
+        className={cn(
+          "hidden md:block transition-all duration-200",
+          isSearchSticky ? "sticky top-16 z-40 bg-background border-b border-border shadow-sm w-full" : ""
+        )}
+      >
+        <div className={cn(
+          "max-w-4xl mx-auto",
+          isSearchSticky ? "px-4 py-3" : "px-4 mb-3"
+        )}>
+          <MarioSmartSearch
+            onSearch={onSearch || ((query) => console.log('Search:', query))}
+            autoFocus={!isSearchSticky && !isReturningUser}
+          />
+        </div>
+      </div>
 
+      {/* Content Container */}
+      <div className="max-w-4xl mx-auto">
+
+        {/* Mobile Search and MarioAI Chip */}
+        <div className="px-4 pb-4 md:pt-0">
           {/* Mobile Search - Scrolls Normally */}
           <div className="md:hidden space-y-3">
-            <MarioSmartSearch 
+            <MarioSmartSearch
               onSearch={onSearch || ((query) => console.log('Search:', query))}
               autoFocus={!isReturningUser}
             />
-            
+
             {/* MarioAI Quick Access Chip */}
             <button
               onClick={() => onOpenAI?.()}
@@ -400,9 +419,9 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
         <div className="relative" style={{ paddingBottom: '32px' }}>
           {/* Single Unified Curved Teal Band Background - spans both sections */}
           <div className="absolute inset-0 w-full overflow-hidden z-0" style={{ height: 'calc(100% + 32px)' }}>
-            <svg 
-              className="w-full h-full" 
-              viewBox="0 0 1200 120" 
+            <svg
+              className="w-full h-full"
+              viewBox="0 0 1200 120"
               preserveAspectRatio="none"
               style={{ display: 'block' }}
             >
@@ -413,17 +432,17 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
                   <stop offset="100%" style={{ stopColor: 'rgba(121, 215, 190, 0.12)', stopOpacity: 1 }} />
                 </linearGradient>
               </defs>
-              <path 
-                d="M0,20 Q300,10 600,5 T1200,0 L1200,120 Q900,110 600,115 T0,120 Z" 
+              <path
+                d="M0,20 Q300,10 600,5 T1200,0 L1200,120 Q900,110 600,115 T0,120 Z"
                 fill="url(#unifiedTealBand)"
               />
             </svg>
           </div>
-          
+
           {/* Recent Searches Content */}
-          <div 
+          <div
             className="w-full py-4 relative z-10"
-            style={{ 
+            style={{
               backgroundColor: 'transparent'
             }}
           >
@@ -432,7 +451,7 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-semibold">Recent Searches</h3>
-                    <button 
+                    <button
                       className="text-xs text-primary hover:text-primary/80 hover:underline hover:decoration-dotted cursor-pointer"
                       onClick={() => console.log('Clear history')}
                     >
@@ -494,8 +513,8 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
           </div>
 
           {/* MarioAI Search (Secondary) */}
-          <MarioAIBox 
-            onClick={() => onOpenAI?.()} 
+          <MarioAIBox
+            onClick={() => onOpenAI?.()}
             onQuickAction={onOpenAIWithPrompt}
           />
 
