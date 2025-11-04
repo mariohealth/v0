@@ -15,7 +15,16 @@ CREATE INDEX IF NOT EXISTS idx_procedure_pricing_provider ON procedure_pricing (
 CREATE INDEX IF NOT EXISTS idx_procedure_pricing_procedure ON procedure_pricing (procedure_id);
 
 -- Procedure
-CREATE INDEX IF NOT EXISTS idx_procedure_name_search ON procedure USING gin (name gin_trgm_ops);
+CREATE INDEX idx_procedure_family ON procedure(family_id);
+CREATE INDEX idx_procedure_slug ON procedure(slug);
+CREATE INDEX idx_procedure_name ON procedure(name);
+
+-- Create GIN index for fast full-text search
+CREATE INDEX IF NOT EXISTS idx_procedure_search_vector ON procedure USING GIN(search_vector);
+-- Create GIN index for trigram fuzzy matching on name
+CREATE INDEX IF NOT EXISTS idx_procedure_name_trgm ON procedure USING GIN(name gin_trgm_ops);
+-- Create GIN index for trigram fuzzy matching on common_name
+CREATE INDEX IF NOT EXISTS idx_procedure_common_name_trgm ON procedure USING GIN(common_name gin_trgm_ops);
 
 -- Procedure billing code
 CREATE INDEX IF NOT EXISTS idx_billing_code_code ON procedure_billing_code(code);

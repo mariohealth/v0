@@ -1,0 +1,9 @@
+procedure_id,code,code_type,description,is_primary
+proc_nail_debridement,11721,CPT,Debridement of nails 6 or more,
+,87798,CPT,Infectious agent detection by nucleic acid DNA/RNA not otherwise specified (e.g. multiplex PCR),
+,88305,CPT,Surgical pathology level IV e.g. GI mucosal or skin biopsies,
+,92134,CPT,Optical coherence tomography retina uni/bilateral,
+proc_allergy_skin_test,95004,CPT,Percutaneous allergy skin tests prick/puncture screening allergens,
+proc_allergen_immunotherapy,95165,CPT,Allergen immunotherapy professional services antigen preparation,
+,96372,CPT,Therapeutic prophylactic or diagnostic injection subcutaneous or intramuscular,
+proc_hospital_discharge,99239,CPT,Hospital discharge day management greater than 30 minutes,

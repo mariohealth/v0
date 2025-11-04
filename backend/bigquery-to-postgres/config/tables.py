@@ -46,17 +46,6 @@ TABLES = {
         'incremental_column': None,
     },
 
-    'procedure_to_billing_code_map':{
-        'bigquery_table': 'procedure_to_billing_code_map',
-        'postgres_table': 'procedure_to_billing_code_map',
-        'required_columns': ['billing_code_type', 'billing_code', 'procedure_id'],
-        'sync_mode': 'full_refresh',
-        'incremental_column': None,
-    },
-
-
-
-
     'provider_location': {
         'bigquery_table': 'provider_location',
         'postgres_table': 'provider_location',
@@ -123,7 +112,6 @@ DEFAULT_SYNC_TABLES = [
     'procedure_category',
     'procedure_family',
     'procedure_pricing',
-    'procedure_to_billing_code_map',
 
     # these BQ tables are huge so it takes a couple of minutes to sync so I don't include it
     # 'zip_codes',

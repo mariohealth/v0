@@ -23,6 +23,14 @@ class SearchResult(BaseModel):
     nearest_provider: str | None = None
     nearest_distance_miles: float | None = None
 
+    # NEW: Match score for relevance ranking (0.0 - 1.0)
+    match_score: float = Field(
+        ...,
+        ge=0.0,
+        le=1.0,
+        description="Relevance score: 1.0 = exact match, 0.3-0.9 = partial/fuzzy match"
+    )
+
 
 class SearchResponse(BaseModel):
     """Response for GET /api/v1/search."""
@@ -53,7 +61,8 @@ class SearchResponse(BaseModel):
                         "price_range": "$45 - $250",
                         "provider_count": 12,
                         "nearest_provider": "Mass General Hospital",
-                        "nearest_distance_miles": 2.3
+                        "nearest_distance_miles": 2.3,
+                        "match_score": 0.95
                     }
                 ]
             }
