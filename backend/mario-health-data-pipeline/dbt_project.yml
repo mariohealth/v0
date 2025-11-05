@@ -37,6 +37,9 @@ models:
 seeds:
   mario_health:
     +enabled: true
+    hospital_tins:
+      +column_types:
+        tin: STRING
 
 # Documentation
 docs-paths: ["docs"]

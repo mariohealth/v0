@@ -1,0 +1,28 @@
+hospital_id,hospital_name,system_id,city,state,hospital_type
+nyc_001,New York-Presbyterian Hospital,SYS_NYP,New York,NY,Academic Medical Center
+nyc_002,Mount Sinai Hospital,SYS_MOUNTSINAI,New York,NY,Academic Medical Center
+nyc_003,NYU Langone Hospitals,SYS_NYULANGONE,New York,NY,Academic Medical Center
+nyc_004,Memorial Sloan Kettering Cancer Center,SYS_MSK,New York,NY,Specialty Cancer Hospital
+nyc_005,Hospital for Special Surgery,SYS_HSS,New York,NY,Specialty Orthopedic Hospital
+nyc_006,Lenox Hill Hospital,SYS_NORTHWELL,New York,NY,Academic Medical Center
+nyc_007,Manhattan Eye Ear & Throat Hospital,SYS_NORTHWELL,New York,NY,Specialty Hospital
+nyc_008,North Shore University Hospital,SYS_NORTHWELL,Manhasset,NY,Academic Medical Center
+nyc_009,Long Island Jewish Medical Center,SYS_NORTHWELL,New Hyde Park,NY,Academic Medical Center
+nyc_010,Weill Cornell Medical Center,SYS_NYP,New York,NY,Academic Medical Center
+nyc_011,Columbia University Medical Center,SYS_NYP,New York,NY,Academic Medical Center
+nyc_012,Mount Sinai Beth Israel,SYS_MOUNTSINAI,New York,NY,Community Hospital
+nyc_013,Mount Sinai West,SYS_MOUNTSINAI,New York,NY,Community Hospital
+nyc_014,Mount Sinai Morningside,SYS_MOUNTSINAI,New York,NY,Community Hospital
+nyc_015,NYU Langone Brooklyn,SYS_NYULANGONE,Brooklyn,NY,Community Hospital
+nyc_016,NYU Langone Long Island,SYS_NYULANGONE,Mineola,NY,Community Hospital
+sf_001,UCSF Medical Center,SYS_UCSF,San Francisco,CA,Academic Medical Center
+sf_002,Stanford Health Care,SYS_STANFORD,Stanford,CA,Academic Medical Center
+sf_003,California Pacific Medical Center,SYS_SUTTER,San Francisco,CA,Community Hospital
+sf_004,UCSF Benioff Children's Hospitals,SYS_UCSF,San Francisco,CA,Children's Hospital
+sf_005,Stanford Children's Health,SYS_STANFORD,Palo Alto,CA,Children's Hospital
+sf_006,John Muir Health Walnut Creek,SYS_JOHNMUIR,Walnut Creek,CA,Community Hospital
+sf_007,John Muir Health Concord,SYS_JOHNMUIR,Concord,CA,Community Hospital
+sf_008,Kaiser Permanente San Francisco Medical Center,SYS_KAISER_NCA,San Francisco,CA,Integrated Healthcare
+sf_009,Mills-Peninsula Medical Center,SYS_SUTTER,Burlingame,CA,Community Hospital
+sf_010,UCSF Health Saint Francis,SYS_UCSF,San Francisco,CA,Community Hospital
+sf_011,Zuckerberg San Francisco General Hospital,SYS_SFHEALTH,San Francisco,CA,Public Hospital

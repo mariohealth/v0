@@ -1,0 +1,146 @@
+hospital_id,alias,alias_type
+nyc_001,New York-Presbyterian Hospital,official
+nyc_001,NYP,abbreviation
+nyc_001,New York Presbyterian,common
+nyc_001,NY-Presbyterian,common
+nyc_001,NewYork-Presbyterian,common
+nyc_001,Columbia Presbyterian,campus
+nyc_001,Weill Cornell Medical Center,campus
+nyc_001,NY-Presbyterian Columbia,campus
+nyc_001,NY-Presbyterian Cornell,campus
+nyc_001,New York Pres,short
+nyc_001,NY Pres Hosp,short
+nyc_002,Mount Sinai Hospital,official
+nyc_002,Mount Sinai,common
+nyc_002,Mt Sinai,common
+nyc_002,Mt. Sinai,common
+nyc_002,The Mount Sinai Hospital,formal
+nyc_002,Mount Sinai Medical Center,common
+nyc_002,Mt Sinai Hosp,short
+nyc_003,NYU Langone Hospitals,official
+nyc_003,NYU Langone,common
+nyc_003,NYU Langone Health,system
+nyc_003,NYU Medical Center,old_name
+nyc_003,Tisch Hospital,campus
+nyc_003,NYU Langone Tisch,campus
+nyc_003,NYU Langone Medical Center,common
+nyc_003,NYU Hosp,short
+nyc_004,Memorial Sloan Kettering Cancer Center,official
+nyc_004,Memorial Sloan Kettering,common
+nyc_004,MSK,abbreviation
+nyc_004,MSKCC,abbreviation
+nyc_004,Sloan Kettering,common
+nyc_004,Memorial Hospital,old_name
+nyc_004,Mem Sloan Kettering,short
+nyc_005,Hospital for Special Surgery,official
+nyc_005,HSS,abbreviation
+nyc_005,Hospital Special Surgery,common
+nyc_005,Special Surgery Hospital,variation
+nyc_005,Hosp Special Surgery,short
+nyc_006,Lenox Hill Hospital,official
+nyc_006,Lenox Hill,common
+nyc_006,Lenox Hill Hosp,short
+nyc_006,LHH,abbreviation
+nyc_006,Lenox Hill Hospital Northwell,system
+nyc_006,Lenox Hill Northwell,system
+nyc_007,Manhattan Eye Ear & Throat Hospital,official
+nyc_007,MEETH,abbreviation
+nyc_007,Manhattan Eye Ear Throat,common
+nyc_007,Manhattan Eye & Ear,short
+nyc_007,Eye Ear Throat Hospital,short
+nyc_007,Manhattan Eye Ear and Throat,variation
+nyc_008,North Shore University Hospital,official
+nyc_008,North Shore,common
+nyc_008,NSUH,abbreviation
+nyc_008,North Shore Northwell,system
+nyc_008,North Shore University,short
+nyc_008,North Shore Univ Hosp,short
+nyc_009,Long Island Jewish Medical Center,official
+nyc_009,LIJ,abbreviation
+nyc_009,Long Island Jewish,common
+nyc_009,LI Jewish Medical Center,common
+nyc_009,LIJ Medical Center,common
+nyc_009,LIJMC,abbreviation
+nyc_010,Weill Cornell Medical Center,official
+nyc_010,Weill Cornell,common
+nyc_010,Cornell Medical Center,short
+nyc_010,NY-Presbyterian Weill Cornell,system
+nyc_011,Columbia University Medical Center,official
+nyc_011,Columbia Medical Center,common
+nyc_011,CUMC,abbreviation
+nyc_011,NY-Presbyterian Columbia,system
+nyc_012,Mount Sinai Beth Israel,official
+nyc_012,Beth Israel,common
+nyc_012,Mt Sinai Beth Israel,common
+nyc_012,MSBI,abbreviation
+nyc_013,Mount Sinai West,official
+nyc_013,Mt Sinai West,common
+nyc_013,St. Luke's Roosevelt,old_name
+nyc_014,Mount Sinai Morningside,official
+nyc_014,Mt Sinai Morningside,common
+nyc_014,Mount Sinai St. Luke's,old_name
+nyc_015,NYU Langone Brooklyn,official
+nyc_015,NYU Brooklyn,common
+nyc_015,NYU Langone Hospital Brooklyn,formal
+nyc_016,NYU Langone Long Island,official
+nyc_016,NYU Long Island,common
+nyc_016,NYU Langone Hospital Long Island,formal
+sf_001,UCSF Medical Center,official
+sf_001,UCSF,abbreviation
+sf_001,UCSF Health,system
+sf_001,University of California San Francisco,formal
+sf_001,UC San Francisco,common
+sf_001,UCSF Medical,short
+sf_001,UCSF Hospital,common
+sf_001,UCSF Med Ctr,short
+sf_002,Stanford Health Care,official
+sf_002,Stanford Hospital,common
+sf_002,Stanford Medical Center,common
+sf_002,Stanford University Hospital,formal
+sf_002,Stanford Medicine,system
+sf_002,Stanford Hosp,short
+sf_003,California Pacific Medical Center,official
+sf_003,CPMC,abbreviation
+sf_003,Cal Pacific Medical Center,common
+sf_003,California Pacific,short
+sf_003,CPMC Van Ness,campus
+sf_003,CPMC Davies,campus
+sf_003,CPMC Mission Bernal,campus
+sf_003,Cal Pac Med Ctr,short
+sf_004,UCSF Benioff Children's Hospitals,official
+sf_004,UCSF Benioff,common
+sf_004,Benioff Children's Hospital,common
+sf_004,UCSF Children's,short
+sf_004,UCSF Benioff SF,campus
+sf_004,UCSF Benioff Oakland,campus
+sf_005,Stanford Children's Health,official
+sf_005,Lucile Packard Children's Hospital,formal
+sf_005,Lucile Packard,common
+sf_005,Stanford Children's,short
+sf_005,LPCH,abbreviation
+sf_006,John Muir Health Walnut Creek,official
+sf_006,John Muir Walnut Creek,common
+sf_006,John Muir Health,system
+sf_006,JMH Walnut Creek,abbreviation
+sf_007,John Muir Health Concord,official
+sf_007,John Muir Concord,common
+sf_007,JMH Concord,abbreviation
+sf_008,Kaiser Permanente San Francisco Medical Center,official
+sf_008,Kaiser SF,common
+sf_008,Kaiser San Francisco,common
+sf_008,Kaiser Permanente SF,common
+sf_008,KPSF,abbreviation
+sf_009,Mills-Peninsula Medical Center,official
+sf_009,Mills Peninsula,common
+sf_009,Mills-Peninsula,common
+sf_009,Mills Pen Med Ctr,short
+sf_010,UCSF Health Saint Francis,official
+sf_010,UCSF Saint Francis,common
+sf_010,St. Francis Memorial,old_name
+sf_010,Saint Francis Hospital SF,common
+sf_011,Zuckerberg San Francisco General Hospital,official
+sf_011,SF General,common
+sf_011,San Francisco General,common
+sf_011,ZSFG,abbreviation
+sf_011,SF Gen,short
+sf_011,Zuckerberg General,common
