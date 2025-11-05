@@ -65,9 +65,19 @@ export function MarioSearchResultsEnhanced({
   // Load results on mount or when query changes
   useEffect(() => {
     try {
+      // console.log("🔍 [COMPONENT] Loading results in MarioSearchResultsEnhanced:", {
+      //   query,
+      //   initialResultsLength: initialResults?.length || 0,
+      //   initialResultsArray: Array.isArray(initialResults),
+      //   firstInitialResult: initialResults?.[0] || null,
+      //   filters
+      // });
+      
       if (initialResults && Array.isArray(initialResults)) {
+        // console.log("🔍 [COMPONENT] Using initialResults (from props)");
         setResults(initialResults);
       } else {
+        // console.log("🔍 [COMPONENT] No initialResults, using mock searchProviders");
         // Use mock search function
         const searchResults = searchProviders(query, {
           inNetworkOnly: filters.network === 'in_network',
@@ -77,7 +87,7 @@ export function MarioSearchResultsEnhanced({
         setResults(Array.isArray(searchResults) ? searchResults : []);
       }
     } catch (err) {
-      console.error('Error loading search results:', err);
+      // console.error('🔍 [COMPONENT] Error loading search results:', err);
       setResults([]);
     }
   }, [query, initialResults, filters]);
@@ -85,42 +95,101 @@ export function MarioSearchResultsEnhanced({
   // Apply filters whenever filters or results change
   useEffect(() => {
     try {
+      // console.log("🔍 [FILTER] Starting filter application:", {
+      //   resultsLength: results.length,
+      //   resultsIsArray: Array.isArray(results),
+      //   filters
+      // });
+      
       if (!Array.isArray(results)) {
+        // console.log("🔍 [FILTER] Results is not an array, setting filteredResults to []");
         setFilteredResults([]);
         return;
       }
       let filtered = [...results];
+      // console.log("🔍 [FILTER] Initial filtered count:", filtered.length);
 
       // Network filter
       if (filters.network === 'in_network') {
         filtered = filtered.filter(r => r && r.inNetwork === true);
+        // console.log("🔍 [FILTER] After network filter (in_network):", filtered.length);
       } else if (filters.network === 'out_network') {
         filtered = filtered.filter(r => r && r.inNetwork === false);
+        // console.log("🔍 [FILTER] After network filter (out_network):", filtered.length);
+      } else {
+        // console.log("🔍 [FILTER] Network filter: all (no filtering)");
       }
 
-      // Distance filter
+      // Distance filter - Updated to handle numeric distance field
+      const beforeDistanceFilter = filtered.length;
       filtered = filtered.filter(r => {
-        if (!r || typeof r.distance !== 'number') return false;
-        return r.distance <= filters.maxDistance;
+        if (!r) return false;
+        // Use numeric distance field (now set as number in results page)
+        const distanceNum = typeof r.distance === 'number' ? r.distance : 
+                          (r.distanceNumeric !== undefined ? r.distanceNumeric : 0);
+        // Allow 0 as valid distance (might be same location)
+        if (typeof distanceNum !== 'number' || isNaN(distanceNum) || distanceNum < 0) {
+          // console.log("🔍 [FILTER] Warning: distance is not a valid number for result:", r.id, r.distance, r.distanceNumeric);
+          return false;
+        }
+        return distanceNum <= filters.maxDistance;
       });
+      // console.log("🔍 [FILTER] After distance filter:", {
+      //   before: beforeDistanceFilter,
+      //   after: filtered.length,
+      //   maxDistance: filters.maxDistance,
+      //   removed: beforeDistanceFilter - filtered.length
+      // });
 
-      // Price range filter (using MRI cost as example)
+      // Price range filter - Updated to use dynamic cost key
+      const beforePriceFilter = filtered.length;
       filtered = filtered.filter(r => {
-        const cost = r.costs?.['MRI']?.total || 0;
-        return cost >= filters.priceRange[0] && cost <= filters.priceRange[1];
+        // Get all cost keys from the result
+        const costKeys = Object.keys(r.costs || {});
+        if (costKeys.length === 0) {
+          // console.log("🔍 [FILTER] Warning: no cost keys for result:", r.id);
+          return false;
+        }
+        // Use the first cost key (should be 'MRI' after our fix)
+        const firstCostKey = costKeys[0];
+        const cost = r.costs?.[firstCostKey]?.total || 0;
+        const matches = cost >= filters.priceRange[0] && cost <= filters.priceRange[1];
+        // if (!matches) {
+        //   console.log("🔍 [FILTER] Price filter removed result:", {
+        //     id: r.id,
+        //     costKey: firstCostKey,
+        //     cost,
+        //     priceRange: filters.priceRange
+        //   });
+        // }
+        return matches;
       });
+      // console.log("🔍 [FILTER] After price filter:", {
+      //   before: beforePriceFilter,
+      //   after: filtered.length,
+      //   priceRange: filters.priceRange,
+      //   removed: beforePriceFilter - filtered.length
+      // });
 
       // Sort results
       switch (filters.sortBy) {
         case 'price':
           filtered.sort((a, b) => {
-            const aCost = a.costs?.['MRI']?.total || 0;
-            const bCost = b.costs?.['MRI']?.total || 0;
+            // Use dynamic cost key (now 'MRI' after our fix)
+            const aCostKey = Object.keys(a.costs || {})[0];
+            const bCostKey = Object.keys(b.costs || {})[0];
+            const aCost = aCostKey ? (a.costs?.[aCostKey]?.total || 0) : 0;
+            const bCost = bCostKey ? (b.costs?.[bCostKey]?.total || 0) : 0;
             return aCost - bCost;
           });
           break;
         case 'distance':
-          filtered.sort((a, b) => a.distance - b.distance);
+          filtered.sort((a, b) => {
+            // Use numeric distance field
+            const aDist = typeof a.distance === 'number' ? a.distance : (a.distanceNumeric || 0);
+            const bDist = typeof b.distance === 'number' ? b.distance : (b.distanceNumeric || 0);
+            return aDist - bDist;
+          });
           break;
         case 'rating':
           filtered.sort((a, b) => b.rating - a.rating);
@@ -131,7 +200,10 @@ export function MarioSearchResultsEnhanced({
           filtered.sort((a, b) => {
             if (a.marioPick && !b.marioPick) return -1;
             if (!a.marioPick && b.marioPick) return 1;
-            return a.distance - b.distance;
+            // Use numeric distance for sorting
+            const aDist = typeof a.distance === 'number' ? a.distance : (a.distanceNumeric || 0);
+            const bDist = typeof b.distance === 'number' ? b.distance : (b.distanceNumeric || 0);
+            return aDist - bDist;
           });
           break;
       }
@@ -470,7 +542,11 @@ export function MarioSearchResultsEnhanced({
                       </div>
                       <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4" />
-                        <span>{result.distance} miles</span>
+                        <span>
+                          {typeof result.distance === 'number' 
+                            ? `${result.distance.toFixed(1)} miles`
+                            : result.distance || 'N/A'}
+                        </span>
                       </div>
                       <Badge 
                         variant={result.inNetwork ? "default" : "outline"}
