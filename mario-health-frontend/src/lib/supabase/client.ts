@@ -50,27 +50,29 @@ export function createClient() {
       }),
       signInWithOAuth: async () => ({
         data: {
-          url: `${typeof window !== 'undefined' ? window.location.origin : ''}/search`,
+          url: `${typeof window !== 'undefined' ? window.location.origin : ''}/home`,
           provider: 'google',
         },
         error: null,
       }),
-      onAuthStateChange: (_event: string, callback: (event: string, session: any) => void) => {
+      onAuthStateChange: (_event: string, callback?: (event: string, session: any) => void) => {
         // Simulate successful sign in
-        setTimeout(() => {
-          callback("SIGNED_IN", {
-            session: {
-              user: {
-                email: "mock@mario.health",
-                id: "mock-user-id",
+        if (callback && typeof callback === 'function') {
+          setTimeout(() => {
+            callback("SIGNED_IN", {
+              session: {
+                user: {
+                  email: "mock@mario.health",
+                  id: "mock-user-id",
+                },
               },
-            },
-          });
-        }, 100);
+            });
+          }, 100);
+        }
         return {
           data: {
             subscription: {
-              unsubscribe: () => {},
+              unsubscribe: () => { },
             },
           },
         };

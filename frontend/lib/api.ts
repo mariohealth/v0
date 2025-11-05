@@ -20,7 +20,7 @@ import {
 import { z } from 'zod';
 import { getAuthToken } from './auth-token';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 /**
  * Enhanced API client with validation and error handling
@@ -238,7 +238,7 @@ class ApiClient {
             }
 
             const response = await this.request<SearchResponse>(
-                `/search?${searchParams.toString()}`,
+                `/api/v1/search?${searchParams.toString()}`,
                 {},
                 (data) => ApiSchemas.SearchResponse.parse(data)
             );
@@ -290,7 +290,7 @@ class ApiClient {
         }
 
         return this.request<Provider>(
-            `/providers/${id}`,
+            `/api/v1/providers/${id}`,
             {},
             (data) => ApiSchemas.Provider.parse(data)
         );
@@ -306,7 +306,7 @@ class ApiClient {
         const validatedData = ApiSchemas.BookingData.parse(data);
 
         return this.request<BookingResponse>(
-            '/bookings',
+            '/api/v1/bookings',
             {
                 method: 'POST',
                 body: JSON.stringify(validatedData),
@@ -326,7 +326,7 @@ class ApiClient {
         }
 
         return this.request<BookingResponse>(
-            `/bookings/${bookingId}`,
+            `/api/v1/bookings/${bookingId}`,
             {},
             (data) => ApiSchemas.BookingResponse.parse(data)
         );
@@ -342,7 +342,7 @@ class ApiClient {
             throw new Error('Booking ID is required');
         }
 
-        return this.request<{ success: boolean }>(`/bookings/${bookingId}/cancel`, {
+        return this.request<{ success: boolean }>(`/api/v1/bookings/${bookingId}/cancel`, {
             method: 'DELETE',
         });
     }
@@ -360,7 +360,7 @@ class ApiClient {
 
         const params = date ? `?date=${date}` : '';
         return this.request<TimeSlot[]>(
-            `/providers/${providerId}/time-slots${params}`,
+            `/api/v1/providers/${providerId}/time-slots${params}`,
             {},
             (data) => z.array(ApiSchemas.TimeSlot).parse(data)
         );
@@ -379,7 +379,7 @@ class ApiClient {
         const validatedData = ApiSchemas.InsuranceVerificationRequest.parse(requestData);
 
         return this.request<InsuranceVerificationResponse>(
-            '/insurance/verify',
+            '/api/v1/insurance/verify',
             {
                 method: 'POST',
                 body: JSON.stringify(validatedData),
@@ -396,7 +396,7 @@ class ApiClient {
     async getProcedures(query?: string): Promise<ProcedureSearchResponse> {
         const params = query ? `?q=${encodeURIComponent(query)}` : '';
         return this.request<ProcedureSearchResponse>(
-            `/procedures${params}`,
+            `/api/v1/procedures${params}`,
             {},
             (data) => ApiSchemas.ProcedureSearchResponse.parse(data)
         );
@@ -408,7 +408,7 @@ class ApiClient {
      */
     async getInsuranceProviders(): Promise<InsuranceProvidersResponse> {
         return this.request<InsuranceProvidersResponse>(
-            '/insurance/providers',
+            '/api/v1/insurance/providers',
             {},
             (data) => ApiSchemas.InsuranceProvidersResponse.parse(data)
         );
@@ -428,7 +428,7 @@ class ApiClient {
             throw new Error('Search query is required');
         }
 
-        return this.request<BackendSearchResponse>(`/search?q=${encodeURIComponent(query)}`);
+        return this.request<BackendSearchResponse>(`/api/v1/search?q=${encodeURIComponent(query)}`);
     }
 
     /**
@@ -436,7 +436,7 @@ class ApiClient {
      * @returns Promise with procedure categories
      */
     async getProcedureCategories(): Promise<BackendProcedureCategoriesResponse> {
-        return this.request<BackendProcedureCategoriesResponse>('/procedure-categories');
+        return this.request<BackendProcedureCategoriesResponse>('/api/v1/categories');
     }
 }
 

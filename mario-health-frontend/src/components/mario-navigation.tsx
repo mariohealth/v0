@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Badge } from './ui/badge';
@@ -7,6 +7,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { MarioLogo } from './mario-logo';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { createClient } from '@/lib/supabase/client';
 import {
   Search,
   Home,
@@ -40,7 +41,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
 
   const getActiveTab = () => {
     if (activeTab) return activeTab
-    if (pathname?.startsWith('/home') || pathname?.startsWith('/search') || pathname === '/') return 'home'
+    if (pathname?.startsWith('/home') || pathname === '/') return 'home'
     if (pathname?.startsWith('/health')) return 'health'
     if (pathname?.startsWith('/rewards')) return 'rewards'
     if (pathname?.startsWith('/profile')) return 'profile'
@@ -53,7 +54,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
     <div className="fixed bottom-0 left-0 right-0 bg-card h-14 flex items-center px-4 z-50 md:hidden mario-shadow-elevated">
       <div className="flex justify-around w-full">
         {tabs.map(({ id, href, icon: Icon, label }) => {
-          const isActive = currentTab === id || (id === 'search' && currentTab === 'home')
+          const isActive = currentTab === id
           return (
             <Link
               key={id}
@@ -172,21 +173,44 @@ interface DesktopNavProps {
 
 export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: DesktopNavProps) {
   const pathname = usePathname()
-  const [searchValue, setSearchValue] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const supabase = createClient();
+
+  // Check authentication status
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        setIsAuthenticated(!!user);
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuth();
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthenticated(!!session?.user);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const menuItems = [
-    { id: 'home', href: '/home', label: 'Home' },
-    { id: 'providers', href: '/find-doctors', label: 'Doctors' },
-    { id: 'medications', href: '/find-medication', label: 'Medications' },
-    { id: 'health-hub', href: '/health-hub', label: 'Health Hub' },
-    { id: 'rewards', href: '/rewards', label: 'Rewards' }
+    { id: 'home', href: '/home', label: 'Home', requiresAuth: true },
+    { id: 'health-hub', href: '/health-hub', label: 'Health Hub', requiresAuth: false },
+    { id: 'rewards', href: '/rewards', label: 'Rewards', requiresAuth: false }
   ];
+
+  // Filter menu items based on authentication
+  const visibleMenuItems = menuItems.filter(item => !item.requiresAuth || isAuthenticated);
 
   const getActiveItem = () => {
     if (activeItem) return activeItem
-    if (pathname === '/home' || pathname === '/search' || pathname === '/') return 'home'
-    if (pathname?.startsWith('/find-doctors') || pathname?.startsWith('/doctors')) return 'providers'
-    if (pathname?.startsWith('/find-medication') || pathname?.startsWith('/medications')) return 'medications'
+    if (pathname === '/home' || pathname === '/') return 'home'
     if (pathname?.startsWith('/health')) return 'health-hub'
     if (pathname?.startsWith('/rewards')) return 'rewards'
     return 'home'
@@ -203,46 +227,19 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
           </Link>
 
           <nav className="flex items-center gap-6">
-            <Link
-              href="/home"
-              className={`text-sm font-medium mario-transition ${
-                currentActiveItem === 'home'
-                  ? 'text-primary border-b-2 border-primary pb-4'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              href="/search"
-              className={`text-sm font-medium mario-transition ${
-                currentActiveItem === 'search'
-                  ? 'text-primary border-b-2 border-primary pb-4'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Search
-            </Link>
-            <Link
-              href="/health-hub"
-              className={`text-sm font-medium mario-transition ${
-                currentActiveItem === 'health-hub'
-                  ? 'text-primary border-b-2 border-primary pb-4'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Health Hub
-            </Link>
-            <Link
-              href="/rewards"
-              className={`text-sm font-medium mario-transition ${
-                currentActiveItem === 'rewards'
-                  ? 'text-primary border-b-2 border-primary pb-4'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Rewards
-            </Link>
+            {visibleMenuItems.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className={`text-sm font-medium mario-transition ${
+                  currentActiveItem === item.id
+                    ? 'text-primary border-b-2 border-primary pb-4'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
               href="/profile"
               className={`text-sm font-medium mario-transition ${
@@ -257,16 +254,6 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search providers, procedures..."
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              className="pl-10 w-80"
-            />
-          </div>
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative mario-button-scale">

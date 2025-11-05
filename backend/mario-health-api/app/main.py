@@ -20,6 +20,8 @@ from app.api.v1.endpoints import (
     user_preferences,
     saved_searches,
     whoami,
+    bookings,
+    insurance,
 )
 import os
 from pathlib import Path
@@ -153,6 +155,15 @@ app.include_router(providers.router, prefix="/api/v1")
 app.include_router(user_preferences.router, prefix="/api/v1/user")
 app.include_router(saved_searches.router, prefix="/api/v1/user")
 app.include_router(whoami.router, prefix="/api/v1")  # Debug endpoint for authentication
+app.include_router(bookings.router, prefix="/api/v1")
+app.include_router(insurance.router, prefix="/api/v1")
+
+# Alias routes for compatibility
+@app.get("/api/v1/procedure-categories", tags=["categories"], include_in_schema=False)
+async def procedure_categories_alias():
+    """Alias route for /procedure-categories, redirects to /categories."""
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url="/api/v1/categories", status_code=307)
 
 
 # Root endpoints

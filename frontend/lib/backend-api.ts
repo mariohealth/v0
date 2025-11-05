@@ -120,7 +120,7 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
     try {
         // Get auth token for Authorization header
         const token = await getAuthToken();
-        
+
         // Build headers with Authorization if token is available
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
@@ -247,6 +247,19 @@ function transformProcedure(raw: any): Procedure {
  * Transform snake_case to camelCase for search results
  */
 function transformSearchResult(raw: any): SearchResult {
+    // Convert string prices to numbers (backend returns them as strings)
+    const bestPrice = typeof raw.best_price === 'string' 
+        ? parseFloat(raw.best_price) 
+        : typeof raw.best_price === 'number' 
+            ? raw.best_price 
+            : 0;
+    
+    const avgPrice = typeof raw.avg_price === 'string' 
+        ? parseFloat(raw.avg_price) 
+        : typeof raw.avg_price === 'number' 
+            ? raw.avg_price 
+            : 0;
+    
     return {
         procedureId: raw.procedure_id,
         procedureName: raw.procedure_name,
@@ -255,8 +268,8 @@ function transformSearchResult(raw: any): SearchResult {
         familySlug: raw.family_slug,
         categoryName: raw.category_name,
         categorySlug: raw.category_slug,
-        bestPrice: raw.best_price,
-        avgPrice: raw.avg_price,
+        bestPrice,
+        avgPrice,
         priceRange: raw.price_range,
         providerCount: raw.provider_count,
         nearestProvider: raw.nearest_provider,
@@ -318,34 +331,72 @@ export async function getProceduresByFamily(slug: string): Promise<{ familySlug:
     }
 }
 
+// Default search parameters
+const DEFAULT_ZIP = "10001";
+const DEFAULT_RADIUS = 25;
+
 /**
  * Search for procedures
  * Endpoint: GET /api/v1/search?q={query}&zip={zip}&radius={radius}
  * @param query - Search query (e.g., 'chest', 'mri')
- * @param zip - Optional 5-digit ZIP code for location-based search
+ * @param zip - Optional 5-digit ZIP code for location-based search (defaults to "10001")
  * @param radius - Optional search radius in miles (default: 25)
  * @returns Search results with procedure information
  */
 export async function searchProcedures(
     query: string,
     zip?: string,
-    radius: number = 25
+    radius: number = DEFAULT_RADIUS
 ): Promise<SearchResult[]> {
     try {
+        // Use default ZIP if none provided
+        const effectiveZip = zip || DEFAULT_ZIP;
+        const effectiveRadius = radius || DEFAULT_RADIUS;
+
         const params = new URLSearchParams({
             q: query,
+            zip_code: effectiveZip,
+            radius: effectiveRadius.toString(),
         });
 
-        if (zip) {
-            params.append('zip', zip);
-        }
-        params.append('radius', radius.toString());
+        console.log("✅ Search called with:", {
+            query,
+            zip: effectiveZip,
+            radius: effectiveRadius,
+        });
 
         const data = await fetchFromApi<{ query: string; location?: string; radius_miles: number; results_count: number; results: any[] }>(
             `/api/v1/search?${params.toString()}`
         );
 
-        return data.results.map(transformSearchResult);
+        console.log("✅ Live search API called:", {
+            endpoint: `/api/v1/search?${params.toString()}`,
+            query: data.query,
+            results_count: data.results_count,
+            results_length: data.results?.length || 0,
+        });
+
+        console.log("🔍 Search response:", {
+            query: data.query,
+            results_count: data.results_count,
+            results_length: data.results?.length || 0,
+            first_result: data.results?.[0] || null
+        });
+
+        // Ensure results array exists and is not empty
+        if (!data.results || !Array.isArray(data.results) || data.results.length === 0) {
+            console.log("⚠️  No results returned from API");
+            return [];
+        }
+
+        const transformedResults = data.results.map(transformSearchResult);
+        
+        console.log("🧠 Transformed results:", {
+            count: transformedResults.length,
+            first_result: transformedResults[0] || null
+        });
+
+        return transformedResults;
     } catch (error) {
         console.error(`Failed to search procedures for '${query}':`, error);
         throw new Error(`Failed to search procedures: ${error instanceof Error ? error.message : 'Unknown error'}`);

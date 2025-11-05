@@ -412,7 +412,7 @@ export async function searchProcedures(
     });
 
     if (zip) {
-      params.append('zip', zip);
+      params.append('zip_code', zip);
     }
     params.append('radius', radius.toString());
 

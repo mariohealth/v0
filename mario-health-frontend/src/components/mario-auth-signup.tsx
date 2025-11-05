@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { MarioLogoLockup } from './mario-logo-lockup';
 import { Eye, EyeOff, Building2, CheckCircle, AlertCircle, X } from 'lucide-react';
+import { toast } from 'sonner';
 
 // Mock Auth Flow States
 type AuthState = 'default' | 'loading' | 'error' | 'success';
@@ -128,7 +129,7 @@ export function MarioAuthSignup({
         // Redirect immediately after success
         setTimeout(() => {
           onAuthSuccess?.();
-          router.push('/search'); // Redirect to search/homepage after signup
+          router.push('/home'); // Redirect to home page after signup
         }, 500); // Reduced delay for faster redirect
       }
     } catch (err) {
@@ -163,14 +164,14 @@ export function MarioAuthSignup({
         // Mock SSO - just redirect
         console.log('Mock SSO signup success, redirecting...');
         setTimeout(() => {
-          router.push('/search');
+          router.push('/home');
           onSSOSignUp?.();
         }, 500);
       } else {
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: provider === 'google' ? 'google' : 'apple',
           options: {
-            redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/search`,
+            redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/home`,
           },
         });
 
@@ -181,7 +182,7 @@ export function MarioAuthSignup({
           // Mock OAuth - redirect immediately
           console.log(`Mock ${provider} signup success, redirecting...`);
           setTimeout(() => {
-            router.push('/search');
+            router.push('/home');
             if (provider === 'google') {
               onGoogleSignUp?.();
             } else {
@@ -196,7 +197,63 @@ export function MarioAuthSignup({
     }
   };
 
+  // Mock auth handler for social sign-up (Google/Apple/SSO)
+  // Shows success toast and redirects to /upload-insurance
+  const simulateAuth = async (providerName: string) => {
+    setAuthState('loading');
+    setAuthError('');
+
+    try {
+      // Mock auth delay
+      await new Promise(resolve => setTimeout(resolve, mockAuthDelay));
+
+      if (mockAuthSuccess) {
+        setAuthState('success');
+        setShowConfetti(true);
+        
+        // Show success toast
+        toast.success(`${providerName} successful!`, {
+          description: 'Redirecting to upload insurance...',
+          duration: 3000,
+        });
+
+        // Call appropriate callback
+        if (providerName.includes('Google')) {
+          onGoogleSignUp?.();
+        } else if (providerName.includes('Apple')) {
+          onAppleSignUp?.();
+        } else if (providerName.includes('SSO')) {
+          onSSOSignUp?.();
+        }
+
+        // Redirect to /upload-insurance after a short delay
+        setTimeout(() => {
+          onAuthSuccess?.();
+          router.push('/upload-insurance');
+        }, 1000);
+      } else {
+        setAuthState('error');
+        setAuthError(`${providerName} failed. Please try again.`);
+        toast.error(`${providerName} failed`, {
+          description: 'Please try again.',
+        });
+      }
+    } catch (err) {
+      setAuthState('error');
+      setAuthError(`An unexpected error occurred during ${providerName}. Please try again.`);
+      toast.error('Sign-up error', {
+        description: 'An unexpected error occurred. Please try again.',
+      });
+    }
+  };
+
   const isValid = email && password && !emailError && !passwordError;
+
+  // Handle login navigation
+  const handleLoginClick = () => {
+    onLoginClick?.(); // Call optional prop callback if provided
+    router.push('/login'); // Always navigate to login page
+  };
 
   // Desktop variant with marketing panel
   if (isDesktop) {
@@ -267,7 +324,7 @@ export function MarioAuthSignup({
             onGoogleSignUp={() => handleSocialSignup('google')}
             onAppleSignUp={() => handleSocialSignup('apple')}
             onSSOSignUp={() => handleSocialSignup('sso')}
-            onLoginClick={onLoginClick}
+            onLoginClick={handleLoginClick}
             onDismissError={() => setAuthState('default')}
             setFocusedField={setFocusedField}
             employerLogo={employerLogo}
@@ -325,7 +382,7 @@ export function MarioAuthSignup({
         onGoogleSignUp={() => simulateAuth('Google sign-up')}
         onAppleSignUp={() => simulateAuth('Apple sign-up')}
         onSSOSignUp={() => simulateAuth('Employer SSO')}
-        onLoginClick={onLoginClick}
+        onLoginClick={handleLoginClick}
         onDismissError={() => setAuthState('default')}
         setFocusedField={setFocusedField}
         employerLogo={employerLogo}

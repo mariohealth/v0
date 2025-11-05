@@ -21,7 +21,7 @@ export interface SavedSearch {
 }
 
 const SAVED_SEARCHES_KEY = 'savedSearches';
-const API_ENDPOINT = '/api/v1/saved-searches';
+const API_ENDPOINT = '/api/v1/user/saved-searches';
 
 /**
  * Get saved searches from localStorage (guest users)

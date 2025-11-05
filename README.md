@@ -89,8 +89,12 @@ The frontend integrates with a FastAPI backend running on Google Cloud Run. All 
 - ✅ **Search**: Search procedures by name with optional location filtering
 - ✅ **Provider Details**: Get provider information with procedures and pricing
 - ✅ **Procedure Details**: Get detailed procedure info with all carrier pricing
-- 🔴 **Booking System**: Not implemented
-- 🔴 **Insurance Verification**: Not implemented
+- ✅ **Billing Codes**: Get billing code detail with related procedures
+- ✅ **User Preferences**: Get and update user preferences
+- ✅ **Saved Searches**: CRUD operations for saved searches
+- 🆕 **Booking System**: Endpoints scaffolded (stub responses)
+- 🆕 **Insurance Verification**: Endpoints scaffolded (stub responses)
+- 🆕 **Time Slots**: Endpoint scaffolded (stub responses)
 
 ### Environment Variables
 
@@ -137,6 +141,25 @@ GET /api/v1/providers/{id}
 // Get billing code detail
 GET /api/v1/codes/{code}?code_type=CPT
 ```
+
+### Frontend ↔ Backend API Overview
+
+For a comprehensive overview of all API endpoints, see **[API Overview](./docs/API_OVERVIEW.md)**.
+
+The API Overview includes:
+- Complete endpoint reference table
+- Status indicators (✅ Production Ready, 🆕 Newly Added, ⚠️ In Progress)
+- Alias routes for backward compatibility
+- Query parameter compatibility notes
+- Authentication requirements
+- Newly added endpoints with stub status
+
+**Recently Added Endpoints:**
+- 🆕 Booking endpoints (`POST /api/v1/bookings`, `GET /api/v1/bookings/{id}`, `DELETE /api/v1/bookings/{id}/cancel`)
+- 🆕 Insurance endpoints (`POST /api/v1/insurance/verify`, `GET /api/v1/insurance/providers`)
+- 🆕 Provider time slots (`GET /api/v1/providers/{id}/time-slots`)
+
+Note: Newly added endpoints contain stub responses and are marked for full implementation.
 
 ### Integration Documentation
 - **[Complete Integration Guide](./docs/INTEGRATION_GUIDE.md)** - Detailed API specs, types, and examples

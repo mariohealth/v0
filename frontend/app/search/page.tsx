@@ -71,6 +71,7 @@ function SearchResults() {
         const radius = radiusParam ? parseInt(radiusParam) : (defaultRadius || 25);
 
         const results = await searchProcedures(query, zip, radius);
+        console.log("✅ Live search called:", { query, zip, radius, resultsCount: results.length });
         setSearchResults(results);
 
         // Find related procedures

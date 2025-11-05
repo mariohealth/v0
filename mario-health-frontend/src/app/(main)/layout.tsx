@@ -12,7 +12,7 @@ export default function MainLayout({
     return (
         <MarioPointsProvider>
             <DesktopNav />
-            <main className="min-h-screen pb-14 md:pb-0">
+            <main className="min-h-screen pb-14 md:pb-0 md:pt-16">
                 {children}
             </main>
             <BottomNav />

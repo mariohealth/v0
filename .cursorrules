@@ -10,3 +10,14 @@ Code Style:
 - Keep components small
 
 Reference Mario Health PRD and Design Doc for requirements.
+
+## Cursor Commands
+
+### `/Test APIs`
+Runs automated API health test and displays summary. Executes `.cursor/commands/test-apis.js`.
+- Checks backend reachability
+- Tests all endpoints
+- Shows pass rate, warnings, errors
+- Displays latest commit hash
+
+Usage: Type `/Test APIs` in chat or run `node .cursor/commands/test-apis.js`

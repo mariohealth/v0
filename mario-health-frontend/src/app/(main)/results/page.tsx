@@ -1,176 +1,196 @@
-import { Suspense } from 'react'
-import type { Metadata } from 'next'
+'use client'
+
+import { Suspense, useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { MarioSearchResultsEnhanced as MarioSearchResults } from '@/components/mario-search-results-enhanced'
-import { providers as mockProviders } from '@/lib/data/mario-provider-data'
-import { procedures as mockProcedures } from '@/lib/data/mario-procedures-data'
 
-// Safe fallbacks for data imports
-const providers = Array.isArray(mockProviders) ? mockProviders : []
-const procedures = Array.isArray(mockProcedures) ? mockProcedures : []
-
-// Debug logging
-console.log("providers:", providers?.length || 0, "procedures:", procedures?.length || 0)
+// Backend API base URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 interface ResultsPageProps {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export async function generateMetadata({ searchParams }: ResultsPageProps): Promise<Metadata> {
-    const params = await searchParams
-    const query = (params.q as string) || ''
+function ResultsContent() {
+    const searchParams = useSearchParams()
+    const query = searchParams.get('q') || ''
+    const [results, setResults] = useState<any[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
 
-    if (!query) {
-        return {
-            title: 'Search Results - Mario Health',
+    // 🔍 DEBUG: Log query param on mount and changes
+    // useEffect(() => {
+    //     console.log("🔍 [ROUTING] Query param detected:", {
+    //         query,
+    //         queryLength: query.length,
+    //         searchParamsString: searchParams.toString(),
+    //         hasQParam: searchParams.has('q')
+    //     })
+    // }, [query, searchParams])
+
+    useEffect(() => {
+        const fetchResults = async () => {
+            if (!query || query.length < 2) {
+                // console.log("🔍 [ROUTING] Query too short or empty, skipping fetch:", { query, length: query.length })
+                setResults([])
+                setLoading(false)
+                return
+            }
+
+            try {
+                setLoading(true)
+                setError(null)
+
+                // Call backend API
+                const url = `${API_BASE_URL}/api/v1/search?q=${encodeURIComponent(query)}&zip_code=10001&radius=25`
+                // console.log("🔍 [API CALL] Fetching results from:", url)
+                // console.log("🔍 [API CALL] HTTP Method: GET")
+                // console.log("🔍 [API CALL] Parameters:", { query, zip_code: "10001", radius: 25 })
+                
+                const response = await fetch(url)
+                
+                // console.log("🔍 [API CALL] Response status:", response.status, response.statusText)
+                
+                if (!response.ok) {
+                    throw new Error(`API request failed: ${response.status} ${response.statusText}`)
+                }
+
+                const data = await response.json()
+                // console.log("🔍 [API CALL] Raw API response:", {
+                //     query: data.query,
+                //     results_count: data.results_count,
+                //     results_length: data.results?.length || 0,
+                //     first_3_results: data.results?.slice(0, 3).map((r: any) => ({
+                //         procedure_id: r.procedure_id,
+                //         procedure_name: r.procedure_name,
+                //         best_price: r.best_price,
+                //         avg_price: r.avg_price,
+                //         nearest_distance_miles: r.nearest_distance_miles
+                //     })) || []
+                // })
+
+                // Transform API results to match component format
+                const transformedResults = (data.results || []).map((result: any) => ({
+                    id: result.procedure_id || `procedure-${result.procedure_slug}`,
+                    name: result.procedure_name,
+                    specialty: result.category_name || 'Procedure',
+                    type: 'procedure' as const,
+                    address: '',
+                    city: '',
+                    state: '',
+                    zipCode: '',
+                    phone: '',
+                    website: undefined,
+                    distance: result.nearest_distance_miles || 0, // Number, not string - fix for filter compatibility
+                    distanceNumeric: result.nearest_distance_miles || 0,
+                    inNetwork: true,
+                    rating: 4.5,
+                    reviewCount: result.provider_count || 0,
+                    hours: {},
+                    services: [],
+                    acceptedInsurance: [],
+                    about: result.family_name || '',
+                    costs: {
+                        // Use normalized 'MRI' key for component compatibility (component expects costs['MRI'])
+                        'MRI': {
+                            total: parseFloat(result.best_price) || 0,
+                            median: parseFloat(result.avg_price) || 0,
+                            savings: (parseFloat(result.avg_price) || 0) - (parseFloat(result.best_price) || 0),
+                            percentSavings: result.avg_price && result.best_price 
+                                ? Math.round(((parseFloat(result.avg_price) - parseFloat(result.best_price)) / parseFloat(result.avg_price)) * 100)
+                                : 0
+                        }
+                    },
+                    marioPick: true,
+                    marioPoints: 0,
+                    location: {
+                        address: '',
+                        city: '',
+                        state: '',
+                        zip: ''
+                    }
+                }))
+
+                // console.log("🔍 [STATE UPDATE] Before setResults:", {
+                //     resultsLength: results.length,
+                //     transformedCount: transformedResults.length,
+                //     firstTransformed: transformedResults[0] ? {
+                //         id: transformedResults[0].id,
+                //         name: transformedResults[0].name,
+                //         distance: transformedResults[0].distance,
+                //         distanceNumeric: transformedResults[0].distanceNumeric,
+                //         costKeys: Object.keys(transformedResults[0].costs || {}),
+                //         inNetwork: transformedResults[0].inNetwork
+                //     } : null
+                // })
+
+                setResults(transformedResults)
+                
+                // 🔍 DEBUG: Log after state update (will show in next render)
+                // setTimeout(() => {
+                //     console.log("🔍 [STATE UPDATE] After setResults (next render):", {
+                //         resultsLength: transformedResults.length,
+                //         stateUpdated: true
+                //     })
+                // }, 100)
+            } catch (err) {
+                // console.error('🔍 [API CALL] Failed to fetch search results:', err)
+                setError(err instanceof Error ? err.message : 'Failed to fetch search results')
+                setResults([])
+            } finally {
+                setLoading(false)
+            }
         }
+
+        fetchResults()
+    }, [query])
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+                    <p className="mt-4 text-gray-600">Loading search results...</p>
+                </div>
+            </div>
+        )
     }
 
-    return {
-        title: `Search Results for "${query}" - Mario Health`,
-        description: `Find providers and procedures matching "${query}" on Mario Health`,
+    if (error) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <h2 className="text-xl font-semibold text-red-900 mb-2">Error</h2>
+                    <p className="text-red-700">{error}</p>
+                </div>
+            </div>
+        )
     }
+
+    // 🔍 DEBUG: Log before render
+    // console.log("🔍 [RENDER] Rendering MarioSearchResults with:", {
+    //     query,
+    //     resultsLength: results.length,
+    //     resultsArray: Array.isArray(results),
+    //     firstResult: results[0] || null
+    // })
+
+    return <MarioSearchResults query={query || ''} results={results || []} />
 }
 
-export default async function ResultsPage({ searchParams }: ResultsPageProps) {
-    const params = await searchParams
-    const query = (params.q as string) || ''
-
-    // Use mock data instead of Supabase fetch
-    let providerResults: any[] = []
-    let procedureResults: any[] = []
-
-    if (query && Array.isArray(providers) && Array.isArray(procedures)) {
-        try {
-            const queryLower = query.toLowerCase()
-            
-            // Search providers from mock data with safety checks
-            const filteredProviders = (providers || []).filter(p => {
-                if (!p || typeof p !== 'object') return false
-                const name = (p.name || '').toLowerCase()
-                const specialty = (p.specialty || '').toLowerCase()
-                return name.includes(queryLower) || specialty.includes(queryLower)
-            })
-            
-            // Search procedures from mock data with safety checks
-            const filteredProcedures = (procedures || []).filter(p => {
-                if (!p || typeof p !== 'object') return false
-                const name = (p.name || '').toLowerCase()
-                const category = (p.category || '').toLowerCase()
-                return name.includes(queryLower) || category.includes(queryLower)
-            })
-            
-            // Transform providers to match component format with safety checks
-            providerResults = Array.isArray(filteredProviders) ? filteredProviders.map(p => {
-                if (!p || typeof p !== 'object') return null
-                try {
-                    return {
-                        id: p.id,
-                        name: p.name,
-                        specialty: p.specialty,
-                        type: 'doctor' as const,
-                        address: '',
-                        city: '',
-                        state: '',
-                        zipCode: '',
-                        phone: '',
-                        website: undefined,
-                        distance: '2.5 miles',
-                        inNetwork: p.network === 'In-Network',
-                        rating: parseFloat(p.rating) || 0,
-                        reviewCount: parseInt(p.reviews) || 0,
-                        hours: {},
-                        services: [],
-                        acceptedInsurance: p.insuranceAccepted || [],
-                        about: p.bio || '',
-                        costs: {
-                            'Office Visit': p.appointmentCosts?.[0] ? {
-                                total: parseInt(p.appointmentCosts[0].price.replace('$', '')) || 150,
-                                median: Math.round(parseInt(p.appointmentCosts[0].price.replace('$', '')) * 1.2) || 180,
-                                savings: Math.round((parseInt(p.appointmentCosts[0].price.replace('$', '')) * 1.2) - (parseInt(p.appointmentCosts[0].price.replace('$', '')) || 150)),
-                                percentSavings: 17
-                            } : {
-                                total: 150,
-                                median: 180,
-                                savings: 30,
-                                percentSavings: 17
-                            }
-                        },
-                        marioPick: p.marioPick || false,
-                        marioPoints: 0,
-                        location: {
-                            address: '',
-                            city: '',
-                            state: '',
-                            zip: ''
-                        }
-                    }
-                } catch (err) {
-                    console.error('Error transforming provider:', err)
-                    return null
-                }
-            }).filter(Boolean) : []
-            
-            // Transform procedures to Provider-like format for display with safety checks
-            procedureResults = Array.isArray(filteredProcedures) ? filteredProcedures.map(p => {
-                if (!p || typeof p !== 'object') return null
-                try {
-                    return {
-                        id: `procedure-${p.id}`,
-                        name: p.name,
-                        specialty: p.category || 'Procedure',
-                        type: 'procedure' as const,
-                        address: '',
-                        city: '',
-                        state: '',
-                        zipCode: '',
-                        phone: '',
-                        website: undefined,
-                        distance: '2.5 miles',
-                        inNetwork: true,
-                        rating: 4.5,
-                        reviewCount: 0,
-                        hours: {},
-                        services: [],
-                        acceptedInsurance: [],
-                        about: p.description || '',
-                        costs: {
-                            [p.name]: {
-                                total: p.marioPrice || p.avgPrice * 0.6,
-                                median: p.avgPrice || 0,
-                                savings: (p.avgPrice || 0) - (p.marioPrice || 0),
-                                percentSavings: p.savings || 0
-                            }
-                        },
-                        marioPick: true,
-                        marioPoints: 0,
-                        location: {
-                            address: '',
-                            city: '',
-                            state: '',
-                            zip: ''
-                        }
-                    }
-                } catch (err) {
-                    console.error('Error transforming procedure:', err)
-                    return null
-                }
-            }).filter(Boolean) : []
-        } catch (err) {
-            console.error('Error filtering search results:', err)
-            providerResults = []
-            procedureResults = []
-        }
-    }
-    
-    // Combine results - providers and procedures with safety check
-    const allResults = Array.isArray(providerResults) && Array.isArray(procedureResults) 
-        ? [...providerResults, ...procedureResults] 
-        : []
-
+export default function ResultsPage() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <MarioSearchResults query={query || ''} results={allResults || []} />
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+                    <p className="mt-4 text-gray-600">Loading...</p>
+                </div>
+            </div>
+        }>
+            <ResultsContent />
         </Suspense>
     )
 }
+
 

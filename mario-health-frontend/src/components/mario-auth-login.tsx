@@ -121,7 +121,7 @@ export function MarioAuthLogin({
         // Redirect immediately after success
         setTimeout(() => {
           onAuthSuccess?.();
-          router.push('/search'); // Redirect to search/homepage after login
+          router.push('/home'); // Redirect to home page after login
         }, 500); // Reduced delay for faster redirect
       }
     } catch (err) {
@@ -155,7 +155,7 @@ export function MarioAuthLogin({
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider === 'google' ? 'google' : 'apple',
         options: {
-          redirectTo: `${window.location.origin}/search`,
+          redirectTo: `${window.location.origin}/home`,
         },
       });
 
@@ -166,7 +166,7 @@ export function MarioAuthLogin({
         // Mock OAuth - redirect immediately
         console.log(`Mock ${provider} login success, redirecting...`);
         setTimeout(() => {
-          router.push('/search');
+          router.push('/home');
           if (provider === 'google') {
             onGoogleLogin?.();
           } else {
