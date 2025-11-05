@@ -3,7 +3,6 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 133957095,hospital,acute_care,The New York & Presbyterian Hospital,?,?,?,SYS_NYP,active
 111839362,hospital,acute_care,New York Presbyterian Queens,?,?,?,SYS_NYP,active
 133160356,foundation,fundraising,New York-Presbyterian Fund Inc,Fundraising and donation entity,New York,NY,SYS_NYP,active
-800496512,medical_group,employed_physicians,NY Presbyterian Hospital Columbia University Medical Center,Columbia campus physician group,New York,NY,SYS_NYP,active
 002025842,?,?,PRESBYTERIAN HOSPITAL IN THE CITY OF NEW YORK,?,?,?,SYS_NYP,active
 131624149,?,?,PRESBYTERIAN HOSPITAL IN THE CITY OF NEW YORK,?,?,?,SYS_NYP,active
 212297441,?,?,THE NEW YORK AND PRESBYTERIAN HOSPITAL,?,?,?,SYS_NYP,active
