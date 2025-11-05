@@ -1,0 +1,13 @@
+system_id,system_name,headquarters_city,headquarters_state,system_type,total_hospitals,coverage_area
+SYS_NYP,NewYork-Presbyterian Healthcare System,New York,NY,Academic Health System,10+,NY Metro Area
+SYS_MOUNTSINAI,Mount Sinai Health System,New York,NY,Academic Health System,8,NYC and Westchester
+SYS_NYULANGONE,NYU Langone Health,New York,NY,Academic Health System,6+,NYC and Long Island
+SYS_MSK,Memorial Sloan Kettering Cancer Center,New York,NY,Specialty Cancer System,1 main + satellites,NYC and regional
+SYS_HSS,Hospital for Special Surgery,New York,NY,Specialty Orthopedic System,1 main + satellites,NYC and regional
+SYS_NORTHWELL,Northwell Health,New Hyde Park,NY,Integrated Health System,23,NY Metro and Long Island
+SYS_UCSF,UC San Francisco Health,San Francisco,CA,Academic Health System,4,Bay Area
+SYS_STANFORD,Stanford Health Care,Stanford,CA,Academic Health System,3,Bay Area and Central Coast
+SYS_SUTTER,Sutter Health,Sacramento,CA,Integrated Health System,24,Northern California
+SYS_JOHNMUIR,John Muir Health,Walnut Creek,CA,Community Health System,2,East Bay
+SYS_KAISER_NCA,Kaiser Permanente Northern California,Oakland,CA,Integrated Healthcare,21,Northern California
+SYS_SFHEALTH,San Francisco Health Network,San Francisco,CA,Public Health System,2,San Francisco County

@@ -1,0 +1,45 @@
+tin,entity_type,entity_subtype,legal_name,description,address_city,address_state,parent_system_id,operational_status
+134011699,hospital,acute_care,The New York Presbyterian Hospital,Main hospital operating entity,New York,NY,SYS_NYP,active
+133160356,foundation,fundraising,New York-Presbyterian Fund Inc,Fundraising and donation entity,New York,NY,SYS_NYP,active
+800496512,medical_group,employed_physicians,NY Presbyterian Hospital Columbia University Medical Center,Columbia campus physician group,New York,NY,SYS_NYP,active
+131624096,hospital,acute_care,Mount Sinai Hospital,Flagship hospital,New York,NY,SYS_MOUNTSINAI,active
+136271888,medical_center,management,Mount Sinai Medical Center Inc,Management corporation,New York,NY,SYS_MOUNTSINAI,active
+464242915,hospital_group,multi_facility,Mount Sinai Hospitals Group Inc,Group holding company for hospitals,New York,NY,SYS_MOUNTSINAI,active
+136171197,medical_school,education,Icahn School of Medicine at Mount Sinai,Academic medical school,New York,NY,SYS_MOUNTSINAI,active
+135599000,physician_organization,employed_physicians,Mount Sinai Physicians Organization,Employed physician group,New York,NY,SYS_MOUNTSINAI,active
+133971298,hospital,acute_care,NYU Langone Hospitals,Main hospital entity - Manhattan,New York,NY,SYS_NYULANGONE,active
+472613531,health_system,parent,NYU Langone Health System,Parent health system,New York,NY,SYS_NYULANGONE,active
+111633486,hospital,acute_care,NYU Langone Hospitals,Brooklyn and Long Island campuses,Mineola,NY,SYS_NYULANGONE,active
+260455779,medical_group,employed_physicians,NYU Langone Medical Group,Physician practice group,New York,NY,SYS_NYULANGONE,active
+131924236,hospital,specialty_cancer,Memorial Sloan Kettering Cancer Center,Main cancer center,New York,NY,SYS_MSK,active
+131624082,hospital,affiliated,Memorial Sloan Kettering Cancer Center & Affiliated Corporations,Affiliated entities umbrella,New York,NY,SYS_MSK,active
+131624182,research_institute,biomedical,Sloan Kettering Institute for Cancer Research,Research arm,New York,NY,SYS_MSK,active
+202212588,subsidiary,operational,MSK Subsidiary Corporation,Operating subsidiary,New York,NY,SYS_MSK,active
+352506225,subsidiary,operational,MSK Subsidiary Corporation,Operating subsidiary,New York,NY,SYS_MSK,active
+131624135,hospital,specialty_orthopedic,Hospital for Special Surgery,Main orthopedic hospital,New York,NY,SYS_HSS,active
+113112413,hospital,specialty_orthopedic,Hospital for Special Surgery,Alternate filing EIN,New York,NY,SYS_HSS,active
+136714749,foundation,fundraising,Hospital for Special Surgery Fund Inc,Fundraising entity,New York,NY,SYS_HSS,active
+131024135,practice,ambulatory,Hospital for Special Surgery LLC,Outpatient practice entity,New York,NY,SYS_HSS,active
+131624070,hospital,acute_care,Lenox Hill Hospital,Main hospital,New York,NY,SYS_NORTHWELL,active
+452661543,medical_pc,employed_physicians,Lenox Hill Hospital Medical PC,Physician corporation - Westbury office,Westbury,NY,SYS_NORTHWELL,active
+200719612,radiology,imaging,Advanced Imaging & Radiology of Lenox Hill Hospital PC,Radiology services,New York,NY,SYS_NORTHWELL,active
+134188838,management,radiology,Lenox Hill Radiology Management LLC,Radiology management services,Baltimore,MD,SYS_NORTHWELL,active
+131624077,hospital,specialty_ent,Manhattan Eye Ear & Throat Hospital,Specialty hospital - division of Lenox Hill,New York,NY,SYS_NORTHWELL,active
+113418133,hospital,acute_care,North Shore University Hospital,Flagship hospital,Manhasset,NY,SYS_NORTHWELL,active
+112965586,support_services,management,Northwell Healthcare Inc,Administrative support services,Westbury,NY,SYS_NORTHWELL,active
+135011262,hospital,acute_care,Mount Sinai Beth Israel,Community hospital,New York,NY,SYS_MOUNTSINAI,active
+946036493,hospital,academic,UCSF Medical Center - Regents of UC,Main university hospital system,San Francisco,CA,SYS_UCSF,active
+942829914,foundation,fundraising,UCSF Foundation,University foundation,San Francisco,CA,SYS_UCSF,active
+941550853,auxiliary,volunteer,UCSF Medical Center Auxiliary,Volunteer auxiliary organization,San Francisco,CA,SYS_UCSF,inactive
+943067788,regents,university,The Regents of the University of California,UC system parent,Oakland,CA,SYS_UCSF,active
+941399300,hospital,academic,Stanford Health Care,Main hospital,Stanford,CA,SYS_STANFORD,active
+941081025,university,education,Stanford University,University parent,Stanford,CA,SYS_STANFORD,active
+942864454,hospital,community,California Pacific Medical Center,Multi-campus community hospital,San Francisco,CA,SYS_SUTTER,active
+942689206,health_system,parent,Sutter Health,Parent health system,Sacramento,CA,SYS_SUTTER,active
+941657474,foundation,childrens,UCSF Benioff Children's Hospitals Foundation,Children's hospital foundation,San Francisco,CA,SYS_UCSF,active
+770456634,hospital,specialty_pediatric,Lucile Packard Children's Hospital Stanford,Pediatric hospital,Palo Alto,CA,SYS_STANFORD,active
+941156528,health_system,community,John Muir Health,Community health system,Walnut Creek,CA,SYS_JOHNMUIR,active
+942689459,hospital,integrated,Kaiser Foundation Hospitals Northern California,Kaiser hospital operations,Oakland,CA,SYS_KAISER_NCA,active
+941454814,hospital,community,Mills-Peninsula Medical Center,Peninsula community hospital,Burlingame,CA,SYS_SUTTER,active
+946839372,hospital,public,Zuckerberg San Francisco General Hospital and Trauma Center,Public hospital Level 1 trauma,San Francisco,CA,SYS_SFHEALTH,active
+132655001,health_department,public,San Francisco Department of Public Health,City public health system,San Francisco,CA,SYS_SFHEALTH,active
