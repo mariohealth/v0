@@ -4,6 +4,9 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 111839362,hospital,acute_care,New York Presbyterian Queens,?,?,?,SYS_NYP,active
 133160356,foundation,fundraising,New York-Presbyterian Fund Inc,Fundraising and donation entity,New York,NY,SYS_NYP,active
 800496512,medical_group,employed_physicians,NY Presbyterian Hospital Columbia University Medical Center,Columbia campus physician group,New York,NY,SYS_NYP,active
+002025842,?,?,PRESBYTERIAN HOSPITAL IN THE CITY OF NEW YORK,?,?,?,SYS_NYP,active
+131624149,?,?,PRESBYTERIAN HOSPITAL IN THE CITY OF NEW YORK,?,?,?,SYS_NYP,active
+212297441,?,?,THE NEW YORK AND PRESBYTERIAN HOSPITAL,?,?,?,SYS_NYP,active
 131624096,hospital,acute_care,Mount Sinai Hospital,Flagship hospital,New York,NY,SYS_MOUNTSINAI,active
 136271888,medical_center,management,Mount Sinai Medical Center Inc,Management corporation,New York,NY,SYS_MOUNTSINAI,active
 464242915,hospital_group,multi_facility,Mount Sinai Hospitals Group Inc,Group holding company for hospitals,New York,NY,SYS_MOUNTSINAI,active
@@ -14,20 +17,55 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 061422973,hospital,rehab,Mount Sinai Rehabilitation Hospital,?,?,?,SYS_MOUNTSINAI,active
 300607904,medical_school,education,Mount Sinai School of Medicine of New York University,?,?,?,SYS_MOUNTSINAI,active
 454517774,medical_school,education,Icahn School of Medicine at Mount Sinai,?,?,?,SYS_MOUNTSINAI,active
+371603148,?,?,MT SINAI SCHOOL OF MEDICINE OF NEW YORK UNIVERSITY,?,?,?,SYS_MOUNTSINAI,active
+611661781,?,?,MT SINAI CGD CENTER OF MS,?,?,?,SYS_MOUNTSINAI,active
+611895173,?,?,ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI,?,?,?,SYS_MOUNTSINAI,active
+464023734,?,?,ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI,?,?,?,SYS_MOUNTSINAI,active
+611799994,?,?,ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI,?,?,?,SYS_MOUNTSINAI,active
+383931355,?,?,ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI,?,?,?,SYS_MOUNTSINAI,active
 133971298,hospital,acute_care,NYU Langone Hospitals,Main hospital entity - Manhattan,New York,NY,SYS_NYULANGONE,active
 472613531,health_system,parent,NYU Langone Health System,Parent health system,New York,NY,SYS_NYULANGONE,active
 111633486,hospital,acute_care,NYU Langone Hospitals,Brooklyn and Long Island campuses,Mineola,NY,SYS_NYULANGONE,active
 260455779,medical_group,employed_physicians,NYU Langone Medical Group,Physician practice group,New York,NY,SYS_NYULANGONE,active
+301001205,?,?,NYU LANGONE DIAGNOSTICS LLC,?,?,?,SYS_NYULANGONE,active
+364841069,?,?,NYU LANGONE IPA INC,?,?,?,SYS_NYULANGONE,active
+383987673,?,?,NYU LANGONE HEALTH SYSTEM RETIREE MEDICAL ACCOUNT PLAN,?,?,?,SYS_NYULANGONE,active
+824528600,?,?,NYU LANGONE MSO INC,?,?,?,SYS_NYULANGONE,active
+133556230,?,?,NYU SCHOOL OF MEDICINE,?,?,?,SYS_NYULANGONE,active
+133971305,?,?,NYU HEALTH SYSTEM,?,?,?,SYS_NYULANGONE,active
+133993734,?,?,NYU DOWNTOWN HOSPITAL,?,?,?,SYS_NYULANGONE,active
+134000622,?,?,NYU IMAGING INC,?,?,?,SYS_NYULANGONE,active
+134000626,?,?,NYU NUCLEAR CARDIOLOGY ASSOCIATES,?,?,?,SYS_NYULANGONE,active
+135562309,?,?,NYU DEPARTMENT OF RADIOLOGY,?,?,?,SYS_NYULANGONE,active
+135566230,?,?,NYU SCHOOL OF MEDICINE,?,?,?,SYS_NYULANGONE,active
 131924236,hospital,specialty_cancer,Memorial Sloan Kettering Cancer Center,Main cancer center,New York,NY,SYS_MSK,active
 131624082,hospital,affiliated,Memorial Sloan Kettering Cancer Center & Affiliated Corporations,Affiliated entities umbrella,New York,NY,SYS_MSK,active
 131624182,research_institute,biomedical,Sloan Kettering Institute for Cancer Research,Research arm,New York,NY,SYS_MSK,active
 202212588,subsidiary,operational,MSK Subsidiary Corporation,Operating subsidiary,New York,NY,SYS_MSK,active
 352506225,subsidiary,operational,MSK Subsidiary Corporation,Operating subsidiary,New York,NY,SYS_MSK,active
+001561550,?,?,MEMORIAL SLOAN-KETTERING CANCER CENTER,?,?,?,SYS_MSK,active
+020597827,?,?,MEMORIAL SLOAN-KETTERING CANCER CENTER,?,?,?,SYS_MSK,active
+108540000,?,?,MEMORIAL SLOAN KETTERING CANCER CENTER,?,?,?,SYS_MSK,active
+132423600,?,?,MEMORIAL SLOAN KETTERING,?,?,?,SYS_MSK,active
+133389586,?,?,MEMORIAL SLOAN-KETTERING CANCER CENTER,?,?,?,SYS_MSK,active
+352397819,?,?,MEMORIAL SLOAN-KETTERING CANCER CENTER,?,?,?,SYS_MSK,active
+352464610,?,?,MEMORIAL SLOAN KETTERING CANCER CENTER,?,?,?,SYS_MSK,active
+912154267,?,?,MEMORIAL SLOAN-KETTERING CANCER CENTER,?,?,?,SYS_MSK,active
+912154627,?,?,MEMORIAL SLOAN-KETTERING CANCER CENTER,?,?,?,SYS_MSK,active
 131624135,hospital,specialty_orthopedic,Hospital for Special Surgery,Main orthopedic hospital,New York,NY,SYS_HSS,active
 113112413,hospital,specialty_orthopedic,Hospital for Special Surgery,Alternate filing EIN,New York,NY,SYS_HSS,active
 136714749,foundation,fundraising,Hospital for Special Surgery Fund Inc,Fundraising entity,New York,NY,SYS_HSS,active
 131024135,practice,ambulatory,Hospital for Special Surgery LLC,Outpatient practice entity,New York,NY,SYS_HSS,active
 471353602,?,?,HSS ASC of Manhattan,?,?,?,SYS_HSS,active
+113162413,?,?,HOSPITAL FOR SPECIAL SURGERY,?,?,?,SYS_HSS,active
+223460972,?,?,HOSPITAL FOR SPECIAL SURGERY,?,?,?,SYS_HSS,active
+061624300,?,?,HSS VENTURES,?,?,?,SYS_HSS,active
+133246249,?,?,HSS PROPERTIES CORPORATION,?,?,?,SYS_HSS,active
+134152131,?,?,HSS HORIZONS INC,?,?,?,SYS_HSS,active
+270682047,?,?,NEW YORK SOCIETY FOR THE RELIEF OF THE RUPTURED & CRIPPLED MAINTAINING,?,?,?,SYS_HSS,active
+300871820,?,?,NEW YORK SOCIETY FOR THE RELIEF OF RUPTURED & CRIPPLED MAINTAINING,?,?,?,SYS_HSS,active
+320466554,?,?,NEW YORK SOCIETY FOR THE RELIEF OF RUPTURED & CRIPPLED MAINTAINING,?,?,?,SYS_HSS,active
+371784006,?,?,NEW YORK SOCIETY FOR THE RELIEF OF RUPTURED & CRIPPLED MAINTAINING,?,?,?,SYS_HSS,active
 131624070,hospital,acute_care,Lenox Hill Hospital,Main hospital,New York,NY,SYS_NORTHWELL,active
 452661543,medical_pc,employed_physicians,Lenox Hill Hospital Medical PC,Physician corporation - Westbury office,Westbury,NY,SYS_NORTHWELL,active
 200719612,radiology,imaging,Advanced Imaging & Radiology of Lenox Hill Hospital PC,Radiology services,New York,NY,SYS_NORTHWELL,active
@@ -35,30 +73,126 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 161231832,radiology,imaging,Advanced Imaging & Radiology of Lenox Hill Hospital,?,?,?,SYS_NORTHWELL,active
 464422288,hospital,?,Lenox Hill Pain Management & Spine,?,?,?,SYS_NORTHWELL,active
 133425028,radiology,imaging,Lenox Hill Radiology & Medical Imaging Associates,?,?,?,SYS_NORTHWELL,active
+133775996,?,?,LENOX HILL PHYSICIAN HOSPITAL ORG,?,?,?,SYS_NORTHWELL,active
+136094751,?,?,LENOX HILL HOSPITAL NURSES AID SOCIETY INC,?,?,?,SYS_NORTHWELL,active
+422661543,?,?,LENOX HILL HOSPITAL MEDICAL PC,?,?,?,SYS_NORTHWELL,active
+133385163,?,?,LENOX HILL CARDIOLOGY ASSOCIATES,?,?,?,SYS_NORTHWELL,active
+133436828,?,?,LENOX HILL INTERVENTIONAL CARDIOLOGY PC,?,?,?,SYS_NORTHWELL,active
+133642959,?,?,NEW YORK PROFESSIONAL NURSES-LENOX HILL,?,?,?,SYS_NORTHWELL,active
+133644370,?,?,LENOX HILL PATHOLOGY P C,?,?,?,SYS_NORTHWELL,active
+133978108,?,?,LENOX HILL MEDICAL ANESTHESIOLOGY PLLC,?,?,?,SYS_NORTHWELL,active
+201443100,?,?,LENOX HILL MEDICAL ASSOCIATES,?,?,?,SYS_NORTHWELL,active
+203576870,?,?,LENOX HILL CARDIOVASCULAR FOUNDATION INC,?,?,?,SYS_NORTHWELL,active
+205814222,?,?,LENOX HILL AMBULATORY SURGERY PC,?,?,?,SYS_NORTHWELL,active
+208975466,?,?,LENOX HILL GASTROENTEROLOGY P.C.,?,?,?,SYS_NORTHWELL,active
+271394353,?,?,LENOX HILL TMS PSYCHIATRIC ASSOCIATES PLLC,?,?,?,SYS_NORTHWELL,active
+451057347,?,?,LENOX HILL TMS PSYCHIATRIC ASSOCIATES PC,?,?,?,SYS_NORTHWELL,active
+812875653,?,?,LENOX HILL PAIN MANAGEMENT AND SPINE PLLC,?,?,?,SYS_NORTHWELL,active
+821989210,?,?,LENOX HILL SURGEONS LLP,?,?,?,SYS_NORTHWELL,active
+821989290,?,?,LENOX HILL SURGEONS,?,?,?,SYS_NORTHWELL,active
+832690455,?,?,LENOX HILL IMAGING LEASING LLC,?,?,?,SYS_NORTHWELL,active
+850656357,?,?,LENOX HILL FACULTY MEDICAL AFFILIATES UNIVERSITY FACULTY PRAC,?,?,?,SYS_NORTHWELL,active
+854267960,?,?,LENOX HILL PROSTHODONITICS PC,?,?,?,SYS_NORTHWELL,active
+923311309,?,?,MEDICAL SERVICES OF LENOX HILL PC,?,?,?,SYS_NORTHWELL,active
+923491304,?,?,TRUE NORTH MEDICAL OF LENOX HILL PC,?,?,?,SYS_NORTHWELL,active
 131624077,hospital,specialty_ent,Manhattan Eye Ear & Throat Hospital,Specialty hospital - division of Lenox Hill,New York,NY,SYS_NORTHWELL,active
 113418133,hospital,acute_care,North Shore University Hospital,Flagship hospital,Manhasset,NY,SYS_NORTHWELL,active
 111562701,hospital,acute_care,North Shore University Hospital,?,?,?,SYS_NORTHWELL,active
 112965586,support_services,management,Northwell Healthcare Inc,Administrative support services,Westbury,NY,SYS_NORTHWELL,active
+112516794,?,?,MS CLUB AT NORTH SHORE UNIVERSITY HOSPITAL,?,?,?,SYS_NORTHWELL,active
+113184593,?,?,NORTH SHORE UNIVERSITY HOSPITAL EMP WELFARE BEN TR,?,?,?,SYS_NORTHWELL,active
+133132090,?,?,NORTH SHORE UNIVERSITY HOSPITAL AT SYOSSET,?,?,?,SYS_NORTHWELL,active
+237010468,?,?,NORTH SHORE UNIVERSITY HOSPITAL AT GLEN COVE HOUSING INC,?,?,?,SYS_NORTHWELL,active
+331117810,?,?,NORTH SHORE UNIVERSITY HOSPITAL MEDICAL STAFF SOCIETY INC,?,?,?,SYS_NORTHWELL,active
 112241326,?,?,Long Island Jewish Medical Center,?,?,?,SYS_NORTHWELL,active
 471758444,?,?,North Shore LIJ Urgent Care,?,?,?,SYS_NORTHWELL,active
+113251128,?,?,LONG ISLAND JEWISH MEDICAL CENTER AT HOME PHARMACY INC,?,?,?,SYS_NORTHWELL,active
+113462745,?,?,NORTH SHORE LONG ISLAND JEWISH SPORTS THERAPY AND REHABILITATIVE SERVICES,?,?,?,SYS_NORTHWELL,active
+113473923,?,?,NORTH SHORE-LONG ISLAND JEWISH MEDICAL CARE CENTERS INC,?,?,?,SYS_NORTHWELL,active
+132937372,?,?,LONG ISLAND JEWISH HILLSIDE MEDICAL CENTER TR 103177,?,?,?,SYS_NORTHWELL,active
+133106773,?,?,ILC FOUNDATION FOR LONG ISLAND JEWISH HILLSIDE MEDICAL CENTER,?,?,?,SYS_NORTHWELL,active
+850667316,?,?,LONG ISLAND JEWISH FACULTY MEDICAL AFFILIATES UNIVERSITY FACULTY PRAC,?,?,?,SYS_NORTHWELL,active
+991890159,?,?,LONG ISLAND JEWISH CENTER,?,?,?,SYS_NORTHWELL,active
+412237441,?,?,WEILL CORNELL IMAGING AT NEW YORK-PRESBYTERIAN,?,?,?,SYS_NYP,active
+113162397,?,?,WEILL CORNELL MEDICAL COLLEGE,?,?,?,SYS_NYP,active
+113163978,?,?,WEILL CORNELL MEDICAL COLLEGE,?,?,?,SYS_NYP,active
+133017214,?,?,PLAN ADMINISTRATION COMMITTEE OF WEILL CORNELL MEDICAL COLLEGE,?,?,?,SYS_NYP,active
+133018214,?,?,PLAN ADMINISTRATION COMMITTEE OF WEILL CORNELL MEDICAL COLLEGE,?,?,?,SYS_NYP,active
+111623978,?,?,JOAN & SANFORD I WEILL MEDICAL COLLEGE OF CORNELL UNIVERSITY,?,?,?,SYS_NYP,active
+131623978,?,?,WEILL MEDICAL COLLEGE OF CORNELL UNIV,?,?,?,SYS_NYP,active
+133598093,?,?,COLUMBIA UNIVERSITY MEDICAL CENTER,?,?,?,SYS_NYP,active
+882703979,?,?,COLUMBIA NEWYORK-PRESBYTERIAN ADVANCED IMAGING INC,?,?,?,SYS_NYP,active
+474262878,?,?,COLUMBIA UNIVERSITY MEDICAL CENTER CSSA,?,?,?,SYS_NYP,active
+800496512,?,?,NY PRESBYTERIAN HOSPITAL COLUMBIA UNIVERSITY MEDICAL CENTER NEW YORK,?,?,?,SYS_NYP,active
+136162924,?,?,COLUMBIA-PRESBYTERIAN MEDICAL CENTER FUND INC,?,?,?,SYS_NYP,active
+237287592,?,?,SOCIETY OF PRACTITIONERS OF THE COLUMBIA PRESBYTERIAN MEDICAL CENT,?,?,?,SYS_NYP,active
 135011262,hospital,acute_care,Mount Sinai Beth Israel,Community hospital,New York,NY,SYS_MOUNTSINAI,active
+132937354,?,?,BETH ISRAEL MEDICAL CENTER TR 103177,?,?,?,SYS_MOUNTSINAI,active
+133255377,?,?,BETH ISRAEL MEDICAL CENTER FOUNDATION INC,?,?,?,SYS_MOUNTSINAI,active
+133444730,?,?,BETH ISRAEL MEDICAL CENTER HOLDING CORPORATION,?,?,?,SYS_MOUNTSINAI,active
+133970709,?,?,BETH ISRAEL MEDICAL CENTER,?,?,?,SYS_MOUNTSINAI,active
+134077421,?,?,BETH ISRAEL MEDICAL CENTER,?,?,?,SYS_MOUNTSINAI,active
+134161494,?,?,BETH ISRAEL MEDICAL CENTER,?,?,?,SYS_MOUNTSINAI,active
+135564934,?,?,BETH ISRAEL MEDICAL CENTER,?,?,?,SYS_MOUNTSINAI,active
+136184591,?,?,BETH ISRAEL MEDICAL CENTER DOCTORS ALUMNI ASSOC,?,?,?,SYS_MOUNTSINAI,active
+205625390,?,?,BETH ISRAEL MEDICAL CENTER,?,?,?,SYS_MOUNTSINAI,active
+133770659,?,?,MOUNT SINAI WEST,?,?,?,SYS_MOUNTSINAI,active
 946036493,hospital,academic,UCSF Medical Center - Regents of UC,Main university hospital system,San Francisco,CA,SYS_UCSF,active
 942829914,foundation,fundraising,UCSF Foundation,University foundation,San Francisco,CA,SYS_UCSF,active
 941550853,auxiliary,volunteer,UCSF Medical Center Auxiliary,Volunteer auxiliary organization,San Francisco,CA,SYS_UCSF,inactive
 943067788,regents,university,The Regents of the University of California,UC system parent,Oakland,CA,SYS_UCSF,active
+943191703,?,?,UCSF CENTER FOR CRANIOFACIAL ANOMALIES,?,?,?,SYS_UCSF,active
+096036493,?,?,UCSF DEPARTMENT OF NEUROLOGY,?,?,?,SYS_UCSF,active
+912152210,?,?,UCSF HEALTH COMMUNITY HOSPITALS,?,?,?,SYS_UCSF,active
+943191557,?,?,UCSF ORAL MEDICINE CLINIC,?,?,?,SYS_UCSF,active
+943281661,?,?,UCSF DERMATOPATHOLOGY SERVICE,?,?,?,SYS_UCSF,active
+943281668,?,?,UCSF INTERVENTIONAL RADIOLOGY,?,?,?,SYS_UCSF,active
+943281673,?,?,UCSF PSYCHIATRY,?,?,?,SYS_UCSF,active
+943311444,?,?,UCSF MISSION BAY CAMPUS LLC,?,?,?,SYS_UCSF,active
 941399300,hospital,academic,Stanford Health Care,Main hospital,Stanford,CA,SYS_STANFORD,active
 941081025,university,education,Stanford University,University parent,Stanford,CA,SYS_STANFORD,active
 770465765,?,?,Stanford Health Care,?,?,?,SYS_STANFORD,active
 061635505,?,?,Stanford Hospital & Clinics,?,?,?,SYS_STANFORD,active
+464071746,?,?,STANFORD HEALTH CARE ADVANTAGE,?,?,?,SYS_STANFORD,active
+941429628,?,?,STANFORD HEALTH CARE TRI-VALLEY,?,?,?,SYS_STANFORD,active
+942172862,?,?,STANFORD HEALTH CARE - VALLEYCARE,?,?,?,SYS_STANFORD,active
+946174066,?,?,STANFORD HEALTH CARE 227,?,?,?,SYS_STANFORD,active
 942864454,hospital,community,California Pacific Medical Center,Multi-campus community hospital,San Francisco,CA,SYS_SUTTER,active
 562311840,?,?,California Pacific Advanced Imaging,?,?,?,SYS_SUTTER,active
 942689206,health_system,parent,Sutter Health,Parent health system,Sacramento,CA,SYS_SUTTER,active
+331223596,?,?,MEDICAL STAFF OF CALIFORNIA PACIFIC MEDICAL CENTER,?,?,?,SYS_SUTTER,active
+680597468,?,?,CALIFORNIA PACIFIC VASCULAR LABORATORY MEDICAL ASSOCIATE,?,?,?,SYS_SUTTER,active
+942401940,?,?,CALIFORNIA PACIFIC ORTHOPAEDICS AND SPORTS MEDICINE A MEDICAL CORPORAT,?,?,?,SYS_SUTTER,active
+942728423,?,?,CALIFORNIA PACIFIC MEDICAL CENTER FOUNDATION,?,?,?,SYS_SUTTER,active
+942887199,?,?,CALIFORNIA PACIFIC MEDICAL SERVICES ORGANIZATION,?,?,?,SYS_SUTTER,active
+943166540,?,?,CALIFORNIA PACIFIC PATHOLOGY MEDICAL GROUP C/O SILICON VALLEY WEST IN,?,?,?,SYS_SUTTER,active
+943181632,?,?,CALIFORNIA PACIFIC CARDIOVASCULAR MEDICAL GROUP INC.,?,?,?,SYS_SUTTER,active
+950562680,?,?,CALIFORNIA PACIFIC MEDICAL CENTER,?,?,?,SYS_SUTTER,active
 941657474,foundation,childrens,UCSF Benioff Children's Hospitals Foundation,Children's hospital foundation,San Francisco,CA,SYS_UCSF,active
 770456634,hospital,specialty_pediatric,Lucile Packard Children's Hospital Stanford,Pediatric hospital,Palo Alto,CA,SYS_STANFORD,active
 770003859,?,?,Lucile Salter Packard Children's Hospital at Stanford?,?,?,SYS_STANFORD,active
 941156528,health_system,community,John Muir Health,Community health system,Walnut Creek,CA,SYS_JOHNMUIR,active
 680249685,?,?,John Muir Behavioral Health,?,?,?,SYS_JOHNMUIR,active
+010935291,?,?,MEDICAL STAFF OF JOHN MUIR MED CENTER WALNUT CREEK CAMPUS,?,?,?,SYS_JOHNMUIR,active
+474760297,?,?,JOHN MUIR SPECIALTY MEDICAL GROUP INC.,?,?,?,SYS_JOHNMUIR,active
+680130606,?,?,JOHN MUIR TRAUMA PHYSICIANS BILLING SERVICE,?,?,?,SYS_JOHNMUIR,active
+680202020,?,?,JOHN MUIR MAGNETIC IMAGING,?,?,?,SYS_JOHNMUIR,active
+680360801,?,?,JOHN MUIR PHYSICIAN NETWORK,?,?,?,SYS_JOHNMUIR,active
+680396600,?,?,JOHN MUIR HEALTH,?,?,?,SYS_JOHNMUIR,active
+814235352,?,?,JOHN MUIR CARDIOVASCULAR MEDICAL GROUP INC.,?,?,?,SYS_JOHNMUIR,active
+832378666,?,?,JOHN MUIR PHYSICIANS PC,?,?,?,SYS_JOHNMUIR,active
+870916725,?,?,JOHN MUIR HEALTH CANCER MEDICAL GROUP INC.,?,?,?,SYS_JOHNMUIR,active
+911788973,?,?,JOHN MUIR MT DIABLO COMMUNITY HEALTH FUND,?,?,?,SYS_JOHNMUIR,active
+941461843,?,?,JOHN MUIR HEALTH,?,?,?,SYS_JOHNMUIR,active
+942650855,?,?,JOHN MUIR FOUNDATION,?,?,?,SYS_JOHNMUIR,active
+943053958,?,?,JOHN MUIR CONVALESCENT HOSPITAL INC,?,?,?,SYS_JOHNMUIR,active
+946031186,?,?,JOHN MUIR MEDICAL CENTER CONCORD CAMPUS VOLUNTEERS,?,?,?,SYS_JOHNMUIR,active
+010548584,?,?,MUIR PULMONARY CRITICAL CARE,?,?,?,SYS_JOHNMUIR,active
+271968534,?,?,MEDICAL STAFF OF JOHN MUIR MED CENTER CONCORD CAMPUS,?,?,?,SYS_JOHNMUIR,active
 942689459,hospital,integrated,Kaiser Foundation Hospitals Northern California,Kaiser hospital operations,Oakland,CA,SYS_KAISER_NCA,active
 941454814,hospital,community,Mills-Peninsula Medical Center,Peninsula community hospital,Burlingame,CA,SYS_SUTTER,active
 946839372,hospital,public,Zuckerberg San Francisco General Hospital and Trauma Center,Public hospital Level 1 trauma,San Francisco,CA,SYS_SFHEALTH,active
 132655001,health_department,public,San Francisco Department of Public Health,City public health system,San Francisco,CA,SYS_SFHEALTH,active
+941388348,?,?,VOLUNTEER AUXILIARY TO SAN FRANCISCO GENERAL HOSPITAL,?,?,?,SYS_SFHEALTH,active
+942708094,?,?,TRAUMA FOUNDATION INC SAN FRANCISCO GENERAL HOSPITAL,?,?,?,SYS_SFHEALTH,active
+943189424,?,?,SAN FRANCISCO GENERAL HOSPITAL FOUNDATION,?,?,?,SYS_SFHEALTH,active
