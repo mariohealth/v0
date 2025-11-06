@@ -40,6 +40,9 @@ seeds:
     hospital_tins:
       +column_types:
         tin: STRING
+    tin_metadata:
+      +column_types:
+        tin: STRING
 
 # Documentation
 docs-paths: ["docs"]
