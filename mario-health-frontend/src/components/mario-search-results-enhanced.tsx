@@ -285,7 +285,7 @@ export function MarioSearchResultsEnhanced({
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       {/* Header */}
-      <div className="sticky top-0 bg-background border-b border-border z-10">
+      <div className="sticky top-0 md:top-16 bg-background border-b border-border z-10">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4 mb-3">
             <Button 
