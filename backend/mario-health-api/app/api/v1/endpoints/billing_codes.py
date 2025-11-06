@@ -1,14 +1,16 @@
-from fastapi import APIRouter, Depends, Path, Query
+from fastapi import APIRouter, Depends, Path, Query, Request
 from supabase import Client
 from app.core.dependencies import get_supabase
 from app.models import BillingCodeDetail, CodeType
 from app.services.billing_code_service import BillingCodeService
+from app.middleware.logging import log_structured
 
 router = APIRouter(prefix="/codes", tags=["billing-codes"])
 
 
 @router.get("/{code}", response_model=BillingCodeDetail)
 async def get_billing_code_detail(
+        request: Request,  # Add this to access request context
         code: str = Path(
             ...,
             min_length=4,
@@ -41,4 +43,15 @@ async def get_billing_code_detail(
     - `/api/v1/codes/J0170?code_type=HCPCS` - Search HCPCS code
     """
     service = BillingCodeService(supabase)
+
+    # Log view event for analytics
+    log_structured(
+        severity="INFO",
+        message="Billing code detail viewed",
+        event_type="get_billing_code_detail",
+        request_id=request.state.request_id,
+        code=code,
+        code_type=code_type,
+    )
+
     return await service.get_billing_code_detail(code, code_type)

@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends, Path, Query
+from fastapi import APIRouter, Depends, Path, Query, Request
 from supabase import Client
 from app.core.dependencies import get_supabase
 from app.models import ProviderDetail
 from app.services.provider_service import ProviderService
+from app.middleware.logging import log_structured
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
@@ -12,6 +13,7 @@ router = APIRouter(prefix="/providers", tags=["providers"])
 
 @router.get("/{provider_id}", response_model=ProviderDetail)
 async def get_provider_detail(
+        request: Request,
         provider_id: str = Path(..., description="Provider ID (also accepts 'id' parameter)"),
         supabase: Client = Depends(get_supabase)
 ):
@@ -29,6 +31,16 @@ async def get_provider_detail(
     FastAPI matches by path pattern, so both work.
     """
     service = ProviderService(supabase)
+
+    # Log view event for analytics
+    log_structured(
+        severity="INFO",
+        message="Provider detail viewed",
+        event_type="get_provider_detail",
+        request_id=request.state.request_id,
+        provider_id=provider_id,
+    )
+
     return await service.get_provider_detail(provider_id)
 
 

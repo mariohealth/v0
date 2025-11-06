@@ -1,18 +1,19 @@
 """
 FastAPI Structured Logging for GCP Cloud Run
 Automatically captures request/response metrics in Cloud Logging format
+Handles both HTTPExceptions (from services) and unexpected errors
 """
 
 import json
 import time
 import logging
+import traceback
 from typing import Callable
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
-import traceback
+from fastapi.exceptions import HTTPException
 
 # Configure structured logging for GCP
-# Cloud Run automatically captures stdout as structured logs
 logging.basicConfig(
     level=logging.INFO,
     format='%(message)s',  # Just the message - GCP adds timestamp/severity
@@ -22,49 +23,60 @@ logger = logging.getLogger(__name__)
 
 def log_structured(severity: str, message: str, **kwargs):
     """
-    Log in GCP Cloud Logging structured format
+    Log in GCP Cloud Logging structured format.
     https://cloud.google.com/logging/docs/structured-logging
     """
     log_entry = {
         "severity": severity,
         "message": message,
-        **kwargs  # Additional fields for filtering/querying
+        **kwargs
     }
-    
-    # Print as JSON - Cloud Run captures this as structured log
     print(json.dumps(log_entry))
 
 
 class RequestLoggingMiddleware:
     """
-    Middleware to automatically log all API requests with performance metrics
+    Middleware to automatically log all API requests.
+
+    Handles:
+    1. Successful requests (200-299)
+    2. Client errors (400-499) - HTTPException from services
+    3. Server errors (500-599) - Unexpected exceptions
     """
-    
+
     def __init__(self, app: FastAPI):
         self.app = app
-    
+
     async def __call__(self, request: Request, call_next: Callable) -> Response:
         # Start timer
         start_time = time.time()
-        
-        # Extract request metadata
-        request_id = request.headers.get("X-Request-ID", str(time.time()))
+
+        # Generate request ID
+        request_id = request.headers.get("X-Request-ID", f"req_{int(time.time() * 1000)}")
         user_agent = request.headers.get("User-Agent", "unknown")
-        
-        # Store in request state for access in endpoints
+
+        # Store in request state for access in routes/services
         request.state.request_id = request_id
         request.state.start_time = start_time
-        
+
         try:
             # Process request
             response = await call_next(request)
-            
+
             # Calculate duration
             duration_ms = round((time.time() - start_time) * 1000, 2)
-            
-            # Log successful request
+
+            # Determine log severity based on status code
+            if response.status_code >= 500:
+                severity = "ERROR"
+            elif response.status_code >= 400:
+                severity = "WARNING"
+            else:
+                severity = "INFO"
+
+            # Log request
             log_structured(
-                severity="INFO",
+                severity=severity,
                 message=f"{request.method} {request.url.path}",
                 httpRequest={
                     "requestMethod": request.method,
@@ -78,11 +90,8 @@ class RequestLoggingMiddleware:
                 status_code=response.status_code,
                 endpoint=request.url.path,
             )
-            
-            # Add request ID to response headers for debugging
-            response.headers["X-Request-ID"] = request_id
-            
-            # Warn on slow requests (>1000ms)
+
+            # Warn on slow requests
             if duration_ms > 1000:
                 log_structured(
                     severity="WARNING",
@@ -91,17 +100,61 @@ class RequestLoggingMiddleware:
                     request_id=request_id,
                     threshold_ms=1000,
                 )
-            
+
+            # Add request ID to response headers
+            response.headers["X-Request-ID"] = request_id
+
             return response
-            
-        except Exception as e:
-            # Calculate duration even for errors
+
+        except HTTPException as e:
+            """
+            Handle HTTPException raised by services (400, 404, etc.)
+            These are EXPECTED errors with user-friendly messages.
+            """
             duration_ms = round((time.time() - start_time) * 1000, 2)
-            
-            # Log error with full context
+
+            # Determine severity
+            severity = "ERROR" if e.status_code >= 500 else "WARNING"
+
+            # Log with appropriate severity
+            log_structured(
+                severity=severity,
+                message=f"HTTP {e.status_code}: {request.method} {request.url.path}",
+                httpRequest={
+                    "requestMethod": request.method,
+                    "requestUrl": str(request.url),
+                    "status": e.status_code,
+                    "userAgent": user_agent,
+                },
+                request_id=request_id,
+                duration_ms=duration_ms,
+                status_code=e.status_code,
+                endpoint=request.url.path,
+                error_detail=e.detail,
+            )
+
+            # Return properly formatted error response
+            return JSONResponse(
+                status_code=e.status_code,
+                content={
+                    "error": e.detail,
+                    "status_code": e.status_code,
+                    "request_id": request_id,
+                },
+                headers={"X-Request-ID": request_id},
+            )
+
+        except Exception as e:
+            """
+            Handle UNEXPECTED errors (bugs, network issues, etc.)
+            These should be investigated immediately.
+            """
+            duration_ms = round((time.time() - start_time) * 1000, 2)
+
+            # Log error with full details
             log_structured(
                 severity="ERROR",
-                message=f"Request failed: {request.method} {request.url.path}",
+                message=f"Unexpected error: {request.method} {request.url.path}",
                 httpRequest={
                     "requestMethod": request.method,
                     "requestUrl": str(request.url),
@@ -110,101 +163,21 @@ class RequestLoggingMiddleware:
                 },
                 request_id=request_id,
                 duration_ms=duration_ms,
+                status_code=500,
+                endpoint=request.url.path,
                 error={
                     "type": type(e).__name__,
                     "message": str(e),
                     "traceback": traceback.format_exc(),
                 },
             )
-            
-            # Return 500 error response
+
+            # Return generic 500 error (don't leak internal details)
             return JSONResponse(
                 status_code=500,
                 content={
-                    "error": "Internal server error",
+                    "error": "Internal server error. Please try again later.",
                     "request_id": request_id,
                 },
                 headers={"X-Request-ID": request_id},
             )
-
-
-# Example: Custom event logging in endpoints
-@app.get("/api/v1/search")
-async def search_procedures(request: Request, q: str, zip: str = None):
-    """
-    Search endpoint with custom event logging
-    """
-    try:
-        # Your search logic here
-        results = perform_search(q, zip)
-        
-        # Log custom event for analytics
-        log_structured(
-            severity="INFO",
-            message="Search performed",
-            event_type="search",
-            request_id=request.state.request_id,
-            search_query=q,
-            zip_code=zip,
-            results_count=len(results),
-            has_results=len(results) > 0,
-        )
-        
-        return {"results": results}
-        
-    except Exception as e:
-        # Error is already logged by middleware
-        # But you can add domain-specific context
-        log_structured(
-            severity="ERROR",
-            message="Search failed",
-            event_type="search_error",
-            request_id=request.state.request_id,
-            search_query=q,
-            zip_code=zip,
-            error_type=type(e).__name__,
-        )
-        raise
-
-
-@app.get("/api/v1/procedures/{slug}")
-async def get_procedure_detail(request: Request, slug: str):
-    """
-    Procedure detail with user interaction tracking
-    """
-    # Your logic here
-    procedure = fetch_procedure(slug)
-    
-    # Track procedure views for analytics
-    log_structured(
-        severity="INFO",
-        message="Procedure viewed",
-        event_type="procedure_view",
-        request_id=request.state.request_id,
-        procedure_slug=slug,
-        procedure_category=procedure.get("category"),
-        procedure_family=procedure.get("family"),
-    )
-    
-    return procedure
-
-
-# Health check endpoint (don't log every health check - too noisy)
-@app.get("/health")
-async def health_check():
-    """
-    Health check endpoint - logs only failures
-    """
-    return {"status": "healthy"}
-
-
-def perform_search(query: str, zip_code: str = None):
-    """Placeholder for your search logic"""
-    # Your implementation here
-    return []
-
-
-def fetch_procedure(slug: str):
-    """Placeholder for your procedure fetch logic"""
-    # Your implementation here
-    return {}
