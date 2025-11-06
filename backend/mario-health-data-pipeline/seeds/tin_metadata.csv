@@ -6,6 +6,9 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 002025842,?,?,PRESBYTERIAN HOSPITAL IN THE CITY OF NEW YORK,?,?,?,SYS_NYP,active
 131624149,?,?,PRESBYTERIAN HOSPITAL IN THE CITY OF NEW YORK,?,?,?,SYS_NYP,active
 212297441,?,?,THE NEW YORK AND PRESBYTERIAN HOSPITAL,?,?,?,SYS_NYP,active
+113274815,?,?,Park Slope Anesthesia Associates PC,?,?,?,SYS_NYP,active
+113274816,?,?,Park Slope Pathology,?,?,?,SYS_NYP,active
+112891456,?,?,Brooklyn Radiology Services,?,?,?,SYS_NYP,active
 131624096,hospital,acute_care,Mount Sinai Hospital,Flagship hospital,New York,NY,SYS_MOUNTSINAI,active
 136271888,medical_center,management,Mount Sinai Medical Center Inc,Management corporation,New York,NY,SYS_MOUNTSINAI,active
 464242915,hospital_group,multi_facility,Mount Sinai Hospitals Group Inc,Group holding company for hospitals,New York,NY,SYS_MOUNTSINAI,active
@@ -22,6 +25,7 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 464023734,?,?,ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI,?,?,?,SYS_MOUNTSINAI,active
 611799994,?,?,ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI,?,?,?,SYS_MOUNTSINAI,active
 383931355,?,?,ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI,?,?,?,SYS_MOUNTSINAI,active
+133893423,?,?,Mount Sinai Doctors Faculty Practice,?,?,?,SYS_MOUNTSINAI,active
 133971298,hospital,acute_care,NYU Langone Hospitals,Main hospital entity - Manhattan,New York,NY,SYS_NYULANGONE,active
 472613531,health_system,parent,NYU Langone Health System,Parent health system,New York,NY,SYS_NYULANGONE,active
 111633486,hospital,acute_care,NYU Langone Hospitals,Brooklyn and Long Island campuses,Mineola,NY,SYS_NYULANGONE,active
@@ -37,6 +41,7 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 134000626,?,?,NYU NUCLEAR CARDIOLOGY ASSOCIATES,?,?,?,SYS_NYULANGONE,active
 135562309,?,?,NYU DEPARTMENT OF RADIOLOGY,?,?,?,SYS_NYULANGONE,active
 135566230,?,?,NYU SCHOOL OF MEDICINE,?,?,?,SYS_NYULANGONE,active
+133893208,?,?,NYU Langone Medical Faculty Group,?,?,?,SYS_NYULANGONE,active
 131924236,hospital,specialty_cancer,Memorial Sloan Kettering Cancer Center,Main cancer center,New York,NY,SYS_MSK,active
 131624082,hospital,affiliated,Memorial Sloan Kettering Cancer Center & Affiliated Corporations,Affiliated entities umbrella,New York,NY,SYS_MSK,active
 131624182,research_institute,biomedical,Sloan Kettering Institute for Cancer Research,Research arm,New York,NY,SYS_MSK,active
@@ -112,6 +117,7 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 133106773,?,?,ILC FOUNDATION FOR LONG ISLAND JEWISH HILLSIDE MEDICAL CENTER,?,?,?,SYS_NORTHWELL,active
 850667316,?,?,LONG ISLAND JEWISH FACULTY MEDICAL AFFILIATES UNIVERSITY FACULTY PRAC,?,?,?,SYS_NORTHWELL,active
 991890159,?,?,LONG ISLAND JEWISH CENTER,?,?,?,SYS_NORTHWELL,active
+113436537,?,?,Northwell Physician Partners,?,?,?,SYS_NORTHWELL,active
 412237441,?,?,WEILL CORNELL IMAGING AT NEW YORK-PRESBYTERIAN,?,?,?,SYS_NYP,active
 113162397,?,?,WEILL CORNELL MEDICAL COLLEGE,?,?,?,SYS_NYP,active
 113163978,?,?,WEILL CORNELL MEDICAL COLLEGE,?,?,?,SYS_NYP,active
@@ -119,12 +125,14 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 133018214,?,?,PLAN ADMINISTRATION COMMITTEE OF WEILL CORNELL MEDICAL COLLEGE,?,?,?,SYS_NYP,active
 111623978,?,?,JOAN & SANFORD I WEILL MEDICAL COLLEGE OF CORNELL UNIVERSITY,?,?,?,SYS_NYP,active
 131623978,?,?,WEILL MEDICAL COLLEGE OF CORNELL UNIV,?,?,?,SYS_NYP,active
+133986661,?,?,Weill Cornell Physician Organization,?,?,?,SYS_NYP,active
 133598093,?,?,COLUMBIA UNIVERSITY MEDICAL CENTER,?,?,?,SYS_NYP,active
 882703979,?,?,COLUMBIA NEWYORK-PRESBYTERIAN ADVANCED IMAGING INC,?,?,?,SYS_NYP,active
 474262878,?,?,COLUMBIA UNIVERSITY MEDICAL CENTER CSSA,?,?,?,SYS_NYP,active
 800496512,?,?,NY PRESBYTERIAN HOSPITAL COLUMBIA UNIVERSITY MEDICAL CENTER NEW YORK,?,?,?,SYS_NYP,active
 136162924,?,?,COLUMBIA-PRESBYTERIAN MEDICAL CENTER FUND INC,?,?,?,SYS_NYP,active
 237287592,?,?,SOCIETY OF PRACTITIONERS OF THE COLUMBIA PRESBYTERIAN MEDICAL CENT,?,?,?,SYS_NYP,active
+133160376,?,?,ColumbiaDoctors,?,?,?,SYS_NYP,active
 135011262,hospital,acute_care,Mount Sinai Beth Israel,Community hospital,New York,NY,SYS_MOUNTSINAI,active
 132937354,?,?,BETH ISRAEL MEDICAL CENTER TR 103177,?,?,?,SYS_MOUNTSINAI,active
 133255377,?,?,BETH ISRAEL MEDICAL CENTER FOUNDATION INC,?,?,?,SYS_MOUNTSINAI,active
@@ -148,6 +156,7 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 943281668,?,?,UCSF INTERVENTIONAL RADIOLOGY,?,?,?,SYS_UCSF,active
 943281673,?,?,UCSF PSYCHIATRY,?,?,?,SYS_UCSF,active
 943311444,?,?,UCSF MISSION BAY CAMPUS LLC,?,?,?,SYS_UCSF,active
+941156433,?,?,UCSF Faculty Practice,?,?,?,SYS_UCSF,active
 941399300,hospital,academic,Stanford Health Care,Main hospital,Stanford,CA,SYS_STANFORD,active
 941081025,university,education,Stanford University,University parent,Stanford,CA,SYS_STANFORD,active
 770465765,?,?,Stanford Health Care,?,?,?,SYS_STANFORD,active
@@ -156,6 +165,7 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 941429628,?,?,STANFORD HEALTH CARE TRI-VALLEY,?,?,?,SYS_STANFORD,active
 942172862,?,?,STANFORD HEALTH CARE - VALLEYCARE,?,?,?,SYS_STANFORD,active
 946174066,?,?,STANFORD HEALTH CARE 227,?,?,?,SYS_STANFORD,active
+941156365,?,?,Stanford Health Care Medical Group,?,?,?,SYS_STANFORD,active
 942864454,hospital,community,California Pacific Medical Center,Multi-campus community hospital,San Francisco,CA,SYS_SUTTER,active
 562311840,?,?,California Pacific Advanced Imaging,?,?,?,SYS_SUTTER,active
 942689206,health_system,parent,Sutter Health,Parent health system,Sacramento,CA,SYS_SUTTER,active
@@ -188,6 +198,7 @@ tin,entity_type,entity_subtype,legal_name,description,address_city,address_state
 946031186,?,?,JOHN MUIR MEDICAL CENTER CONCORD CAMPUS VOLUNTEERS,?,?,?,SYS_JOHNMUIR,active
 010548584,?,?,MUIR PULMONARY CRITICAL CARE,?,?,?,SYS_JOHNMUIR,active
 271968534,?,?,MEDICAL STAFF OF JOHN MUIR MED CENTER CONCORD CAMPUS,?,?,?,SYS_JOHNMUIR,active
+942880986,?,?,John Muir Physician Network,?,?,?,SYS_JOHNMUIR,active
 942689459,hospital,integrated,Kaiser Foundation Hospitals Northern California,Kaiser hospital operations,Oakland,CA,SYS_KAISER_NCA,active
 941454814,hospital,community,Mills-Peninsula Medical Center,Peninsula community hospital,Burlingame,CA,SYS_SUTTER,active
 237288765,?,?,MILLS-PENINSULA HOSPITAL FOUNDATION,?,?,?,SYS_SUTTER,active
