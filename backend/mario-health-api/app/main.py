@@ -25,7 +25,7 @@ from app.api.v1.endpoints import (
 )
 import os
 from pathlib import Path
-from middleware.logging import RequestLoggingMiddleware
+from app.middleware.logging import RequestLoggingMiddleware
 
 # Configure logging
 logging.basicConfig(
