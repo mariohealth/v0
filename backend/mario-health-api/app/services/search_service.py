@@ -1,6 +1,10 @@
+from fastapi import HTTPException
 from supabase import Client
-from app.models import SearchResponse, SearchResult
 from decimal import Decimal
+from postgrest.exceptions import APIError
+
+from app.models import SearchResponse, SearchResult
+from app.middleware.logging import log_structured
 
 
 class SearchService:
@@ -19,45 +23,89 @@ class SearchService:
         Results are ranked by relevance score (match_score).
         """
 
-        # Prepare RPC parameters
-        rpc_params = {"search_query": query}
+        try:
 
-        if zip_code:
-            rpc_params["zip_code_input"] = zip_code
-            rpc_params["radius_miles"] = radius_miles
+            # Prepare RPC parameters
+            rpc_params = {"search_query": query}
 
-        # Call the database function
-        result = self.supabase.rpc("search_procedures_v2", rpc_params).execute()
+            if zip_code:
+                rpc_params["zip_code_input"] = zip_code
+                rpc_params["radius_miles"] = radius_miles
 
-        # Transform results
-        results = [
-            SearchResult(
-                procedure_id=r["procedure_id"],
-                procedure_name=r["procedure_name"],
-                procedure_slug=r["procedure_slug"],
-                family_name=r["family_name"],
-                family_slug=r["family_slug"],
-                category_name=r["category_name"],
-                category_slug=r["category_slug"],
-                best_price=Decimal(str(r["best_price"])),
-                avg_price=Decimal(str(r["avg_price"])),
-                price_range=f"${r['best_price']} - ${r['max_price']}",
-                provider_count=r["provider_count"],
-                nearest_provider=r.get("nearest_provider"),
-                nearest_distance_miles=(
-                    float(r["nearest_distance_miles"])
-                    if r.get("nearest_distance_miles")
-                    else None
-                ),
-                match_score=float(r["match_score"])  # NEW: Include relevance score
+            # Call the database function
+            result = self.supabase.rpc("search_procedures_v2", rpc_params).execute()
+
+            # Transform results
+            results = [
+                SearchResult(
+                    procedure_id=r["procedure_id"],
+                    procedure_name=r["procedure_name"],
+                    procedure_slug=r["procedure_slug"],
+                    family_name=r["family_name"],
+                    family_slug=r["family_slug"],
+                    category_name=r["category_name"],
+                    category_slug=r["category_slug"],
+                    best_price=Decimal(str(r["best_price"])),
+                    avg_price=Decimal(str(r["avg_price"])),
+                    price_range=f"${r['best_price']} - ${r['max_price']}",
+                    provider_count=r["provider_count"],
+                    nearest_provider=r.get("nearest_provider"),
+                    nearest_distance_miles=(
+                        float(r["nearest_distance_miles"])
+                        if r.get("nearest_distance_miles")
+                        else None
+                    ),
+                    match_score=float(r["match_score"])  # NEW: Include relevance score
+                )
+                for r in result.data
+            ]
+
+            # Log search analytics
+            log_structured(
+                severity="INFO",
+                message="Search completed",
+                query=query,
+                zip_code=zip_code,
+                radius_miles=radius_miles,
+                results_count=len(results),
+                has_results=len(results) > 0,
             )
-            for r in result.data
-        ]
 
-        return SearchResponse(
-            query=query,
-            location=zip_code,
-            radius_miles=radius_miles,
-            results_count=len(results),
-            results=results
-        )
+            return SearchResponse(
+                query=query,
+                location=zip_code,
+                radius_miles=radius_miles,
+                results_count=len(results),
+                results=results
+            )
+
+        except HTTPException:
+            # Re-raise validation errors as-is
+            raise
+
+        except APIError as e:
+            log_structured(
+                severity="ERROR",
+                message="Database error during search",
+                query=query,
+                zip_code=zip_code,
+                radius_miles=radius_miles,
+                error_code=getattr(e, 'code', 'unknown'),
+                error_details=str(e),
+            )
+            raise HTTPException(
+                status_code=503,
+                detail="Search temporarily unavailable"
+            )
+
+        except Exception as e:
+            log_structured(
+                severity="ERROR",
+                message="Unexpected search error",
+                query=query,
+                zip_code=zip_code,
+                radius_miles=radius_miles,
+                error_type=type(e).__name__,
+                error_message=str(e),
+            )
+            raise

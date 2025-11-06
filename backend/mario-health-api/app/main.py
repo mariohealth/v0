@@ -25,6 +25,7 @@ from app.api.v1.endpoints import (
 )
 import os
 from pathlib import Path
+from app.middleware.logging import RequestLoggingMiddleware
 
 # Configure logging
 logging.basicConfig(
@@ -69,6 +70,7 @@ app = FastAPI(
     redoc_url="/redoc",
     lifespan=lifespan,
 )
+app.middleware("http")(RequestLoggingMiddleware(app))
 
 # CORS middleware configuration
 # Note: localhost:3000 is explicitly included for local development
