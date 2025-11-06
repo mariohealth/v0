@@ -72,6 +72,7 @@ function ResultsContent() {
                 // Transform API results to match component format
                 const transformedResults = (data.results || []).map((result: any) => ({
                     id: result.procedure_id || `procedure-${result.procedure_slug}`,
+                    procedureSlug: result.procedure_slug || result.procedure_id,
                     name: result.procedure_name,
                     specialty: result.category_name || 'Procedure',
                     type: 'procedure' as const,

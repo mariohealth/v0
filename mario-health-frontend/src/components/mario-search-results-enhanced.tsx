@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -37,10 +38,15 @@ interface FilterChip {
   value: string;
 }
 
+interface ExtendedProvider extends Provider {
+  type?: 'procedure' | 'provider' | 'doctor' | 'facility' | 'clinic' | 'hospital';
+  procedureSlug?: string;
+}
+
 interface MarioSearchResultsEnhancedProps {
   query: string;
-  results?: Provider[];
-  onResultClick?: (result: Provider) => void;
+  results?: ExtendedProvider[];
+  onResultClick?: (result: ExtendedProvider) => void;
   onBack?: () => void;
 }
 
@@ -50,8 +56,9 @@ export function MarioSearchResultsEnhanced({
   onResultClick,
   onBack 
 }: MarioSearchResultsEnhancedProps) {
-  const [results, setResults] = useState<Provider[]>([]);
-  const [filteredResults, setFilteredResults] = useState<Provider[]>([]);
+  const router = useRouter();
+  const [results, setResults] = useState<ExtendedProvider[]>([]);
+  const [filteredResults, setFilteredResults] = useState<ExtendedProvider[]>([]);
   const [filters, setFilters] = useState<SearchFilters>({
     sortBy: 'best_value',
     network: 'all',
@@ -261,8 +268,18 @@ export function MarioSearchResultsEnhanced({
     });
   };
 
-  const handleResultClick = (result: Provider) => {
+  const handleResultClick = (result: ExtendedProvider) => {
+    // Call optional callback if provided
     onResultClick?.(result);
+    
+    // Navigate based on result type
+    if (result.type === 'procedure' && result.procedureSlug) {
+      // Navigate to procedure detail page
+      router.push(`/procedures/${result.procedureSlug}`);
+    } else if (result.id) {
+      // Navigate to provider detail page
+      router.push(`/providers/${result.id}`);
+    }
   };
 
   return (
@@ -479,7 +496,8 @@ export function MarioSearchResultsEnhanced({
                 <Card 
                   key={result.id}
                   className={cn(
-                    "p-6 cursor-pointer",
+                    "p-6 cursor-pointer transition-all",
+                    "hover:shadow-lg hover:border-primary/20",
                     "mario-transition mario-hover-provider"
                   )}
                   onClick={() => result && handleResultClick(result)}
@@ -568,7 +586,14 @@ export function MarioSearchResultsEnhanced({
                       <span className="text-sm text-muted-foreground">
                         +{result.marioPoints} MarioPoints
                       </span>
-                      <Button size="sm" className="mario-button-scale">
+                      <Button 
+                        size="sm" 
+                        className="mario-button-scale"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleResultClick(result);
+                        }}
+                      >
                         {result.marioPick ? 'Book Appointment' : 'View Details'}
                       </Button>
                     </div>
