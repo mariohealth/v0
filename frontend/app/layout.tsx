@@ -21,7 +21,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <PreferencesProvider>
             <Navbar />
-            <div className="pt-16">
+            <div className="pt-16 relative z-0">
               {children}
             </div>
             {/* Temporarily added for error boundary testing - remove after verification */}
