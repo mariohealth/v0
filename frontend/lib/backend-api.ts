@@ -105,6 +105,12 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
     const url = `${API_BASE_URL}${endpoint}`;
     const startTime = performance.now();
 
+    // Log the full URL being requested
+    const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+    console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+    console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
+    console.log(`[API] NEXT_PUBLIC_API_URL: ${process.env.NEXT_PUBLIC_API_URL || 'not set'}`);
+
     try {
         // Get auth token for Authorization header
         const token = await getAuthToken();
@@ -159,10 +165,19 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
     } catch (error) {
         const duration = Math.round(performance.now() - startTime);
 
+        // Log fetch failure with full details
+        console.error('Fetch failed:', error);
+        console.error(`[API] Failed URL: ${url}`);
+        console.error(`[API] Endpoint: ${endpoint}`);
+        console.error(`[API] API_BASE_URL: ${API_BASE_URL}`);
+        console.error(`[API] Error type: ${error instanceof Error ? error.constructor.name : typeof error}`);
+        console.error(`[API] Error message: ${error instanceof Error ? error.message : String(error)}`);
+
         // Detect CORS errors specifically
         if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
             const corsError = new Error(
                 `CORS Error: The backend needs to allow requests from your domain.\n\n` +
+                `Request URL: ${url}\n` +
                 `Ask AC to add this to backend CORS settings:\n` +
                 `ALLOWED_ORIGINS = [\n` +
                 `    'http://localhost:3000',\n` +
@@ -171,19 +186,19 @@ async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Pro
             );
 
             trackApiCall(endpoint, duration, 0, 'CORS Error');
-            trackError(corsError, { endpoint, duration, errorType: 'CORS' });
+            trackError(corsError, { endpoint, duration, errorType: 'CORS', url });
 
             throw corsError;
         }
 
         if (error instanceof Error) {
             trackApiCall(endpoint, duration, 0, error.message);
-            trackError(error, { endpoint, duration });
+            trackError(error, { endpoint, duration, url });
             throw new Error(`Failed to fetch ${url}: ${error.message}`);
         }
 
         trackApiCall(endpoint, duration, 0, 'Unknown error');
-        trackError(new Error('Unknown error'), { endpoint, duration });
+        trackError(new Error('Unknown error'), { endpoint, duration, url });
 
         throw error;
     }

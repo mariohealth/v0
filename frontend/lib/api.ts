@@ -19,8 +19,7 @@ import {
 } from '../types/api';
 import { z } from 'zod';
 import { getAuthToken } from './auth-token';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+import { API_BASE_URL } from './config';
 
 /**
  * Enhanced API client with validation and error handling
@@ -46,6 +45,11 @@ class ApiClient {
         validateResponse?: (data: any) => T
     ): Promise<T> {
         const url = `${this.baseUrl}${endpoint}`;
+
+        // Log the full URL being requested
+        const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+        console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+        console.log(`[API] API_BASE_URL: ${this.baseUrl}`);
 
         // Get auth token for Authorization header
         const token = await getAuthToken();
@@ -148,6 +152,11 @@ class ApiClient {
 
             return data;
         } catch (error) {
+            console.error('Fetch failed:', error);
+            console.error(`[API] Failed URL: ${url}`);
+            console.error(`[API] Endpoint: ${endpoint}`);
+            console.error(`[API] API_BASE_URL: ${this.baseUrl}`);
+            
             if (error instanceof Error) {
                 // Handle timeout errors
                 if (error.message === 'Request timeout') {

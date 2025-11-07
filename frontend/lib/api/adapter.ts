@@ -12,10 +12,10 @@
 
 import { mockProviders, filterProviders, Provider, TimeSlot, Review } from '../mockData';
 import { getAuthToken } from '../auth-token';
+import { API_BASE_URL } from '../config';
 
 // Environment configuration
 const USE_MOCK_API = process.env.NEXT_PUBLIC_USE_MOCK_API === 'true';
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 const REQUEST_TIMEOUT = parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || '10000');
 const MAX_RETRIES = parseInt(process.env.NEXT_PUBLIC_API_MAX_RETRIES || '3');
 const RETRY_DELAY_BASE = parseInt(process.env.NEXT_PUBLIC_API_RETRY_DELAY || '1000');
@@ -607,6 +607,11 @@ class RealApiClient {
     ): Promise<T> {
         const url = `${this.baseUrl}${endpoint}`;
 
+        // Log the full URL being requested
+        const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+        console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+        console.log(`[API] API_BASE_URL: ${this.baseUrl}`);
+
         // Get auth token for Authorization header
         const token = await getAuthToken();
 
@@ -637,10 +642,18 @@ class RealApiClient {
                 const errorData = await response.json().catch(() => ({}));
                 const error = new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
                 (error as any).status = response.status;
+                console.error('Fetch failed:', error);
+                console.error(`[API] Failed URL: ${url}`);
+                console.error(`[API] Endpoint: ${endpoint}`);
                 throw error;
             }
 
             return await response.json();
+        }).catch((error) => {
+            console.error('Fetch failed:', error);
+            console.error(`[API] Failed URL: ${url}`);
+            console.error(`[API] Endpoint: ${endpoint}`);
+            throw error;
         });
 
         return withTimeout(requestPromise, REQUEST_TIMEOUT);

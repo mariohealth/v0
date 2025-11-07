@@ -7,8 +7,7 @@
 
 import { UserPreferences } from '@/types/preferences';
 import { getAuthToken } from './auth-token';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-72178908097.us-central1.run.app';
+import { API_BASE_URL } from './config';
 
 const PREFERENCES_API_ENDPOINT = '/api/v1/user/preferences';
 
@@ -41,6 +40,8 @@ export async function getPreferencesFromAPI(): Promise<UserPreferences> {
     return getPreferences();
   }
 
+  const url = `${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`;
+  
   try {
     const userId = getUserId();
     if (!userId) {
@@ -55,15 +56,20 @@ export async function getPreferencesFromAPI(): Promise<UserPreferences> {
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
+    
+    // Log the full URL being requested
+    const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+    console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+    console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
 
     // Log outgoing headers for debugging
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-      console.log(`[API Request] GET ${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`, {
+      console.log(`[API Request] GET ${url}`, {
         headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
       });
     }
 
-    const response = await fetch(`${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`, {
+    const response = await fetch(url, {
       method: 'GET',
       headers,
     });
@@ -75,6 +81,8 @@ export async function getPreferencesFromAPI(): Promise<UserPreferences> {
     const data = await response.json();
     return data.preferences || {};
   } catch (error) {
+    console.error('Fetch failed:', error);
+    console.error(`[API] Failed URL: ${url}`);
     console.error('Failed to fetch preferences from API:', error);
     // Fallback to localStorage
     const { getPreferences } = await import('./preferences-storage');
@@ -96,6 +104,8 @@ export async function savePreferencesToAPI(preferences: UserPreferences): Promis
     return;
   }
 
+  const url = `${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`;
+  
   try {
     const userId = getUserId();
     if (!userId) {
@@ -110,15 +120,20 @@ export async function savePreferencesToAPI(preferences: UserPreferences): Promis
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
+    
+    // Log the full URL being requested
+    const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+    console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+    console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
 
     // Log outgoing headers for debugging
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-      console.log(`[API Request] PUT ${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`, {
+      console.log(`[API Request] PUT ${url}`, {
         headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
       });
     }
 
-    const response = await fetch(`${API_BASE_URL}${PREFERENCES_API_ENDPOINT}`, {
+    const response = await fetch(url, {
       method: 'PUT',
       headers,
       body: JSON.stringify({ preferences }),
@@ -128,6 +143,8 @@ export async function savePreferencesToAPI(preferences: UserPreferences): Promis
       throw new Error(`Failed to save preferences: ${response.statusText}`);
     }
   } catch (error) {
+    console.error('Fetch failed:', error);
+    console.error(`[API] Failed URL: ${url}`);
     console.error('Failed to save preferences to API:', error);
     // Preferences are still saved in localStorage
   }

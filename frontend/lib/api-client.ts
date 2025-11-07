@@ -4,8 +4,8 @@
 import { mockApi } from './mock-data';
 import type { Category, Procedure, Provider } from './mock-data';
 import { getAuthToken } from './auth-token';
+import { API_BASE_URL } from './config';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true';
 
 class ApiClient {
@@ -23,6 +23,11 @@ class ApiClient {
         }
 
         const url = `${this.baseUrl}${endpoint}`;
+
+        // Log the full URL being requested
+        const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+        console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+        console.log(`[API] API_BASE_URL: ${this.baseUrl}`);
 
         // Get auth token for Authorization header
         const token = await getAuthToken();
@@ -52,6 +57,8 @@ class ApiClient {
         const response = await fetch(url, config);
 
         if (!response.ok) {
+            console.error('Fetch failed:', new Error(`HTTP ${response.status}: ${response.statusText}`));
+            console.error(`[API] Failed URL: ${url}`);
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
 

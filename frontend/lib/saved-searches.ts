@@ -6,6 +6,7 @@
  */
 
 import { UserPreferences } from '../types/preferences';
+import { API_BASE_URL } from './config';
 
 export interface SavedSearch {
     id: string;
@@ -106,8 +107,11 @@ export async function getSavedSearches(): Promise<SavedSearch[]> {
     }
 
     try {
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
-        const response = await fetch(`${API_BASE_URL}${API_ENDPOINT}`, {
+        const url = `${API_BASE_URL}${API_ENDPOINT}`;
+        console.log(`[API] Request URL: ${url}`);
+        console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
+        
+        const response = await fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
                 // TODO: Add authentication header
@@ -121,6 +125,7 @@ export async function getSavedSearches(): Promise<SavedSearch[]> {
         const data = await response.json();
         return data.searches || [];
     } catch (error) {
+        console.error('Fetch failed:', error);
         console.error('Failed to fetch saved searches from API:', error);
         return getSavedSearchesFromStorage();
     }
@@ -138,8 +143,11 @@ export async function saveSearch(search: Omit<SavedSearch, 'id' | 'timestamp'>):
     }
 
     try {
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
-        const response = await fetch(`${API_BASE_URL}${API_ENDPOINT}`, {
+        const url = `${API_BASE_URL}${API_ENDPOINT}`;
+        console.log(`[API] Request URL: ${url}`);
+        console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
+        
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -155,6 +163,7 @@ export async function saveSearch(search: Omit<SavedSearch, 'id' | 'timestamp'>):
         const data = await response.json();
         return data.id || localId;
     } catch (error) {
+        console.error('Fetch failed:', error);
         console.error('Failed to save search to API:', error);
         return localId;
     }
@@ -172,8 +181,11 @@ export async function deleteSavedSearch(id: string): Promise<void> {
     }
 
     try {
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
-        const response = await fetch(`${API_BASE_URL}${API_ENDPOINT}/${id}`, {
+        const url = `${API_BASE_URL}${API_ENDPOINT}/${id}`;
+        console.log(`[API] Request URL: ${url}`);
+        console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
+        
+        const response = await fetch(url, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -185,6 +197,7 @@ export async function deleteSavedSearch(id: string): Promise<void> {
             throw new Error(`Failed to delete saved search: ${response.statusText}`);
         }
     } catch (error) {
+        console.error('Fetch failed:', error);
         console.error('Failed to delete saved search from API:', error);
     }
 }

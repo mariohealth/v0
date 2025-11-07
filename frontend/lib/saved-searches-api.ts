@@ -5,6 +5,7 @@
  */
 
 import { getAuthToken } from './auth-token';
+import { API_BASE_URL } from './config';
 
 const SAVED_SEARCHES_ENDPOINT = '/api/v1/user/saved-searches';
 
@@ -26,12 +27,12 @@ export interface SavedSearchCreateRequest {
     search: SavedSearch;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-72178908097.us-central1.run.app';
-
 /**
  * Get all saved searches for current user
  */
 export async function getSavedSearches(): Promise<SavedSearch[]> {
+    const url = `${API_BASE_URL}${SAVED_SEARCHES_ENDPOINT}`;
+    
     try {
         const token = await getAuthToken();
         const headers: Record<string, string> = {
@@ -41,15 +42,20 @@ export async function getSavedSearches(): Promise<SavedSearch[]> {
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
         }
+        
+        // Log the full URL being requested
+        const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+        console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+        console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
 
         // Log outgoing headers for debugging
         if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-            console.log(`[API Request] GET ${API_URL}${SAVED_SEARCHES_ENDPOINT}`, {
+            console.log(`[API Request] GET ${url}`, {
                 headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
             });
         }
 
-        const response = await fetch(`${API_URL}${SAVED_SEARCHES_ENDPOINT}`, {
+        const response = await fetch(url, {
             method: 'GET',
             headers,
         });
@@ -61,6 +67,8 @@ export async function getSavedSearches(): Promise<SavedSearch[]> {
         const data = await response.json();
         return data.saved_searches || [];
     } catch (error) {
+        console.error('Fetch failed:', error);
+        console.error(`[API] Failed URL: ${url}`);
         console.error('Failed to fetch saved searches:', error);
         throw error;
     }
@@ -70,6 +78,8 @@ export async function getSavedSearches(): Promise<SavedSearch[]> {
  * Create a new saved search
  */
 export async function createSavedSearch(request: SavedSearchCreateRequest): Promise<SavedSearch> {
+    const url = `${API_BASE_URL}${SAVED_SEARCHES_ENDPOINT}`;
+    
     try {
         const token = await getAuthToken();
         const headers: Record<string, string> = {
@@ -79,15 +89,20 @@ export async function createSavedSearch(request: SavedSearchCreateRequest): Prom
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
         }
+        
+        // Log the full URL being requested
+        const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+        console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+        console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
 
         // Log outgoing headers for debugging
         if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-            console.log(`[API Request] POST ${API_URL}${SAVED_SEARCHES_ENDPOINT}`, {
+            console.log(`[API Request] POST ${url}`, {
                 headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
             });
         }
 
-        const response = await fetch(`${API_URL}${SAVED_SEARCHES_ENDPOINT}`, {
+        const response = await fetch(url, {
             method: 'POST',
             headers,
             body: JSON.stringify(request),
@@ -100,6 +115,8 @@ export async function createSavedSearch(request: SavedSearchCreateRequest): Prom
         const data = await response.json();
         return data.saved_search;
     } catch (error) {
+        console.error('Fetch failed:', error);
+        console.error(`[API] Failed URL: ${url}`);
         console.error('Failed to create saved search:', error);
         throw error;
     }
@@ -109,6 +126,8 @@ export async function createSavedSearch(request: SavedSearchCreateRequest): Prom
  * Delete a saved search
  */
 export async function deleteSavedSearch(searchId: string): Promise<void> {
+    const url = `${API_BASE_URL}${SAVED_SEARCHES_ENDPOINT}/${searchId}`;
+    
     try {
         const token = await getAuthToken();
         const headers: Record<string, string> = {
@@ -118,15 +137,20 @@ export async function deleteSavedSearch(searchId: string): Promise<void> {
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
         }
+        
+        // Log the full URL being requested
+        const urlProtocol = url.startsWith('http://') ? 'http://' : url.startsWith('https://') ? 'https://' : 'relative';
+        console.log(`[API] Request URL: ${url} (protocol: ${urlProtocol})`);
+        console.log(`[API] API_BASE_URL: ${API_BASE_URL}`);
 
         // Log outgoing headers for debugging
         if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-            console.log(`[API Request] DELETE ${API_URL}${SAVED_SEARCHES_ENDPOINT}/${searchId}`, {
+            console.log(`[API Request] DELETE ${url}`, {
                 headers: { ...headers, Authorization: token ? `Bearer ${token.substring(0, 20)}...` : 'None' },
             });
         }
 
-        const response = await fetch(`${API_URL}${SAVED_SEARCHES_ENDPOINT}/${searchId}`, {
+        const response = await fetch(url, {
             method: 'DELETE',
             headers,
         });
@@ -135,6 +159,8 @@ export async function deleteSavedSearch(searchId: string): Promise<void> {
             throw new Error(`Failed to delete saved search: ${response.statusText}`);
         }
     } catch (error) {
+        console.error('Fetch failed:', error);
+        console.error(`[API] Failed URL: ${url}`);
         console.error('Failed to delete saved search:', error);
         throw error;
     }
