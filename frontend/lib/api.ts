@@ -156,7 +156,7 @@ class ApiClient {
             console.error(`[API] Failed URL: ${url}`);
             console.error(`[API] Endpoint: ${endpoint}`);
             console.error(`[API] API_BASE_URL: ${this.baseUrl}`);
-            
+
             if (error instanceof Error) {
                 // Handle timeout errors
                 if (error.message === 'Request timeout') {
@@ -441,6 +441,19 @@ class ApiClient {
     }
 
     /**
+     * Search for procedures using backend API
+     * @param query - Search query
+     * @returns Promise with search results containing procedure names
+     */
+    async search(query: string): Promise<BackendSearchResponse> {
+        if (!query || typeof query !== 'string' || query.trim().length === 0) {
+            throw new Error('Search query is required');
+        }
+
+        return this.request<BackendSearchResponse>(`/api/v1/search?q=${encodeURIComponent(query.trim())}`);
+    }
+
+    /**
      * Get procedure categories using current backend API
      * @returns Promise with procedure categories
      */
@@ -467,6 +480,7 @@ export const getInsuranceProviders = () => apiClient.getInsuranceProviders();
 
 // Backend API functions
 export const searchProducts = (query: string) => apiClient.searchProducts(query);
+export const search = (query: string) => apiClient.search(query);
 export const getProcedureCategories = () => apiClient.getProcedureCategories();
 
 // Re-export types for backward compatibility

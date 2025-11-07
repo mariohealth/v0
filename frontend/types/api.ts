@@ -452,12 +452,21 @@ export const InsuranceProvidersResponseSchema = z.object({
 
 /**
  * Current backend search response (from Supabase)
- * @example { results: [{ id: "prod1", name: "MRI Scan", description: "..." }] }
+ * @example { query: "mri", location: "02138", radius_miles: 25, results_count: 5, results: [{ procedure_id: "proc_001", procedure_name: "MRI Scan", procedure_slug: "mri-scan", ... }] }
  */
 export interface BackendSearchResponse {
+    query: string;
+    location?: string | null;
+    radius_miles?: number;
+    results_count?: number;
     results: Array<{
-        id: string;
-        name: string;
+        procedure_id?: string;
+        procedure_name?: string;
+        procedure_slug?: string;
+        // Also support frontend format for backward compatibility
+        id?: string;
+        name?: string;
+        slug?: string;
         description?: string;
         [key: string]: any; // Additional fields from Supabase
     }>;

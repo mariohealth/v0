@@ -79,7 +79,7 @@ export default function SearchHeader({
           setAutocompleteSuggestions(suggestions);
           setIsLoadingAutocomplete(false);
         } catch (error) {
-          console.error('Failed to load autocomplete suggestions:', error);
+          // On API failure, show empty results (will display "No suggestions found")
           setAutocompleteSuggestions([]);
           setIsLoadingAutocomplete(false);
         }
@@ -249,7 +249,7 @@ export default function SearchHeader({
                   </div>
                 ) : (
                   <div className="p-4 text-center text-gray-500 text-sm">
-                    No suggestions found
+                    No results found
                   </div>
                 )}
               </div>
