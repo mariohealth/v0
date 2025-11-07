@@ -98,6 +98,58 @@ export interface ProcedureDetail {
     carrierPrices: CarrierPrice[];
 }
 
+export interface ProcedureProvider {
+    providerId: string;
+    providerName: string;
+    inNetwork: boolean;
+    rating: number | null;
+    reviews: number;
+    distance: number | null;
+    priceEstimate: number;
+    priceAverage: number | null;
+    priceRelativeToAverage: string | null;
+    marioPoints: number;
+    address?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+}
+
+export interface ProcedureProvidersResponse {
+    procedureName: string;
+    procedureSlug: string;
+    providers: ProcedureProvider[];
+}
+
+export interface ProviderProcedureDetail {
+    providerId: string;
+    providerName: string;
+    procedureId: string;
+    procedureName: string;
+    procedureSlug: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    phone?: string;
+    website?: string;
+    hours?: string;
+    estimatedCosts: {
+        total: number;
+        facilityFee?: number;
+        professionalFee?: number;
+        suppliesFee?: number;
+    };
+    averagePrice: number | null;
+    savingsVsAverage: number | null;
+    inNetwork: boolean;
+    rating: number | null;
+    reviews: number;
+    accreditation?: string;
+    staff?: string;
+    marioPoints: number;
+}
+
 /**
  * Generic fetch wrapper with error handling, analytics, and CORS detection
  */
@@ -468,6 +520,89 @@ export async function getProcedureDetail(slug: string): Promise<ProcedureDetail>
     }
 }
 
+/**
+ * Transform snake_case to camelCase for procedure providers
+ */
+function transformProcedureProvider(raw: any): ProcedureProvider {
+    return {
+        providerId: raw.provider_id,
+        providerName: raw.provider_name,
+        inNetwork: raw.in_network || false,
+        rating: raw.rating ? parseFloat(raw.rating) : null,
+        reviews: raw.reviews || 0,
+        distance: raw.distance ? parseFloat(raw.distance) : null,
+        priceEstimate: typeof raw.price_estimate === 'string' 
+            ? parseFloat(raw.price_estimate) 
+            : typeof raw.price_estimate === 'number' 
+                ? raw.price_estimate 
+                : 0,
+        priceAverage: raw.price_average ? parseFloat(raw.price_average) : null,
+        priceRelativeToAverage: raw.price_relative_to_average || null,
+        marioPoints: raw.mario_points || 0,
+        address: raw.address,
+        city: raw.city,
+        state: raw.state,
+        zipCode: raw.zip_code,
+    };
+}
+
+/**
+ * Get all providers offering a specific procedure
+ * Endpoint: GET /api/v1/procedures/{slug}/providers
+ */
+export async function getProcedureProviders(slug: string): Promise<ProcedureProvidersResponse> {
+    try {
+        const data = await fetchFromApi<any>(`/api/v1/procedures/${slug}/providers`);
+        return {
+            procedureName: data.procedure_name,
+            procedureSlug: data.procedure_slug,
+            providers: (data.providers || []).map(transformProcedureProvider),
+        };
+    } catch (error) {
+        console.error(`Failed to fetch procedure providers for '${slug}':`, error);
+        throw new Error(`Failed to get procedure providers for '${slug}': ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+}
+
+/**
+ * Get detailed provider-procedure information
+ * Endpoint: GET /api/v1/providers/{providerId}/procedures/{slug}
+ */
+export async function getProviderProcedureDetail(
+    providerId: string,
+    slug: string
+): Promise<ProviderProcedureDetail> {
+    try {
+        const data = await fetchFromApi<any>(`/api/v1/providers/${providerId}/procedures/${slug}`);
+        return {
+            providerId: data.provider_id,
+            providerName: data.provider_name,
+            procedureId: data.procedure_id,
+            procedureName: data.procedure_name,
+            procedureSlug: data.procedure_slug,
+            address: data.address,
+            city: data.city,
+            state: data.state,
+            zipCode: data.zip_code,
+            phone: data.phone,
+            website: data.website,
+            hours: data.hours,
+            estimatedCosts: data.estimated_costs || { total: 0 },
+            averagePrice: data.average_price ? parseFloat(data.average_price) : null,
+            savingsVsAverage: data.savings_vs_average ? parseFloat(data.savings_vs_average) : null,
+            inNetwork: data.in_network || false,
+            rating: data.rating ? parseFloat(data.rating) : null,
+            reviews: data.reviews || 0,
+            accreditation: data.accreditation,
+            staff: data.staff,
+            marioPoints: data.mario_points || 0,
+        };
+    } catch (error) {
+        console.error(`Failed to fetch provider-procedure detail for '${providerId}/${slug}':`, error);
+        throw new Error(`Failed to get provider-procedure detail: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+}
+
 // Export for use in components
 export const backendApi = {
     getCategories,
@@ -475,4 +610,6 @@ export const backendApi = {
     getProceduresByFamily,
     searchProcedures,
     getProcedureDetail,
+    getProcedureProviders,
+    getProviderProcedureDetail,
 };

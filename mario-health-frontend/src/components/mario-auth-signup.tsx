@@ -1,7 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { signInWithPopup, createUserWithEmailAndPassword, sendSignInLinkToEmail } from 'firebase/auth';
+import { auth, googleProvider } from '@/lib/firebase';
 import { MarioLogoLockup } from './mario-logo-lockup';
 import { Eye, EyeOff, Building2, CheckCircle, AlertCircle, X } from 'lucide-react';
 import { toast } from 'sonner';
@@ -44,7 +45,6 @@ export function MarioAuthSignup({
   onAuthSuccess
 }: SignupProps) {
   const router = useRouter();
-  const supabase = createClient();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -53,7 +53,7 @@ export function MarioAuthSignup({
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  
+
   // Auth flow state
   const [authState, setAuthState] = useState<AuthState>('default');
   const [authError, setAuthError] = useState('');
@@ -106,35 +106,26 @@ export function MarioAuthSignup({
     setFocusedField(null);
   };
 
-  // Supabase auth handler for signup
+  // Firebase auth handler for signup
   const handleSignup = async (email: string, password: string) => {
     setAuthState('loading');
     setAuthError('');
 
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
+      await createUserWithEmailAndPassword(auth, email, password);
 
-      if (error) {
-        setAuthState('error');
-        setAuthError(error.message || 'Sign-up failed. Please try again.');
-        onSignUp?.(email, password); // Call callback for backward compatibility
-      } else {
-        setAuthState('success');
-        setShowConfetti(true);
-        console.log('Mock signup success, redirecting...');
-        
-        // Redirect immediately after success
-        setTimeout(() => {
-          onAuthSuccess?.();
-          router.push('/home'); // Redirect to home page after signup
-        }, 500); // Reduced delay for faster redirect
-      }
-    } catch (err) {
+      setAuthState('success');
+      setShowConfetti(true);
+      console.log('Firebase signup success, redirecting...');
+
+      // Redirect immediately after success
+      setTimeout(() => {
+        onAuthSuccess?.();
+        router.push('/home'); // Redirect to home page after signup
+      }, 500); // Reduced delay for faster redirect
+    } catch (err: any) {
       setAuthState('error');
-      setAuthError('An unexpected error occurred. Please try again.');
+      setAuthError(err.message || 'Sign-up failed. Please try again.');
       onSignUp?.(email, password); // Call callback for backward compatibility
     }
   };
@@ -143,13 +134,13 @@ export function MarioAuthSignup({
     e.preventDefault();
     setEmailTouched(true);
     setPasswordTouched(true);
-    
+
     const emailErr = validateEmail(email);
     const passwordErr = validatePassword(password);
-    
+
     setEmailError(emailErr);
     setPasswordError(passwordErr);
-    
+
     if (!emailErr && !passwordErr) {
       await handleSignup(email, password);
     }
@@ -161,39 +152,26 @@ export function MarioAuthSignup({
 
     try {
       if (provider === 'sso') {
-        // Mock SSO - just redirect
-        console.log('Mock SSO signup success, redirecting...');
+        // SSO - placeholder for now
+        setAuthState('error');
+        setAuthError('SSO sign-up is not yet implemented. Please use Google or email.');
+        onSSOSignUp?.();
+      } else if (provider === 'google') {
+        await signInWithPopup(auth, googleProvider);
+        console.log('Firebase Google signup success, redirecting...');
         setTimeout(() => {
           router.push('/home');
-          onSSOSignUp?.();
+          onGoogleSignUp?.();
         }, 500);
       } else {
-        const { data, error } = await supabase.auth.signInWithOAuth({
-          provider: provider === 'google' ? 'google' : 'apple',
-          options: {
-            redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/home`,
-          },
-        });
-
-        if (error) {
-          setAuthState('error');
-          setAuthError(error.message || `${provider} sign-up failed. Please try again.`);
-        } else {
-          // Mock OAuth - redirect immediately
-          console.log(`Mock ${provider} signup success, redirecting...`);
-          setTimeout(() => {
-            router.push('/home');
-            if (provider === 'google') {
-              onGoogleSignUp?.();
-            } else {
-              onAppleSignUp?.();
-            }
-          }, 500);
-        }
+        // Apple login - placeholder for now
+        setAuthState('error');
+        setAuthError('Apple sign-in is not yet implemented. Please use Google or email.');
+        onAppleSignUp?.();
       }
-    } catch (err) {
+    } catch (err: any) {
       setAuthState('error');
-      setAuthError(`An unexpected error occurred during ${provider} sign-up. Please try again.`);
+      setAuthError(err.message || `${provider} sign-up failed. Please try again.`);
     }
   };
 
@@ -210,7 +188,7 @@ export function MarioAuthSignup({
       if (mockAuthSuccess) {
         setAuthState('success');
         setShowConfetti(true);
-        
+
         // Show success toast
         toast.success(`${providerName} successful!`, {
           description: 'Redirecting to upload insurance...',
@@ -247,7 +225,7 @@ export function MarioAuthSignup({
     }
   };
 
-  const isValid = email && password && !emailError && !passwordError;
+  const isValid = !!(email && password && !emailError && !passwordError);
 
   // Handle login navigation
   const handleLoginClick = () => {
@@ -263,7 +241,7 @@ export function MarioAuthSignup({
         {showConfetti && <ConfettiEffect />}
 
         {/* Left Panel - Marketing */}
-        <div 
+        <div
           className="flex-1 relative overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, rgba(46,80,119,0.06) 0%, rgba(77,161,169,0.06) 100%)',
@@ -271,7 +249,7 @@ export function MarioAuthSignup({
         >
           <div className="absolute inset-0 flex flex-col justify-center px-16">
             <div style={{ maxWidth: '560px' }}>
-              <h1 
+              <h1
                 style={{
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '48px',
@@ -296,7 +274,7 @@ export function MarioAuthSignup({
               </p>
             </div>
           </div>
-          
+
           {/* Logo in top-left */}
           <div style={{ position: 'absolute', top: '32px', left: '32px' }}>
             <MarioLogoLockup size="desktop" />
@@ -337,7 +315,7 @@ export function MarioAuthSignup({
 
   // Mobile variant
   return (
-    <div 
+    <div
       className="min-h-screen flex items-center justify-center"
       style={{ backgroundColor: '#FDFCFA', padding: '24px' }}
     >
@@ -358,11 +336,11 @@ export function MarioAuthSignup({
           }}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E5077" strokeWidth="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
+            <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
         </button>
       )}
-      
+
       <SignupCard
         email={email}
         password={password}
@@ -816,8 +794,8 @@ function SignupCard({
 
       {/* 
         NOTE FOR DEVELOPERS:
-        Replace console.log with real Supabase/Auth.js provider logic during integration.
-        Example: supabase.auth.signInWithOAuth({ provider: 'google' })
+        Firebase authentication is now integrated.
+        Google SSO uses signInWithPopup, email/password uses createUserWithEmailAndPassword.
       */}
 
       {/* Footer Link - small text, subdued gray #666666, underline on hover */}
@@ -950,11 +928,11 @@ function ErrorBanner({ message, onDismiss }: { message: string; onDismiss: () =>
 // Spinner Component
 function Spinner({ color }: { color: string }) {
   return (
-    <svg 
-      width="20" 
-      height="20" 
-      viewBox="0 0 20 20" 
-      fill="none" 
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{ animation: 'spin 1s linear infinite' }}
     >
@@ -1001,10 +979,10 @@ function ConfettiEffect() {
 function GoogleIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
     </svg>
   );
 }
@@ -1012,7 +990,7 @@ function GoogleIcon() {
 function AppleIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" color="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.569 12.503c-.027-2.706 2.201-4.007 2.301-4.071-1.254-1.842-3.207-2.094-3.902-2.122-1.66-.169-3.243.982-4.086.982-.842 0-2.145-.957-3.525-.932-1.814.027-3.486 1.059-4.421 2.688-1.884 3.28-.482 8.142 1.354 10.804.898 1.304 1.968 2.769 3.373 2.716 1.357-.054 1.871-.88 3.512-.88 1.641 0 2.102.88 3.525.853 1.454-.027 2.394-1.331 3.291-2.636 1.037-1.512 1.465-2.974 1.491-3.051-.033-.013-2.859-1.098-2.887-4.351h-.026zM15.034 5.398c.748-.909 1.252-2.172 1.114-3.43-1.076.044-2.379.721-3.151 1.63-.692.807-1.298 2.095-1.135 3.33 1.2.094 2.425-.612 3.172-1.53z"/>
+      <path d="M17.569 12.503c-.027-2.706 2.201-4.007 2.301-4.071-1.254-1.842-3.207-2.094-3.902-2.122-1.66-.169-3.243.982-4.086.982-.842 0-2.145-.957-3.525-.932-1.814.027-3.486 1.059-4.421 2.688-1.884 3.28-.482 8.142 1.354 10.804.898 1.304 1.968 2.769 3.373 2.716 1.357-.054 1.871-.88 3.512-.88 1.641 0 2.102.88 3.525.853 1.454-.027 2.394-1.331 3.291-2.636 1.037-1.512 1.465-2.974 1.491-3.051-.033-.013-2.859-1.098-2.887-4.351h-.026zM15.034 5.398c.748-.909 1.252-2.172 1.114-3.43-1.076.044-2.379.721-3.151 1.63-.692.807-1.298 2.095-1.135 3.33 1.2.094 2.425-.612 3.172-1.53z" />
     </svg>
   );
 }

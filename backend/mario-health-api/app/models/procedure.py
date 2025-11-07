@@ -118,3 +118,56 @@ class FamilyProceduresResponse(BaseModel):
                 ],
             }
         }
+
+
+class ProcedureProvider(BaseModel):
+    """Provider offering a specific procedure."""
+
+    provider_id: str
+    provider_name: str
+    in_network: bool = False
+    rating: float | None = None
+    reviews: int = 0
+    distance: float | None = None  # Distance in miles
+    price_estimate: Decimal
+    price_average: Decimal | None = None
+    price_relative_to_average: str | None = None  # e.g., "15% below average"
+    mario_points: int = 0
+    address: str | None = None
+    city: str | None = None
+    state: str | None = None
+    zip_code: str | None = None
+
+
+class ProcedureProvidersResponse(BaseModel):
+    """Response for GET /api/v1/procedures/{slug}/providers."""
+
+    procedure_name: str
+    procedure_slug: str
+    providers: List[ProcedureProvider]
+
+    class ConfigDict:
+        json_schema_extra = {
+            "example": {
+                "procedure_name": "MRI Scan (Brain)",
+                "procedure_slug": "mri-scan-brain",
+                "providers": [
+                    {
+                        "provider_id": "prov_001",
+                        "provider_name": "City Medical Imaging",
+                        "in_network": True,
+                        "rating": 4.8,
+                        "reviews": 142,
+                        "distance": 1.4,
+                        "price_estimate": "850.00",
+                        "price_average": "1400.00",
+                        "price_relative_to_average": "39% below average",
+                        "mario_points": 100,
+                        "address": "123 Main St",
+                        "city": "Boston",
+                        "state": "MA",
+                        "zip_code": "02138",
+                    }
+                ],
+            }
+        }

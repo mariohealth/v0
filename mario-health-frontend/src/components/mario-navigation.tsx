@@ -1,13 +1,14 @@
 'use client'
 import { ReactNode, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { MarioLogo } from './mario-logo';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { createClient } from '@/lib/supabase/client';
+import { signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 import {
   Search,
   Home,
@@ -153,7 +154,15 @@ export function TopNav({
                 <span>Privacy</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={async () => {
+                  try {
+                    await signOut(auth);
+                  } catch (error) {
+                    console.error('Error signing out:', error);
+                  }
+                }}
+              >
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>
@@ -173,30 +182,16 @@ interface DesktopNavProps {
 
 export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: DesktopNavProps) {
   const pathname = usePathname()
+  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const supabase = createClient();
 
   // Check authentication status
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        setIsAuthenticated(!!user);
-      } catch (error) {
-        setIsAuthenticated(false);
-      }
-    };
-
-    checkAuth();
-
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsAuthenticated(!!session?.user);
+    const unsubscribe = onAuthStateChanged(auth, (user: FirebaseUser | null) => {
+      setIsAuthenticated(!!user);
     });
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const menuItems = [
@@ -231,22 +226,20 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
               <Link
                 key={item.id}
                 href={item.href}
-                className={`text-sm font-medium mario-transition ${
-                  currentActiveItem === item.id
-                    ? 'text-primary border-b-2 border-primary pb-4'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
+                className={`text-sm font-medium mario-transition ${currentActiveItem === item.id
+                  ? 'text-primary border-b-2 border-primary pb-4'
+                  : 'text-muted-foreground hover:text-foreground'
+                  }`}
               >
                 {item.label}
               </Link>
             ))}
             <Link
               href="/profile"
-              className={`text-sm font-medium mario-transition ${
-                currentActiveItem === 'profile'
-                  ? 'text-primary border-b-2 border-primary pb-4'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
+              className={`text-sm font-medium mario-transition ${currentActiveItem === 'profile'
+                ? 'text-primary border-b-2 border-primary pb-4'
+                : 'text-muted-foreground hover:text-foreground'
+                }`}
             >
               Profile
             </Link>
@@ -286,7 +279,16 @@ export function DesktopNav({ activeItem, onItemChange, notificationCount = 0 }: 
                 <span>Privacy</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={async () => {
+                  try {
+                    await signOut(auth);
+                    router.push('/login');
+                  } catch (error) {
+                    console.error('Error signing out:', error);
+                  }
+                }}
+              >
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>

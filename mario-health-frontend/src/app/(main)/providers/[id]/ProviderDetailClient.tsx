@@ -1,19 +1,80 @@
 'use client'
 
-import { ProviderDetailPage as ProviderDetailComponent } from '@/components/mario-provider-detail-enhanced'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import { ProviderDetailClient as ProviderDetailComponent } from './ProviderDetailClient'
+import { Button } from '@/components/ui/button'
 
-export function ProviderDetailClient({ provider }: { provider: any }) {
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-ei5wbr4h5a-uc.a.run.app'
+
+export function ProviderDetailClient() {
     const router = useRouter()
-    
+    const params = useParams()
+    const providerId = params?.id as string
+    const [provider, setProvider] = useState<any>(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        const fetchProvider = async () => {
+            if (!providerId) {
+                setLoading(false)
+                return
+            }
+
+            try {
+                setLoading(true)
+                setError(null)
+
+                const url = `${API_BASE_URL}/api/v1/providers/${providerId}`
+                const response = await fetch(url)
+
+                if (!response.ok) {
+                    throw new Error(`API request failed: ${response.status} ${response.statusText}`)
+                }
+
+                const data = await response.json()
+                setProvider(data)
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Failed to fetch provider details')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchProvider()
+    }, [providerId])
+
     const handleBack = () => router.push('/home')
 
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+                    <p className="mt-4 text-gray-600">Loading provider details...</p>
+                </div>
+            </div>
+        )
+    }
+
+    if (error || !provider) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <h2 className="text-xl font-semibold text-red-900 mb-2">Error</h2>
+                    <p className="text-red-700 mb-4">{error || 'Provider not found'}</p>
+                    <Button onClick={handleBack}>Go Back</Button>
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <ProviderDetailComponent
-            provider={provider}
+        <ProviderDetailComponent 
+            provider={provider} 
             onBack={handleBack}
             service="Office Visit"
         />
     )
 }
-

@@ -1,3 +1,8 @@
+// DEPRECATED: Supabase Auth has been replaced with Firebase Authentication
+// This file is kept for reference but should not be used for authentication
+// Use Firebase auth from @/lib/firebase instead
+
+/*
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import type { Database } from '@/types/database.types'
@@ -28,4 +33,4 @@ export async function createClient() {
         }
     )
 }
-
+*/

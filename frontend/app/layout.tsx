@@ -4,6 +4,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorTestButton } from '@/components/error-test-button';
 import { Navbar } from '@/components/navbar';
 import { PreferencesProvider } from '@/lib/contexts/PreferencesContext';
+import { AuthProvider } from '@/lib/contexts/AuthContext';
 
 export const metadata: Metadata = {
   title: 'Mario Health',
@@ -19,14 +20,16 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <ErrorBoundary>
-          <PreferencesProvider>
-            <Navbar />
-            <div className="pt-16">
-              {children}
-            </div>
-            {/* Temporarily added for error boundary testing - remove after verification */}
-            {process.env.NODE_ENV === 'development' && <ErrorTestButton />}
-          </PreferencesProvider>
+          <AuthProvider>
+            <PreferencesProvider>
+              <Navbar />
+              <div className="pt-16">
+                {children}
+              </div>
+              {/* Temporarily added for error boundary testing - remove after verification */}
+              {process.env.NODE_ENV === 'development' && <ErrorTestButton />}
+            </PreferencesProvider>
+          </AuthProvider>
         </ErrorBoundary>
       </body>
     </html>

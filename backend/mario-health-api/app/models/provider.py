@@ -1,4 +1,5 @@
 """Provider-related models."""
+
 from pydantic import BaseModel, Field
 from typing import List
 from decimal import Decimal
@@ -6,6 +7,7 @@ from decimal import Decimal
 
 class ProviderProcedurePricing(BaseModel):
     """Procedure pricing offered by a provider."""
+
     procedure_id: str
     procedure_name: str
     procedure_slug: str
@@ -24,6 +26,7 @@ class ProviderProcedurePricing(BaseModel):
 
 class ProviderDetail(BaseModel):
     """Detailed information about a healthcare provider."""
+
     provider_id: str
     provider_name: str
 
@@ -75,8 +78,76 @@ class ProviderDetail(BaseModel):
                         "price": "120.50",
                         "carrier_id": "carrier_001",
                         "carrier_name": "Aetna",
-                        "last_updated": "2025-10-15"
+                        "last_updated": "2025-10-15",
                     }
-                ]
+                ],
+            }
+        }
+
+
+class ProviderProcedureDetail(BaseModel):
+    """Detailed provider-procedure information."""
+
+    provider_id: str
+    provider_name: str
+    procedure_id: str
+    procedure_name: str
+    procedure_slug: str
+
+    # Location info
+    address: str | None = None
+    city: str | None = None
+    state: str | None = None
+    zip_code: str | None = None
+    phone: str | None = None
+    website: str | None = None
+    hours: str | None = None
+
+    # Pricing
+    estimated_costs: dict = Field(
+        default_factory=dict
+    )  # {facility_fee, professional_fee, supplies_fee, total}
+    average_price: Decimal | None = None
+    savings_vs_average: float | None = None  # Percentage
+
+    # Provider info
+    in_network: bool = False
+    rating: float | None = None
+    reviews: int = 0
+    accreditation: str | None = None
+    staff: str | None = None
+
+    # MarioPoints
+    mario_points: int = 0
+
+    class ConfigDict:
+        json_schema_extra = {
+            "example": {
+                "provider_id": "prov_001",
+                "provider_name": "LabFast Diagnostics",
+                "procedure_id": "proc_001",
+                "procedure_name": "MRI Scan (Brain)",
+                "procedure_slug": "mri-scan-brain",
+                "address": "123 Main St",
+                "city": "Boston",
+                "state": "MA",
+                "zip_code": "02138",
+                "phone": "(617) 555-1234",
+                "website": "https://labfast.com",
+                "hours": "Mon-Fri 8am-6pm",
+                "estimated_costs": {
+                    "facility_fee": "600.00",
+                    "professional_fee": "250.00",
+                    "supplies_fee": "0.00",
+                    "total": "850.00",
+                },
+                "average_price": "1400.00",
+                "savings_vs_average": 39.3,
+                "in_network": True,
+                "rating": 4.8,
+                "reviews": 142,
+                "accreditation": "ACR Accredited",
+                "staff": "Board-certified radiologists",
+                "mario_points": 100,
             }
         }

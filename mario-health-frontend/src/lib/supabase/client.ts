@@ -1,5 +1,10 @@
 'use client'
 
+// DEPRECATED: Supabase Auth has been replaced with Firebase Authentication
+// This file is kept for reference but should not be used for authentication
+// Use Firebase auth from @/lib/firebase instead
+
+/*
 // Mock Supabase client for development/testing - no network requests or env vars required
 export function createClient() {
   // Return a mock Supabase client that always "succeeds"
@@ -86,3 +91,4 @@ export function createClient() {
     }),
   } as any;
 }
+*/

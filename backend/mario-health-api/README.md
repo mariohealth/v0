@@ -16,6 +16,17 @@ Before running or deploying, make sure you have:
 - 🪣 [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed & authenticated  
 - 🐘 A [Supabase](https://supabase.com/) project with a table (e.g. `products`)
 
+## 🔐 Authenticate Local Environment
+
+For local development, you need to authenticate with Google Cloud using Application Default Credentials (ADC):
+
+```bash
+# Authenticate local environment for Firebase Admin SDK
+gcloud auth application-default login
+```
+
+This allows Firebase Admin SDK to use your local credentials. On Cloud Run, the runtime automatically uses the attached IAM service account, so no additional setup is needed.
+
 ## Deploy on your local machine
 ```bash
 # Create virtual environment (if not already done)
@@ -27,6 +38,9 @@ source .venv/bin/activate
 
 # Install requirements in virtual env (if not already done)
 pip3 install --no-cache-dir -r requirements.txt
+
+# Authenticate with Google Cloud for Firebase Admin SDK (required for local development)
+gcloud auth application-default login
 
 # Set the following variables in .env to their correct value
 SUPABASE_URL=https://your-project.supabase.co

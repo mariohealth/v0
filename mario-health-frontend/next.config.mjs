@@ -16,8 +16,10 @@ const nextConfig = {
             'mario-health-api-ei5wbr4h5a-uc.a.run.app',
         ],
     },
-    experimental: {
-        appDir: true,
+    output: 'export',
+    trailingSlash: true,
+    env: {
+        NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
     },
 };
 

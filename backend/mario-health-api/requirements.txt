@@ -6,6 +6,7 @@ pydantic==2.12.3
 pydantic-core==2.41.4
 google-auth>=2.0.0
 requests>=2.31.0
+firebase-admin>=6.0.0
 
 # Testing dependencies
 pytest==7.4.3

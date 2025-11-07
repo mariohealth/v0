@@ -155,7 +155,14 @@ export default function SearchHeader({
   const handleAutocompleteSelect = (suggestion: AutocompleteSuggestion) => {
     setQuery(suggestion.name);
     setSearchQuery(suggestion.name);
-    handleSearch(suggestion.name, location);
+    // Navigate to procedure page using slug instead of search
+    if (suggestion.slug) {
+      router.push(`/procedures/${suggestion.slug}`);
+      setShowAutocomplete(false);
+    } else {
+      // Fallback to search if no slug available
+      handleSearch(suggestion.name, location);
+    }
   };
 
   const handleSuggestionClick = () => {

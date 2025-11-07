@@ -154,12 +154,15 @@ export function ProviderDetailPage({ provider, onBack, service = "Office Visit" 
                 Hours
               </h3>
               <div className="space-y-1">
-                {Object.entries(provider.hours).map(([day, hours]) => (
+                {provider.hours && Object.entries(provider.hours).map(([day, hours]) => (
                   <div key={day} className="flex justify-between text-sm">
                     <span className="font-medium">{day}:</span>
                     <span className="text-muted-foreground">{hours}</span>
                   </div>
                 ))}
+                {(!provider.hours || Object.keys(provider.hours).length === 0) && (
+                  <p className="text-sm text-muted-foreground">Hours not available</p>
+                )}
               </div>
             </Card>
 
@@ -167,16 +170,19 @@ export function ProviderDetailPage({ provider, onBack, service = "Office Visit" 
             <Card className="p-4 space-y-3">
               <h3 className="font-semibold">Accepted Insurance</h3>
               <div className="space-y-2">
-                {provider.acceptedInsurance.slice(0, 3).map((insurance) => (
+                {provider.acceptedInsurance && provider.acceptedInsurance.slice(0, 3).map((insurance) => (
                   <div key={insurance} className="flex items-center gap-2">
                     <Check className="h-4 w-4 text-green-600" />
                     <span className="text-sm">{insurance}</span>
                   </div>
                 ))}
-                {provider.acceptedInsurance.length > 3 && (
+                {provider.acceptedInsurance && provider.acceptedInsurance.length > 3 && (
                   <p className="text-sm text-primary cursor-pointer">
                     + {provider.acceptedInsurance.length - 3} more
                   </p>
+                )}
+                {(!provider.acceptedInsurance || provider.acceptedInsurance.length === 0) && (
+                  <p className="text-sm text-muted-foreground">Insurance information not available</p>
                 )}
               </div>
             </Card>
