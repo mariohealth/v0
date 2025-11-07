@@ -72,8 +72,8 @@ export default function ProviderDetailRoute() {
 
     return (
         <div className="min-h-screen bg-background">
-            <ProviderDetailComponent 
-                provider={provider} 
+            <ProviderDetailComponent
+                provider={provider}
                 onBack={handleBack}
                 service="Office Visit"
             />
