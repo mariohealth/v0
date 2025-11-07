@@ -21,7 +21,9 @@ export default function RootLayout({
         <ErrorBoundary>
           <PreferencesProvider>
             <Navbar />
-            {children}
+            <div className="pt-16">
+              {children}
+            </div>
             {/* Temporarily added for error boundary testing - remove after verification */}
             {process.env.NODE_ENV === 'development' && <ErrorTestButton />}
           </PreferencesProvider>
