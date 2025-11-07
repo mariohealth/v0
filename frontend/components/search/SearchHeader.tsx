@@ -53,7 +53,7 @@ export default function SearchHeader({
   const [searchQuery, setSearchQuery] = useState(query);
   const queryInputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<HTMLDivElement>(null);
-  const debounceTimerRef = useRef<NodeJS.Timeout>();
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Update location when preferences change
   useEffect(() => {
