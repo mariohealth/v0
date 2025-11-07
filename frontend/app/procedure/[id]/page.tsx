@@ -75,7 +75,7 @@ export default function ProcedurePage() {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Breadcrumb */}
-            <div className="border-b bg-white sticky top-0 z-10">
+            <div className="border-b bg-white sticky top-16 z-10">
                 <div className="max-w-7xl mx-auto px-4 py-4">
                     <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                         <ArrowLeft className="h-4 w-4" />

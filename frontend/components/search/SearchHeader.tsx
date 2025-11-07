@@ -72,7 +72,7 @@ export default function SearchHeader({
     if (searchQuery.trim().length >= 2) {
       setIsLoadingAutocomplete(true);
       setShowAutocomplete(true);
-      
+
       debounceTimerRef.current = setTimeout(async () => {
         try {
           const suggestions = await getAutocompleteSuggestions(searchQuery.trim(), 5);
@@ -131,7 +131,7 @@ export default function SearchHeader({
     if (searchQuery.trim()) {
       // Add to history
       addToHistory(searchQuery, searchLocation);
-      
+
       // Navigate to search page
       router.push(`/search?q=${encodeURIComponent(searchQuery)}&location=${encodeURIComponent(searchLocation)}`);
       setShowHistory(false);
@@ -173,7 +173,7 @@ export default function SearchHeader({
   };
 
   return (
-    <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div className="bg-white border-b border-gray-200 sticky top-16 z-10">
       <div className="max-w-7xl mx-auto px-4 py-4">
         {/* Back button and title */}
         <div className="flex items-center gap-3 mb-4">
@@ -220,7 +220,7 @@ export default function SearchHeader({
               className="w-full pl-10 pr-4 py-3 min-h-[44px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-base"
               aria-label="Search for procedures or tests"
             />
-            
+
             {/* Autocomplete Suggestions Dropdown */}
             {showAutocomplete && searchQuery.length >= 2 && (
               <div
@@ -254,7 +254,7 @@ export default function SearchHeader({
                 )}
               </div>
             )}
-            
+
             {/* Search History Dropdown */}
             {showHistory && searchQuery.length < 2 && (
               <SearchHistoryDropdown
