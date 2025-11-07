@@ -16,13 +16,7 @@
 
 import { trackApiCall, trackError } from './analytics';
 import { getAuthToken } from './auth-token';
-
-// Configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-72178908097.us-central1.run.app';
-
-if (!API_BASE_URL || API_BASE_URL === 'your_api_url') {
-    console.error('⚠️  NEXT_PUBLIC_API_URL is not configured. Please set it in your .env.local file.');
-}
+import { API_BASE_URL } from './config';
 
 // Type definitions (simplified - add full types later)
 export interface Category {
@@ -108,12 +102,6 @@ export interface ProcedureDetail {
  * Generic fetch wrapper with error handling, analytics, and CORS detection
  */
 async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    if (!API_BASE_URL || API_BASE_URL === 'your_api_url') {
-        const error = new Error('API URL is not configured. Please set NEXT_PUBLIC_API_URL in .env.local');
-        trackError(error, { endpoint: 'api-config' });
-        throw error;
-    }
-
     const url = `${API_BASE_URL}${endpoint}`;
     const startTime = performance.now();
 
@@ -248,18 +236,18 @@ function transformProcedure(raw: any): Procedure {
  */
 function transformSearchResult(raw: any): SearchResult {
     // Convert string prices to numbers (backend returns them as strings)
-    const bestPrice = typeof raw.best_price === 'string' 
-        ? parseFloat(raw.best_price) 
-        : typeof raw.best_price === 'number' 
-            ? raw.best_price 
+    const bestPrice = typeof raw.best_price === 'string'
+        ? parseFloat(raw.best_price)
+        : typeof raw.best_price === 'number'
+            ? raw.best_price
             : 0;
-    
-    const avgPrice = typeof raw.avg_price === 'string' 
-        ? parseFloat(raw.avg_price) 
-        : typeof raw.avg_price === 'number' 
-            ? raw.avg_price 
+
+    const avgPrice = typeof raw.avg_price === 'string'
+        ? parseFloat(raw.avg_price)
+        : typeof raw.avg_price === 'number'
+            ? raw.avg_price
             : 0;
-    
+
     return {
         procedureId: raw.procedure_id,
         procedureName: raw.procedure_name,
@@ -390,7 +378,7 @@ export async function searchProcedures(
         }
 
         const transformedResults = data.results.map(transformSearchResult);
-        
+
         console.log("🧠 Transformed results:", {
             count: transformedResults.length,
             first_result: transformedResults[0] || null
