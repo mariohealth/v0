@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { Home, Gift, User, Settings, LogOut, ChevronDown, Sparkles } from 'lucide-react';
+import { Home, Search, Gift, User, Settings, LogOut, ChevronDown, Sparkles } from 'lucide-react';
 import { cn } from '@/components/ui/utils';
 
 interface GlobalNavProps {
@@ -45,6 +45,7 @@ export function GlobalNav({ showOnMobile = true, showOnDesktop = true }: GlobalN
 
     const navItems = [
         { href: '/', label: 'Home', icon: Home },
+        { href: '/search', label: 'Search', icon: Search },
         { href: '/home', label: 'Health Hub', icon: Home },
         { href: '/rewards', label: 'Rewards', icon: Gift },
         { href: '/profile', label: 'Profile', icon: User },
@@ -136,6 +137,14 @@ export function GlobalNav({ showOnMobile = true, showOnDesktop = true }: GlobalN
                                         >
                                             <Settings className="h-4 w-4" />
                                             Settings
+                                        </Link>
+                                        <Link
+                                            href="/help"
+                                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                                            onClick={() => setShowProfileDropdown(false)}
+                                        >
+                                            <Sparkles className="h-4 w-4" />
+                                            Help
                                         </Link>
                                         <button
                                             onClick={handleLogout}

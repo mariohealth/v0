@@ -3,6 +3,7 @@
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Gift, Trophy, Star, Award } from 'lucide-react';
 import { getTotalPoints, getRewardHistory, type RewardEvent } from '@/lib/rewards';
 import { BottomNav } from '@/components/navigation/BottomNav';
@@ -59,7 +60,7 @@ export default function RewardsPage() {
                 </div>
 
                 {/* Rewards Info */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div id="earn-more" className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                     <div className="bg-white rounded-lg shadow p-6">
                         <Trophy className="h-8 w-8 text-yellow-500 mb-2" />
                         <h3 className="font-semibold text-gray-900 mb-1">Book Concierge</h3>
@@ -77,8 +78,18 @@ export default function RewardsPage() {
                     </div>
                 </div>
 
+                {/* Find More Ways to Earn */}
+                <div className="mb-8 text-center">
+                    <Link
+                        href="/search?q=savings"
+                        className="inline-block rounded-md bg-[#2E5077] px-6 py-3 text-white hover:bg-[#1e3a5a] transition-colors"
+                    >
+                        Find More Ways to Earn
+                    </Link>
+                </div>
+
                 {/* Reward History */}
-                <div className="bg-white rounded-lg shadow">
+                <div id="activity" className="bg-white rounded-lg shadow">
                     <div className="p-6 border-b">
                         <h2 className="text-xl font-semibold text-gray-900">Recent Activity</h2>
                     </div>
