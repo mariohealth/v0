@@ -34,15 +34,15 @@ export default function HomePage() {
   };
 
   const handleBrowseProcedures = () => {
-    router.push('/search?q=procedure');
+    router.push('/procedures');
   };
 
   const handleFindDoctors = () => {
-    router.push('/search?q=doctor');
+    router.push('/doctors');
   };
 
   const handleFindMedication = () => {
-    router.push('/search?q=medication');
+    router.push('/medications');
   };
 
   const handleMarioCare = () => {
@@ -50,13 +50,11 @@ export default function HomePage() {
   };
 
   const handleOpenAI = () => {
-    // TODO: Implement AI chat page
-    router.push('/search');
+    // Opens MarioAI modal (handled by MarioHome component)
   };
 
   const handleOpenAIWithPrompt = (prompt: string) => {
-    // TODO: Implement AI chat page with prompt
-    router.push(`/search?q=${encodeURIComponent(prompt)}`);
+    // Opens MarioAI modal with prompt (handled by MarioHome component)
   };
 
   if (loading) {
