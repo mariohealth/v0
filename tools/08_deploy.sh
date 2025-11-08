@@ -45,6 +45,13 @@ if [ ! -d ".next" ]; then
     exit 1
 fi
 
+# Copy index.html to root for Firebase Hosting
+if [ -f ".next/server/app/index.html" ]; then
+    echo "📋 Copying index.html to root for Firebase Hosting..."
+    cp .next/server/app/index.html .next/index.html
+    echo "✅ index.html copied to root"
+fi
+
 echo "✅ Frontend build complete"
 
 cd - > /dev/null

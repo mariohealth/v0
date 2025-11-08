@@ -3,9 +3,7 @@
 import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { MarioSearchResultsEnhanced as MarioSearchResults } from '@/components/mario-search-results-enhanced'
-
-// Backend API base URL
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+import { API_BASE_URL } from '@/lib/config'
 
 interface ResultsPageProps {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -43,11 +41,17 @@ function ResultsContent() {
 
                 // Call backend API
                 const url = `${API_BASE_URL}/api/v1/search?q=${encodeURIComponent(query)}&zip_code=10001&radius=25`
-                // console.log("🔍 [API CALL] Fetching results from:", url)
-                // console.log("🔍 [API CALL] HTTP Method: GET")
-                // console.log("🔍 [API CALL] Parameters:", { query, zip_code: "10001", radius: 25 })
+                console.log("🔍 [API CALL] Fetching results from:", url)
+                console.log("🔍 [API CALL] API_BASE_URL:", API_BASE_URL)
+                console.log("🔍 [API CALL] HTTP Method: GET")
+                console.log("🔍 [API CALL] Parameters:", { query, zip_code: "10001", radius: 25 })
                 
-                const response = await fetch(url)
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
                 
                 // console.log("🔍 [API CALL] Response status:", response.status, response.statusText)
                 

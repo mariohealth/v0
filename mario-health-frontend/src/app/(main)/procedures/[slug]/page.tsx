@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { ChevronLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-ei5wbr4h5a-uc.a.run.app'
+import { API_BASE_URL } from '@/lib/config'
 
 export default function ProcedureDetailPage() {
     const params = useParams()
@@ -27,7 +26,13 @@ export default function ProcedureDetailPage() {
                 setError(null)
 
                 const url = `${API_BASE_URL}/api/v1/procedures/${slug}`
-                const response = await fetch(url)
+                console.log("🔍 [API CALL] Fetching procedure from:", url)
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
 
                 if (!response.ok) {
                     throw new Error(`API request failed: ${response.status} ${response.statusText}`)
