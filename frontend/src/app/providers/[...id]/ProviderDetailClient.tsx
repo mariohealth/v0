@@ -1,31 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import Link from 'next/link';
-
-interface ProviderDetail {
-  provider_id: string;
-  provider_name: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
-  phone?: string;
-  email?: string;
-  website?: string;
-  procedures?: Array<{
-    procedure_id: string;
-    procedure_name: string;
-    procedure_slug: string;
-    price: string;
-  }>;
-}
+import { getProviderDetail, type ProviderDetail } from '@/lib/api';
 
 export default function ProviderDetailClient() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const providerId = Array.isArray(params.id) ? params.id.join('/') : params.id || '';
+  const procedureSlug = searchParams.get('from_procedure');
   const { user, loading: authLoading } = useAuth();
   const [provider, setProvider] = useState<ProviderDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -39,31 +24,19 @@ export default function ProviderDetailClient() {
       setError(null);
 
       try {
-        // Note: This endpoint may not exist yet in the backend
-        // For now, we'll show a placeholder
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
-        const url = `${API_BASE_URL}/api/v1/providers/${providerId}`;
-
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          if (response.status === 404) {
-            setError('Provider not found. This endpoint may not be implemented yet.');
-          } else {
-            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
-          }
-        } else {
-          const data = await response.json();
-          setProvider(data as ProviderDetail);
-        }
+        const data = await getProviderDetail(providerId);
+        setProvider(data);
       } catch (err) {
         console.error('Error fetching provider:', err);
-        setError('Failed to load provider details. This endpoint may not be implemented yet.');
+        if (err instanceof Error) {
+          if (err.message.includes('404') || err.message.includes('not found')) {
+            setError('Provider not found.');
+          } else {
+            setError(`Failed to load provider details: ${err.message}`);
+          }
+        } else {
+          setError('Failed to load provider details. Please try again.');
+        }
       } finally {
         setLoading(false);
       }
@@ -138,12 +111,22 @@ export default function ProviderDetailClient() {
   return (
     <main className="min-h-screen bg-gray-50 py-8">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <Link
-          href="/search"
-          className="mb-4 inline-block text-blue-600 hover:text-blue-800"
-        >
-          ← Back to Search
-        </Link>
+        <div className="mb-4 flex gap-4">
+          {procedureSlug && (
+            <Link
+              href={`/procedures/${procedureSlug}`}
+              className="inline-block text-blue-600 hover:text-blue-800"
+            >
+              ← Back to Procedure
+            </Link>
+          )}
+          <Link
+            href="/search"
+            className="inline-block text-blue-600 hover:text-blue-800"
+          >
+            {procedureSlug ? '|' : '←'} Back to Search
+          </Link>
+        </div>
 
         <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
           <h1 className="text-3xl font-bold text-gray-900">{provider.provider_name}</h1>
