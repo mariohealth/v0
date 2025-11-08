@@ -85,70 +85,101 @@ export function MarioSmartSearch({
 
     setIsLoading(true);
     
-    debounceRef.current = setTimeout(() => {
+    debounceRef.current = setTimeout(async () => {
       const suggestions: AutocompleteSuggestion[] = [];
       
-      // Search doctors
-      const matchingDoctors = doctors.filter(doc => 
-        fuzzyMatch(doc.name, query)
-      ).slice(0, 3);
-      
-      matchingDoctors.forEach(doc => {
-        suggestions.push({
-          id: doc.id,
-          type: 'doctor',
-          primaryText: doc.name,
-          secondaryText: doc.specialty,
-          doctor: doc
-        });
-      });
-      
-      // Search specialties
-      const matchingSpecialties = specialties.filter(spec =>
-        fuzzyMatch(spec.name, query)
-      ).slice(0, 3);
-      
-      matchingSpecialties.forEach(spec => {
-        suggestions.push({
-          id: spec.id,
-          type: 'specialty',
-          primaryText: spec.name,
-          secondaryText: `${spec.doctorCount} doctors available`,
-          specialty: spec
-        });
-      });
-      
-      // Search procedures (from existing search data)
-      const matchingProcedures = searchData.procedures.filter(proc =>
-        fuzzyMatch(proc.name, query)
-      ).slice(0, 3);
-      
-      matchingProcedures.forEach(proc => {
-        suggestions.push({
-          id: `proc-${proc.name}`,
-          type: 'specialty' as any, // Use specialty type for procedures for now
-          primaryText: proc.name,
-          secondaryText: 'View providers'
-        });
-      });
-      
-      // Search medications
-      const matchingMedications = searchMedications(query).slice(0, 3);
-      
-      matchingMedications.forEach(med => {
-        // Create display text like "Lipitor - Atorvastatin 20 mg"
-        const displayName = med.genericFor 
-          ? `${med.genericFor} - ${med.name}`
-          : med.name;
+      try {
+        // Try API-based autocomplete first
+        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
+        const response = await fetch(`${API_BASE_URL}/api/v1/search?q=${encodeURIComponent(query)}&limit=10`);
         
-        suggestions.push({
-          id: med.id || `med-${med.name}`,
-          type: 'medication' as any,
-          primaryText: displayName,
-          secondaryText: 'Medication',
-          medication: med
+        if (response.ok) {
+          const data = await response.json();
+          if (data.results && Array.isArray(data.results)) {
+            // Convert API results to autocomplete suggestions
+            data.results.forEach((result: any) => {
+              if (result.procedure_slug) {
+                suggestions.push({
+                  id: result.procedure_id || result.procedure_slug,
+                  type: 'procedure' as any,
+                  primaryText: result.procedure_name,
+                  secondaryText: `${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
+                  procedureSlug: result.procedure_slug
+                });
+              }
+            });
+          }
+        }
+      } catch (error) {
+        // Fallback to mock data if API fails
+        console.log('API autocomplete failed, using mock data', error);
+      }
+      
+      // Fallback to mock data if no API results or API failed
+      if (suggestions.length === 0) {
+        // Search doctors
+        const matchingDoctors = doctors.filter(doc => 
+          fuzzyMatch(doc.name, query)
+        ).slice(0, 3);
+        
+        matchingDoctors.forEach(doc => {
+          suggestions.push({
+            id: doc.id,
+            type: 'doctor',
+            primaryText: doc.name,
+            secondaryText: doc.specialty,
+            doctor: doc
+          });
         });
-      });
+        
+        // Search specialties
+        const matchingSpecialties = specialties.filter(spec =>
+          fuzzyMatch(spec.name, query)
+        ).slice(0, 3);
+        
+        matchingSpecialties.forEach(spec => {
+          suggestions.push({
+            id: spec.id,
+            type: 'specialty',
+            primaryText: spec.name,
+            secondaryText: `${spec.doctorCount} doctors available`,
+            specialty: spec
+          });
+        });
+        
+        // Search procedures (from existing search data)
+        const matchingProcedures = searchData.procedures.filter(proc =>
+          fuzzyMatch(proc.name, query)
+        ).slice(0, 3);
+        
+        matchingProcedures.forEach(proc => {
+          suggestions.push({
+            id: `proc-${proc.name}`,
+            type: 'specialty' as any, // Use specialty type for procedures for now
+            primaryText: proc.name,
+            secondaryText: 'View providers',
+            procedureSlug: proc.slug || proc.name.toLowerCase().replace(/\s+/g, '-')
+          });
+        });
+        
+        // Search medications
+        const matchingMedications = searchMedications(query).slice(0, 3);
+        
+        matchingMedications.forEach(med => {
+          // Create display text like "Lipitor - Atorvastatin 20 mg"
+          const displayName = med.genericFor 
+            ? `${med.genericFor} - ${med.name}`
+            : med.name;
+          
+          suggestions.push({
+            id: med.id || `med-${med.name}`,
+            type: 'medication' as any,
+            primaryText: displayName,
+            secondaryText: 'Medication',
+            medication: med
+          });
+        });
+      }
       
       setAutocompleteSuggestions(suggestions);
       setShowAutocomplete(suggestions.length > 0);

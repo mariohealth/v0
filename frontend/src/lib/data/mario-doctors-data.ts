@@ -1027,6 +1027,9 @@ export function getSpecialtiesAtHospital(hospitalId: string): Array<{
 }
 
 // Get unique hospital count for a specialty
+// Export alias for compatibility
+export const marioDoctorsData = doctors;
+
 export function getUniqueHospitalCount(specialtyId: string): number {
   const pairings = getProviderHospitalPairingsBySpecialty(specialtyId);
   const uniqueHospitals = new Set(pairings.map(p => p.hospitalId));

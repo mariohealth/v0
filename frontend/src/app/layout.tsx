@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { AuthProvider } from "@/lib/contexts/AuthContext";
 import { ToastProvider } from "@/components/ui/toast-provider";
 import { GlobalNav } from "@/components/navigation/GlobalNav";
+import { MarioAIFloatingButton } from "@/components/mario-ai-floating-button";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -36,6 +37,7 @@ export default function RootLayout({
           <ToastProvider>
             <GlobalNav />
             {children}
+            <MarioAIFloatingButton />
           </ToastProvider>
         </AuthProvider>
       </body>
