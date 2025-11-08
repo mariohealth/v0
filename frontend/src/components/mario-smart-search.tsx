@@ -89,14 +89,14 @@ export function MarioSmartSearch({
       const suggestions: AutocompleteSuggestion[] = [];
       
       try {
-        // Try API-based autocomplete first
+        // Use API-based autocomplete for procedures
         const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
         const response = await fetch(`${API_BASE_URL}/api/v1/search?q=${encodeURIComponent(query)}&limit=10`);
         
         if (response.ok) {
           const data = await response.json();
           if (data.results && Array.isArray(data.results)) {
-            // Convert API results to autocomplete suggestions
+            // Convert API results to autocomplete suggestions (only procedures)
             data.results.forEach((result: any) => {
               if (result.procedure_slug) {
                 suggestions.push({
@@ -111,11 +111,11 @@ export function MarioSmartSearch({
           }
         }
       } catch (error) {
-        // Fallback to mock data if API fails
-        console.log('API autocomplete failed, using mock data', error);
+        // Log error but don't fallback to mock data for procedures
+        console.error('API autocomplete failed:', error);
       }
       
-      // Fallback to mock data if no API results or API failed
+      // Only use mock data fallback for doctors, specialties, and medications (not procedures)
       if (suggestions.length === 0) {
         // Search doctors
         const matchingDoctors = doctors.filter(doc => 
@@ -144,21 +144,6 @@ export function MarioSmartSearch({
             primaryText: spec.name,
             secondaryText: `${spec.doctorCount} doctors available`,
             specialty: spec
-          });
-        });
-        
-        // Search procedures (from existing search data)
-        const matchingProcedures = searchData.procedures.filter(proc =>
-          fuzzyMatch(proc.name, query)
-        ).slice(0, 3);
-        
-        matchingProcedures.forEach(proc => {
-          suggestions.push({
-            id: `proc-${proc.name}`,
-            type: 'specialty' as any, // Use specialty type for procedures for now
-            primaryText: proc.name,
-            secondaryText: 'View providers',
-            procedureSlug: proc.slug || proc.name.toLowerCase().replace(/\s+/g, '-')
           });
         });
         

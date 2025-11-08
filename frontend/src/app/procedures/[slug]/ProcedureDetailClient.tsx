@@ -160,7 +160,7 @@ export default function ProcedureDetailClient() {
                         {providers.map((provider) => (
                             <Link
                                 key={provider.provider_id}
-                                href={`/providers/${provider.provider_id}?from_procedure=${encodeURIComponent(slug)}`}
+                                href={`/providers/${provider.provider_id}?procedure=${encodeURIComponent(slug)}`}
                                 className="block rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                             >
                                 <div className="flex items-start justify-between">
