@@ -1,124 +1,82 @@
 'use client';
 
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Gift, Trophy, Star, Award } from 'lucide-react';
-import { getTotalPoints, getRewardHistory, type RewardEvent } from '@/lib/rewards';
-import { BottomNav } from '@/components/navigation/BottomNav';
+import { MarioRewardsV2 } from '@/components/mario-rewards-v2';
 
 export default function RewardsPage() {
-    const { user, loading } = useAuth();
-    const router = useRouter();
-    const [points, setPoints] = useState(0);
-    const [history, setHistory] = useState<RewardEvent[]>([]);
+  const { user, loading } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [confettiKey, setConfettiKey] = useState(0);
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/login');
-        }
-    }, [user, loading, router]);
-
-    useEffect(() => {
-        if (user) {
-            setPoints(getTotalPoints());
-            setHistory(getRewardHistory());
-        }
-    }, [user]);
-
-    if (loading) {
-        return (
-            <main className="flex min-h-screen flex-col items-center justify-center">
-                <p className="text-gray-600">Loading...</p>
-            </main>
-        );
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
     }
+  }, [user, loading, router]);
 
-    if (!user) {
-        return null;
+  // Handle deep links to activity section
+  useEffect(() => {
+    const hash = searchParams.get('hash') || window.location.hash;
+    if (hash === '#activity') {
+      // Scroll to activity section if needed
+      setTimeout(() => {
+        const element = document.getElementById('activity-section');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
+  }, [searchParams]);
 
+  if (loading) {
     return (
-        <main className="min-h-screen bg-gray-50 pb-16">
-            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
-                {/* Header */}
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Rewards</h1>
-                    <p className="text-gray-600">Earn MarioPoints for using Mario Health</p>
-                </div>
-
-                {/* Points Summary Card */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg p-8 mb-8 text-white">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-blue-100 mb-2">Total MarioPoints</p>
-                            <p className="text-5xl font-bold">{points}</p>
-                        </div>
-                        <Gift className="h-16 w-16 text-blue-200" />
-                    </div>
-                </div>
-
-                {/* Rewards Info */}
-                <div id="earn-more" className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                    <div className="bg-white rounded-lg shadow p-6">
-                        <Trophy className="h-8 w-8 text-yellow-500 mb-2" />
-                        <h3 className="font-semibold text-gray-900 mb-1">Book Concierge</h3>
-                        <p className="text-sm text-gray-600">+50 points</p>
-                    </div>
-                    <div className="bg-white rounded-lg shadow p-6">
-                        <Star className="h-8 w-8 text-blue-500 mb-2" />
-                        <h3 className="font-semibold text-gray-900 mb-1">Use MarioAI Pick</h3>
-                        <p className="text-sm text-gray-600">+25 points</p>
-                    </div>
-                    <div className="bg-white rounded-lg shadow p-6">
-                        <Award className="h-8 w-8 text-green-500 mb-2" />
-                        <h3 className="font-semibold text-gray-900 mb-1">Complete Profile</h3>
-                        <p className="text-sm text-gray-600">+100 points</p>
-                    </div>
-                </div>
-
-                {/* Find More Ways to Earn */}
-                <div className="mb-8 text-center">
-                    <Link
-                        href="/search?q=savings"
-                        className="inline-block rounded-md bg-[#2E5077] px-6 py-3 text-white hover:bg-[#1e3a5a] transition-colors"
-                    >
-                        Find More Ways to Earn
-                    </Link>
-                </div>
-
-                {/* Reward History */}
-                <div id="activity" className="bg-white rounded-lg shadow">
-                    <div className="p-6 border-b">
-                        <h2 className="text-xl font-semibold text-gray-900">Recent Activity</h2>
-                    </div>
-                    <div className="divide-y">
-                        {history.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">
-                                <Gift className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                                <p>No rewards yet. Start using Mario Health to earn points!</p>
-                            </div>
-                        ) : (
-                            history.map((event, idx) => (
-                                <div key={idx} className="p-6 flex items-center justify-between">
-                                    <div>
-                                        <p className="font-medium text-gray-900">{event.description}</p>
-                                        <p className="text-sm text-gray-500">
-                                            {new Date(event.timestamp).toLocaleDateString()}
-                                        </p>
-                                    </div>
-                                    <div className="text-lg font-semibold text-green-600">
-                                        +{event.points}
-                                    </div>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
-            </div>
-            <BottomNav />
-        </main>
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">Loading...</div>
+      </div>
     );
-}
+  }
 
+  if (!user) {
+    return null; // Will redirect
+  }
+
+  const handleBack = () => router.push('/home');
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Confetti animation */}
+      {showConfetti && (
+        <div
+          key={confettiKey}
+          className="fixed inset-0 pointer-events-none z-50"
+          style={{
+            animation: 'confetti-fall 3s ease-out forwards',
+          }}
+        >
+          {/* Simple confetti effect */}
+          {Array.from({ length: 50 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: '-10px',
+                width: '10px',
+                height: '10px',
+                backgroundColor: ['#2E5077', '#4DA1A9', '#79D7BE', '#FFA726'][Math.floor(Math.random() * 4)],
+                animation: `confetti-fall ${2 + Math.random() * 2}s ease-out forwards`,
+                animationDelay: `${Math.random() * 0.5}s`,
+                transform: `rotate(${Math.random() * 360}deg)`,
+              }}
+            />
+          ))}
+        </div>
+      )}
+      <MarioRewardsV2 onBack={handleBack} />
+    </div>
+  );
+}
