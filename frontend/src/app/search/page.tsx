@@ -1,26 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/lib/contexts/AuthContext';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { searchProcedures, type SearchResult } from '@/lib/api';
+import { saveSearchQuery, getLastSearchQuery, clearSearchHistory } from '@/lib/search-state';
+import { BottomNav } from '@/components/navigation/BottomNav';
 
-export default function SearchPage() {
+function SearchPageContent() {
   const { user, loading } = useAuth();
+  const searchParams = useSearchParams();
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim()) return;
+  // Restore last search query on mount
+  useEffect(() => {
+    if (user && !loading) {
+      const urlQuery = searchParams.get('q');
+      const lastQuery = getLastSearchQuery();
+      const initialQuery = urlQuery || lastQuery || '';
+      if (initialQuery) {
+        setQuery(initialQuery);
+        // Auto-search if query from URL
+        if (urlQuery) {
+          handleSearchInternal(initialQuery);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, loading, searchParams]);
+
+  const handleSearchInternal = async (searchQuery: string) => {
+    if (!searchQuery.trim()) return;
 
     setIsSearching(true);
     setError(null);
 
     try {
-      const response = await searchProcedures(query.trim());
+      // Save to localStorage
+      saveSearchQuery(searchQuery.trim());
+
+      const response = await searchProcedures(searchQuery.trim());
       setSearchResults(response.results);
     } catch (err) {
       console.error('Search error:', err);
@@ -29,6 +52,18 @@ export default function SearchPage() {
     } finally {
       setIsSearching(false);
     }
+  };
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    await handleSearchInternal(query.trim());
+  };
+
+  const handleClearHistory = () => {
+    clearSearchHistory();
+    setQuery('');
+    setSearchResults([]);
   };
 
   if (loading) {
@@ -57,10 +92,18 @@ export default function SearchPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 py-8">
+    <main className="min-h-screen bg-gray-50 py-8 pb-24 md:pb-8">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Search Procedures</h1>
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-3xl font-bold text-gray-900">Search Procedures</h1>
+            <button
+              onClick={handleClearHistory}
+              className="text-sm text-gray-600 hover:text-gray-900 underline"
+            >
+              Clear History
+            </button>
+          </div>
           <p className="mt-2 text-gray-600">
             Search for healthcare procedures and compare prices
           </p>
@@ -143,7 +186,20 @@ export default function SearchPage() {
           </div>
         )}
       </div>
+      <BottomNav />
     </main>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <main className="flex min-h-screen flex-col items-center justify-center">
+        <p className="text-gray-600">Loading...</p>
+      </main>
+    }>
+      <SearchPageContent />
+    </Suspense>
   );
 }
 

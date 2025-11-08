@@ -5,6 +5,8 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import Link from 'next/link';
 import { getProviderDetail, type ProviderDetail } from '@/lib/api';
+import { MarioAIModal } from '@/components/mario-ai-modal';
+import { BottomNav } from '@/components/navigation/BottomNav';
 
 export default function ProviderDetailClient() {
     const params = useParams();
@@ -15,6 +17,7 @@ export default function ProviderDetailClient() {
     const [provider, setProvider] = useState<ProviderDetail | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [showConciergeModal, setShowConciergeModal] = useState(false);
 
     useEffect(() => {
         const fetchProvider = async () => {
@@ -173,6 +176,15 @@ export default function ProviderDetailClient() {
                         )}
                     </div>
 
+                    <div className="mt-8">
+                        <button
+                            onClick={() => setShowConciergeModal(true)}
+                            className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        >
+                            Book with Concierge
+                        </button>
+                    </div>
+
                     {provider.procedures && provider.procedures.length > 0 && (
                         <div className="mt-8">
                             <h2 className="text-xl font-semibold text-gray-900 mb-4">
@@ -202,6 +214,15 @@ export default function ProviderDetailClient() {
                     )}
                 </div>
             </div>
+            <BottomNav />
+            <MarioAIModal
+                open={showConciergeModal}
+                onClose={() => setShowConciergeModal(false)}
+                mode="concierge"
+                context={{
+                    providerName: provider.provider_name,
+                }}
+            />
         </main>
     );
 }

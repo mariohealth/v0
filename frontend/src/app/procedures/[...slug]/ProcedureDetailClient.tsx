@@ -5,6 +5,8 @@ import { useParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import Link from 'next/link';
 import { getProcedureProviders, getProcedureBySlug, type SearchResult, type Provider } from '@/lib/api';
+import { MarioAIModal } from '@/components/mario-ai-modal';
+import { BottomNav } from '@/components/navigation/BottomNav';
 
 export default function ProcedureDetailClient() {
   const params = useParams();
@@ -14,6 +16,7 @@ export default function ProcedureDetailClient() {
   const [providers, setProviders] = useState<Provider[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showConciergeModal, setShowConciergeModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -147,6 +150,14 @@ export default function ProcedureDetailClient() {
               </div>
             </div>
           </div>
+          <div className="mt-6">
+            <button
+              onClick={() => setShowConciergeModal(true)}
+              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Book with Concierge
+            </button>
+          </div>
         </div>
 
         <div className="mb-4">
@@ -204,6 +215,15 @@ export default function ProcedureDetailClient() {
           </div>
         )}
       </div>
+      <BottomNav />
+      <MarioAIModal
+        open={showConciergeModal}
+        onClose={() => setShowConciergeModal(false)}
+        mode="concierge"
+        context={{
+          procedureName: procedure.procedure_name,
+        }}
+      />
     </main>
   );
 }
