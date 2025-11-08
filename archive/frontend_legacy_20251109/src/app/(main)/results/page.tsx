@@ -139,7 +139,12 @@ function ResultsContent() {
                 //     })
                 // }, 100)
             } catch (err) {
-                // console.error('🔍 [API CALL] Failed to fetch search results:', err)
+                console.error('❌ [API CALL] Failed to fetch search results:', err)
+                console.error('❌ [API CALL] Error details:', {
+                    message: err instanceof Error ? err.message : String(err),
+                    url,
+                    API_BASE_URL
+                })
                 setError(err instanceof Error ? err.message : 'Failed to fetch search results')
                 setResults([])
             } finally {

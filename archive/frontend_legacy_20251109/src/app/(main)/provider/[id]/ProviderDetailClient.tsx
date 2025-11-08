@@ -7,10 +7,8 @@ import { type Provider } from '@/lib/data/healthcare-data'
 import { Button } from '@/components/ui/button'
 import { API_BASE_URL } from '@/lib/config'
 
-export function ProviderDetailClient() {
+export function ProviderDetailClient({ providerId }: { providerId: string }) {
     const router = useRouter()
-    const params = useParams()
-    const providerId = params?.id as string
     const [provider, setProvider] = useState<Provider | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -79,6 +77,12 @@ export function ProviderDetailClient() {
                 }
                 setProvider(transformedProvider)
             } catch (err) {
+                console.error('❌ [API CALL] Failed to fetch provider details:', err)
+                console.error('❌ [API CALL] Error details:', {
+                    message: err instanceof Error ? err.message : String(err),
+                    url: `${API_BASE_URL}/api/v1/providers/${providerId}`,
+                    API_BASE_URL
+                })
                 setError(err instanceof Error ? err.message : 'Failed to fetch provider details')
             } finally {
                 setLoading(false)

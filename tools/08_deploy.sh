@@ -17,7 +17,7 @@ if [ -z "${FIREBASE_PROJECT_ID:-}" ] || [ -z "${FIREBASE_SITE_ID:-}" ]; then
     exit 1
 fi
 
-export FRONTEND_DIR="${FRONTEND_DIR:-./mario-health-frontend}"
+export FRONTEND_DIR="${FRONTEND_DIR:-./frontend}"
 export BACKEND_DIR="${BACKEND_DIR:-./backend/mario-health-api}"
 
 # Build frontend

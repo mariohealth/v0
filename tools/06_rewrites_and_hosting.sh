@@ -17,7 +17,7 @@ if [ -z "${FIREBASE_PROJECT_ID:-}" ] || [ -z "${FIREBASE_SITE_ID:-}" ] || [ -z "
     exit 1
 fi
 
-export FRONTEND_DIR="${FRONTEND_DIR:-./mario-health-frontend}"
+export FRONTEND_DIR="${FRONTEND_DIR:-./frontend}"
 
 # Update firebase.json with final hosting configuration
 echo "📝 Updating firebase.json with hosting configuration..."

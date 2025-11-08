@@ -6,10 +6,8 @@ import { ChevronLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { API_BASE_URL } from '@/lib/config'
 
-export default function ProcedureDetailPage() {
-    const params = useParams()
+export function ProcedureDetailClient({ slug }: { slug: string }) {
     const router = useRouter()
-    const slug = params?.slug as string
     const [procedure, setProcedure] = useState<any>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -41,6 +39,12 @@ export default function ProcedureDetailPage() {
                 const data = await response.json()
                 setProcedure(data)
             } catch (err) {
+                console.error('❌ [API CALL] Failed to fetch procedure details:', err)
+                console.error('❌ [API CALL] Error details:', {
+                    message: err instanceof Error ? err.message : String(err),
+                    url: `${API_BASE_URL}/api/v1/procedures/${slug}`,
+                    API_BASE_URL
+                })
                 setError(err instanceof Error ? err.message : 'Failed to fetch procedure details')
             } finally {
                 setLoading(false)
@@ -78,9 +82,9 @@ export default function ProcedureDetailPage() {
             {/* Header */}
             <div className="sticky top-0 bg-background border-b border-border z-10">
                 <div className="max-w-4xl mx-auto px-4 py-4">
-                    <Button
-                        variant="ghost"
-                        size="sm"
+                    <Button 
+                        variant="ghost" 
+                        size="sm" 
                         onClick={() => router.back()}
                         className="mb-4"
                     >

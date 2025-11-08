@@ -101,7 +101,7 @@ if [ ${#MISSING_VARS[@]} -ne 0 ]; then
 fi
 
 # Set default directories if not set
-export FRONTEND_DIR="${FRONTEND_DIR:-./mario-health-frontend}"
+export FRONTEND_DIR="${FRONTEND_DIR:-./frontend}"
 export BACKEND_DIR="${BACKEND_DIR:-./backend/mario-health-api}"
 
 echo ""

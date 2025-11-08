@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "mario-mrf-data",
-    "public": "mario-health-frontend/out",
+    "public": "frontend/out",
     "ignore": [
       "firebase.json",
       "**/.*",

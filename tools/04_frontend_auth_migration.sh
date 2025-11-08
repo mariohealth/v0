@@ -5,7 +5,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "🔐 Phase 4: Migrating Frontend to Firebase Auth"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-export FRONTEND_DIR="${FRONTEND_DIR:-./mario-health-frontend}"
+export FRONTEND_DIR="${FRONTEND_DIR:-./frontend}"
 
 if [ ! -d "$FRONTEND_DIR" ]; then
     echo "❌ Frontend directory not found: $FRONTEND_DIR"

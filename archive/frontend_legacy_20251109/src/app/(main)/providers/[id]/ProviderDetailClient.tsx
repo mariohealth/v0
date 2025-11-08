@@ -2,16 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { ProviderDetailPage } from '@/components/mario-provider-detail-enhanced'
-import { type Provider } from '@/lib/data/healthcare-data'
+import { ProviderDetailClient as ProviderDetailComponent } from './ProviderDetailClient'
 import { Button } from '@/components/ui/button'
 import { API_BASE_URL } from '@/lib/config'
 
-export default function ProviderDetailRoute() {
+export function ProviderDetailClient({ providerId }: { providerId: string }) {
     const router = useRouter()
-    const params = useParams()
-    const providerId = params?.id as string
-    const [provider, setProvider] = useState<Provider | null>(null)
+    const [provider, setProvider] = useState<any>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
@@ -40,45 +37,14 @@ export default function ProviderDetailRoute() {
                 }
 
                 const data = await response.json()
-                // Transform API response to Provider format
-                const transformedProvider: Provider = {
-                    id: data.id || providerId,
-                    name: data.name || 'Unknown Provider',
-                    specialty: data.specialty || 'General',
-                    type: data.type || 'doctor',
-                    address: data.address || '',
-                    city: data.city || '',
-                    state: data.state || '',
-                    zipCode: data.zipCode || data.zip || '',
-                    phone: data.phone || '',
-                    website: data.website,
-                    distance: data.distance || '2.5 miles',
-                    inNetwork: data.inNetwork !== undefined ? data.inNetwork : data.networkStatus === 'in_network',
-                    rating: data.rating || 0,
-                    reviewCount: data.reviewCount || data.review_count || 0,
-                    hours: data.hours || {},
-                    services: data.services || [],
-                    acceptedInsurance: data.acceptedInsurance || data.accepted_insurance || [],
-                    about: data.about || '',
-                    costs: data.costs || {
-                        'Office Visit': {
-                            total: 150,
-                            median: 180,
-                            savings: 30,
-                            percentSavings: 17
-                        }
-                    },
-                    marioPick: data.marioPick || false,
-                    marioPoints: data.marioPoints || 0,
-                    location: data.location || {
-                        address: data.address || '',
-                        city: data.city || '',
-                        state: data.state || '',
-                        zip: data.zipCode || data.zip || ''
-                    }
-                }
-                setProvider(transformedProvider)
+                setProvider(data)
             } catch (err) {
+                console.error('❌ [API CALL] Failed to fetch provider details:', err)
+                console.error('❌ [API CALL] Error details:', {
+                    message: err instanceof Error ? err.message : String(err),
+                    url: `${API_BASE_URL}/api/v1/providers/${providerId}`,
+                    API_BASE_URL
+                })
                 setError(err instanceof Error ? err.message : 'Failed to fetch provider details')
             } finally {
                 setLoading(false)
@@ -114,8 +80,10 @@ export default function ProviderDetailRoute() {
     }
 
     return (
-        <div className="min-h-screen bg-background">
-            <ProviderDetailPage provider={provider} onBack={handleBack} />
-        </div>
+        <ProviderDetailComponent
+            provider={provider}
+            onBack={handleBack}
+            service="Office Visit"
+        />
     )
 }

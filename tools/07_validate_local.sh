@@ -5,7 +5,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "🔎 Phase 7: Local Validation"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-export FRONTEND_DIR="${FRONTEND_DIR:-./mario-health-frontend}"
+export FRONTEND_DIR="${FRONTEND_DIR:-./frontend}"
 export BACKEND_DIR="${BACKEND_DIR:-./backend/mario-health-api}"
 
 # Check frontend

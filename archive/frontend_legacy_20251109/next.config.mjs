@@ -10,6 +10,8 @@ const nextConfig = {
     },
     // CRITICAL: Enable static export for Firebase Hosting
     output: 'export',
+    // Allow dynamic routes in static export (client-side rendering)
+    dynamicParams: true,
     // Disable image optimization for static export (or use unoptimized)
     images: {
         unoptimized: true,

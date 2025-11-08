@@ -17,7 +17,7 @@ if [ -z "${FIREBASE_PROJECT_ID:-}" ]; then
     exit 1
 fi
 
-export FRONTEND_DIR="${FRONTEND_DIR:-./mario-health-frontend}"
+export FRONTEND_DIR="${FRONTEND_DIR:-./frontend}"
 export BACKEND_DIR="${BACKEND_DIR:-./backend/mario-health-api}"
 
 # Create .env.firebase template if it doesn't exist
@@ -33,7 +33,7 @@ CLOUD_RUN_SERVICE_ID=mario-health-api
 CLOUD_RUN_REGION=us-central1
 
 # Directory Configuration
-FRONTEND_DIR=./mario-health-frontend
+FRONTEND_DIR=./frontend
 BACKEND_DIR=./backend/mario-health-api
 EOF
     echo "✅ Created .env.firebase template"
