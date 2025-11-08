@@ -50,7 +50,7 @@ CLOUD_RUN_SERVICE_ID=your-service-id
 CLOUD_RUN_REGION=us-central1
 
 # Directory Configuration
-FRONTEND_DIR=./mario-health-frontend
+FRONTEND_DIR=./frontend
 BACKEND_DIR=./backend/mario-health-api
 ```
 
@@ -115,13 +115,13 @@ FIREBASE_PROJECT_ID=mario-health
 FIREBASE_SITE_ID=mario-health
 CLOUD_RUN_SERVICE_ID=mario-health-api
 CLOUD_RUN_REGION=us-central1
-FRONTEND_DIR=./mario-health-frontend
+FRONTEND_DIR=./frontend
 BACKEND_DIR=./backend/mario-health-api
 ```
 
 ### Frontend `.env.local`
 
-Create this file in `mario-health-frontend/.env.local`:
+Create this file in `frontend/.env.local`:
 
 ```bash
 # Get these from Firebase Console → Project Settings → Your apps → Web app
@@ -345,20 +345,20 @@ Keep existing Supabase database environment variables on Cloud Run (not on Hosti
 
 1. **Check Firebase environment variables:**
    ```bash
-   cd mario-health-frontend
+   cd frontend
    cat .env.local
    # Ensure all NEXT_PUBLIC_FIREBASE_* variables are set
    ```
 
 2. **Verify Firebase package installed:**
    ```bash
-   cd mario-health-frontend
+   cd frontend
    npm list firebase
    ```
 
 3. **Clear Next.js cache:**
    ```bash
-   cd mario-health-frontend
+   cd frontend
    rm -rf .next
    npm run build
    ```
@@ -386,7 +386,7 @@ Keep existing Supabase database environment variables on Cloud Run (not on Hosti
 
 4. **Verify build output:**
    ```bash
-   cd mario-health-frontend
+   cd frontend
    ls -la .next
    # Ensure .next directory exists after build
    ```
@@ -399,7 +399,7 @@ If you need to rollback to the previous setup:
 
 ```bash
 # Restore Supabase Auth in frontend
-cd mario-health-frontend
+cd frontend
 git checkout HEAD -- src/lib/supabase/
 git checkout HEAD -- src/components/mario-auth-*.tsx
 git checkout HEAD -- src/components/mario-navigation.tsx
@@ -429,7 +429,7 @@ rm .firebaserc
 If you were using Vercel before:
 
 ```bash
-cd mario-health-frontend
+cd frontend
 vercel deploy
 ```
 
