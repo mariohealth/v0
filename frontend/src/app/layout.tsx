@@ -30,6 +30,12 @@ export default function RootLayout({
                     href="/"
                     className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
                   >
+                    Landing
+                  </Link>
+                  <Link
+                    href="/home"
+                    className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     Home
                   </Link>
                   <Link

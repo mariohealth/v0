@@ -1,13 +1,23 @@
 'use client';
 
 import { useAuth } from '@/lib/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function LoginPage() {
   const { user, loading, login, logout } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push('/home');
+    }
+  }, [user, loading, router]);
 
   const handleLogin = async () => {
     try {
       await login();
+      // Redirect will happen via useEffect
     } catch (error) {
       console.error('Login failed:', error);
     }
