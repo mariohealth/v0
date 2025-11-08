@@ -1,0 +1,325 @@
+swagger: '2.0'
+info:
+  title: Mario Health API Gateway
+  description: API Gateway for Mario Health API with CORS support
+  version: 1.0.0
+host: mario-health-api-gateway
+schemes:
+  - https
+produces:
+  - application/json
+consumes:
+  - application/json
+paths:
+  /api/**:
+    options:
+      summary: CORS preflight handler for /api routes
+      operationId: corsPreflightApi
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      responses:
+        '200':
+          description: CORS preflight response
+    get:
+      summary: Forward GET requests to Cloud Run
+      operationId: forwardGetApi
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - GET
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+    post:
+      summary: Forward POST requests to Cloud Run
+      operationId: forwardPostApi
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - POST
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+    put:
+      summary: Forward PUT requests to Cloud Run
+      operationId: forwardPutApi
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - PUT
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+    delete:
+      summary: Forward DELETE requests to Cloud Run
+      operationId: forwardDeleteApi
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - DELETE
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+    patch:
+      summary: Forward PATCH requests to Cloud Run
+      operationId: forwardPatchApi
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - PATCH
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+  /api/v1/**:
+    options:
+      summary: CORS preflight handler
+      operationId: corsPreflight
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      responses:
+        '200':
+          description: CORS preflight response
+    get:
+      summary: Forward GET requests to Cloud Run
+      operationId: forwardGet
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - GET
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+    post:
+      summary: Forward POST requests to Cloud Run
+      operationId: forwardPost
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - POST
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+    put:
+      summary: Forward PUT requests to Cloud Run
+      operationId: forwardPut
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - PUT
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+    delete:
+      summary: Forward DELETE requests to Cloud Run
+      operationId: forwardDelete
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - DELETE
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+    patch:
+      summary: Forward PATCH requests to Cloud Run
+      operationId: forwardPatch
+      x-google-backend:
+        address: https://mario-health-api-ei5wbr4h5a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      x-google-cors:
+        allowedOrigins:
+          - http://localhost:3000
+          - https://mario-health-frontend.vercel.app
+          - https://mario-health-clean.vercel.app
+        allowedMethods:
+          - PATCH
+          - OPTIONS
+        allowedHeaders:
+          - "*"
+        allowCredentials: true
+        maxAge: 3600
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object

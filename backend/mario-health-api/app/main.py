@@ -6,10 +6,11 @@ Provides endpoints for healthcare procedure price comparison.
 
 import logging
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Request, status
+from fastapi import FastAPI, Request, status, Depends, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
+from typing import Optional, Dict, Any
 from app.api.v1.endpoints import (
     categories,
     families,
@@ -26,6 +27,7 @@ from app.api.v1.endpoints import (
 import os
 from pathlib import Path
 from app.middleware.logging import RequestLoggingMiddleware
+from app.auth.firebase_auth import verify_token
 
 # Configure logging
 logging.basicConfig(
@@ -73,26 +75,46 @@ app = FastAPI(
 app.middleware("http")(RequestLoggingMiddleware(app))
 
 # CORS middleware configuration
-# Note: localhost:3000 is explicitly included for local development
+# Required origins for frontend access
+REQUIRED_ORIGINS = [
+    "http://localhost:3000",
+    "https://mario-health-frontend.vercel.app",
+    "https://mario-health-clean.vercel.app",
+]
+
+# Firebase Hosting origins
+# Note: FastAPI CORSMiddleware doesn't support wildcards, so we'll use a custom handler
+# For now, add specific Firebase Hosting origins via ALLOWED_ORIGINS env var
+# Example: ALLOWED_ORIGINS=https://your-site.web.app,https://your-site.firebaseapp.com
+FIREBASE_HOSTING_ORIGINS = []
+
+# Get additional origins from environment variable
 ALLOWED_ORIGINS_STR = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:3000,http://127.0.0.1:3000,https://mario.health,https://www.mario.health,https://mario-health-ifzy.vercel.app",
+    "http://127.0.0.1:3000,https://mario.health,https://www.mario.health,https://mario-health-ifzy.vercel.app",
 )
+
 # Strip whitespace from each origin to prevent CORS issues
 ALLOWED_ORIGINS = [
     origin.strip() for origin in ALLOWED_ORIGINS_STR.split(",") if origin.strip()
 ]
 
-# Verify localhost:3000 is in the list
-if (
-    "http://localhost:3000" not in ALLOWED_ORIGINS
-    and "http://127.0.0.1:3000" not in ALLOWED_ORIGINS
-):
-    logger.warning(
-        "⚠️  WARNING: localhost:3000 not found in ALLOWED_ORIGINS! Adding it for local development."
+# Always add required origins (they take precedence)
+for origin in REQUIRED_ORIGINS:
+    if origin not in ALLOWED_ORIGINS:
+        ALLOWED_ORIGINS.append(origin)
+        logger.info(f"✅ Added required CORS origin: {origin}")
+
+# Add Firebase Hosting origins from environment variable
+# Since FastAPI CORSMiddleware doesn't support wildcards, add specific origins via ALLOWED_ORIGINS
+# Example: ALLOWED_ORIGINS=https://your-site.web.app,https://your-site.firebaseapp.com
+if FIREBASE_HOSTING_ORIGINS:
+    ALLOWED_ORIGINS.extend(FIREBASE_HOSTING_ORIGINS)
+    logger.info(f"✅ Added Firebase Hosting CORS origins: {FIREBASE_HOSTING_ORIGINS}")
+else:
+    logger.info(
+        "ℹ️  Add Firebase Hosting origins via ALLOWED_ORIGINS env var (e.g., https://your-site.web.app)"
     )
-    if "http://localhost:3000" not in ALLOWED_ORIGINS:
-        ALLOWED_ORIGINS.append("http://localhost:3000")
 
 # Google OAuth2 allowed audiences
 # These should match the client IDs from your Google OAuth2 credentials
@@ -160,11 +182,13 @@ app.include_router(whoami.router, prefix="/api/v1")  # Debug endpoint for authen
 app.include_router(bookings.router, prefix="/api/v1")
 app.include_router(insurance.router, prefix="/api/v1")
 
+
 # Alias routes for compatibility
 @app.get("/api/v1/procedure-categories", tags=["categories"], include_in_schema=False)
 async def procedure_categories_alias():
     """Alias route for /procedure-categories, redirects to /categories."""
     from fastapi.responses import RedirectResponse
+
     return RedirectResponse(url="/api/v1/categories", status_code=307)
 
 
@@ -191,6 +215,69 @@ def health_check():
         "status": "healthy",
         "version": "1.0.0",
         "environment": os.getenv("ENVIRONMENT", "development"),
+    }
+
+
+# Firebase Auth dependency
+async def require_auth(authorization: str = Header(...)) -> Dict[str, Any]:
+    """
+    Required dependency that enforces Firebase authentication.
+
+    Use this for endpoints that must be authenticated.
+
+    Args:
+        authorization: Authorization header value (format: "Bearer <token>")
+
+    Returns:
+        Decoded Firebase token claims
+
+    Raises:
+        HTTPException: If no token or invalid token
+    """
+    if not authorization.startswith("Bearer "):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authorization header format. Expected: Bearer <token>",
+        )
+
+    token = authorization.split("Bearer ")[-1]
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Token is missing"
+        )
+
+    decoded = verify_token(token)
+    if not decoded:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
+        )
+
+    return decoded
+
+
+# Secure endpoints
+@app.get("/user/profile", tags=["auth"])
+async def user_profile(user: Dict[str, Any] = Depends(require_auth)):
+    """Get user profile from Firebase token."""
+    return {
+        "uid": user.get("uid"),
+        "email": user.get("email"),
+        "email_verified": user.get("email_verified", False),
+        "name": user.get("name"),
+        "picture": user.get("picture"),
+    }
+
+
+@app.get("/secure/verify", tags=["auth"])
+async def secure_verify(user: Dict[str, Any] = Depends(require_auth)):
+    """Verify Firebase authentication token."""
+    return {
+        "status": "verified",
+        "user": {
+            "uid": user.get("uid"),
+            "email": user.get("email"),
+            "email_verified": user.get("email_verified", False),
+        },
     }
 
 

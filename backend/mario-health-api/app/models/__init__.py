@@ -18,6 +18,8 @@ from app.models.procedure import (
     Procedure,
     ProcedureDetail,
     FamilyProceduresResponse,
+    ProcedureProvider,
+    ProcedureProvidersResponse,
 )
 
 # Search models
@@ -37,6 +39,7 @@ from app.models.billing_code import (
 from app.models.provider import (
     ProviderProcedurePricing,
     ProviderDetail,
+    ProviderProcedureDetail,
 )
 
 # User preferences models
@@ -60,6 +63,8 @@ __all__ = [
     "Procedure",
     "ProcedureDetail",
     "FamilyProceduresResponse",
+    "ProcedureProvider",
+    "ProcedureProvidersResponse",
     # Search
     "SearchResult",
     "SearchResponse",
@@ -70,6 +75,7 @@ __all__ = [
     # Provider
     "ProviderProcedurePricing",
     "ProviderDetail",
+    "ProviderProcedureDetail",
     # User preferences
     "SavedLocation",
     "Notifications",

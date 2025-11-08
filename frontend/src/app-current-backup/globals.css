@@ -1,0 +1,609 @@
+@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Mario Health Design System */
+  --font-size: 16px;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Color Tokens */
+  --mario-primary-blue: #2E5077;
+  --mario-accent-teal: #4DA1A9;
+  --mario-support-green: #79D7BE;
+  --mario-neutral-bg: #FDFCFA;
+  --mario-surface-white: #FFFFFF;
+  --mario-text-primary: #1A1A1A;
+  --mario-text-secondary: #666666;
+  --mario-text-tertiary: #999999;
+  --mario-success: #00AA66;
+  --mario-error: #D32F2F;
+  --mario-warning: #FFA726;
+  --mario-border: #E0E0E0;
+  
+  /* State Colors */
+  --mario-primary-hover: #254260;
+  --mario-primary-active: #1c3349;
+  --mario-focus-ring: #79D7BE;
+  
+  /* Semantic Mapping */
+  --background: var(--mario-neutral-bg);
+  --foreground: var(--mario-text-primary);
+  --card: var(--mario-surface-white);
+  --card-foreground: var(--mario-text-primary);
+  --popover: var(--mario-surface-white);
+  --popover-foreground: var(--mario-text-primary);
+  --primary: var(--mario-primary-blue);
+  --primary-foreground: var(--mario-surface-white);
+  --secondary: var(--mario-surface-white);
+  --secondary-foreground: var(--mario-primary-blue);
+  --muted: #F9F9F9;
+  --muted-foreground: var(--mario-text-secondary);
+  --accent: var(--mario-accent-teal);
+  --accent-foreground: var(--mario-surface-white);
+  --destructive: var(--mario-error);
+  --destructive-foreground: var(--mario-surface-white);
+  --border: var(--mario-border);
+  --input: transparent;
+  --input-background: var(--mario-surface-white);
+  --switch-background: #CCCCCC;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --ring: var(--mario-focus-ring);
+  --chart-1: var(--mario-primary-blue);
+  --chart-2: var(--mario-accent-teal);
+  --chart-3: var(--mario-support-green);
+  --chart-4: var(--mario-success);
+  --chart-5: var(--mario-warning);
+  --radius: 8px;
+  --sidebar: var(--mario-surface-white);
+  --sidebar-foreground: var(--mario-text-primary);
+  --sidebar-primary: var(--mario-primary-blue);
+  --sidebar-primary-foreground: var(--mario-surface-white);
+  --sidebar-accent: #F9F9F9;
+  --sidebar-accent-foreground: var(--mario-text-primary);
+  --sidebar-border: var(--mario-border);
+  --sidebar-ring: var(--mario-focus-ring);
+}
+
+.dark {
+  /* Dark Mode Mario Health Colors */
+  --mario-primary-blue: #4A7BA7;
+  --mario-accent-teal: #5BB4BC;
+  --mario-support-green: #8FE2CA;
+  --mario-neutral-bg: #121212;
+  --mario-surface-white: #1E1E1E;
+  --mario-text-primary: #FFFFFF;
+  --mario-text-secondary: #CCCCCC;
+  --mario-text-tertiary: #999999;
+  --mario-success: #4CAF50;
+  --mario-error: #F44336;
+  --mario-warning: #FF9800;
+  --mario-border: #333333;
+  
+  --background: var(--mario-neutral-bg);
+  --foreground: var(--mario-text-primary);
+  --card: var(--mario-surface-white);
+  --card-foreground: var(--mario-text-primary);
+  --popover: var(--mario-surface-white);
+  --popover-foreground: var(--mario-text-primary);
+  --primary: var(--mario-primary-blue);
+  --primary-foreground: var(--mario-surface-white);
+  --secondary: var(--mario-surface-white);
+  --secondary-foreground: var(--mario-primary-blue);
+  --muted: #2A2A2A;
+  --muted-foreground: var(--mario-text-secondary);
+  --accent: var(--mario-accent-teal);
+  --accent-foreground: var(--mario-text-primary);
+  --destructive: var(--mario-error);
+  --destructive-foreground: var(--mario-text-primary);
+  --border: var(--mario-border);
+  --input: var(--mario-surface-white);
+  --ring: var(--mario-focus-ring);
+  --chart-1: var(--mario-primary-blue);
+  --chart-2: var(--mario-accent-teal);
+  --chart-3: var(--mario-support-green);
+  --chart-4: var(--mario-success);
+  --chart-5: var(--mario-warning);
+  --sidebar: var(--mario-surface-white);
+  --sidebar-foreground: var(--mario-text-primary);
+  --sidebar-primary: var(--mario-primary-blue);
+  --sidebar-primary-foreground: var(--mario-text-primary);
+  --sidebar-accent: #2A2A2A;
+  --sidebar-accent-foreground: var(--mario-text-primary);
+  --sidebar-border: var(--mario-border);
+  --sidebar-ring: var(--mario-focus-ring);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/**
+ * Mario Health Typography System
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: 2rem; /* 32px desktop */
+      font-weight: var(--font-weight-bold);
+      line-height: 1.25;
+    }
+
+    h2 {
+      font-size: 1.5rem; /* 24px desktop */
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.33;
+    }
+
+    h3 {
+      font-size: 1.25rem; /* 20px desktop */
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.4;
+    }
+
+    h4 {
+      font-size: 1rem; /* 16px */
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: 1rem; /* 16px large body */
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: 1rem;
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: 1rem;
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      letter-spacing: 0.25px;
+    }
+
+    input {
+      font-size: 1rem;
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    small {
+      font-size: 0.875rem; /* 14px body regular */
+      font-weight: var(--font-weight-normal);
+      line-height: 1.57;
+    }
+
+    .caption {
+      font-size: 0.75rem; /* 12px caption */
+      font-weight: var(--font-weight-normal);
+      line-height: 1.33;
+    }
+  }
+
+  /* Mobile typography adjustments */
+  @media (max-width: 600px) {
+    :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+      h1 {
+        font-size: 1.5rem; /* 24px mobile */
+      }
+
+      h2 {
+        font-size: 1.25rem; /* 20px mobile */
+      }
+
+      h3 {
+        font-size: 1.125rem; /* 18px mobile */
+      }
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+/* Mario Health Utility Classes */
+@layer utilities {
+  .mario-shadow-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .mario-shadow-elevated {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .mario-shadow-prominent {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .mario-shadow-primary-focus {
+    box-shadow: 0 8px 24px rgba(46, 80, 119, 0.15), 0 0 0 2px #2E5077;
+  }
+
+  .mario-transition {
+    transition: all 200ms ease-in-out;
+  }
+
+  .mario-hover-lift:hover {
+    outline: 2px solid var(--mario-accent-teal);
+    outline-offset: 0px;
+  }
+
+  .mario-button-scale:active {
+    transform: scale(0.98);
+  }
+
+  .mario-focus-ring:focus-visible {
+    outline: 2px solid var(--mario-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Semantic hover colors for cards - Updated to use outline */
+  .mario-hover-provider:hover {
+    outline: 2px solid var(--mario-accent-teal);
+    outline-offset: 0px;
+  }
+
+  .mario-hover-medication:hover {
+    outline: 2px solid #8B5CF6;
+    outline-offset: 0px;
+  }
+
+  .mario-hover-reward:hover {
+    outline: 2px solid var(--mario-accent-teal);
+    outline-offset: 0px;
+  }
+
+  .mario-hover-primary:hover {
+    outline: 2px solid var(--mario-primary-blue);
+    outline-offset: 0px;
+  }
+
+  /* Cursor pointer only on clickable elements */
+  .mario-clickable {
+    cursor: pointer;
+  }
+
+  /* Default cursor on non-clickable elements */
+  .mario-not-clickable {
+    cursor: default;
+  }
+
+  /* Search Bar Placeholder Styling */
+  .mario-main-search::placeholder {
+    color: #666666 !important;
+  }
+
+  .mario-ai-search::placeholder {
+    color: #444444 !important;
+  }
+
+  /* Always-outlined search inputs with different hierarchy */
+  .mario-main-search-container {
+    border: 2px solid var(--mario-primary-blue);
+    transition: border-width 200ms ease-in-out, border-color 200ms ease-in-out;
+  }
+
+  .mario-main-search-container:focus-within {
+    border: 3px solid var(--mario-primary-blue);
+  }
+
+  .mario-ai-search-container {
+    border: 1px solid var(--mario-accent-teal);
+    transition: border-width 200ms ease-in-out, border-color 200ms ease-in-out;
+  }
+
+  .mario-ai-search-container:focus-within {
+    border: 2px solid var(--mario-accent-teal);
+  }
+
+  /* Focus states for search bars */
+  .mario-main-search:focus {
+    outline: none;
+  }
+
+  .mario-ai-search:focus {
+    outline: none;
+  }
+
+  /* Animation utilities */
+  .animate-in {
+    animation-fill-mode: both;
+  }
+
+  .fade-in {
+    animation-name: fadeIn;
+  }
+
+  .duration-300 {
+    animation-duration: 300ms;
+  }
+
+  .ease-in {
+    animation-timing-function: ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Confetti animation utilities */
+  .mario-confetti {
+    animation: confetti-fall 2s ease-out forwards;
+  }
+
+  @keyframes confetti-fall {
+    from {
+      transform: translateY(-100vh) rotate(0deg);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* AI Chat Bubble Animations */
+  .mario-chat-bubble-enter {
+    animation: chatBubbleSlideIn 0.3s ease-out;
+  }
+
+  @keyframes chatBubbleSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Typing indicator pulse animation */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* Floating button pulse */
+  .mario-ai-float-pulse {
+    animation: floatPulse 2s infinite;
+  }
+
+  @keyframes floatPulse {
+    0%, 100% {
+      box-shadow: 0 4px 12px rgba(77, 161, 169, 0.4);
+    }
+    50% {
+      box-shadow: 0 4px 20px rgba(77, 161, 169, 0.6);
+    }
+  }
+
+  /* Toast Notifications - Safe Area Adjusted */
+  .mario-toast {
+    font-family: var(--font-family);
+  }
+
+  /* Toast slide-in animation from bottom */
+  @keyframes toastSlideIn {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Toast fade-out animation */
+  @keyframes toastFadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  /* Sonner toast container positioning */
+  [data-sonner-toaster] {
+    z-index: 450 !important;
+  }
+
+  /* Mobile toast positioning - above bottom nav */
+  @media (max-width: 768px) {
+    [data-sonner-toaster][data-y-position='bottom'] {
+      bottom: calc(env(safe-area-inset-bottom, 16px) + 72px) !important;
+    }
+  }
+
+  /* Desktop toast positioning */
+  @media (min-width: 769px) {
+    [data-sonner-toaster][data-y-position='bottom'] {
+      bottom: 16px !important;
+    }
+  }
+
+  /* Toast stacking gap */
+  [data-sonner-toast] + [data-sonner-toast] {
+    margin-top: 8px;
+  }
+
+  /* Toast entrance animation */
+  [data-sonner-toast] {
+    animation: toastSlideIn 300ms ease-out;
+  }
+
+  /* Toast exit animation */
+  [data-sonner-toast][data-mounted='false'] {
+    animation: toastFadeOut 200ms ease-in;
+  }
+
+  /* Success toast accent bar */
+  [data-sonner-toast][data-type='success'] {
+    border-left: 4px solid #00AA66 !important;
+  }
+
+  /* Error toast accent bar */
+  [data-sonner-toast][data-type='error'] {
+    border-left: 4px solid #D32F2F !important;
+  }
+
+  /* Info toast accent bar */
+  [data-sonner-toast][data-type='info'] {
+    border-left: 4px solid #2196F3 !important;
+  }
+
+  /* Default toast accent bar */
+  [data-sonner-toast][data-type='default'] {
+    border-left: 4px solid #4DA1A9 !important;
+  }
+
+  /* Toast icon styling */
+  [data-sonner-toast] [data-icon] {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+  }
+
+  /* Success icon color */
+  [data-sonner-toast][data-type='success'] [data-icon] {
+    color: #00AA66;
+  }
+
+  /* Error icon color */
+  [data-sonner-toast][data-type='error'] [data-icon] {
+    color: #D32F2F;
+  }
+
+  /* Info icon color */
+  [data-sonner-toast][data-type='info'] [data-icon] {
+    color: #2196F3;
+  }
+
+  /* Default icon color */
+  [data-sonner-toast][data-type='default'] [data-icon] {
+    color: #4DA1A9;
+  }
+
+  /* Toast title styling */
+  [data-sonner-toast] [data-title] {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* Toast description styling */
+  [data-sonner-toast] [data-description] {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.9;
+    margin-top: 2px;
+  }
+
+  /* Toast close button */
+  [data-sonner-toast] [data-close-button] {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #FFFFFF;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 200ms ease;
+  }
+
+  [data-sonner-toast] [data-close-button]:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Prevent interaction with bottom nav during toast */
+  .toast-active ~ [data-bottom-nav] {
+    pointer-events: none;
+  }
+
+  /* Safe area inset support for notched devices */
+  @supports (padding: env(safe-area-inset-bottom)) {
+    @media (max-width: 768px) {
+      [data-sonner-toaster][data-y-position='bottom'] {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    }
+  }
+}
