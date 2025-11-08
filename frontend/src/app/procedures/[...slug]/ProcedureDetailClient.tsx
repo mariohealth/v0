@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import Link from 'next/link';
 import { getProcedureProviders, getProcedureBySlug, type SearchResult, type Provider } from '@/lib/api';
-import { MarioAIModal } from '@/components/mario-ai-modal';
+import { MarioAIBookingChat } from '@/components/mario-ai-booking-chat';
 import { BottomNav } from '@/components/navigation/BottomNav';
 
 export default function ProcedureDetailClient() {
@@ -16,7 +16,8 @@ export default function ProcedureDetailClient() {
   const [providers, setProviders] = useState<Provider[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showConciergeModal, setShowConciergeModal] = useState(false);
+  const [showBookingChat, setShowBookingChat] = useState(false);
+  const [selectedProviderName, setSelectedProviderName] = useState<string>('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -152,8 +153,11 @@ export default function ProcedureDetailClient() {
           </div>
           <div className="mt-6">
             <button
-              onClick={() => setShowConciergeModal(true)}
-              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              onClick={() => {
+                setSelectedProviderName(procedure.procedure_name);
+                setShowBookingChat(true);
+              }}
+              className="w-full rounded-md bg-[#2E5077] px-4 py-2 text-white hover:bg-[#1e3a5a] focus:outline-none focus:ring-2 focus:ring-[#2E5077] focus:ring-offset-2 transition-colors"
             >
               Book with Concierge
             </button>
@@ -216,13 +220,11 @@ export default function ProcedureDetailClient() {
         )}
       </div>
       <BottomNav />
-      <MarioAIModal
-        open={showConciergeModal}
-        onClose={() => setShowConciergeModal(false)}
-        mode="concierge"
-        context={{
-          procedureName: procedure.procedure_name,
-        }}
+      <MarioAIBookingChat
+        open={showBookingChat}
+        onClose={() => setShowBookingChat(false)}
+        providerName={selectedProviderName || procedure.procedure_name}
+        procedureName={procedure.procedure_name}
       />
     </main>
   );
