@@ -1,11 +1,41 @@
 'use client';
 
-export default function Home() {
+import { MarioLandingPage } from '@/components/mario-landing-page';
+import { useRouter } from 'next/navigation';
+
+export default function HomePage() {
+  const router = useRouter();
+
+  const handleSearch = (query: string) => {
+    if (query.trim()) {
+      router.push(`/search?q=${encodeURIComponent(query)}`);
+    } else {
+      router.push('/search');
+    }
+  };
+
+  const handleSignUp = () => {
+    router.push('/login');
+  };
+
+  const handleLogin = () => {
+    router.push('/login');
+  };
+
+  const handleNavigate = (path: string) => {
+    router.push(path);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold">Mario Health</h1>
-      <p className="mt-4 text-gray-600">Welcome to the production build!</p>
-    </main>
+    <MarioLandingPage
+      onSearch={handleSearch}
+      onSignUp={handleSignUp}
+      onLogin={handleLogin}
+      onNavigateToAbout={() => handleNavigate('/about')}
+      onNavigateToTransparency={() => handleNavigate('/transparency')}
+      onNavigateToContact={() => handleNavigate('/contact')}
+      onNavigateToEmployers={() => handleNavigate('/employers')}
+      onNavigateToPrivacy={() => handleNavigate('/privacy')}
+    />
   );
 }
-
