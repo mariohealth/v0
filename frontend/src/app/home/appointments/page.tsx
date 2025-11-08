@@ -147,7 +147,7 @@ export default function AppointmentsPage() {
                             Book an appointment with a provider to see it here.
                         </p>
                         <Link
-                            href="/search"
+                            href="/procedures"
                             className="inline-block rounded-md bg-[#2E5077] px-6 py-3 text-white hover:bg-[#1e3a5a] transition-colors"
                         >
                             Find Providers

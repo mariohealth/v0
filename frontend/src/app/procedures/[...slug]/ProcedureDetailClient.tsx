@@ -86,10 +86,10 @@ export default function ProcedureDetailClient() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-md bg-red-50 p-4 text-red-800">{error}</div>
           <Link
-            href="/search"
+            href="/procedures"
             className="mt-4 inline-block text-blue-600 hover:text-blue-800"
           >
-            ← Back to Search
+            ← Back to Procedures
           </Link>
         </div>
       </main>
@@ -103,10 +103,10 @@ export default function ProcedureDetailClient() {
           <div className="rounded-md bg-gray-50 p-8 text-center">
             <p className="text-gray-600">Procedure not found.</p>
             <Link
-              href="/search"
+              href="/procedures"
               className="mt-4 inline-block text-blue-600 hover:text-blue-800"
             >
-              ← Back to Search
+              ← Back to Procedures
             </Link>
           </div>
         </div>

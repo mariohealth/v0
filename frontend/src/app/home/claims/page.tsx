@@ -105,7 +105,7 @@ export default function ClaimsPage() {
                             Claims will appear here after you book appointments and procedures.
                         </p>
                         <Link
-                            href="/search"
+                            href="/procedures"
                             className="inline-block rounded-md bg-[#2E5077] px-6 py-3 text-white hover:bg-[#1e3a5a] transition-colors"
                         >
                             Find Procedures

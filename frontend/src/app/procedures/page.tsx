@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Search, Activity } from 'lucide-react';
 import { BottomNav } from '@/components/navigation/BottomNav';
-import { marioProceduresData } from '@/lib/data/mario-procedures-data';
+import { procedureCategories } from '@/lib/data/mario-procedures-data';
 
 export default function ProceduresPage() {
     const { user, loading } = useAuth();
@@ -31,7 +31,19 @@ export default function ProceduresPage() {
         return null;
     }
 
-    const filteredProcedures = marioProceduresData.filter((proc) =>
+    // Flatten all procedures from all categories
+    const allProcedures = procedureCategories.flatMap(category => 
+        category.procedures.map(proc => ({
+            ...proc,
+            category: category.name,
+            slug: proc.id,
+            priceRange: `$${proc.marioPrice} - $${proc.avgPrice}`,
+            providerCount: Math.floor(Math.random() * 50) + 10, // Mock provider count
+            description: proc.description || `${proc.name} procedure`
+        }))
+    );
+
+    const filteredProcedures = allProcedures.filter((proc) =>
         proc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         proc.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -64,7 +76,7 @@ export default function ProceduresPage() {
                     {filteredProcedures.map((procedure) => (
                         <Link
                             key={procedure.id}
-                            href={`/search?q=${encodeURIComponent(procedure.name)}`}
+                            href={`/procedures?q=${encodeURIComponent(procedure.name)}`}
                             className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
                         >
                             <div className="flex items-start justify-between mb-4">

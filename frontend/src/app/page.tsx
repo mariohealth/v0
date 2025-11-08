@@ -8,9 +8,9 @@ export default function HomePage() {
 
   const handleSearch = (query: string) => {
     if (query.trim()) {
-      router.push(`/search?q=${encodeURIComponent(query)}`)
+      router.push(`/procedures?q=${encodeURIComponent(query)}`)
     } else {
-      router.push('/search')
+      router.push('/procedures')
     }
   }
 

@@ -73,7 +73,7 @@ export default function HelpPage() {
                         <p className="text-sm text-gray-600">Get instant help from our AI assistant</p>
                     </button>
                     <a
-                        href="/search"
+                        href="/procedures"
                         className="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-md transition-shadow text-left"
                     >
                         <Search className="h-8 w-8 text-[#2E5077] mb-3" />

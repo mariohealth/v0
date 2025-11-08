@@ -96,7 +96,7 @@ export default function ConciergePage() {
                             Start a concierge request by booking with a provider or asking MarioAI for help.
                         </p>
                         <Link
-                            href="/search"
+                            href="/procedures"
                             className="inline-block rounded-md bg-[#2E5077] px-6 py-3 text-white hover:bg-[#1e3a5a] transition-colors"
                         >
                             Start Searching

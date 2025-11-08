@@ -85,10 +85,10 @@ function ProviderDetailContent() {
                         {error}
                     </div>
                     <Link
-                        href="/search"
+                        href="/procedures"
                         className="mt-4 inline-block text-blue-600 hover:text-blue-800"
                     >
-                        ← Back to Search
+                        ← Back to Procedures
                     </Link>
                 </div>
             </main>
@@ -102,10 +102,10 @@ function ProviderDetailContent() {
                     <div className="rounded-md bg-gray-50 p-8 text-center">
                         <p className="text-gray-600">Provider not found.</p>
                         <button
-                            onClick={() => router.push('/search')}
+                            onClick={() => router.push('/procedures')}
                             className="mt-4 inline-block text-blue-600 hover:text-blue-800"
                         >
-                            ← Back to Search
+                            ← Back to Procedures
                         </button>
                     </div>
                 </div>
@@ -117,7 +117,7 @@ function ProviderDetailContent() {
         if (procedureSlug) {
             router.push(`/procedures/${procedureSlug}`);
         } else {
-            router.push('/search');
+            router.push('/procedures');
         }
     };
 
