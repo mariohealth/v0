@@ -2,10 +2,10 @@
 
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { MarioRewardsV2 } from '@/components/mario-rewards-v2';
 
-export default function RewardsPage() {
+function RewardsContent() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -78,5 +78,17 @@ export default function RewardsPage() {
       )}
       <MarioRewardsV2 onBack={handleBack} />
     </div>
+  );
+}
+
+export default function RewardsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">Loading...</div>
+      </div>
+    }>
+      <RewardsContent />
+    </Suspense>
   );
 }
