@@ -1,6 +1,7 @@
 import { auth } from './firebase';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
+const API_URL = API_BASE_URL; // Alias for consistency
 
 export interface SearchResult {
     procedure_id: string;

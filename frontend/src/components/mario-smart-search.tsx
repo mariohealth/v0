@@ -1,13 +1,12 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Search, X, Loader2, Sparkles } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { cn } from './ui/utils';
-import { searchData } from '@/lib/data/mario-search-data';
 import { MarioAutocompleteEnhanced, type AutocompleteSuggestion } from './mario-autocomplete-enhanced';
-import { doctors, specialties } from '@/lib/data/mario-doctors-data';
-import { searchMedications } from '@/lib/data/mario-medication-data';
+import { searchProcedures } from '@/lib/api';
 
 interface SearchResult {
   id: string;
@@ -33,6 +32,7 @@ export function MarioSmartSearch({
   autoFocus = false,
   className
 }: SmartSearchProps) {
+  const router = useRouter();
   const [query, setQuery] = useState('');
   const [autocompleteSuggestions, setAutocompleteSuggestions] = useState<AutocompleteSuggestion[]>([]);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
@@ -70,7 +70,7 @@ export function MarioSmartSearch({
     return searchIndex === searchLower.length;
   };
 
-  // Search with debounce - populate autocomplete suggestions
+  // Search with debounce - populate autocomplete suggestions from API
   useEffect(() => {
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
@@ -85,75 +85,32 @@ export function MarioSmartSearch({
 
     setIsLoading(true);
     
-    debounceRef.current = setTimeout(() => {
-      const suggestions: AutocompleteSuggestion[] = [];
-      
-      // Search doctors
-      const matchingDoctors = doctors.filter(doc => 
-        fuzzyMatch(doc.name, query)
-      ).slice(0, 3);
-      
-      matchingDoctors.forEach(doc => {
-        suggestions.push({
-          id: doc.id,
-          type: 'doctor',
-          primaryText: doc.name,
-          secondaryText: doc.specialty,
-          doctor: doc
-        });
-      });
-      
-      // Search specialties
-      const matchingSpecialties = specialties.filter(spec =>
-        fuzzyMatch(spec.name, query)
-      ).slice(0, 3);
-      
-      matchingSpecialties.forEach(spec => {
-        suggestions.push({
-          id: spec.id,
-          type: 'specialty',
-          primaryText: spec.name,
-          secondaryText: `${spec.doctorCount} doctors available`,
-          specialty: spec
-        });
-      });
-      
-      // Search procedures (from existing search data)
-      const matchingProcedures = searchData.procedures.filter(proc =>
-        fuzzyMatch(proc.name, query)
-      ).slice(0, 3);
-      
-      matchingProcedures.forEach(proc => {
-        suggestions.push({
-          id: `proc-${proc.name}`,
-          type: 'specialty' as any, // Use specialty type for procedures for now
-          primaryText: proc.name,
-          secondaryText: 'View providers'
-        });
-      });
-      
-      // Search medications
-      const matchingMedications = searchMedications(query).slice(0, 3);
-      
-      matchingMedications.forEach(med => {
-        // Create display text like "Lipitor - Atorvastatin 20 mg"
-        const displayName = med.genericFor 
-          ? `${med.genericFor} - ${med.name}`
-          : med.name;
+    debounceRef.current = setTimeout(async () => {
+      try {
+        // Use real API to search procedures
+        const response = await searchProcedures(query.trim());
         
-        suggestions.push({
-          id: med.id || `med-${med.name}`,
-          type: 'medication' as any,
-          primaryText: displayName,
-          secondaryText: 'Medication',
-          medication: med
-        });
-      });
-      
-      setAutocompleteSuggestions(suggestions);
-      setShowAutocomplete(suggestions.length > 0);
-      setIsLoading(false);
-      setSelectedIndex(-1);
+        // Convert API results to autocomplete suggestions
+        const suggestions: AutocompleteSuggestion[] = response.results.slice(0, 6).map((result) => ({
+          id: result.procedure_id,
+          type: 'specialty' as any, // Use specialty type for procedures
+          primaryText: result.procedure_name,
+          secondaryText: `${result.provider_count} providers • ${result.category_name}`,
+          // Store procedure slug for direct navigation
+          procedureSlug: result.procedure_slug,
+        }));
+        
+        setAutocompleteSuggestions(suggestions);
+        setShowAutocomplete(suggestions.length > 0);
+        setIsLoading(false);
+        setSelectedIndex(-1);
+      } catch (error) {
+        console.error('Autocomplete search error:', error);
+        setAutocompleteSuggestions([]);
+        setShowAutocomplete(false);
+        setIsLoading(false);
+        setSelectedIndex(-1);
+      }
     }, 300);
 
     return () => {
@@ -235,7 +192,15 @@ export function MarioSmartSearch({
     setShowAutocomplete(false);
     setSelectedIndex(-1);
     
-    // Call the onSearch with the suggestion so App.tsx can route appropriately
+    // If suggestion has procedure slug, navigate directly to procedure page
+    const procedureSlug = (suggestion as any).procedureSlug;
+    if (procedureSlug) {
+      // Navigate directly to procedure page using Next.js router
+      router.push(`/procedures/${procedureSlug}`);
+      return;
+    }
+    
+    // Otherwise, call the onSearch with the suggestion
     onSearch(suggestion.primaryText, suggestion);
     
     // Also call the dedicated callback if provided

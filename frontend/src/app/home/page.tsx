@@ -15,20 +15,30 @@ export default function HomePage() {
     }
   }, [user, loading, router]);
 
-  const handleSearch = (query: string) => {
-    if (query && query.trim()) {
-      router.push(`/search?q=${encodeURIComponent(query.trim())}`);
-    } else {
+  const handleSearch = async (query: string, suggestion?: any) => {
+    if (!query || !query.trim()) {
       router.push('/search');
+      return;
     }
+
+    const trimmedQuery = query.trim();
+    
+    // If suggestion has a procedure_slug, navigate directly to procedure page
+    if (suggestion?.procedureSlug) {
+      router.push(`/procedures/${suggestion.procedureSlug}`);
+      return;
+    }
+    
+    // Regular search - navigate to search page
+    router.push(`/search?q=${encodeURIComponent(trimmedQuery)}`);
   };
 
   const handleBrowseProcedures = () => {
-    router.push('/search');
+    router.push('/search?q=procedure');
   };
 
   const handleFindDoctors = () => {
-    router.push('/search?q=doctors');
+    router.push('/search?q=doctor');
   };
 
   const handleFindMedication = () => {
