@@ -23,10 +23,32 @@ export default function HomePage() {
 
     const trimmedQuery = query.trim();
     
-    // If suggestion has a procedure_slug, navigate directly to procedure page
-    if (suggestion?.procedureSlug) {
-      router.push(`/procedures/${suggestion.procedureSlug}`);
-      return;
+    // Handle different suggestion types
+    if (suggestion) {
+      // Procedure - navigate to procedure detail page
+      if (suggestion.procedureSlug) {
+        router.push(`/procedures/${suggestion.procedureSlug}`);
+        return;
+      }
+      
+      // Doctor/Provider - navigate to provider detail page
+      if (suggestion.doctor?.id) {
+        router.push(`/providers/${suggestion.doctor.id}`);
+        return;
+      }
+      
+      // Medication - navigate to medications page
+      if (suggestion.medication) {
+        const medSlug = suggestion.medication.slug || suggestion.medication.name.toLowerCase().replace(/\s+/g, '-');
+        router.push(`/medications/${medSlug}`);
+        return;
+      }
+      
+      // Specialty - navigate to doctors page filtered by specialty
+      if (suggestion.specialty) {
+        router.push(`/doctors?specialty=${encodeURIComponent(suggestion.specialty.id)}`);
+        return;
+      }
     }
     
     // Regular search - navigate to procedures page with query

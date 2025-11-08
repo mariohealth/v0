@@ -98,6 +98,17 @@ export function MarioAIModal({ open, onClose, mode, context }: MarioAIModalProps
         }
     };
 
+    const handleQuickAction = (action: string) => {
+        onClose();
+        if (action === 'book') {
+            router.push('/procedures');
+        } else if (action === 'concern') {
+            router.push('/home');
+        } else if (action === 'rx') {
+            router.push('/medications');
+        }
+    };
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 max-h-[80vh] flex flex-col">
@@ -114,6 +125,33 @@ export function MarioAIModal({ open, onClose, mode, context }: MarioAIModalProps
                         <X className="h-5 w-5" />
                     </button>
                 </div>
+
+                {/* Quick Actions */}
+                {mode === 'search' && messages.length === 0 && (
+                    <div className="p-4 border-b space-y-2">
+                        <p className="text-sm font-medium text-gray-700 mb-2">Quick Actions:</p>
+                        <div className="grid grid-cols-1 gap-2">
+                            <button
+                                onClick={() => handleQuickAction('concern')}
+                                className="text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors text-sm"
+                            >
+                                I have a health concern
+                            </button>
+                            <button
+                                onClick={() => handleQuickAction('book')}
+                                className="text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors text-sm"
+                            >
+                                Book a visit
+                            </button>
+                            <button
+                                onClick={() => handleQuickAction('rx')}
+                                className="text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors text-sm"
+                            >
+                                Rx renewal
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 {/* Messages */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">

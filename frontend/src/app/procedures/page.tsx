@@ -3,7 +3,6 @@
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { Search, Activity } from 'lucide-react';
 import { BottomNav } from '@/components/navigation/BottomNav';
 import { procedureCategories } from '@/lib/data/mario-procedures-data';
@@ -74,10 +73,10 @@ export default function ProceduresPage() {
                 {/* Procedures Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredProcedures.map((procedure) => (
-                        <Link
+                        <div
                             key={procedure.id}
-                            href={`/procedures?q=${encodeURIComponent(procedure.name)}`}
-                            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                            onClick={() => router.push(`/procedures/${procedure.slug}`)}
+                            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer"
                         >
                             <div className="flex items-start justify-between mb-4">
                                 <Activity className="h-8 w-8 text-[#4DA1A9] flex-shrink-0" />
@@ -97,7 +96,7 @@ export default function ProceduresPage() {
                                     <p className="text-sm font-medium text-gray-900">{procedure.providerCount}+</p>
                                 </div>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
 

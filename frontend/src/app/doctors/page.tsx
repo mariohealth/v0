@@ -63,7 +63,8 @@ export default function DoctorsPage() {
                     {filteredDoctors.map((doctor) => (
                         <div
                             key={doctor.id}
-                            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                            onClick={() => router.push(`/providers/${doctor.id}`)}
+                            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer"
                         >
                             <div className="flex items-start justify-between mb-4">
                                 <div className="h-12 w-12 rounded-full bg-[#2E5077] flex items-center justify-center">
