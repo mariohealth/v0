@@ -44,9 +44,8 @@ export function GlobalNav({ showOnMobile = true, showOnDesktop = true }: GlobalN
     }
 
     const navItems = [
-        { href: '/', label: 'Home', icon: Home },
-        { href: '/search', label: 'Search', icon: Search },
-        { href: '/home', label: 'Health Hub', icon: Home },
+        { href: '/home', label: 'Home', icon: Home },
+        { href: '/health-hub', label: 'Health Hub', icon: Home },
         { href: '/rewards', label: 'Rewards', icon: Gift },
         { href: '/profile', label: 'Profile', icon: User },
     ];

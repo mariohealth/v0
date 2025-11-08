@@ -17,7 +17,7 @@ export default function HomePage() {
 
   const handleSearch = async (query: string, suggestion?: any) => {
     if (!query || !query.trim()) {
-      router.push('/search');
+      // Stay on home page if no query
       return;
     }
 
@@ -29,8 +29,8 @@ export default function HomePage() {
       return;
     }
     
-    // Regular search - navigate to search page
-    router.push(`/search?q=${encodeURIComponent(trimmedQuery)}`);
+    // Regular search - navigate to procedures page with query
+    router.push(`/procedures?q=${encodeURIComponent(trimmedQuery)}`);
   };
 
   const handleBrowseProcedures = () => {
@@ -46,7 +46,7 @@ export default function HomePage() {
   };
 
   const handleMarioCare = () => {
-    router.push('/search');
+    router.push('/home');
   };
 
   const handleOpenAI = () => {

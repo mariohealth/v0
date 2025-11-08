@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/lib/contexts/AuthContext";
+import { ToastProvider } from "@/components/ui/toast-provider";
 import { GlobalNav } from "@/components/navigation/GlobalNav";
 import "./globals.css";
 
@@ -33,9 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <GlobalNav />
-          {children}
-          <Toaster />
+          <ToastProvider>
+            <GlobalNav />
+            {children}
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>
