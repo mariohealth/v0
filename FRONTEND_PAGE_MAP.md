@@ -424,3 +424,15 @@ Concierge (/concierge) → Profile (/profile)
 ---
 
 *Last Updated: 2025-01-11*
+
+---
+
+## Mock Data Archive Index
+
+The following directories contain archived mock data used for fallback and development purposes:
+
+- `/mock/archive/home-search-v1/` - Home search and procedure listing mock data
+- `/mock/archive/health-rewards-v1/` - Health Hub and Rewards mock data
+- `/mock/archive/ai-v1/` - MarioAI conversation scripts and chat mock data
+
+**Note:** `/browse-procedures` remains a dedicated discovery route and is not affected by the unified `/home` flow.
