@@ -276,3 +276,254 @@ export async function getProviderDetail(providerId: string): Promise<ProviderDet
     }
 }
 
+// Health Hub & Rewards API Types
+export interface Appointment {
+    id: string;
+    provider: string;
+    specialty: string;
+    date: string;
+    time: string;
+    status: 'confirmed' | 'pending' | 'cancelled';
+    marioPoints?: number;
+    isPast?: boolean;
+}
+
+export interface ConciergeRequest {
+    id: string;
+    type: string;
+    status: 'in-progress' | 'completed' | 'cancelled';
+    requestDate: string;
+    expectedDate: string;
+}
+
+export interface Claim {
+    id: string;
+    service: string;
+    provider: string;
+    amount: string;
+    youOwe: string;
+    date: string;
+    status: 'paid' | 'pending' | 'denied';
+}
+
+export interface Message {
+    id: string;
+    sender: string;
+    message: string;
+    time: string;
+    isNew: boolean;
+}
+
+export interface DeductibleProgress {
+    current: number;
+    total: number;
+    percentage: number;
+}
+
+export interface HealthHubData {
+    upcomingAppointments: Appointment[];
+    pastAppointments: Appointment[];
+    conciergeRequests: ConciergeRequest[];
+    recentClaims: Claim[];
+    messages: Message[];
+    deductibleProgress: DeductibleProgress;
+}
+
+export interface RewardsData {
+    currentPoints: number;
+    nextMilestone: number;
+    rewards: Reward[];
+}
+
+export interface Reward {
+    id: number;
+    title: string;
+    pointsRequired: number;
+    category: string;
+    logo: string;
+    brand: string;
+    value: string;
+    description: string;
+    isBookmarked?: boolean;
+}
+
+/**
+ * Fetch Health Hub data for a user
+ */
+export async function fetchHealthHubData(userId: string): Promise<HealthHubData> {
+    const url = `${API_BASE_URL}/api/v1/health-hub?user_id=${encodeURIComponent(userId)}`;
+
+    console.log('[API] Fetching health hub data:', { userId, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Health hub data success:', { userId });
+        return data as HealthHubData;
+    } catch (error) {
+        console.error('[API] Error fetching health hub data:', error);
+        throw error;
+    }
+}
+
+/**
+ * Fetch Rewards data for a user
+ */
+export async function fetchRewardsData(userId: string): Promise<RewardsData> {
+    const url = `${API_BASE_URL}/api/v1/rewards?user_id=${encodeURIComponent(userId)}`;
+
+    console.log('[API] Fetching rewards data:', { userId, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Rewards data success:', { userId });
+        return data as RewardsData;
+    } catch (error) {
+        console.error('[API] Error fetching rewards data:', error);
+        throw error;
+    }
+}
+
+/**
+ * Update MarioPoints for a user
+ */
+export async function updateMarioPoints(userId: string, delta: number): Promise<number> {
+    const url = `${API_BASE_URL}/api/v1/rewards/points`;
+
+    console.log('[API] Updating MarioPoints:', { userId, delta, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                user_id: userId,
+                delta: delta,
+            }),
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
+            try {
+                const errorData = JSON.parse(errorText);
+                errorMessage = errorData.message || errorData.detail || errorMessage;
+            } catch {
+                errorMessage = errorText || errorMessage;
+            }
+            console.error('[API] Update MarioPoints error:', {
+                status: response.status,
+                statusText: response.statusText,
+                error: errorMessage,
+            });
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+        console.log('[API] Update MarioPoints success:', {
+            userId,
+            delta,
+            newTotal: data.total_points,
+        });
+        return data.total_points as number;
+    } catch (error) {
+        console.error('[API] Error updating MarioPoints:', error);
+        if (error instanceof Error) {
+            throw error;
+        }
+        throw new Error('Failed to update MarioPoints');
+    }
+}
+
+/**
+ * Get appointments for a user
+ */
+export async function getAppointments(userId: string): Promise<Appointment[]> {
+    const url = `${API_BASE_URL}/api/v1/bookings?user_id=${encodeURIComponent(userId)}`;
+
+    console.log('[API] Fetching appointments:', { userId, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Appointments success:', { userId, count: data.length });
+        return data as Appointment[];
+    } catch (error) {
+        console.error('[API] Error fetching appointments:', error);
+        throw error;
+    }
+}
+
+/**
+ * Get claims for a user
+ */
+export async function getClaims(userId: string): Promise<Claim[]> {
+    const url = `${API_BASE_URL}/api/v1/claims?user_id=${encodeURIComponent(userId)}`;
+
+    console.log('[API] Fetching claims:', { userId, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Claims success:', { userId, count: data.length });
+        return data as Claim[];
+    } catch (error) {
+        console.error('[API] Error fetching claims:', error);
+        throw error;
+    }
+}
+
+/**
+ * Get concierge requests for a user
+ */
+export async function getConciergeRequests(userId: string): Promise<ConciergeRequest[]> {
+    const url = `${API_BASE_URL}/api/v1/requests?user_id=${encodeURIComponent(userId)}`;
+
+    console.log('[API] Fetching concierge requests:', { userId, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Concierge requests success:', { userId, count: data.length });
+        return data as ConciergeRequest[];
+    } catch (error) {
+        console.error('[API] Error fetching concierge requests:', error);
+        throw error;
+    }
+}
+
