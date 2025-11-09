@@ -107,19 +107,23 @@
 
 ---
 
-### ✅ `/health-hub` Route
+### ⚠️ `/health-hub` Route
 
 **File:** `frontend/src/app/health-hub/page.tsx`
 
 **Component Used:** `MarioHealthHub` from `@/components/mario-health-hub`
 
-**Status:** ⚠️ **PARTIAL** - Using different component name
+**Status:** ⚠️ **USING OLDER VERSION** - Not using refined component
 
 **Imports:**
-- ✅ `MarioHealthHub` from `@/components/mario-health-hub`
-- ⚠️ Note: `mario-health-hub-refined.tsx` exists but route uses `mario-health-hub.tsx`
+- ⚠️ `MarioHealthHub` from `@/components/mario-health-hub` (older version)
+- ❌ `MarioHealthHubRefined` from `@/components/mario-health-hub-refined` (NOT USED)
 
-**Note:** The route imports `MarioHealthHub` from `@/components/mario-health-hub`, but `mario-health-hub-refined.tsx` exists. Need to verify which file is actually being imported.
+**Files Found:**
+- `frontend/src/components/mario-health-hub.tsx` (23,343 bytes, Nov 9 04:57) - **CURRENTLY USED**
+- `frontend/src/components/mario-health-hub-refined.tsx` (41,022 bytes, Nov 10 06:35) - **NOT USED**
+
+**Note:** The route is using the older `MarioHealthHub` component instead of the newer `MarioHealthHubRefined` component. The refined version is larger and likely has more features.
 
 ---
 
@@ -190,14 +194,19 @@ frontend/src/app/
 
 ### ⚠️ Minor Issues
 
-1. **Multiple unused provider detail variants**
+1. **`/health-hub` route using older component**
+   - **Current:** Using `MarioHealthHub` from `mario-health-hub.tsx` (older, 23KB)
+   - **Available:** `MarioHealthHubRefined` from `mario-health-hub-refined.tsx` (newer, 41KB)
+   - **Recommendation:** Update route to use `MarioHealthHubRefined` component
+
+2. **Multiple unused provider detail variants**
    - `mario-provider-detail.tsx` (not used)
    - `mario-provider-detail-enhanced.tsx` (not used)
    - `mario-provider-detail-complete.tsx` (not used)
    - `mario-provider-detail-compact.tsx` (not used)
    - **Recommendation:** Decide which variant to use or archive unused ones
 
-2. **`MarioProcedureSearchResults` component exists but not used**
+3. **`MarioProcedureSearchResults` component exists but not used**
    - **Location:** `frontend/src/components/mario-procedure-search-results.tsx`
    - **Recommendation:** Consider using in `/procedures/[slug]` route
 
@@ -205,7 +214,6 @@ frontend/src/app/
 
 1. **`/home` route** - ✅ Correctly using `MarioHome`
 2. **`/providers/[id]` route** - ✅ Correctly using `MarioProviderHospitalDetail`
-3. **`/health-hub` route** - ✅ Using `MarioHealthHub` (need to verify if it's the refined version)
 
 ---
 
@@ -237,8 +245,8 @@ frontend/src/app/
 
 1. **`/procedures` route** should use `MarioBrowseProcedures` component
 2. **`/procedures/[slug]` route** should use `MarioProcedureSearchResults` component
-3. **Multiple unused provider detail variants** should be archived or consolidated
-4. **Verify `MarioHealthHub` import** - check if it's using the refined version
+3. **`/health-hub` route** should use `MarioHealthHubRefined` component (currently using older version)
+4. **Multiple unused provider detail variants** should be archived or consolidated
 
 ### 📋 Next Steps
 
