@@ -212,22 +212,61 @@ export async function getProcedureProviders(
 
 /**
  * Get procedure details by slug
+ * Uses the dedicated /procedures/{slug} endpoint
  */
 export async function getProcedureBySlug(procedureSlug: string): Promise<SearchResult | null> {
-    console.log('[API] Fetching procedure by slug:', { procedureSlug });
+    const url = `${API_BASE_URL}/api/v1/procedures/${procedureSlug}`;
+
+    console.log('[API] Fetching procedure by slug:', { procedureSlug, url });
+
     try {
-        // First try to get it from search, or we could have a dedicated endpoint
-        const response = await searchProcedures(procedureSlug);
-        const result = response.results.find((r) => r.procedure_slug === procedureSlug);
-        if (result) {
-            console.log('[API] Found procedure:', { procedureSlug, procedureName: result.procedure_name });
-        } else {
-            console.warn('[API] Procedure not found in search results:', { procedureSlug });
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            // Fallback to search if dedicated endpoint fails
+            console.warn('[API] Procedure detail endpoint failed, falling back to search:', {
+                status: response.status,
+                procedureSlug,
+            });
+            const searchResponse = await searchProcedures(procedureSlug);
+            const result = searchResponse.results.find((r) => r.procedure_slug === procedureSlug);
+            return result || null;
         }
-        return result || null;
+
+        const data = await response.json();
+        console.log('[API] Procedure detail success:', {
+            procedureSlug,
+            procedureName: data.procedure_name,
+        });
+
+        // Convert ProcedureDetail to SearchResult format for compatibility
+        return {
+            procedure_id: data.procedure_id || '',
+            procedure_name: data.procedure_name || '',
+            procedure_slug: data.procedure_slug || procedureSlug,
+            family_name: data.family_name || '',
+            family_slug: data.family_slug || '',
+            category_name: data.category_name || '',
+            category_slug: data.category_slug || '',
+            best_price: data.best_price || '',
+            avg_price: data.avg_price || '',
+            price_range: data.price_range || '',
+            provider_count: data.provider_count || 0,
+            match_score: 1.0,
+        } as SearchResult;
     } catch (error) {
         console.error('[API] Error fetching procedure:', error);
-        return null;
+        // Fallback to search on error
+        try {
+            const searchResponse = await searchProcedures(procedureSlug);
+            const result = searchResponse.results.find((r) => r.procedure_slug === procedureSlug);
+            return result || null;
+        } catch (searchError) {
+            console.error('[API] Search fallback also failed:', searchError);
+            return null;
+        }
     }
 }
 
@@ -523,6 +562,209 @@ export async function getConciergeRequests(userId: string): Promise<ConciergeReq
         return data as ConciergeRequest[];
     } catch (error) {
         console.error('[API] Error fetching concierge requests:', error);
+        throw error;
+    }
+}
+
+// Additional API functions for other backend endpoints
+
+/**
+ * Get all procedure categories
+ */
+export async function getCategories(): Promise<any> {
+    const url = `${API_BASE_URL}/api/v1/categories`;
+
+    console.log('[API] Fetching categories:', { url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Categories success:', { count: data.categories?.length || 0 });
+        return data;
+    } catch (error) {
+        console.error('[API] Error fetching categories:', error);
+        throw error;
+    }
+}
+
+/**
+ * Get families within a category
+ */
+export async function getCategoryFamilies(categorySlug: string): Promise<any> {
+    const url = `${API_BASE_URL}/api/v1/categories/${categorySlug}/families`;
+
+    console.log('[API] Fetching category families:', { categorySlug, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Category families success:', { categorySlug, count: data.families?.length || 0 });
+        return data;
+    } catch (error) {
+        console.error('[API] Error fetching category families:', error);
+        throw error;
+    }
+}
+
+/**
+ * Get procedures within a family
+ */
+export async function getFamilyProcedures(familySlug: string): Promise<any> {
+    const url = `${API_BASE_URL}/api/v1/families/${familySlug}/procedures`;
+
+    console.log('[API] Fetching family procedures:', { familySlug, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Family procedures success:', { familySlug, count: data.procedures?.length || 0 });
+        return data;
+    } catch (error) {
+        console.error('[API] Error fetching family procedures:', error);
+        throw error;
+    }
+}
+
+/**
+ * Create a booking
+ */
+export async function createBooking(bookingData: {
+    provider_id: string;
+    procedure_id: string;
+    appointment_date: string;
+    appointment_time: string;
+    patient_name: string;
+    patient_email: string;
+    patient_phone?: string;
+    insurance_provider?: string;
+    notes?: string;
+}): Promise<any> {
+    const url = `${API_BASE_URL}/api/v1/bookings`;
+
+    console.log('[API] Creating booking:', { bookingData, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'POST',
+            body: JSON.stringify(bookingData),
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
+            try {
+                const errorData = JSON.parse(errorText);
+                errorMessage = errorData.message || errorData.detail || errorMessage;
+            } catch {
+                errorMessage = errorText || errorMessage;
+            }
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+        console.log('[API] Create booking success:', { bookingId: data.id });
+        return data;
+    } catch (error) {
+        console.error('[API] Error creating booking:', error);
+        throw error;
+    }
+}
+
+/**
+ * Get booking details
+ */
+export async function getBookingDetails(bookingId: string): Promise<any> {
+    const url = `${API_BASE_URL}/api/v1/bookings/${bookingId}`;
+
+    console.log('[API] Fetching booking details:', { bookingId, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Booking details success:', { bookingId });
+        return data;
+    } catch (error) {
+        console.error('[API] Error fetching booking details:', error);
+        throw error;
+    }
+}
+
+/**
+ * Cancel a booking
+ */
+export async function cancelBooking(bookingId: string): Promise<any> {
+    const url = `${API_BASE_URL}/api/v1/bookings/${bookingId}/cancel`;
+
+    console.log('[API] Cancelling booking:', { bookingId, url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Cancel booking success:', { bookingId });
+        return data;
+    } catch (error) {
+        console.error('[API] Error cancelling booking:', error);
+        throw error;
+    }
+}
+
+/**
+ * Get authenticated user info
+ */
+export async function getWhoami(): Promise<any> {
+    const url = `${API_BASE_URL}/api/v1/whoami`;
+
+    console.log('[API] Fetching user info:', { url });
+
+    try {
+        const response = await fetchWithAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('[API] Whoami success:', { authenticated: data.authenticated });
+        return data;
+    } catch (error) {
+        console.error('[API] Error fetching user info:', error);
         throw error;
     }
 }
