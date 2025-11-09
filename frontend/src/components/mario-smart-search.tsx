@@ -4,7 +4,6 @@ import { Search, X, Loader2, Sparkles } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { cn } from './ui/utils';
-import { searchData } from '@/lib/data/mario-search-data';
 import { MarioAutocompleteEnhanced, type AutocompleteSuggestion } from './mario-autocomplete-enhanced';
 import { doctors, specialties } from '@/lib/data/mario-doctors-data';
 import { searchMedications } from '@/lib/data/mario-medication-data';

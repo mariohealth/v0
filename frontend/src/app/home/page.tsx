@@ -1,19 +1,56 @@
 'use client';
 
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
 import { MarioHome } from '@/components/mario-home';
+import { getProcedureProviders, type Provider } from '@/lib/api';
 
-export default function HomePage() {
+function HomePageContent() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const procedureSlug = searchParams.get('procedure');
+  
+  const [providers, setProviders] = useState<Provider[]>([]);
+  const [procedureName, setProcedureName] = useState<string>('');
+  const [loadingProviders, setLoadingProviders] = useState(false);
+  const [providersError, setProvidersError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) {
       router.push('/login');
     }
   }, [user, loading, router]);
+
+  // Fetch providers when procedure query param is present
+  useEffect(() => {
+    const fetchProviders = async () => {
+      if (!procedureSlug || !user) return;
+
+      setLoadingProviders(true);
+      setProvidersError(null);
+
+      try {
+        const data = await getProcedureProviders(procedureSlug);
+        setProviders(data.providers || []);
+        setProcedureName(data.procedure_name || '');
+      } catch (error) {
+        console.error('Error fetching procedure providers:', error);
+        setProvidersError('Failed to load providers. Please try again.');
+        setProviders([]);
+      } finally {
+        setLoadingProviders(false);
+      }
+    };
+
+    if (procedureSlug && user) {
+      fetchProviders();
+    } else {
+      setProviders([]);
+      setProcedureName('');
+    }
+  }, [procedureSlug, user]);
 
   const handleSearch = async (query: string, suggestion?: any) => {
     if (!query || !query.trim()) {
@@ -25,9 +62,9 @@ export default function HomePage() {
     
     // Handle different suggestion types
     if (suggestion) {
-      // Procedure - navigate to procedure detail page
+      // Procedure - navigate to /home with procedure query param
       if (suggestion.procedureSlug) {
-        router.push(`/procedures/${suggestion.procedureSlug}`);
+        router.push(`/home?procedure=${encodeURIComponent(suggestion.procedureSlug)}`);
         return;
       }
       
@@ -53,6 +90,14 @@ export default function HomePage() {
     
     // Regular search - navigate to procedures page with query
     router.push(`/procedures?q=${encodeURIComponent(trimmedQuery)}`);
+  };
+
+  const handleProviderClick = (providerId: string) => {
+    if (procedureSlug) {
+      router.push(`/providers/${providerId}?procedure=${encodeURIComponent(procedureSlug)}`);
+    } else {
+      router.push(`/providers/${providerId}`);
+    }
   };
 
   const handleBrowseProcedures = () => {
@@ -102,7 +147,25 @@ export default function HomePage() {
         onFindDoctors={handleFindDoctors}
         onFindMedication={handleFindMedication}
         onMarioCare={handleMarioCare}
+        procedureSlug={procedureSlug || undefined}
+        procedureName={procedureName}
+        providers={providers}
+        loadingProviders={loadingProviders}
+        providersError={providersError}
+        onProviderClick={handleProviderClick}
       />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={
+      <main className="flex min-h-screen flex-col items-center justify-center">
+        <p className="text-gray-600">Loading...</p>
+      </main>
+    }>
+      <HomePageContent />
+    </Suspense>
   );
 }

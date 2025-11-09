@@ -6,6 +6,7 @@ import { Progress } from './ui/progress';
 import { Badge } from './ui/badge';
 import { MarioSmartSearch } from './mario-smart-search';
 import { type SearchSuggestion } from '@/lib/data/healthcare-data';
+import { type Provider } from '@/lib/api';
 import { cn } from './ui/utils';
 import aiGlyph from 'figma:asset/be45d2fdb826eadb9df8b88213c90c19c77e04b0.png';
 import { 
@@ -23,7 +24,12 @@ import {
   ChevronRight,
   DollarSign,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Loader2,
+  MapPin,
+  Phone,
+  Star,
+  Navigation
 } from 'lucide-react';
 
 interface QuickActionProps {
@@ -216,9 +222,30 @@ interface HomeProps {
   onFindDoctors?: () => void;
   onFindMedication?: () => void;
   onMarioCare?: () => void;
+  procedureSlug?: string;
+  procedureName?: string;
+  providers?: Provider[];
+  loadingProviders?: boolean;
+  providersError?: string | null;
+  onProviderClick?: (providerId: string) => void;
 }
 
-export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenAIWithPrompt, onBrowseProcedures, onFindDoctors, onFindMedication, onMarioCare }: HomeProps) {
+export function MarioHome({ 
+  isReturningUser = false, 
+  onSearch, 
+  onOpenAI, 
+  onOpenAIWithPrompt, 
+  onBrowseProcedures, 
+  onFindDoctors, 
+  onFindMedication, 
+  onMarioCare,
+  procedureSlug,
+  procedureName,
+  providers = [],
+  loadingProviders = false,
+  providersError,
+  onProviderClick
+}: HomeProps) {
   const commonSearches = [
     "MRI Scan", "Annual Physical", "Mammogram", "Colonoscopy", 
     "Blood Work", "X-Ray", "Dermatologist", "Cardiologist"
@@ -418,30 +445,123 @@ export function MarioHome({ isReturningUser = false, onSearch, onOpenAI, onOpenA
           <div style={{ height: '1px', backgroundColor: '#E0E0E0', opacity: 0.5 }} />
         </div>
 
+        {/* Provider Results Section - Show inline when procedure is selected */}
+        {procedureSlug && (
+          <div className="p-4 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold" style={{ color: '#2E5077' }}>
+                  {procedureName || 'Providers'}
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  {providers.length} {providers.length === 1 ? 'provider' : 'providers'} available
+                </p>
+              </div>
+            </div>
+
+            {loadingProviders ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-6 w-6 animate-spin text-primary" />
+              </div>
+            ) : providersError ? (
+              <div className="rounded-lg bg-yellow-50 p-4 text-yellow-800">
+                {providersError}
+              </div>
+            ) : providers.length === 0 ? (
+              <div className="rounded-lg bg-gray-50 p-8 text-center">
+                <p className="text-gray-600">No providers found for this procedure.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {providers.map((provider) => (
+                  <Card
+                    key={provider.provider_id}
+                    className="cursor-pointer mario-transition hover:opacity-90 mario-button-scale p-4"
+                    onClick={() => onProviderClick?.(provider.provider_id)}
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
+                      border: 'none'
+                    }}
+                  >
+                    <div className="space-y-3">
+                      {/* Provider Name */}
+                      <div>
+                        <h3 className="font-semibold mb-1" style={{ color: '#2E5077' }}>
+                          {provider.provider_name}
+                        </h3>
+                        {provider.address && (
+                          <p className="text-sm text-muted-foreground">
+                            {provider.address}
+                            {provider.city && `, ${provider.city}`}
+                            {provider.state && ` ${provider.state}`}
+                            {provider.zip && ` ${provider.zip}`}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Details Row */}
+                      <div className="flex items-center gap-3 flex-wrap">
+                        {provider.distance_miles !== null && provider.distance_miles !== undefined && (
+                          <div className="flex items-center gap-1 text-sm" style={{ color: '#2E5077' }}>
+                            <Navigation className="h-3 w-3" />
+                            <span>{provider.distance_miles.toFixed(1)} miles</span>
+                          </div>
+                        )}
+                        
+                        {provider.phone && (
+                          <div className="flex items-center gap-1 text-sm" style={{ color: '#2E5077' }}>
+                            <Phone className="h-3 w-3" />
+                            <span>{provider.phone}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Price */}
+                      {provider.price && (
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-xl" style={{ color: '#2E5077' }}>
+                            {provider.price}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Main Content Section - Adjusted spacing (24px from divider) */}
         <div className="p-4 space-y-6" style={{ paddingTop: '24px' }}>
-          {/* Savings Highlight */}
-          <SavingsHighlight amount="$1,247" />
+          {/* Only show Savings Highlight and other sections if no procedure is selected */}
+          {!procedureSlug && (
+            <>
+              {/* Savings Highlight */}
+              <SavingsHighlight amount="$1,247" />
 
-          {/* Save on These - Horizontal Savings Cards */}
-          <div>
-            <h3 className="text-sm font-semibold mb-3">Save on These</h3>
-            <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">{savingsCards.map((card, index) => (
-              <SavingsCard
-                key={index}
-                {...card}
-                onClick={() => onSearch?.(card.name)}
+              {/* Save on These - Horizontal Savings Cards */}
+              <div>
+                <h3 className="text-sm font-semibold mb-3">Save on These</h3>
+                <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">{savingsCards.map((card, index) => (
+                  <SavingsCard
+                    key={index}
+                    {...card}
+                    onClick={() => onSearch?.(card.name)}
+                  />
+                ))}</div>
+              </div>
+
+              {/* MarioAI Search (Secondary) */}
+              <MarioAIBox 
+                onClick={() => onOpenAI?.()} 
+                onQuickAction={onOpenAIWithPrompt}
               />
-            ))}</div>
-          </div>
+            </>
+          )}
 
-          {/* MarioAI Search (Secondary) */}
-          <MarioAIBox 
-            onClick={() => onOpenAI?.()} 
-            onQuickAction={onOpenAIWithPrompt}
-          />
-
-          {/* Common Actions */}
+          {/* Common Actions - Always show */}
           <div>
             <h3 className="text-sm font-semibold mb-3">Common Actions</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">{quickActions.map((action, index) => (
