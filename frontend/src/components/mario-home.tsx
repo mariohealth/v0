@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Progress } from './ui/progress';
@@ -93,19 +94,26 @@ interface RecentSearchProps {
 
 function MarioAIBox({ onClick, onQuickAction }: { onClick: () => void; onQuickAction?: (prompt: string) => void }) {
   const [isFocused, setIsFocused] = useState(false);
+  const router = useRouter();
   
   const quickActions = [
     { 
       label: "I have a health concern", 
-      action: () => onQuickAction?.("I've been experiencing chest tightness and shortness of breath lately")
+      action: () => {
+        router.push('/ai?context=concern');
+      }
     },
     { 
       label: "Book a visit", 
-      action: () => onQuickAction?.("I need to book an appointment with a doctor. Can you help me find one?")
+      action: () => {
+        router.push('/home?mode=book');
+      }
     },
     { 
       label: "Rx renewal", 
-      action: () => onQuickAction?.("I need to refill my prescription for Lisinopril 10mg. Can you help me with that?")
+      action: () => {
+        router.push('/medications');
+      }
     }
   ];
 
