@@ -2,8 +2,7 @@
 
 import { MarioLandingPage } from '@/components/mario-landing-page'
 import { useRouter } from 'next/navigation'
-import { searchProcedures } from '@/lib/api'
-import { MarioToast } from '@/components/mario-toast-helper'
+import { navigateToProcedure } from '@/lib/navigateToProcedure'
 
 export default function HomePage() {
   const router = useRouter()
@@ -17,26 +16,11 @@ export default function HomePage() {
     const trimmedQuery = query.trim()
     
     // Search for procedure and route to /home?procedure=${slug} if found
-    try {
-      const searchResponse = await searchProcedures(trimmedQuery)
-      
-      // Find the best matching procedure result
-      if (searchResponse.results && searchResponse.results.length > 0) {
-        // Use the first result (highest match score) as the best match
-        const bestMatch = searchResponse.results[0]
-        if (bestMatch.procedure_slug) {
-          router.push(`/home?procedure=${encodeURIComponent(bestMatch.procedure_slug)}`)
-          return
-        }
-      }
-      
-      // No procedure found - show toast and route to /home
-      MarioToast.error('No matching procedure found', 'Try searching for a specific procedure name')
-      router.push('/home')
-    } catch (error) {
-      console.error('Error searching procedures:', error)
-      // On error, show toast and route to /home
-      MarioToast.error('Search failed', 'Please try again or browse procedures')
+    const navigated = await navigateToProcedure(trimmedQuery, router)
+    
+    // If no match found, navigateToProcedure shows toast but doesn't navigate
+    // So we route to /home to show the home page
+    if (!navigated) {
       router.push('/home')
     }
   }

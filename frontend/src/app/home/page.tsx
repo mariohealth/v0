@@ -4,8 +4,8 @@ import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import { MarioHome } from '@/components/mario-home';
-import { getProcedureProviders, searchProcedures, type Provider } from '@/lib/api';
-import { MarioToast } from '@/components/mario-toast-helper';
+import { getProcedureProviders, type Provider } from '@/lib/api';
+import { navigateToProcedure } from '@/lib/navigateToProcedure';
 
 function HomePageContent() {
   const { user, loading } = useAuth();
@@ -90,26 +90,7 @@ function HomePageContent() {
     }
     
     // Regular search (Enter key without autocomplete selection) - search for procedure
-    try {
-      const searchResponse = await searchProcedures(trimmedQuery);
-      
-      // Find the best matching procedure result
-      if (searchResponse.results && searchResponse.results.length > 0) {
-        // Use the first result (highest match score) as the best match
-        const bestMatch = searchResponse.results[0];
-        if (bestMatch.procedure_slug) {
-          router.push(`/home?procedure=${encodeURIComponent(bestMatch.procedure_slug)}`);
-          return;
-        }
-      }
-      
-      // No procedure found - show toast and stay on home
-      MarioToast.error('No matching procedure found', 'Try searching for a specific procedure name');
-    } catch (error) {
-      console.error('Error searching procedures:', error);
-      // On error, show toast and stay on home
-      MarioToast.error('Search failed', 'Please try again or browse procedures');
-    }
+    await navigateToProcedure(trimmedQuery, router);
   };
 
   const handleProviderClick = (providerId: string) => {
