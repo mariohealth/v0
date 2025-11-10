@@ -4,40 +4,71 @@
   )
 }}
 
--- joining on provider zip code because we don't have provider lat long yet
-WITH
-  t0 AS (
+WITH t0 AS (
+    SELECT DISTINCT -- The pricing model has prices for all procedures so we need a DISTINCT.
+                    -- Moreover, a single NPI can work at different hospitals/locations.
+        org_id,
+        provider_id,
+    FROM
+        {{ ref('procedure_pricing') }} AS t_price -- using procedure pricing so we only include NPIs for which we
+  -- need info because we have prices for them
+),
+
+  t1 AS (
   SELECT
-    npi AS id,
-    npi AS provider_id,
-    provider_organization_name AS provider_name,
-    provider_first_line_business_practice_location_address AS address,
-    -- provider_second_line_business_practice_location_address,
-    provider_business_practice_location_address_city_name AS city,
-    provider_business_practice_location_address_state_name AS state,
-    -- provider_business_practice_location_address_postal_code, -- sometimes more than 5 digits so we use the LEFT function below
-    LEFT(provider_business_practice_location_address_postal_code, 5) AS zip_code,
-    provider_business_practice_location_address_telephone_number AS phone,
-    -- provider_business_practice_location_address_fax_number, -- we are not in the 1800s anymore ;-)
+      CONCAT(t0.org_id, "_", t0.provider_id) AS id,
+      t0.org_id,
+      t0.provider_id,
+        t_hosp.hospital_name AS org_name,
+        t_hosp.address,
+        t_hosp.city,
+        t_hosp.state,
+        t_hosp.zip_code,
+        t_hosp.latitude,
+        t_hosp.longitude,
+        t_hosp.phone,
+
+        CONCAT(
+              t_npi.provider_name_prefix_text,
+              " ",
+              t_npi.provider_first_name,
+              " ",
+              t_npi.provider_middle_name,
+              " ",
+            t_npi.provider_last_name,
+            " ",
+        t_npi.provider_name_suffix_text,
+        " ",
+        t_npi.provider_credential_text
+        ) AS provider_name,
   FROM
-    {{ source('mario-mrf-data', 'npidata_pfile_20050523-20250907') }} AS t_npi
+      t0
+  JOIN
+        {{ ref('hospitals') }} AS t_hosp
+  ON
+      t0.org_id = t_hosp.hospital_id
+  JOIN
+      {{ source('mario-mrf-data', 'npidata_pfile_20050523-20250907') }} AS t_npi
+    ON
+        t0.provider_id = t_npi.npi
   WHERE
-    entity_type_code = '2'
-    -- in the NPI file only entity_type = 2 have organization names, entity_type = 1 never have an org name
-    AND provider_business_practice_location_address_country_code = 'US'
-    -- some American providers are outside of the US
+      t_hosp.operational_status = 'active'
     )
+
 SELECT
-  t0.*,
-  t_zip.latitude,
-  t_zip.longitude,
+  id,
+  org_id,
+  org_name,
+  provider_id,
+  provider_name,
+  address,
+  city,
+  state,
+  zip_code,
+  latitude,
+  longitude,
+  phone,
+
 FROM
-  t0
-LEFT JOIN
-  {{ ref('zip_codes') }} AS t_zip
-  -- left join because I want to see how many zip codes are incorrect in the NPI data
-ON
-  t0.zip_code = t_zip.zip_code
-WHERE -- I use t_zip. in the where statement because I trust Google more than the NPI data for spelling
-    UPPER(t_zip.city) = 'NEW YORK CITY'
-    AND UPPER(t_zip.state_code) = 'NY'
+  t1
+

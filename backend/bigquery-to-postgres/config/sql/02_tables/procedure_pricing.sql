@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS procedure_pricing;
 CREATE TABLE IF NOT EXISTS procedure_pricing (
     id TEXT PRIMARY KEY,
     procedure_id TEXT REFERENCES procedure(id),
+    org_id TEXT,
     provider_id TEXT,
     carrier_id TEXT,
     carrier_name TEXT,

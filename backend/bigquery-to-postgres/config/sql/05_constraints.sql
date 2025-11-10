@@ -11,9 +11,13 @@ ADD CONSTRAINT fk_procedure_family_category_id
      REFERENCES procedure_category (id);
 
 -- Foreign key from procedure_pricing to provider_location
-ALTER TABLE procedure_pricing
-    DROP CONSTRAINT IF EXISTS fk_provider_location;
 
-ALTER TABLE procedure_pricing
-ADD CONSTRAINT fk_provider_location
-FOREIGN KEY (provider_id) REFERENCES provider_location(provider_id);
+--  !!!!! THIS IS NO LONGER POSSIBLE BECAUSE A PROVIDER CAN WORK AT DIFFERENT ORGS AT THE SAME TIME SO APPEAR
+--  MULTIPLE TIMES
+
+-- ALTER TABLE procedure_pricing
+--     DROP CONSTRAINT IF EXISTS fk_provider_location;
+
+-- ALTER TABLE procedure_pricing
+-- ADD CONSTRAINT fk_provider_location
+-- FOREIGN KEY (provider_id) REFERENCES provider_location(provider_id);
