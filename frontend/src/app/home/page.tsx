@@ -40,25 +40,24 @@ function HomePageContent() {
         // Track data source for banner display
         setDataSource(data._dataSource || 'api');
         
-        // Check if we got providers (either from API or fallback)
+        // Check if we got providers (rely on real API first during verification)
         if (data.providers && data.providers.length > 0) {
           setProviders(data.providers);
           setProcedureName(data.procedure_name || '');
           setProvidersError(null);
         } else {
-          // No providers available (shouldn't happen with fallback, but handle gracefully)
+          // No providers available - show empty state (no mock fallback during verification)
           setProviders([]);
           setProcedureName(data.procedure_name || '');
           setProvidersError(null); // Don't show error, just show empty state
         }
       } catch (error) {
         console.error('Error fetching procedure providers:', error);
-        // Even on error, getProcedureProviders should return fallback data
-        // But if it doesn't, show empty state instead of error
+        // During verification: show empty state instead of fallback
         setProviders([]);
         setProcedureName('');
-        setProvidersError(null); // Don't show error message, fallback should handle it
-        setDataSource('mock'); // Assume mock if error occurred
+        setProvidersError(null); // Don't show error message during verification
+        setDataSource(null); // Clear data source on error during verification
       } finally {
         setLoadingProviders(false);
       }

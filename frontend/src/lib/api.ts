@@ -240,146 +240,54 @@ function generateSlugVariants(slug: string): string[] {
 
 /**
  * Get providers for a specific procedure
- * Includes slug normalization with multiple variants and mock fallback
- * Prefers real API data and filters for Type 2 providers (organizations, clinics, hospitals)
+ * Restored simple direct API call from b6d802c pattern
+ * Type-2 filtering applied AFTER validation (post-validation)
+ * Mock fallback temporarily disabled for verification
  */
 export async function getProcedureProviders(
     procedureSlug: string
 ): Promise<ProcedureProvidersResponse> {
-    // Generate all slug variants to try
-    const variants = generateSlugVariants(procedureSlug);
-    const base = `${API_BASE_URL}/api/v1/procedures`;
+    // === Restored core logic from b6d802c (last known-good) ===
+    // Note: Keep current API_BASE_URL/fetchWithAuth utilities as-is
+    const base = `${API_BASE_URL}/api/v1/procedures/${procedureSlug}/providers`;
     
-    console.log('[API] getProcedureProviders called:', {
-        originalSlug: procedureSlug,
-        variants,
-        baseUrl: API_BASE_URL,
-    });
-
-    let lastError: Error | null = null;
-    let lastResponse: any = null;
-
-    // Try each variant until one succeeds
-    for (const variant of variants) {
-        const url = `${base}/${variant}/providers`;
-        
-        console.log('[API] Trying variant:', { variant, url });
-
-        try {
-            const response = await fetchWithAuth(url, {
-                method: 'GET',
-            });
-
-            if (!response.ok) {
-                // If 404, try next variant
-                if (response.status === 404) {
-                    console.warn(`[API] ⚠️ Variant "${variant}" returned 404, trying next...`);
-                    continue;
-                }
-                
-                const errorText = await response.text();
-                let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
-                try {
-                    const errorData = JSON.parse(errorText);
-                    errorMessage = errorData.message || errorData.detail || errorMessage;
-                } catch {
-                    errorMessage = errorText || errorMessage;
-                }
-                
-                console.error(`[API] ❌ Variant "${variant}" failed:`, {
-                    status: response.status,
-                    statusText: response.statusText,
-                    error: errorMessage.substring(0, 200),
-                });
-                lastError = new Error(errorMessage);
-                continue;
-            }
-
-            const data = await response.json();
-            lastResponse = data;
-            
-            // Log response preview (first 200 chars)
-            const responsePreview = JSON.stringify(data).substring(0, 200);
-            console.log(`[API] Response preview for "${variant}":`, responsePreview);
-            
-            // ✅ Check if API returned valid response (like old working version)
-            // First check data.providers directly (primary location)
-            if (data?.providers && Array.isArray(data.providers) && data.providers.length > 0) {
-                // Apply Type 2 filtering if needed
-                const orgProviders = data.providers.filter((p: any) =>
-                    p.entity_type === 2 ||
-                    p.type === 'organization' ||
-                    p.npi_type === 'type2' ||
-                    p.provider_type === 'organization' ||
-                    p.provider_type === 'hospital' ||
-                    p.provider_type === 'clinic' ||
-                    // Fallback: if no type field at all, include all (backend may not have type field)
-                    (!p.entity_type && !p.type && !p.npi_type && !p.provider_type)
-                );
-                
-                // Use filtered providers if available, otherwise use all
-                const finalProviders = orgProviders.length > 0 ? orgProviders : data.providers;
-                
-                console.log(`[API] ✅ Loaded ${finalProviders.length} providers from "${variant}" (Type 2: ${orgProviders.length}, total: ${data.providers.length})`);
-                
-                // ✅ Preserve original response structure (like old version) - just replace providers array
-                return {
-                    ...data,
-                    providers: finalProviders as Provider[],
-                    total_count: finalProviders.length,
-                    _dataSource: 'api' as const,
-                } as ProcedureProvidersResponse;
-            }
-            
-            // ✅ Fallback: try alternative response shapes (data.results, data.procedure.providers)
-            const altProviders = 
-                (data.results && Array.isArray(data.results) && data.results.length > 0 ? data.results : null) ||
-                (data.procedure?.providers && Array.isArray(data.procedure.providers) && data.procedure.providers.length > 0 ? data.procedure.providers : null);
-            
-            if (altProviders) {
-                // Apply Type 2 filtering to alternative providers
-                const orgProviders = altProviders.filter((p: any) =>
-                    p.entity_type === 2 ||
-                    p.type === 'organization' ||
-                    p.npi_type === 'type2' ||
-                    p.provider_type === 'organization' ||
-                    p.provider_type === 'hospital' ||
-                    p.provider_type === 'clinic' ||
-                    (!p.entity_type && !p.type && !p.npi_type && !p.provider_type)
-                );
-                
-                const finalProviders = orgProviders.length > 0 ? orgProviders : altProviders;
-                
-                console.log(`[API] ✅ Loaded ${finalProviders.length} providers from alternative location in "${variant}"`);
-                
-                // Return with alternative providers
-                return {
-                    ...data,
-                    providers: finalProviders as Provider[],
-                    total_count: finalProviders.length,
-                    _dataSource: 'api' as const,
-                } as ProcedureProvidersResponse;
-            }
-            
-            // Empty providers array - try next variant
-            console.warn(`[API] ⚠️ Variant "${variant}" returned empty or missing providers array`);
-            continue;
-        } catch (error) {
-            console.error(`[API] ❌ Variant "${variant}" error:`, error);
-            lastError = error instanceof Error ? error : new Error('Failed to fetch procedure providers');
-            continue;
-        }
+    const res = await fetchWithAuth(base, { method: "GET" });
+    
+    if (!res.ok) {
+        throw new Error(`Provider API failed: ${res.status} ${res.statusText}`);
     }
     
-    // All variants failed or returned empty - use mock fallback only if API truly failed
-    console.warn('[API] ⚠️ All slug variants failed or returned empty → using mock fallback');
-    if (lastError) {
-        console.warn('[API] Last error:', lastError);
+    const data = await res.json();
+    
+    // The working commit returned providers directly on data.providers
+    // Preserve the original response structure
+    const providers = Array.isArray(data?.providers) ? data.providers : [];
+    
+    // Dev log to confirm we are using LIVE data and from which URL
+    if (process.env.NODE_ENV === "development") {
+        console.log("[API:LIVE] providers url:", base, "count:", providers.length);
     }
-    if (lastResponse) {
-        console.warn('[API] Last response preview:', JSON.stringify(lastResponse).substring(0, 200));
-    }
-    return createMockProviderResponse(procedureSlug);
+    
+    // === Apply modern Type-2 filtering AFTER validating the response ===
+    const orgProviders = providers.filter((p: any) =>
+        p?.entity_type === 2 ||
+        p?.type === "organization" ||
+        p?.npi_type === "type2" ||
+        p?.provider_type === "organization" ||
+        p?.provider_type === "hospital" ||
+        p?.provider_type === "clinic"
+    );
+    
+    // If Type-2 filter yields results, use them; otherwise use original providers
+    const finalProviders = orgProviders.length > 0 ? orgProviders : providers;
+    
+    // Return the FULL original payload, just swapping providers to finalProviders
+    return {
+        ...data,
+        providers: finalProviders as Provider[],
+        total_count: finalProviders.length,
+        _dataSource: "api" as const,
+    } as ProcedureProvidersResponse;
 }
 
 /**
