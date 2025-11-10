@@ -7,6 +7,7 @@ import { cn } from './ui/utils';
 import { MarioAutocompleteEnhanced, type AutocompleteSuggestion } from './mario-autocomplete-enhanced';
 import { doctors, specialties } from '@/lib/data/mario-doctors-data';
 import { searchMedications } from '@/lib/data/mario-medication-data';
+import { searchProcedures } from '@/lib/api';
 
 interface SearchResult {
   id: string;
@@ -89,25 +90,21 @@ export function MarioSmartSearch({
       
       try {
         // Use API-based autocomplete for procedures
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
-        const response = await fetch(`${API_BASE_URL}/api/v1/search?q=${encodeURIComponent(query)}&limit=10`);
+        const response = await searchProcedures(query);
         
-        if (response.ok) {
-          const data = await response.json();
-          if (data.results && Array.isArray(data.results)) {
-            // Convert API results to autocomplete suggestions (only procedures)
-            data.results.forEach((result: any) => {
-              if (result.procedure_slug) {
-                suggestions.push({
-                  id: result.procedure_id || result.procedure_slug,
-                  type: 'procedure' as any,
-                  primaryText: result.procedure_name,
-                  secondaryText: `${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
-                  procedureSlug: result.procedure_slug
-                });
-              }
-            });
-          }
+        if (response.results && Array.isArray(response.results)) {
+          // Convert API results to autocomplete suggestions (only procedures)
+          response.results.forEach((result) => {
+            if (result.procedure_slug) {
+              suggestions.push({
+                id: result.procedure_id || result.procedure_slug,
+                type: 'procedure' as any,
+                primaryText: result.procedure_name,
+                secondaryText: `${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
+                procedureSlug: result.procedure_slug
+              });
+            }
+          });
         }
       } catch (error) {
         // Log error but don't fallback to mock data for procedures
@@ -503,7 +500,7 @@ export function MarioSmartSearch({
           )}
 
           {/* Procedures Section */}
-          {autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).length > 0 && (
+          {autocompleteSuggestions.filter(s => s.type === 'procedure').length > 0 && (
             <div className="p-3">
               {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0) && (
                 <div 
@@ -524,7 +521,7 @@ export function MarioSmartSearch({
                 Procedures
               </div>
               <div className="space-y-0.5">
-                {autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).map((result, index) => {
+                {autocompleteSuggestions.filter(s => s.type === 'procedure').map((result, index) => {
                   const globalIndex = autocompleteSuggestions.filter(s => s.type === 'doctor').length + autocompleteSuggestions.filter(s => s.type === 'specialty').length + index;
                   const isSelected = selectedIndex === globalIndex;
                   
@@ -587,7 +584,7 @@ export function MarioSmartSearch({
           {/* Medications Section */}
           {autocompleteSuggestions.filter(s => s.type === 'medication').length > 0 && (
             <div className="p-3">
-              {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).length > 0) && (
+              {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 || autocompleteSuggestions.filter(s => s.type === 'procedure').length > 0) && (
                 <div 
                   className="h-px mb-3"
                   style={{ backgroundColor: '#E8EAED' }}
