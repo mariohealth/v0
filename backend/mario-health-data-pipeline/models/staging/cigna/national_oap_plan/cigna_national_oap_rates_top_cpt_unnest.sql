@@ -11,19 +11,20 @@ WITH t0 AS (
 
     FROM {{ ref('cigna_national_oap_rates_top_cpt') }} AS top
         , UNNEST(negotiated_rates) AS rates
-    WHERE
-        ARRAY_LENGTH(negotiated_prices) <= 1 -- to start simple for now
+    --WHERE
+    --    ARRAY_LENGTH(negotiated_prices) <= 1 -- to start simple for now
 ),
 
 t1 AS (
   SELECT
     t0.* EXCEPT(negotiated_prices, provider_references),
-    negotiated_prices[OFFSET(0)].billing_class AS billing_class,
-    negotiated_prices[OFFSET(0)].negotiated_rate AS negotiated_rate,
-    negotiated_prices[OFFSET(0)].negotiated_type AS negotiated_type,
+    prices.billing_class AS billing_class,
+    prices.negotiated_rate AS negotiated_rate,
+    prices.negotiated_type AS negotiated_type,
     provider_group_id,
-  FROM t0, UNNEST(provider_references) AS provider_group_id
-  WHERE 11 IN UNNEST(negotiated_prices[OFFSET(0)].service_code) -- this is the only service code we care about for now, 11 is in office
+  FROM t0, UNNEST(provider_references) AS provider_group_id, UNNEST(negotiated_prices) AS prices
+  WHERE 11 IN UNNEST(prices.service_code) -- this is the only service code we care about for now, 11 is in office
+      AND ARRAY_LENGTH(prices.billing_code_modifier) = 0 --
   ),
 
 t2 AS ( -- for some reason there are still multiple prices for a given billing code and provider group id so we have to aggregate
