@@ -302,54 +302,68 @@ export async function getProcedureProviders(
             const responsePreview = JSON.stringify(data).substring(0, 200);
             console.log(`[API] Response preview for "${variant}":`, responsePreview);
             
-            // ✅ Prefer real API data - handle different response shapes
-            const providers = 
-                data.providers || 
-                data.results || 
-                data.procedure?.providers || 
-                [];
-            
-            // ✅ Filter for Type 2 providers (organizations, clinics, hospitals)
-            const orgProviders = providers.filter((p: any) =>
-                p.entity_type === 2 ||
-                p.type === 'organization' ||
-                p.npi_type === 'type2' ||
-                p.provider_type === 'organization' ||
-                p.provider_type === 'hospital' ||
-                p.provider_type === 'clinic' ||
-                // If no type field, assume all are valid (backend may not have type field)
-                (!p.entity_type && !p.type && !p.npi_type && !p.provider_type)
-            );
-            
-            // ✅ Use real API data if we have any providers (even if filtered)
-            if (orgProviders.length > 0) {
-                console.log(`[API] ✅ Loaded ${orgProviders.length} Type 2 providers from "${variant}" (total: ${providers.length})`);
+            // ✅ Check if API returned valid response (like old working version)
+            // First check data.providers directly (primary location)
+            if (data?.providers && Array.isArray(data.providers) && data.providers.length > 0) {
+                // Apply Type 2 filtering if needed
+                const orgProviders = data.providers.filter((p: any) =>
+                    p.entity_type === 2 ||
+                    p.type === 'organization' ||
+                    p.npi_type === 'type2' ||
+                    p.provider_type === 'organization' ||
+                    p.provider_type === 'hospital' ||
+                    p.provider_type === 'clinic' ||
+                    // Fallback: if no type field at all, include all (backend may not have type field)
+                    (!p.entity_type && !p.type && !p.npi_type && !p.provider_type)
+                );
                 
-                // Return response with filtered providers
+                // Use filtered providers if available, otherwise use all
+                const finalProviders = orgProviders.length > 0 ? orgProviders : data.providers;
+                
+                console.log(`[API] ✅ Loaded ${finalProviders.length} providers from "${variant}" (Type 2: ${orgProviders.length}, total: ${data.providers.length})`);
+                
+                // ✅ Preserve original response structure (like old version) - just replace providers array
                 return {
-                    procedure_id: data.procedure_id || procedureSlug,
-                    procedure_name: data.procedure_name || data.procedure?.procedure_name || '',
-                    procedure_slug: data.procedure_slug || data.procedure?.procedure_slug || procedureSlug,
-                    providers: orgProviders as Provider[],
-                    total_count: orgProviders.length,
+                    ...data,
+                    providers: finalProviders as Provider[],
+                    total_count: finalProviders.length,
                     _dataSource: 'api' as const,
                 } as ProcedureProvidersResponse;
-            } else if (providers.length > 0) {
-                // API returned providers but none are Type 2 - log warning but use them
-                console.warn(`[API] ⚠️ Variant "${variant}" returned ${providers.length} providers but none are Type 2, using all providers`);
-                return {
-                    procedure_id: data.procedure_id || procedureSlug,
-                    procedure_name: data.procedure_name || data.procedure?.procedure_name || '',
-                    procedure_slug: data.procedure_slug || data.procedure?.procedure_slug || procedureSlug,
-                    providers: providers as Provider[],
-                    total_count: providers.length,
-                    _dataSource: 'api' as const,
-                } as ProcedureProvidersResponse;
-            } else {
-                // Empty providers array - try next variant
-                console.warn(`[API] ⚠️ Variant "${variant}" returned empty providers array`);
-                continue;
             }
+            
+            // ✅ Fallback: try alternative response shapes (data.results, data.procedure.providers)
+            const altProviders = 
+                (data.results && Array.isArray(data.results) && data.results.length > 0 ? data.results : null) ||
+                (data.procedure?.providers && Array.isArray(data.procedure.providers) && data.procedure.providers.length > 0 ? data.procedure.providers : null);
+            
+            if (altProviders) {
+                // Apply Type 2 filtering to alternative providers
+                const orgProviders = altProviders.filter((p: any) =>
+                    p.entity_type === 2 ||
+                    p.type === 'organization' ||
+                    p.npi_type === 'type2' ||
+                    p.provider_type === 'organization' ||
+                    p.provider_type === 'hospital' ||
+                    p.provider_type === 'clinic' ||
+                    (!p.entity_type && !p.type && !p.npi_type && !p.provider_type)
+                );
+                
+                const finalProviders = orgProviders.length > 0 ? orgProviders : altProviders;
+                
+                console.log(`[API] ✅ Loaded ${finalProviders.length} providers from alternative location in "${variant}"`);
+                
+                // Return with alternative providers
+                return {
+                    ...data,
+                    providers: finalProviders as Provider[],
+                    total_count: finalProviders.length,
+                    _dataSource: 'api' as const,
+                } as ProcedureProvidersResponse;
+            }
+            
+            // Empty providers array - try next variant
+            console.warn(`[API] ⚠️ Variant "${variant}" returned empty or missing providers array`);
+            continue;
         } catch (error) {
             console.error(`[API] ❌ Variant "${variant}" error:`, error);
             lastError = error instanceof Error ? error : new Error('Failed to fetch procedure providers');
