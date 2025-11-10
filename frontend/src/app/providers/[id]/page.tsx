@@ -8,8 +8,10 @@ export async function generateStaticParams() {
     return [{ id: 'placeholder' }];
 }
 
-export const dynamicParams = true;
+export const revalidate = 0;
 export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+export const fetchCache = 'force-no-store';
 
 export default function ProviderDetailPage() {
     return (

@@ -96,11 +96,15 @@ export function MarioSmartSearch({
           // Convert API results to autocomplete suggestions (only procedures)
           response.results.forEach((result) => {
             if (result.procedure_slug) {
+              // Normalize API response to ensure correct field mapping
+              const displayName = result.procedure_name || result.display_name || result.name || 'Procedure';
+              const category = result.category_name || result.category || 'Procedure';
+              
               suggestions.push({
                 id: result.procedure_id || result.procedure_slug,
                 type: 'procedure' as any,
-                primaryText: result.procedure_name,
-                secondaryText: `${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
+                primaryText: displayName,
+                secondaryText: `${category} • ${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
                 procedureSlug: result.procedure_slug
               });
             }

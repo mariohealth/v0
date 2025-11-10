@@ -8,8 +8,8 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
-    // CRITICAL: Enable static export for Firebase Hosting
-    output: 'export',
+    // Use standalone output for dynamic rendering (allows dynamic routes)
+    output: 'standalone',
     // Disable image optimization for static export (or use unoptimized)
     images: {
         unoptimized: true,
