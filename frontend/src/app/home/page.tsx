@@ -6,6 +6,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { MarioHome } from '@/components/mario-home';
 import { getProcedureProviders, type Provider } from '@/lib/api';
 import { navigateToProcedure } from '@/lib/navigateToProcedure';
+import { DataSourceBanner } from '@/lib/dataSourceBanner';
 
 function HomePageContent() {
   const { user, loading } = useAuth();
@@ -17,6 +18,7 @@ function HomePageContent() {
   const [procedureName, setProcedureName] = useState<string>('');
   const [loadingProviders, setLoadingProviders] = useState(false);
   const [providersError, setProvidersError] = useState<string | null>(null);
+  const [dataSource, setDataSource] = useState<'api' | 'mock' | null>(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -34,6 +36,9 @@ function HomePageContent() {
 
       try {
         const data = await getProcedureProviders(procedureSlug);
+        
+        // Track data source for banner display
+        setDataSource(data._dataSource || 'api');
         
         // Check if we got providers (either from API or fallback)
         if (data.providers && data.providers.length > 0) {
@@ -53,6 +58,7 @@ function HomePageContent() {
         setProviders([]);
         setProcedureName('');
         setProvidersError(null); // Don't show error message, fallback should handle it
+        setDataSource('mock'); // Assume mock if error occurred
       } finally {
         setLoadingProviders(false);
       }
@@ -168,6 +174,7 @@ function HomePageContent() {
         providersError={providersError}
         onProviderClick={handleProviderClick}
       />
+      {dataSource && <DataSourceBanner source={dataSource} />}
     </div>
   );
 }

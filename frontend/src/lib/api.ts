@@ -331,6 +331,7 @@ export async function getProcedureProviders(
                     procedure_slug: data.procedure_slug || data.procedure?.procedure_slug || procedureSlug,
                     providers: orgProviders as Provider[],
                     total_count: orgProviders.length,
+                    _dataSource: 'api' as const,
                 } as ProcedureProvidersResponse;
             } else if (providers.length > 0) {
                 // API returned providers but none are Type 2 - log warning but use them
@@ -341,6 +342,7 @@ export async function getProcedureProviders(
                     procedure_slug: data.procedure_slug || data.procedure?.procedure_slug || procedureSlug,
                     providers: providers as Provider[],
                     total_count: providers.length,
+                    _dataSource: 'api' as const,
                 } as ProcedureProvidersResponse;
             } else {
                 // Empty providers array - try next variant
@@ -396,6 +398,7 @@ function createMockProviderResponse(procedureSlug: string): ProcedureProvidersRe
         procedure_slug: procedureSlug,
         providers,
         total_count: providers.length,
+        _dataSource: 'mock' as const,
     };
 }
 
