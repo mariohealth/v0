@@ -1,5 +1,6 @@
 import { auth } from './firebase';
 import { mockProceduresFallback, type MockProcedureFallback } from '@/mock/live/searchProceduresFallback';
+import { getMockProvidersForProcedure, type MockProviderFallback } from '@/mock/live/providersFallback';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
 const API_URL = API_BASE_URL; // Alias for consistency
@@ -219,50 +220,143 @@ function filterMockProcedures(query: string): SearchResult[] {
 }
 
 /**
+ * Normalize procedure slug for API calls
+ * Converts underscores to spaces and handles common variations
+ */
+function normalizeProcedureSlug(slug: string): string {
+    // Log original slug for debugging
+    console.log('[normalizeProcedureSlug] Original slug:', slug);
+    
+    // Try multiple normalization strategies
+    let normalized = slug;
+    
+    // Strategy 1: Replace underscores with spaces
+    normalized = slug.replace(/_/g, ' ');
+    
+    // Strategy 2: Handle MRI variations
+    normalized = normalized.replace(/\bmri\s+brain\b/gi, 'mri of brain');
+    normalized = normalized.replace(/\bmri\s+spine\b/gi, 'mri of spine');
+    
+    // Strategy 3: Convert back to underscore format for API
+    normalized = normalized.replace(/\s+/g, '_');
+    
+    console.log('[normalizeProcedureSlug] Normalized slug:', normalized);
+    
+    return normalized;
+}
+
+/**
  * Get providers for a specific procedure
+ * Includes slug normalization and mock fallback
  */
 export async function getProcedureProviders(
     procedureSlug: string
 ): Promise<ProcedureProvidersResponse> {
-    const url = `${API_BASE_URL}/api/v1/procedures/${procedureSlug}/providers`;
-
-    console.log('[API] Fetching procedure providers:', { procedureSlug, url });
-
-    try {
-        const response = await fetchWithAuth(url, {
-            method: 'GET',
+    // Normalize slug before calling API
+    const normalizedSlug = normalizeProcedureSlug(procedureSlug);
+    
+    // Try original slug first, then normalized
+    const slugsToTry = [procedureSlug, normalizedSlug].filter((s, i, arr) => arr.indexOf(s) === i);
+    
+    let lastError: Error | null = null;
+    
+    for (const slug of slugsToTry) {
+        const url = `${API_BASE_URL}/api/v1/procedures/${slug}/providers`;
+        
+        console.log('[API] Fetching procedure providers:', { 
+            originalSlug: procedureSlug,
+            tryingSlug: slug,
+            url 
         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
-            try {
-                const errorData = JSON.parse(errorText);
-                errorMessage = errorData.message || errorData.detail || errorMessage;
-            } catch {
-                errorMessage = errorText || errorMessage;
-            }
-            console.error('[API] Get procedure providers error:', {
-                status: response.status,
-                statusText: response.statusText,
-                error: errorMessage,
+        try {
+            const response = await fetchWithAuth(url, {
+                method: 'GET',
             });
-            throw new Error(errorMessage);
-        }
 
-        const data = await response.json();
-        console.log('[API] Get procedure providers success:', {
-            procedureSlug,
-            providersCount: data.providers?.length || 0,
-        });
-        return data as ProcedureProvidersResponse;
-    } catch (error) {
-        console.error('[API] Error fetching procedure providers:', error);
-        if (error instanceof Error) {
-            throw error;
+            if (!response.ok) {
+                // If 404, try next slug variation
+                if (response.status === 404 && slugsToTry.length > 1) {
+                    console.warn('[API] 404 for slug, trying next variation:', slug);
+                    continue;
+                }
+                
+                const errorText = await response.text();
+                let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
+                try {
+                    const errorData = JSON.parse(errorText);
+                    errorMessage = errorData.message || errorData.detail || errorMessage;
+                } catch {
+                    errorMessage = errorText || errorMessage;
+                }
+                console.error('[API] Get procedure providers error:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    error: errorMessage,
+                    slug,
+                });
+                lastError = new Error(errorMessage);
+                continue;
+            }
+
+            const data = await response.json();
+            
+            // Check if providers array is empty
+            if (!data.providers || data.providers.length === 0) {
+                console.warn('[API] Empty provider list, using mock fallback');
+                return createMockProviderResponse(procedureSlug);
+            }
+            
+            console.log('[API] Get procedure providers success:', {
+                procedureSlug,
+                slug,
+                providersCount: data.providers?.length || 0,
+            });
+            return data as ProcedureProvidersResponse;
+        } catch (error) {
+            console.error('[API] Error fetching procedure providers:', error);
+            lastError = error instanceof Error ? error : new Error('Failed to fetch procedure providers');
+            continue;
         }
-        throw new Error('Failed to fetch procedure providers');
     }
+    
+    // All slug variations failed - use mock fallback
+    console.warn('[API] All slug variations failed, using mock fallback:', lastError);
+    return createMockProviderResponse(procedureSlug);
+}
+
+/**
+ * Create mock provider response from fallback data
+ */
+function createMockProviderResponse(procedureSlug: string): ProcedureProvidersResponse {
+    const mockProviders = getMockProvidersForProcedure(procedureSlug);
+    
+    // Convert mock providers to Provider format
+    const providers: Provider[] = mockProviders.map(p => ({
+        provider_id: p.provider_id,
+        provider_name: p.provider_name,
+        address: p.address,
+        city: p.city,
+        state: p.state,
+        zip: p.zip,
+        phone: p.phone,
+        price: p.price,
+        distance_miles: p.distance_miles || null,
+    }));
+    
+    // Extract procedure name from slug
+    const procedureName = procedureSlug
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    
+    return {
+        procedure_id: procedureSlug,
+        procedure_name: procedureName,
+        procedure_slug: procedureSlug,
+        providers,
+        total_count: providers.length,
+    };
 }
 
 /**

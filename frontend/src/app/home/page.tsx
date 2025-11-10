@@ -34,12 +34,25 @@ function HomePageContent() {
 
       try {
         const data = await getProcedureProviders(procedureSlug);
-        setProviders(data.providers || []);
-        setProcedureName(data.procedure_name || '');
+        
+        // Check if we got providers (either from API or fallback)
+        if (data.providers && data.providers.length > 0) {
+          setProviders(data.providers);
+          setProcedureName(data.procedure_name || '');
+          setProvidersError(null);
+        } else {
+          // No providers available (shouldn't happen with fallback, but handle gracefully)
+          setProviders([]);
+          setProcedureName(data.procedure_name || '');
+          setProvidersError(null); // Don't show error, just show empty state
+        }
       } catch (error) {
         console.error('Error fetching procedure providers:', error);
-        setProvidersError('Failed to load providers. Please try again.');
+        // Even on error, getProcedureProviders should return fallback data
+        // But if it doesn't, show empty state instead of error
         setProviders([]);
+        setProcedureName('');
+        setProvidersError(null); // Don't show error message, fallback should handle it
       } finally {
         setLoadingProviders(false);
       }
