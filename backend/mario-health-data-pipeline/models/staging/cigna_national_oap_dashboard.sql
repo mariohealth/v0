@@ -24,11 +24,11 @@ COUNT(DISTINCT billing_code) AS count_billing_code,
 ),
 
 t2 AS (
-    SELECT hospital_id,
+    SELECT org_id,
            COUNT(DISTINCT provider_id) AS count_npi_with_procedure,
            COUNT(DISTINCT procedure_id) AS count_procedure,
     FROM {{ ref('cigna_national_oap_proc_pricing') }}
-    GROUP BY hospital_id
+    GROUP BY org_id
 )
 
 SELECT
@@ -47,5 +47,5 @@ ON
 LEFT JOIN
     t2
 ON
-    t0.hospital_id = t2.hospital_id
+    t0.hospital_id = t2.org_id
 ORDER BY hospital_id

@@ -25,9 +25,9 @@ GROUP BY
 )
 
 SELECT
-    CONCAT(procedure_id, '_', npi, '_', 'cigna_national_oap') AS id,
+    CONCAT(procedure_id, '_', hospital_id, '_', npi, '_', 'cigna_national_oap') AS id,
     procedure_id,
-    hospital_id,
+    hospital_id AS org_id,
     npi AS provider_id,
     'cigna_national_oap' AS carrier_id,
     'cigna' AS carrier_name,

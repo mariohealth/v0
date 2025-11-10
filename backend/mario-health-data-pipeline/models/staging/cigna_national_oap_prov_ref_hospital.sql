@@ -27,3 +27,5 @@ LEFT JOIN
         {{ ref('npi_data_taxonomy_code_primary') }} AS taxo_primary
 ON
     prov_ref.npi = taxo_primary.npi
+WHERE
+    hos.operational_status = 'active'
