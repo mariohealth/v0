@@ -220,54 +220,48 @@ function filterMockProcedures(query: string): SearchResult[] {
 }
 
 /**
- * Normalize procedure slug for API calls
- * Converts underscores to spaces and handles common variations
+ * Generate slug variants for API calls
+ * Returns array of slug variations to try
  */
-function normalizeProcedureSlug(slug: string): string {
-    // Log original slug for debugging
-    console.log('[normalizeProcedureSlug] Original slug:', slug);
-    
-    // Try multiple normalization strategies
-    let normalized = slug;
-    
-    // Strategy 1: Replace underscores with spaces
-    normalized = slug.replace(/_/g, ' ');
-    
-    // Strategy 2: Handle MRI variations
-    normalized = normalized.replace(/\bmri\s+brain\b/gi, 'mri of brain');
-    normalized = normalized.replace(/\bmri\s+spine\b/gi, 'mri of spine');
-    
-    // Strategy 3: Convert back to underscore format for API
-    normalized = normalized.replace(/\s+/g, '_');
-    
-    console.log('[normalizeProcedureSlug] Normalized slug:', normalized);
-    
-    return normalized;
+function generateSlugVariants(slug: string): string[] {
+    const variants = [
+        slug, // Original slug
+        slug.replace(/_/g, '-'), // Underscores to hyphens
+        slug.replace(/_/g, '_of_'), // Add "of" between words
+        slug.replace(/_/g, ' '), // Underscores to spaces
+        slug.replace('mri_brain', 'mri_of_brain'), // Specific MRI brain variant
+        slug.replace('mri_spine', 'mri_of_spine'), // Specific MRI spine variant
+    ];
+
+    // Remove duplicates
+    return [...new Set(variants)];
 }
 
 /**
  * Get providers for a specific procedure
- * Includes slug normalization and mock fallback
+ * Includes slug normalization with multiple variants and mock fallback
  */
 export async function getProcedureProviders(
     procedureSlug: string
 ): Promise<ProcedureProvidersResponse> {
-    // Normalize slug before calling API
-    const normalizedSlug = normalizeProcedureSlug(procedureSlug);
+    // Generate all slug variants to try
+    const variants = generateSlugVariants(procedureSlug);
+    const base = `${API_BASE_URL}/api/v1/procedures`;
     
-    // Try original slug first, then normalized
-    const slugsToTry = [procedureSlug, normalizedSlug].filter((s, i, arr) => arr.indexOf(s) === i);
-    
+    console.log('[API] getProcedureProviders called:', {
+        originalSlug: procedureSlug,
+        variants,
+        baseUrl: API_BASE_URL,
+    });
+
     let lastError: Error | null = null;
-    
-    for (const slug of slugsToTry) {
-        const url = `${API_BASE_URL}/api/v1/procedures/${slug}/providers`;
+    let lastResponse: any = null;
+
+    // Try each variant until one succeeds
+    for (const variant of variants) {
+        const url = `${base}/${variant}/providers`;
         
-        console.log('[API] Fetching procedure providers:', { 
-            originalSlug: procedureSlug,
-            tryingSlug: slug,
-            url 
-        });
+        console.log('[API] Trying variant:', { variant, url });
 
         try {
             const response = await fetchWithAuth(url, {
@@ -275,9 +269,9 @@ export async function getProcedureProviders(
             });
 
             if (!response.ok) {
-                // If 404, try next slug variation
-                if (response.status === 404 && slugsToTry.length > 1) {
-                    console.warn('[API] 404 for slug, trying next variation:', slug);
+                // If 404, try next variant
+                if (response.status === 404) {
+                    console.warn(`[API] ⚠️ Variant "${variant}" returned 404, trying next...`);
                     continue;
                 }
                 
@@ -289,39 +283,51 @@ export async function getProcedureProviders(
                 } catch {
                     errorMessage = errorText || errorMessage;
                 }
-                console.error('[API] Get procedure providers error:', {
+                
+                console.error(`[API] ❌ Variant "${variant}" failed:`, {
                     status: response.status,
                     statusText: response.statusText,
-                    error: errorMessage,
-                    slug,
+                    error: errorMessage.substring(0, 200),
                 });
                 lastError = new Error(errorMessage);
                 continue;
             }
 
             const data = await response.json();
+            lastResponse = data;
             
-            // Check if providers array is empty
-            if (!data.providers || data.providers.length === 0) {
-                console.warn('[API] Empty provider list, using mock fallback');
-                return createMockProviderResponse(procedureSlug);
+            // Log response preview (first 200 chars)
+            const responsePreview = JSON.stringify(data).substring(0, 200);
+            console.log(`[API] Response preview for "${variant}":`, responsePreview);
+            
+            // Check if providers array exists and has data
+            if (data?.providers && Array.isArray(data.providers) && data.providers.length > 0) {
+                console.log(`[API] ✅ Found providers for variant "${variant}":`, {
+                    providersCount: data.providers.length,
+                    procedureSlug,
+                    variant,
+                });
+                return data as ProcedureProvidersResponse;
+            } else {
+                console.warn(`[API] ⚠️ Variant "${variant}" returned empty providers array`);
+                // Continue to next variant
+                continue;
             }
-            
-            console.log('[API] Get procedure providers success:', {
-                procedureSlug,
-                slug,
-                providersCount: data.providers?.length || 0,
-            });
-            return data as ProcedureProvidersResponse;
         } catch (error) {
-            console.error('[API] Error fetching procedure providers:', error);
+            console.error(`[API] ❌ Variant "${variant}" error:`, error);
             lastError = error instanceof Error ? error : new Error('Failed to fetch procedure providers');
             continue;
         }
     }
     
-    // All slug variations failed - use mock fallback
-    console.warn('[API] All slug variations failed, using mock fallback:', lastError);
+    // All variants failed or returned empty - use mock fallback
+    console.warn('[API] ⚠️ No providers found for any slug variants of', procedureSlug);
+    if (lastError) {
+        console.warn('[API] Last error:', lastError);
+    }
+    if (lastResponse) {
+        console.warn('[API] Last response preview:', JSON.stringify(lastResponse).substring(0, 200));
+    }
     return createMockProviderResponse(procedureSlug);
 }
 
