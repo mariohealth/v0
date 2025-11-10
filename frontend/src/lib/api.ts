@@ -240,6 +240,7 @@ function generateSlugVariants(slug: string): string[] {
 /**
  * Get providers for a specific procedure
  * Includes slug normalization with multiple variants and mock fallback
+ * Prefers real API data and filters for Type 2 providers (organizations, clinics, hospitals)
  */
 export async function getProcedureProviders(
     procedureSlug: string
@@ -300,17 +301,50 @@ export async function getProcedureProviders(
             const responsePreview = JSON.stringify(data).substring(0, 200);
             console.log(`[API] Response preview for "${variant}":`, responsePreview);
             
-            // Check if providers array exists and has data
-            if (data?.providers && Array.isArray(data.providers) && data.providers.length > 0) {
-                console.log(`[API] ✅ Found providers for variant "${variant}":`, {
-                    providersCount: data.providers.length,
-                    procedureSlug,
-                    variant,
-                });
-                return data as ProcedureProvidersResponse;
+            // ✅ Prefer real API data - handle different response shapes
+            const providers = 
+                data.providers || 
+                data.results || 
+                data.procedure?.providers || 
+                [];
+            
+            // ✅ Filter for Type 2 providers (organizations, clinics, hospitals)
+            const orgProviders = providers.filter((p: any) =>
+                p.entity_type === 2 ||
+                p.type === 'organization' ||
+                p.npi_type === 'type2' ||
+                p.provider_type === 'organization' ||
+                p.provider_type === 'hospital' ||
+                p.provider_type === 'clinic' ||
+                // If no type field, assume all are valid (backend may not have type field)
+                (!p.entity_type && !p.type && !p.npi_type && !p.provider_type)
+            );
+            
+            // ✅ Use real API data if we have any providers (even if filtered)
+            if (orgProviders.length > 0) {
+                console.log(`[API] ✅ Loaded ${orgProviders.length} Type 2 providers from "${variant}" (total: ${providers.length})`);
+                
+                // Return response with filtered providers
+                return {
+                    procedure_id: data.procedure_id || procedureSlug,
+                    procedure_name: data.procedure_name || data.procedure?.procedure_name || '',
+                    procedure_slug: data.procedure_slug || data.procedure?.procedure_slug || procedureSlug,
+                    providers: orgProviders as Provider[],
+                    total_count: orgProviders.length,
+                } as ProcedureProvidersResponse;
+            } else if (providers.length > 0) {
+                // API returned providers but none are Type 2 - log warning but use them
+                console.warn(`[API] ⚠️ Variant "${variant}" returned ${providers.length} providers but none are Type 2, using all providers`);
+                return {
+                    procedure_id: data.procedure_id || procedureSlug,
+                    procedure_name: data.procedure_name || data.procedure?.procedure_name || '',
+                    procedure_slug: data.procedure_slug || data.procedure?.procedure_slug || procedureSlug,
+                    providers: providers as Provider[],
+                    total_count: providers.length,
+                } as ProcedureProvidersResponse;
             } else {
+                // Empty providers array - try next variant
                 console.warn(`[API] ⚠️ Variant "${variant}" returned empty providers array`);
-                // Continue to next variant
                 continue;
             }
         } catch (error) {
@@ -320,8 +354,8 @@ export async function getProcedureProviders(
         }
     }
     
-    // All variants failed or returned empty - use mock fallback
-    console.warn('[API] ⚠️ No providers found for any slug variants of', procedureSlug);
+    // All variants failed or returned empty - use mock fallback only if API truly failed
+    console.warn('[API] ⚠️ All slug variants failed or returned empty → using mock fallback');
     if (lastError) {
         console.warn('[API] Last error:', lastError);
     }

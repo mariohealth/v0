@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { getProviderDetail, type ProviderDetail } from '@/lib/api';
 import { MarioProviderHospitalDetail } from '@/components/mario-provider-hospital-detail';
 import { MarioAIBookingChat } from '@/components/mario-ai-booking-chat';
