@@ -48,6 +48,7 @@ export interface ProcedureProvidersResponse {
     procedure_slug: string;
     providers: Provider[];
     total_count: number;
+    _dataSource?: 'api' | 'mock'; // Internal flag to track data source
 }
 
 export interface ProviderDetail {
