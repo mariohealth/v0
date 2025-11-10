@@ -7,7 +7,7 @@ import { cn } from './ui/utils';
 import { MarioAutocompleteEnhanced, type AutocompleteSuggestion } from './mario-autocomplete-enhanced';
 import { doctors, specialties } from '@/lib/data/mario-doctors-data';
 import { searchMedications } from '@/lib/data/mario-medication-data';
-import { searchProcedures } from '@/lib/api';
+import { safeSearchProcedures as searchProcedures } from '@/lib/api';
 
 interface SearchResult {
   id: string;
@@ -89,12 +89,13 @@ export function MarioSmartSearch({
       const suggestions: AutocompleteSuggestion[] = [];
       
       try {
-        // Use API-based autocomplete for procedures
-        const response = await searchProcedures(query);
+        // Use safe API-based autocomplete for procedures (with fallback)
+        const results = await searchProcedures(query);
         
-        if (response.results && Array.isArray(response.results)) {
-          // Convert API results to autocomplete suggestions (only procedures)
-          response.results.forEach((result) => {
+        // Convert API results to autocomplete suggestions (only procedures)
+        // safeSearchProcedures returns SearchResult[] directly
+        if (Array.isArray(results) && results.length > 0) {
+          results.forEach((result) => {
             if (result.procedure_slug) {
               // Normalize API response to ensure correct field mapping
               const displayName = result.procedure_name || result.display_name || result.name || 'Procedure';
@@ -111,7 +112,7 @@ export function MarioSmartSearch({
           });
         }
       } catch (error) {
-        // Log error but don't fallback to mock data for procedures
+        // Log error (fallback is already handled in safeSearchProcedures)
         console.error('API autocomplete failed:', error);
       }
       

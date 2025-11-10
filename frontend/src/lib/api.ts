@@ -1,4 +1,5 @@
 import { auth } from './firebase';
+import { mockProceduresFallback, type MockProcedureFallback } from '@/mock/live/searchProceduresFallback';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
 const API_URL = API_BASE_URL; // Alias for consistency
@@ -161,6 +162,60 @@ export async function searchProcedures(
         }
         throw new Error('Failed to search procedures');
     }
+}
+
+/**
+ * Safe wrapper for searchProcedures with mock fallback
+ * Returns mock procedure data if API fails or returns empty results
+ * 
+ * @param query - The search query string
+ * @returns Promise<SearchResult[]> - Array of procedure results (API or fallback)
+ */
+export async function safeSearchProcedures(query: string): Promise<SearchResult[]> {
+    try {
+        const response = await searchProcedures(query);
+        
+        // If API returns results, use them
+        if (response.results && response.results.length > 0) {
+            return response.results;
+        }
+        
+        // Empty API response - use mock fallback
+        console.warn('[safeSearchProcedures] Empty API response, using mock fallback');
+        return filterMockProcedures(query);
+    } catch (err) {
+        // API failed - use mock fallback
+        console.warn('[safeSearchProcedures] API failed, using mock fallback:', err);
+        return filterMockProcedures(query);
+    }
+}
+
+/**
+ * Filter mock procedures by query string
+ */
+function filterMockProcedures(query: string): SearchResult[] {
+    const queryLower = query.toLowerCase();
+    
+    return mockProceduresFallback
+        .filter(p => 
+            p.display_name.toLowerCase().includes(queryLower) ||
+            p.procedure_name?.toLowerCase().includes(queryLower) ||
+            p.category.toLowerCase().includes(queryLower)
+        )
+        .map(p => ({
+            procedure_id: p.procedure_id || p.slug,
+            procedure_name: p.procedure_name || p.display_name,
+            procedure_slug: p.procedure_slug || p.slug,
+            family_name: p.category,
+            family_slug: p.category.toLowerCase().replace(/\s+/g, '_'),
+            category_name: p.category_name || p.category,
+            category_slug: p.category.toLowerCase().replace(/\s+/g, '_'),
+            best_price: p.best_price || '0',
+            avg_price: p.best_price || '0',
+            price_range: `$${p.best_price || '0'}`,
+            provider_count: p.provider_count || 0,
+            match_score: 0.8,
+        } as SearchResult));
 }
 
 /**
