@@ -40,6 +40,9 @@ sources:
           The original file from UHC was named "2025-09-01_United-HealthCare-Services--Inc-_Third-Party-Administrator_PP1-00_P3_in-network-rates.json"
           I ran a Python script on my own laptop to split that file into smaller JSONs
           I believe it applies to ALL UHC PP1-00_P3 plans for SEPTEMBER 2025, not just for Apple
+      - name: uhc_apple_provider_reference
+        description: |
+          This table is built from one of the first few rows of the United file just above
           
 
 
