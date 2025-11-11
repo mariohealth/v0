@@ -14,7 +14,8 @@ import {
   XCircle,
   CalendarPlus,
   RefreshCw,
-  Gift
+  Gift,
+  WifiOff
 } from 'lucide-react';
 import { MarioStatusButton } from './mario-status-button';
 import { MarioAIPanel } from './mario-ai-panel';
@@ -23,6 +24,26 @@ import { MarioAIAppointmentSupport } from './mario-ai-appointment-support';
 import { MarioToast } from './mario-toast-helper';
 import { MarioConciergeRequests } from './mario-concierge-requests';
 import { MarioAIConciergeChat } from './mario-ai-concierge-chat';
+import { useAuth } from '@/lib/contexts/AuthContext';
+import { 
+  fetchHealthHubData, 
+  getAppointments, 
+  getClaims, 
+  getConciergeRequests,
+  type Appointment,
+  type Claim,
+  type ConciergeRequest,
+  type Message,
+  type DeductibleProgress
+} from '@/lib/api';
+import {
+  mockUpcomingAppointments,
+  mockPastAppointments,
+  mockConciergeRequests,
+  mockRecentClaims,
+  mockMessages,
+  mockDeductibleProgress
+} from '@/mock/archive/health-rewards-v1/health-hub-mock-data';
 
 // Section Navigation Component with Scroll Sync
 function SectionNav({ 
@@ -537,12 +558,25 @@ export function MarioHealthHubRefined({
   onViewAllMessages,
   onSearch
 }: MarioHealthHubProps) {
+  const { user } = useAuth();
   const [activeSection, setActiveSection] = useState('appointments');
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState<any>(null);
   const [showConciergeChatModal, setShowConciergeChatModal] = useState(false);
   const [selectedConciergeRequest, setSelectedConciergeRequest] = useState<{ id: string; title: string } | null>(null);
+  
+  // Data state
+  const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>([]);
+  const [pastAppointments, setPastAppointments] = useState<Appointment[]>([]);
+  const [conciergeRequests, setConciergeRequests] = useState<ConciergeRequest[]>([]);
+  const [recentClaims, setRecentClaims] = useState<Claim[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [deductibleProgress, setDeductibleProgress] = useState<DeductibleProgress>({ current: 0, total: 0, percentage: 0 });
+  
+  // Loading and error state
+  const [loading, setLoading] = useState(true);
+  const [offlineMode, setOfflineMode] = useState(false);
   
   // Simple scroll sync functionality using scroll event
   useEffect(() => {
@@ -601,91 +635,119 @@ export function MarioHealthHubRefined({
     setShowMessageModal(true);
   };
 
-  // Sample data
-  const upcomingAppointments = [
-    {
-      id: '1',
-      provider: 'Dr. Sarah Johnson',
-      specialty: 'Orthopedic Surgery',
-      date: 'Tomorrow',
-      time: '2:30 PM',
-      status: 'confirmed' as const,
-      marioPoints: 150
-    },
-    {
-      id: '2',
-      provider: 'Dr. Michael Chen',
-      specialty: 'Cardiology',
-      date: 'Oct 18',
-      time: '10:00 AM',
-      status: 'pending' as const,
-      marioPoints: 120
-    }
-  ];
+  // Fetch data from API with fallback to mock data
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!user?.uid) {
+        // No user, use mock data
+        setUpcomingAppointments(mockUpcomingAppointments);
+        setPastAppointments(mockPastAppointments);
+        setConciergeRequests(mockConciergeRequests);
+        setRecentClaims(mockRecentClaims);
+        setMessages(mockMessages);
+        setDeductibleProgress(mockDeductibleProgress);
+        setLoading(false);
+        setOfflineMode(true);
+        return;
+      }
 
-  const pastAppointments = [
-    {
-      id: '3',
-      provider: 'Dr. Emily Wong',
-      specialty: 'Primary Care',
-      date: 'Sep 28',
-      time: '9:00 AM',
-      status: 'confirmed' as const,
-      marioPoints: 100,
-      isPast: true
-    }
-  ];
+      setLoading(true);
+      setOfflineMode(false);
 
-  const conciergeRequests = [
-    {
-      id: 'REQ001',
-      type: 'MRI Knee Scheduling',
-      status: 'in-progress' as const,
-      requestDate: 'Oct 3',
-      expectedDate: 'Oct 10'
-    }
-  ];
+      try {
+        // Try to fetch from unified health hub endpoint first
+        try {
+          const healthHubData = await fetchHealthHubData(user.uid);
+          setUpcomingAppointments(healthHubData.upcomingAppointments || []);
+          setPastAppointments(healthHubData.pastAppointments || []);
+          setConciergeRequests(healthHubData.conciergeRequests || []);
+          setRecentClaims(healthHubData.recentClaims || []);
+          setMessages(healthHubData.messages || []);
+          setDeductibleProgress(healthHubData.deductibleProgress || { current: 0, total: 0, percentage: 0 });
+        } catch (error) {
+          // Fallback to individual endpoints
+          console.warn('[Health Hub] Unified endpoint failed, trying individual endpoints:', error);
+          
+          const [appointments, claims, requests] = await Promise.allSettled([
+            getAppointments(user.uid),
+            getClaims(user.uid),
+            getConciergeRequests(user.uid)
+          ]);
 
-  const recentClaims = [
-    {
-      id: 'CLM001',
-      service: 'Annual Physical Exam',
-      provider: 'Dr. Sarah Johnson',
-      amount: '$220',
-      youOwe: '$25',
-      date: 'Sep 28',
-      status: 'paid' as const
-    },
-    {
-      id: 'CLM002',
-      service: 'Blood Work Panel',
-      provider: 'City Lab Services',
-      amount: '$150',
-      youOwe: '$40',
-      date: 'Sep 20',
-      status: 'pending' as const
-    }
-  ];
+          if (appointments.status === 'fulfilled') {
+            const allAppointments = appointments.value;
+            const now = new Date();
+            const upcoming = allAppointments.filter(apt => {
+              // Simple date comparison - adjust based on your date format
+              return apt.status !== 'cancelled' && !apt.isPast;
+            });
+            const past = allAppointments.filter(apt => apt.isPast || apt.status === 'cancelled');
+            setUpcomingAppointments(upcoming);
+            setPastAppointments(past);
+          }
 
-  const messages = [
-    {
-      id: 'MSG001',
-      sender: 'Mario Concierge',
-      message: 'Your MRI appointment has been scheduled for Oct 18.',
-      time: '2 h ago',
-      isNew: true
-    }
-  ];
+          if (claims.status === 'fulfilled') {
+            setRecentClaims(claims.value);
+          }
 
-  const deductibleProgress = {
-    current: 850,
-    total: 2000,
-    percentage: (850 / 2000) * 100
-  };
+          if (requests.status === 'fulfilled') {
+            setConciergeRequests(requests.value);
+          }
+
+          // Messages and deductible progress would need separate endpoints
+          // For now, use mock data
+          setMessages(mockMessages);
+          setDeductibleProgress(mockDeductibleProgress);
+        }
+      } catch (error) {
+        console.error('[Health Hub] Error fetching data, using fallback:', error);
+        // Fallback to mock data
+        setUpcomingAppointments(mockUpcomingAppointments);
+        setPastAppointments(mockPastAppointments);
+        setConciergeRequests(mockConciergeRequests);
+        setRecentClaims(mockRecentClaims);
+        setMessages(mockMessages);
+        setDeductibleProgress(mockDeductibleProgress);
+        setOfflineMode(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [user?.uid]);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen pb-20 md:pb-0 flex items-center justify-center" style={{ backgroundColor: '#FDFCFA' }}>
+        <div className="text-center">
+          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4" style={{ color: '#2E5077' }} />
+          <p className="text-sm" style={{ color: '#666666' }}>Loading Health Hub...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pb-20 md:pb-0" style={{ backgroundColor: '#FDFCFA' }}>
       
+      {/* Offline Mode Banner */}
+      {offlineMode && (
+        <div 
+          className="sticky top-0 z-50 px-4 py-2 flex items-center gap-2"
+          style={{ 
+            backgroundColor: '#FFF3CD',
+            borderBottom: '1px solid #FFE69C'
+          }}
+        >
+          <WifiOff className="h-4 w-4" style={{ color: '#856404' }} />
+          <p className="text-sm font-medium" style={{ color: '#856404' }}>
+            Offline Mode: Showing cached data
+          </p>
+        </div>
+      )}
+
       {/* Header */}
       <div className="sticky top-0 z-40" style={{ backgroundColor: '#FDFCFA' }}>
         <div className="max-w-sm mx-auto px-4 py-4">

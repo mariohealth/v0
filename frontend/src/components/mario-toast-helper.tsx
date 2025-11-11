@@ -14,7 +14,7 @@
  * MarioToast.reward(150, 'Appointment completed');
  */
 
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { CheckCircle, XCircle, Info, Gift, AlertCircle, Calendar, Clock, Heart } from 'lucide-react';
 
 export const MarioToast = {

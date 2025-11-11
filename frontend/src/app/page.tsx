@@ -2,15 +2,26 @@
 
 import { MarioLandingPage } from '@/components/mario-landing-page'
 import { useRouter } from 'next/navigation'
+import { navigateToProcedure } from '@/lib/navigateToProcedure'
 
 export default function HomePage() {
   const router = useRouter()
 
-  const handleSearch = (query: string) => {
-    if (query.trim()) {
-      router.push(`/procedures?q=${encodeURIComponent(query)}`)
-    } else {
+  const handleSearch = async (query: string) => {
+    if (!query.trim()) {
       router.push('/procedures')
+      return
+    }
+
+    const trimmedQuery = query.trim()
+    
+    // Search for procedure and route to /home?procedure=${slug} if found
+    const navigated = await navigateToProcedure(trimmedQuery, router)
+    
+    // If no match found, navigateToProcedure shows toast but doesn't navigate
+    // So we route to /home to show the home page
+    if (!navigated) {
+      router.push('/home')
     }
   }
 

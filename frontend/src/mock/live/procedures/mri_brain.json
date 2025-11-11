@@ -1,0 +1,16 @@
+{
+  "procedure_id": "mri_brain",
+  "procedure_name": "MRI Scan – Brain",
+  "procedure_slug": "mri_brain",
+  "family_name": "MRI Scans",
+  "family_slug": "mri",
+  "category_name": "Imaging",
+  "category_slug": "imaging",
+  "best_price": "850",
+  "avg_price": "1200",
+  "price_range": "$850 - $1,400",
+  "provider_count": 12,
+  "match_score": 1.0,
+  "description": "Magnetic Resonance Imaging (MRI) scan of the brain to detect abnormalities, tumors, or other conditions."
+}
+

@@ -17,108 +17,32 @@ import {
   Trophy,
   Award,
   Crown,
-  X
+  X,
+  WifiOff,
+  RefreshCw
 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { motion, AnimatePresence } from 'motion/react';
 import { toast } from 'sonner@2.0.3';
+import { useAuth } from '@/lib/contexts/AuthContext';
+import { fetchRewardsData, updateMarioPoints, type Reward } from '@/lib/api';
+import { mockAllRewards } from '@/mock/archive/health-rewards-v1/rewards-mock-data';
+import confetti from 'canvas-confetti';
 
-// Types
-interface Reward {
-  id: number;
-  title: string;
-  pointsRequired: number;
-  category: 'Retail' | 'Travel' | 'Charity' | 'Health';
-  logo: string;
-  brand: string;
-  value: string;
-  description: string;
-  isBookmarked?: boolean;
-}
+// Types (now imported from api.ts)
+// interface Reward {
+//   id: number;
+//   title: string;
+//   pointsRequired: number;
+//   category: 'Retail' | 'Travel' | 'Charity' | 'Health';
+//   logo: string;
+//   brand: string;
+//   value: string;
+//   description: string;
+//   isBookmarked?: boolean;
+// }
 
-// Mock data with real brand logos
-const allRewards: Reward[] = [
-  {
-    id: 1,
-    title: '$25 Amazon Gift Card',
-    pointsRequired: 2500,
-    category: 'Retail',
-    logo: 'https://images.unsplash.com/photo-1704204656144-3dd12c110dd8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbWF6b24lMjBsb2dvJTIwYnJhbmR8ZW58MXx8fHwxNzU5ODgzODExfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    brand: 'Amazon',
-    value: '$25',
-    description: 'Perfect for everyday purchases from the world\'s largest online retailer. Use for books, electronics, household items, and more.'
-  },
-  {
-    id: 2,
-    title: '$15 Starbucks Gift Card',
-    pointsRequired: 1500,
-    category: 'Retail',
-    logo: 'https://images.unsplash.com/photo-1657979964801-3e3bb6c03a7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdGFyYnVja3MlMjBjb2ZmZWUlMjBsb2dvfGVufDF8fHx8MTc1OTg2OTQzMXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    brand: 'Starbucks',
-    value: '$15',
-    description: 'Enjoy your favorite coffee, tea, or snack at any Starbucks location. Valid at participating stores nationwide.'
-  },
-  {
-    id: 3,
-    title: '$100 Apple Gift Card',
-    pointsRequired: 10000,
-    category: 'Retail',
-    logo: 'https://images.unsplash.com/photo-1758467700789-d6f49099c884?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcHBsZSUyMGxvZ28lMjBicmFuZCUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzU5OTA5MjU2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    brand: 'Apple',
-    value: '$100',
-    description: 'Use toward apps, games, music, movies, TV shows, or Apple products. Redeemable on the App Store, iTunes Store, and Apple Store.'
-  },
-  {
-    id: 4,
-    title: '$50 Target Gift Card',
-    pointsRequired: 5000,
-    category: 'Retail',
-    logo: 'https://images.unsplash.com/photo-1615557854978-2eac0cd47b0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0YXJnZXQlMjBzdG9yZSUyMGxvZ298ZW58MXx8fHwxNzU5ODY5NDMxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    brand: 'Target',
-    value: '$50',
-    description: 'Great for home essentials, clothing, groceries, and more. Valid at Target stores and Target.com.'
-  },
-  {
-    id: 5,
-    title: 'Hotel Night Stay',
-    pointsRequired: 7500,
-    category: 'Travel',
-    logo: 'https://images.unsplash.com/photo-1754334757473-d03efe89ab45?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3RlbCUyMHRyYXZlbCUyMGFjY29tbW9kYXRpb258ZW58MXx8fHwxNzU5ODk4Mzc2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    brand: 'Hotels.com',
-    value: 'Up to $150',
-    description: 'Redeem for one night stay at participating hotels. Subject to availability and blackout dates may apply.'
-  },
-  {
-    id: 6,
-    title: '$10 Charity Donation',
-    pointsRequired: 1000,
-    category: 'Charity',
-    logo: 'https://images.unsplash.com/photo-1600408986933-5feb4659ebff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGFyaXR5JTIwZG9uYXRpb24lMjBoZWFydHxlbnwxfHx8fDE3NTk4OTgzNzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    brand: 'United Way',
-    value: '$10',
-    description: 'Support causes you care about. Your donation will be matched by Mario Health to double the impact.'
-  },
-  {
-    id: 7,
-    title: '$20 Wellness Credit',
-    pointsRequired: 2000,
-    category: 'Health',
-    logo: 'https://images.unsplash.com/photo-1668417421159-e6dacfad76a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWxsbmVzcyUyMGhlYWx0aCUyMG1lZGljYWx8ZW58MXx8fHwxNzU5OTA5MjY4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    brand: 'Mario Wellness',
-    value: '$20',
-    description: 'Apply toward wellness services, gym memberships, or health supplements through Mario Health partners.'
-  },
-  {
-    id: 8,
-    title: '$75 Southwest Airlines',
-    pointsRequired: 7500,
-    category: 'Travel',
-    logo: 'https://images.unsplash.com/photo-1697389825397-1cd09e100694?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb3V0aHdlc3QlMjBhaXJsaW5lcyUyMHBsYW5lfGVufDF8fHx8MTc1OTkwOTI3MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    brand: 'Southwest Airlines',
-    value: '$75',
-    description: 'Flight credit valid for one year from issue date. Can be applied to any Southwest Airlines booking.'
-  }
-];
+// Mock data is now imported from archive folder
 
 // Category Filter Component
 function CategoryFilter({ 
@@ -480,15 +404,57 @@ function TierProgress({
 }
 
 export function MarioRewardsEnhanced() {
-  const [currentPoints] = useState(2450);
-  const [searchQuery, setSearchQuery] = useState('');
+  const { user } = useAuth();
+  const [rewards, setRewards] = useState<Reward[]>([]);
+  const [currentPoints, setCurrentPoints] = useState(2450);
+  const [nextMilestone, setNextMilestone] = useState(5000);
   const [activeCategory, setActiveCategory] = useState('All');
-  const [rewards, setRewards] = useState(allRewards);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedReward, setSelectedReward] = useState<Reward | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  
+  // Loading and error state
+  const [loading, setLoading] = useState(true);
+  const [offlineMode, setOfflineMode] = useState(false);
 
   const categories = ['All', 'Retail', 'Travel', 'Charity', 'Health'];
+
+  // Fetch data from API with fallback to mock data
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!user?.uid) {
+        // No user, use mock data
+        setRewards(mockAllRewards);
+        setCurrentPoints(2450);
+        setNextMilestone(5000);
+        setLoading(false);
+        setOfflineMode(true);
+        return;
+      }
+
+      setLoading(true);
+      setOfflineMode(false);
+
+      try {
+        const rewardsData = await fetchRewardsData(user.uid);
+        setRewards(rewardsData.rewards || []);
+        setCurrentPoints(rewardsData.currentPoints || 2450);
+        setNextMilestone(rewardsData.nextMilestone || 5000);
+      } catch (error) {
+        console.error('[Rewards] Error fetching data, using fallback:', error);
+        // Fallback to mock data
+        setRewards(mockAllRewards);
+        setCurrentPoints(2450);
+        setNextMilestone(5000);
+        setOfflineMode(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [user?.uid]);
 
   // Filter rewards based on search and category
   const filteredRewards = rewards.filter(reward => {
@@ -516,10 +482,31 @@ export function MarioRewardsEnhanced() {
   };
 
   // Handle redemption
-  const handleRedeem = (reward: Reward) => {
+  const handleRedeem = async (reward: Reward) => {
     if (reward.pointsRequired <= currentPoints) {
+      // Trigger confetti animation
       setShowConfetti(true);
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
       setTimeout(() => setShowConfetti(false), 3000);
+      
+      // Update points via API
+      if (user?.uid) {
+        try {
+          const newTotal = await updateMarioPoints(user.uid, -reward.pointsRequired);
+          setCurrentPoints(newTotal);
+        } catch (error) {
+          console.error('[Rewards] Error updating points:', error);
+          // Update locally as fallback
+          setCurrentPoints(prev => prev - reward.pointsRequired);
+        }
+      } else {
+        // Update locally if no user
+        setCurrentPoints(prev => prev - reward.pointsRequired);
+      }
       
       toast.success(`🎉 ${reward.title} redeemed!`, {
         description: `${reward.pointsRequired.toLocaleString()} points used. You'll receive your reward within 24 hours.`
@@ -527,9 +514,37 @@ export function MarioRewardsEnhanced() {
     }
   };
 
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen pb-20 md:pb-0 flex items-center justify-center" style={{ backgroundColor: '#FDFCFA' }}>
+        <div className="text-center">
+          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4" style={{ color: '#2E5077' }} />
+          <p className="text-sm" style={{ color: '#666666' }}>Loading Rewards...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen pb-20 md:pb-0" style={{ backgroundColor: '#FDFCFA' }}>
       {showConfetti && <Confetti />}
+      
+      {/* Offline Mode Banner */}
+      {offlineMode && (
+        <div 
+          className="sticky top-0 z-50 px-4 py-2 flex items-center gap-2"
+          style={{ 
+            backgroundColor: '#FFF3CD',
+            borderBottom: '1px solid #FFE69C'
+          }}
+        >
+          <WifiOff className="h-4 w-4" style={{ color: '#856404' }} />
+          <p className="text-sm font-medium" style={{ color: '#856404' }}>
+            Offline Mode: Showing cached data
+          </p>
+        </div>
+      )}
       
       <div className="max-w-2xl mx-auto px-4 py-6">
         <div className="space-y-6">

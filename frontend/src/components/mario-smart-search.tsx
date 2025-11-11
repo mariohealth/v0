@@ -4,10 +4,10 @@ import { Search, X, Loader2, Sparkles } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { cn } from './ui/utils';
-import { searchData } from '@/lib/data/mario-search-data';
 import { MarioAutocompleteEnhanced, type AutocompleteSuggestion } from './mario-autocomplete-enhanced';
 import { doctors, specialties } from '@/lib/data/mario-doctors-data';
 import { searchMedications } from '@/lib/data/mario-medication-data';
+import { safeSearchProcedures as searchProcedures } from '@/lib/api';
 
 interface SearchResult {
   id: string;
@@ -89,29 +89,30 @@ export function MarioSmartSearch({
       const suggestions: AutocompleteSuggestion[] = [];
       
       try {
-        // Use API-based autocomplete for procedures
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
-        const response = await fetch(`${API_BASE_URL}/api/v1/search?q=${encodeURIComponent(query)}&limit=10`);
+        // Use safe API-based autocomplete for procedures (with fallback)
+        const results = await searchProcedures(query);
         
-        if (response.ok) {
-          const data = await response.json();
-          if (data.results && Array.isArray(data.results)) {
-            // Convert API results to autocomplete suggestions (only procedures)
-            data.results.forEach((result: any) => {
-              if (result.procedure_slug) {
-                suggestions.push({
-                  id: result.procedure_id || result.procedure_slug,
-                  type: 'procedure' as any,
-                  primaryText: result.procedure_name,
-                  secondaryText: `${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
-                  procedureSlug: result.procedure_slug
-                });
-              }
-            });
-          }
+        // Convert API results to autocomplete suggestions (only procedures)
+        // safeSearchProcedures returns SearchResult[] directly
+        if (Array.isArray(results) && results.length > 0) {
+          results.forEach((result) => {
+            if (result.procedure_slug) {
+              // Normalize API response to ensure correct field mapping
+              const displayName = result.procedure_name || result.display_name || result.name || 'Procedure';
+              const category = result.category_name || result.category || 'Procedure';
+              
+              suggestions.push({
+                id: result.procedure_id || result.procedure_slug,
+                type: 'procedure' as any,
+                primaryText: displayName,
+                secondaryText: `${category} • ${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
+                procedureSlug: result.procedure_slug
+              });
+            }
+          });
         }
       } catch (error) {
-        // Log error but don't fallback to mock data for procedures
+        // Log error (fallback is already handled in safeSearchProcedures)
         console.error('API autocomplete failed:', error);
       }
       
@@ -504,7 +505,7 @@ export function MarioSmartSearch({
           )}
 
           {/* Procedures Section */}
-          {autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).length > 0 && (
+          {autocompleteSuggestions.filter(s => s.type === 'procedure').length > 0 && (
             <div className="p-3">
               {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0) && (
                 <div 
@@ -525,7 +526,7 @@ export function MarioSmartSearch({
                 Procedures
               </div>
               <div className="space-y-0.5">
-                {autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).map((result, index) => {
+                {autocompleteSuggestions.filter(s => s.type === 'procedure').map((result, index) => {
                   const globalIndex = autocompleteSuggestions.filter(s => s.type === 'doctor').length + autocompleteSuggestions.filter(s => s.type === 'specialty').length + index;
                   const isSelected = selectedIndex === globalIndex;
                   
@@ -588,7 +589,7 @@ export function MarioSmartSearch({
           {/* Medications Section */}
           {autocompleteSuggestions.filter(s => s.type === 'medication').length > 0 && (
             <div className="p-3">
-              {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).length > 0) && (
+              {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 || autocompleteSuggestions.filter(s => s.type === 'procedure').length > 0) && (
                 <div 
                   className="h-px mb-3"
                   style={{ backgroundColor: '#E8EAED' }}

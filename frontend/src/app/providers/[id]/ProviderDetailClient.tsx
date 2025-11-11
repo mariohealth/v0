@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { getProviderDetail, type ProviderDetail } from '@/lib/api';
 import { MarioProviderHospitalDetail } from '@/components/mario-provider-hospital-detail';
 import { MarioAIBookingChat } from '@/components/mario-ai-booking-chat';
@@ -14,7 +15,8 @@ function ProviderDetailContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const providerId = params.id as string;
-    const procedureSlug = searchParams.get('from_procedure');
+    // Support both 'procedure' and 'from_procedure' for compatibility
+    const procedureSlug = searchParams.get('procedure') || searchParams.get('from_procedure');
     const { user, loading: authLoading } = useAuth();
     const [provider, setProvider] = useState<ProviderDetail | null>(null);
     const [loading, setLoading] = useState(true);
@@ -115,9 +117,9 @@ function ProviderDetailContent() {
 
     const handleBack = () => {
         if (procedureSlug) {
-            router.push(`/procedures/${procedureSlug}`);
+            router.push(`/home?procedure=${encodeURIComponent(procedureSlug)}`);
         } else {
-            router.push('/procedures');
+            router.push('/home');
         }
     };
 

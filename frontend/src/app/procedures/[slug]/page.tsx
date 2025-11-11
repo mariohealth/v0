@@ -1,5 +1,5 @@
-import ProcedureDetailClient from './ProcedureDetailClient';
 import { procedureCategories } from '@/lib/data/mario-procedures-data';
+import ProcedureDetailClient from './ProcedureDetailClient';
 
 // Required for static export with dynamic routes
 export async function generateStaticParams() {
