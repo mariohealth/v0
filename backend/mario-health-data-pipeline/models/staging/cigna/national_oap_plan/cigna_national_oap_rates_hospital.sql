@@ -22,6 +22,6 @@ ON
 JOIN -- this join is to make sure we only list relevant NPIs for a given billing code
     {{ ref('billing_code_provider_taxonomy_map') }} AS taxon_map
 ON
-    taxon_map.cpt_code = rates.billing_code
-    AND rates.billing_code_type = 'CPT'
+    taxon_map.billing_code = rates.billing_code
+    AND taxon_map.billing_code_type = rates.billing_code_type
     AND prov_ref.healthcare_provider_taxonomy_code = taxon_map.provider_taxonomy_code
