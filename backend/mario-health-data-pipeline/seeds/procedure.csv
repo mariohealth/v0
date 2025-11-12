@@ -1,4 +1,5 @@
 id,family_id,name,slug,description,common_name
+proc_abdomen_mri,fam_mri,Abdomen MRI,abdomen-mri,,Abdomen MRI
 proc_abdomen_pelvis_ct_scan,fam_ct_scan,Abdomen and pelvis CT scan,abdomen-pelvis-ct-scan,,Abdomen and pelvis CT scan
 proc_abdomen_ultrasound,fam_ultrasound,Abdomen ultrasound,abdomen-ultrasound,,Abdomen ultrasound
 proc_abdomen_x_ray,fam_x_ray,Abdomen X-ray,abdomen-x-ray,,Abdomen X-ray
@@ -11,6 +12,7 @@ proc_annual_wellness_visit,fam_office_visit,Annual wellness visit,annual-wellnes
 proc_arm_joint_mri,fam_mri,Arm joint MRI,arm-joint-mri,,Arm joint MRI
 proc_arm_leg_arteries_ultrasound,fam_ultrasound,Arm or leg arteries ultrasound,arm-leg-arteries-ultrasound,,Arm or leg arteries ultrasound
 proc_arm_leg_veins_ultrasound,fam_ultrasound,Arm or leg veins ultrasound,arm-leg-veins-ultrasound,,Arm or leg veins ultrasound
+proc_arm_mri,fam_mri,Arm MRI,arm-mri,,Arm MRI
 proc_arthrocentesis,fam_joint_clinical_procedure,Aspiration and/or injection of fluid from joint,arthrocentesis,,Aspiration and/or injection of fluid from joint
 proc_automated_urine_test,fam_urine_test,Automated urine test,automated-urine-test,,Automated urine test
 proc_bladder_capacity_ultrasound,fam_ultrasound,Ultrasound to evaluate bladder capacity ,bladder-capacity-ultrasound,,Ultrasound to evaluate bladder capacity
@@ -20,10 +22,13 @@ proc_blood_vessels_abdomen_pelvis_ct_scan,fam_ct_scan,Abdomen and pelvis blood v
 proc_blood_vessels_chest_ct_scan,fam_ct_scan,Chest blood vessels CT scan,blood-vessels-chest-ct-scan,,Chest blood vessels CT scan
 proc_blood_vessels_head_ct_scan,fam_ct_scan,Head blood vessels CT scan,blood-vessels-head-ct-scan,,Head blood vessels CT scan
 proc_blood_vessels_neck_ct_scan,fam_ct_scan,Neck blood vessels CT scan,blood-vessels-neck-ct-scan,,Neck blood vessels CT scan
+proc_brain_intracranial_mri,fam_mri,Intracranial brain MRI,brain-intracranial-mri,,Intracranial brain MRI
 proc_brain_mri,fam_mri,Brain MRI,brain-mri,,Brain MRI
+proc_brain_stem_mri,fam_mri,Brain stem MRI,brain-stem-mri,,Brain stem MRI
 proc_breast_ultrasound,fam_ultrasound,Breast(s) ultrasound,breast-ultrasound,,Breast(s) ultrasound
 proc_chest_cancer_screen_ct_scan,fam_ct_scan,Chest CT scan for cancer screening,chest-cancer-screen-ct-scan,,Chest CT scan for cancer screening
 proc_chest_ct_scan,fam_ct_scan,Chest CT scan,chest-ct-scan,,Chest CT scan
+proc_chest_mri,fam_mri,Chest MRI,chest-mri,,Chest MRI
 proc_chest_x_ray,fam_x_ray,Chest X-ray,chest-x-ray,,Chest X-ray
 proc_chronic_care_management,fam_chronic_care,Chronic care management,chronic-care-management,,Chronic care management
 proc_clotting_time_blood_test,fam_blood_test,Clotting time blood test,clotting-time-blood-test,,Clotting time blood test
@@ -71,10 +76,10 @@ proc_large_bowel_endoscopy,fam_endoscopy,Large bowel endoscopy,large-bowel-endos
 proc_leg_arteries_ultrasound,fam_ultrasound,Leg arteries ultrasound,leg-arteries-ultrasound,,Leg arteries ultrasound
 proc_leg_ct_scan,fam_ct_scan,Leg CT scan,leg-ct-scan,,Leg CT scan
 proc_leg_joint_mri,fam_mri,Leg joint MRI,leg-joint-mri,,Leg joint MRI
+proc_leg_mri,fam_mri,Leg MRI,leg-mri,,Leg MRI
 proc_lens_surgery_anesthesia,fam_anesthesia,Anesthesia for lens surgery,lens-surgery-anesthesia,,Anesthesia for lens surgery
 proc_lipids_blood_test,fam_blood_test,Lipids blood test,lipids-blood-test,,Lipids blood test
 proc_lower_leg_x_ray,fam_x_ray,Lower leg X-ray,lower-leg-x-ray,,Lower leg X-ray
-proc_lower_spinal_canal_mri,fam_mri,Lower spinal canal MRI,lower-spinal-canal-mri,,Lower spinal canal MRI
 proc_lower_spine_ct_scan,fam_ct_scan,Lower spine CT scan,lower-spine-ct-scan,,Lower spine CT scan
 proc_lower_spine_x_ray,fam_x_ray,Lower spine X-ray,lower-spine-x-ray,,Lower spine X-ray
 proc_lung_diffusing_capacity_test,fam_lung_test,Lung diffusing capacity test,lung-diffusing-capacity-test,,Lung diffusing capacity test
@@ -83,7 +88,9 @@ proc_microscope_urinalysis,fam_urine_test,Urinalysis with microscope,microscope-
 proc_microalbumin_urinalysis,fam_urine_test,Microalbumin urinalysis,microalbumin-urinalysis,,Microalbumin urinalysis
 proc_moderate_sedation_services,fam_sedation,Moderate sedation service,moderate-sedation-services,,Moderate sedation service
 proc_office_visit,fam_office_visit,Office visit,office-visit,,Office visit
+proc_orbit_face_neck_mri,fam_mri,"Orbit, face or neck MRI",orbit-face-neck-mri,,"Orbit, face or neck MRI"
 proc_pap_smear_test,fam_smear_test,Screening papanicolaou smear,pap-smear-test,,Screening papanicolaou smear
+proc_pelvis_mri,fam_mri,Pelvis MRI,pelvis-mri,,Pelvis MRI
 proc_pelvis_x_ray,fam_x_ray,Pelvis X-ray,pelvis-x-ray,,Pelvis X-ray
 proc_physical_therapy,fam_physical_therapy,Physical therapy,physical-therapy,,Physical therapy
 proc_pneumococcal_vaccine,fam_vaccine,Pneumococcal vaccine,pneumococcal-vaccine,,Pneumococcal vaccine
@@ -105,6 +112,9 @@ proc_small_bowel_anesthesia,fam_anesthesia,Small bowel anesthesia,small-bowel-an
 proc_small_bowel_biopsy,fam_biopsy,Small bowel biopsy,small-bowel-biopsy,,Small bowel biopsy
 proc_small_bowel_endoscopy,fam_endoscopy,Small bowel endoscopy,small-bowel-endoscopy,,Small bowel endoscopy
 proc_small_large_bowel_anesthesia,fam_anesthesia,Small or large bowel anesthesia,small-large-bowel-anesthesia,,Small or large bowel anesthesia
+proc_spinal_canal_cervical_mri,fam_mri,Cervical spinal canal MRI,spinal-canal-cervical-mri,,Cervical spinal canal MRI
+proc_spinal_canal_lumbar_mri,fam_mri,Lumbar spinal canal MRI,spinal-canal-lumbar-mri,,Lumbar spinal canal MRI
+proc_spinal_canal_thoracic_mri,fam_mri,Thoracic spinal canal MRI,spinal-canal-thoracic-mri,,Thoracic spinal canal MRI
 proc_spinal_chiropractic,fam_chiropractic,Spine chiropractic manipulative treatment,spinal-chiropractic,,Spine chiropractic manipulative treatment
 proc_spirometry_test,fam_lung_test,Spirometry test,spirometry-test,,Spirometry test
 proc_streptococcus_doo_immunoassay,fam_immunoassay,Streptococcus detection with DOO immunoassay,streptococcus-doo-immunoassay,,Streptococcus detection with DOO immunoassay
@@ -117,7 +127,6 @@ proc_transvaginal_ultrasound,fam_ultrasound,Transvaginal ultrasound,transvaginal
 proc_tsh_blood_test,fam_blood_test,Thyroid stimulating hormone (tsh) blood test,tsh-blood-test,,Thyroid stimulating hormone (tsh) blood test
 proc_tympanometry_test,fam_hearing,Tympanometry test,tympanometry-test,,Tympanometry test
 proc_upper_abdomen_anesthesia,fam_anesthesia,Anesthesia for procedure on upper abdomen,upper-abdomen-anesthesia,,Anesthesia for procedure on upper abdomen
-proc_upper_spinal_canal_mri,fam_mri,Upper spinal canal MRI,upper-spinal-canal-mri,,Upper spinal canal MRI
 proc_upper_spine_ct_scan,fam_ct_scan,Upper spine CT scan,upper-spine-ct-scan,,Upper spine CT scan
 proc_upper_spine_x_ray,fam_x_ray,Upper spine X-ray,upper-spine-x-ray,,Upper spine X-ray
 proc_vein_chemotherapy,fam_chemotherapy,Chemotherapy through vein,vein-chemotherapy,,Chemotherapy through vein
