@@ -1,5 +1,4 @@
 hospital_id,hospital_name,system_id,address,city,state,zip_code,latitude,longitude,phone,hospital_type,operational_status
-nyc_001,New York-Presbyterian Hospital,SYS_NYP,21 Audubon Ave,New York,NY,10032,40.839360,-73.938722,+12123052500,Academic Medical Center,active
 nyc_002,Mount Sinai Hospital,SYS_MOUNTSINAI,1468 Madison Ave,New York,NY,10029,40.790311,-73.952097,+12122416500,Academic Medical Center,active
 nyc_003,NYU Langone Hospital,SYS_NYULANGONE,550 1st Ave,New York,NY,10016,40.742026,-73.974348,+16469297800,Academic Medical Center,active
 nyc_004,Memorial Sloan Kettering Cancer Center,SYS_MSK,1275 York Ave,New York,NY,10065,40.764054,-73.956026,+13477989213,Specialty Cancer Hospital,active
@@ -8,13 +7,15 @@ nyc_006,Lenox Hill Hospital,SYS_NORTHWELL,100 E 77th St,New York,NY,10075,40.773
 nyc_007,Manhattan Eye Ear & Throat Hospital,SYS_NORTHWELL,210 E 64th St,New York,NY,10065,40.7640723,-73.9633151,+12128389200,Specialty Hospital,active
 nyc_008,North Shore University Hospital,SYS_NORTHWELL,300 Community Dr,Manhasset,NY,11030,40.7755044,-73.7012082,+15165620100,Academic Medical Center,active
 nyc_009,Long Island Jewish Medical Center,SYS_NORTHWELL,270-05 76th Ave,Glen Oaks,NY,11040,40.7556629,-73.7074216,+17184707000,Academic Medical Center,active
-nyc_010,Weill Cornell Medical Center,SYS_NYP,525 E 68th St,New York,NY,10065,40.7648658,-73.9539836,+12127465454,Academic Medical Center,active
-nyc_011,Columbia University Medical Center,SYS_NYP,622 W 168th St,New York,NY,10032,40.8410959,-73.9405652,+12123052500,Academic Medical Center,active
+nyc_010,NewYork-Presbyterian / Weill Cornell Medical Center,SYS_NYP,525 E 68th St,New York,NY,10065,40.7648658,-73.9539836,+12127465454,Academic Medical Center,active
+nyc_011,NewYork-Presbyterian / Columbia University Medical Center,SYS_NYP,622 W 168th St,New York,NY,10032,40.8410959,-73.9405652,+12123052500,Academic Medical Center,active
 nyc_012,Mount Sinai Beth Israel,SYS_MOUNTSINAI,,New York,NY,,,,,Community Hospital,inactive
 nyc_013,Mount Sinai West,SYS_MOUNTSINAI,1000 10th Ave,New York,NY,10019,40.770024,-73.9874562,+12125234000,Community Hospital,active
 nyc_014,Mount Sinai Morningside,SYS_MOUNTSINAI,419 W 114th St,New York,NY,10025,40.8055483,-73.9613152,+12125234000,Community Hospital,active
 nyc_015,NYU Langone Hospital - Brooklyn,SYS_NYULANGONE,150 55th St,Brooklyn,NY,11220,40.646444,-74.021033,+17186307000,Community Hospital,active
 nyc_016,NYU Langone Hospital - Long Island,SYS_NYULANGONE,259 1st St,Mineola,NY,11501,40.740986,-73.643092,+15166630333,Community Hospital,active
+nyc-017,NewYork-Presbyterian Allen Hospital,SYS_NYP,5141 Broadway,New York,NY,10034,40.873348,-73.913017,+12129324000,?,active
+nyc-018,NewYork-Presbyterian Lower Manhattan Hospital,SYS_NYP,170 William St,New York,NY,10038,40.710079,-74.004860,+12123125000,?,active
 sf_001,UCSF Medical Center,SYS_UCSF,505 Parnassus Ave,San Francisco,CA,94143,37.763123,-122.457823,+14154761000,Academic Medical Center,active
 sf_002,Stanford Health Care,SYS_STANFORD,300 Pasteur Dr,Stanford,CA,94304,37.434033,-122.180740,+16507234000,Academic Medical Center,active
 sf_003,California Pacific Medical Center,SYS_SUTTER,3555 Cesar Chavez St,San Francisco,CA,94110,37.747807,-122.420583,+14156006000,Community Hospital,active
