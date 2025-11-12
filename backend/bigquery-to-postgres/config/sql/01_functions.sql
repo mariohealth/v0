@@ -82,7 +82,7 @@ BEGIN
                 ELSE 0
             END as distance_miles
         FROM procedure_pricing pp
-        JOIN provider_location pl ON pp.provider_id = pl.provider_id
+        JOIN provider_location pl ON pp.provider_location_id = pl.id
         WHERE
             search_location IS NULL OR
             ST_DWithin(search_location, pl.location, radius_meters)
