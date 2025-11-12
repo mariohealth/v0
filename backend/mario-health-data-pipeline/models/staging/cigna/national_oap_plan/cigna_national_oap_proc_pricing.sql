@@ -29,6 +29,7 @@ SELECT
     procedure_id,
     hospital_id AS org_id,
     npi AS provider_id,
+    CONCAT(hospital_id, "_", npi) AS provider_location_id,
     'cigna_national_oap' AS carrier_id,
     'cigna' AS carrier_name,
     {{ round_price('negotiated_rate_avg_min') }} AS price
