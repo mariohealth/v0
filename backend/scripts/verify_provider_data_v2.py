@@ -102,32 +102,38 @@ def main():
     
     # Step 4: Providers linked to pricing
     print("=== Providers Linked to Pricing ===")
+    # Initialize variables for report generation
+    providers_with_pricing_location_id = 0
+    providers_with_pricing_numeric = 0
+    coverage_percent_location_id = 0
+    coverage_percent_numeric = 0
+    provider_ids = set()
+    provider_numeric_ids = set()
+    
     try:
         # Get all provider IDs (both composite id and numeric provider_id)
         provider_ids = {p.get('id') for p in providers if p.get('id')}
         provider_numeric_ids = {p.get('provider_id') for p in providers if p.get('provider_id')}
         
-        # Get pricing data
-        pricing_result = supabase.table("procedure_pricing").select("provider_id").execute()
+        # Get pricing data - check for both provider_location_id and provider_id
+        pricing_result = supabase.table("procedure_pricing").select("provider_location_id,provider_id").execute()
+        pricing_provider_location_ids = {p.get('provider_location_id') for p in pricing_result.data if p.get('provider_location_id')}
         pricing_provider_ids = {p.get('provider_id') for p in pricing_result.data if p.get('provider_id')}
         
-        # Check both join methods (id and provider_id)
-        # Method 1: Using composite id (as in original query - likely incorrect)
-        providers_with_pricing_id = len(provider_ids & pricing_provider_ids)
+        # Method 1: Using provider_location_id (new schema - CORRECT)
+        providers_with_pricing_location_id = len(provider_ids & pricing_provider_location_ids)
+        coverage_percent_location_id = round(100.0 * providers_with_pricing_location_id / len(provider_ids), 1) if provider_ids else 0
         
-        # Method 2: Using numeric provider_id (correct method)
+        # Method 2: Using numeric provider_id (legacy method)
         providers_with_pricing_numeric = len(provider_numeric_ids & pricing_provider_ids)
-        
-        total_providers = len(provider_ids)
-        coverage_percent_id = round(100.0 * providers_with_pricing_id / total_providers, 1) if total_providers > 0 else 0
         coverage_percent_numeric = round(100.0 * providers_with_pricing_numeric / len(provider_numeric_ids), 1) if provider_numeric_ids else 0
         
-        print(f"Using composite 'id' field (pp.provider_id = pl.id):")
-        print(f"  Providers with pricing: {providers_with_pricing_id}")
-        print(f"  Total providers: {total_providers}")
-        print(f"  Coverage: {coverage_percent_id}%")
+        print(f"Using provider_location_id (pp.provider_location_id = pl.id) [NEW SCHEMA - CORRECT]:")
+        print(f"  Providers with pricing: {providers_with_pricing_location_id}")
+        print(f"  Total providers: {len(provider_ids)}")
+        print(f"  Coverage: {coverage_percent_location_id}%")
         print()
-        print(f"Using numeric 'provider_id' field (pp.provider_id = pl.provider_id) [CORRECT]:")
+        print(f"Using numeric 'provider_id' field (pp.provider_id = pl.provider_id) [LEGACY]:")
         print(f"  Providers with pricing: {providers_with_pricing_numeric}")
         print(f"  Total providers: {len(provider_numeric_ids)}")
         print(f"  Coverage: {coverage_percent_numeric}%")
@@ -138,44 +144,45 @@ def main():
     # Step 5: Top providers by number of priced procedures
     print("=== Top Providers by Number of Priced Procedures ===")
     try:
-        # Get pricing data with prices
-        pricing_result = supabase.table("procedure_pricing").select("provider_id,procedure_id,price").execute()
+        # Get pricing data with prices - check for both provider_location_id and provider_id
+        pricing_result = supabase.table("procedure_pricing").select("provider_location_id,provider_id,procedure_id,price").execute()
         
-        # Group by provider (using numeric provider_id)
+        # Group by provider (prefer provider_location_id, fallback to provider_id)
         provider_pricing = defaultdict(lambda: {'procedures': [], 'prices': []})
         for p in pricing_result.data:
-            provider_id = p.get('provider_id')
-            if provider_id:
-                provider_pricing[provider_id]['procedures'].append(p.get('procedure_id'))
+            # Prefer provider_location_id (new schema)
+            provider_key = p.get('provider_location_id') or p.get('provider_id')
+            if provider_key:
+                provider_pricing[provider_key]['procedures'].append(p.get('procedure_id'))
                 price = p.get('price')
                 if price:
                     try:
-                        provider_pricing[provider_id]['prices'].append(float(price))
+                        provider_pricing[provider_key]['prices'].append(float(price))
                     except:
                         pass
         
-        # Get provider details - map by numeric provider_id
-        provider_map = {p.get('provider_id'): p for p in providers if p.get('provider_id')}
-        
-        # Also map by composite id for comparison
+        # Get provider details - map by composite id (provider_location.id)
         provider_map_by_id = {p.get('id'): p for p in providers if p.get('id')}
+        
+        # Also map by numeric provider_id for legacy compatibility
+        provider_map = {p.get('provider_id'): p for p in providers if p.get('provider_id')}
         
         # Sort by number of procedures
         top_providers = []
-        for provider_id, data in provider_pricing.items():
+        for provider_key, data in provider_pricing.items():
             proc_count = len(data['procedures'])
             prices = data['prices']
             
-            # Try numeric provider_id first (correct)
-            provider = provider_map.get(provider_id)
+            # Try provider_location.id first (new schema)
+            provider = provider_map_by_id.get(provider_key)
             if not provider:
-                # Fallback to composite id (if pricing uses composite id)
-                provider = provider_map_by_id.get(provider_id)
+                # Fallback to numeric provider_id (legacy)
+                provider = provider_map.get(provider_key)
             
             if provider:
                 provider_name = provider.get('name') or provider.get('provider_name') or 'Unknown'
                 top_providers.append({
-                    'id': provider_id,
+                    'id': provider_key,
                     'name': provider_name,
                     'city': provider.get('city', 'N/A'),
                     'state': provider.get('state', 'N/A'),
@@ -186,7 +193,7 @@ def main():
             else:
                 # Orphan record
                 top_providers.append({
-                    'id': provider_id,
+                    'id': provider_key,
                     'name': 'Unknown (orphan)',
                     'city': 'N/A',
                     'state': 'N/A',
@@ -207,29 +214,35 @@ def main():
     
     # Step 6: Detect orphan pricing records
     print("=== Detecting Orphan Pricing Records ===")
+    # Initialize variables for report generation
+    orphan_count_location_id = 0
+    orphan_count_numeric = 0
+    
     try:
-        # Check using composite id (as in original query)
-        provider_ids = {p.get('id') for p in providers if p.get('id')}
-        pricing_result = supabase.table("procedure_pricing").select("provider_id").execute()
+        if not provider_ids:
+            provider_ids = {p.get('id') for p in providers if p.get('id')}
+        if not provider_numeric_ids:
+            provider_numeric_ids = {p.get('provider_id') for p in providers if p.get('provider_id')}
+        pricing_result = supabase.table("procedure_pricing").select("provider_location_id,provider_id").execute()
         
-        orphan_count_id = 0
+        # Check using provider_location_id (new schema)
         for p in pricing_result.data:
-            provider_id = p.get('provider_id')
-            if provider_id and provider_id not in provider_ids:
-                orphan_count_id += 1
+            provider_location_id = p.get('provider_location_id')
+            if provider_location_id and provider_location_id not in provider_ids:
+                orphan_count_location_id += 1
         
-        # Check using numeric provider_id (correct method)
-        provider_numeric_ids = {p.get('provider_id') for p in providers if p.get('provider_id')}
-        orphan_count_numeric = 0
+        # Check using numeric provider_id (legacy)
         for p in pricing_result.data:
             provider_id = p.get('provider_id')
             if provider_id and provider_id not in provider_numeric_ids:
                 orphan_count_numeric += 1
         
-        print(f"Using composite 'id' field (pp.provider_id NOT IN pl.id):")
-        print(f"  Orphan pricing records: {orphan_count_id}")
+        print(f"Using provider_location_id (pp.provider_location_id NOT IN pl.id) [NEW SCHEMA]:")
+        print(f"  Orphan pricing records: {orphan_count_location_id}")
+        if orphan_count_location_id > 0:
+            print(f"  ⚠️  Warning: {orphan_count_location_id} pricing records reference providers that don't exist")
         print()
-        print(f"Using numeric 'provider_id' field (pp.provider_id NOT IN pl.provider_id) [CORRECT]:")
+        print(f"Using numeric 'provider_id' field (pp.provider_id NOT IN pl.provider_id) [LEGACY]:")
         print(f"  Orphan pricing records: {orphan_count_numeric}")
         if orphan_count_numeric > 0:
             print(f"  ⚠️  Warning: {orphan_count_numeric} pricing records reference providers that don't exist")
@@ -263,25 +276,27 @@ def main():
         f.write("\n")
         
         f.write("## Providers Linked to Pricing\n\n")
-        f.write("### Using Composite 'id' Field (pp.provider_id = pl.id)\n")
-        f.write(f"- Providers with pricing: {providers_with_pricing_id}\n")
-        f.write(f"- Total providers: {total_providers}\n")
-        f.write(f"- Coverage: {coverage_percent_id}%\n\n")
-        f.write("### Using Numeric 'provider_id' Field (pp.provider_id = pl.provider_id) [CORRECT]\n")
+        f.write("### Using provider_location_id (pp.provider_location_id = pl.id) [NEW SCHEMA - CORRECT]\n")
+        f.write(f"- Providers with pricing: {providers_with_pricing_location_id}\n")
+        f.write(f"- Total providers: {len(provider_ids)}\n")
+        f.write(f"- Coverage: {coverage_percent_location_id}%\n\n")
+        f.write("### Using Numeric 'provider_id' Field (pp.provider_id = pl.provider_id) [LEGACY]\n")
         f.write(f"- Providers with pricing: {providers_with_pricing_numeric}\n")
         f.write(f"- Total providers: {len(provider_numeric_ids)}\n")
         f.write(f"- Coverage: {coverage_percent_numeric}%\n\n")
         
-        if orphan_count_numeric > 0:
+        total_orphans = max(orphan_count_location_id, orphan_count_numeric)
+        if total_orphans > 0:
             f.write("## ⚠️ Data Quality Issues\n\n")
-            f.write(f"- **Orphan pricing records**: {orphan_count_numeric} pricing rows reference providers that don't exist in provider_location\n")
+            f.write(f"- **Orphan pricing records (provider_location_id)**: {orphan_count_location_id} pricing rows reference providers that don't exist\n")
+            f.write(f"- **Orphan pricing records (provider_id)**: {orphan_count_numeric} pricing rows reference providers that don't exist\n")
             f.write("- **Recommendation**: Clean up orphan records or add missing provider records\n\n")
         
         f.write("## Recommendations\n\n")
-        f.write("1. **Use correct join field**: Join should use `pp.provider_id = pl.provider_id` (numeric), not `pp.provider_id = pl.id` (composite)\n")
-        f.write(f"2. **Fix orphan records**: Address {orphan_count_numeric} pricing records that reference non-existent providers\n")
-        f.write(f"3. **Increase pricing coverage**: Only {coverage_percent_numeric}% of providers have pricing data\n")
-        f.write("4. **Verify data seeding**: Ensure new pricing data uses valid provider_id values\n")
+        f.write("1. **Use correct join field**: Join should use `pp.provider_location_id = pl.id` (new schema), not `pp.provider_id = pl.provider_id` (legacy)\n")
+        f.write(f"2. **Fix orphan records**: Address {total_orphans} pricing records that reference non-existent providers\n")
+        f.write(f"3. **Increase pricing coverage**: Only {coverage_percent_location_id}% of providers have pricing data (using new schema)\n")
+        f.write("4. **Verify data seeding**: Ensure new pricing data uses valid provider_location_id values\n")
     
     print(f"✅ Provider data diagnostics complete — report saved to {output_file}\n")
     print("Verification complete!")

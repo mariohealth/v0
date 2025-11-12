@@ -136,44 +136,60 @@ def main():
 
         print(f"  Found {len(mri_procedures.data)} MRI procedures")
 
-        # Get provider IDs
+        # Get provider IDs and their corresponding provider_location.id values
         provider_ids = [1001, 1002, 1003]
+        
+        # Map provider_id to provider_location.id (composite id)
+        provider_location_map = {}
+        for provider_id in provider_ids:
+            provider = (
+                supabase.table("provider_location")
+                .select("id")
+                .eq("provider_id", provider_id)
+                .execute()
+            )
+            if provider.data:
+                provider_location_map[provider_id] = provider.data[0]["id"]
 
         # Insert pricing for each MRI procedure and provider combination
         pricing_count = 0
         for procedure in mri_procedures.data:
             for provider_id in provider_ids:
+                # Get provider_location.id for this provider_id
+                provider_location_id = provider_location_map.get(provider_id)
+                if not provider_location_id:
+                    print(f"    Warning: provider_id {provider_id} not found in provider_location, skipping")
+                    continue
+                
                 # Generate random price between 400 and 550
                 price = random.randint(400, 550)
 
-                # Generate composite ID: {procedure_id}_{provider_id}
-                pricing_id = f"{procedure['id']}_{provider_id}"
+                # Generate composite ID: {procedure_id}_{provider_location_id}
+                pricing_id = f"{procedure['id']}_{provider_location_id}"
 
                 pricing_data = {
                     "id": pricing_id,
                     "procedure_id": procedure["id"],
-                    "provider_id": provider_id,
+                    "provider_location_id": provider_location_id,
                     "price": price,
                     "updated_at": datetime.now().isoformat(),
                 }
 
                 try:
-                    # Check if pricing already exists
+                    # Check if pricing already exists (try both provider_id and provider_location_id)
                     existing = (
                         supabase.table("procedure_pricing")
                         .select("id")
                         .eq("procedure_id", procedure["id"])
-                        .eq("provider_id", provider_id)
+                        .or_(f"provider_location_id.eq.{provider_location_id},provider_id.eq.{provider_id}")
                         .execute()
                     )
 
                     if existing.data:
                         # Update existing
                         supabase.table("procedure_pricing").update(
-                            {"price": price, "updated_at": datetime.now().isoformat()}
-                        ).eq("procedure_id", procedure["id"]).eq(
-                            "provider_id", provider_id
-                        ).execute()
+                            {"price": price, "updated_at": datetime.now().isoformat(), "provider_location_id": provider_location_id}
+                        ).eq("id", existing.data[0]["id"]).execute()
                         pricing_count += 1
                     else:
                         # Insert new
@@ -210,11 +226,12 @@ def main():
             )
             if provider.data:
                 p = provider.data[0]
-                # Get pricing for this provider
+                provider_location_id = p.get("id")
+                # Get pricing for this provider (try both provider_location_id and provider_id for compatibility)
                 pricing = (
                     supabase.table("procedure_pricing")
                     .select("price")
-                    .eq("provider_id", provider_id)
+                    .or_(f"provider_location_id.eq.{provider_location_id},provider_id.eq.{provider_id}")
                     .execute()
                 )
                 prices = [float(pr["price"]) for pr in pricing.data if pr.get("price")]
