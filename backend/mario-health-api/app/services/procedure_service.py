@@ -107,7 +107,7 @@ class ProcedureService:
                 self.supabase.table("procedure_pricing")
                 .select(
                     "provider_id, price, provider_name"
-                    
+
                 # removing all these columns as they do not yet exist in the procedure_pricing table
                 # in_network, rating, reviews, distance, address, city, state, zip_code, mario_points
                 )
