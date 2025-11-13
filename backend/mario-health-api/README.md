@@ -30,7 +30,7 @@ This allows Firebase Admin SDK to use your local credentials. On Cloud Run, the 
 ## Deploy on your local machine
 ```bash
 # Create virtual environment (if not already done)
-python -m venv venv
+python3 -m venv venv
 
 # Activate it
 # On Mac/Linux:
