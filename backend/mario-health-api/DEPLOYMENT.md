@@ -26,7 +26,7 @@ pydantic-core==2.41.4
 
 ### Quick Deploy
 ```bash
-./deploy.sh
+scripts/deploy.sh
 ```
 
 ### Manual Deploy

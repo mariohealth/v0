@@ -171,3 +171,43 @@ class ProcedureProvidersResponse(BaseModel):
                 ],
             }
         }
+
+class ProcedureOrg(BaseModel):
+    """Orgs offering a specific procedure."""
+
+    procedure_id: str
+    org_id: str
+    carrier_id: str
+    carrier_name: str
+    count_provider: int
+    min_price: Decimal
+    max_price: Decimal
+    avg_price: Decimal
+
+
+class ProcedureOrgsResponse(BaseModel):
+    """Response for GET /api/v1/procedures/{slug}/orgs."""
+
+    procedure_name: str
+    procedure_slug: str
+    orgs: List[ProcedureOrg]
+
+    class ConfigDict:
+        json_schema_extra = {
+            "example": {
+                "procedure_name": "MRI Scan (Brain)",
+                "procedure_slug": "mri-scan-brain",
+                "orgs": [
+                    {
+                    "procedure_id": "proc_brain_mri",
+                    "org_id": "nyc_001",
+                    "carrier_id": "cigna_national_oap",
+                    "carrier_name": "Cigna",
+                    "count_provider": 12,
+                    "min_price": 45,
+                    "max_price": 145,
+                    "avg_price": 112,
+                    }
+                ],
+            }
+        }

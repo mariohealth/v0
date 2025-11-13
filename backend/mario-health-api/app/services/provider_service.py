@@ -105,10 +105,15 @@ class ProviderService:
             pricing_result = (
                 self.supabase.table("procedure_pricing")
                 .select(
-                    "provider_id, provider_name, price, in_network, rating, reviews, address, city, state, zip_code, phone, website, hours, accreditation, staff, mario_points, facility_fee, professional_fee, supplies_fee"
+                    "provider_id, provider_name, price"
+
+                    # removing all these columns as they do not yet exist in the procedure_pricing table
+                # , in_network, rating, reviews, address, city, state, zip_code, phone, website, hours, accreditation, staff, mario_points, facility_fee, professional_fee, supplies_fee
                 )
                 .eq("procedure_id", procedure_id)
                 .eq("provider_id", provider_id)
+                .limit(1) # TODO a provider can work at multiple places for a given procedure so that query can
+                # return multiple rows and the logic below doesn't handle that
                 .single()
                 .execute()
             )
@@ -128,13 +133,13 @@ class ProviderService:
                 savings_pct = round(float((avg_price - price) / avg_price * 100), 1)
 
             # Build estimated costs breakdown
-            estimated_costs = {"total": float(price)}
-            if p.get("facility_fee"):
-                estimated_costs["facility_fee"] = float(p["facility_fee"])
-            if p.get("professional_fee"):
-                estimated_costs["professional_fee"] = float(p["professional_fee"])
-            if p.get("supplies_fee"):
-                estimated_costs["supplies_fee"] = float(p["supplies_fee"])
+            # estimated_costs = {"total": float(price)}
+            # if p.get("facility_fee"):
+            #     estimated_costs["facility_fee"] = float(p["facility_fee"])
+            # if p.get("professional_fee"):
+            #     estimated_costs["professional_fee"] = float(p["professional_fee"])
+            # if p.get("supplies_fee"):
+            #     estimated_costs["supplies_fee"] = float(p["supplies_fee"])
 
             return ProviderProcedureDetail(
                 provider_id=p.get("provider_id", provider_id),
@@ -143,21 +148,21 @@ class ProviderService:
                 procedure_name=procedure_name,
                 procedure_slug=procedure_slug,
                 address=p.get("address"),
-                city=p.get("city"),
-                state=p.get("state"),
-                zip_code=p.get("zip_code"),
-                phone=p.get("phone"),
-                website=p.get("website"),
-                hours=p.get("hours"),
-                estimated_costs=estimated_costs,
+                # city=p.get("city"),
+                # state=p.get("state"),
+                # zip_code=p.get("zip_code"),
+                # phone=p.get("phone"),
+                # website=p.get("website"),
+                # hours=p.get("hours"),
+                # estimated_costs=estimated_costs,
                 average_price=avg_price,
                 savings_vs_average=savings_pct,
-                in_network=p.get("in_network", False),
-                rating=float(p["rating"]) if p.get("rating") else None,
-                reviews=int(p["reviews"]) if p.get("reviews") else 0,
-                accreditation=p.get("accreditation"),
-                staff=p.get("staff"),
-                mario_points=int(p.get("mario_points", 0)),
+                # in_network=p.get("in_network", False),
+                # rating=float(p["rating"]) if p.get("rating") else None,
+                # reviews=int(p["reviews"]) if p.get("reviews") else 0,
+                # accreditation=p.get("accreditation"),
+                # staff=p.get("staff"),
+                # mario_points=int(p.get("mario_points", 0)),
             )
         except HTTPException:
             raise

@@ -3,8 +3,10 @@ from supabase import Client
 from app.models import (
     ProcedureDetail,
     CarrierPrice,
-    ProcedureProvidersResponse,
     ProcedureProvider,
+    ProcedureProvidersResponse,
+    ProcedureOrg,
+    ProcedureOrgsResponse,
 )
 from decimal import Decimal
 from typing import List
@@ -104,7 +106,10 @@ class ProcedureService:
             providers_result = (
                 self.supabase.table("procedure_pricing")
                 .select(
-                    "provider_id, price, provider_name, in_network, rating, reviews, distance, address, city, state, zip_code, mario_points"
+                    "provider_id, price, provider_name"
+
+                # removing all these columns as they do not yet exist in the procedure_pricing table
+                # in_network, rating, reviews, distance, address, city, state, zip_code, mario_points
                 )
                 .eq("procedure_id", procedure_id)
                 .execute()
@@ -161,4 +166,67 @@ class ProcedureService:
                 procedure_name=procedure_name,
                 procedure_slug=procedure_slug,
                 providers=[],
+            )
+
+
+    async def get_procedure_orgs(self, slug: str) -> ProcedureOrgsResponse:
+        """Fetch all orgs offering a specific procedure with pricing."""
+
+        # First get the procedure to verify it exists
+        proc_result = self.supabase.rpc(
+            "get_procedure_detail", {"procedure_slug_input": slug}
+        ).execute()
+
+        if not proc_result.data or len(proc_result.data) == 0:
+            raise HTTPException(status_code=404, detail=f"Procedure '{slug}' not found")
+
+        proc = proc_result.data[0]
+        procedure_id = proc["id"]
+        procedure_name = proc["name"]
+        procedure_slug = proc["slug"]
+
+        # Get orgs offering this procedure
+        # Query procedure_org_pricing table
+        try:
+            # Use a query to get orgs with pricing for this procedure
+            orgs_result = (
+                self.supabase.table("procedure_org_pricing")
+                .select(
+                    "procedure_id", "org_id", "carrier_id", "carrier_name", "count_provider", "min_price", "max_price", "avg_price"
+                )
+                .eq("procedure_id", procedure_id)
+                .execute()
+            )
+
+            orgs: List[ProcedureOrg] = []
+            for p in orgs_result.data:
+
+                orgs.append(
+                    ProcedureOrg(
+                        procedure_id=p.get("procedure_id"),
+                        org_id= p.get("org_id"),
+                        carrier_id= p.get("carrier_id"),
+                        carrier_name= p.get("carrier_name"),
+                        count_provider= p.get("count_provider"),
+                        min_price= p.get("min_price"),
+                        max_price= p.get("max_price"),
+                        avg_price= p.get("avg_price"),
+                    )
+                )
+
+            # Sort by price (lowest first)
+            orgs.sort(key=lambda x: x.avg_price)
+
+            return ProcedureOrgsResponse(
+                procedure_name=procedure_name,
+                procedure_slug=procedure_slug,
+                orgs=orgs,
+            )
+        except Exception as e:
+            # If query fails, return empty list
+            print(f"Warning: Could not fetch orgs: {e}")
+            return ProcedureOrgsResponse(
+                procedure_name=procedure_name,
+                procedure_slug=procedure_slug,
+                orgs=[],
             )
