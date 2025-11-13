@@ -44,6 +44,7 @@ TABLES = {
         'required_columns': ['procedure_id',
                              'org_id',
                              'provider_id',
+                             'provider_name',
                              'provider_location_id',
                              'carrier_id',
                              'carrier_name',
