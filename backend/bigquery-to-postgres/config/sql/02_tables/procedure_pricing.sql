@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS procedure_pricing (
     procedure_id TEXT REFERENCES procedure(id),
     org_id TEXT,
     provider_id TEXT,
+    provider_name TEXT,
     provider_location_id TEXT,
     carrier_id TEXT,
     carrier_name TEXT,

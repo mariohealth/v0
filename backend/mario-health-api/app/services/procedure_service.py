@@ -106,7 +106,8 @@ class ProcedureService:
             providers_result = (
                 self.supabase.table("procedure_pricing")
                 .select(
-                    "provider_id, price, provider_name, in_network, rating, reviews, distance, address, city, state, zip_code, mario_points"
+                    "provider_id, price, provider_name"
+                # in_network, rating, reviews, distance, address, city, state, zip_code, mario_points
                 )
                 .eq("procedure_id", procedure_id)
                 .execute()
@@ -212,7 +213,7 @@ class ProcedureService:
                 )
 
             # Sort by price (lowest first)
-            orgs.sort(key=lambda x: x.price_estimate)
+            orgs.sort(key=lambda x: x.avg_price)
 
             return ProcedureOrgsResponse(
                 procedure_name=procedure_name,
