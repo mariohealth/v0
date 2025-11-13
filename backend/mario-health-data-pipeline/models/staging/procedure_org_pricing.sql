@@ -13,7 +13,7 @@ SELECT
     COUNT(DISTINCT provider_id) AS count_provider,
     MIN(price) AS min_price,
     MAX(price) AS max_price,
-    AVG(price) AS avg_price,
+    ROUND(AVG(price)) AS avg_price,
 FROM
     {{ ref('procedure_pricing') }}
 GROUP BY

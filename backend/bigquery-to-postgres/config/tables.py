@@ -52,6 +52,22 @@ TABLES = {
         'incremental_column': None,
     },
 
+    'procedure_org_pricing': {
+        'bigquery_table': 'procedure_org_pricing',
+        'postgres_table': 'procedure_org_pricing',
+        'primary_key': 'id',
+        'required_columns': ['org_id',
+                             'procedure_id',
+                             'carrier_id',
+                             'carrier_name',
+                             'count_provider',
+                             'min_price',
+                             'max_price',
+                             'avg_price'],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
     'provider_location': {
         'bigquery_table': 'provider_location',
         'postgres_table': 'provider_location',
@@ -120,6 +136,7 @@ DEFAULT_SYNC_TABLES = [
     'procedure_category',
     'procedure_family',
     'procedure_pricing',
+    'procedure_org_pricing',
 
     # these BQ tables are huge so it takes a couple of minutes to sync so I don't include it
     # BUT if you ran the setup_schemas.py script then zip codes have been erased
