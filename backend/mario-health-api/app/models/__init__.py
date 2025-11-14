@@ -43,6 +43,12 @@ from app.models.provider import (
     ProviderProcedureDetail,
 )
 
+# Specialty nmodels
+from app.models.specialty import (
+    Specialty,
+    SpecialtiesResponse
+)
+
 # User preferences models
 from app.models.user_preferences import (
     SavedLocation,
@@ -80,6 +86,9 @@ __all__ = [
     "ProviderProcedurePricing",
     "ProviderDetail",
     "ProviderProcedureDetail",
+    #Specialty
+    "Specialty",
+    "SpecialtiesResponse",
     # User preferences
     "SavedLocation",
     "Notifications",
