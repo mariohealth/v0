@@ -652,6 +652,27 @@ export const doctors: Doctor[] = [
   }
 ];
 
+// Provider-Hospital Pairing type definition
+export interface ProviderHospitalPairing {
+  id: string;
+  doctorId: string;
+  doctorName: string;
+  specialty: string;
+  hospital: string;
+  hospitalId: string;
+  price: string;
+  savings: string;
+  rating: string;
+  reviews: string;
+  distance: string;
+  network: 'In-Network' | 'Out-of-Network';
+  marioPick?: boolean;
+  yearsExperience: number;
+  acceptingNewPatients: boolean;
+  nextAvailable?: string;
+  marioPoints?: number;
+}
+
 // Provider-Hospital Pairings for Specialty Search Results
 // Each pairing represents a unique doctor-hospital combination
 export const providerHospitalPairings: ProviderHospitalPairing[] = [

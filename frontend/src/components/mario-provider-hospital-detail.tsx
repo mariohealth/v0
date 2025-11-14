@@ -90,6 +90,15 @@ export function MarioProviderHospitalDetail({
   const [showBookingChat, setShowBookingChat] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
+  // Guard against undefined pairing
+  if (!pairing) {
+    return (
+      <div className="min-h-screen bg-[#F9FAFB] flex items-center justify-center">
+        <p className="text-gray-600">Provider information not available.</p>
+      </div>
+    );
+  }
+
   const location = hospitalLocations[pairing.hospitalId] || hospitalLocations.ucsf;
   
   // User's approximate location (for map)

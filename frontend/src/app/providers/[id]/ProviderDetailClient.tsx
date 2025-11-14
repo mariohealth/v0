@@ -9,6 +9,7 @@ import { getProviderDetail, type ProviderDetail } from '@/lib/api';
 import { MarioProviderHospitalDetail } from '@/components/mario-provider-hospital-detail';
 import { MarioAIBookingChat } from '@/components/mario-ai-booking-chat';
 import { BottomNav } from '@/components/navigation/BottomNav';
+import type { ProviderHospitalPairing } from '@/lib/data/mario-doctors-data';
 
 function ProviderDetailContent() {
     const params = useParams();
@@ -123,10 +124,52 @@ function ProviderDetailContent() {
         }
     };
 
+    // Convert ProviderDetail to ProviderHospitalPairing format
+    const convertToPairing = (provider: ProviderDetail): ProviderHospitalPairing => {
+        // Extract price from procedures if available, otherwise use default
+        const firstProcedure = provider.procedures && provider.procedures.length > 0 
+            ? provider.procedures[0] 
+            : null;
+        const price = firstProcedure?.price || '$200';
+
+        // Determine hospital ID from address or use default
+        let hospitalId = 'ucsf'; // default
+        if (provider.address) {
+            const addressLower = provider.address.toLowerCase();
+            if (addressLower.includes('stanford')) hospitalId = 'stanford';
+            else if (addressLower.includes('kaiser')) hospitalId = 'kaiser_mission_bay';
+            else if (addressLower.includes('cpmc') || addressLower.includes('sutter')) hospitalId = 'cpmc_van_ness';
+        }
+
+        return {
+            id: provider.provider_id,
+            doctorId: provider.provider_id,
+            doctorName: provider.provider_name,
+            specialty: 'General Practice', // Default since API doesn't provide specialty
+            hospital: provider.address 
+                ? `${provider.address}${provider.city ? `, ${provider.city}` : ''}${provider.state ? `, ${provider.state}` : ''}`
+                : 'Medical Center',
+            hospitalId: hospitalId,
+            price: price,
+            savings: '10% below average', // Default
+            rating: '4.5', // Default
+            reviews: '0', // Default
+            distance: '2.5 mi', // Default
+            network: 'In-Network', // Default
+            marioPick: false,
+            yearsExperience: 10, // Default
+            acceptingNewPatients: true, // Default
+            nextAvailable: 'Available soon', // Default
+            marioPoints: 100 // Default
+        };
+    };
+
+    const pairing = convertToPairing(provider);
+
     return (
         <>
             <MarioProviderHospitalDetail
-                provider={provider}
+                pairing={pairing}
                 onBookConcierge={() => setShowBookingChat(true)}
                 onBack={handleBack}
             />
