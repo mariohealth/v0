@@ -37,9 +37,16 @@ from app.models.billing_code import (
 
 # Provider models
 from app.models.provider import (
+    Provider,
     ProviderProcedurePricing,
     ProviderDetail,
     ProviderProcedureDetail,
+)
+
+# Specialty nmodels
+from app.models.specialty import (
+    Specialty,
+    SpecialtiesResponse
 )
 
 # User preferences models
@@ -75,9 +82,13 @@ __all__ = [
     "BillingCodeProcedureMapping",
     "BillingCodeDetail",
     # Provider
+    "Provider",
     "ProviderProcedurePricing",
     "ProviderDetail",
     "ProviderProcedureDetail",
+    #Specialty
+    "Specialty",
+    "SpecialtiesResponse",
     # User preferences
     "SavedLocation",
     "Notifications",

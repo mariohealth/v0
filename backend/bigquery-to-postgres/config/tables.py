@@ -64,9 +64,39 @@ TABLES = {
                              'count_provider',
                              'min_price',
                              'max_price',
-                             'avg_price'],
+                             'avg_price',
+                             'org_name',
+                             'org_type',
+                             'address',
+                             'city',
+                             'state',
+                             'zip_code',
+                             'latitude',
+                             'longitude',
+                             'phone',
+                             ],
         'sync_mode': 'full_refresh',
         'incremental_column': None,
+    },
+
+    'provider': {
+        'bigquery_table': 'provider',
+        'postgres_table': 'provider',
+        'primary_key': 'id',
+        'required_columns': ['provider_id',
+                             'name_prefix',
+                             'first_name',
+                             'middle_name',
+                             'last_name',
+                             'name_suffix',
+                             'credential',
+                             'specialty_id',
+                             'license_number',
+                             'license_state_code',
+                             'specialty_name',
+                             ],
+        'sync_mode': 'full_refresh',  # 'full_refresh' or 'incremental'
+        'incremental_column': None,  # e.g., 'last_updated' for incremental
     },
 
     'provider_location': {
@@ -86,6 +116,18 @@ TABLES = {
                              'phone'],
         'sync_mode': 'full_refresh',  # 'full_refresh' or 'incremental'
         'incremental_column': None,  # e.g., 'last_updated' for incremental
+    },
+
+    'specialty_individual':{
+        'bigquery_table': 'specialty_individual',
+        'postgres_table': 'specialty_individual',
+        'primary_key': 'id',
+        'required_columns': ['grouping',
+                         'display_name',
+                         'definition'
+                         ],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
     },
 
     'zip_codes': {

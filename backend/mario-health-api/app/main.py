@@ -23,6 +23,7 @@ from app.api.v1.endpoints import (
     whoami,
     bookings,
     insurance,
+    specialties,
 )
 import os
 from pathlib import Path
@@ -182,6 +183,7 @@ app.include_router(saved_searches.router, prefix="/api/v1/user")
 app.include_router(whoami.router, prefix="/api/v1")  # Debug endpoint for authentication
 app.include_router(bookings.router, prefix="/api/v1")
 app.include_router(insurance.router, prefix="/api/v1")
+app.include_router(specialties.router, prefix="/api/v1")
 
 
 # Alias routes for compatibility

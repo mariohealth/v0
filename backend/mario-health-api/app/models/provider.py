@@ -4,6 +4,18 @@ from pydantic import BaseModel, Field
 from typing import List
 from decimal import Decimal
 
+class Provider(BaseModel):
+    provider_id: str
+    name_prefix: str
+    first_name: str
+    middle_name: str
+    last_name: str
+    name_suffix: str
+    credential: str
+    specialty_id: str
+    license_number: str | None = None
+    license_state_code: str | None = None
+    specialty_name: str
 
 class ProviderProcedurePricing(BaseModel):
     """Procedure pricing offered by a provider."""

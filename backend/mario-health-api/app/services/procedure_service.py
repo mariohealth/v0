@@ -29,6 +29,7 @@ class ProcedureService:
 
         proc = result.data[0]
 
+        # TODO: check if we still need all that carrier price data (the word carrier is weird) because we now have get_procedure_providers()
         # Get carrier prices (if you have pricing table)
         carrier_prices = []
         try:
@@ -192,7 +193,23 @@ class ProcedureService:
             orgs_result = (
                 self.supabase.table("procedure_org_pricing")
                 .select(
-                    "procedure_id", "org_id", "carrier_id", "carrier_name", "count_provider", "min_price", "max_price", "avg_price"
+                    "procedure_id",
+                    "org_id",
+                    "carrier_id",
+                    "carrier_name",
+                    "count_provider",
+                    "min_price",
+                    "max_price",
+                    "avg_price",
+                    "org_name",
+                    "org_type",
+                    "address",
+                    "city",
+                    "state",
+                    "zip_code",
+                    "latitude",
+                    "longitude",
+                    "phone",
                 )
                 .eq("procedure_id", procedure_id)
                 .execute()
@@ -211,6 +228,15 @@ class ProcedureService:
                         min_price= p.get("min_price"),
                         max_price= p.get("max_price"),
                         avg_price= p.get("avg_price"),
+                        org_name= p.get("org_name"),
+                        org_type= p.get("org_type"),
+                        address= p.get("address"),
+                        city= p.get("city"),
+                        state= p.get("state"),
+                        zip_code= p.get("zip_code"),
+                        latitude= p.get("latitude"),
+                        longitude= p.get("longitude"),
+                        phone= p.get("phone"),
                     )
                 )
 
