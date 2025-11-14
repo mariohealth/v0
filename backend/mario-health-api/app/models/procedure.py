@@ -183,15 +183,6 @@ class ProcedureOrg(BaseModel):
     min_price: Decimal
     max_price: Decimal
     avg_price: Decimal
-    org_name: str
-    org_type: str
-    address: str
-    city: str
-    state: str
-    zip_code: str
-    latitude: float
-    longitude: float
-    phone: str
 
 
 class ProcedureOrgsResponse(BaseModel):
@@ -216,15 +207,6 @@ class ProcedureOrgsResponse(BaseModel):
                     "min_price": 45,
                     "max_price": 145,
                     "avg_price": 112,
-                    "org_name": "bla",
-                    "org_type": "bla",
-                    "address": "bla",
-                    "city": "bla",
-                    "state": "bla",
-                    "zip_code": "bla",
-                    "latitude": 40.7648658,
-                    "longitude": -73.9539836,
-                    "phone": "bla",
                     }
                 ],
             }
