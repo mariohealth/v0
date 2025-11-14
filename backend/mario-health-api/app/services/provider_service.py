@@ -21,7 +21,11 @@ class ProviderService:
                 "middle_name",
                 "last_name",
                 "name_suffix",
-                "credential"
+                "credential",
+                "specialty_id",
+                "license_number",
+                "license_state_code",
+                "specialty_name",
             )
             .eq("provider_id", provider_id)
             .single()
@@ -43,7 +47,10 @@ class ProviderService:
             last_name=provider.get("last_name"),
             name_suffix=provider.get("name_suffix"),
             credential=provider.get("credential"),
-
+            specialty_id=provider.get("specialty_id"),
+            license_number=provider.get("license_number"),
+            license_state_code=provider.get("license_state_code"),
+            specialty_name=provider.get("specialty_name"),
         )
 
     async def get_provider_detail(self, provider_id: str) -> ProviderDetail:
