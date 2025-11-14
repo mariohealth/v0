@@ -1,20 +1,7 @@
 import ProcedureDetailClient from './ProcedureDetailClient';
-import { procedureCategories } from '@/lib/data/mario-procedures-data';
 
-// Required for static export with dynamic routes
-export async function generateStaticParams() {
-    // Generate slugs from all procedures in the mock data
-    const allProcedures = procedureCategories.flatMap(category => 
-        category.procedures.map(proc => ({
-            slug: proc.id // Use the procedure id as the slug
-        }))
-    );
-    
-    // Return all procedure slugs for static generation
-    return allProcedures;
-}
-
-export const dynamicParams = true;
+// Force dynamic rendering - no static generation for procedure detail pages
+export const dynamic = "force-dynamic";
 
 export default function ProcedureDetailPage() {
     return <ProcedureDetailClient />;

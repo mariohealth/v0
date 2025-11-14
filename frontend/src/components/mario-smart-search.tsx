@@ -89,8 +89,9 @@ export function MarioSmartSearch({
       
       try {
         // Use API-based autocomplete for procedures
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
-        const response = await fetch(`${API_BASE_URL}/api/v1/search?q=${encodeURIComponent(query)}&limit=10`);
+        // Simple GET request - no headers, no auth, no CORS preflight
+        const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/v1';
+        const response = await fetch(`${API_BASE_URL}/search?q=${encodeURIComponent(query)}&limit=10`);
         
         if (response.ok) {
           const data = await response.json();
@@ -100,7 +101,7 @@ export function MarioSmartSearch({
               if (result.procedure_slug) {
                 suggestions.push({
                   id: result.procedure_id || result.procedure_slug,
-                  type: 'procedure' as any,
+                  type: 'procedure',
                   primaryText: result.procedure_name,
                   secondaryText: `${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
                   procedureSlug: result.procedure_slug
@@ -503,7 +504,7 @@ export function MarioSmartSearch({
           )}
 
           {/* Procedures Section */}
-          {autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).length > 0 && (
+          {autocompleteSuggestions.filter(s => s.type === 'procedure').length > 0 && (
             <div className="p-3">
               {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0) && (
                 <div 
@@ -524,7 +525,7 @@ export function MarioSmartSearch({
                 Procedures
               </div>
               <div className="space-y-0.5">
-                {autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).map((result, index) => {
+                {autocompleteSuggestions.filter(s => s.type === 'procedure').map((result, index) => {
                   const globalIndex = autocompleteSuggestions.filter(s => s.type === 'doctor').length + autocompleteSuggestions.filter(s => s.type === 'specialty').length + index;
                   const isSelected = selectedIndex === globalIndex;
                   
@@ -587,7 +588,7 @@ export function MarioSmartSearch({
           {/* Medications Section */}
           {autocompleteSuggestions.filter(s => s.type === 'medication').length > 0 && (
             <div className="p-3">
-              {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).length > 0) && (
+              {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 || autocompleteSuggestions.filter(s => s.type === 'procedure').length > 0) && (
                 <div 
                   className="h-px mb-3"
                   style={{ backgroundColor: '#E8EAED' }}

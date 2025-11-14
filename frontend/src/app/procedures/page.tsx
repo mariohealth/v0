@@ -3,9 +3,10 @@
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
-import { Search, Activity } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { BottomNav } from '@/components/navigation/BottomNav';
 import { searchProcedures, type SearchResult } from '@/lib/api';
+import { ProcedureCard } from '@/components/ProcedureCard';
 import { procedureCategories } from '@/lib/data/mario-procedures-data';
 
 function ProceduresContent() {
@@ -17,10 +18,13 @@ function ProceduresContent() {
     const [isLoading, setIsLoading] = useState(false);
     const [useMockData, setUseMockData] = useState(false);
 
-    // Get search query from URL params
+    // Get search query from URL params - but only for browsing, not for search
+    // Search should use autocomplete and navigate directly to procedure detail pages
     useEffect(() => {
         const query = searchParams.get('q');
         if (query) {
+            // Only set query if explicitly browsing (not from search flow)
+            // For now, we'll still allow it but it's primarily for browsing
             setSearchQuery(query);
         }
     }, [searchParams]);
@@ -77,38 +81,32 @@ function ProceduresContent() {
         return null;
     }
 
-    // Use mock data as fallback
-    let displayProcedures: any[] = [];
+    // Use API results directly, or mock data as fallback
+    let displayProcedures: SearchResult[] = [];
     if (useMockData || procedures.length === 0) {
         const allProcedures = procedureCategories.flatMap(category => 
             category.procedures.map(proc => ({
-                ...proc,
-                category: category.name,
-                slug: proc.id,
-                priceRange: `$${proc.marioPrice} - $${proc.avgPrice}`,
-                providerCount: Math.floor(Math.random() * 50) + 10,
-                description: proc.description || `${proc.name} procedure`,
+                procedure_id: proc.id,
                 procedure_name: proc.name,
-                procedure_slug: proc.id
-            }))
+                procedure_slug: proc.id,
+                family_name: category.name,
+                family_slug: category.name.toLowerCase().replace(/\s+/g, '-'),
+                category_name: category.name,
+                category_slug: category.name.toLowerCase().replace(/\s+/g, '-'),
+                best_price: proc.marioPrice?.toString() || '0',
+                avg_price: proc.avgPrice?.toString() || '0',
+                price_range: `$${proc.marioPrice || '0'} - $${proc.avgPrice || '0'}`,
+                provider_count: Math.floor(Math.random() * 50) + 10,
+                match_score: 1.0,
+            } as SearchResult))
         );
         displayProcedures = allProcedures.filter((proc) =>
-            !searchQuery || proc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            proc.category.toLowerCase().includes(searchQuery.toLowerCase())
+            !searchQuery || proc.procedure_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            proc.category_name.toLowerCase().includes(searchQuery.toLowerCase())
         );
     } else {
-        // Use API results
-        displayProcedures = procedures.map(proc => ({
-            id: proc.procedure_id || proc.procedure_slug,
-            name: proc.procedure_name,
-            category: proc.category_name || 'Procedure',
-            slug: proc.procedure_slug,
-            priceRange: `$${proc.best_price || 'N/A'} - $${proc.avg_price || 'N/A'}`,
-            providerCount: proc.provider_count || 0,
-            description: proc.procedure_name,
-            procedure_name: proc.procedure_name,
-            procedure_slug: proc.procedure_slug
-        }));
+        // Use API results directly
+        displayProcedures = procedures;
     }
 
     return (
@@ -142,30 +140,7 @@ function ProceduresContent() {
                 ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {displayProcedures.map((procedure) => (
-                        <div
-                            key={procedure.id}
-                            onClick={() => router.push(`/procedures/${procedure.slug}`)}
-                            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer"
-                        >
-                            <div className="flex items-start justify-between mb-4">
-                                <Activity className="h-8 w-8 text-[#4DA1A9] flex-shrink-0" />
-                                <span className="text-xs font-medium px-2 py-1 rounded-full bg-[#E9F6F5] text-[#2E5077]">
-                                    {procedure.category}
-                                </span>
-                            </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">{procedure.name}</h3>
-                            <p className="text-sm text-gray-600 mb-4">{procedure.description}</p>
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-xs text-gray-500">Price Range</p>
-                                    <p className="text-lg font-bold text-[#2E5077]">{procedure.priceRange}</p>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-xs text-gray-500">Providers</p>
-                                    <p className="text-sm font-medium text-gray-900">{procedure.providerCount}+</p>
-                                </div>
-                            </div>
-                        </div>
+                        <ProcedureCard key={procedure.procedure_id} procedure={procedure} />
                     ))}
                 </div>
                 )}

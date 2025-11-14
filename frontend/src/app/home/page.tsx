@@ -60,11 +60,11 @@ function HomePageContent() {
 
     const trimmedQuery = query.trim();
     
-    // Handle different suggestion types
+    // Handle different suggestion types - ONLY navigate when a suggestion is clicked
     if (suggestion) {
-      // Procedure - navigate to /home with procedure query param
+      // Procedure - navigate to procedure detail page
       if (suggestion.procedureSlug) {
-        router.push(`/home?procedure=${encodeURIComponent(suggestion.procedureSlug)}`);
+        router.push(`/procedures/${encodeURIComponent(suggestion.procedureSlug)}`);
         return;
       }
       
@@ -88,8 +88,9 @@ function HomePageContent() {
       }
     }
     
-    // Regular search - navigate to procedures page with query
-    router.push(`/procedures?q=${encodeURIComponent(trimmedQuery)}`);
+    // Regular search submission without suggestion - stay on home page
+    // Autocomplete should handle navigation, not direct search submission
+    // This prevents unwanted navigation to /procedures?q=
   };
 
   const handleProviderClick = (providerId: string) => {

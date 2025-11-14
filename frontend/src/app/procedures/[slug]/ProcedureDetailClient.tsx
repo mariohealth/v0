@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import Link from 'next/link';
-import { getProcedureProviders, getProcedureBySlug, type SearchResult, type Provider } from '@/lib/api';
+import { getProcedureOrgs, getProcedureBySlug, type ProcedureDetail, type Org } from '@/lib/api';
 
 export default function ProcedureDetailClient() {
     const params = useParams();
     const slug = params.slug as string;
     const { user, loading: authLoading } = useAuth();
-    const [procedure, setProcedure] = useState<SearchResult | null>(null);
-    const [providers, setProviders] = useState<Provider[]>([]);
+    const [procedure, setProcedure] = useState<ProcedureDetail | null>(null);
+    const [orgs, setOrgs] = useState<Org[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -27,16 +27,21 @@ export default function ProcedureDetailClient() {
                 const procedureData = await getProcedureBySlug(slug);
                 if (procedureData) {
                     setProcedure(procedureData);
+                } else {
+                    setError('Procedure not found.');
+                    setLoading(false);
+                    return;
                 }
 
-                // Fetch providers for this procedure
+                // Fetch org-level pricing for this procedure
                 try {
-                    const providersData = await getProcedureProviders(slug);
-                    setProviders(providersData.providers || []);
-                } catch (providerError) {
-                    console.error('Error fetching providers:', providerError);
-                    // If providers endpoint doesn't exist, we'll show a message
-                    setProviders([]);
+                    const orgsData = await getProcedureOrgs(slug);
+                    console.log('[ProcedureDetail] Org data:', orgsData);
+                    setOrgs(orgsData.orgs || []);
+                } catch (orgError) {
+                    console.error('Error fetching orgs:', orgError);
+                    // If orgs endpoint fails, show empty list
+                    setOrgs([]);
                 }
             } catch (err) {
                 console.error('Error fetching procedure data:', err);
@@ -151,55 +156,75 @@ export default function ProcedureDetailClient() {
 
                 <div className="mb-4">
                     <h2 className="text-2xl font-semibold text-gray-900">
-                        Providers ({providers.length})
+                        Organizations ({orgs.length})
                     </h2>
                 </div>
 
-                {providers.length > 0 ? (
+                {orgs.length > 0 ? (
                     <div className="space-y-3">
-                        {providers.map((provider) => (
-                            <Link
-                                key={provider.provider_id}
-                                href={`/providers/${provider.provider_id}?procedure=${encodeURIComponent(slug)}`}
+                        {orgs.map((org) => (
+                            <div
+                                key={org.org_id}
                                 className="block rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex-1">
                                         <h3 className="text-lg font-semibold text-gray-900">
-                                            {provider.provider_name}
+                                            {org.org_name}
                                         </h3>
-                                        {provider.address && (
+                                        {org.address && (
                                             <p className="mt-1 text-sm text-gray-600">
-                                                {provider.address}
-                                                {provider.city && `, ${provider.city}`}
-                                                {provider.state && ` ${provider.state}`}
-                                                {provider.zip && ` ${provider.zip}`}
+                                                {org.address}
+                                                {org.city && `, ${org.city}`}
+                                                {org.state && ` ${org.state}`}
+                                                {org.zip && ` ${org.zip}`}
                                             </p>
                                         )}
-                                        {provider.phone && (
-                                            <p className="mt-1 text-sm text-gray-500">{provider.phone}</p>
+                                        {org.phone && (
+                                            <p className="mt-1 text-sm text-gray-500">{org.phone}</p>
                                         )}
-                                        {provider.distance_miles !== null && provider.distance_miles !== undefined && (
-                                            <p className="mt-1 text-sm text-gray-500">
-                                                {provider.distance_miles.toFixed(1)} miles away
-                                            </p>
-                                        )}
+                                        <div className="mt-2 flex items-center gap-3">
+                                            {org.distance_miles !== null && org.distance_miles !== undefined && (
+                                                <span className="text-sm text-gray-500">
+                                                    {org.distance_miles.toFixed(1)} miles away
+                                                </span>
+                                            )}
+                                            {org.in_network !== undefined && (
+                                                <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                                                    org.in_network 
+                                                        ? 'bg-green-100 text-green-800' 
+                                                        : 'bg-gray-100 text-gray-800'
+                                                }`}>
+                                                    {org.in_network ? 'In-Network' : 'Out-of-Network'}
+                                                </span>
+                                            )}
+                                            {org.savings && (
+                                                <span className="text-xs font-medium px-2 py-1 rounded-full bg-blue-100 text-blue-800">
+                                                    {org.savings} savings
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
-                                    {provider.price && (
+                                    {org.price && (
                                         <div className="ml-4 text-right">
                                             <div className="text-xl font-bold text-green-600">
-                                                ${provider.price}
+                                                ${org.price}
                                             </div>
+                                            {org.avg_price && (
+                                                <div className="text-sm text-gray-500 mt-1">
+                                                    Avg: ${org.avg_price}
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>
-                            </Link>
+                            </div>
                         ))}
                     </div>
                 ) : (
                     <div className="rounded-md bg-gray-50 p-8 text-center">
                         <p className="text-gray-600">
-                            No provider details available. Provider list endpoint may not be implemented yet.
+                            No organizations found for this procedure.
                         </p>
                     </div>
                 )}

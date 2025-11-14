@@ -4,7 +4,7 @@ import { User, Activity, SearchSlash, Building2, Pill } from 'lucide-react';
 import { doctors, specialties, hospitals, Doctor, Specialty, HospitalInfo } from '@/lib/data/mario-doctors-data';
 import { searchMedications, type MedicationData } from '@/lib/data/mario-medication-data';
 
-export type AutocompleteCategory = 'doctor' | 'specialty' | 'hospital' | 'medication';
+export type AutocompleteCategory = 'doctor' | 'specialty' | 'hospital' | 'medication' | 'procedure';
 
 export interface AutocompleteSuggestion {
   id: string;
@@ -15,6 +15,7 @@ export interface AutocompleteSuggestion {
   specialty?: Specialty;
   hospital?: HospitalInfo;
   medication?: MedicationData;
+  procedureSlug?: string;
 }
 
 interface MarioAutocompleteEnhancedProps {

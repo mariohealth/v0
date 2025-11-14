@@ -151,9 +151,8 @@ export async function searchProcedures(
     console.log('[API] Searching procedures:', { query, location, radius_miles, url });
 
     try {
-        const response = await fetchWithAuth(url, {
-            method: 'GET',
-        });
+        // Simple GET request - no headers, no auth, no CORS preflight
+        const response = await fetch(url);
 
         if (!response.ok) {
             const errorText = await response.text();
@@ -185,7 +184,8 @@ export async function searchProcedures(
 }
 
 /**
- * Get providers for a specific procedure
+ * Get organization-level pricing for a specific procedure
+ * @deprecated Use getProcedureOrgs() instead. This endpoint may be removed in the future.
  */
 export async function getProcedureProviders(
     procedureSlug: string
@@ -236,22 +236,191 @@ export async function getProcedureProviders(
 }
 
 /**
+ * Organization-level pricing data
+ */
+export interface Org {
+    org_id: string;
+    org_name: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    phone?: string;
+    price?: string;
+    distance_miles?: number | null;
+    in_network?: boolean;
+    savings?: string;
+    avg_price?: string;
+}
+
+export interface ProcedureOrgsResponse {
+    procedure_id: string;
+    procedure_name: string;
+    procedure_slug: string;
+    orgs: Org[];
+    total_count: number;
+}
+
+/**
+ * Get organization-level pricing for a specific procedure
+ */
+export async function getProcedureOrgs(slug: string): Promise<ProcedureOrgsResponse> {
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/procedures/${slug}/orgs`;
+
+    console.log('[API] Fetching procedure orgs:', { slug, url });
+
+    try {
+        // Simple GET request - no headers, no auth, no CORS preflight
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
+            try {
+                const errorData = JSON.parse(errorText);
+                errorMessage = errorData.message || errorData.detail || errorMessage;
+            } catch {
+                errorMessage = errorText || errorMessage;
+            }
+            console.error('[API] Get procedure orgs error:', {
+                status: response.status,
+                statusText: response.statusText,
+                error: errorMessage,
+            });
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+        
+        // Transform backend response to match frontend interface
+        // Backend returns: procedure_id, org_id, carrier_id, carrier_name, count_provider, min_price, max_price, avg_price
+        // Frontend expects: org_id, org_name, address, city, state, zip, phone, price, distance_miles, in_network, savings, avg_price
+        const transformed: ProcedureOrgsResponse = {
+            procedure_id: data.procedure_id || '',
+            procedure_name: data.procedure_name || '',
+            procedure_slug: data.procedure_slug || slug,
+            orgs: (data.orgs || []).map((org: any) => ({
+                org_id: org.org_id || '',
+                org_name: org.org_name || org.carrier_name || `Organization ${org.org_id}`,
+                address: org.address || undefined,
+                city: org.city || undefined,
+                state: org.state || undefined,
+                zip: org.zip || undefined,
+                phone: org.phone || undefined,
+                price: org.min_price ? org.min_price.toString() : (org.price || undefined),
+                distance_miles: org.distance_miles !== undefined ? org.distance_miles : null,
+                in_network: org.in_network !== undefined ? org.in_network : undefined,
+                savings: org.savings || undefined,
+                avg_price: org.avg_price ? org.avg_price.toString() : (org.avg_price || undefined),
+            })),
+            total_count: data.orgs?.length || 0,
+        };
+        
+        console.log('[API] Get procedure orgs success:', {
+            slug,
+            orgsCount: transformed.orgs?.length || 0,
+        });
+        return transformed;
+    } catch (error) {
+        console.error('[API] Error fetching procedure orgs:', error);
+        if (error instanceof Error) {
+            throw error;
+        }
+        throw new Error('Failed to fetch procedure orgs');
+    }
+}
+
+/**
+ * Procedure detail from API
+ */
+export interface ProcedureDetail {
+    procedure_id: string;
+    procedure_name: string;
+    procedure_slug: string;
+    family_name: string;
+    family_slug: string;
+    category_name: string;
+    category_slug: string;
+    best_price: string;
+    avg_price: string;
+    price_range: string;
+    provider_count: number;
+    description?: string;
+}
+
+/**
  * Get procedure details by slug
  */
-export async function getProcedureBySlug(procedureSlug: string): Promise<SearchResult | null> {
-    console.log('[API] Fetching procedure by slug:', { procedureSlug });
+export async function getProcedureBySlug(procedureSlug: string): Promise<ProcedureDetail | null> {
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/procedures/${procedureSlug}`;
+
+    console.log('[API] Fetching procedure by slug:', { procedureSlug, url });
+
     try {
-        // First try to get it from search, or we could have a dedicated endpoint
-        const response = await searchProcedures(procedureSlug);
-        const result = response.results.find((r) => r.procedure_slug === procedureSlug);
-        if (result) {
-            console.log('[API] Found procedure:', { procedureSlug, procedureName: result.procedure_name });
-        } else {
-            console.warn('[API] Procedure not found in search results:', { procedureSlug });
+        // Simple GET request - no headers, no auth, no CORS preflight
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                console.warn('[API] Procedure not found:', { procedureSlug });
+                return null;
+            }
+            const errorText = await response.text();
+            let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
+            try {
+                const errorData = JSON.parse(errorText);
+                errorMessage = errorData.message || errorData.detail || errorMessage;
+            } catch {
+                errorMessage = errorText || errorMessage;
+            }
+            console.error('[API] Get procedure detail error:', {
+                status: response.status,
+                statusText: response.statusText,
+                error: errorMessage,
+            });
+            throw new Error(errorMessage);
         }
-        return result || null;
+
+        const data = await response.json();
+        
+        // Transform backend response to match frontend interface
+        // Backend returns: id, name, slug, min_price, max_price, avg_price
+        // Frontend expects: procedure_id, procedure_name, procedure_slug, best_price, price_range, provider_count
+        const transformed: ProcedureDetail = {
+            procedure_id: data.id || data.procedure_id,
+            procedure_name: data.name || data.procedure_name,
+            procedure_slug: data.slug || data.procedure_slug,
+            family_name: data.family_name || '',
+            family_slug: data.family_slug || '',
+            category_name: data.category_name || '',
+            category_slug: data.category_slug || '',
+            best_price: data.min_price ? data.min_price.toString() : (data.best_price || '0'),
+            avg_price: data.avg_price ? data.avg_price.toString() : (data.avg_price || '0'),
+            price_range: data.min_price && data.max_price 
+                ? `$${data.min_price} - $${data.max_price}`
+                : (data.price_range || 'N/A'),
+            provider_count: data.provider_count || 0,
+            description: data.description || undefined,
+        };
+        
+        console.log('[API] Get procedure detail success:', {
+            procedureSlug,
+            procedureName: transformed.procedure_name,
+        });
+        return transformed;
     } catch (error) {
-        console.error('[API] Error fetching procedure:', error);
+        console.error('[API] Error fetching procedure detail:', error);
+        if (error instanceof Error) {
+            throw error;
+        }
         return null;
     }
 }

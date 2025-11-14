@@ -8,11 +8,12 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
-    // CRITICAL: Enable static export for Firebase Hosting
-    output: 'export',
-    // Disable image optimization for static export (or use unoptimized)
+    // Removed: output: 'export' - using default dynamic rendering
+    experimental: {
+        serverActions: true,
+    },
+    // Image optimization enabled (no longer needed for static export)
     images: {
-        unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
