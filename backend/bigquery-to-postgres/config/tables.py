@@ -114,6 +114,18 @@ TABLES = {
         'incremental_column': None,  # e.g., 'last_updated' for incremental
     },
 
+    'specialty_individual':{
+        'bigquery_table': 'specialty_individual',
+        'postgres_table': 'specialty_individual',
+        'primary_key': 'id',
+        'required_columns': ['grouping',
+                         'display_name',
+                         'definition'
+                         ],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
     'zip_codes': {
         'bigquery_table': 'zip_codes',
         'postgres_table': 'zip_codes',

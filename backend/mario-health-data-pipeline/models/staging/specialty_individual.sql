@@ -4,7 +4,7 @@
   )
 }}
 SELECT DISTINCT
-    t.code,
+    t.code AS id,
     t.grouping,
     t.display_name,
     t.definition,
