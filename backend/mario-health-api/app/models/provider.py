@@ -12,6 +12,10 @@ class Provider(BaseModel):
     last_name: str
     name_suffix: str
     credential: str
+    specialty_id: str
+    license_number: str | None = None
+    license_state_code: str | None = None
+    specialty_name: str
 
 class ProviderProcedurePricing(BaseModel):
     """Procedure pricing offered by a provider."""
