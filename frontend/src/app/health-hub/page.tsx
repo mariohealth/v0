@@ -3,7 +3,7 @@
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { MarioHealthHub } from '@/components/mario-health-hub';
+import { MarioHealthHubRefined } from '@/components/mario-health-hub-refined';
 
 export default function HealthHubPage() {
   const { user, loading } = useAuth();
@@ -29,7 +29,7 @@ export default function HealthHubPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <MarioHealthHub />
+      <MarioHealthHubRefined />
     </div>
   );
 }

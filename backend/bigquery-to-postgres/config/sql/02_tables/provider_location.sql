@@ -2,8 +2,10 @@
 DROP TABLE IF EXISTS provider_location CASCADE;
 CREATE TABLE IF NOT EXISTS provider_location (
     id TEXT PRIMARY KEY,
-    provider_id TEXT UNIQUE NOT NULL,
+    provider_id TEXT NOT NULL,
     provider_name TEXT NOT NULL,
+    org_id TEXT,
+    org_name TEXT,
     address TEXT,
     city TEXT,
     state TEXT,

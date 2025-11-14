@@ -16,4 +16,4 @@ ALTER TABLE procedure_pricing
 
 ALTER TABLE procedure_pricing
 ADD CONSTRAINT fk_provider_location
-FOREIGN KEY (provider_id) REFERENCES provider_location(provider_id);
+FOREIGN KEY (provider_location_id) REFERENCES provider_location(id);

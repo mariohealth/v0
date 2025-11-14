@@ -1,60 +1,65 @@
 id,family_id,name,slug,description,common_name
-proc_abdomen_pelvis_ct_scan,fam_ct_scan,CT scan of abdomen and pelvis ,abdomen-pelvis-ct-scan,,CT scan of abdomen and pelvis
-proc_abdomen_ultrasound,fam_ultrasound,Ultrasound of abdomen,abdomen-ultrasound,,Ultrasound of abdomen
-proc_abdomen_x_ray,fam_x_ray,X-ray of abdomen,abdomen-x-ray,,X-ray of abdomen
+proc_abdomen_mri,fam_mri,Abdomen MRI,abdomen-mri,,Abdomen MRI
+proc_abdomen_pelvis_ct_scan,fam_ct_scan,Abdomen and pelvis CT scan,abdomen-pelvis-ct-scan,,Abdomen and pelvis CT scan
+proc_abdomen_ultrasound,fam_ultrasound,Abdomen ultrasound,abdomen-ultrasound,,Abdomen ultrasound
+proc_abdomen_x_ray,fam_x_ray,Abdomen X-ray,abdomen-x-ray,,Abdomen X-ray
 proc_abdominal_cavity_ultrasound,fam_ultrasound,Ultrasound behind abdominal cavity,abdominal-cavity-ultrasound,,Ultrasound behind abdominal cavity
 proc_advance_care_planning,fam_care_planning,Advance Care Planning,advance-care-planning,,Advance Care Planning
-proc_ankle_x_ray,fam_x_ray,X-ray of ankle,ankle-x-ray,,X-ray of ankle
+proc_ankle_x_ray,fam_x_ray,Ankle X-ray,ankle-x-ray,,Ankle X-ray
 proc_annual_alcohol_screening,fam_mental_health_screen,Annual alcohol misuse screening,annual-alcohol-screening,,Annual alcohol misuse screening
 proc_annual_depression_screening,fam_mental_health_screen,Annual depression screening,annual-depression-screening,,Annual depression screening
 proc_annual_wellness_visit,fam_office_visit,Annual wellness visit,annual-wellness-visit,,Annual wellness visit
 proc_arm_joint_mri,fam_mri,Arm joint MRI,arm-joint-mri,,Arm joint MRI
 proc_arm_leg_arteries_ultrasound,fam_ultrasound,Arm or leg arteries ultrasound,arm-leg-arteries-ultrasound,,Arm or leg arteries ultrasound
 proc_arm_leg_veins_ultrasound,fam_ultrasound,Arm or leg veins ultrasound,arm-leg-veins-ultrasound,,Arm or leg veins ultrasound
+proc_arm_mri,fam_mri,Arm MRI,arm-mri,,Arm MRI
 proc_arthrocentesis,fam_joint_clinical_procedure,Aspiration and/or injection of fluid from joint,arthrocentesis,,Aspiration and/or injection of fluid from joint
 proc_automated_urine_test,fam_urine_test,Automated urine test,automated-urine-test,,Automated urine test
 proc_bladder_capacity_ultrasound,fam_ultrasound,Ultrasound to evaluate bladder capacity ,bladder-capacity-ultrasound,,Ultrasound to evaluate bladder capacity
 proc_bladder_urethra_endoscopy,fam_endoscopy,Diagnostic exam of bladder and urethra using an endoscope,bladder-urethra-endoscopy,,Diagnostic exam of bladder and urethra using an endoscope
 proc_blood_collection,fam_blood_test,Insertion of needle into vein for collection of blood sample,blood-collection,,Insertion of needle into vein for collection of blood sample
-proc_blood_vessels_abdomen_pelvis_ct_scan,fam_ct_scan,CT scan of blood vessels of abdomen and pelvis,blood-vessels-abdomen-pelvis-ct-scan,,CT scan of blood vessels of abdomen and pelvis
-proc_blood_vessels_chest_ct_scan,fam_ct_scan,CT scan of blood vessels of chest,blood-vessels-chest-ct-scan,,CT scan of blood vessels of chest
-proc_blood_vessels_head_ct_scan,fam_ct_scan,CT scan of blood vessels of head,blood-vessels-head-ct-scan,,CT scan of blood vessels of head
-proc_blood_vessels_neck_ct_scan,fam_ct_scan,CT scan of blood vessels of neck,blood-vessels-neck-ct-scan,,CT scan of blood vessels of neck
-proc_brain_mri,fam_mri,MRI of brain,brain-mri,,MRI of brain
-proc_breast_ultrasound,fam_ultrasound,Ultrasound of breast(s),breast-ultrasound,,Ultrasound of breast(s)
-proc_chest_cancer_screen_ct_scan,fam_ct_scan,CT scan of chest for cancer screening,chest-cancer-screen-ct-scan,,CT scan of chest for cancer screening
-proc_chest_ct_scan,fam_ct_scan,CT scan of chest,chest-ct-scan,,CT scan of chest
-proc_chest_x_ray,fam_x_ray,X-ray of chest,chest-x-ray,,X-ray of chest
+proc_blood_vessels_abdomen_pelvis_ct_scan,fam_ct_scan,Abdomen and pelvis blood vessels CT scan,blood-vessels-abdomen-pelvis-ct-scan,,Abdomen and pelvis blood vessels CT scan
+proc_blood_vessels_chest_ct_scan,fam_ct_scan,Chest blood vessels CT scan,blood-vessels-chest-ct-scan,,Chest blood vessels CT scan
+proc_blood_vessels_head_ct_scan,fam_ct_scan,Head blood vessels CT scan,blood-vessels-head-ct-scan,,Head blood vessels CT scan
+proc_blood_vessels_neck_ct_scan,fam_ct_scan,Neck blood vessels CT scan,blood-vessels-neck-ct-scan,,Neck blood vessels CT scan
+proc_brain_intracranial_mri,fam_mri,Intracranial brain MRI,brain-intracranial-mri,,Intracranial brain MRI
+proc_brain_mri,fam_mri,Brain MRI,brain-mri,,Brain MRI
+proc_brain_stem_mri,fam_mri,Brain stem MRI,brain-stem-mri,,Brain stem MRI
+proc_breast_ultrasound,fam_ultrasound,Breast(s) ultrasound,breast-ultrasound,,Breast(s) ultrasound
+proc_chest_cancer_screen_ct_scan,fam_ct_scan,Chest CT scan for cancer screening,chest-cancer-screen-ct-scan,,Chest CT scan for cancer screening
+proc_chest_ct_scan,fam_ct_scan,Chest CT scan,chest-ct-scan,,Chest CT scan
+proc_chest_mri,fam_mri,Chest MRI,chest-mri,,Chest MRI
+proc_chest_x_ray,fam_x_ray,Chest X-ray,chest-x-ray,,Chest X-ray
 proc_chronic_care_management,fam_chronic_care,Chronic care management,chronic-care-management,,Chronic care management
 proc_clotting_time_blood_test,fam_blood_test,Clotting time blood test,clotting-time-blood-test,,Clotting time blood test
 proc_colon_exam_anesthesia,fam_anesthesia,Anesthesia for colon exam,colon-exam-anesthesia,,Anesthesia for colon exam
 proc_colonoscopy,fam_colonoscopy,Colonoscopy,colonoscopy,,Colonoscopy
 proc_complete_blood_cell_count_blood_test,fam_blood_test,Complete blood cell count,complete-blood-cell-count-blood-test,,Complete blood cell count
-proc_cornea_ultrasound,fam_ultrasound,Ultrasound of cornea,cornea-ultrasound,,Ultrasound of cornea
+proc_cornea_ultrasound,fam_ultrasound,Cornea ultrasound,cornea-ultrasound,,Cornea ultrasound
 proc_creatinine_blood_test,fam_blood_test,Creatinine blood test,creatinine-blood-test,,Creatinine blood test
 proc_critical_care,fam_emergency,Critical care,critical-care,,Critical care
 proc_cyanocobalamin_blood_test,fam_blood_test,Cyanocobalamin blood test,cyanocobalamin-blood-test,,Cyanocobalamin blood test
 proc_diagnostic_mammography,fam_mammography,Diagnostic mammography,diagnostic-mammography,,Diagnostic mammography
-proc_elbow_x_ray,fam_x_ray,X-ray of elbow,elbow-x-ray,,X-ray of elbow
+proc_elbow_x_ray,fam_x_ray,Elbow X-ray,elbow-x-ray,,Elbow X-ray
 proc_electrical_stimulation_physical_therapy,fam_physical_therapy,Electrical stimulation for physical therapy,electrical-stimulation-physical-therapy,,Electrical stimulation for physical therapy
 proc_emergency_visit,fam_emergency,Emergency visit,emergency-visit,,Emergency visit
-proc_face_ct_scan,fam_ct_scan,CT scan of face,face-ct-scan,,CT scan of face
+proc_face_ct_scan,fam_ct_scan,Face CT scan,face-ct-scan,,Face CT scan
 proc_ferritin_blood_test,fam_blood_test,Ferritin blood test,ferritin-blood-test,,Ferritin blood test
-proc_foot_x_ray,fam_x_ray,X-ray of foot,foot-x-ray,,X-ray of foot
+proc_foot_x_ray,fam_x_ray,Foot X-ray,foot-x-ray,,Foot X-ray
 proc_free_thyroxine_blood_test,fam_blood_test,Free thyroxine blood test,free-thyroxine-blood-test,,Free thyroxine blood test
 proc_group_chemicals_blood_test,fam_blood_test,Group chemicals blood test,group-chemicals-blood-test,,Group chemicals blood test
-proc_hand_x_ray,fam_x_ray,X-ray of hand,hand-x-ray,,X-ray of hand
-proc_head_brain_ct_scan,fam_ct_scan,CT scan of head or brain,head-brain-ct-scan,,CT scan of head or brain
-proc_head_neck_blood_flow_ultrasound,fam_ultrasound,Ultrasound of head and neck blood flow,head-neck-blood-flow-ultrasound,,Ultrasound of head and neck blood flow
-proc_head_neck_tissue_ultrasound,fam_ultrasound,Ultrasound of head and neck soft tissue,head-neck-tissue-ultrasound,,Ultrasound of head and neck soft tissue
+proc_hand_x_ray,fam_x_ray,Hand X-ray,hand-x-ray,,Hand X-ray
+proc_head_brain_ct_scan,fam_ct_scan,Head or brain CT scan,head-brain-ct-scan,,Head or brain CT scan
+proc_head_neck_blood_flow_ultrasound,fam_ultrasound,Head and neck blood flow ultrasound,head-neck-blood-flow-ultrasound,,Head and neck blood flow ultrasound
+proc_head_neck_tissue_ultrasound,fam_ultrasound,Head and neck soft tissue ultrasound,head-neck-tissue-ultrasound,,Head and neck soft tissue ultrasound
 proc_hearing_speech_test,fam_hearing_speech,Hearing and speech test,hearing-speech-test,,Hearing and speech test
-proc_heart_blood_flow_ultrasound,fam_ultrasound,Ultrasound of heart blood flow,heart-blood-flow-ultrasound,,Ultrasound of heart blood flow
+proc_heart_blood_flow_ultrasound,fam_ultrasound,Heart blood flow ultrasound,heart-blood-flow-ultrasound,,Heart blood flow ultrasound
 proc_heart_stress_test_ecg,fam_ecg,Heart stress test with ECG,heart-stress-test-ecg,,Heart stress test with ECG
-proc_heart_ultrasound,fam_ultrasound,Ultrasound of heart,heart-ultrasound,,Ultrasound of heart
+proc_heart_ultrasound,fam_ultrasound,Heart ultrasound,heart-ultrasound,,Heart ultrasound
 proc_hemoglobin_a1c_blood_test,fam_blood_test,Hemoglobin A1C blood test,hemoglobin-a1c-blood-test,,Hemoglobin A1C blood test
-proc_hip_pelvis_spine_density_dxa,fam_dxa,"Dxa bone density measurement of hip, pelvis, spine",hip-pelvis-spine-density-dxa,,"Dxa bone density measurement of hip, pelvis, spine"
-proc_hip_thigh_joint_replacement,fam_joint_replacement,Replacement of thigh and hip joint,hip-thigh-joint-replacement,,Replacement of thigh and hip joint
-proc_hip_x_ray,fam_x_ray,X-ray of hip,hip-x-ray,,X-ray of hip
+proc_hip_pelvis_spine_density_dxa,fam_dxa,"Hip, pelvis, spine Dxa bone density measurement",hip-pelvis-spine-density-dxa,,"Hip, pelvis, spine Dxa bone density measurement"
+proc_hip_thigh_joint_replacement,fam_joint_replacement,Thigh and hip joint replacement,hip-thigh-joint-replacement,,Thigh and hip joint replacement
+proc_hip_x_ray,fam_x_ray,Hip X-ray,hip-x-ray,,Hip X-ray
 proc_home_visit,fam_home_visit,Home visit,home-visit,,Home visit
 proc_immunohistochemistry,fam_immunostaining,Special stained specimen slides,immunohistochemistry,,Special stained specimen slides
 proc_influenza_doo_immunoassay,fam_immunoassay,Immunoassay with direct visual observation for influenza,influenza-doo-immunoassay,,Immunoassay with direct visual observation for influenza
@@ -62,32 +67,34 @@ proc_influenza_vaccine,fam_vaccine,Influenza vaccine,influenza-vaccine,,Influenz
 proc_initial_hospital_care,fam_hospital_care,Initial hospital care,initial-hospital-care,,Initial hospital care
 proc_initial_nursing_facility_care,fam_nursing_facility_care,Initial nursing facility care,initial-nursing-facility-care,,Initial nursing facility care
 proc_iron_blood_test,fam_blood_test,Iron blood test,iron-blood-test,,Iron blood test
-proc_knee_joint_replacement,fam_joint_replacement,Replacement of knee joint,knee-joint-replacement,,Replacement of knee joint
-proc_knee_joint_replacement_anesthesia,fam_anesthesia,Anesthesia for replacement of knee joint,knee-joint-replacement-anesthesia,,Anesthesia for replacement of knee joint
-proc_knee_x_ray,fam_x_ray,X-ray of knee,knee-x-ray,,X-ray of knee
+proc_knee_joint_replacement,fam_joint_replacement,Knee joint replacement,knee-joint-replacement,,Knee joint replacement
+proc_knee_joint_replacement_anesthesia,fam_anesthesia,Knee joint replacement anesthesia ,knee-joint-replacement-anesthesia,,Knee joint replacement anesthesia
+proc_knee_x_ray,fam_x_ray,Knee X-ray,knee-x-ray,,Knee X-ray
 proc_large_bowel_anesthesia,fam_anesthesia,Anesthesia for procedure on large bowel,large-bowel-anesthesia,,Anesthesia for procedure on large bowel
-proc_large_bowel_biopsy,fam_biopsy,Biopsy of large bowel,large-bowel-biopsy,,Biopsy of large bowel
-proc_large_bowel_endoscopy,fam_endoscopy,Endoscopy of large bowel,large-bowel-endoscopy,,Endoscopy of large bowel
-proc_leg_arteries_ultrasound,fam_ultrasound,Ultrasound of leg arteries,leg-arteries-ultrasound,,Ultrasound of leg arteries
-proc_leg_ct_scan,fam_ct_scan,CT scan of leg,leg-ct-scan,,CT scan of leg
-proc_leg_joint_mri,fam_mri,MRI of leg joint,leg-joint-mri,,MRI of leg joint
+proc_large_bowel_biopsy,fam_biopsy,Large bowel biopsy,large-bowel-biopsy,,Large bowel biopsy
+proc_large_bowel_endoscopy,fam_endoscopy,Large bowel endoscopy,large-bowel-endoscopy,,Large bowel endoscopy
+proc_leg_arteries_ultrasound,fam_ultrasound,Leg arteries ultrasound,leg-arteries-ultrasound,,Leg arteries ultrasound
+proc_leg_ct_scan,fam_ct_scan,Leg CT scan,leg-ct-scan,,Leg CT scan
+proc_leg_joint_mri,fam_mri,Leg joint MRI,leg-joint-mri,,Leg joint MRI
+proc_leg_mri,fam_mri,Leg MRI,leg-mri,,Leg MRI
 proc_lens_surgery_anesthesia,fam_anesthesia,Anesthesia for lens surgery,lens-surgery-anesthesia,,Anesthesia for lens surgery
 proc_lipids_blood_test,fam_blood_test,Lipids blood test,lipids-blood-test,,Lipids blood test
-proc_lower_leg_x_ray,fam_x_ray,X-ray of lower leg,lower-leg-x-ray,,X-ray of lower leg
-proc_lower_spinal_canal_mri,fam_mri,MRI of lower spinal canal,lower-spinal-canal-mri,,MRI of lower spinal canal
-proc_lower_spine_ct_scan,fam_ct_scan,CT scan of lower spine,lower-spine-ct-scan,,CT scan of lower spine
-proc_lower_spine_x_ray,fam_x_ray,X-ray of lower spine,lower-spine-x-ray,,X-ray of lower spine
+proc_lower_leg_x_ray,fam_x_ray,Lower leg X-ray,lower-leg-x-ray,,Lower leg X-ray
+proc_lower_spine_ct_scan,fam_ct_scan,Lower spine CT scan,lower-spine-ct-scan,,Lower spine CT scan
+proc_lower_spine_x_ray,fam_x_ray,Lower spine X-ray,lower-spine-x-ray,,Lower spine X-ray
 proc_lung_diffusing_capacity_test,fam_lung_test,Lung diffusing capacity test,lung-diffusing-capacity-test,,Lung diffusing capacity test
 proc_urinalysis,fam_urine_test,Urinalysis,urinalysis,,Urinalysis
 proc_microscope_urinalysis,fam_urine_test,Urinalysis with microscope,microscope-urinalysis,,Urinalysis with microscope
 proc_microalbumin_urinalysis,fam_urine_test,Microalbumin urinalysis,microalbumin-urinalysis,,Microalbumin urinalysis
 proc_moderate_sedation_services,fam_sedation,Moderate sedation service,moderate-sedation-services,,Moderate sedation service
 proc_office_visit,fam_office_visit,Office visit,office-visit,,Office visit
+proc_orbit_face_neck_mri,fam_mri,"Orbit, face or neck MRI",orbit-face-neck-mri,,"Orbit, face or neck MRI"
 proc_pap_smear_test,fam_smear_test,Screening papanicolaou smear,pap-smear-test,,Screening papanicolaou smear
-proc_pelvis_x_ray,fam_x_ray,X-ray of pelvis,pelvis-x-ray,,X-ray of pelvis
+proc_pelvis_mri,fam_mri,Pelvis MRI,pelvis-mri,,Pelvis MRI
+proc_pelvis_x_ray,fam_x_ray,Pelvis X-ray,pelvis-x-ray,,Pelvis X-ray
 proc_physical_therapy,fam_physical_therapy,Physical therapy,physical-therapy,,Physical therapy
 proc_pneumococcal_vaccine,fam_vaccine,Pneumococcal vaccine,pneumococcal-vaccine,,Pneumococcal vaccine
-proc_precancer_skin_growth_destruction,fam_skin,Destruction of precancer skin growth,precancer-skin-growth-destruction,,Destruction of precancer skin growth
+proc_precancer_skin_growth_destruction,fam_skin,Precancer skin growth destruction,precancer-skin-growth-destruction,,Precancer skin growth destruction
 proc_prostate_specific_antigen_blood_test,fam_blood_test,Prostate specific antigen blood test,prostate-specific-antigen-blood-test,,Prostate specific antigen blood test
 proc_psychiatric_eval,fam_mental_health_eval,Psychiatric evaluation,psychiatric-eval,,Psychiatric evaluation
 proc_psychotherapy,fam_mental_health_therapy,Psychotherapy,psychotherapy,,Psychotherapy
@@ -98,30 +105,32 @@ proc_sarscov2_influenza_immunoassay,fam_immunoassay,SARS-COV2 and influenza dete
 proc_sarscov2_vaccine,fam_vaccine,SARS-COV2 vaccine,sarscov2-vaccine,,SARS-COV2 vaccine
 proc_screening_mammography,fam_mammography,Screening mammography,screening-mammography,,Screening mammography
 proc_self_care_training,fam_training,Self care training,self-care-training,,Self care training
-proc_shoulder_x_ray,fam_x_ray,X-ray of shoulder,shoulder-x-ray,,X-ray of shoulder
-proc_skin_growth_biopsy,fam_biopsy,Biopsy of skin growth,skin-growth-biopsy,,Biopsy of skin growth
-proc_skin_growth_destruction,fam_skin,Destruction of skin growth,skin-growth-destruction,,Destruction of skin growth
-proc_small_bowel_anesthesia,fam_anesthesia,Anesthesia of small bowel,small-bowel-anesthesia,,Anesthesia of small bowel
-proc_small_bowel_biopsy,fam_biopsy,Biopsy of small bowel,small-bowel-biopsy,,Biopsy of small bowel
-proc_small_bowel_endoscopy,fam_endoscopy,Endoscopy of small bowel,small-bowel-endoscopy,,Endoscopy of small bowel
-proc_small_large_bowel_anesthesia,fam_anesthesia,Anesthesia of small or large bowel,small-large-bowel-anesthesia,,Anesthesia of small or large bowel
-proc_spinal_chiropractic,fam_chiropractic,Chiropractic manipulative treatment of spine,spinal-chiropractic,,Chiropractic manipulative treatment of spine
+proc_shoulder_x_ray,fam_x_ray,Shoulder X-ray,shoulder-x-ray,,Shoulder X-ray
+proc_skin_growth_biopsy,fam_biopsy,Skin growth biopsy,skin-growth-biopsy,,Skin growth biopsy
+proc_skin_growth_destruction,fam_skin,Skin growth destruction,skin-growth-destruction,,Skin growth destruction
+proc_small_bowel_anesthesia,fam_anesthesia,Small bowel anesthesia,small-bowel-anesthesia,,Small bowel anesthesia
+proc_small_bowel_biopsy,fam_biopsy,Small bowel biopsy,small-bowel-biopsy,,Small bowel biopsy
+proc_small_bowel_endoscopy,fam_endoscopy,Small bowel endoscopy,small-bowel-endoscopy,,Small bowel endoscopy
+proc_small_large_bowel_anesthesia,fam_anesthesia,Small or large bowel anesthesia,small-large-bowel-anesthesia,,Small or large bowel anesthesia
+proc_spinal_canal_cervical_mri,fam_mri,Cervical spinal canal MRI,spinal-canal-cervical-mri,,Cervical spinal canal MRI
+proc_spinal_canal_lumbar_mri,fam_mri,Lumbar spinal canal MRI,spinal-canal-lumbar-mri,,Lumbar spinal canal MRI
+proc_spinal_canal_thoracic_mri,fam_mri,Thoracic spinal canal MRI,spinal-canal-thoracic-mri,,Thoracic spinal canal MRI
+proc_spinal_chiropractic,fam_chiropractic,Spine chiropractic manipulative treatment,spinal-chiropractic,,Spine chiropractic manipulative treatment
 proc_spirometry_test,fam_lung_test,Spirometry test,spirometry-test,,Spirometry test
 proc_streptococcus_doo_immunoassay,fam_immunoassay,Streptococcus detection with DOO immunoassay,streptococcus-doo-immunoassay,,Streptococcus detection with DOO immunoassay
 proc_subsequent_hospital_care,fam_hospital_care,Subsequent hospital care,subsequent-hospital-care,,Subsequent hospital care
 proc_subsequent_nursing_facility_care,fam_nursing_facility_care,Subsequent nursing facility care,subsequent-nursing-facility-care,,Subsequent nursing facility care
 proc_tele_medical_discussion,fam_tele_medicine,Phone medical discussion,tele-medical-discussion,,Phone medical discussion
-proc_thigh_bone_x_ray,fam_x_ray,X-ray of thigh bone,thigh-bone-x-ray,,X-ray of thigh bone
+proc_thigh_bone_x_ray,fam_x_ray,Thigh bone X-ray,thigh-bone-x-ray,,Thigh bone X-ray
 proc_transitional_care_mngmnt,fam_hospital_care,Transitional care management,transitional-care-mngmnt,,Transitional care management
 proc_transvaginal_ultrasound,fam_ultrasound,Transvaginal ultrasound,transvaginal-ultrasound,,Transvaginal ultrasound
-proc_tsh_blood_test,fam_blood_test, Thyroid stimulating hormone (tsh) blood test,tsh-blood-test,, Thyroid stimulating hormone (tsh) blood test
+proc_tsh_blood_test,fam_blood_test,Thyroid stimulating hormone (tsh) blood test,tsh-blood-test,,Thyroid stimulating hormone (tsh) blood test
 proc_tympanometry_test,fam_hearing,Tympanometry test,tympanometry-test,,Tympanometry test
 proc_upper_abdomen_anesthesia,fam_anesthesia,Anesthesia for procedure on upper abdomen,upper-abdomen-anesthesia,,Anesthesia for procedure on upper abdomen
-proc_upper_spinal_canal_mri,fam_mri,MRI of upper spinal canal,upper-spinal-canal-mri,,MRI of upper spinal canal
-proc_upper_spine_ct_scan,fam_ct_scan,CT scan of upper spine,upper-spine-ct-scan,,CT scan of upper spine
-proc_upper_spine_x_ray,fam_x_ray,X-ray of upper spine,upper-spine-x-ray,,X-ray of upper spine
+proc_upper_spine_ct_scan,fam_ct_scan,Upper spine CT scan,upper-spine-ct-scan,,Upper spine CT scan
+proc_upper_spine_x_ray,fam_x_ray,Upper spine X-ray,upper-spine-x-ray,,Upper spine X-ray
 proc_vein_chemotherapy,fam_chemotherapy,Chemotherapy through vein,vein-chemotherapy,,Chemotherapy through vein
 proc_visual_system_exam,fam_vision,Visual system exam,visual-system-exam,,Visual system exam
 proc_vitamin_d3_blood_test,fam_blood_test,Vitamin D3 blood test,vitamin-d3-blood-test,,Vitamin D3 blood test
-proc_voice_box_endoscopy,fam_endoscopy,Endoscopy of voice box,voice-box-endoscopy,,Endoscopy of voice box
-proc_wrist_x_ray,fam_x_ray,X-ray of wrist,wrist-x-ray,,X-ray of wrist
+proc_voice_box_endoscopy,fam_endoscopy,Voice box endoscopy,voice-box-endoscopy,,Voice box endoscopy
+proc_wrist_x_ray,fam_x_ray,Wrist X-ray,wrist-x-ray,,Wrist X-ray

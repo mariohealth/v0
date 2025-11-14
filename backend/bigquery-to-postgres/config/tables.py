@@ -41,9 +41,6 @@ TABLES = {
         'bigquery_table': 'procedure_pricing',
         'postgres_table': 'procedure_pricing',
         'primary_key': 'id',
-<<<<<<< HEAD
-        'required_columns': ['procedure_id', 'provider_id', 'carrier_id', 'carrier_name', 'price'],
-=======
         'required_columns': ['procedure_id',
                              'org_id',
                              'provider_id',
@@ -52,7 +49,6 @@ TABLES = {
                              'carrier_id',
                              'carrier_name',
                              'price'],
->>>>>>> 178385b (Everything to support procedure pricing at the org level API route, fixed and improved other routes, proc to specialty mapping  (#17))
         'sync_mode': 'full_refresh',
         'incremental_column': None,
     },
@@ -79,6 +75,8 @@ TABLES = {
         'primary_key': 'id',
         'required_columns': ['provider_id',
                              'provider_name',
+                             'org_id',
+                             'org_name',
                              'address',
                              'city',
                              'state',
@@ -142,6 +140,7 @@ DEFAULT_SYNC_TABLES = [
     'procedure_org_pricing',
 
     # these BQ tables are huge so it takes a couple of minutes to sync so I don't include it
-    # 'zip_codes',
+    # BUT if you ran the setup_schemas.py script then zip codes have been erased
+    'zip_codes',
 
 ]

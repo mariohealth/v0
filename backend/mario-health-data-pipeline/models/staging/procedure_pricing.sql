@@ -3,19 +3,21 @@
     materialized='table'
   )
 }}
-<<<<<<< HEAD
-=======
  -- this is the model where we will union pricing from all different carriers and plans
 
 WITH t_union_all AS (
->>>>>>> 178385b (Everything to support procedure pricing at the org level API route, fixed and improved other routes, proc to specialty mapping  (#17))
 
 SELECT
-    *
+    id,
+    procedure_id,
+    org_id,
+    provider_id,
+    provider_location_id,
+    carrier_id,
+    carrier_name,
+    price,
 FROM
     {{ ref('cigna_national_oap_proc_pricing') }}
-<<<<<<< HEAD
-=======
 
 UNION ALL
 
@@ -62,4 +64,3 @@ JOIN
     ON
         t_union_all.provider_id = t_npi.npi
 
->>>>>>> 178385b (Everything to support procedure pricing at the org level API route, fixed and improved other routes, proc to specialty mapping  (#17))
