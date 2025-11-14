@@ -29,6 +29,7 @@ class ProcedureService:
 
         proc = result.data[0]
 
+        # TODO: check if we still need all that carrier price data (the word carrier is weird) because we now have get_procedure_providers()
         # Get carrier prices (if you have pricing table)
         carrier_prices = []
         try:
