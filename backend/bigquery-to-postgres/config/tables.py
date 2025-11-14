@@ -79,6 +79,22 @@ TABLES = {
         'incremental_column': None,
     },
 
+    'provider': {
+        'bigquery_table': 'provider',
+        'postgres_table': 'provider',
+        'primary_key': 'id',
+        'required_columns': ['provider_id',
+                             'name_prefix',
+                             'first_name',
+                             'middle_name',
+                             'last_name',
+                             'name_suffix',
+                             'credential',
+                             ],
+        'sync_mode': 'full_refresh',  # 'full_refresh' or 'incremental'
+        'incremental_column': None,  # e.g., 'last_updated' for incremental
+    },
+
     'provider_location': {
         'bigquery_table': 'provider_location',
         'postgres_table': 'provider_location',
