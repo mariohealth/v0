@@ -9,6 +9,10 @@ CREATE TABLE IF NOT EXISTS provider (
     last_name TEXT,
     name_suffix TEXT,
     credential TEXT,
+    specialty_id TEXT,
+    license_number TEXT,
+    license_state_code TEXT,
+    specialty_name TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );

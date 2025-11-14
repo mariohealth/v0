@@ -90,6 +90,10 @@ TABLES = {
                              'last_name',
                              'name_suffix',
                              'credential',
+                             'specialty_id',
+                             'license_number',
+                             'license_state_code',
+                             'specialty_name',
                              ],
         'sync_mode': 'full_refresh',  # 'full_refresh' or 'incremental'
         'incremental_column': None,  # e.g., 'last_updated' for incremental
