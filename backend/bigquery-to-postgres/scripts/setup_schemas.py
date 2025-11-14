@@ -52,7 +52,7 @@ def setup_schemas():
     file_order = [
         '00_extensions.sql',
         '01_functions.sql',
-        '02_tables/*.sql',  # All files in tables directory
+        '02_tables/procedure_org_pricing.sql',  # All files in tables directory
         '03_indexes.sql',
         '04_triggers.sql',
         '05_constraints.sql',
