@@ -41,7 +41,34 @@ TABLES = {
         'bigquery_table': 'procedure_pricing',
         'postgres_table': 'procedure_pricing',
         'primary_key': 'id',
+<<<<<<< HEAD
         'required_columns': ['procedure_id', 'provider_id', 'carrier_id', 'carrier_name', 'price'],
+=======
+        'required_columns': ['procedure_id',
+                             'org_id',
+                             'provider_id',
+                             'provider_name',
+                             'provider_location_id',
+                             'carrier_id',
+                             'carrier_name',
+                             'price'],
+>>>>>>> 178385b (Everything to support procedure pricing at the org level API route, fixed and improved other routes, proc to specialty mapping  (#17))
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
+    'procedure_org_pricing': {
+        'bigquery_table': 'procedure_org_pricing',
+        'postgres_table': 'procedure_org_pricing',
+        'primary_key': 'id',
+        'required_columns': ['org_id',
+                             'procedure_id',
+                             'carrier_id',
+                             'carrier_name',
+                             'count_provider',
+                             'min_price',
+                             'max_price',
+                             'avg_price'],
         'sync_mode': 'full_refresh',
         'incremental_column': None,
     },
@@ -112,6 +139,7 @@ DEFAULT_SYNC_TABLES = [
     'procedure_category',
     'procedure_family',
     'procedure_pricing',
+    'procedure_org_pricing',
 
     # these BQ tables are huge so it takes a couple of minutes to sync so I don't include it
     # 'zip_codes',

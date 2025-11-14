@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, Query, Request
 from fastapi.responses import RedirectResponse
 from supabase import Client
 from app.core.dependencies import get_supabase
-from app.models import ProcedureDetail, ProcedureProvidersResponse
+from app.models import ProcedureDetail, ProcedureProvidersResponse, ProcedureOrgsResponse
 from app.services.procedure_service import ProcedureService
 from app.middleware.logging import log_structured
 
@@ -86,3 +86,29 @@ async def get_procedure_providers(
     )
 
     return await service.get_procedure_providers(slug)
+
+@router.get("/{slug}/orgs", response_model=ProcedureOrgsResponse)
+async def get_procedure_orgs(
+    request: Request, slug: str, supabase: Client = Depends(get_supabase)
+):
+    """
+    Get all orgs offering a specific procedure with pricing information.
+
+    Args:
+        slug: Procedure slug (e.g., 'mri-scan-brain', 'chest-x-ray-2-views')
+
+    Returns:
+        List of orgs with pricing
+    """
+    service = ProcedureService(supabase)
+
+    # Log view event for analytics
+    log_structured(
+        severity="INFO",
+        message="Procedure orgs viewed",
+        event_type="get_procedure_orgs",
+        request_id=request.state.request_id,
+        slug=slug,
+    )
+
+    return await service.get_procedure_orgs(slug)

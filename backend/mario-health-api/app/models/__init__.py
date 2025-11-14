@@ -19,7 +19,7 @@ from app.models.procedure import (
     ProcedureDetail,
     FamilyProceduresResponse,
     ProcedureProvider,
-    ProcedureProvidersResponse,
+    ProcedureProvidersResponse, ProcedureOrg, ProcedureOrgsResponse,
 )
 
 # Search models
@@ -65,6 +65,8 @@ __all__ = [
     "FamilyProceduresResponse",
     "ProcedureProvider",
     "ProcedureProvidersResponse",
+    "ProcedureOrg",
+    "ProcedureOrgsResponse",
     # Search
     "SearchResult",
     "SearchResponse",

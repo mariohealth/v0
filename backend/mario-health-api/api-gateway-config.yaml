@@ -18,6 +18,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -43,6 +44,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -66,6 +68,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -95,6 +98,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -124,6 +128,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -147,6 +152,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -174,6 +180,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -199,6 +206,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -222,6 +230,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -251,6 +260,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -280,6 +290,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:
@@ -303,6 +314,7 @@ paths:
       x-google-cors:
         allowedOrigins:
           - http://localhost:3000
+          - https://mario-mrf-data.web.app
           - https://mario-health-frontend.vercel.app
           - https://mario-health-clean.vercel.app
         allowedMethods:

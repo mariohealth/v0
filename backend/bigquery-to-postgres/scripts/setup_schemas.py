@@ -65,7 +65,10 @@ def setup_schemas():
         sys.exit(1)
 
     print(f"📊 Connecting to Postgres...")
-    engine = create_engine(db_url)
+    engine = create_engine(db_url,
+                           connect_args={"sslmode": "require"},
+                           pool_pre_ping=True
+                           )
 
     try:
         with engine.connect() as conn:
