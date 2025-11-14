@@ -1,7 +1,24 @@
 import { auth } from './firebase';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
-const API_URL = API_BASE_URL; // Alias for consistency
+// API Base URL - MUST be set in .env.local
+// Format: https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/v1
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
+
+// Validate API_BASE in development
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    if (!API_BASE || API_BASE.trim() === '') {
+        const errorMsg = 'ERROR: NEXT_PUBLIC_API_BASE is not set. API calls will fail.';
+        console.error(errorMsg);
+        console.error('Please set NEXT_PUBLIC_API_BASE in .env.local');
+        console.error('Example: NEXT_PUBLIC_API_BASE=https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/v1');
+    }
+}
+
+// Validate API_BASE at build time (server-side)
+if (typeof window === 'undefined' && (!API_BASE || API_BASE.trim() === '')) {
+    console.error('ERROR: NEXT_PUBLIC_API_BASE is not set. API calls will fail.');
+    console.error('Please set NEXT_PUBLIC_API_BASE in .env.local');
+}
 
 export interface SearchResult {
     procedure_id: string;
@@ -125,7 +142,11 @@ export async function searchProcedures(
         params.append('radius_miles', radius_miles.toString());
     }
 
-    const url = `${API_BASE_URL}/api/v1/search?${params.toString()}`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/search?${params.toString()}`;
 
     console.log('[API] Searching procedures:', { query, location, radius_miles, url });
 
@@ -169,7 +190,11 @@ export async function searchProcedures(
 export async function getProcedureProviders(
     procedureSlug: string
 ): Promise<ProcedureProvidersResponse> {
-    const url = `${API_BASE_URL}/api/v1/procedures/${procedureSlug}/providers`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/procedures/${procedureSlug}/providers`;
 
     console.log('[API] Fetching procedure providers:', { procedureSlug, url });
 
@@ -235,7 +260,11 @@ export async function getProcedureBySlug(procedureSlug: string): Promise<SearchR
  * Get provider details by ID
  */
 export async function getProviderDetail(providerId: string): Promise<ProviderDetail> {
-    const url = `${API_BASE_URL}/api/v1/providers/${providerId}`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/providers/${providerId}`;
 
     console.log('[API] Fetching provider detail:', { providerId, url });
 
@@ -351,7 +380,11 @@ export interface Reward {
  * Fetch Health Hub data for a user
  */
 export async function fetchHealthHubData(userId: string): Promise<HealthHubData> {
-    const url = `${API_BASE_URL}/api/v1/health-hub?user_id=${encodeURIComponent(userId)}`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/health-hub?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching health hub data:', { userId, url });
 
@@ -377,7 +410,11 @@ export async function fetchHealthHubData(userId: string): Promise<HealthHubData>
  * Fetch Rewards data for a user
  */
 export async function fetchRewardsData(userId: string): Promise<RewardsData> {
-    const url = `${API_BASE_URL}/api/v1/rewards?user_id=${encodeURIComponent(userId)}`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/rewards?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching rewards data:', { userId, url });
 
@@ -403,7 +440,11 @@ export async function fetchRewardsData(userId: string): Promise<RewardsData> {
  * Update MarioPoints for a user
  */
 export async function updateMarioPoints(userId: string, delta: number): Promise<number> {
-    const url = `${API_BASE_URL}/api/v1/rewards/points`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/rewards/points`;
 
     console.log('[API] Updating MarioPoints:', { userId, delta, url });
 
@@ -453,7 +494,11 @@ export async function updateMarioPoints(userId: string, delta: number): Promise<
  * Get appointments for a user
  */
 export async function getAppointments(userId: string): Promise<Appointment[]> {
-    const url = `${API_BASE_URL}/api/v1/bookings?user_id=${encodeURIComponent(userId)}`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/bookings?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching appointments:', { userId, url });
 
@@ -479,7 +524,11 @@ export async function getAppointments(userId: string): Promise<Appointment[]> {
  * Get claims for a user
  */
 export async function getClaims(userId: string): Promise<Claim[]> {
-    const url = `${API_BASE_URL}/api/v1/claims?user_id=${encodeURIComponent(userId)}`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/claims?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching claims:', { userId, url });
 
@@ -505,7 +554,11 @@ export async function getClaims(userId: string): Promise<Claim[]> {
  * Get concierge requests for a user
  */
 export async function getConciergeRequests(userId: string): Promise<ConciergeRequest[]> {
-    const url = `${API_BASE_URL}/api/v1/requests?user_id=${encodeURIComponent(userId)}`;
+    if (!API_BASE) {
+        throw new Error('NEXT_PUBLIC_API_BASE is not set');
+    }
+
+    const url = `${API_BASE}/requests?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching concierge requests:', { userId, url });
 
