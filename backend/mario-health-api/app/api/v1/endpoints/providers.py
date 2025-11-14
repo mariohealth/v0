@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Path, Query, Request
 from supabase import Client
 from app.core.dependencies import get_supabase
-from app.models import ProviderDetail, ProviderProcedureDetail
+from app.models import Provider, ProviderDetail, ProviderProcedureDetail
 from app.services.provider_service import ProviderService
 from app.middleware.logging import log_structured
 from pydantic import BaseModel
@@ -10,6 +10,37 @@ from datetime import datetime
 
 router = APIRouter(prefix="/providers", tags=["providers"])
 
+
+@router.get("/info/{provider_id}", response_model=Provider)
+async def get_provider(
+    request: Request,
+    provider_id: str = Path(
+        ..., description="Provider ID (also accepts 'id' parameter)"
+    ),
+    supabase: Client = Depends(get_supabase),
+):
+    """
+    Get  information about a healthcare provider.
+
+    Returns provider information including:
+
+    **Example:** `/api/v1/providers/info/prov_001`
+
+    Note: This route accepts both `/providers/info/{provider_id}` and `/providers/info/{id}` patterns.
+    FastAPI matches by path pattern, so both work.
+    """
+    service = ProviderService(supabase)
+
+    # Log view event for analytics
+    log_structured(
+        severity="INFO",
+        message="Provider viewed",
+        event_type="get_provider",
+        request_id=request.state.request_id,
+        provider_id=provider_id,
+    )
+
+    return await service.get_provider(provider_id)
 
 @router.get("/{provider_id}", response_model=ProviderDetail)
 async def get_provider_detail(

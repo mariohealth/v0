@@ -37,6 +37,7 @@ from app.models.billing_code import (
 
 # Provider models
 from app.models.provider import (
+    Provider,
     ProviderProcedurePricing,
     ProviderDetail,
     ProviderProcedureDetail,
@@ -75,6 +76,7 @@ __all__ = [
     "BillingCodeProcedureMapping",
     "BillingCodeDetail",
     # Provider
+    "Provider",
     "ProviderProcedurePricing",
     "ProviderDetail",
     "ProviderProcedureDetail",

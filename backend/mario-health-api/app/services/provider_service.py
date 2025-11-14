@@ -1,12 +1,50 @@
 from fastapi import HTTPException
 from supabase import Client
-from app.models import ProviderDetail, ProviderProcedurePricing, ProviderProcedureDetail
+from app.models import Provider, ProviderDetail, ProviderProcedurePricing, ProviderProcedureDetail
 from decimal import Decimal
 
 
 class ProviderService:
     def __init__(self, supabase: Client):
         self.supabase = supabase
+
+    async def get_provider(self, provider_id: str) -> ProviderDetail:
+        """Fetch detailed provider information with all procedures."""
+
+        # Get provider basic info and stats
+        provider_result = (
+            self.supabase.table("provider")
+            .select(
+                "provider_id",
+                "name_prefix",
+                "first_name",
+                "middle_name",
+                "last_name",
+                "name_suffix",
+                "credential"
+            )
+            .eq("provider_id", provider_id)
+            .single()
+            .execute()
+        )
+
+        if not provider_result.data or len(provider_result.data) == 0:
+            raise HTTPException(
+                status_code=404, detail=f"Provider '{provider_id}' not found"
+            )
+
+        provider = provider_result.data
+
+        return Provider(
+            provider_id=provider.get("provider_id"),
+            name_prefix=provider.get("name_prefix"),
+            first_name=provider.get("first_name"),
+            middle_name=provider.get("middle_name"),
+            last_name=provider.get("last_name"),
+            name_suffix=provider.get("name_suffix"),
+            credential=provider.get("credential"),
+
+        )
 
     async def get_provider_detail(self, provider_id: str) -> ProviderDetail:
         """Fetch detailed provider information with all procedures."""
