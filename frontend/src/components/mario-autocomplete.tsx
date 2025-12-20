@@ -19,10 +19,10 @@ interface MarioAutocompleteProps {
   onKeyboardNavigation?: (direction: 'up' | 'down' | 'enter' | 'escape') => void;
 }
 
-export function MarioAutocomplete({ 
-  suggestions, 
-  onSelect, 
-  isVisible, 
+export function MarioAutocomplete({
+  suggestions,
+  onSelect,
+  isVisible,
   query,
   selectedIndex = -1,
   onKeyboardNavigation
@@ -53,7 +53,7 @@ export function MarioAutocomplete({
             </p>
           </div>
         ) : (
-          <div 
+          <div
             className="overflow-y-auto"
             style={{
               maxHeight: '288px'
@@ -66,23 +66,23 @@ export function MarioAutocomplete({
                 className="w-full px-4 py-3 text-left transition-colors flex items-start gap-3"
                 style={{
                   height: '48px',
-                  backgroundColor: selectedIndex === index 
-                    ? '#F3F4F6' 
+                  backgroundColor: selectedIndex === index
+                    ? '#F3F4F6'
                     : 'transparent'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#F9FAFB';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = selectedIndex === index 
-                    ? '#F3F4F6' 
+                  e.currentTarget.style.backgroundColor = selectedIndex === index
+                    ? '#F3F4F6'
                     : 'transparent';
                 }}
               >
                 <div className="flex-1">
-                  <p 
+                  <p
                     className="text-sm leading-tight mb-0.5"
-                    style={{ 
+                    style={{
                       color: '#1A1A1A',
                       fontSize: '14px',
                       fontFamily: 'Inter'
@@ -90,9 +90,9 @@ export function MarioAutocomplete({
                   >
                     {suggestion.primaryText}
                   </p>
-                  <p 
+                  <p
                     className="text-xs"
-                    style={{ 
+                    style={{
                       color: '#666666',
                       fontSize: '12px',
                       fontFamily: 'Inter'
@@ -114,147 +114,105 @@ export function MarioAutocomplete({
 export const getAutocompleteSuggestions = (query: string): AutocompleteSuggestion[] => {
   const allSuggestions: AutocompleteSuggestion[] = [
     {
-      id: 'blood-test-basic',
-      primaryText: 'Blood Test – Basic Panel',
-      secondaryText: 'Procedure',
+      id: 'complete-blood-cell-count-blood-test',
+      primaryText: 'Blood Test – CBC (Complete Blood Count)',
+      secondaryText: 'Lab Test',
       category: 'procedure'
     },
     {
-      id: 'blood-test-comprehensive',
-      primaryText: 'Blood Test – Comprehensive Metabolic',
-      secondaryText: 'Procedure',
+      id: 'comprehensive-metabolic-panel-blood-test',
+      primaryText: 'Blood Test – CMP (Comprehensive Metabolic)',
+      secondaryText: 'Lab Test',
       category: 'procedure'
     },
     {
-      id: 'blood-pressure-check',
-      primaryText: 'Blood Pressure Monitoring',
-      secondaryText: 'Procedure',
+      id: 'lipid-panel-blood-test',
+      primaryText: 'Blood Test – Lipid Panel',
+      secondaryText: 'Lab Test',
       category: 'procedure'
     },
     {
-      id: 'blood-glucose',
-      primaryText: 'Blood Glucose Testing',
-      secondaryText: 'Procedure',
+      id: 'tsh-blood-test',
+      primaryText: 'Thyroid Panel (TSH)',
+      secondaryText: 'Lab Test',
       category: 'procedure'
     },
     {
-      id: 'vitamin-d-screening',
-      primaryText: 'Vitamin D Screening',
-      secondaryText: 'Procedure',
+      id: 'hemoglobin-a1c-blood-test',
+      primaryText: 'HbA1C (Diabetes Screening)',
+      secondaryText: 'Lab Test',
       category: 'procedure'
     },
     {
-      id: 'cholesterol-panel',
-      primaryText: 'Cholesterol Panel',
-      secondaryText: 'Procedure',
+      id: 'leg-joint-mri',
+      primaryText: 'MRI - Knee (Leg Joint)',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'mri-knee',
-      primaryText: 'MRI Knee',
-      secondaryText: 'Procedure',
+      id: 'brain-mri',
+      primaryText: 'MRI - Brain',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'mri-brain',
-      primaryText: 'MRI Brain',
-      secondaryText: 'Procedure',
+      id: 'chest-x-ray',
+      primaryText: 'X-Ray - Chest',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'xray-chest',
-      primaryText: 'X-Ray Chest',
-      secondaryText: 'Procedure',
+      id: 'lower-spine-x-ray',
+      primaryText: 'X-Ray - Spine (Lower)',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'xray-knee',
-      primaryText: 'X-Ray Knee',
-      secondaryText: 'Procedure',
+      id: 'chest-ct-scan',
+      primaryText: 'CT Scan - Chest',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'ct-scan-abdomen',
-      primaryText: 'CT Scan – Abdomen',
-      secondaryText: 'Procedure',
+      id: 'abdomen-ultrasound',
+      primaryText: 'Ultrasound - Abdominal',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'ct-scan-chest',
-      primaryText: 'CT Scan – Chest',
-      secondaryText: 'Procedure',
+      id: 'pregnancy-ultrasound',
+      primaryText: 'Ultrasound - Pregnancy',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'ultrasound-pregnancy',
-      primaryText: 'Ultrasound – Pregnancy',
-      secondaryText: 'Procedure',
-      category: 'procedure'
-    },
-    {
-      id: 'ultrasound-abdominal',
-      primaryText: 'Ultrasound – Abdominal',
-      secondaryText: 'Procedure',
-      category: 'procedure'
-    },
-    {
-      id: 'physical-exam',
-      primaryText: 'Physical Exam – Annual',
-      secondaryText: 'Procedure',
-      category: 'procedure'
-    },
-    {
-      id: 'dental-cleaning',
-      primaryText: 'Dental Cleaning',
-      secondaryText: 'Procedure',
-      category: 'procedure'
-    },
-    {
-      id: 'mammogram',
-      primaryText: 'Mammogram',
-      secondaryText: 'Procedure',
-      category: 'procedure'
-    },
-    {
-      id: 'colonoscopy',
+      id: 'colonoscopy-diagnostic',
       primaryText: 'Colonoscopy',
       secondaryText: 'Procedure',
       category: 'procedure'
     },
     {
-      id: 'ecg',
-      primaryText: 'ECG (Electrocardiogram)',
-      secondaryText: 'Procedure',
+      id: 'mammogram-screening',
+      primaryText: 'Mammogram',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'stress-test',
-      primaryText: 'Cardiac Stress Test',
-      secondaryText: 'Procedure',
+      id: 'bone-density-dxa',
+      primaryText: 'Bone Density Scan (DXA)',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'allergy-test',
-      primaryText: 'Allergy Testing',
-      secondaryText: 'Procedure',
+      id: 'brain-stem-mri',
+      primaryText: 'MRI - Brain Stem',
+      secondaryText: 'Imaging',
       category: 'procedure'
     },
     {
-      id: 'bone-density',
-      primaryText: 'Bone Density Scan',
-      secondaryText: 'Procedure',
-      category: 'procedure'
-    },
-    {
-      id: 'thyroid-test',
-      primaryText: 'Thyroid Function Test',
-      secondaryText: 'Procedure',
-      category: 'procedure'
-    },
-    {
-      id: 'liver-function',
-      primaryText: 'Liver Function Test',
-      secondaryText: 'Procedure',
+      id: 'brain-intracranial-mri',
+      primaryText: 'MRI - Brain (Intracranial)',
+      secondaryText: 'Imaging',
       category: 'procedure'
     }
   ];
@@ -264,11 +222,13 @@ export const getAutocompleteSuggestions = (query: string): AutocompleteSuggestio
   }
 
   const lowerQuery = query.toLowerCase().trim();
-  
+  const queryTerms = lowerQuery.split(/\s+/);
+
   return allSuggestions
-    .filter(
-      suggestion =>
-        suggestion.primaryText.toLowerCase().includes(lowerQuery)
-    )
+    .filter(suggestion => {
+      const text = suggestion.primaryText.toLowerCase();
+      // Match if all terms in the query are present in the primary text
+      return queryTerms.every(term => text.includes(term));
+    })
     .slice(0, 6); // Max 6 suggestions
 };

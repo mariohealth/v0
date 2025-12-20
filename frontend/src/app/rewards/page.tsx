@@ -4,6 +4,7 @@ import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import { MarioRewardsV2 } from '@/components/mario-rewards-v2';
+import { FeatureGate } from '@/components/ui/FeatureGate';
 
 function RewardsContent() {
   const { user, loading } = useAuth();
@@ -76,7 +77,9 @@ function RewardsContent() {
           ))}
         </div>
       )}
-      <MarioRewardsV2 onBack={handleBack} />
+      <FeatureGate feature="ENABLE_REWARDS" showOverlay>
+        <MarioRewardsV2 onBack={handleBack} />
+      </FeatureGate>
     </div>
   );
 }

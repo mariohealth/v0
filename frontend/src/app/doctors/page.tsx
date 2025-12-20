@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Search, User, MapPin, Star } from 'lucide-react';
 import { BottomNav } from '@/components/navigation/BottomNav';
@@ -10,13 +10,21 @@ import { marioDoctorsData } from '@/lib/data/mario-doctors-data';
 export default function DoctorsPage() {
     const { user, loading } = useAuth();
     const router = useRouter();
-    const [searchQuery, setSearchQuery] = useState('');
+    const searchParams = useSearchParams();
+    const specialtyParam = searchParams.get('specialty');
+    const [searchQuery, setSearchQuery] = useState(specialtyParam || '');
 
     useEffect(() => {
         if (!loading && !user) {
             router.push('/login');
         }
     }, [user, loading, router]);
+
+    useEffect(() => {
+        if (specialtyParam) {
+            setSearchQuery(specialtyParam);
+        }
+    }, [specialtyParam]);
 
     if (loading) {
         return (

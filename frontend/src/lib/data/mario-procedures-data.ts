@@ -24,7 +24,7 @@ export const procedureCategories: ProcedureCategory[] = [
     description: "X-rays, MRIs, CT scans & more",
     procedures: [
       {
-        id: "mri_brain",
+        id: "brain-mri",
         name: "MRI - Brain",
         category: "imaging",
         avgPrice: 1400,
@@ -33,8 +33,8 @@ export const procedureCategories: ProcedureCategory[] = [
         description: "Detailed brain imaging scan"
       },
       {
-        id: "mri_knee",
-        name: "MRI - Knee",
+        id: "leg-joint-mri",
+        name: "MRI - Knee (Leg Joint)",
         category: "imaging",
         avgPrice: 1200,
         marioPrice: 695,
@@ -42,7 +42,7 @@ export const procedureCategories: ProcedureCategory[] = [
         description: "Knee joint imaging"
       },
       {
-        id: "ct_scan_chest",
+        id: "chest-ct-scan",
         name: "CT Scan - Chest",
         category: "imaging",
         avgPrice: 950,
@@ -51,7 +51,7 @@ export const procedureCategories: ProcedureCategory[] = [
         description: "Chest cavity imaging"
       },
       {
-        id: "xray_chest",
+        id: "chest-x-ray",
         name: "X-Ray - Chest",
         category: "imaging",
         avgPrice: 180,
@@ -60,7 +60,7 @@ export const procedureCategories: ProcedureCategory[] = [
         description: "Standard chest X-ray"
       },
       {
-        id: "ultrasound_abdominal",
+        id: "abdomen-ultrasound",
         name: "Ultrasound - Abdominal",
         category: "imaging",
         avgPrice: 420,
@@ -77,7 +77,7 @@ export const procedureCategories: ProcedureCategory[] = [
     description: "Blood work, panels & diagnostics",
     procedures: [
       {
-        id: "complete_blood_count",
+        id: "complete-blood-cell-count-blood-test",
         name: "Complete Blood Count (CBC)",
         category: "lab_tests",
         avgPrice: 180,
@@ -86,8 +86,8 @@ export const procedureCategories: ProcedureCategory[] = [
         description: "Comprehensive blood cell analysis"
       },
       {
-        id: "thyroid_panel",
-        name: "Thyroid Panel (TSH, T3, T4)",
+        id: "tsh-blood-test",
+        name: "Thyroid Panel (TSH)",
         category: "lab_tests",
         avgPrice: 220,
         marioPrice: 95,
@@ -95,13 +95,13 @@ export const procedureCategories: ProcedureCategory[] = [
         description: "Complete thyroid function test"
       },
       {
-        id: "hba1c",
+        id: "hemoglobin-a1c-blood-test",
         name: "HbA1C (Diabetes)",
         category: "lab_tests",
-        avgPrice: 120,
-        marioPrice: 45,
-        savings: 63,
-        description: "3-month blood sugar average"
+        avgPrice: 65,
+        marioPrice: 25,
+        savings: 61,
+        description: "Diabetes monitoring test"
       },
       {
         id: "lipid_panel",

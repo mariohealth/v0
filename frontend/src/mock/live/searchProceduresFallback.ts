@@ -21,34 +21,34 @@ export interface MockProcedureFallback {
 }
 
 export const mockProceduresFallback: MockProcedureFallback[] = [
-  { 
-    type: 'procedure', 
-    slug: 'mri_brain', 
-    display_name: 'MRI - Brain', 
+  {
+    type: 'procedure',
+    slug: 'brain-mri',
+    display_name: 'MRI - Brain',
     category: 'Radiology',
-    procedure_id: 'mri_brain',
+    procedure_id: 'brain-mri',
     procedure_name: 'MRI - Brain',
-    procedure_slug: 'mri_brain',
+    procedure_slug: 'brain-mri',
     category_name: 'Radiology',
     provider_count: 12,
     best_price: '850'
   },
-  { 
-    type: 'procedure', 
-    slug: 'mri_spine', 
-    display_name: 'MRI - Spine', 
-    category: 'Radiology',
-    procedure_id: 'mri_spine',
-    procedure_name: 'MRI - Spine',
-    procedure_slug: 'mri_spine',
+  {
+    type: 'procedure',
+    slug: 'leg-joint-mri',
+    display_name: 'MRI - Knee (Leg Joint)',
+    category: 'Imaging',
+    procedure_id: 'leg-joint-mri',
+    procedure_name: 'MRI - Knee (Leg Joint)',
+    procedure_slug: 'leg-joint-mri',
     category_name: 'Radiology',
     provider_count: 10,
     best_price: '950'
   },
-  { 
-    type: 'procedure', 
-    slug: 'ct_abdomen', 
-    display_name: 'CT Scan - Abdomen', 
+  {
+    type: 'procedure',
+    slug: 'ct_abdomen',
+    display_name: 'CT Scan - Abdomen',
     category: 'Radiology',
     procedure_id: 'ct_abdomen',
     procedure_name: 'CT Scan - Abdomen',
@@ -57,46 +57,46 @@ export const mockProceduresFallback: MockProcedureFallback[] = [
     provider_count: 8,
     best_price: '650'
   },
-  { 
-    type: 'procedure', 
-    slug: 'xray_chest', 
-    display_name: 'X-Ray - Chest', 
-    category: 'Radiology',
-    procedure_id: 'xray_chest',
-    procedure_name: 'X-Ray - Chest',
-    procedure_slug: 'xray_chest',
+  {
+    type: 'procedure',
+    slug: 'chest-ct-scan',
+    display_name: 'CT Scan - Chest',
+    category: 'Imaging',
+    procedure_id: 'chest-ct-scan',
+    procedure_name: 'CT Scan - Chest',
+    procedure_slug: 'chest-ct-scan',
     category_name: 'Radiology',
     provider_count: 15,
     best_price: '150'
   },
-  { 
-    type: 'procedure', 
-    slug: 'ultrasound_pelvis', 
-    display_name: 'Ultrasound - Pelvis', 
-    category: 'Radiology',
-    procedure_id: 'ultrasound_pelvis',
-    procedure_name: 'Ultrasound - Pelvis',
-    procedure_slug: 'ultrasound_pelvis',
+  {
+    type: 'procedure',
+    slug: 'abdomen-ultrasound',
+    display_name: 'Ultrasound - Abdominal',
+    category: 'Imaging',
+    procedure_id: 'abdomen-ultrasound',
+    procedure_name: 'Ultrasound - Abdominal',
+    procedure_slug: 'abdomen-ultrasound',
     category_name: 'Radiology',
     provider_count: 9,
     best_price: '350'
   },
-  { 
-    type: 'procedure', 
-    slug: 'blood_panel_basic', 
-    display_name: 'Blood Test - Basic Panel', 
+  {
+    type: 'procedure',
+    slug: 'complete-blood-cell-count-blood-test',
+    display_name: 'Complete Blood Count (CBC)',
     category: 'Pathology',
-    procedure_id: 'blood_panel_basic',
-    procedure_name: 'Blood Test - Basic Panel',
-    procedure_slug: 'blood_panel_basic',
+    procedure_id: 'complete-blood-cell-count-blood-test',
+    procedure_name: 'Complete Blood Count (CBC)',
+    procedure_slug: 'complete-blood-cell-count-blood-test',
     category_name: 'Pathology',
     provider_count: 20,
     best_price: '75'
   },
-  { 
-    type: 'procedure', 
-    slug: 'colonoscopy', 
-    display_name: 'Colonoscopy', 
+  {
+    type: 'procedure',
+    slug: 'colonoscopy',
+    display_name: 'Colonoscopy',
     category: 'Gastroenterology',
     procedure_id: 'colonoscopy',
     procedure_name: 'Colonoscopy',

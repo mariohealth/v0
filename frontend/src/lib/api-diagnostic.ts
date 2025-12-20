@@ -16,7 +16,7 @@ export async function testProcedureProvidersSlugs(slug: string) {
         slug.replace(/_/g, '-'),
         slug.replace(/_/g, '_of_'),
         slug.replace(/_/g, ' '),
-        slug.replace('mri_brain', 'mri_of_brain'),
+        slug.replace('brain-mri', 'mri_of_brain'),
         slug.replace('mri_spine', 'mri_of_spine'),
     ];
 
@@ -28,7 +28,7 @@ export async function testProcedureProvidersSlugs(slug: string) {
 
     for (const variant of variants) {
         const url = `${base}/${variant}/providers`;
-        
+
         try {
             const response = await fetch(url, {
                 method: 'GET',

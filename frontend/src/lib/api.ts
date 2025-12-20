@@ -69,6 +69,29 @@ export interface ProviderDetail {
     }>;
 }
 
+export interface Org {
+    org_id: string;
+    org_name: string;
+    carrier_name?: string;
+    min_price: number | string;
+    savings?: string;
+    distance_miles?: number;
+    count_provider: number;
+    in_network?: boolean;
+    address?: string;
+    city?: string;
+    state?: string;
+    zip_code?: string;
+}
+
+export interface ProcedureOrgsResponse {
+    procedure_id: string;
+    procedure_name: string;
+    procedure_slug: string;
+    orgs: Org[];
+    total_count: number;
+}
+
 /**
  * Get Firebase ID token for authenticated user (optional)
  * Returns null if user is not authenticated
@@ -133,8 +156,11 @@ export async function searchProcedures(
     console.log('[API] Searching procedures:', { query, location, radius_miles, url });
 
     try {
-        const response = await fetchWithAuth(url, {
+        const response = await fetch(url, {
             method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
 
         if (!response.ok) {
@@ -176,12 +202,12 @@ export async function searchProcedures(
 export async function safeSearchProcedures(query: string): Promise<SearchResult[]> {
     try {
         const response = await searchProcedures(query);
-        
+
         // If API returns results, use them
         if (response.results && response.results.length > 0) {
             return response.results;
         }
-        
+
         // Empty API response - use mock fallback
         console.warn('[safeSearchProcedures] Empty API response, using mock fallback');
         return filterMockProcedures(query);
@@ -197,9 +223,9 @@ export async function safeSearchProcedures(query: string): Promise<SearchResult[
  */
 function filterMockProcedures(query: string): SearchResult[] {
     const queryLower = query.toLowerCase();
-    
+
     return mockProceduresFallback
-        .filter(p => 
+        .filter(p =>
             p.display_name.toLowerCase().includes(queryLower) ||
             p.procedure_name?.toLowerCase().includes(queryLower) ||
             p.category.toLowerCase().includes(queryLower)
@@ -250,24 +276,26 @@ export async function getProcedureProviders(
     // === Restored core logic from b6d802c (last known-good) ===
     // Note: Keep current API_BASE_URL/fetchWithAuth utilities as-is
     const base = `${API_BASE_URL}/api/v1/procedures/${procedureSlug}/providers`;
-    
-    const res = await fetchWithAuth(base, { method: "GET" });
-    
+
+    const res = await fetch(base, {
+        method: "GET",
+    });
+
     if (!res.ok) {
         throw new Error(`Provider API failed: ${res.status} ${res.statusText}`);
     }
-    
+
     const data = await res.json();
-    
+
     // The working commit returned providers directly on data.providers
     // Preserve the original response structure
     const providers = Array.isArray(data?.providers) ? data.providers : [];
-    
+
     // Dev log to confirm we are using LIVE data and from which URL
     if (process.env.NODE_ENV === "development") {
         console.log("[API:LIVE] providers url:", base, "count:", providers.length);
     }
-    
+
     // === Apply modern Type-2 filtering AFTER validating the response ===
     const orgProviders = providers.filter((p: any) =>
         p?.entity_type === 2 ||
@@ -277,10 +305,10 @@ export async function getProcedureProviders(
         p?.provider_type === "hospital" ||
         p?.provider_type === "clinic"
     );
-    
+
     // If Type-2 filter yields results, use them; otherwise use original providers
     const finalProviders = orgProviders.length > 0 ? orgProviders : providers;
-    
+
     // Return the FULL original payload, just swapping providers to finalProviders
     return {
         ...data,
@@ -291,11 +319,55 @@ export async function getProcedureProviders(
 }
 
 /**
+ * Get organizations (facilities) for a specific procedure
+ * Aggregates providers into organizations or fetches from a dedicated endpoint
+ */
+export async function getProcedureOrgs(
+    procedureSlug: string
+): Promise<ProcedureOrgsResponse> {
+    try {
+        // For now, we'll use getProcedureProviders and aggregate/map the data
+        // In the future, this should call a dedicated API endpoint like /api/v1/procedures/{slug}/orgs
+        const providerResponse = await getProcedureProviders(procedureSlug);
+
+        // Group providers by organization (if possible) or map directly if they are already org-like
+        // The current backend seems to return "providers" which can be individual doctors OR organizations
+        // based on the filtering logic in getProcedureProviders.
+
+        const orgs: Org[] = providerResponse.providers.map((p: any) => ({
+            org_id: p.provider_id,
+            org_name: p.provider_name,
+            carrier_name: p.carrier_name || 'Unknown Carrier', // Placeholder if missing
+            min_price: p.price || 0,
+            savings: p.savings || undefined,
+            distance_miles: p.distance_miles,
+            count_provider: p.provider_count || 1,
+            in_network: p.in_network ?? true, // Default to true for now if missing
+            address: p.address,
+            city: p.city,
+            state: p.state,
+            zip_code: p.zip,
+        }));
+
+        return {
+            procedure_id: providerResponse.procedure_id,
+            procedure_name: providerResponse.procedure_name,
+            procedure_slug: providerResponse.procedure_slug,
+            orgs: orgs,
+            total_count: orgs.length,
+        };
+    } catch (error) {
+        console.error('[API] Error fetching procedure orgs:', error);
+        throw error;
+    }
+}
+
+/**
  * Create mock provider response from fallback data
  */
 function createMockProviderResponse(procedureSlug: string): ProcedureProvidersResponse {
     const mockProviders = getMockProvidersForProcedure(procedureSlug);
-    
+
     // Convert mock providers to Provider format
     const providers: Provider[] = mockProviders.map(p => ({
         provider_id: p.provider_id,
@@ -308,13 +380,13 @@ function createMockProviderResponse(procedureSlug: string): ProcedureProvidersRe
         price: p.price,
         distance_miles: p.distance_miles || null,
     }));
-    
+
     // Extract procedure name from slug
     const procedureName = procedureSlug
         .split('_')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
-    
+
     return {
         procedure_id: procedureSlug,
         procedure_name: procedureName,
@@ -335,7 +407,7 @@ export async function getProcedureBySlug(procedureSlug: string): Promise<SearchR
     console.log('[API] Fetching procedure by slug:', { procedureSlug, url });
 
     try {
-        const response = await fetchWithAuth(url, {
+        const response = await fetch(url, {
             method: 'GET',
         });
 
@@ -416,10 +488,10 @@ export async function getProcedureBySlug(procedureSlug: string): Promise<SearchR
 async function getMockProcedureData(procedureSlug: string): Promise<SearchResult | null> {
     // Import mock data for known procedures
     const mockDataMap: Record<string, SearchResult> = {
-        'mri_brain': {
-            procedure_id: 'mri_brain',
+        'brain-mri': {
+            procedure_id: 'brain-mri',
             procedure_name: 'MRI Scan – Brain',
-            procedure_slug: 'mri_brain',
+            procedure_slug: 'brain-mri',
             family_name: 'MRI Scans',
             family_slug: 'mri',
             category_name: 'Imaging',
@@ -442,7 +514,7 @@ async function getMockProcedureData(procedureSlug: string): Promise<SearchResult
     console.warn('[API] No mock data file found for', procedureSlug, '- using default structure');
     return {
         procedure_id: procedureSlug,
-        procedure_name: procedureSlug.split('_').map(word => 
+        procedure_name: procedureSlug.split('_').map(word =>
             word.charAt(0).toUpperCase() + word.slice(1)
         ).join(' '),
         procedure_slug: procedureSlug,
@@ -467,7 +539,7 @@ export async function getProviderDetail(providerId: string): Promise<ProviderDet
     console.log('[API] Fetching provider detail:', { providerId, url });
 
     try {
-        const response = await fetchWithAuth(url, {
+        const response = await fetch(url, {
             method: 'GET',
         });
 
@@ -488,6 +560,8 @@ export async function getProviderDetail(providerId: string): Promise<ProviderDet
             throw new Error(errorMessage);
         }
 
+
+
         const data = await response.json();
         console.log('[API] Get provider detail success:', {
             providerId,
@@ -496,6 +570,30 @@ export async function getProviderDetail(providerId: string): Promise<ProviderDet
         return data as ProviderDetail;
     } catch (error) {
         console.error('[API] Error fetching provider detail:', error);
+
+        // Fallback to mock data if available
+        // This supports the "Find Doctors" page which uses dummy IDs like "dr_christopher_davis"
+        const { doctors } = require('./data/mario-doctors-data');
+        const mockDoctor = doctors.find((d: any) => d.id === providerId);
+
+        if (mockDoctor) {
+            console.log('[API] Using mock provider data for', providerId);
+            return {
+                provider_id: mockDoctor.id,
+                provider_name: mockDoctor.name,
+                address: '123 Medical Center Dr', // Default fallback
+                city: 'San Francisco',
+                state: 'CA',
+                zip: '94143',
+                phone: '(555) 123-4567',
+                price: parseInt(mockDoctor.price.replace(/[^0-9]/g, '')) || 200,
+                distance_miles: parseFloat(mockDoctor.distance.replace(/[^0-9.]/g, '')) || 2.5,
+                specialty: mockDoctor.specialty,
+                rating: parseFloat(mockDoctor.rating) || 4.5,
+                review_count: parseInt(mockDoctor.reviews) || 0,
+            } as ProviderDetail;
+        }
+
         if (error instanceof Error) {
             throw error;
         }
@@ -765,7 +863,7 @@ export async function getCategories(): Promise<any> {
     console.log('[API] Fetching categories:', { url });
 
     try {
-        const response = await fetchWithAuth(url, {
+        const response = await fetch(url, {
             method: 'GET',
         });
 
@@ -791,7 +889,7 @@ export async function getCategoryFamilies(categorySlug: string): Promise<any> {
     console.log('[API] Fetching category families:', { categorySlug, url });
 
     try {
-        const response = await fetchWithAuth(url, {
+        const response = await fetch(url, {
             method: 'GET',
         });
 
@@ -817,7 +915,7 @@ export async function getFamilyProcedures(familySlug: string): Promise<any> {
     console.log('[API] Fetching family procedures:', { familySlug, url });
 
     try {
-        const response = await fetchWithAuth(url, {
+        const response = await fetch(url, {
             method: 'GET',
         });
 

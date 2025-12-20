@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { X, Upload, Check, AlertCircle, Image as ImageIcon } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
+import { FeatureGate } from './ui/FeatureGate';
 
 interface InsuranceUploadProps {
   open: boolean;
@@ -38,7 +39,7 @@ export function MarioInsuranceUpload({
 
   const handleFileSelect = (side: 'front' | 'back', file: File) => {
     console.log(`Insurance ${side} image uploaded:`, file.name);
-    
+
     // Create preview
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -96,132 +97,134 @@ export function MarioInsuranceUpload({
           borderRadius: '12px'
         }}
       >
-        {/* Header with close button */}
-        <DialogHeader>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <DialogTitle
+        <FeatureGate feature="ENABLE_INSURANCE_OCR" showOverlay>
+          {/* Header with close button */}
+          <DialogHeader>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+              <DialogTitle
+                style={{
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: 700,
+                  color: '#1A1A1A',
+                  margin: 0
+                }}
+              >
+                Upload insurance card
+              </DialogTitle>
+              <button
+                onClick={handleSkip}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#666666',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  padding: '4px 8px',
+                  textDecoration: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.textDecoration = 'underline';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.textDecoration = 'none';
+                }}
+                aria-label="Skip insurance upload"
+              >
+                Skip
+              </button>
+            </div>
+
+            <p
               style={{
                 fontFamily: 'Inter, sans-serif',
-                fontSize: '24px',
-                fontWeight: 700,
-                color: '#1A1A1A',
+                fontSize: '14px',
+                fontWeight: 400,
+                color: '#666666',
                 margin: 0
               }}
             >
-              Upload insurance card
-            </DialogTitle>
-            <button
-              onClick={handleSkip}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: '#666666',
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '14px',
-                fontWeight: 500,
-                cursor: 'pointer',
-                padding: '4px 8px',
-                textDecoration: 'none'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.textDecoration = 'underline';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.textDecoration = 'none';
-              }}
-              aria-label="Skip insurance upload"
-            >
-              Skip
-            </button>
+              Front and back help us verify coverage.
+            </p>
+          </DialogHeader>
+
+          {/* Card Upload Areas */}
+          <div style={{ marginTop: '24px', marginBottom: '24px' }}>
+            <CardUploadArea
+              label="Front of card"
+              cardData={cardState.front}
+              onFileSelect={(file) => handleFileSelect('front', file)}
+              onRemove={() => handleRemove('front')}
+            />
+
+            <div style={{ height: '16px' }} />
+
+            <CardUploadArea
+              label="Back of card"
+              cardData={cardState.back}
+              onFileSelect={(file) => handleFileSelect('back', file)}
+              onRemove={() => handleRemove('back')}
+            />
           </div>
-          
-          <p
+
+          {/* Reassurance text */}
+          <div
             style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '14px',
-              fontWeight: 400,
-              color: '#666666',
-              margin: 0
+              padding: '12px 16px',
+              backgroundColor: 'rgba(121, 215, 190, 0.1)',
+              borderRadius: '8px',
+              border: '1px solid rgba(121, 215, 190, 0.3)',
+              marginBottom: '24px'
             }}
           >
-            Front and back help us verify coverage.
-          </p>
-        </DialogHeader>
+            <p
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 400,
+                color: '#1B5E20',
+                margin: 0,
+                lineHeight: 1.5
+              }}
+            >
+              🔒 We never share your data. Encrypted & HIPAA-compliant.
+            </p>
+          </div>
 
-        {/* Card Upload Areas */}
-        <div style={{ marginTop: '24px', marginBottom: '24px' }}>
-          <CardUploadArea
-            label="Front of card"
-            cardData={cardState.front}
-            onFileSelect={(file) => handleFileSelect('front', file)}
-            onRemove={() => handleRemove('front')}
-          />
-          
-          <div style={{ height: '16px' }} />
-          
-          <CardUploadArea
-            label="Back of card"
-            cardData={cardState.back}
-            onFileSelect={(file) => handleFileSelect('back', file)}
-            onRemove={() => handleRemove('back')}
-          />
-        </div>
-
-        {/* Reassurance text */}
-        <div
-          style={{
-            padding: '12px 16px',
-            backgroundColor: 'rgba(121, 215, 190, 0.1)',
-            borderRadius: '8px',
-            border: '1px solid rgba(121, 215, 190, 0.3)',
-            marginBottom: '24px'
-          }}
-        >
-          <p
+          {/* Continue Button */}
+          <button
+            onClick={handleContinue}
+            disabled={!hasAnyCard}
             style={{
+              width: '100%',
+              height: '48px',
+              borderRadius: '8px',
+              backgroundColor: isValid ? '#2E5077' : hasAnyCard ? '#4DA1A9' : '#E0E0E0',
+              color: hasAnyCard ? '#FFFFFF' : '#999999',
+              border: 'none',
               fontFamily: 'Inter, sans-serif',
-              fontSize: '12px',
-              fontWeight: 400,
-              color: '#1B5E20',
-              margin: 0,
-              lineHeight: 1.5
+              fontSize: '16px',
+              fontWeight: 600,
+              cursor: hasAnyCard ? 'pointer' : 'not-allowed',
+              transition: 'all 0.2s ease'
             }}
+            onMouseEnter={(e) => {
+              if (hasAnyCard) {
+                e.currentTarget.style.opacity = '0.9';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (hasAnyCard) {
+                e.currentTarget.style.opacity = '1';
+              }
+            }}
+            aria-label="Continue with insurance upload"
           >
-            🔒 We never share your data. Encrypted & HIPAA-compliant.
-          </p>
-        </div>
-
-        {/* Continue Button */}
-        <button
-          onClick={handleContinue}
-          disabled={!hasAnyCard}
-          style={{
-            width: '100%',
-            height: '48px',
-            borderRadius: '8px',
-            backgroundColor: isValid ? '#2E5077' : hasAnyCard ? '#4DA1A9' : '#E0E0E0',
-            color: hasAnyCard ? '#FFFFFF' : '#999999',
-            border: 'none',
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '16px',
-            fontWeight: 600,
-            cursor: hasAnyCard ? 'pointer' : 'not-allowed',
-            transition: 'all 0.2s ease'
-          }}
-          onMouseEnter={(e) => {
-            if (hasAnyCard) {
-              e.currentTarget.style.opacity = '0.9';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (hasAnyCard) {
-              e.currentTarget.style.opacity = '1';
-            }
-          }}
-          aria-label="Continue with insurance upload"
-        >
-          Continue
-        </button>
+            Continue
+          </button>
+        </FeatureGate>
       </DialogContent>
     </Dialog>
   );
@@ -359,7 +362,7 @@ function CardUploadArea({ label, cardData, onFileSelect, onRemove }: CardUploadA
               objectFit: 'cover'
             }}
           />
-          
+
           {/* Overlay controls */}
           <div
             style={{
