@@ -8,8 +8,11 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
-    // Use standalone output for dynamic rendering (allows dynamic routes)
-    output: 'standalone',
+    // CRITICAL: Enable static export for Firebase Hosting
+    output: 'export',
+    // standalone output is NOT compatible with your current firebase.json config
+    // output: 'standalone',
+
     // Disable image optimization for static export (or use unoptimized)
     images: {
         unoptimized: true,
@@ -38,6 +41,7 @@ const nextConfig = {
     },
     trailingSlash: true,
     env: {
+        NEXT_PUBLIC_API_BASE: process.env.NEXT_PUBLIC_API_BASE,
         NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
         NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     },
