@@ -3,18 +3,15 @@ import { useAuth } from '@/lib/contexts/AuthContext';
 
 // Check ALL possible API env var names - same logic as useInsurance
 const getApiBaseUrl = (): string => {
-  // NEXT_PUBLIC_API_BASE typically includes /api/v1 already
   if (process.env.NEXT_PUBLIC_API_BASE) {
     return process.env.NEXT_PUBLIC_API_BASE;
   }
-  // These typically don't include /api/v1
   if (process.env.NEXT_PUBLIC_API_URL) {
     return `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
   }
   if (process.env.NEXT_PUBLIC_API_BASE_URL) {
     return `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`;
   }
-  // Fallback to gateway (known working)
   return 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/v1';
 };
 
@@ -116,7 +113,8 @@ export function useUserPreferences(): UseUserPreferencesReturn {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`HTTP ${response.status}: ${errorText}`);
       }
 
       const data = await response.json();
