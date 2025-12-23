@@ -18,7 +18,8 @@ export default function SignupPage() {
 
   useEffect(() => {
     if (!authLoading && user) {
-      router.push('/home');
+      // Redirect to profile setup for new users
+      router.push('/profile-setup');
     }
   }, [user, authLoading, router]);
 

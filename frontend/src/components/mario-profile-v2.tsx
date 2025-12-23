@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Switch } from './ui/switch';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Progress } from './ui/progress';
-import { 
-  User, 
-  CreditCard, 
+import {
+  User,
+  CreditCard,
   Bell,
   Moon,
   Shield,
@@ -18,8 +18,13 @@ import {
   MapPin,
   Lock,
   Users,
-  Pill
+  Pill,
+  Check,
+  X
 } from 'lucide-react';
+import { useAuth } from '@/lib/contexts/AuthContext';
+import { useUserPreferences } from '@/lib/hooks/useUserPreferences';
+import { useInsurance } from '@/lib/hooks/useInsurance';
 
 interface MarioProfileV2Props {
   onNavigateToHome?: () => void;
@@ -42,22 +47,44 @@ export function MarioProfileV2({
   onViewSavedMedications,
   onViewSavedPharmacies
 }: MarioProfileV2Props) {
+  const { user: authUser } = useAuth();
+  const { preferences, loading: prefsLoading, updatePreferences } = useUserPreferences();
+  const { providers, loading: providersLoading } = useInsurance();
+
   const [medicationReminders, setMedicationReminders] = useState(true);
   const [appointmentAlerts, setAppointmentAlerts] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
 
-  // Mock user data
+  // Edit states for Week 1 MVP fields
+  const [editingLocation, setEditingLocation] = useState(false);
+  const [editingInsurance, setEditingInsurance] = useState(false);
+  const [tempZipCode, setTempZipCode] = useState('');
+  const [tempSearchRadius, setTempSearchRadius] = useState(60);
+  const [tempInsuranceCarrier, setTempInsuranceCarrier] = useState('');
+  const [zipError, setZipError] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  // Load preferences into temp state when editing starts
+  useEffect(() => {
+    if (preferences) {
+      setTempZipCode(preferences.default_zip || '');
+      setTempSearchRadius(preferences.default_radius || 60);
+      setTempInsuranceCarrier(preferences.preferred_insurance_carriers?.[0] || '');
+    }
+  }, [preferences]);
+
+  // Mock user data (will be replaced with real auth data later)
   const user = {
-    name: 'Sarah Johnson',
-    email: 'sarah.johnson@email.com',
-    initials: 'SJ',
+    name: authUser?.displayName || authUser?.email?.split('@')[0] || 'User',
+    email: authUser?.email || 'user@example.com',
+    initials: authUser?.displayName?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U',
     memberSince: 'March 2024',
     tier: 'Silver Tier',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face'
+    avatar: authUser?.photoURL || undefined
   };
 
-  // Insurance data
+  // Insurance data (mock for now - Week 2 feature)
   const insurance = {
     provider: 'Blue Cross Blue Shield',
     memberId: 'ABC123456',
@@ -73,6 +100,70 @@ export function MarioProfileV2({
     { id: 'medications', icon: Pill, label: 'Saved Medications', count: 2 },
     { id: 'pharmacies', icon: MapPin, label: 'Saved Pharmacies', count: 1 }
   ];
+
+  const validateZipCode = (zip: string): boolean => {
+    const zipRegex = /^\d{5}$/;
+    if (!zipRegex.test(zip)) {
+      setZipError('Please enter a valid 5-digit ZIP code');
+      return false;
+    }
+    setZipError('');
+    return true;
+  };
+
+  const handleSaveLocation = async () => {
+    if (!validateZipCode(tempZipCode)) {
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await updatePreferences({
+        default_zip: tempZipCode,
+        default_radius: tempSearchRadius,
+      });
+      setEditingLocation(false);
+    } catch (err) {
+      console.error('Failed to save location preferences:', err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleCancelLocation = () => {
+    setTempZipCode(preferences?.default_zip || '');
+    setTempSearchRadius(preferences?.default_radius || 60);
+    setZipError('');
+    setEditingLocation(false);
+  };
+
+  const handleSaveInsurance = async () => {
+    if (!tempInsuranceCarrier) {
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await updatePreferences({
+        preferred_insurance_carriers: [tempInsuranceCarrier],
+      });
+      setEditingInsurance(false);
+    } catch (err) {
+      console.error('Failed to save insurance preference:', err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleCancelInsurance = () => {
+    setTempInsuranceCarrier(preferences?.preferred_insurance_carriers?.[0] || '');
+    setEditingInsurance(false);
+  };
+
+  const getInsuranceProviderName = (id: string) => {
+    const provider = providers.find(p => p.id === id);
+    return provider?.name || id;
+  };
 
   return (
     <div 
@@ -192,20 +283,378 @@ export function MarioProfileV2({
           </div>
         </Card>
 
-        {/* Section 2: Insurance Information */}
-        <Card 
+        {/* Section 2: Location Preferences (Week 1 MVP) */}
+        <Card
           className="rounded-2xl shadow-md p-4"
           style={{ backgroundColor: '#FFFFFF' }}
         >
-          <h2 
-            className="font-semibold mb-4"
-            style={{ 
-              fontSize: '20px',
-              color: '#1A1A1A'
-            }}
-          >
-            Insurance Information
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2
+              className="font-semibold"
+              style={{
+                fontSize: '20px',
+                color: '#1A1A1A'
+              }}
+            >
+              Location Preferences
+            </h2>
+            {!editingLocation && (
+              <button
+                onClick={() => setEditingLocation(true)}
+                className="transition-opacity"
+                style={{ color: '#2E5077' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = '0.7';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = '1';
+                }}
+              >
+                <Edit className="h-5 w-5" />
+              </button>
+            )}
+          </div>
+
+          {editingLocation ? (
+            <div className="space-y-4">
+              {/* Edit ZIP Code */}
+              <div>
+                <label
+                  htmlFor="editZipCode"
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#666666',
+                    marginBottom: '8px',
+                    display: 'block'
+                  }}
+                >
+                  ZIP Code
+                </label>
+                <input
+                  id="editZipCode"
+                  type="text"
+                  inputMode="numeric"
+                  value={tempZipCode}
+                  onChange={(e) => {
+                    const numericValue = e.target.value.replace(/\D/g, '').slice(0, 5);
+                    setTempZipCode(numericValue);
+                    if (numericValue.length === 5) {
+                      validateZipCode(numericValue);
+                    } else if (zipError) {
+                      setZipError('');
+                    }
+                  }}
+                  className="w-full px-4 py-2 rounded-lg border"
+                  style={{
+                    fontSize: '16px',
+                    borderColor: zipError ? '#EF4444' : '#E0E0E0'
+                  }}
+                />
+                {zipError && (
+                  <p style={{ fontSize: '12px', color: '#EF4444', marginTop: '4px' }}>
+                    {zipError}
+                  </p>
+                )}
+              </div>
+
+              {/* Edit Search Radius */}
+              <div>
+                <label
+                  htmlFor="editSearchRadius"
+                  className="flex items-center justify-between"
+                  style={{ marginBottom: '8px' }}
+                >
+                  <span
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      color: '#666666'
+                    }}
+                  >
+                    Search Radius
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      color: '#4DA1A9'
+                    }}
+                  >
+                    {tempSearchRadius} miles
+                  </span>
+                </label>
+                <input
+                  id="editSearchRadius"
+                  type="range"
+                  min="10"
+                  max="100"
+                  step="5"
+                  value={tempSearchRadius}
+                  onChange={(e) => setTempSearchRadius(parseInt(e.target.value))}
+                  className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #4DA1A9 0%, #4DA1A9 ${((tempSearchRadius - 10) / 90) * 100}%, #E0E0E0 ${((tempSearchRadius - 10) / 90) * 100}%, #E0E0E0 100%)`,
+                  }}
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-2">
+                <Button
+                  onClick={handleSaveLocation}
+                  disabled={saving || !!zipError}
+                  className="flex-1"
+                  style={{
+                    backgroundColor: '#2E5077',
+                    color: '#FFFFFF',
+                    minHeight: '44px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    opacity: saving || zipError ? 0.6 : 1
+                  }}
+                >
+                  <Check className="h-4 w-4 mr-2" />
+                  {saving ? 'Saving...' : 'Save'}
+                </Button>
+                <Button
+                  onClick={handleCancelLocation}
+                  disabled={saving}
+                  variant="outline"
+                  className="flex-1"
+                  style={{
+                    borderColor: '#E0E0E0',
+                    color: '#666666',
+                    minHeight: '44px',
+                    fontSize: '14px',
+                    fontWeight: '500'
+                  }}
+                >
+                  <X className="h-4 w-4 mr-2" />
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {/* Display ZIP Code */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <p
+                    style={{
+                      fontSize: '14px',
+                      color: '#666666',
+                      fontWeight: '500',
+                      marginBottom: '4px'
+                    }}
+                  >
+                    ZIP Code
+                  </p>
+                  <p
+                    style={{
+                      fontSize: '16px',
+                      color: '#1A1A1A'
+                    }}
+                  >
+                    {preferences?.default_zip || 'Not set'}
+                  </p>
+                </div>
+                <MapPin className="h-6 w-6" style={{ color: '#4DA1A9' }} />
+              </div>
+
+              {/* Divider */}
+              <div
+                className="h-px"
+                style={{ backgroundColor: '#4DA1A920' }}
+              />
+
+              {/* Display Search Radius */}
+              <div>
+                <p
+                  style={{
+                    fontSize: '14px',
+                    color: '#666666',
+                    fontWeight: '500',
+                    marginBottom: '4px'
+                  }}
+                >
+                  Search Radius
+                </p>
+                <p
+                  style={{
+                    fontSize: '16px',
+                    color: '#1A1A1A'
+                  }}
+                >
+                  {preferences?.default_radius || 60} miles
+                </p>
+              </div>
+            </div>
+          )}
+        </Card>
+
+        {/* Section 3: Insurance Carrier (Week 1 MVP) */}
+        <Card
+          className="rounded-2xl shadow-md p-4"
+          style={{ backgroundColor: '#FFFFFF' }}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h2
+              className="font-semibold"
+              style={{
+                fontSize: '20px',
+                color: '#1A1A1A'
+              }}
+            >
+              Insurance Carrier
+            </h2>
+            {!editingInsurance && (
+              <button
+                onClick={() => setEditingInsurance(true)}
+                className="transition-opacity"
+                style={{ color: '#2E5077' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = '0.7';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = '1';
+                }}
+              >
+                <Edit className="h-5 w-5" />
+              </button>
+            )}
+          </div>
+
+          {editingInsurance ? (
+            <div className="space-y-4">
+              {/* Edit Insurance Carrier */}
+              <div>
+                <label
+                  htmlFor="editInsuranceCarrier"
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#666666',
+                    marginBottom: '8px',
+                    display: 'block'
+                  }}
+                >
+                  Carrier
+                </label>
+                <select
+                  id="editInsuranceCarrier"
+                  value={tempInsuranceCarrier}
+                  onChange={(e) => setTempInsuranceCarrier(e.target.value)}
+                  disabled={providersLoading}
+                  className="w-full px-4 py-2 rounded-lg border"
+                  style={{
+                    fontSize: '16px',
+                    borderColor: '#E0E0E0',
+                    cursor: providersLoading ? 'wait' : 'pointer'
+                  }}
+                >
+                  <option value="">Select your insurance carrier</option>
+                  {providers.map((provider) => (
+                    <option key={provider.id} value={provider.id}>
+                      {provider.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-2">
+                <Button
+                  onClick={handleSaveInsurance}
+                  disabled={saving || !tempInsuranceCarrier}
+                  className="flex-1"
+                  style={{
+                    backgroundColor: '#2E5077',
+                    color: '#FFFFFF',
+                    minHeight: '44px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    opacity: saving || !tempInsuranceCarrier ? 0.6 : 1
+                  }}
+                >
+                  <Check className="h-4 w-4 mr-2" />
+                  {saving ? 'Saving...' : 'Save'}
+                </Button>
+                <Button
+                  onClick={handleCancelInsurance}
+                  disabled={saving}
+                  variant="outline"
+                  className="flex-1"
+                  style={{
+                    borderColor: '#E0E0E0',
+                    color: '#666666',
+                    minHeight: '44px',
+                    fontSize: '14px',
+                    fontWeight: '500'
+                  }}
+                >
+                  <X className="h-4 w-4 mr-2" />
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between">
+              <div>
+                <p
+                  style={{
+                    fontSize: '14px',
+                    color: '#666666',
+                    fontWeight: '500',
+                    marginBottom: '4px'
+                  }}
+                >
+                  Current Carrier
+                </p>
+                <p
+                  style={{
+                    fontSize: '16px',
+                    color: '#1A1A1A'
+                  }}
+                >
+                  {preferences?.preferred_insurance_carriers?.[0]
+                    ? getInsuranceProviderName(preferences.preferred_insurance_carriers[0])
+                    : 'Not set'}
+                </p>
+              </div>
+              <Shield className="h-6 w-6" style={{ color: '#4DA1A9' }} />
+            </div>
+          )}
+        </Card>
+
+        {/* Section 4: Additional Insurance Details (Week 2 - Mock for now) */}
+        <Card
+          className="rounded-2xl shadow-md p-4"
+          style={{ backgroundColor: '#FFFFFF' }}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h2
+              className="font-semibold"
+              style={{
+                fontSize: '20px',
+                color: '#1A1A1A'
+              }}
+            >
+              Insurance Details
+            </h2>
+            <Badge
+              variant="secondary"
+              style={{
+                backgroundColor: '#F0F0F0',
+                color: '#666666',
+                fontSize: '10px',
+                fontWeight: '500',
+                padding: '4px 8px'
+              }}
+            >
+              Week 2
+            </Badge>
+          </div>
 
           {/* Insurance Details */}
           <div className="space-y-4 mb-4">
@@ -346,7 +795,7 @@ export function MarioProfileV2({
           </Button>
         </Card>
 
-        {/* Section 3: My Saved Lists */}
+        {/* Section 5: My Saved Lists */}
         <Card 
           className="rounded-2xl shadow-md p-4"
           style={{ backgroundColor: '#FFFFFF' }}
@@ -442,7 +891,7 @@ export function MarioProfileV2({
           </button>
         </Card>
 
-        {/* Section 4: Reminders & Alerts */}
+        {/* Section 6: Reminders & Alerts */}
         <Card 
           className="rounded-2xl shadow-md p-4"
           style={{ backgroundColor: '#FFFFFF' }}
@@ -535,7 +984,7 @@ export function MarioProfileV2({
           </button>
         </Card>
 
-        {/* Section 5: Settings */}
+        {/* Section 7: Settings */}
         <Card 
           className="rounded-2xl shadow-md p-4"
           style={{ backgroundColor: '#FFFFFF' }}

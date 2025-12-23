@@ -73,27 +73,69 @@ async def get_insurance_providers(
 ):
     """
     Get list of available insurance providers.
-    
-    TODO: Implement logic to match frontend requirements.
+
+    Returns major US insurance carriers for Week 1 MVP.
     """
-    # Stub response for now
+    # Week 1 MVP: Major US insurance carriers
     return InsuranceProvidersResponse(
         providers=[
             InsuranceProvider(
-                id="ins_001",
+                id="bcbs",
                 name="Blue Cross Blue Shield",
                 type="PPO",
                 network="National",
             ),
             InsuranceProvider(
-                id="ins_002",
+                id="uhc",
+                name="UnitedHealthcare",
+                type="PPO",
+                network="National",
+            ),
+            InsuranceProvider(
+                id="aetna",
                 name="Aetna",
+                type="HMO",
+                network="National",
+            ),
+            InsuranceProvider(
+                id="cigna",
+                name="Cigna",
+                type="PPO",
+                network="National",
+            ),
+            InsuranceProvider(
+                id="humana",
+                name="Humana",
+                type="HMO",
+                network="National",
+            ),
+            InsuranceProvider(
+                id="kaiser",
+                name="Kaiser Permanente",
                 type="HMO",
                 network="Regional",
             ),
             InsuranceProvider(
-                id="ins_003",
-                name="Cigna",
+                id="anthem",
+                name="Anthem",
+                type="PPO",
+                network="National",
+            ),
+            InsuranceProvider(
+                id="centene",
+                name="Centene",
+                type="HMO",
+                network="National",
+            ),
+            InsuranceProvider(
+                id="molina",
+                name="Molina Healthcare",
+                type="HMO",
+                network="Regional",
+            ),
+            InsuranceProvider(
+                id="other",
+                name="Other Insurance",
                 type="PPO",
                 network="National",
             ),
