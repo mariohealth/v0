@@ -12,7 +12,7 @@ async def get_specialties(
     request: Request,  # Add this to access request context
     supabase: Client = Depends(get_supabase)
 ):
-    """Get all procedure categories with family counts."""
+    """Get all medical specialties."""
     service = SpecialtyService(supabase)
 
     # Log view event for analytics
