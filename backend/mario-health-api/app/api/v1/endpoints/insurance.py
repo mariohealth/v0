@@ -38,6 +38,7 @@ class InsuranceProvider(BaseModel):
     name: str
     type: str
     network: Optional[str] = None
+    available: bool = True  # Whether this carrier has pricing data loaded
 
 
 class InsuranceProvidersResponse(BaseModel):
@@ -72,28 +73,88 @@ async def get_insurance_providers(
     supabase: Client = Depends(get_supabase)
 ):
     """
-    Get list of available insurance providers.
+    Get list of all major insurance providers.
 
-    Returns insurance carriers that match the actual pricing data in the system.
+    Shows all carriers, with 'available' flag indicating which ones have pricing data.
     Currently only Cigna and UnitedHealthcare have pricing data loaded.
     """
-    # IMPORTANT: These carrier IDs must match the carrier_id values in the
-    # procedure_pricing table. As of now, only these two carriers have data:
+    # IMPORTANT: Carriers with available=True must match carrier_id values in
+    # the procedure_pricing table:
     # - cigna_national_oap (from cigna/national_oap_plan data pipeline)
     # - united_pp1_00 (from united_healthcare/pp1_00_plan data pipeline)
     return InsuranceProvidersResponse(
         providers=[
+            # Available carriers (have pricing data)
             InsuranceProvider(
                 id="cigna_national_oap",
-                name="Cigna (National OAP Plan)",
+                name="Cigna",
                 type="PPO",
                 network="National",
+                available=True,
             ),
             InsuranceProvider(
                 id="united_pp1_00",
-                name="UnitedHealthcare (PP1.00 Plan)",
+                name="UnitedHealthcare",
                 type="PPO",
                 network="National",
+                available=True,
+            ),
+            # Unavailable carriers (coming soon)
+            InsuranceProvider(
+                id="bcbs",
+                name="Blue Cross Blue Shield",
+                type="PPO",
+                network="National",
+                available=False,
+            ),
+            InsuranceProvider(
+                id="aetna",
+                name="Aetna",
+                type="HMO",
+                network="National",
+                available=False,
+            ),
+            InsuranceProvider(
+                id="humana",
+                name="Humana",
+                type="HMO",
+                network="National",
+                available=False,
+            ),
+            InsuranceProvider(
+                id="kaiser",
+                name="Kaiser Permanente",
+                type="HMO",
+                network="Regional",
+                available=False,
+            ),
+            InsuranceProvider(
+                id="anthem",
+                name="Anthem",
+                type="PPO",
+                network="National",
+                available=False,
+            ),
+            InsuranceProvider(
+                id="centene",
+                name="Centene",
+                type="HMO",
+                network="National",
+                available=False,
+            ),
+            InsuranceProvider(
+                id="molina",
+                name="Molina Healthcare",
+                type="HMO",
+                network="Regional",
+                available=False,
+            ),
+            InsuranceProvider(
+                id="other",
+                name="Other Insurance",
+                type="PPO",
+                network="National",
+                available=False,
             ),
         ]
     )

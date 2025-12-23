@@ -221,8 +221,15 @@ export function MarioProfileSetup({ onComplete }: MarioProfileSetupProps) {
               >
                 <option value="">Select your insurance carrier</option>
                 {providers.map((provider) => (
-                  <option key={provider.id} value={provider.id}>
-                    {provider.name}
+                  <option
+                    key={provider.id}
+                    value={provider.id}
+                    disabled={!provider.available}
+                    style={{
+                      color: provider.available ? '#1A1A1A' : '#CCCCCC',
+                    }}
+                  >
+                    {provider.name}{!provider.available ? ' (Coming Soon)' : ''}
                   </option>
                 ))}
               </select>

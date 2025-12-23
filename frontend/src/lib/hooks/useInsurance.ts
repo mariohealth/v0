@@ -7,6 +7,7 @@ export interface InsuranceProvider {
   name: string;
   type: string;
   network: string | null;
+  available: boolean;
 }
 
 interface UseInsuranceReturn {
