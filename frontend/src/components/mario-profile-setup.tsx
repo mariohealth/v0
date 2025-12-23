@@ -11,7 +11,7 @@ interface MarioProfileSetupProps {
 
 export function MarioProfileSetup({ onComplete }: MarioProfileSetupProps) {
   const { updatePreferences } = useUserPreferences();
-  const { providers, loading: providersLoading } = useInsurance();
+  const { providers, loading: providersLoading, error: providersError } = useInsurance();
 
   const [zipCode, setZipCode] = useState('');
   const [insuranceCarrier, setInsuranceCarrier] = useState('');
@@ -126,6 +126,21 @@ export function MarioProfileSetup({ onComplete }: MarioProfileSetupProps) {
               >
                 <p style={{ fontSize: '14px', color: '#991B1B' }}>
                   {error}
+                </p>
+              </div>
+            )}
+
+            {/* Providers Loading Error */}
+            {providersError && !providersLoading && (
+              <div
+                className="rounded-lg p-4"
+                style={{
+                  backgroundColor: '#FEF3C7',
+                  border: '1px solid #FCD34D'
+                }}
+              >
+                <p style={{ fontSize: '14px', color: '#92400E' }}>
+                  Unable to load insurance carriers: {providersError}. Please refresh the page or try again later.
                 </p>
               </div>
             )}
