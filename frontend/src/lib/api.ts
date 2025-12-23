@@ -22,6 +22,29 @@ export interface SearchResult {
     match_score: number;
 }
 
+export interface DoctorResult {
+    provider_id: string;
+    provider_name: string;
+    specialty: string;
+    hospital_name?: string;
+    price?: string;
+    rating?: string | number;
+    match_score?: number;
+}
+
+export interface SpecialtyResult {
+    specialty_id: string;
+    specialty_name: string;
+    doctor_count?: number;
+    match_score?: number;
+}
+
+export type UnifiedResult =
+    | ({ type: 'procedure' } & SearchResult)
+    | ({ type: 'doctor' } & DoctorResult)
+    | ({ type: 'specialty' } & SpecialtyResult);
+
+
 export interface SearchResponse {
     query: string;
     location?: string | null;
@@ -245,6 +268,27 @@ function filterMockProcedures(query: string): SearchResult[] {
             match_score: 0.8,
         } as SearchResult));
 }
+
+/**
+ * Placeholder for specialty search API
+ * Currently returns empty results until backend is ready
+ */
+export async function searchSpecialties(query: string): Promise<SpecialtyResult[]> {
+    console.log('[API] Placeholder: Searching specialties for:', query);
+    // Real implementation will fetch from /api/v1/specialties?query=...
+    return [];
+}
+
+/**
+ * Placeholder for doctor search API
+ * Currently returns empty results until backend is ready
+ */
+export async function searchDoctors(query: string): Promise<DoctorResult[]> {
+    console.log('[API] Placeholder: Searching doctors for:', query);
+    // Real implementation will fetch from /api/v1/doctors?query=...
+    return [];
+}
+
 
 /**
  * Generate slug variants for API calls

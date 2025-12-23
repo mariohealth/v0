@@ -7,7 +7,11 @@ import { cn } from './ui/utils';
 import { MarioAutocompleteEnhanced, type AutocompleteSuggestion } from './mario-autocomplete-enhanced';
 import { doctors, specialties } from '@/lib/data/mario-doctors-data';
 import { searchMedications } from '@/lib/data/mario-medication-data';
-import { safeSearchProcedures as searchProcedures } from '@/lib/api';
+import {
+  safeSearchProcedures as searchProcedures,
+  searchSpecialties,
+  searchDoctors
+} from '@/lib/api';
 
 interface SearchResult {
   id: string;
@@ -39,7 +43,7 @@ export function MarioSmartSearch({
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<NodeJS.Timeout>();
 
@@ -54,12 +58,12 @@ export function MarioSmartSearch({
   const fuzzyMatch = (text: string, search: string): boolean => {
     const searchLower = search.toLowerCase();
     const textLower = text.toLowerCase();
-    
+
     // Direct match
     if (textLower.includes(searchLower)) {
       return true;
     }
-    
+
     // Check if all search characters appear in order
     let searchIndex = 0;
     for (let i = 0; i < textLower.length && searchIndex < searchLower.length; i++) {
@@ -84,23 +88,19 @@ export function MarioSmartSearch({
     }
 
     setIsLoading(true);
-    
+
     debounceRef.current = setTimeout(async () => {
       const suggestions: AutocompleteSuggestion[] = [];
-      
+
       try {
-        // Use safe API-based autocomplete for procedures (with fallback)
-        const results = await searchProcedures(query);
-        
-        // Convert API results to autocomplete suggestions (only procedures)
-        // safeSearchProcedures returns SearchResult[] directly
-        if (Array.isArray(results) && results.length > 0) {
-          results.forEach((result) => {
+        // 1. Fetch procedures from API (with mock fallback for procedures only)
+        const procedureResults = await searchProcedures(query);
+        if (Array.isArray(procedureResults)) {
+          procedureResults.forEach((result) => {
             if (result.procedure_slug) {
-              // Normalize API response to ensure correct field mapping
-              const displayName = result.procedure_name || result.display_name || result.name || 'Procedure';
-              const category = result.category_name || result.category || 'Procedure';
-              
+              const displayName = result.procedure_name || 'Procedure';
+              const category = result.category_name || 'Procedure';
+
               suggestions.push({
                 id: result.procedure_id || result.procedure_slug,
                 type: 'procedure' as any,
@@ -111,62 +111,59 @@ export function MarioSmartSearch({
             }
           });
         }
-      } catch (error) {
-        // Log error (fallback is already handled in safeSearchProcedures)
-        console.error('API autocomplete failed:', error);
-      }
-      
-      // Only use mock data fallback for doctors, specialties, and medications (not procedures)
-      if (suggestions.length === 0) {
-        // Search doctors
-        const matchingDoctors = doctors.filter(doc => 
-          fuzzyMatch(doc.name, query)
-        ).slice(0, 3);
-        
-        matchingDoctors.forEach(doc => {
-          suggestions.push({
-            id: doc.id,
-            type: 'doctor',
-            primaryText: doc.name,
-            secondaryText: doc.specialty,
-            doctor: doc
+
+        // 2. Fetch doctors from API (Placeholder)
+        const doctorResults = await searchDoctors(query);
+        if (Array.isArray(doctorResults)) {
+          doctorResults.forEach((doc) => {
+            suggestions.push({
+              id: doc.provider_id,
+              type: 'doctor',
+              primaryText: doc.provider_name,
+              secondaryText: doc.specialty,
+              doctor: { id: doc.provider_id, name: doc.provider_name, specialty: doc.specialty } as any
+            });
           });
-        });
-        
-        // Search specialties
+        }
+
+        // 3. Specialty suggestions (Local list for routing helpers)
         const matchingSpecialties = specialties.filter(spec =>
           fuzzyMatch(spec.name, query)
-        ).slice(0, 3);
-        
+        );
+
         matchingSpecialties.forEach(spec => {
           suggestions.push({
             id: spec.id,
             type: 'specialty',
             primaryText: spec.name,
-            secondaryText: `${spec.doctorCount} doctors available`,
+            secondaryText: `Find ${spec.name} specialists`,
             specialty: spec
           });
         });
-        
-        // Search medications
-        const matchingMedications = searchMedications(query).slice(0, 3);
-        
-        matchingMedications.forEach(med => {
-          // Create display text like "Lipitor - Atorvastatin 20 mg"
-          const displayName = med.genericFor 
-            ? `${med.genericFor} - ${med.name}`
-            : med.name;
-          
-          suggestions.push({
-            id: med.id || `med-${med.name}`,
-            type: 'medication' as any,
-            primaryText: displayName,
-            secondaryText: 'Medication',
-            medication: med
+
+        // 4. Medication suggestions (Local for now, or move to API later)
+        if (suggestions.length < 5) {
+          const matchingMedications = searchMedications(query);
+          matchingMedications.forEach(med => {
+            const displayName = med.genericFor
+              ? `${med.genericFor} - ${med.name}`
+              : med.name;
+
+            suggestions.push({
+              id: med.id || `med-${med.name}`,
+              type: 'medication' as any,
+              primaryText: displayName,
+              secondaryText: 'Medication',
+              medication: med
+            });
           });
-        });
+        }
+
+      } catch (error) {
+        console.error('Unified search failed:', error);
       }
-      
+
+
       setAutocompleteSuggestions(suggestions);
       setShowAutocomplete(suggestions.length > 0);
       setIsLoading(false);
@@ -184,7 +181,7 @@ export function MarioSmartSearch({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
-    
+
     if (value.length === 0) {
       setShowAutocomplete(false);
       setIsLoading(false);
@@ -222,7 +219,7 @@ export function MarioSmartSearch({
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
-        setSelectedIndex(prev => 
+        setSelectedIndex(prev =>
           prev < autocompleteSuggestions.length - 1 ? prev + 1 : prev
         );
         break;
@@ -251,10 +248,10 @@ export function MarioSmartSearch({
     setQuery(suggestion.primaryText);
     setShowAutocomplete(false);
     setSelectedIndex(-1);
-    
+
     // Call the onSearch with the suggestion so App.tsx can route appropriately
     onSearch(suggestion.primaryText, suggestion);
-    
+
     // Also call the dedicated callback if provided
     if (onAutocompleteSelect) {
       onAutocompleteSelect(suggestion);
@@ -264,7 +261,7 @@ export function MarioSmartSearch({
   // Handle search submission
   const handleSearch = (searchQuery: string) => {
     if (searchQuery.trim().length === 0) return;
-    
+
     setShowAutocomplete(false);
     setSelectedIndex(-1);
     onSearch(searchQuery.trim());
@@ -285,15 +282,15 @@ export function MarioSmartSearch({
       <div className={cn(
         "relative flex items-center h-12",
         "transition-all duration-200",
-        isFocused 
-          ? "border-[3px] border-[#2E5077]" 
+        isFocused
+          ? "border-[3px] border-[#2E5077]"
           : "border-2 border-[#2E5077]",
         "bg-white"
       )}
-      style={{ 
-        borderRadius: '14px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
-      }}>
+        style={{
+          borderRadius: '14px',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
+        }}>
         <Search className={cn(
           "absolute left-4 h-5 w-5 transition-colors",
           isFocused ? "text-[#2E5077]" : "text-[#999999]"
@@ -315,7 +312,7 @@ export function MarioSmartSearch({
             color: '#1A1A1A'
           }}
         />
-        
+
         {/* Loading or Clear Button */}
         <div className="absolute right-4 flex items-center">
           {isLoading ? (
@@ -348,7 +345,7 @@ export function MarioSmartSearch({
           {/* Doctors Section */}
           {autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 && (
             <div className="p-3">
-              <div 
+              <div
                 className="px-2 py-1.5 mb-1"
                 style={{
                   fontSize: '11px',
@@ -364,7 +361,7 @@ export function MarioSmartSearch({
                 {autocompleteSuggestions.filter(s => s.type === 'doctor').map((result, index) => {
                   const globalIndex = index;
                   const isSelected = selectedIndex === globalIndex;
-                  
+
                   return (
                     <button
                       key={result.id}
@@ -384,7 +381,7 @@ export function MarioSmartSearch({
                         <span className="text-base">👨‍⚕️</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div 
+                        <div
                           className="font-medium truncate"
                           style={{
                             fontSize: '14px',
@@ -393,7 +390,7 @@ export function MarioSmartSearch({
                         >
                           {result.primaryText}
                         </div>
-                        <div 
+                        <div
                           className="text-xs truncate"
                           style={{
                             color: isSelected ? 'rgba(255, 255, 255, 0.8)' : '#666666'
@@ -403,7 +400,7 @@ export function MarioSmartSearch({
                         </div>
                       </div>
                       {result.metadata?.marioPick && (
-                        <div 
+                        <div
                           className="px-2 py-0.5 rounded-full flex-shrink-0"
                           style={{
                             backgroundColor: isSelected ? 'rgba(121, 215, 190, 0.3)' : 'rgba(121, 215, 190, 0.15)',
@@ -426,12 +423,12 @@ export function MarioSmartSearch({
           {autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 && (
             <div className="p-3">
               {autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 && (
-                <div 
+                <div
                   className="h-px mb-3"
                   style={{ backgroundColor: '#E8EAED' }}
                 />
               )}
-              <div 
+              <div
                 className="px-2 py-1.5 mb-1"
                 style={{
                   fontSize: '11px',
@@ -447,7 +444,7 @@ export function MarioSmartSearch({
                 {autocompleteSuggestions.filter(s => s.type === 'specialty').map((result, index) => {
                   const globalIndex = autocompleteSuggestions.filter(s => s.type === 'doctor').length + index;
                   const isSelected = selectedIndex === globalIndex;
-                  
+
                   return (
                     <button
                       key={result.id}
@@ -467,7 +464,7 @@ export function MarioSmartSearch({
                         <span className="text-base">🔬</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div 
+                        <div
                           className="font-medium truncate"
                           style={{
                             fontSize: '14px',
@@ -476,7 +473,7 @@ export function MarioSmartSearch({
                         >
                           {result.primaryText}
                         </div>
-                        <div 
+                        <div
                           className="text-xs truncate"
                           style={{
                             color: isSelected ? 'rgba(255, 255, 255, 0.8)' : '#666666'
@@ -486,7 +483,7 @@ export function MarioSmartSearch({
                         </div>
                       </div>
                       {result.metadata?.price && (
-                        <div 
+                        <div
                           className="flex-shrink-0"
                           style={{
                             fontSize: '14px',
@@ -508,12 +505,12 @@ export function MarioSmartSearch({
           {autocompleteSuggestions.filter(s => s.type === 'procedure').length > 0 && (
             <div className="p-3">
               {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0) && (
-                <div 
+                <div
                   className="h-px mb-3"
                   style={{ backgroundColor: '#E8EAED' }}
                 />
               )}
-              <div 
+              <div
                 className="px-2 py-1.5 mb-1"
                 style={{
                   fontSize: '11px',
@@ -529,7 +526,7 @@ export function MarioSmartSearch({
                 {autocompleteSuggestions.filter(s => s.type === 'procedure').map((result, index) => {
                   const globalIndex = autocompleteSuggestions.filter(s => s.type === 'doctor').length + autocompleteSuggestions.filter(s => s.type === 'specialty').length + index;
                   const isSelected = selectedIndex === globalIndex;
-                  
+
                   return (
                     <button
                       key={result.id}
@@ -549,7 +546,7 @@ export function MarioSmartSearch({
                         <span className="text-base">🔬</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div 
+                        <div
                           className="font-medium truncate"
                           style={{
                             fontSize: '14px',
@@ -558,7 +555,7 @@ export function MarioSmartSearch({
                         >
                           {result.primaryText}
                         </div>
-                        <div 
+                        <div
                           className="text-xs truncate"
                           style={{
                             color: isSelected ? 'rgba(255, 255, 255, 0.8)' : '#666666'
@@ -568,7 +565,7 @@ export function MarioSmartSearch({
                         </div>
                       </div>
                       {result.metadata?.price && (
-                        <div 
+                        <div
                           className="flex-shrink-0"
                           style={{
                             fontSize: '14px',
@@ -590,12 +587,12 @@ export function MarioSmartSearch({
           {autocompleteSuggestions.filter(s => s.type === 'medication').length > 0 && (
             <div className="p-3">
               {(autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 || autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 || autocompleteSuggestions.filter(s => s.type === 'procedure').length > 0) && (
-                <div 
+                <div
                   className="h-px mb-3"
                   style={{ backgroundColor: '#E8EAED' }}
                 />
               )}
-              <div 
+              <div
                 className="px-2 py-1.5 mb-1"
                 style={{
                   fontSize: '11px',
@@ -611,7 +608,7 @@ export function MarioSmartSearch({
                 {autocompleteSuggestions.filter(s => s.type === 'medication').map((result, index) => {
                   const globalIndex = autocompleteSuggestions.filter(s => s.type === 'doctor').length + autocompleteSuggestions.filter(s => s.type === 'specialty').length + autocompleteSuggestions.filter(s => s.type === 'specialty' && !s.specialty).length + index;
                   const isSelected = selectedIndex === globalIndex;
-                  
+
                   return (
                     <button
                       key={result.id}
@@ -631,7 +628,7 @@ export function MarioSmartSearch({
                         <span className="text-base">💊</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div 
+                        <div
                           className="font-medium truncate"
                           style={{
                             fontSize: '14px',
@@ -640,7 +637,7 @@ export function MarioSmartSearch({
                         >
                           {result.primaryText}
                         </div>
-                        <div 
+                        <div
                           className="text-xs truncate"
                           style={{
                             color: isSelected ? 'rgba(255, 255, 255, 0.8)' : '#666666'
@@ -650,7 +647,7 @@ export function MarioSmartSearch({
                         </div>
                       </div>
                       {result.metadata?.price && (
-                        <div 
+                        <div
                           className="flex-shrink-0"
                           style={{
                             fontSize: '14px',
@@ -671,11 +668,11 @@ export function MarioSmartSearch({
           {/* Truly no results */}
           {!isLoading && autocompleteSuggestions.length === 0 && (
             <div className="p-6 text-center">
-              <Search 
+              <Search
                 className="h-10 w-10 mx-auto mb-3"
                 style={{ color: '#CCCCCC' }}
               />
-              <p 
+              <p
                 style={{
                   fontSize: '14px',
                   fontWeight: '600',
@@ -685,7 +682,7 @@ export function MarioSmartSearch({
               >
                 No results found
               </p>
-              <p 
+              <p
                 style={{
                   fontSize: '12px',
                   color: '#999999'
