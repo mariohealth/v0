@@ -99,8 +99,12 @@ export function useUserPreferences(): UseUserPreferencesReturn {
       const url = `${apiBase}/user/preferences`;
       
       console.log(`[useUserPreferences] Updating at: ${url}`);
+      console.log(`[useUserPreferences] API Base URL: ${apiBase}`);
+      console.log(`[useUserPreferences] Full URL: ${url}`);
 
       const token = await user.getIdToken();
+      console.log(`[useUserPreferences] Token obtained: ${token ? 'Yes' : 'No'}`);
+      
       const response = await fetch(url, {
         method: 'PUT',
         headers: {
@@ -112,8 +116,12 @@ export function useUserPreferences(): UseUserPreferencesReturn {
         }),
       });
 
+      console.log(`[useUserPreferences] Response status: ${response.status}`);
+      console.log(`[useUserPreferences] Response ok: ${response.ok}`);
+
       if (!response.ok) {
         const errorText = await response.text();
+        console.error(`[useUserPreferences] Error response:`, errorText);
         throw new Error(`HTTP ${response.status}: ${errorText}`);
       }
 
@@ -121,7 +129,13 @@ export function useUserPreferences(): UseUserPreferencesReturn {
       setPreferences(data.preferences);
     } catch (err) {
       console.error('[useUserPreferences] Error updating:', err);
-      setError(err instanceof Error ? err.message : 'Failed to update preferences');
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        const errorMsg = `Network error: ${err.message}. Check console for URL being called.`;
+        setError(errorMsg);
+        throw new Error(errorMsg);
+      }
+      const errorMessage = err instanceof Error ? err.message : 'Failed to update preferences';
+      setError(errorMessage);
       throw err;
     }
   }, [user, preferences]);
