@@ -74,68 +74,24 @@ async def get_insurance_providers(
     """
     Get list of available insurance providers.
 
-    Returns major US insurance carriers for Week 1 MVP.
+    Returns insurance carriers that match the actual pricing data in the system.
+    Currently only Cigna and UnitedHealthcare have pricing data loaded.
     """
-    # Week 1 MVP: Major US insurance carriers
+    # IMPORTANT: These carrier IDs must match the carrier_id values in the
+    # procedure_pricing table. As of now, only these two carriers have data:
+    # - cigna_national_oap (from cigna/national_oap_plan data pipeline)
+    # - united_pp1_00 (from united_healthcare/pp1_00_plan data pipeline)
     return InsuranceProvidersResponse(
         providers=[
             InsuranceProvider(
-                id="bcbs",
-                name="Blue Cross Blue Shield",
+                id="cigna_national_oap",
+                name="Cigna (National OAP Plan)",
                 type="PPO",
                 network="National",
             ),
             InsuranceProvider(
-                id="uhc",
-                name="UnitedHealthcare",
-                type="PPO",
-                network="National",
-            ),
-            InsuranceProvider(
-                id="aetna",
-                name="Aetna",
-                type="HMO",
-                network="National",
-            ),
-            InsuranceProvider(
-                id="cigna",
-                name="Cigna",
-                type="PPO",
-                network="National",
-            ),
-            InsuranceProvider(
-                id="humana",
-                name="Humana",
-                type="HMO",
-                network="National",
-            ),
-            InsuranceProvider(
-                id="kaiser",
-                name="Kaiser Permanente",
-                type="HMO",
-                network="Regional",
-            ),
-            InsuranceProvider(
-                id="anthem",
-                name="Anthem",
-                type="PPO",
-                network="National",
-            ),
-            InsuranceProvider(
-                id="centene",
-                name="Centene",
-                type="HMO",
-                network="National",
-            ),
-            InsuranceProvider(
-                id="molina",
-                name="Molina Healthcare",
-                type="HMO",
-                network="Regional",
-            ),
-            InsuranceProvider(
-                id="other",
-                name="Other Insurance",
+                id="united_pp1_00",
+                name="UnitedHealthcare (PP1.00 Plan)",
                 type="PPO",
                 network="National",
             ),
