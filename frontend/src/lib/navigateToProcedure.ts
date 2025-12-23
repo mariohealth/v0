@@ -45,15 +45,14 @@ export async function navigateToProcedure(
 
       if (bestMatch.type === 'doctor') {
         const doctor = bestMatch as DoctorResult;
-        router.push(`/providers/${doctor.id}`);
+        router.push(`/providers/${doctor.provider_id}`);
         return true;
       } else if (bestMatch.type === 'procedure') {
         const procedure = bestMatch as SearchResult;
-        // The user requested: If procedure match -> fetch procedure-prices
-        // For now, /procedures/[slug] is our price comparison page
         router.push(`/procedures/${procedure.procedure_slug}`);
         return true;
       }
+
     }
 
     // If no direct result or multiple results, go to search results page

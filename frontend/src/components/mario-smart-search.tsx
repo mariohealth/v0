@@ -91,39 +91,51 @@ export function MarioSmartSearch({
 
     debounceRef.current = setTimeout(async () => {
       const suggestions: AutocompleteSuggestion[] = [];
+      console.log(`[SmartSearch] Starting search for: "${query}"`);
 
       try {
         // 1. Fetch procedures from API (with mock fallback for procedures only)
-        const procedureResults = await searchProcedures(query);
-        if (Array.isArray(procedureResults)) {
-          procedureResults.forEach((result) => {
-            if (result.procedure_slug) {
-              const displayName = result.procedure_name || 'Procedure';
-              const category = result.category_name || 'Procedure';
+        try {
+          const procedureResults = await searchProcedures(query);
+          console.log(`[SmartSearch] Procedure results:`, procedureResults?.length || 0);
 
-              suggestions.push({
-                id: result.procedure_id || result.procedure_slug,
-                type: 'procedure' as any,
-                primaryText: displayName,
-                secondaryText: `${category} • ${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
-                procedureSlug: result.procedure_slug
-              });
-            }
-          });
+          if (Array.isArray(procedureResults)) {
+            procedureResults.forEach((result) => {
+              if (result.procedure_slug) {
+                const displayName = result.procedure_name || 'Procedure';
+                const category = result.category_name || 'Procedure';
+
+                suggestions.push({
+                  id: result.procedure_id || result.procedure_slug,
+                  type: 'procedure' as any,
+                  primaryText: displayName,
+                  secondaryText: `${category} • ${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
+                  procedureSlug: result.procedure_slug
+                });
+              }
+            });
+          }
+        } catch (err) {
+          console.error('[SmartSearch] Procedure fetch failed:', err);
         }
 
         // 2. Fetch doctors from API (Placeholder)
-        const doctorResults = await searchDoctors(query);
-        if (Array.isArray(doctorResults)) {
-          doctorResults.forEach((doc) => {
-            suggestions.push({
-              id: doc.provider_id,
-              type: 'doctor',
-              primaryText: doc.provider_name,
-              secondaryText: doc.specialty,
-              doctor: { id: doc.provider_id, name: doc.provider_name, specialty: doc.specialty } as any
+        try {
+          const doctorResults = await searchDoctors(query);
+          if (Array.isArray(doctorResults) && doctorResults.length > 0) {
+            console.log(`[SmartSearch] Doctor results:`, doctorResults.length);
+            doctorResults.forEach((doc) => {
+              suggestions.push({
+                id: doc.provider_id,
+                type: 'doctor',
+                primaryText: doc.provider_name,
+                secondaryText: doc.specialty,
+                doctor: { id: doc.provider_id, name: doc.provider_name, specialty: doc.specialty } as any
+              });
             });
-          });
+          }
+        } catch (err) {
+          console.error('[SmartSearch] Doctor fetch failed:', err);
         }
 
         // 3. Specialty suggestions (Local list for routing helpers)
@@ -131,44 +143,51 @@ export function MarioSmartSearch({
           fuzzyMatch(spec.name, query)
         );
 
-        matchingSpecialties.forEach(spec => {
-          suggestions.push({
-            id: spec.id,
-            type: 'specialty',
-            primaryText: spec.name,
-            secondaryText: `Find ${spec.name} specialists`,
-            specialty: spec
-          });
-        });
-
-        // 4. Medication suggestions (Local for now, or move to API later)
-        if (suggestions.length < 5) {
-          const matchingMedications = searchMedications(query);
-          matchingMedications.forEach(med => {
-            const displayName = med.genericFor
-              ? `${med.genericFor} - ${med.name}`
-              : med.name;
-
+        if (matchingSpecialties.length > 0) {
+          console.log(`[SmartSearch] Specialty matches:`, matchingSpecialties.length);
+          matchingSpecialties.forEach(spec => {
             suggestions.push({
-              id: med.id || `med-${med.name}`,
-              type: 'medication' as any,
-              primaryText: displayName,
-              secondaryText: 'Medication',
-              medication: med
+              id: spec.id,
+              type: 'specialty',
+              primaryText: spec.name,
+              secondaryText: `Find ${spec.name} specialists`,
+              specialty: spec
             });
           });
         }
 
+        // 4. Medication suggestions (Local for now)
+        if (suggestions.length < 5) {
+          const matchingMedications = searchMedications(query);
+          if (matchingMedications.length > 0) {
+            console.log(`[SmartSearch] Medication matches:`, matchingMedications.length);
+            matchingMedications.forEach(med => {
+              const displayName = med.genericFor
+                ? `${med.genericFor} - ${med.name}`
+                : med.name;
+
+              suggestions.push({
+                id: med.id || `med-${med.name}`,
+                type: 'medication' as any,
+                primaryText: displayName,
+                secondaryText: 'Medication',
+                medication: med
+              });
+            });
+          }
+        }
+
       } catch (error) {
-        console.error('Unified search failed:', error);
+        console.error('[SmartSearch] Unified search failed:', error);
       }
 
-
+      console.log(`[SmartSearch] Total suggestions:`, suggestions.length);
       setAutocompleteSuggestions(suggestions);
       setShowAutocomplete(suggestions.length > 0);
       setIsLoading(false);
       setSelectedIndex(-1);
     }, 300);
+
 
     return () => {
       if (debounceRef.current) {

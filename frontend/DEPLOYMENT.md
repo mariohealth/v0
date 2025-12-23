@@ -65,3 +65,4 @@ npm run dev
 - Static assets are served by Next.js from the `.next/static` directory
 
 
+

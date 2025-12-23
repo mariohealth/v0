@@ -20,7 +20,9 @@ export interface SearchResult {
     nearest_provider?: string;
     nearest_distance_miles?: number | null;
     match_score: number;
+    type?: 'procedure';
 }
+
 
 export interface DoctorResult {
     provider_id: string;
@@ -30,6 +32,7 @@ export interface DoctorResult {
     price?: string;
     rating?: string | number;
     match_score?: number;
+    type?: 'doctor';
 }
 
 export interface SpecialtyResult {
@@ -37,7 +40,9 @@ export interface SpecialtyResult {
     specialty_name: string;
     doctor_count?: number;
     match_score?: number;
+    type?: 'specialty';
 }
+
 
 export type UnifiedResult =
     | ({ type: 'procedure' } & SearchResult)
@@ -50,8 +55,9 @@ export interface SearchResponse {
     location?: string | null;
     radius_miles?: number;
     results_count: number;
-    results: SearchResult[];
+    results: UnifiedResult[];
 }
+
 
 export interface Provider {
     provider_id: string;
@@ -155,6 +161,37 @@ async function fetchWithAuth(url: string, options: RequestInit = {}): Promise<Re
 }
 
 /**
+ * Smart Auth Fetch: Attempts authenticated request, falls back to plain fetch on potential CORS/Auth failures
+ */
+async function fetchSmartAuth(url: string, options: RequestInit = {}): Promise<Response> {
+    const token = await getAuthToken();
+
+    // If no token, just do a normal fetch
+    if (!token) {
+        return fetch(url, options);
+    }
+
+    try {
+        // Attempt with Auth
+        const response = await fetchWithAuth(url, options);
+
+        // If we get a 401/403 or it's a CORS failure (which usually manifests as a TypeError in fetch),
+        // we might want to retry without auth for public endpoints like search.
+        if (response.status === 401 || response.status === 403) {
+            console.warn('[API] Auth failed (401/403), retrying without authentication...');
+            return fetch(url, options);
+        }
+
+        return response;
+    } catch (error) {
+        // Catch network errors (likely CORS preflight failures on Gateway)
+        console.error('[API] fetchWithAuth failed, likely CORS or Network issue. Retrying without auth...', error);
+        return fetch(url, options);
+    }
+}
+
+
+/**
  * Search for procedures by query string
  */
 export async function searchProcedures(
@@ -179,12 +216,11 @@ export async function searchProcedures(
     console.log('[API] Searching procedures:', { query, location, radius_miles, url });
 
     try {
-        const response = await fetch(url, {
+        // Use fetchSmartAuth to handle tokens vs CORS preflight issues
+        const response = await fetchSmartAuth(url, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
         });
+
 
         if (!response.ok) {
             const errorText = await response.text();
@@ -228,8 +264,10 @@ export async function safeSearchProcedures(query: string): Promise<SearchResult[
 
         // If API returns results, use them
         if (response.results && response.results.length > 0) {
-            return response.results;
+            // Filter to only procedures for this safe wrapper
+            return response.results.filter(r => r.type === 'procedure') as SearchResult[];
         }
+
 
         // Empty API response - use mock fallback
         console.warn('[safeSearchProcedures] Empty API response, using mock fallback');
@@ -470,8 +508,9 @@ export async function getProcedureBySlug(procedureSlug: string): Promise<SearchR
                 procedureSlug,
             });
             const searchResponse = await searchProcedures(procedureSlug);
-            const result = searchResponse.results.find((r) => r.procedure_slug === procedureSlug);
+            const result = searchResponse.results.find((r) => r.type === 'procedure' && r.procedure_slug === procedureSlug) as SearchResult | undefined;
             return result || await getMockProcedureData(procedureSlug);
+
         }
 
         const data = await response.json();
@@ -509,10 +548,11 @@ export async function getProcedureBySlug(procedureSlug: string): Promise<SearchR
         // Fallback to search on error
         try {
             const searchResponse = await searchProcedures(procedureSlug);
-            const result = searchResponse.results.find((r) => r.procedure_slug === procedureSlug);
+            const result = searchResponse.results.find((r) => r.type === 'procedure' && r.procedure_slug === procedureSlug) as SearchResult | undefined;
             if (result) {
                 return result;
             }
+
         } catch (searchError) {
             console.error('[API] Search fallback also failed:', searchError);
         }
