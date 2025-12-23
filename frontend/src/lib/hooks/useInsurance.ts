@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 
-// Use same API base URL as other API calls (gateway, not direct Cloud Run)
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
+// Unified API base URL logic - check all common env vars and fallback to the production Cloud Run URL
+const API_BASE_URL = 
+  process.env.NEXT_PUBLIC_API_URL || 
+  process.env.NEXT_PUBLIC_API_BASE_URL || 
+  'https://mario-health-api-production-643522268884.us-central1.run.app';
 
 export interface InsuranceProvider {
   id: string;
@@ -28,31 +31,34 @@ export function useInsurance(): UseInsuranceReturn {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(`${API_BASE_URL}/api/v1/insurance/providers`);
+        // Build the URL carefully to avoid double /api/v1
+        const baseUrl = API_BASE_URL.replace(/\/+$/, '');
+        const apiPath = baseUrl.includes('/api/v1') ? '/insurance/providers' : '/api/v1/insurance/providers';
+        const url = `${baseUrl}${apiPath}`;
+
+        console.log(`[useInsurance] Fetching from: ${url}`);
+
+        const response = await fetch(url);
 
         if (!response.ok) {
           const errorText = await response.text();
-          throw new Error(`Failed to fetch insurance providers: ${response.status} ${errorText}`);
+          throw new Error(`Failed to fetch: ${response.status} ${errorText}`);
         }
 
         const data = await response.json();
+        const rawProviders = data.providers || [];
         
-        // Handle missing 'available' field: default to false but still show providers
-        // Map Cigna and UnitedHealthcare to available=true based on backend logic
-        const providersWithDefaults = (data.providers || []).map((provider: any) => {
-          // If available field is missing, determine based on provider ID/name
+        // Map and clean up provider data
+        const providersWithDefaults = rawProviders.map((provider: any) => {
           let available = provider.available;
           if (available === undefined || available === null) {
-            // Match backend logic: cigna_national_oap and united_pp1_00 are available
-            // Also handle gateway response format (ins_003 for Cigna, etc.)
             const providerId = provider.id?.toLowerCase() || '';
             const providerName = provider.name?.toLowerCase() || '';
-            // Check for Cigna (id: cigna_national_oap, ins_003, or name contains "cigna")
-            // Check for UnitedHealthcare (id: united_pp1_00 or name contains "united")
+            // Phase 1 essential carriers
             available = 
               providerId === 'cigna_national_oap' ||
               providerId === 'united_pp1_00' ||
-              providerId === 'ins_003' || // Gateway format for Cigna
+              providerId === 'ins_003' || // Gateway Cigna ID
               providerName.includes('cigna') ||
               providerName.includes('united');
           }
@@ -65,13 +71,29 @@ export function useInsurance(): UseInsuranceReturn {
             available: Boolean(available),
           };
         });
-        
-        setProviders(providersWithDefaults);
+
+        if (providersWithDefaults.length === 0) {
+          console.warn('[useInsurance] API returned empty providers list, using fallbacks');
+          setProviders([
+            { id: 'cigna_national_oap', name: 'Cigna', type: 'PPO', network: 'National', available: true },
+            { id: 'united_pp1_00', name: 'UnitedHealthcare', type: 'PPO', network: 'National', available: true },
+            { id: 'aetna', name: 'Aetna', type: 'PPO', network: 'National', available: false },
+            { id: 'bcbs', name: 'Blue Cross Blue Shield', type: 'PPO', network: 'National', available: false },
+          ]);
+        } else {
+          setProviders(providersWithDefaults);
+        }
       } catch (err) {
-        console.error('Error fetching insurance providers:', err);
-        const errorMessage = err instanceof Error ? err.message : 'Failed to fetch providers';
-        setError(errorMessage);
-        // Don't set empty array on error - let UI show error state
+        console.error('[useInsurance] Error:', err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch providers');
+        
+        // Safety fallback even on network error so the UI is not blocked
+        setProviders([
+          { id: 'cigna_national_oap', name: 'Cigna', type: 'PPO', network: 'National', available: true },
+          { id: 'united_pp1_00', name: 'UnitedHealthcare', type: 'PPO', network: 'National', available: true },
+          { id: 'aetna', name: 'Aetna', type: 'PPO', network: 'National', available: false },
+          { id: 'bcbs', name: 'Blue Cross Blue Shield', type: 'PPO', network: 'National', available: false },
+        ]);
       } finally {
         setLoading(false);
       }
