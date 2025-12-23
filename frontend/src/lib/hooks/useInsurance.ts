@@ -1,20 +1,16 @@
 import { useState, useEffect } from 'react';
 
 // Check ALL possible API env var names used across the codebase
-// Priority: NEXT_PUBLIC_API_BASE (includes /api/v1) > NEXT_PUBLIC_API_URL > NEXT_PUBLIC_API_BASE_URL > gateway fallback
 const getApiBaseUrl = (): string => {
-  // NEXT_PUBLIC_API_BASE typically includes /api/v1 already
   if (process.env.NEXT_PUBLIC_API_BASE) {
     return process.env.NEXT_PUBLIC_API_BASE;
   }
-  // These typically don't include /api/v1
   if (process.env.NEXT_PUBLIC_API_URL) {
     return `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
   }
   if (process.env.NEXT_PUBLIC_API_BASE_URL) {
     return `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`;
   }
-  // Fallback to gateway (known working)
   return 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/v1';
 };
 
@@ -32,7 +28,7 @@ interface UseInsuranceReturn {
   error: string | null;
 }
 
-// Hardcoded fallback providers for Phase 1 (Cigna + United available, others coming soon)
+// Hardcoded fallback providers for Phase 1 (Cigna + United available)
 const FALLBACK_PROVIDERS: InsuranceProvider[] = [
   { id: 'cigna_national_oap', name: 'Cigna', type: 'PPO', network: 'National', available: true },
   { id: 'united_pp1_00', name: 'UnitedHealthcare', type: 'PPO', network: 'National', available: true },
@@ -62,7 +58,6 @@ export function useInsurance(): UseInsuranceReturn {
           throw new Error(`HTTP ${response.status}`);
         }
 
-        // Check content-type to avoid parsing HTML as JSON
         const contentType = response.headers.get('content-type') || '';
         if (!contentType.includes('application/json')) {
           throw new Error(`Expected JSON but got ${contentType}`);
@@ -72,24 +67,24 @@ export function useInsurance(): UseInsuranceReturn {
         const rawProviders = data.providers || [];
         
         if (rawProviders.length === 0) {
-          console.warn('[useInsurance] API returned empty providers, using fallbacks');
           setProviders(FALLBACK_PROVIDERS);
           return;
         }
 
         // Map and clean up provider data
-        const providersWithDefaults = rawProviders.map((provider: any) => {
+        let processedProviders = rawProviders.map((provider: any) => {
           let available = provider.available;
           if (available === undefined || available === null) {
             const providerId = provider.id?.toLowerCase() || '';
             const providerName = provider.name?.toLowerCase() || '';
-            // Phase 1 essential carriers
+            // Match Phase 1 available carriers
             available = 
-              providerId === 'cigna_national_oap' ||
-              providerId === 'united_pp1_00' ||
-              providerId === 'ins_003' || // Gateway Cigna ID
+              providerId.includes('cigna') || 
+              providerId.includes('united') ||
+              providerId.includes('ins_003') || // Gateway Cigna ID
               providerName.includes('cigna') ||
-              providerName.includes('united');
+              providerName.includes('united') ||
+              providerName.includes('uhc');
           }
           
           return {
@@ -101,11 +96,33 @@ export function useInsurance(): UseInsuranceReturn {
           };
         });
 
-        setProviders(providersWithDefaults);
+        // Ensure UnitedHealthcare is ALWAYS present for Phase 1, even if Gateway misses it
+        const hasUnited = processedProviders.some((p: InsuranceProvider) => 
+          p.id?.toLowerCase().includes('united') || 
+          p.name?.toLowerCase().includes('united') ||
+          p.name?.toLowerCase().includes('uhc')
+        );
+
+        if (!hasUnited) {
+          processedProviders.push({
+            id: 'united_pp1_00',
+            name: 'UnitedHealthcare',
+            type: 'PPO',
+            network: 'National',
+            available: true
+          });
+        }
+
+        // Sort: available first, then alphabetically
+        processedProviders.sort((a: InsuranceProvider, b: InsuranceProvider) => {
+          if (a.available !== b.available) return a.available ? -1 : 1;
+          return a.name.localeCompare(b.name);
+        });
+
+        setProviders(processedProviders);
       } catch (err) {
         console.error('[useInsurance] Error:', err);
         setError(err instanceof Error ? err.message : 'Failed to fetch providers');
-        // Use fallback so UI is never blocked
         setProviders(FALLBACK_PROVIDERS);
       } finally {
         setLoading(false);
