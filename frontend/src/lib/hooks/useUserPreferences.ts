@@ -1,7 +1,22 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/lib/contexts/AuthContext';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://mario-health-api-production-643522268884.us-central1.run.app';
+// Check ALL possible API env var names - same logic as useInsurance
+const getApiBaseUrl = (): string => {
+  // NEXT_PUBLIC_API_BASE typically includes /api/v1 already
+  if (process.env.NEXT_PUBLIC_API_BASE) {
+    return process.env.NEXT_PUBLIC_API_BASE;
+  }
+  // These typically don't include /api/v1
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
+  }
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`;
+  }
+  // Fallback to gateway (known working)
+  return 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/v1';
+};
 
 export interface UserPreferences {
   user_id: string;
@@ -41,8 +56,13 @@ export function useUserPreferences(): UseUserPreferencesReturn {
       setLoading(true);
       setError(null);
 
+      const apiBase = getApiBaseUrl().replace(/\/+$/, '');
+      const url = `${apiBase}/user/preferences`;
+      
+      console.log(`[useUserPreferences] Fetching from: ${url}`);
+
       const token = await user.getIdToken();
-      const response = await fetch(`${API_BASE_URL}/api/v1/user/preferences`, {
+      const response = await fetch(url, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -50,13 +70,13 @@ export function useUserPreferences(): UseUserPreferencesReturn {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch preferences');
+        throw new Error(`HTTP ${response.status}`);
       }
 
       const data = await response.json();
       setPreferences(data.preferences);
     } catch (err) {
-      console.error('Error fetching preferences:', err);
+      console.error('[useUserPreferences] Error fetching:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch preferences');
     } finally {
       setLoading(false);
@@ -78,8 +98,13 @@ export function useUserPreferences(): UseUserPreferencesReturn {
         user_id: user.uid,
       } as UserPreferences;
 
+      const apiBase = getApiBaseUrl().replace(/\/+$/, '');
+      const url = `${apiBase}/user/preferences`;
+      
+      console.log(`[useUserPreferences] Updating at: ${url}`);
+
       const token = await user.getIdToken();
-      const response = await fetch(`${API_BASE_URL}/api/v1/user/preferences`, {
+      const response = await fetch(url, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -91,13 +116,13 @@ export function useUserPreferences(): UseUserPreferencesReturn {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update preferences');
+        throw new Error(`HTTP ${response.status}`);
       }
 
       const data = await response.json();
       setPreferences(data.preferences);
     } catch (err) {
-      console.error('Error updating preferences:', err);
+      console.error('[useUserPreferences] Error updating:', err);
       setError(err instanceof Error ? err.message : 'Failed to update preferences');
       throw err;
     }
