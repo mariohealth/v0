@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
 
-// Check ALL possible API env var names used across the codebase
+// Use relative URL for Firebase Hosting proxy (avoids CORS)
+// Firebase rewrites /api/** to Cloud Run, so we use relative URLs in production
 const getApiBaseUrl = (): string => {
+  // In browser on Firebase Hosting, use relative URL to leverage proxy
+  if (typeof window !== 'undefined' && window.location.hostname.includes('web.app')) {
+    return '/api/v1';
+  }
+  // For local dev or other environments, check env vars
   if (process.env.NEXT_PUBLIC_API_BASE) {
     return process.env.NEXT_PUBLIC_API_BASE;
   }
@@ -11,7 +17,8 @@ const getApiBaseUrl = (): string => {
   if (process.env.NEXT_PUBLIC_API_BASE_URL) {
     return `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`;
   }
-  return 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/v1';
+  // Fallback: use relative URL (works with Firebase proxy)
+  return '/api/v1';
 };
 
 export interface InsuranceProvider {
