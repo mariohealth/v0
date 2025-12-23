@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { MapPin, Clock, Phone, Globe, Star, Award, TrendingDown, Gift } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import {
   Dialog,
   DialogContent,
@@ -76,12 +76,12 @@ export function MarioTestDetailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent 
+      <DialogContent
         className={isDesktop ? "max-w-3xl" : "max-w-lg"}
-        style={{ 
-          borderRadius: '16px', 
-          padding: 0, 
-          maxHeight: '90vh', 
+        style={{
+          borderRadius: '16px',
+          padding: 0,
+          maxHeight: '90vh',
           overflow: 'hidden'
         }}
       >
@@ -99,8 +99,8 @@ export function MarioTestDetailModal({
                   <span>•</span>
                   <Badge
                     style={{
-                      backgroundColor: test.network === 'In-Network' 
-                        ? 'rgba(121, 215, 190, 0.15)' 
+                      backgroundColor: test.network === 'In-Network'
+                        ? 'rgba(121, 215, 190, 0.15)'
                         : 'rgba(255, 167, 38, 0.15)',
                       color: '#2E5077',
                       border: 'none',
@@ -128,10 +128,10 @@ export function MarioTestDetailModal({
         </div>
 
         {/* Scrollable Content with Two-Column Layout */}
-        <div style={{ 
-          padding: isDesktop ? '32px' : '20px', 
-          maxHeight: 'calc(90vh - 180px)', 
-          overflowY: 'auto' 
+        <div style={{
+          padding: isDesktop ? '32px' : '20px',
+          maxHeight: 'calc(90vh - 180px)',
+          overflowY: 'auto'
         }}>
           <div className={isDesktop ? "grid grid-cols-2 gap-8" : "space-y-6"}>
             {/* LEFT COLUMN - Cost & Comparison */}
@@ -142,7 +142,7 @@ export function MarioTestDetailModal({
                   Your Estimated Costs
                 </h3>
                 <div className="space-y-0">
-                  <div 
+                  <div
                     className="flex justify-between items-center"
                     style={{ borderBottom: '1px solid #E0E0E0', height: '40px' }}
                   >
@@ -151,7 +151,7 @@ export function MarioTestDetailModal({
                       {test.details.facilityFee}
                     </span>
                   </div>
-                  <div 
+                  <div
                     className="flex justify-between items-center"
                     style={{ borderBottom: '1px solid #E0E0E0', height: '40px' }}
                   >
@@ -160,7 +160,7 @@ export function MarioTestDetailModal({
                       {test.details.professionalFee}
                     </span>
                   </div>
-                  <div 
+                  <div
                     className="flex justify-between items-center"
                     style={{ borderBottom: '1px solid #E0E0E0', height: '40px' }}
                   >
@@ -169,7 +169,7 @@ export function MarioTestDetailModal({
                       Included
                     </span>
                   </div>
-                  <div 
+                  <div
                     className="flex justify-between items-center"
                     style={{ height: '40px', paddingTop: '8px' }}
                   >
@@ -191,7 +191,7 @@ export function MarioTestDetailModal({
                 <p style={{ fontSize: '13px', color: '#6B7280', marginBottom: '16px' }}>
                   Versus area average for {procedureName}
                 </p>
-                
+
                 <div className="space-y-4">
                   {/* Provider Bar */}
                   <div>
@@ -203,8 +203,8 @@ export function MarioTestDetailModal({
                         ${test.priceMin}
                       </span>
                     </div>
-                    <div 
-                      style={{ 
+                    <div
+                      style={{
                         width: '100%',
                         height: '36px',
                         backgroundColor: '#E0E0E0',
@@ -215,8 +215,8 @@ export function MarioTestDetailModal({
                     >
                       <motion.div
                         initial={{ width: 0 }}
-                        animate={{ 
-                          width: `${(test.priceMin / parseInt(test.details.medianCost.replace('$', ''))) * 100}%` 
+                        animate={{
+                          width: `${(test.priceMin / parseInt(test.details.medianCost.replace('$', ''))) * 100}%`
                         }}
                         transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
                         style={{
@@ -238,8 +238,8 @@ export function MarioTestDetailModal({
                         {test.details.medianCost}
                       </span>
                     </div>
-                    <div 
-                      style={{ 
+                    <div
+                      style={{
                         width: '100%',
                         height: '36px',
                         backgroundColor: '#E0E0E0',
@@ -318,7 +318,7 @@ export function MarioTestDetailModal({
                     <Globe className="w-4 h-4 mt-0.5" style={{ color: '#4DA1A9' }} />
                     <div>
                       <span style={{ fontWeight: '600', color: '#2E5077' }}>Website: </span>
-                      <a 
+                      <a
                         href={`https://${provider.website}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -349,17 +349,17 @@ export function MarioTestDetailModal({
               </div>
 
               {/* Mini Map */}
-              <div 
+              <div
                 className="rounded-lg overflow-hidden"
-                style={{ 
+                style={{
                   height: '160px',
                   backgroundColor: '#E5E7EB',
                   position: 'relative'
                 }}
               >
-                <div 
+                <div
                   className="absolute inset-0 flex items-center justify-center"
-                  style={{ 
+                  style={{
                     backgroundImage: 'linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6), linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6)',
                     backgroundSize: '20px 20px',
                     backgroundPosition: '0 0, 10px 10px'
@@ -418,7 +418,7 @@ export function MarioTestDetailModal({
                   </p>
                   <button
                     className="mario-transition hover:opacity-70 mario-focus-ring"
-                    style={{ 
+                    style={{
                       fontSize: '14px',
                       fontWeight: '500',
                       color: '#4DA1A9',
@@ -432,9 +432,9 @@ export function MarioTestDetailModal({
               </div>
 
               {/* Additional Info */}
-              <div 
+              <div
                 className="p-4"
-                style={{ 
+                style={{
                   backgroundColor: '#F9FAFB',
                   borderRadius: '12px',
                   border: '1px solid #E5E7EB'
@@ -449,7 +449,7 @@ export function MarioTestDetailModal({
                   </p>
                   <button
                     className="mario-transition hover:opacity-70 mario-focus-ring mt-2"
-                    style={{ 
+                    style={{
                       fontSize: '13px',
                       fontWeight: '500',
                       color: '#4DA1A9',
@@ -483,8 +483,8 @@ export function MarioTestDetailModal({
         </div>
 
         {/* Sticky Footer */}
-        <div 
-          style={{ 
+        <div
+          style={{
             padding: isDesktop ? '16px 32px' : '16px 20px',
             borderTop: '1px solid #E0E0E0',
             backgroundColor: 'white',

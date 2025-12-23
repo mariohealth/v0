@@ -21,7 +21,7 @@
  * ```
  */
 
-import { searchProcedures } from './api';
+import { searchProcedures, type UnifiedResult, type SearchResult, type DoctorResult } from './api';
 import { MarioToast } from '@/components/mario-toast-helper';
 
 export async function navigateToProcedure(
@@ -36,24 +36,30 @@ export async function navigateToProcedure(
   const trimmedQuery = query.trim();
 
   try {
-    // Call the searchProcedures API to get matching procedures
+    // Call the searchProcedures API to get matching results
     const response = await searchProcedures(trimmedQuery);
 
-    // Find best match (first procedure result - highest match score)
     if (response.results && response.results.length > 0) {
+      // If there's only one result, or a very high quality match, navigate directly
       const bestMatch = response.results[0];
-      if (bestMatch.procedure_slug) {
-        router.push(`/home?procedure=${encodeURIComponent(bestMatch.procedure_slug)}`);
+
+      if (bestMatch.type === 'doctor') {
+        const doctor = bestMatch as DoctorResult;
+        router.push(`/providers/${doctor.id}`);
+        return true;
+      } else if (bestMatch.type === 'procedure') {
+        const procedure = bestMatch as SearchResult;
+        // The user requested: If procedure match -> fetch procedure-prices
+        // For now, /procedures/[slug] is our price comparison page
+        router.push(`/procedures/${procedure.procedure_slug}`);
         return true;
       }
     }
 
-    // Fallback: if no match found
-    if (!options?.silent) {
-      console.warn('[navigateToProcedure] No matching procedure found for', trimmedQuery);
-      MarioToast.error('No matching procedure found', 'Try searching for a specific procedure name');
-    }
-    return false;
+    // If no direct result or multiple results, go to search results page
+    router.push(`/search?q=${encodeURIComponent(trimmedQuery)}`);
+    return true;
+
   } catch (err) {
     console.error('[navigateToProcedure] Failed:', err);
     if (!options?.silent) {

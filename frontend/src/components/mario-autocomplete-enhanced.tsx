@@ -1,5 +1,5 @@
 'use client'
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { User, Activity, SearchSlash, Building2, Pill } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { doctors, specialties, hospitals, Doctor, Specialty, HospitalInfo } from '@/lib/data/mario-doctors-data';
@@ -10,7 +10,7 @@ export type AutocompleteCategory = 'doctor' | 'specialty' | 'hospital' | 'medica
 
 export interface AutocompleteSuggestion {
   id: string;
-  type: AutocompleteCategory;
+  type: AutocompleteCategory | 'service';
   primaryText: string;
   secondaryText?: string;
   doctor?: Doctor;
@@ -19,6 +19,7 @@ export interface AutocompleteSuggestion {
   medication?: MedicationData;
   procedureSlug?: string;
   specialtyId?: string;
+  metadata?: any;
 }
 
 interface MarioAutocompleteEnhancedProps {
@@ -30,17 +31,17 @@ interface MarioAutocompleteEnhancedProps {
   onKeyboardNavigation?: (direction: 'up' | 'down' | 'enter' | 'escape') => void;
 }
 
-export function MarioAutocompleteEnhanced({ 
-  suggestions, 
-  onSelect, 
-  isVisible, 
+export function MarioAutocompleteEnhanced({
+  suggestions,
+  onSelect,
+  isVisible,
   query,
   selectedIndex = -1,
   onKeyboardNavigation
 }: MarioAutocompleteEnhancedProps) {
   const router = useRouter();
   const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 768);
-  
+
   // Handle selection with routing based on type
   const handleSelect = (suggestion: AutocompleteSuggestion) => {
     // Check if this is a procedure result from API (has procedureSlug)
@@ -48,13 +49,13 @@ export function MarioAutocompleteEnhanced({
       router.push(`/procedures/${suggestion.procedureSlug}`);
       return;
     }
-    
+
     // Check if this is a specialty result from API (has specialtyId and type is 'specialty')
     if (suggestion.type === 'specialty' && suggestion.specialtyId) {
       router.push(`/specialties/${suggestion.specialtyId}`);
       return;
     }
-    
+
     // For all other cases, use the original onSelect handler
     onSelect(suggestion);
   };
@@ -95,14 +96,14 @@ export function MarioAutocompleteEnhanced({
         }}
       >
         {showNoResults ? (
-          <div 
-            className="px-3 py-3 flex items-center justify-center gap-3" 
+          <div
+            className="px-3 py-3 flex items-center justify-center gap-3"
             style={{ height: '48px' }}
           >
             <SearchSlash className="h-4 w-4" style={{ color: '#666666' }} />
-            <p 
-              className="text-sm" 
-              style={{ 
+            <p
+              className="text-sm"
+              style={{
                 color: '#666666',
                 fontSize: '14px',
                 fontFamily: 'Inter'
@@ -112,7 +113,7 @@ export function MarioAutocompleteEnhanced({
             </p>
           </div>
         ) : (
-          <div 
+          <div
             className="overflow-y-auto"
             style={{
               maxHeight: '288px'
@@ -128,8 +129,8 @@ export function MarioAutocompleteEnhanced({
                     className="w-full px-3 py-2 text-left transition-colors flex items-center gap-3"
                     style={{
                       height: '48px',
-                      backgroundColor: selectedIndex === index 
-                        ? 'rgba(77, 161, 169, 0.12)' 
+                      backgroundColor: selectedIndex === index
+                        ? 'rgba(77, 161, 169, 0.12)'
                         : 'transparent'
                     }}
                     onMouseEnter={(e) => {
@@ -138,21 +139,21 @@ export function MarioAutocompleteEnhanced({
                       }
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = selectedIndex === index 
-                        ? 'rgba(77, 161, 169, 0.12)' 
+                      e.currentTarget.style.backgroundColor = selectedIndex === index
+                        ? 'rgba(77, 161, 169, 0.12)'
                         : 'transparent';
                     }}
                   >
-                    <div 
+                    <div
                       className="flex-shrink-0 flex items-center justify-center"
                       style={{ width: '24px', height: '24px' }}
                     >
                       <User className="w-5 h-5" style={{ color: '#2E5077' }} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p 
+                      <p
                         className="leading-tight mb-0 truncate"
-                        style={{ 
+                        style={{
                           color: '#1A1A1A',
                           fontSize: '16px',
                           fontWeight: '600',
@@ -162,9 +163,9 @@ export function MarioAutocompleteEnhanced({
                         {suggestion.primaryText}
                       </p>
                       {suggestion.secondaryText && (
-                        <p 
+                        <p
                           className="truncate"
-                          style={{ 
+                          style={{
                             color: '#666666',
                             fontSize: '14px',
                             fontFamily: 'Inter',
@@ -177,16 +178,16 @@ export function MarioAutocompleteEnhanced({
                     </div>
                   </button>
                 ))}
-                
+
                 {/* Divider if there are specialty results too */}
                 {specialtySuggestions.length > 0 && (
-                  <div 
-                    className="w-full" 
-                    style={{ 
-                      height: '1px', 
+                  <div
+                    className="w-full"
+                    style={{
+                      height: '1px',
                       backgroundColor: '#E0E0E0',
                       margin: '0'
-                    }} 
+                    }}
                   />
                 )}
               </>
@@ -197,7 +198,7 @@ export function MarioAutocompleteEnhanced({
               <>
                 {specialtySuggestions.map((suggestion, index) => {
                   const globalIndex = doctorSuggestions.length + index;
-                  
+
                   return (
                     <button
                       key={suggestion.id}
@@ -205,8 +206,8 @@ export function MarioAutocompleteEnhanced({
                       className="w-full px-3 py-2 text-left transition-colors flex items-center gap-3"
                       style={{
                         height: '48px',
-                        backgroundColor: selectedIndex === globalIndex 
-                          ? 'rgba(77, 161, 169, 0.12)' 
+                        backgroundColor: selectedIndex === globalIndex
+                          ? 'rgba(77, 161, 169, 0.12)'
                           : 'transparent'
                       }}
                       onMouseEnter={(e) => {
@@ -215,21 +216,21 @@ export function MarioAutocompleteEnhanced({
                         }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = selectedIndex === globalIndex 
-                          ? 'rgba(77, 161, 169, 0.12)' 
+                        e.currentTarget.style.backgroundColor = selectedIndex === globalIndex
+                          ? 'rgba(77, 161, 169, 0.12)'
                           : 'transparent';
                       }}
                     >
-                      <div 
+                      <div
                         className="flex-shrink-0 flex items-center justify-center"
                         style={{ width: '24px', height: '24px' }}
                       >
                         <Activity className="w-5 h-5" style={{ color: '#2E5077' }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p 
+                        <p
                           className="leading-tight mb-0 truncate"
-                          style={{ 
+                          style={{
                             color: '#1A1A1A',
                             fontSize: '16px',
                             fontWeight: '600',
@@ -250,7 +251,7 @@ export function MarioAutocompleteEnhanced({
               <>
                 {procedureSuggestions.map((suggestion, index) => {
                   const globalIndex = doctorSuggestions.length + specialtySuggestions.length + index;
-                  
+
                   return (
                     <button
                       key={suggestion.id}
@@ -258,8 +259,8 @@ export function MarioAutocompleteEnhanced({
                       className="w-full px-3 py-2 text-left transition-colors flex items-center gap-3"
                       style={{
                         height: '48px',
-                        backgroundColor: selectedIndex === globalIndex 
-                          ? 'rgba(77, 161, 169, 0.12)' 
+                        backgroundColor: selectedIndex === globalIndex
+                          ? 'rgba(77, 161, 169, 0.12)'
                           : 'transparent'
                       }}
                       onMouseEnter={(e) => {
@@ -268,21 +269,21 @@ export function MarioAutocompleteEnhanced({
                         }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = selectedIndex === globalIndex 
-                          ? 'rgba(77, 161, 169, 0.12)' 
+                        e.currentTarget.style.backgroundColor = selectedIndex === globalIndex
+                          ? 'rgba(77, 161, 169, 0.12)'
                           : 'transparent';
                       }}
                     >
-                      <div 
+                      <div
                         className="flex-shrink-0 flex items-center justify-center"
                         style={{ width: '24px', height: '24px' }}
                       >
                         <Activity className="w-5 h-5" style={{ color: '#2E5077' }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p 
+                        <p
                           className="leading-tight mb-0 truncate"
-                          style={{ 
+                          style={{
                             color: '#1A1A1A',
                             fontSize: '16px',
                             fontWeight: '600',
@@ -292,9 +293,9 @@ export function MarioAutocompleteEnhanced({
                           {suggestion.primaryText}
                         </p>
                         {suggestion.secondaryText && (
-                          <p 
+                          <p
                             className="truncate"
-                            style={{ 
+                            style={{
                               color: '#666666',
                               fontSize: '14px',
                               fontFamily: 'Inter',
@@ -316,7 +317,7 @@ export function MarioAutocompleteEnhanced({
               <>
                 {hospitalSuggestions.map((suggestion, index) => {
                   const globalIndex = doctorSuggestions.length + specialtySuggestions.length + procedureSuggestions.length + index;
-                  
+
                   return (
                     <button
                       key={suggestion.id}
@@ -324,8 +325,8 @@ export function MarioAutocompleteEnhanced({
                       className="w-full px-3 py-2 text-left transition-colors flex items-center gap-3"
                       style={{
                         height: '48px',
-                        backgroundColor: selectedIndex === globalIndex 
-                          ? 'rgba(77, 161, 169, 0.12)' 
+                        backgroundColor: selectedIndex === globalIndex
+                          ? 'rgba(77, 161, 169, 0.12)'
                           : 'transparent'
                       }}
                       onMouseEnter={(e) => {
@@ -334,21 +335,21 @@ export function MarioAutocompleteEnhanced({
                         }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = selectedIndex === globalIndex 
-                          ? 'rgba(77, 161, 169, 0.12)' 
+                        e.currentTarget.style.backgroundColor = selectedIndex === globalIndex
+                          ? 'rgba(77, 161, 169, 0.12)'
                           : 'transparent';
                       }}
                     >
-                      <div 
+                      <div
                         className="flex-shrink-0 flex items-center justify-center"
                         style={{ width: '24px', height: '24px' }}
                       >
                         <Building2 className="w-5 h-5" style={{ color: '#2E5077' }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p 
+                        <p
                           className="leading-tight mb-0 truncate"
-                          style={{ 
+                          style={{
                             color: '#1A1A1A',
                             fontSize: '16px',
                             fontWeight: '600',
@@ -369,7 +370,7 @@ export function MarioAutocompleteEnhanced({
               <>
                 {medicationSuggestions.map((suggestion, index) => {
                   const globalIndex = doctorSuggestions.length + specialtySuggestions.length + procedureSuggestions.length + hospitalSuggestions.length + index;
-                  
+
                   return (
                     <button
                       key={suggestion.id}
@@ -377,8 +378,8 @@ export function MarioAutocompleteEnhanced({
                       className="w-full px-3 py-2 text-left transition-colors flex items-center gap-3"
                       style={{
                         height: '48px',
-                        backgroundColor: selectedIndex === globalIndex 
-                          ? 'rgba(77, 161, 169, 0.12)' 
+                        backgroundColor: selectedIndex === globalIndex
+                          ? 'rgba(77, 161, 169, 0.12)'
                           : 'transparent'
                       }}
                       onMouseEnter={(e) => {
@@ -387,21 +388,21 @@ export function MarioAutocompleteEnhanced({
                         }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = selectedIndex === globalIndex 
-                          ? 'rgba(77, 161, 169, 0.12)' 
+                        e.currentTarget.style.backgroundColor = selectedIndex === globalIndex
+                          ? 'rgba(77, 161, 169, 0.12)'
                           : 'transparent';
                       }}
                     >
-                      <div 
+                      <div
                         className="flex-shrink-0 flex items-center justify-center"
                         style={{ width: '24px', height: '24px' }}
                       >
                         <Pill className="w-5 h-5" style={{ color: '#2E5077' }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p 
+                        <p
                           className="leading-tight mb-0 truncate"
-                          style={{ 
+                          style={{
                             color: '#1A1A1A',
                             fontSize: '16px',
                             fontWeight: '600',
@@ -434,7 +435,7 @@ export const getEnhancedAutocompleteSuggestions = (query: string): AutocompleteS
 
   // Search doctors
   const matchedDoctors = doctors
-    .filter(doctor => 
+    .filter(doctor =>
       doctor.name.toLowerCase().includes(lowerQuery)
     )
     .slice(0, 3) // Max 3 doctors
@@ -569,11 +570,11 @@ async function getCachedSpecialties(): Promise<APISpecialty[]> {
   if (cachedSpecialties !== null) {
     return cachedSpecialties;
   }
-  
+
   if (specialtiesFetchPromise !== null) {
     return specialtiesFetchPromise;
   }
-  
+
   specialtiesFetchPromise = (async () => {
     try {
       const response = await getSpecialties();
@@ -586,7 +587,7 @@ async function getCachedSpecialties(): Promise<APISpecialty[]> {
       specialtiesFetchPromise = null;
     }
   })();
-  
+
   return specialtiesFetchPromise;
 }
 
@@ -605,17 +606,17 @@ export async function getAutocompleteSuggestions(query: string): Promise<Autocom
 
   // Fetch specialties once (cached)
   const allSpecialties = await getCachedSpecialties();
-  
+
   // Filter specialties client-side using fuzzy case-insensitive match on display_name
   const matchedSpecialties = allSpecialties
-    .filter(specialty => 
+    .filter(specialty =>
       specialty.display_name.toLowerCase().includes(lowerQuery)
     )
     .map(specialty => ({
       id: `specialty-${specialty.id}`,
       type: 'specialty' as AutocompleteCategory,
       primaryText: specialty.display_name,
-      secondaryText: specialty.grouping || null,
+      secondaryText: specialty.grouping || undefined,
       specialtyId: specialty.id
     }));
 
@@ -627,16 +628,17 @@ export async function getAutocompleteSuggestions(query: string): Promise<Autocom
     const procedureResponse = await getSearchResults(query);
     if (procedureResponse.results && procedureResponse.results.length > 0) {
       procedureResponse.results.forEach((result) => {
-        if (result.procedure_slug) {
-          const displayName = result.procedure_name || 'Procedure';
-          const category = result.category_name || 'Procedure';
-          
+        if (result.type === 'procedure') {
+          const searchResult = result as any; // Casting to any for brevity, since we check type
+          const displayName = searchResult.procedure_name || 'Procedure';
+          const category = searchResult.category_name || 'Procedure';
+
           suggestions.push({
-            id: result.procedure_id || result.procedure_slug,
+            id: searchResult.procedure_id || searchResult.procedure_slug,
             type: 'procedure' as AutocompleteCategory,
             primaryText: displayName,
-            secondaryText: `${category} • ${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
-            procedureSlug: result.procedure_slug
+            secondaryText: `${category} • ${searchResult.provider_count || 0} providers • $${searchResult.best_price || 'N/A'}`,
+            procedureSlug: searchResult.procedure_slug
           });
         }
       });
