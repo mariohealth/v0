@@ -3,15 +3,13 @@ import ProviderDetailClient from './ProviderDetailClient';
 
 // Required for static export with dynamic routes
 export async function generateStaticParams() {
-    // Return at least one valid path for dynamic routes
-    // Routes will be generated dynamically on client
+    // For static export, we pre-render a placeholder page
+    // Actual provider data is loaded client-side via ProviderDetailClient
     return [{ id: 'placeholder' }];
 }
 
-export const revalidate = 0;
-export const dynamic = 'force-dynamic';
+// Allow any provider ID to be accessed (not just pre-rendered ones)
 export const dynamicParams = true;
-export const fetchCache = 'force-no-store';
 
 export default function ProviderDetailPage() {
     return (
