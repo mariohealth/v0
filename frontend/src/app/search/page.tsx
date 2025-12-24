@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { searchProcedures, type UnifiedResult, type SearchResult, type DoctorResult } from '@/lib/api';
 import { saveSearchQuery, getLastSearchQuery, clearSearchHistory } from '@/lib/search-state';
 import { BottomNav } from '@/components/navigation/BottomNav';
+import { GlobalNav } from '@/components/navigation/GlobalNav';
+
 import { Card } from '@/components/ui/card';
 import { ProcedureCard } from '@/components/ProcedureCard';
 import { ProviderCard } from '@/components/mario-card';
@@ -96,8 +98,10 @@ function SearchPageContent() {
     }
 
     return (
-        <main className="min-h-screen bg-gray-50 py-8 pb-24 md:pb-8">
-            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <main className="min-h-screen bg-gray-50 pb-24 md:pb-8">
+            <GlobalNav />
+            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+
                 <div className="mb-8">
                     <div className="flex items-center justify-between mb-2">
                         <h1 className="text-3xl font-bold text-gray-900">Search Procedures</h1>
@@ -149,18 +153,19 @@ function SearchPageContent() {
                                 if (result.type === 'doctor') {
                                     const doctor = result as DoctorResult;
                                     return (
-                                        <div key={doctor.id} onClick={() => router.push(`/providers/${doctor.id}`)}>
+                                        <div key={doctor.provider_id} onClick={() => router.push(`/providers/${doctor.provider_id}`)}>
                                             <ProviderCard
-                                                name={doctor.name}
+                                                name={doctor.provider_name}
                                                 specialty={doctor.specialty}
-                                                distance={doctor.distance}
+                                                distance="Nearby"
                                                 inNetwork={true}
-                                                price={doctor.price}
+                                                price={doctor.price || "Contact for price"}
                                                 comparedToMedian="15% below average"
                                                 onBook={() => { }}
                                             />
                                         </div>
                                     );
+
                                 } else {
                                     const procedure = result as SearchResult;
                                     return (

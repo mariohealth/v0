@@ -7,13 +7,15 @@ import { MarioHome } from '@/components/mario-home';
 import { getProcedureProviders, type Provider } from '@/lib/api';
 import { navigateToProcedure } from '@/lib/navigateToProcedure';
 import { DataSourceBanner } from '@/lib/dataSourceBanner';
+import { GlobalNav } from '@/components/navigation/GlobalNav';
+
 
 function HomePageContent() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const procedureSlug = searchParams.get('procedure');
-  
+
   const [providers, setProviders] = useState<Provider[]>([]);
   const [procedureName, setProcedureName] = useState<string>('');
   const [loadingProviders, setLoadingProviders] = useState(false);
@@ -36,10 +38,10 @@ function HomePageContent() {
 
       try {
         const data = await getProcedureProviders(procedureSlug);
-        
+
         // Track data source for banner display
         setDataSource(data._dataSource || 'api');
-        
+
         // Check if we got providers (rely on real API first during verification)
         if (data.providers && data.providers.length > 0) {
           setProviders(data.providers);
@@ -78,7 +80,7 @@ function HomePageContent() {
     }
 
     const trimmedQuery = query.trim();
-    
+
     // Handle different suggestion types
     if (suggestion) {
       // Procedure - navigate to /home with procedure query param
@@ -86,27 +88,27 @@ function HomePageContent() {
         router.push(`/home?procedure=${encodeURIComponent(suggestion.procedureSlug)}`);
         return;
       }
-      
+
       // Doctor/Provider - navigate to provider detail page
       if (suggestion.doctor?.id) {
         router.push(`/providers/${suggestion.doctor.id}`);
         return;
       }
-      
+
       // Medication - navigate to medications page
       if (suggestion.medication) {
         const medSlug = suggestion.medication.slug || suggestion.medication.name.toLowerCase().replace(/\s+/g, '-');
         router.push(`/medications/${medSlug}`);
         return;
       }
-      
+
       // Specialty - navigate to doctors page filtered by specialty
       if (suggestion.specialty) {
         router.push(`/doctors?specialty=${encodeURIComponent(suggestion.specialty.id)}`);
         return;
       }
     }
-    
+
     // Regular search (Enter key without autocomplete selection) - search for procedure
     await navigateToProcedure(trimmedQuery, router);
   };
@@ -157,7 +159,9 @@ function HomePageContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <GlobalNav />
       <MarioHome
+
         isReturningUser={true}
         onSearch={handleSearch}
         onOpenAI={handleOpenAI}

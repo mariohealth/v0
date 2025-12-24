@@ -45,11 +45,11 @@ export default function RootLayout({
       >
         <AuthProvider>
           <ToastProvider>
-            <GlobalNav />
             {children}
             <MarioAIFloatingButton />
           </ToastProvider>
         </AuthProvider>
+
       </body>
     </html>
   );

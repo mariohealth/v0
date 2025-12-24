@@ -1,10 +1,14 @@
 'use client'
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import { User, Activity, SearchSlash, Building2, Pill } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { doctors, specialties, hospitals, Doctor, Specialty, HospitalInfo } from '@/lib/data/mario-doctors-data';
 import { searchMedications, type MedicationData } from '@/lib/data/mario-medication-data';
 import { getSpecialties, type Specialty as APISpecialty, type SearchResponse } from '@/lib/api';
+import { getApiBaseUrl } from '@/lib/api-base';
+
 
 export type AutocompleteCategory = 'doctor' | 'specialty' | 'hospital' | 'medication' | 'procedure';
 
@@ -519,32 +523,10 @@ function getHospitalForDoctor(doctor: Doctor): string {
 }
 
 // Export React for use in component
-import React from 'react';
-
 // Module-level cache for specialties (fetched once)
+
 let cachedSpecialties: APISpecialty[] | null = null;
 let specialtiesFetchPromise: Promise<APISpecialty[]> | null = null;
-
-// Use relative URL for Firebase Hosting proxy (avoids CORS)
-// Firebase rewrites /api/** to Cloud Run, so we use relative URLs in production
-const getApiBaseUrl = (): string => {
-  // In browser on Firebase Hosting, use relative URL to leverage proxy
-  if (typeof window !== 'undefined' && window.location.hostname.includes('web.app')) {
-    return '/api/v1';
-  }
-  // For local dev or other environments, check env vars
-  if (process.env.NEXT_PUBLIC_API_BASE) {
-    return process.env.NEXT_PUBLIC_API_BASE;
-  }
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    return `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
-  }
-  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
-    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`;
-  }
-  // Fallback: use relative URL (works with Firebase proxy)
-  return '/api/v1';
-};
 
 /**
  * Get search results from the /search endpoint

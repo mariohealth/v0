@@ -21,11 +21,12 @@ export function BottomNav() {
     }
 
     const navItems = [
-        { href: '/', label: 'Home', icon: Home },
-        { href: '/home', label: 'Health Hub', icon: Home },
+        { href: '/home', label: 'Home', icon: Home },
+        { href: '/health-hub', label: 'Hub', icon: Home },
         { href: '/rewards', label: 'Rewards', icon: Gift },
         { href: '/profile', label: 'Profile', icon: User },
     ];
+
 
     const isActive = (href: string) => {
         if (href === '/') {

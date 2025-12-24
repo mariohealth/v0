@@ -1,25 +1,7 @@
 import { useState, useEffect } from 'react';
 
-// Use relative URL for Firebase Hosting proxy (avoids CORS)
-// Firebase rewrites /api/** to Cloud Run, so we use relative URLs in production
-const getApiBaseUrl = (): string => {
-  // In browser on Firebase Hosting, use relative URL to leverage proxy
-  if (typeof window !== 'undefined' && window.location.hostname.includes('web.app')) {
-    return '/api/v1';
-  }
-  // For local dev or other environments, check env vars
-  if (process.env.NEXT_PUBLIC_API_BASE) {
-    return process.env.NEXT_PUBLIC_API_BASE;
-  }
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    return `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
-  }
-  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
-    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`;
-  }
-  // Fallback: use relative URL (works with Firebase proxy)
-  return '/api/v1';
-};
+import { getApiBaseUrl } from '@/lib/api-base';
+
 
 export interface InsuranceProvider {
   id: string;
@@ -72,7 +54,7 @@ export function useInsurance(): UseInsuranceReturn {
 
         const data = await response.json();
         const rawProviders = data.providers || [];
-        
+
         if (rawProviders.length === 0) {
           setProviders(FALLBACK_PROVIDERS);
           return;
@@ -85,15 +67,15 @@ export function useInsurance(): UseInsuranceReturn {
             const providerId = provider.id?.toLowerCase() || '';
             const providerName = provider.name?.toLowerCase() || '';
             // Match Phase 1 available carriers
-            available = 
-              providerId.includes('cigna') || 
+            available =
+              providerId.includes('cigna') ||
               providerId.includes('united') ||
               providerId.includes('ins_003') || // Gateway Cigna ID
               providerName.includes('cigna') ||
               providerName.includes('united') ||
               providerName.includes('uhc');
           }
-          
+
           return {
             id: provider.id,
             name: provider.name,
@@ -104,8 +86,8 @@ export function useInsurance(): UseInsuranceReturn {
         });
 
         // Ensure UnitedHealthcare is ALWAYS present for Phase 1, even if Gateway misses it
-        const hasUnited = processedProviders.some((p: InsuranceProvider) => 
-          p.id?.toLowerCase().includes('united') || 
+        const hasUnited = processedProviders.some((p: InsuranceProvider) =>
+          p.id?.toLowerCase().includes('united') ||
           p.name?.toLowerCase().includes('united') ||
           p.name?.toLowerCase().includes('uhc')
         );

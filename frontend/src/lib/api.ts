@@ -2,8 +2,10 @@ import { auth } from './firebase';
 import { mockProceduresFallback, type MockProcedureFallback } from '@/mock/live/searchProceduresFallback';
 import { getMockProvidersForProcedure, type MockProviderFallback } from '@/mock/live/providersFallback';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
-const API_URL = API_BASE_URL; // Alias for consistency
+import { getApiBaseUrl } from './api-base';
+
+
+
 
 export interface SearchResult {
     procedure_id: string;
@@ -78,6 +80,12 @@ export interface ProcedureProvidersResponse {
     providers: Provider[];
     total_count: number;
     _dataSource?: 'api' | 'mock'; // Internal flag to track data source
+}
+
+export interface Specialty {
+    id: string;
+    display_name: string;
+    grouping?: string;
 }
 
 export interface ProviderDetail {
@@ -211,7 +219,7 @@ export async function searchProcedures(
         params.append('radius_miles', radius_miles.toString());
     }
 
-    const url = `${API_BASE_URL}/api/v1/search?${params.toString()}`;
+    const url = `${getApiBaseUrl()}/search?${params.toString()}`;
 
     console.log('[API] Searching procedures:', { query, location, radius_miles, url });
 
@@ -281,16 +289,25 @@ export async function safeSearchProcedures(query: string): Promise<SearchResult[
 
 /**
  * Filter mock procedures by query string
+ * Improved with fuzzy matching to handle "brain mri" against "MRI - Brain"
  */
 function filterMockProcedures(query: string): SearchResult[] {
-    const queryLower = query.toLowerCase();
+    const queryLower = query.toLowerCase().trim();
+    const queryWords = queryLower.split(/\s+/);
 
     return mockProceduresFallback
-        .filter(p =>
-            p.display_name.toLowerCase().includes(queryLower) ||
-            p.procedure_name?.toLowerCase().includes(queryLower) ||
-            p.category.toLowerCase().includes(queryLower)
-        )
+        .filter(p => {
+            const displayNameLower = p.display_name.toLowerCase();
+            const categoryLower = p.category.toLowerCase();
+            const procNameLower = (p.procedure_name || '').toLowerCase();
+
+            // Check if all words in query appear in any of the fields
+            return queryWords.every(word =>
+                displayNameLower.includes(word) ||
+                categoryLower.includes(word) ||
+                procNameLower.includes(word)
+            );
+        })
         .map(p => ({
             procedure_id: p.procedure_id || p.slug,
             procedure_name: p.procedure_name || p.display_name,
@@ -304,18 +321,30 @@ function filterMockProcedures(query: string): SearchResult[] {
             price_range: `$${p.best_price || '0'}`,
             provider_count: p.provider_count || 0,
             match_score: 0.8,
+            type: 'procedure'
         } as SearchResult));
 }
 
 /**
- * Placeholder for specialty search API
- * Currently returns empty results until backend is ready
+ * Get all specialties from the API
  */
-export async function searchSpecialties(query: string): Promise<SpecialtyResult[]> {
-    console.log('[API] Placeholder: Searching specialties for:', query);
-    // Real implementation will fetch from /api/v1/specialties?query=...
-    return [];
+export async function getSpecialties(): Promise<{ specialties: Specialty[] }> {
+    const url = `${getApiBaseUrl()}/specialties`;
+    console.log('[API] Fetching specialties:', { url });
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch specialties: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('[API] Error fetching specialties:', error);
+        return { specialties: [] };
+    }
 }
+
 
 /**
  * Placeholder for doctor search API
@@ -357,7 +386,7 @@ export async function getProcedureProviders(
 ): Promise<ProcedureProvidersResponse> {
     // === Restored core logic from b6d802c (last known-good) ===
     // Note: Keep current API_BASE_URL/fetchWithAuth utilities as-is
-    const base = `${API_BASE_URL}/api/v1/procedures/${procedureSlug}/providers`;
+    const base = `${getApiBaseUrl()}/procedures/${procedureSlug}/providers`;
 
     const res = await fetch(base, {
         method: "GET",
@@ -484,7 +513,7 @@ function createMockProviderResponse(procedureSlug: string): ProcedureProvidersRe
  * Uses the dedicated /procedures/{slug} endpoint with mock data fallback
  */
 export async function getProcedureBySlug(procedureSlug: string): Promise<SearchResult | null> {
-    const url = `${API_BASE_URL}/api/v1/procedures/${procedureSlug}`;
+    const url = `${getApiBaseUrl()}/procedures/${procedureSlug}`;
 
     console.log('[API] Fetching procedure by slug:', { procedureSlug, url });
 
@@ -618,7 +647,7 @@ async function getMockProcedureData(procedureSlug: string): Promise<SearchResult
  * Get provider details by ID
  */
 export async function getProviderDetail(providerId: string): Promise<ProviderDetail> {
-    const url = `${API_BASE_URL}/api/v1/providers/${providerId}`;
+    const url = `${getApiBaseUrl()}/providers/${providerId}`;
 
     console.log('[API] Fetching provider detail:', { providerId, url });
 
@@ -760,7 +789,7 @@ export interface Reward {
  * Fetch Health Hub data for a user
  */
 export async function fetchHealthHubData(userId: string): Promise<HealthHubData> {
-    const url = `${API_BASE_URL}/api/v1/health-hub?user_id=${encodeURIComponent(userId)}`;
+    const url = `${getApiBaseUrl()}/health-hub?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching health hub data:', { userId, url });
 
@@ -786,7 +815,7 @@ export async function fetchHealthHubData(userId: string): Promise<HealthHubData>
  * Fetch Rewards data for a user
  */
 export async function fetchRewardsData(userId: string): Promise<RewardsData> {
-    const url = `${API_BASE_URL}/api/v1/rewards?user_id=${encodeURIComponent(userId)}`;
+    const url = `${getApiBaseUrl()}/rewards?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching rewards data:', { userId, url });
 
@@ -812,7 +841,7 @@ export async function fetchRewardsData(userId: string): Promise<RewardsData> {
  * Update MarioPoints for a user
  */
 export async function updateMarioPoints(userId: string, delta: number): Promise<number> {
-    const url = `${API_BASE_URL}/api/v1/rewards/points`;
+    const url = `${getApiBaseUrl()}/rewards/points`;
 
     console.log('[API] Updating MarioPoints:', { userId, delta, url });
 
@@ -862,7 +891,7 @@ export async function updateMarioPoints(userId: string, delta: number): Promise<
  * Get appointments for a user
  */
 export async function getAppointments(userId: string): Promise<Appointment[]> {
-    const url = `${API_BASE_URL}/api/v1/bookings?user_id=${encodeURIComponent(userId)}`;
+    const url = `${getApiBaseUrl()}/bookings?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching appointments:', { userId, url });
 
@@ -888,7 +917,7 @@ export async function getAppointments(userId: string): Promise<Appointment[]> {
  * Get claims for a user
  */
 export async function getClaims(userId: string): Promise<Claim[]> {
-    const url = `${API_BASE_URL}/api/v1/claims?user_id=${encodeURIComponent(userId)}`;
+    const url = `${getApiBaseUrl()}/claims?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching claims:', { userId, url });
 
@@ -914,7 +943,7 @@ export async function getClaims(userId: string): Promise<Claim[]> {
  * Get concierge requests for a user
  */
 export async function getConciergeRequests(userId: string): Promise<ConciergeRequest[]> {
-    const url = `${API_BASE_URL}/api/v1/requests?user_id=${encodeURIComponent(userId)}`;
+    const url = `${getApiBaseUrl()}/requests?user_id=${encodeURIComponent(userId)}`;
 
     console.log('[API] Fetching concierge requests:', { userId, url });
 
@@ -942,7 +971,7 @@ export async function getConciergeRequests(userId: string): Promise<ConciergeReq
  * Get all procedure categories
  */
 export async function getCategories(): Promise<any> {
-    const url = `${API_BASE_URL}/api/v1/categories`;
+    const url = `${getApiBaseUrl()}/categories`;
 
     console.log('[API] Fetching categories:', { url });
 
@@ -968,7 +997,7 @@ export async function getCategories(): Promise<any> {
  * Get families within a category
  */
 export async function getCategoryFamilies(categorySlug: string): Promise<any> {
-    const url = `${API_BASE_URL}/api/v1/categories/${categorySlug}/families`;
+    const url = `${getApiBaseUrl()}/categories/${categorySlug}/families`;
 
     console.log('[API] Fetching category families:', { categorySlug, url });
 
@@ -994,7 +1023,7 @@ export async function getCategoryFamilies(categorySlug: string): Promise<any> {
  * Get procedures within a family
  */
 export async function getFamilyProcedures(familySlug: string): Promise<any> {
-    const url = `${API_BASE_URL}/api/v1/families/${familySlug}/procedures`;
+    const url = `${getApiBaseUrl()}/families/${familySlug}/procedures`;
 
     console.log('[API] Fetching family procedures:', { familySlug, url });
 
@@ -1030,7 +1059,7 @@ export async function createBooking(bookingData: {
     insurance_provider?: string;
     notes?: string;
 }): Promise<any> {
-    const url = `${API_BASE_URL}/api/v1/bookings`;
+    const url = `${getApiBaseUrl()}/bookings`;
 
     console.log('[API] Creating booking:', { bookingData, url });
 
@@ -1065,7 +1094,7 @@ export async function createBooking(bookingData: {
  * Get booking details
  */
 export async function getBookingDetails(bookingId: string): Promise<any> {
-    const url = `${API_BASE_URL}/api/v1/bookings/${bookingId}`;
+    const url = `${getApiBaseUrl()}/bookings/${bookingId}`;
 
     console.log('[API] Fetching booking details:', { bookingId, url });
 
@@ -1091,7 +1120,7 @@ export async function getBookingDetails(bookingId: string): Promise<any> {
  * Cancel a booking
  */
 export async function cancelBooking(bookingId: string): Promise<any> {
-    const url = `${API_BASE_URL}/api/v1/bookings/${bookingId}/cancel`;
+    const url = `${getApiBaseUrl()}/bookings/${bookingId}/cancel`;
 
     console.log('[API] Cancelling booking:', { bookingId, url });
 
@@ -1117,7 +1146,7 @@ export async function cancelBooking(bookingId: string): Promise<any> {
  * Get authenticated user info
  */
 export async function getWhoami(): Promise<any> {
-    const url = `${API_BASE_URL}/api/v1/whoami`;
+    const url = `${getApiBaseUrl()}/whoami`;
 
     console.log('[API] Fetching user info:', { url });
 

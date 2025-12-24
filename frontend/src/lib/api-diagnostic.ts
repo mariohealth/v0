@@ -4,13 +4,17 @@
  * This file is for testing purposes only and can be removed after diagnosis.
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
+import { getApiBaseUrl } from './api-base';
+
+const API_BASE_URL = getApiBaseUrl();
+
 
 /**
  * Test multiple slug variants for a procedure
  */
 export async function testProcedureProvidersSlugs(slug: string) {
-    const base = `${API_BASE_URL}/api/v1/procedures`;
+    const base = `${API_BASE_URL}/procedures`;
+
     const variants = [
         slug,
         slug.replace(/_/g, '-'),

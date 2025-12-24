@@ -5,6 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import { MarioRewardsV2 } from '@/components/mario-rewards-v2';
 import { FeatureGate } from '@/components/ui/FeatureGate';
+import { ComingSoonOverlay } from '@/components/ui/ComingSoonOverlay';
+import { BottomNav } from '@/components/navigation/BottomNav';
+
 
 function RewardsContent() {
   const { user, loading } = useAuth();
@@ -48,41 +51,19 @@ function RewardsContent() {
   const handleBack = () => router.push('/home');
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Confetti animation */}
-      {showConfetti && (
-        <div
-          key={confettiKey}
-          className="fixed inset-0 pointer-events-none z-50"
-          style={{
-            animation: 'confetti-fall 3s ease-out forwards',
-          }}
-        >
-          {/* Simple confetti effect */}
-          {Array.from({ length: 50 }).map((_, i) => (
-            <div
-              key={i}
-              className="absolute"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: '-10px',
-                width: '10px',
-                height: '10px',
-                backgroundColor: ['#2E5077', '#4DA1A9', '#79D7BE', '#FFA726'][Math.floor(Math.random() * 4)],
-                animation: `confetti-fall ${2 + Math.random() * 2}s ease-out forwards`,
-                animationDelay: `${Math.random() * 0.5}s`,
-                transform: `rotate(${Math.random() * 360}deg)`,
-              }}
-            />
-          ))}
-        </div>
-      )}
-      <FeatureGate feature="ENABLE_REWARDS" showOverlay>
-        <MarioRewardsV2 onBack={handleBack} />
-      </FeatureGate>
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="flex-1">
+        <ComingSoonOverlay
+          title="Mario Rewards"
+          description="We're building a smarter way to earn. Soon you'll get points for choosing high-value care and completing healthy activities."
+          onBack={handleBack}
+        />
+      </div>
+      <BottomNav />
     </div>
   );
 }
+
 
 export default function RewardsPage() {
   return (

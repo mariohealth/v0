@@ -5,17 +5,17 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  ArrowLeft, 
-  Heart, 
-  Star, 
-  CheckCircle2, 
-  MapPin, 
-  Phone, 
-  Clock, 
-  Copy,
-  Navigation,
-  User
+import {
+    ArrowLeft,
+    Heart,
+    Star,
+    CheckCircle2,
+    MapPin,
+    Phone,
+    Clock,
+    Copy,
+    Navigation,
+    User
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -38,7 +38,7 @@ function ProviderDetailContent() {
     const [showBookingChat, setShowBookingChat] = useState(false);
     const [activeTab, setActiveTab] = useState('overview');
     const [isSaved, setIsSaved] = useState(false);
-    const [isDesktop, setIsDesktop] = useState(typeof window !== 'undefined' && window.innerWidth >= 768);
+
 
     useEffect(() => {
         const fetchProvider = async () => {
@@ -67,8 +67,10 @@ function ProviderDetailContent() {
             fetchProvider();
         }
     }, [providerId]);
+    const [isDesktop, setIsDesktop] = useState(false);
 
     useEffect(() => {
+        setIsDesktop(window.innerWidth >= 768);
         const handleResize = () => {
             setIsDesktop(window.innerWidth >= 768);
         };
@@ -169,14 +171,14 @@ function ProviderDetailContent() {
     ];
 
     const location = hospitalLocations.default;
-    const hospitalName = provider.address 
+    const hospitalName = provider.address
         ? `${provider.address}${provider.city ? `, ${provider.city}` : ''}${provider.state ? `, ${provider.state}` : ''}`
         : 'Medical Center';
     const distance = '2.3 mi';
     const specialty = 'General Practice';
 
-    const firstProcedure = provider.procedures && provider.procedures.length > 0 
-        ? provider.procedures[0] 
+    const firstProcedure = provider.procedures && provider.procedures.length > 0
+        ? provider.procedures[0]
         : null;
     const price = firstProcedure?.price || '$200';
     const currentCost = parseInt(price.replace(/[^0-9]/g, ''));
@@ -204,7 +206,7 @@ function ProviderDetailContent() {
     return (
         <>
             <div className="min-h-screen bg-[#F9FAFB] pb-32 md:pb-8">
-                <div 
+                <div
                     className="bg-white sticky top-0 z-20"
                     style={{
                         borderBottom: '1px solid #E5E7EB',
@@ -221,8 +223,8 @@ function ProviderDetailContent() {
                             >
                                 <ArrowLeft className="w-5 h-5" style={{ color: '#2E5077' }} />
                             </button>
-                            
-                            <h1 
+
+                            <h1
                                 className="flex-1 truncate text-center"
                                 style={{
                                     fontSize: '18px',
@@ -239,7 +241,7 @@ function ProviderDetailContent() {
                                 style={{ minWidth: '44px', minHeight: '44px' }}
                                 aria-label={isSaved ? 'Remove from saved' : 'Save provider'}
                             >
-                                <Heart 
+                                <Heart
                                     className={`w-5 h-5 ${isSaved ? 'fill-current' : ''}`}
                                     style={{ color: isSaved ? '#EF4444' : '#6B7280' }}
                                 />
@@ -251,7 +253,7 @@ function ProviderDetailContent() {
                 <div className="bg-white">
                     <div className="max-w-4xl mx-auto px-4 py-6">
                         <div className="flex flex-col items-center text-center">
-                            <div 
+                            <div
                                 className="w-20 h-20 rounded-full flex items-center justify-center mb-4"
                                 style={{
                                     backgroundColor: '#F3F4F6',
@@ -261,7 +263,7 @@ function ProviderDetailContent() {
                                 <User className="w-10 h-10" style={{ color: '#2E5077' }} />
                             </div>
 
-                            <h2 
+                            <h2
                                 style={{
                                     fontSize: '24px',
                                     fontWeight: '700',
@@ -271,7 +273,7 @@ function ProviderDetailContent() {
                             >
                                 {provider.provider_name}
                             </h2>
-                            <p 
+                            <p
                                 style={{
                                     fontSize: '16px',
                                     color: '#6B7280',
@@ -283,7 +285,7 @@ function ProviderDetailContent() {
 
                             <div className="flex items-center gap-2 mb-4">
                                 <MapPin className="w-4 h-4" style={{ color: '#4DA1A9' }} />
-                                <p 
+                                <p
                                     style={{
                                         fontSize: '15px',
                                         color: '#2E5077',
@@ -319,11 +321,11 @@ function ProviderDetailContent() {
                 <div className="bg-white" style={{ borderTop: '1px solid #E5E7EB' }}>
                     <div className="max-w-4xl mx-auto">
                         <Tabs value={activeTab} onValueChange={setActiveTab}>
-                            <TabsList 
+                            <TabsList
                                 className="w-full grid grid-cols-3 h-auto bg-transparent p-0"
                                 style={{ borderRadius: 0 }}
                             >
-                                <TabsTrigger 
+                                <TabsTrigger
                                     value="overview"
                                     className="data-[state=active]:bg-transparent rounded-none h-12"
                                     style={{
@@ -335,7 +337,7 @@ function ProviderDetailContent() {
                                 >
                                     Overview
                                 </TabsTrigger>
-                                <TabsTrigger 
+                                <TabsTrigger
                                     value="costs"
                                     className="data-[state=active]:bg-transparent rounded-none h-12"
                                     style={{
@@ -347,7 +349,7 @@ function ProviderDetailContent() {
                                 >
                                     Costs
                                 </TabsTrigger>
-                                <TabsTrigger 
+                                <TabsTrigger
                                     value="location"
                                     className="data-[state=active]:bg-transparent rounded-none h-12"
                                     style={{
@@ -362,7 +364,7 @@ function ProviderDetailContent() {
                             </TabsList>
 
                             <TabsContent value="overview" className="px-4 py-6 space-y-4">
-                                <Card 
+                                <Card
                                     className="p-4"
                                     style={{
                                         borderRadius: '12px',
@@ -373,7 +375,7 @@ function ProviderDetailContent() {
                                     <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#2E5077', marginBottom: '12px' }}>
                                         Contact Information
                                     </h3>
-                                    
+
                                     <div className="space-y-3">
                                         <div className="flex items-start gap-3">
                                             <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#2E5077' }} />
@@ -390,7 +392,7 @@ function ProviderDetailContent() {
                                         {location.phone && (
                                             <div className="flex items-center gap-3">
                                                 <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#2E5077' }} />
-                                                <a 
+                                                <a
                                                     href={`tel:${location.phone}`}
                                                     style={{ fontSize: '15px', color: '#2E5077', fontWeight: '500' }}
                                                 >
@@ -408,7 +410,7 @@ function ProviderDetailContent() {
                                     </div>
                                 </Card>
 
-                                <Card 
+                                <Card
                                     className="p-4"
                                     style={{
                                         borderRadius: '12px',
@@ -419,7 +421,7 @@ function ProviderDetailContent() {
                                     <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#2E5077', marginBottom: '12px' }}>
                                         About {provider.provider_name.split(' ')[0]}. {provider.provider_name.split(' ').slice(-1)[0]}
                                     </h3>
-                                    
+
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
                                             <span style={{ fontSize: '14px', color: '#6B7280' }}>Experience</span>
@@ -446,7 +448,7 @@ function ProviderDetailContent() {
                             </TabsContent>
 
                             <TabsContent value="costs" className="px-4 py-6 space-y-4">
-                                <Card 
+                                <Card
                                     className="p-4"
                                     style={{
                                         borderRadius: '12px',
@@ -457,7 +459,7 @@ function ProviderDetailContent() {
                                     <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#2E5077', marginBottom: '12px' }}>
                                         Price Comparison
                                     </h3>
-                                    
+
                                     <div className="space-y-3">
                                         {costComparisonData.map((item, index) => (
                                             <div key={index}>
@@ -469,14 +471,14 @@ function ProviderDetailContent() {
                                                         ${index === 0 ? currentCost : item.cost}
                                                     </span>
                                                 </div>
-                                                <div 
+                                                <div
                                                     className="h-2 rounded-full"
-                                                    style={{ 
+                                                    style={{
                                                         backgroundColor: '#F3F4F6',
                                                         overflow: 'hidden'
                                                     }}
                                                 >
-                                                    <div 
+                                                    <div
                                                         style={{
                                                             width: `${((index === 0 ? currentCost : item.cost) / maxCost) * 100}%`,
                                                             height: '100%',
@@ -489,7 +491,7 @@ function ProviderDetailContent() {
                                         ))}
                                     </div>
 
-                                    <div 
+                                    <div
                                         className="mt-4 p-3 rounded-lg"
                                         style={{ backgroundColor: '#F0F9FF' }}
                                     >
@@ -499,7 +501,7 @@ function ProviderDetailContent() {
                                     </div>
                                 </Card>
 
-                                <Card 
+                                <Card
                                     className="p-4"
                                     style={{
                                         borderRadius: '12px',
@@ -510,7 +512,7 @@ function ProviderDetailContent() {
                                     <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#2E5077', marginBottom: '12px' }}>
                                         Service Pricing
                                     </h3>
-                                    
+
                                     <div className="space-y-3">
                                         <div className="flex justify-between items-center">
                                             <span style={{ fontSize: '14px', color: '#6B7280' }}>Initial Consultation</span>
@@ -527,7 +529,7 @@ function ProviderDetailContent() {
                                     </div>
                                 </Card>
 
-                                <Card 
+                                <Card
                                     className="p-4"
                                     style={{
                                         borderRadius: '12px',
@@ -538,7 +540,7 @@ function ProviderDetailContent() {
                                     <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#2E5077', marginBottom: '12px' }}>
                                         Insurance Accepted
                                     </h3>
-                                    
+
                                     <div className="space-y-2">
                                         {['Blue Cross Blue Shield', 'Aetna', 'Cigna', 'UnitedHealth', 'Medicare'].map((insurance, index) => (
                                             <div key={index} className="flex items-center gap-2">
@@ -552,14 +554,14 @@ function ProviderDetailContent() {
 
                             <TabsContent value="location" className="px-4 py-6 space-y-4">
                                 <div className="relative">
-                                    <div 
+                                    <div
                                         className="w-full overflow-hidden bg-gray-200"
                                         style={{
                                             height: '200px',
                                             borderRadius: '12px'
                                         }}
                                     >
-                                        <div 
+                                        <div
                                             className="w-full h-full flex items-center justify-center"
                                             style={{
                                                 backgroundColor: '#E5E7EB',
@@ -569,7 +571,7 @@ function ProviderDetailContent() {
                                             }}
                                         >
                                             <div className="relative">
-                                                <div 
+                                                <div
                                                     className="w-10 h-10 rounded-full flex items-center justify-center"
                                                     style={{
                                                         backgroundColor: '#2E5077',
@@ -602,7 +604,7 @@ function ProviderDetailContent() {
                                     </div>
                                 </div>
 
-                                <Card 
+                                <Card
                                     className="p-4"
                                     style={{
                                         borderRadius: '12px',
@@ -657,7 +659,7 @@ function ProviderDetailContent() {
                                     </div>
                                 </Card>
 
-                                <Card 
+                                <Card
                                     className="p-4"
                                     style={{
                                         borderRadius: '12px',
@@ -668,12 +670,12 @@ function ProviderDetailContent() {
                                     <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#2E5077', marginBottom: '12px' }}>
                                         Contact & Hours
                                     </h3>
-                                    
+
                                     <div className="space-y-3">
                                         {location.phone && (
                                             <div className="flex items-center gap-3">
                                                 <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#2E5077' }} />
-                                                <a 
+                                                <a
                                                     href={`tel:${location.phone}`}
                                                     style={{ fontSize: '15px', color: '#2E5077', fontWeight: '500' }}
                                                 >
@@ -691,7 +693,7 @@ function ProviderDetailContent() {
                                     </div>
                                 </Card>
 
-                                <Card 
+                                <Card
                                     className="p-4"
                                     style={{
                                         borderRadius: '12px',
@@ -702,7 +704,7 @@ function ProviderDetailContent() {
                                     <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#2E5077', marginBottom: '12px' }}>
                                         Accessibility
                                     </h3>
-                                    
+
                                     <ul className="space-y-2">
                                         <li className="flex items-start gap-2">
                                             <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#79D7BE' }} />
@@ -729,7 +731,7 @@ function ProviderDetailContent() {
                     </div>
                 </div>
 
-                <div 
+                <div
                     className="fixed bottom-16 md:bottom-0 left-0 right-0 bg-white z-10 px-4 py-3"
                     style={{
                         borderTop: '1px solid #E5E7EB',
@@ -782,7 +784,7 @@ function ProviderDetailContent() {
                 doctorName={provider.provider_name}
                 hospital={hospitalName}
                 specialty={specialty}
-                onComplete={() => {}}
+                onComplete={() => { }}
                 isDesktop={isDesktop}
             />
         </>
