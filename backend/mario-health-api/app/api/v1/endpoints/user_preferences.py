@@ -101,34 +101,49 @@ async def update_user_preferences(
     Requires authentication via Firebase ID token in Authorization header.
     """
     try:
-        preferences = request.preferences
-        preferences.user_id = user_id  # Ensure user_id matches authenticated user
-        preferences.updated_at = datetime.utcnow()
+        # Get the preferences from request (without user_id)
+        update_data = request.preferences.model_dump(exclude_unset=True)
 
-        # Convert to dict for database insert
-        prefs_dict = preferences.model_dump()
+        # Add user_id from auth token and timestamp
+        update_data['user_id'] = user_id
+        update_data['updated_at'] = datetime.utcnow().isoformat()
 
         # Check if preferences already exist
         response = supabase.table("user_preferences").select("*").eq("user_id", user_id).execute()
 
         if response.data and len(response.data) > 0:
             # Update existing preferences
-            update_response = supabase.table("user_preferences").update(prefs_dict).eq("user_id", user_id).execute()
+            update_response = supabase.table("user_preferences").update(update_data).eq("user_id", user_id).execute()
 
             if not update_response.data:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     detail="Failed to update preferences"
                 )
+
+            result_data = update_response.data[0]
         else:
             # Insert new preferences
-            insert_response = supabase.table("user_preferences").insert(prefs_dict).execute()
+            insert_response = supabase.table("user_preferences").insert(update_data).execute()
 
             if not insert_response.data:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     detail="Failed to save preferences"
                 )
+
+            result_data = insert_response.data[0]
+
+        # Convert result to UserPreferences model
+        preferences = UserPreferences(
+            user_id=result_data["user_id"],
+            default_zip=result_data.get("default_zip"),
+            default_radius=result_data.get("default_radius", 50),
+            preferred_insurance_carriers=result_data.get("preferred_insurance_carriers", []) or [],
+            saved_locations=result_data.get("saved_locations", []) or [],
+            language=result_data.get("language", "en"),
+            notifications=result_data.get("notifications", {"email": True, "sms": False}),
+        )
 
         # Return updated preferences
         return UserPreferencesResponse(preferences=preferences)

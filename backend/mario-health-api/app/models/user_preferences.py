@@ -73,16 +73,36 @@ class UserPreferencesResponse(BaseModel):
     success: bool = True
 
 
+class UserPreferencesUpdate(BaseModel):
+    """Model for updating user preferences (user_id comes from auth token)."""
+
+    # Location defaults
+    default_zip: Optional[str] = Field(None, max_length=10)
+    default_radius: Optional[int] = Field(50, ge=10, le=100)
+
+    # Insurance preferences
+    preferred_insurance_carriers: Optional[List[str]] = Field(default_factory=list)
+
+    # Saved locations (max 5)
+    saved_locations: Optional[List[SavedLocation]] = Field(default_factory=list)
+
+    # Language preference
+    language: Optional[str] = Field("en", pattern="^[a-z]{2}$")
+
+    # Notification preferences
+    notifications: Optional[Notifications] = Field(default_factory=Notifications)
+
+
 class UserPreferencesUpdateRequest(BaseModel):
     """Request to update user preferences."""
-    preferences: UserPreferences
+    preferences: UserPreferencesUpdate
 
 
 __all__ = [
     "SavedLocation",
     "Notifications",
     "UserPreferences",
+    "UserPreferencesUpdate",
     "UserPreferencesResponse",
     "UserPreferencesUpdateRequest",
 ]
-

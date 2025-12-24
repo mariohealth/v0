@@ -94,15 +94,15 @@ Taxonomy ID,Taxonomy Name,Specialist Name,Specialist ID
 171100000X,Acupuncturist,Acupuncturist,1
 174N00000X,Lactation Consultant,Lactation Consultant,23
 175F00000X,Naturopathic Physician,Naturopathic Doctor,24
-1835C0206X,Cardiology Physician Assistant,Cardiologist,4
-1835E0208X,Emergency Medicine Physician Assistant,Emergency Medicine Physician,10
-1835G0303X,Geriatric Physician Assistant,Geriatrician,16
-1835I0206X,Infectious Disease Physician Assistant,Infectious Disease Specialist,20
-1835N0905X,Nephrology Physician Assistant,Nephrologist,26
-1835N1003X,Nutrition Physician Assistant,Nutritionist,30
-1835P0200X,Pediatric Physician Assistant,Pediatrician,42
-1835P1400X,Pain Management Physician Assistant,Pain Management Specialist,39
-1835X0200X,Oncology Physician Assistant,Oncologist,33
+1835C0206X,Cardiology Physician Assistant,Physician Assistant,62
+1835E0208X,Emergency Medicine Physician Assistant,Physician Assistant,62
+1835G0303X,Geriatric Physician Assistant,Physician Assistant,62
+1835I0206X,Infectious Disease Physician Assistant,Physician Assistant,62
+1835N0905X,Nephrology Physician Assistant,Physician Assistant,62
+1835N1003X,Nutrition Physician Assistant,Physician Assistant,62
+1835P0200X,Pediatric Physician Assistant,Physician Assistant,62
+1835P1400X,Pain Management Physician Assistant,Physician Assistant,62
+1835X0200X,Oncology Physician Assistant,Physician Assistant,62
 204C00000X,Sports Medicine (Neuromusculoskeletal Medicine) Physician,Sports Medicine Specialist,58
 204E00000X,Oral & Maxillofacial Surgery Physician,Surgeon,59
 204F00000X,Transplant Surgery Physician,Surgeon,59

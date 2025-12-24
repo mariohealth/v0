@@ -60,3 +60,4 @@ id,name,slug,description
 59,Surgeon,surgeon,Medical professional who performs surgery.
 60,Urologist,urologist,Doctor who specializes in diseases of the urinary tract and the male reproductive system.
 61,Vascular Surgeon,vascular-surgeon,"Surgeon who manages diseases of the vascular system (arteries, veins, and lymphatic circulation)."
+62,Physician Assistant,physician-assistant,"Physician assistant"
