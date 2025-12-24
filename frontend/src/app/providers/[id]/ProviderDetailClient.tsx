@@ -217,8 +217,8 @@ function ProviderDetailContent() {
     return (
         <>
             <div className="min-h-screen bg-[#F9FAFB] pb-32 md:pb-8">
-                <div
-                    className="bg-white sticky top-0 z-20"
+                <div 
+                    className="bg-white sticky top-0 md:top-16 z-20"
                     style={{
                         borderBottom: '1px solid #E5E7EB',
                         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'

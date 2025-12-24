@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
@@ -42,6 +43,7 @@ interface MarioLandingPageProps {
 export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbout, onNavigateToTransparency, onNavigateToContact, onNavigateToEmployers, onNavigateToPrivacy }: MarioLandingPageProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Initialize desktop state after mount
@@ -79,390 +81,392 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FDFCFA' }}>
-      {/* Header */}
-      <header className="bg-white" style={{ borderBottom: '1px solid #E0E0E0' }}>
-        <div className="mx-auto" style={{ maxWidth: isDesktop ? '1440px' : '100%', padding: isDesktop ? '0 80px' : '0 16px' }}>
-          <div className="flex items-center justify-between" style={{ height: '64px' }}>
-            {/* Logo */}
-            <div className="flex items-center">
-              <span
-                style={{
-                  color: '#2E5077',
-                  fontSize: '20px',
-                  fontWeight: '700',
-                  letterSpacing: '-0.01em'
-                }}
-              >
-                mario
-              </span>
-            </div>
-
-            {/* Desktop Navigation */}
-            {isDesktop ? (
-              <>
-                <nav className="hidden md:flex items-center" style={{ gap: '32px' }}>
-                  <a
-                    href="#"
-                    className="mario-transition hover:opacity-75 mario-focus-ring"
-                    style={{
-                      color: '#2E5077',
-                      fontSize: '15px',
-                      fontWeight: '500'
-                    }}
-                  >
-                    Prescription Savings
-                  </a>
-                  <a
-                    href="#"
-                    className="mario-transition hover:opacity-75 mario-focus-ring"
-                    style={{
-                      color: '#2E5077',
-                      fontSize: '15px',
-                      fontWeight: '500'
-                    }}
-                  >
-                    Telehealth
-                  </a>
-                  <a
-                    href="#"
-                    className="mario-transition hover:opacity-75 mario-focus-ring"
-                    style={{
-                      color: '#2E5077',
-                      fontSize: '15px',
-                      fontWeight: '500'
-                    }}
-                  >
-                    Health Services
-                  </a>
-                  <a
-                    href="#"
-                    className="mario-transition hover:opacity-75 mario-focus-ring"
-                    style={{
-                      color: '#2E5077',
-                      fontSize: '15px',
-                      fontWeight: '500'
-                    }}
-                  >
-                    Plus Membership
-                  </a>
-                </nav>
-
-                <div className="flex items-center" style={{ gap: '12px' }}>
-                  <Button
-                    variant="ghost"
-                    onClick={onLogin}
-                    className="mario-transition mario-focus-ring"
-                    style={{
-                      color: '#2E5077',
-                      fontSize: '15px',
-                      fontWeight: '500'
-                    }}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    onClick={onSignUp}
-                    className="mario-transition mario-button-scale mario-focus-ring"
-                    style={{
-                      backgroundColor: '#2E5077',
-                      color: 'white',
-                      height: '48px',
-                      padding: '0 16px',
-                      borderRadius: '16px',
-                      fontSize: '16px',
-                      fontWeight: '500'
-                    }}
-                  >
-                    Sign Up Free
-                  </Button>
-                </div>
-              </>
-            ) : (
-              /* Mobile Menu Sheet */
-              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="md:hidden"
-                    style={{ color: '#2E5077' }}
-                  >
-                    <Menu className="h-5 w-5" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent
-                  side="right"
-                  className="w-[280px] p-0"
+      {/* Header - Only show on the actual landing page route */}
+      {pathname === '/' && (
+        <header className="bg-white" style={{ borderBottom: '1px solid #E0E0E0' }}>
+          <div className="mx-auto" style={{ maxWidth: isDesktop ? '1440px' : '100%', padding: isDesktop ? '0 80px' : '0 16px' }}>
+            <div className="flex items-center justify-between" style={{ height: '64px' }}>
+              {/* Logo */}
+              <div className="flex items-center">
+                <span
                   style={{
-                    backgroundColor: '#FFFFFF',
-                    borderLeft: '1px solid #E0E0E0'
+                    color: '#2E5077',
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    letterSpacing: '-0.01em'
                   }}
                 >
-                  <nav
-                    className="flex flex-col h-full"
+                  mario
+                </span>
+              </div>
+
+              {/* Desktop Navigation */}
+              {isDesktop ? (
+                <>
+                  <nav className="hidden md:flex items-center" style={{ gap: '32px' }}>
+                    <a
+                      href="#"
+                      className="mario-transition hover:opacity-75 mario-focus-ring"
+                      style={{
+                        color: '#2E5077',
+                        fontSize: '15px',
+                        fontWeight: '500'
+                      }}
+                    >
+                      Prescription Savings
+                    </a>
+                    <a
+                      href="#"
+                      className="mario-transition hover:opacity-75 mario-focus-ring"
+                      style={{
+                        color: '#2E5077',
+                        fontSize: '15px',
+                        fontWeight: '500'
+                      }}
+                    >
+                      Telehealth
+                    </a>
+                    <a
+                      href="#"
+                      className="mario-transition hover:opacity-75 mario-focus-ring"
+                      style={{
+                        color: '#2E5077',
+                        fontSize: '15px',
+                        fontWeight: '500'
+                      }}
+                    >
+                      Health Services
+                    </a>
+                    <a
+                      href="#"
+                      className="mario-transition hover:opacity-75 mario-focus-ring"
+                      style={{
+                        color: '#2E5077',
+                        fontSize: '15px',
+                        fontWeight: '500'
+                      }}
+                    >
+                      Plus Membership
+                    </a>
+                  </nav>
+
+                  <div className="flex items-center" style={{ gap: '12px' }}>
+                    <Button
+                      variant="ghost"
+                      onClick={onLogin}
+                      className="mario-transition mario-focus-ring"
+                      style={{
+                        color: '#2E5077',
+                        fontSize: '15px',
+                        fontWeight: '500'
+                      }}
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      onClick={onSignUp}
+                      className="mario-transition mario-button-scale mario-focus-ring"
+                      style={{
+                        backgroundColor: '#2E5077',
+                        color: 'white',
+                        height: '48px',
+                        padding: '0 16px',
+                        borderRadius: '16px',
+                        fontSize: '16px',
+                        fontWeight: '500'
+                      }}
+                    >
+                      Sign Up Free
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                /* Mobile Menu Sheet */
+                <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                  <SheetTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="md:hidden"
+                      style={{ color: '#2E5077' }}
+                    >
+                      <Menu className="h-5 w-5" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent
+                    side="right"
+                    className="w-[280px] p-0"
                     style={{
-                      paddingTop: '32px',
-                      paddingLeft: '24px',
-                      paddingRight: '24px'
+                      backgroundColor: '#FFFFFF',
+                      borderLeft: '1px solid #E0E0E0'
                     }}
                   >
-                    {/* Menu Items */}
-                    <div className="flex flex-col" style={{ gap: '20px' }}>
-                      <button
-                        onClick={scrollToTop}
-                        className="text-left transition-all"
-                        style={{
-                          fontSize: '16px',
-                          fontWeight: '500',
-                          color: '#1A1A1A',
-                          padding: '12px 0',
-                          minHeight: '44px',
-                          border: 'none',
-                          background: 'none',
-                          cursor: 'pointer',
-                          outline: 'none'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
-                          e.currentTarget.style.color = '#2E5077';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#1A1A1A';
-                        }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.outline = '2px solid #79D7BE';
-                          e.currentTarget.style.outlineOffset = '2px';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.outline = 'none';
-                        }}
-                      >
-                        Home
-                      </button>
-
-                      <button
-                        onClick={() => scrollToSection('how-it-works')}
-                        className="text-left transition-all"
-                        style={{
-                          fontSize: '16px',
-                          fontWeight: '500',
-                          color: '#1A1A1A',
-                          padding: '12px 0',
-                          minHeight: '44px',
-                          border: 'none',
-                          background: 'none',
-                          cursor: 'pointer',
-                          outline: 'none'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
-                          e.currentTarget.style.color = '#2E5077';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#1A1A1A';
-                        }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.outline = '2px solid #79D7BE';
-                          e.currentTarget.style.outlineOffset = '2px';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.outline = 'none';
-                        }}
-                      >
-                        How It Works
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          onNavigateToEmployers?.();
-                        }}
-                        className="text-left transition-all"
-                        style={{
-                          fontSize: '16px',
-                          fontWeight: '500',
-                          color: '#1A1A1A',
-                          padding: '12px 0',
-                          minHeight: '44px',
-                          border: 'none',
-                          background: 'none',
-                          cursor: 'pointer',
-                          outline: 'none'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
-                          e.currentTarget.style.color = '#2E5077';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#1A1A1A';
-                        }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.outline = '2px solid #79D7BE';
-                          e.currentTarget.style.outlineOffset = '2px';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.outline = 'none';
-                        }}
-                      >
-                        For Employers
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          onNavigateToPrivacy?.();
-                        }}
-                        className="text-left transition-all"
-                        style={{
-                          fontSize: '16px',
-                          fontWeight: '500',
-                          color: '#1A1A1A',
-                          padding: '12px 0',
-                          minHeight: '44px',
-                          border: 'none',
-                          background: 'none',
-                          cursor: 'pointer',
-                          outline: 'none'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
-                          e.currentTarget.style.color = '#2E5077';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#1A1A1A';
-                        }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.outline = '2px solid #79D7BE';
-                          e.currentTarget.style.outlineOffset = '2px';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.outline = 'none';
-                        }}
-                      >
-                        Privacy & Security
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          onNavigateToContact?.();
-                        }}
-                        className="text-left transition-all"
-                        style={{
-                          fontSize: '16px',
-                          fontWeight: '500',
-                          color: '#1A1A1A',
-                          padding: '12px 0',
-                          minHeight: '44px',
-                          border: 'none',
-                          background: 'none',
-                          cursor: 'pointer',
-                          outline: 'none'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
-                          e.currentTarget.style.color = '#2E5077';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#1A1A1A';
-                        }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.outline = '2px solid #79D7BE';
-                          e.currentTarget.style.outlineOffset = '2px';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.outline = 'none';
-                        }}
-                      >
-                        Contact Us
-                      </button>
-                    </div>
-
-                    {/* Divider */}
-                    <div
+                    <nav
+                      className="flex flex-col h-full"
                       style={{
-                        height: '1px',
-                        backgroundColor: '#E0E0E0',
-                        margin: '20px 0'
+                        paddingTop: '32px',
+                        paddingLeft: '24px',
+                        paddingRight: '24px'
                       }}
-                    />
+                    >
+                      {/* Menu Items */}
+                      <div className="flex flex-col" style={{ gap: '20px' }}>
+                        <button
+                          onClick={scrollToTop}
+                          className="text-left transition-all"
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            color: '#1A1A1A',
+                            padding: '12px 0',
+                            minHeight: '44px',
+                            border: 'none',
+                            background: 'none',
+                            cursor: 'pointer',
+                            outline: 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
+                            e.currentTarget.style.color = '#2E5077';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = '#1A1A1A';
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.outline = '2px solid #79D7BE';
+                            e.currentTarget.style.outlineOffset = '2px';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.outline = 'none';
+                          }}
+                        >
+                          Home
+                        </button>
 
-                    {/* Auth Section */}
-                    <div className="flex flex-col" style={{ gap: '12px' }}>
-                      <button
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          onLogin?.();
-                        }}
-                        className="text-left transition-all"
-                        style={{
-                          fontSize: '16px',
-                          fontWeight: '500',
-                          color: '#1A1A1A',
-                          padding: '12px 0',
-                          minHeight: '44px',
-                          border: 'none',
-                          background: 'none',
-                          cursor: 'pointer',
-                          outline: 'none'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
-                          e.currentTarget.style.color = '#2E5077';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#1A1A1A';
-                        }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.outline = '2px solid #79D7BE';
-                          e.currentTarget.style.outlineOffset = '2px';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.outline = 'none';
-                        }}
-                      >
-                        Sign In
-                      </button>
+                        <button
+                          onClick={() => scrollToSection('how-it-works')}
+                          className="text-left transition-all"
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            color: '#1A1A1A',
+                            padding: '12px 0',
+                            minHeight: '44px',
+                            border: 'none',
+                            background: 'none',
+                            cursor: 'pointer',
+                            outline: 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
+                            e.currentTarget.style.color = '#2E5077';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = '#1A1A1A';
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.outline = '2px solid #79D7BE';
+                            e.currentTarget.style.outlineOffset = '2px';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.outline = 'none';
+                          }}
+                        >
+                          How It Works
+                        </button>
 
-                      <Button
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          onSignUp?.();
-                        }}
-                        className="transition-all w-full"
+                        <button
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            onNavigateToEmployers?.();
+                          }}
+                          className="text-left transition-all"
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            color: '#1A1A1A',
+                            padding: '12px 0',
+                            minHeight: '44px',
+                            border: 'none',
+                            background: 'none',
+                            cursor: 'pointer',
+                            outline: 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
+                            e.currentTarget.style.color = '#2E5077';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = '#1A1A1A';
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.outline = '2px solid #79D7BE';
+                            e.currentTarget.style.outlineOffset = '2px';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.outline = 'none';
+                          }}
+                        >
+                          For Employers
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            onNavigateToPrivacy?.();
+                          }}
+                          className="text-left transition-all"
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            color: '#1A1A1A',
+                            padding: '12px 0',
+                            minHeight: '44px',
+                            border: 'none',
+                            background: 'none',
+                            cursor: 'pointer',
+                            outline: 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
+                            e.currentTarget.style.color = '#2E5077';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = '#1A1A1A';
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.outline = '2px solid #79D7BE';
+                            e.currentTarget.style.outlineOffset = '2px';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.outline = 'none';
+                          }}
+                        >
+                          Privacy & Security
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            onNavigateToContact?.();
+                          }}
+                          className="text-left transition-all"
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            color: '#1A1A1A',
+                            padding: '12px 0',
+                            minHeight: '44px',
+                            border: 'none',
+                            background: 'none',
+                            cursor: 'pointer',
+                            outline: 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
+                            e.currentTarget.style.color = '#2E5077';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = '#1A1A1A';
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.outline = '2px solid #79D7BE';
+                            e.currentTarget.style.outlineOffset = '2px';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.outline = 'none';
+                          }}
+                        >
+                          Contact Us
+                        </button>
+                      </div>
+
+                      {/* Divider */}
+                      <div
                         style={{
-                          backgroundColor: '#2E5077',
-                          color: '#FFFFFF',
-                          height: '48px',
-                          borderRadius: '8px',
-                          fontSize: '16px',
-                          fontWeight: '500',
-                          padding: '16px',
-                          border: 'none'
+                          height: '1px',
+                          backgroundColor: '#E0E0E0',
+                          margin: '20px 0'
                         }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = '#243f5e';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = '#2E5077';
-                        }}
-                      >
-                        Get Started
-                      </Button>
-                    </div>
-                  </nav>
-                </SheetContent>
-              </Sheet>
-            )}
+                      />
+
+                      {/* Auth Section */}
+                      <div className="flex flex-col" style={{ gap: '12px' }}>
+                        <button
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            onLogin?.();
+                          }}
+                          className="text-left transition-all"
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            color: '#1A1A1A',
+                            padding: '12px 0',
+                            minHeight: '44px',
+                            border: 'none',
+                            background: 'none',
+                            cursor: 'pointer',
+                            outline: 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(46, 80, 119, 0.04)';
+                            e.currentTarget.style.color = '#2E5077';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = '#1A1A1A';
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.outline = '2px solid #79D7BE';
+                            e.currentTarget.style.outlineOffset = '2px';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.outline = 'none';
+                          }}
+                        >
+                          Sign In
+                        </button>
+
+                        <Button
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            onSignUp?.();
+                          }}
+                          className="transition-all w-full"
+                          style={{
+                            backgroundColor: '#2E5077',
+                            color: '#FFFFFF',
+                            height: '48px',
+                            borderRadius: '8px',
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            padding: '16px',
+                            border: 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#243f5e';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '#2E5077';
+                          }}
+                        >
+                          Get Started
+                        </Button>
+                      </div>
+                    </nav>
+                  </SheetContent>
+                </Sheet>
+              )}
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Hero Section */}
       <section style={{ padding: isDesktop ? '64px 80px' : '64px 16px' }}>

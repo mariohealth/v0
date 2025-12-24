@@ -20,6 +20,10 @@
         "destination": "/providers/placeholder/index.html"
       },
       {
+        "source": "/procedures/**",
+        "destination": "/procedures/placeholder/index.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
