@@ -157,9 +157,9 @@ function SearchPageContent() {
                                             <ProviderCard
                                                 name={doctor.provider_name}
                                                 specialty={doctor.specialty}
-                                                distance="Nearby"
+                                                distance={typeof doctor.distance_miles === 'string' ? parseFloat(doctor.distance_miles) : (doctor.distance_miles || 0)}
                                                 inNetwork={true}
-                                                price={doctor.price || "Contact for price"}
+                                                price={doctor.price || '0'}
                                                 comparedToMedian="15% below average"
                                                 onBook={() => { }}
                                             />
