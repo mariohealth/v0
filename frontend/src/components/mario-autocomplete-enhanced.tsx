@@ -525,8 +525,26 @@ import React from 'react';
 let cachedSpecialties: APISpecialty[] | null = null;
 let specialtiesFetchPromise: Promise<APISpecialty[]> | null = null;
 
-// API base URL
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
+// Use relative URL for Firebase Hosting proxy (avoids CORS)
+// Firebase rewrites /api/** to Cloud Run, so we use relative URLs in production
+const getApiBaseUrl = (): string => {
+  // In browser on Firebase Hosting, use relative URL to leverage proxy
+  if (typeof window !== 'undefined' && window.location.hostname.includes('web.app')) {
+    return '/api/v1';
+  }
+  // For local dev or other environments, check env vars
+  if (process.env.NEXT_PUBLIC_API_BASE) {
+    return process.env.NEXT_PUBLIC_API_BASE;
+  }
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
+  }
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`;
+  }
+  // Fallback: use relative URL (works with Firebase proxy)
+  return '/api/v1';
+};
 
 /**
  * Get search results from the /search endpoint
@@ -537,7 +555,7 @@ async function getSearchResults(query: string): Promise<SearchResponse> {
     q: query,
   });
 
-  const url = `${API_BASE_URL}/api/v1/search?${params.toString()}`;
+  const url = `${getApiBaseUrl()}/search?${params.toString()}`;
 
   try {
     // Public endpoint - use plain fetch (no headers, no auth, no CORS preflight)
