@@ -23,6 +23,57 @@ export interface SearchResult {
     type?: 'procedure';
 }
 
+/**
+ * Mapper function to normalize backend search results to frontend interface.
+ * Handles potential field name mismatches (e.g. price vs best_price).
+ */
+function mapSearchResult(raw: any): SearchResult {
+    return {
+        procedure_id: raw.procedure_id || raw.id,
+        procedure_name: raw.procedure_name || raw.name || raw.display_name,
+        procedure_slug: raw.procedure_slug || raw.slug,
+        family_name: raw.family_name || raw.category || 'Procedure',
+        family_slug: raw.family_slug || (raw.category ? raw.category.toLowerCase().replace(/\s+/g, '_') : 'procedure'),
+        category_name: raw.category_name || raw.category || 'Healthcare',
+        category_slug: raw.category_slug || (raw.category ? raw.category.toLowerCase().replace(/\s+/g, '_') : 'healthcare'),
+        best_price: String(raw.best_price ?? raw.price ?? raw.min_price ?? '0'),
+        avg_price: String(raw.avg_price ?? raw.average_price ?? raw.price ?? '0'),
+        price_range: raw.price_range || (raw.best_price ? `$${raw.best_price}+` : 'Price on request'),
+        provider_count: raw.provider_count || 0,
+        nearest_provider: raw.nearest_provider,
+        nearest_distance_miles: raw.nearest_distance_miles,
+        match_score: raw.match_score || 1.0,
+        type: 'procedure'
+    };
+}
+
+/**
+ * Mapper function to normalize backend doctor results.
+ */
+function mapDoctorResult(raw: any): DoctorResult {
+    return {
+        provider_id: raw.provider_id || raw.id,
+        provider_name: raw.provider_name || raw.name || 'Provider',
+        specialty: raw.specialty || 'Medical Professional',
+        hospital_name: raw.hospital_name || raw.facility,
+        price: String(raw.price ?? raw.best_price ?? '0'),
+        rating: raw.rating ?? 'N/A',
+        distance_miles: raw.distance_miles ?? raw.distance,
+        match_score: raw.match_score ?? 1.0,
+        type: 'doctor'
+    };
+}
+
+/**
+ * Mapper for unified search results
+ */
+function mapUnifiedResult(result: any): UnifiedResult {
+    if (result.type === 'doctor') {
+        return mapDoctorResult(result) as UnifiedResult;
+    }
+    // Default to procedure if no type or if type is procedure
+    return mapSearchResult(result) as UnifiedResult;
+}
 
 export interface DoctorResult {
     provider_id: string;
@@ -31,6 +82,7 @@ export interface DoctorResult {
     hospital_name?: string;
     price?: string;
     rating?: string | number;
+    distance_miles?: number | string;
     match_score?: number;
     type?: 'doctor';
 }
@@ -241,6 +293,12 @@ export async function searchProcedures(
 
         const data = await response.json();
         console.log('[API] Search success:', { query, resultsCount: data.results_count });
+
+        // Apply mappers to results
+        if (data.results && Array.isArray(data.results)) {
+            data.results = data.results.map(mapUnifiedResult);
+        }
+
         return data as SearchResponse;
     } catch (error) {
         console.error('[API] Error searching procedures:', error);

@@ -149,13 +149,13 @@ function SearchPageContent() {
                                 if (result.type === 'doctor') {
                                     const doctor = result as DoctorResult;
                                     return (
-                                        <div key={doctor.id} onClick={() => router.push(`/providers/${doctor.id}`)}>
+                                        <div key={doctor.provider_id} onClick={() => router.push(`/providers/${doctor.provider_id}`)}>
                                             <ProviderCard
-                                                name={doctor.name}
+                                                name={doctor.provider_name}
                                                 specialty={doctor.specialty}
-                                                distance={doctor.distance}
+                                                distance={typeof doctor.distance_miles === 'string' ? parseFloat(doctor.distance_miles) : (doctor.distance_miles || 0)}
                                                 inNetwork={true}
-                                                price={doctor.price}
+                                                price={doctor.price || '0'}
                                                 comparedToMedian="15% below average"
                                                 onBook={() => { }}
                                             />
