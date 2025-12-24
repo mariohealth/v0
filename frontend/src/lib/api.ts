@@ -301,13 +301,13 @@ function filterMockProcedures(query: string): SearchResult[] {
             const displayNameLower = p.display_name.toLowerCase();
             const procedureNameLower = (p.procedure_name || '').toLowerCase();
             const categoryLower = p.category.toLowerCase();
-            
+
             // If query is empty, return no results
             if (queryWords.length === 0) return false;
 
             // Check if ALL query words match SOME part of the procedure's searchable fields
             // This enables "brain mri" to match "MRI - Brain"
-            return queryWords.every(word => 
+            return queryWords.every(word =>
                 displayNameLower.includes(word) ||
                 procedureNameLower.includes(word) ||
                 categoryLower.includes(word)
@@ -405,11 +405,24 @@ export async function getProcedureProviders(
 
     // The working commit returned providers directly on data.providers
     // Preserve the original response structure
-    const providers = Array.isArray(data?.providers) ? data.providers : [];
+    let providers = Array.isArray(data?.providers) ? data.providers : [];
+
+    // Ensure every provider has a provider_id and provider_name
+    providers = providers.map((p: any) => ({
+        ...p,
+        provider_id: p.provider_id || p.id || p.npi || (p.provider_name ? String(p.provider_name).replace(/\s+/g, '-').toLowerCase() : 'unknown'),
+        provider_name: p.provider_name || p.name || 'Unknown Provider'
+    }));
 
     // Dev log to confirm we are using LIVE data and from which URL
     if (process.env.NODE_ENV === "development") {
         console.log("[API:LIVE] providers url:", base, "count:", providers.length);
+        if (providers.length > 0) {
+            console.log("[API:LIVE] Sample provider:", {
+                id: providers[0].provider_id,
+                name: providers[0].provider_name
+            });
+        }
     }
 
     // === Apply modern Type-2 filtering AFTER validating the response ===
@@ -691,24 +704,24 @@ export async function getProviderDetail(providerId: string): Promise<ProviderDet
 
         // Fallback to mock data if available
         // This supports the "Find Doctors" page which uses dummy IDs like "dr_christopher_davis"
-        const { doctors } = require('./data/mario-doctors-data');
-        const mockDoctor = doctors.find((d: any) => d.id === providerId);
+        const { mockProvidersFallback } = require('../mock/live/providersFallback');
+        const mockDoctor = mockProvidersFallback.find((d: any) => d.provider_id === providerId);
 
         if (mockDoctor) {
             console.log('[API] Using mock provider data for', providerId);
             return {
-                provider_id: mockDoctor.id,
-                provider_name: mockDoctor.name,
-                address: '123 Medical Center Dr', // Default fallback
-                city: 'San Francisco',
-                state: 'CA',
-                zip: '94143',
-                phone: '(555) 123-4567',
-                price: parseInt(mockDoctor.price.replace(/[^0-9]/g, '')) || 200,
-                distance_miles: parseFloat(mockDoctor.distance.replace(/[^0-9.]/g, '')) || 2.5,
-                specialty: mockDoctor.specialty,
-                rating: parseFloat(mockDoctor.rating) || 4.5,
-                review_count: parseInt(mockDoctor.reviews) || 0,
+                provider_id: mockDoctor.provider_id,
+                provider_name: mockDoctor.provider_name,
+                address: mockDoctor.address || '123 Medical Center Dr',
+                city: mockDoctor.city || 'San Francisco',
+                state: mockDoctor.state || 'CA',
+                zip: mockDoctor.zip || '94143',
+                phone: mockDoctor.phone || '(555) 123-4567',
+                price: mockDoctor.price ? (mockDoctor.price.startsWith('$') ? mockDoctor.price : `$${mockDoctor.price}`) : '$200',
+                distance_miles: mockDoctor.distance_miles || 2.5,
+                specialty: mockDoctor.specialty || 'General Practice',
+                rating: mockDoctor.rating || 4.5,
+                review_count: mockDoctor.reviews || 0,
             } as ProviderDetail;
         }
 

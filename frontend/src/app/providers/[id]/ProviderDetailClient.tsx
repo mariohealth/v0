@@ -42,17 +42,28 @@ function ProviderDetailContent() {
 
     useEffect(() => {
         const fetchProvider = async () => {
-            if (!providerId) return;
+            if (!providerId) {
+                console.warn('[ProviderDetail] No providerId found in params');
+                return;
+            }
+            
+            if (providerId === 'placeholder') {
+                console.log('[ProviderDetail] Placeholder ID detected, waiting for hydration...');
+                return;
+            }
+
+            console.log('[ProviderDetail] Fetching data for provider:', providerId);
             setLoading(true);
             setError(null);
             try {
                 const data = await getProviderDetail(providerId);
+                console.log('[ProviderDetail] Data fetched successfully:', data.provider_name);
                 setProvider(data);
             } catch (err) {
-                console.error('Error fetching provider:', err);
+                console.error('[ProviderDetail] Error fetching provider:', err);
                 if (err instanceof Error) {
                     if (err.message.includes('404') || err.message.includes('not found')) {
-                        setError('Provider not found.');
+                        setError('Provider not found in our database.');
                     } else {
                         setError(`Failed to load provider details: ${err.message}`);
                     }
