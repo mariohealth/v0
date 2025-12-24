@@ -48,6 +48,11 @@ def initialize_firebase_admin():
             })
 
             logger.info(f"✅ Firebase Admin SDK initialized for project: {project_id}")
+        except Exception as e:
+            logger.error(f"❌ Failed to initialize Firebase Admin SDK: {str(e)}")
+            raise
+    else:
+        logger.debug("Firebase Admin SDK already initialized")
 
 
 def get_firebase_auth():
