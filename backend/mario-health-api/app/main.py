@@ -258,32 +258,6 @@ async def require_auth(authorization: str = Header(...)) -> Dict[str, Any]:
     return decoded
 
 
-# Secure endpoints
-@app.get("/user/profile", tags=["auth"])
-async def user_profile(user: Dict[str, Any] = Depends(require_auth)):
-    """Get user profile from Firebase token."""
-    return {
-        "uid": user.get("uid"),
-        "email": user.get("email"),
-        "email_verified": user.get("email_verified", False),
-        "name": user.get("name"),
-        "picture": user.get("picture"),
-    }
-
-
-@app.get("/secure/verify", tags=["auth"])
-async def secure_verify(user: Dict[str, Any] = Depends(require_auth)):
-    """Verify Firebase authentication token."""
-    return {
-        "status": "verified",
-        "user": {
-            "uid": user.get("uid"),
-            "email": user.get("email"),
-            "email_verified": user.get("email_verified", False),
-        },
-    }
-
-
 # Add middleware for request logging
 @app.middleware("http")
 async def log_requests(request: Request, call_next):

@@ -18,20 +18,23 @@ from app.models.saved_search import (
     SavedSearchesListResponse,
 )
 from app.core.dependencies import get_supabase
+from app.core.auth import get_current_user_id
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
 
 @router.get("/saved-searches", response_model=SavedSearchesListResponse)
-async def get_saved_searches(supabase=Depends(get_supabase)):
+async def get_saved_searches(
+    user_id: str = Depends(get_current_user_id),
+    supabase=Depends(get_supabase)
+):
     """
     Get all saved searches for the current user.
-
-    TODO: Implement proper authentication and extract user_id from request.
+    Requires authentication via Firebase ID token.
     """
-    # TODO: Extract user_id from auth token
-    user_id = "guest_user"
-
     try:
         response = (
             supabase.table("saved_searches")
@@ -60,23 +63,23 @@ async def get_saved_searches(supabase=Depends(get_supabase)):
         return SavedSearchesListResponse(searches=searches)
 
     except Exception as e:
-        print(f"Error fetching saved searches: {e}")
+        logger.error(f"Error fetching saved searches for user {user_id}: {e}")
         return SavedSearchesListResponse(searches=[])
 
 
 @router.post("/saved-searches", response_model=SavedSearchResponse)
 async def create_saved_search(
-    request: SavedSearchCreateRequest, supabase=Depends(get_supabase)
+    request: SavedSearchCreateRequest,
+    user_id: str = Depends(get_current_user_id),
+    supabase=Depends(get_supabase)
 ):
     """
     Create a new saved search.
+    Requires authentication via Firebase ID token.
     """
-    # TODO: Extract user_id from auth token
-    user_id = "guest_user"
-
     try:
         search = request.search
-        search.user_id = user_id
+        search.user_id = user_id  # Use authenticated user_id
         search.created_at = datetime.utcnow()
 
         # Convert to dict for database insert
@@ -107,7 +110,7 @@ async def create_saved_search(
     except HTTPException:
         raise
     except Exception as e:
-        print(f"Error creating saved search: {e}")
+        logger.error(f"Error creating saved search for user {user_id}: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to create saved search: {str(e)}",
@@ -115,13 +118,15 @@ async def create_saved_search(
 
 
 @router.delete("/saved-searches/{search_id}", response_model=SavedSearchResponse)
-async def delete_saved_search(search_id: str, supabase=Depends(get_supabase)):
+async def delete_saved_search(
+    search_id: str,
+    user_id: str = Depends(get_current_user_id),
+    supabase=Depends(get_supabase)
+):
     """
     Delete a saved search.
+    Requires authentication via Firebase ID token.
     """
-    # TODO: Extract user_id from auth token
-    user_id = "guest_user"
-
     try:
         # Verify the search belongs to the user
         check_response = (
@@ -157,8 +162,9 @@ async def delete_saved_search(search_id: str, supabase=Depends(get_supabase)):
     except HTTPException:
         raise
     except Exception as e:
-        print(f"Error deleting saved search: {e}")
+        logger.error(f"Error deleting saved search for user {user_id}: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to delete saved search: {str(e)}",
         )
+

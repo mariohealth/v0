@@ -23,25 +23,31 @@ def initialize_firebase_admin():
     1. Local development: After running `gcloud auth application-default login`
     2. Cloud Run: Automatically uses the attached IAM service account
 
+    Required environment variable:
+    - FIREBASE_PROJECT_ID: Your Firebase project ID (for token verification)
+
     Raises:
         Exception: If Firebase Admin SDK initialization fails
     """
+    import os
+
     if not firebase_admin._apps:
         try:
-            # Use Application Default Credentials (ADC)
-            # This will automatically use:
-            # - Local: Credentials from `gcloud auth application-default login`
-            # - Cloud Run: The attached IAM service account
+            project_id = os.getenv("FIREBASE_PROJECT_ID")
+
+            if not project_id:
+                raise ValueError(
+                    "FIREBASE_PROJECT_ID environment variable is required. "
+                    "Set it to your Firebase project ID (e.g., 'mario-mrf-data')"
+                )
+
+            # Use Application Default Credentials with explicit project ID
             cred = credentials.ApplicationDefault()
-            firebase_admin.initialize_app(cred)
-            logger.info(
-                "✅ Firebase Admin SDK initialized using Application Default Credentials (ADC)"
-            )
-        except Exception as e:
-            logger.error(f"❌ Failed to initialize Firebase Admin SDK: {str(e)}")
-            raise
-    else:
-        logger.debug("Firebase Admin SDK already initialized")
+            firebase_admin.initialize_app(cred, {
+                'projectId': project_id
+            })
+
+            logger.info(f"✅ Firebase Admin SDK initialized for project: {project_id}")
 
 
 def get_firebase_auth():
