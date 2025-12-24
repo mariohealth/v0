@@ -16,6 +16,10 @@
         }
       },
       {
+        "source": "/providers/**",
+        "destination": "/providers/placeholder/index.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
