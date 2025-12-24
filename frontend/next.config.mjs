@@ -9,7 +9,7 @@ const nextConfig = {
         ignoreBuildErrors: true,
     },
     // CRITICAL: Enable static export for Firebase Hosting
-    output: 'export',
+    // output: 'export',
     // standalone output is NOT compatible with your current firebase.json config
     // output: 'standalone',
 
@@ -39,11 +39,20 @@ const nextConfig = {
             },
         ],
     },
-    trailingSlash: true,
+    trailingSlash: false,
     env: {
         NEXT_PUBLIC_API_BASE: process.env.NEXT_PUBLIC_API_BASE,
         NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
         NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    },
+    // Add rewrites for local development to proxy /api to the gateway
+    async rewrites() {
+        return [
+            {
+                source: '/api/:path*',
+                destination: 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/:path*',
+            },
+        ];
     },
 };
 

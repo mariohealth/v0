@@ -1,26 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/lib/contexts/AuthContext';
 
-// Use relative URL for Firebase Hosting proxy (avoids CORS)
-// Firebase rewrites /api/** to Cloud Run, so we use relative URLs in production
-const getApiBaseUrl = (): string => {
-  // In browser on Firebase Hosting, use relative URL to leverage proxy
-  if (typeof window !== 'undefined' && window.location.hostname.includes('web.app')) {
-    return '/api/v1';
-  }
-  // For local dev or other environments, check env vars
-  if (process.env.NEXT_PUBLIC_API_BASE) {
-    return process.env.NEXT_PUBLIC_API_BASE;
-  }
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    return `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;
-  }
-  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
-    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`;
-  }
-  // Fallback: use relative URL (works with Firebase proxy)
-  return '/api/v1';
-};
+import { getApiBaseUrl } from '@/lib/api-base';
+
 
 export interface UserPreferences {
   user_id: string;
@@ -62,7 +44,7 @@ export function useUserPreferences(): UseUserPreferencesReturn {
 
       const apiBase = getApiBaseUrl().replace(/\/+$/, '');
       const url = `${apiBase}/user/preferences`;
-      
+
       console.log(`[useUserPreferences] Fetching from: ${url}`);
 
       const token = await user.getIdToken();
@@ -104,14 +86,14 @@ export function useUserPreferences(): UseUserPreferencesReturn {
 
       const apiBase = getApiBaseUrl().replace(/\/+$/, '');
       const url = `${apiBase}/user/preferences`;
-      
+
       console.log(`[useUserPreferences] Updating at: ${url}`);
       console.log(`[useUserPreferences] API Base URL: ${apiBase}`);
       console.log(`[useUserPreferences] Full URL: ${url}`);
 
       const token = await user.getIdToken();
       console.log(`[useUserPreferences] Token obtained: ${token ? 'Yes' : 'No'}`);
-      
+
       const response = await fetch(url, {
         method: 'PUT',
         headers: {

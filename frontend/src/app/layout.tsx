@@ -18,9 +18,19 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mario Health - Healthcare Price Comparison",
+  title: "Mario Health",
   description: "Compare healthcare prices and find affordable providers, procedures, and medications. Save money on your healthcare costs.",
   keywords: ["healthcare", "price comparison", "medical procedures", "providers", "affordable healthcare"],
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -35,11 +45,11 @@ export default function RootLayout({
       >
         <AuthProvider>
           <ToastProvider>
-            <GlobalNav />
             {children}
             <MarioAIFloatingButton />
           </ToastProvider>
         </AuthProvider>
+
       </body>
     </html>
   );

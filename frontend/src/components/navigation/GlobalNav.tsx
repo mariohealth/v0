@@ -45,10 +45,11 @@ export function GlobalNav({ showOnMobile = true, showOnDesktop = true }: GlobalN
 
     const navItems = [
         { href: '/home', label: 'Home', icon: Home },
-        { href: '/health-hub', label: 'Health Hub', icon: Home },
+        { href: '/health-hub', label: 'Health Hub', icon: Sparkles },
         { href: '/rewards', label: 'Rewards', icon: Gift },
         { href: '/profile', label: 'Profile', icon: User },
     ];
+
 
     const isActive = (href: string) => {
         if (href === '/') {

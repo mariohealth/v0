@@ -97,20 +97,29 @@ export function MarioSmartSearch({
         // 1. Fetch procedures from API (with mock fallback for procedures only)
         try {
           const procedureResults = await searchProcedures(query);
-          console.log(`[SmartSearch] Procedure results:`, procedureResults?.length || 0);
+          console.log(`[SmartSearch] Procedure search result:`, procedureResults);
 
-          if (Array.isArray(procedureResults)) {
-            procedureResults.forEach((result) => {
-              if (result.procedure_slug) {
-                const displayName = result.procedure_name || 'Procedure';
-                const category = result.category_name || 'Procedure';
+          // Handle both array (direct results) and object (full response) patterns
+          const resultsArray = Array.isArray(procedureResults)
+            ? procedureResults
+            : (procedureResults as any)?.results || [];
+
+          console.log(`[SmartSearch] Found ${resultsArray.length} procedures`);
+
+          if (resultsArray.length > 0) {
+            resultsArray.forEach((result: any) => {
+              // Ensure we have a slug or ID to route to
+              if (result.procedure_slug || result.procedure_id || result.slug) {
+                const displayName = result.procedure_name || result.display_name || 'Procedure';
+                const category = result.category_name || result.category || 'Procedure';
+                const slug = result.procedure_slug || result.procedure_id || result.slug;
 
                 suggestions.push({
-                  id: result.procedure_id || result.procedure_slug,
+                  id: result.procedure_id || slug,
                   type: 'procedure' as any,
                   primaryText: displayName,
-                  secondaryText: `${category} • ${result.provider_count || 0} providers • $${result.best_price || 'N/A'}`,
-                  procedureSlug: result.procedure_slug
+                  secondaryText: `${category} • ${result.provider_count || 0} providers • $${result.best_price || result.price || 'N/A'}`,
+                  procedureSlug: slug
                 });
               }
             });

@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { MarioBrowseProcedures } from '@/components/mario-browse-procedures';
 
+import { GlobalNav } from '@/components/navigation/GlobalNav';
+
 export default function ProceduresPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
@@ -37,12 +39,16 @@ export default function ProceduresPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <MarioBrowseProcedures 
-        onCategorySelect={handleCategorySelect}
-        onBack={handleBack}
-      />
+    <div className="min-h-screen bg-background flex flex-col">
+      <GlobalNav />
+      <div className="flex-1">
+        <MarioBrowseProcedures
+          onCategorySelect={handleCategorySelect}
+          onBack={handleBack}
+        />
+      </div>
     </div>
   );
 }
+
 

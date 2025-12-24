@@ -1,10 +1,14 @@
 'use client'
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import { User, Activity, SearchSlash, Building2, Pill } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { doctors, specialties, hospitals, Doctor, Specialty, HospitalInfo } from '@/lib/data/mario-doctors-data';
 import { searchMedications, type MedicationData } from '@/lib/data/mario-medication-data';
 import { getSpecialties, type Specialty as APISpecialty, type SearchResponse } from '@/lib/api';
+import { getApiBaseUrl } from '@/lib/api-base';
+
 
 export type AutocompleteCategory = 'doctor' | 'specialty' | 'hospital' | 'medication' | 'procedure';
 
@@ -519,14 +523,10 @@ function getHospitalForDoctor(doctor: Doctor): string {
 }
 
 // Export React for use in component
-import React from 'react';
-
 // Module-level cache for specialties (fetched once)
+
 let cachedSpecialties: APISpecialty[] | null = null;
 let specialtiesFetchPromise: Promise<APISpecialty[]> | null = null;
-
-// API base URL
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev';
 
 /**
  * Get search results from the /search endpoint
@@ -537,7 +537,7 @@ async function getSearchResults(query: string): Promise<SearchResponse> {
     q: query,
   });
 
-  const url = `${API_BASE_URL}/api/v1/search?${params.toString()}`;
+  const url = `${getApiBaseUrl()}/search?${params.toString()}`;
 
   try {
     // Public endpoint - use plain fetch (no headers, no auth, no CORS preflight)
