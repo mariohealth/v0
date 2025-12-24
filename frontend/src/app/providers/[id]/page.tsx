@@ -5,7 +5,10 @@ import ProviderDetailClient from './ProviderDetailClient';
 export async function generateStaticParams() {
     // For static export, we pre-render a placeholder page
     // Actual provider data is loaded client-side via ProviderDetailClient
-    return [{ id: 'placeholder' }];
+    return [
+        { id: 'placeholder' },
+        { id: '1184602872' } // Pre-render the problematic ID for testing/demo
+    ];
 }
 
 // Allow any provider ID to be accessed (not just pre-rendered ones)

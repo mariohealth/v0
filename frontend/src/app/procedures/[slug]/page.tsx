@@ -10,6 +10,9 @@ export async function generateStaticParams() {
         }))
     );
     
+    // Add a placeholder for dynamic routing fallback
+    allProcedures.push({ slug: 'placeholder' });
+    
     // Return all procedure slugs for static generation
     return allProcedures;
 }
