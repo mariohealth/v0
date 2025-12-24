@@ -185,15 +185,15 @@ function ProviderDetailContent() {
     const hospitalName = provider.address
         ? `${provider.address}${provider.city ? `, ${provider.city}` : ''}${provider.state ? `, ${provider.state}` : ''}`
         : 'Medical Center';
-    const distance = '2.3 mi';
-    const specialty = 'General Practice';
+    const distance = provider.distance_miles ? `${provider.distance_miles} mi` : '2.3 mi';
+    const specialty = provider.specialty || 'General Practice';
 
     const firstProcedure = provider.procedures && provider.procedures.length > 0
         ? provider.procedures[0]
         : null;
-    const price = firstProcedure?.price || '$200';
+    const price = firstProcedure?.price || provider.price || '$200';
     const currentCost = parseInt(price.replace(/[^0-9]/g, ''));
-    const maxCost = Math.max(...costComparisonData.map(d => d.cost));
+    const maxCost = Math.max(...costComparisonData.map(d => d.cost), currentCost);
     const savingsPercent = 10;
 
     const handleCopyAddress = async () => {
@@ -311,10 +311,10 @@ function ProviderDetailContent() {
                                 <div className="flex items-center gap-1">
                                     <Star className="w-4 h-4 fill-current" style={{ color: '#FBBF24' }} />
                                     <span style={{ fontSize: '15px', color: '#374151', fontWeight: '500' }}>
-                                        4.5
+                                        {provider.rating || '4.5'}
                                     </span>
                                     <span style={{ fontSize: '14px', color: '#6B7280' }}>
-                                        (0 reviews)
+                                        ({provider.review_count || 0} reviews)
                                     </span>
                                 </div>
 

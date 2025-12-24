@@ -150,6 +150,11 @@ export interface ProviderDetail {
     phone?: string;
     email?: string;
     website?: string;
+    specialty?: string;
+    distance_miles?: number | string;
+    rating?: number | string;
+    review_count?: number;
+    price?: string;
     procedures?: Array<{
         procedure_id: string;
         procedure_name: string;
