@@ -117,19 +117,14 @@ else:
         "ℹ️  Add Firebase Hosting origins via ALLOWED_ORIGINS env var (e.g., https://your-site.web.app)"
     )
 
-# Google OAuth2 allowed audiences
-# These should match the client IDs from your Google OAuth2 credentials
-# For Cloud Run identity tokens, the audience should be the Cloud Run service URL
-# For regular Google ID tokens, the audience should be the OAuth2 client ID
-GOOGLE_ALLOWED_AUDIENCES_STR = os.getenv("GOOGLE_ALLOWED_AUDIENCES", "")
-GOOGLE_ALLOWED_AUDIENCES = [
-    aud.strip() for aud in GOOGLE_ALLOWED_AUDIENCES_STR.split(",") if aud.strip()
-]
+# Firebase configuration
+FIREBASE_PROJECT_ID = os.getenv("FIREBASE_PROJECT_ID", "")
 
 logger.info(f"🔒 CORS configured with allowed origins: {ALLOWED_ORIGINS}")
-logger.info(
-    f"🔐 Google OAuth2 allowed audiences: {GOOGLE_ALLOWED_AUDIENCES if GOOGLE_ALLOWED_AUDIENCES else 'NOT CONFIGURED - Token verification will fail'}"
-)
+if FIREBASE_PROJECT_ID:
+    logger.info(f"🔐 Firebase Project ID: {FIREBASE_PROJECT_ID}")
+else:
+    logger.warning("⚠️  FIREBASE_PROJECT_ID not set - token verification will fail")
 
 app.add_middleware(
     CORSMiddleware,
