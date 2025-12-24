@@ -28,7 +28,6 @@ from app.api.v1.endpoints import (
 import os
 from pathlib import Path
 from app.middleware.logging import RequestLoggingMiddleware
-from app.auth.firebase_auth import verify_token
 
 # Configure logging
 logging.basicConfig(
@@ -219,44 +218,6 @@ def health_check():
         "version": "1.0.0",
         "environment": os.getenv("ENVIRONMENT", "development"),
     }
-
-
-# Firebase Auth dependency
-async def require_auth(authorization: str = Header(...)) -> Dict[str, Any]:
-    """
-    Required dependency that enforces Firebase authentication.
-
-    Use this for endpoints that must be authenticated.
-
-    Args:
-        authorization: Authorization header value (format: "Bearer <token>")
-
-    Returns:
-        Decoded Firebase token claims
-
-    Raises:
-        HTTPException: If no token or invalid token
-    """
-    if not authorization.startswith("Bearer "):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authorization header format. Expected: Bearer <token>",
-        )
-
-    token = authorization.split("Bearer ")[-1]
-    if not token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Token is missing"
-        )
-
-    decoded = verify_token(token)
-    if not decoded:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
-        )
-
-    return decoded
-
 
 # Add middleware for request logging
 @app.middleware("http")
