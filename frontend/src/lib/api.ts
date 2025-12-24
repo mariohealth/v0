@@ -262,15 +262,16 @@ export async function safeSearchProcedures(query: string): Promise<SearchResult[
     try {
         const response = await searchProcedures(query);
 
-        // If API returns results, use them
-        if (response.results && response.results.length > 0) {
-            // Filter to only procedures for this safe wrapper
-            return response.results.filter(r => r.type === 'procedure') as SearchResult[];
+        // Filter to only procedures for this safe wrapper
+        const procedures = (response.results || []).filter(r => r.type === 'procedure') as SearchResult[];
+
+        // If API returns procedures, use them
+        if (procedures.length > 0) {
+            return procedures;
         }
 
-
-        // Empty API response - use mock fallback
-        console.warn('[safeSearchProcedures] Empty API response, using mock fallback');
+        // No procedures found in API response - use mock fallback
+        console.warn('[safeSearchProcedures] No procedures found in API response, using mock fallback');
         return filterMockProcedures(query);
     } catch (err) {
         // API failed - use mock fallback
@@ -284,13 +285,25 @@ export async function safeSearchProcedures(query: string): Promise<SearchResult[
  */
 function filterMockProcedures(query: string): SearchResult[] {
     const queryLower = query.toLowerCase();
+    const queryWords = queryLower.split(/\s+/).filter(w => w.length > 0);
 
     return mockProceduresFallback
-        .filter(p =>
-            p.display_name.toLowerCase().includes(queryLower) ||
-            p.procedure_name?.toLowerCase().includes(queryLower) ||
-            p.category.toLowerCase().includes(queryLower)
-        )
+        .filter(p => {
+            const displayNameLower = p.display_name.toLowerCase();
+            const procedureNameLower = (p.procedure_name || '').toLowerCase();
+            const categoryLower = p.category.toLowerCase();
+            
+            // If query is empty, return no results
+            if (queryWords.length === 0) return false;
+
+            // Check if ALL query words match SOME part of the procedure's searchable fields
+            // This enables "brain mri" to match "MRI - Brain"
+            return queryWords.every(word => 
+                displayNameLower.includes(word) ||
+                procedureNameLower.includes(word) ||
+                categoryLower.includes(word)
+            );
+        })
         .map(p => ({
             procedure_id: p.procedure_id || p.slug,
             procedure_name: p.procedure_name || p.display_name,
