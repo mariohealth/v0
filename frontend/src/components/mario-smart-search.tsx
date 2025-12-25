@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { Search, X, Loader2, Sparkles } from 'lucide-react';
 import { Input } from './ui/input';
@@ -34,7 +34,7 @@ interface SmartSearchProps {
   onQueryChange?: (query: string) => void;
 }
 
-export function MarioSmartSearch({
+function MarioSmartSearchInner({
   placeholder = "Search services, doctors, or meds...",
   onSearch,
   onAutocompleteSelect,
@@ -832,5 +832,25 @@ export function MarioSmartSearch({
         </div>
       )}
     </div>
+  );
+}
+
+// Wrapper component with Suspense boundary for useSearchParams()
+// Required for Next.js static export
+export function MarioSmartSearch(props: SmartSearchProps) {
+  return (
+    <Suspense fallback={
+      <div className={cn("relative w-full", props.className)}>
+        <div className="relative flex items-center h-12 border-2 border-[#2E5077] bg-white"
+          style={{ borderRadius: '14px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)' }}>
+          <Search className="absolute left-4 h-5 w-5 text-[#999999]" />
+          <div className="pl-12 pr-12 h-12 flex items-center text-base text-gray-400">
+            Loading...
+          </div>
+        </div>
+      </div>
+    }>
+      <MarioSmartSearchInner {...props} />
+    </Suspense>
   );
 }

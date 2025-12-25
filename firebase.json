@@ -2,6 +2,7 @@
   "hosting": {
     "site": "mario-mrf-data",
     "public": "frontend/out",
+    "cleanUrls": true,
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -17,11 +18,11 @@
       },
       {
         "source": "/providers/**",
-        "destination": "/providers/placeholder/index.html"
+        "destination": "/providers/placeholder.html"
       },
       {
         "source": "/procedures/**",
-        "destination": "/procedures/placeholder/index.html"
+        "destination": "/procedures/placeholder.html"
       },
       {
         "source": "**",

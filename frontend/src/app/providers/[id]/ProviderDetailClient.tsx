@@ -29,7 +29,6 @@ function ProviderDetailContent() {
     const params = useParams();
     const searchParams = useSearchParams();
     const router = useRouter();
-    const providerId = params.id as string;
     const procedureSlug = searchParams.get('procedure') || searchParams.get('from_procedure');
     const { user, loading: authLoading } = useAuth();
     const [provider, setProvider] = useState<ProviderDetail | null>(null);
@@ -38,17 +37,30 @@ function ProviderDetailContent() {
     const [showBookingChat, setShowBookingChat] = useState(false);
     const [activeTab, setActiveTab] = useState('overview');
     const [isSaved, setIsSaved] = useState(false);
+    
+    // Get provider ID from params, but for static export fallback, 
+    // read from URL pathname when placeholder is detected
+    const [providerId, setProviderId] = useState<string | null>(null);
+    
+    useEffect(() => {
+        const paramId = params.id as string;
+        if (paramId && paramId !== 'placeholder') {
+            setProviderId(paramId);
+        } else if (typeof window !== 'undefined') {
+            // Static export fallback: extract ID from URL pathname
+            const pathMatch = window.location.pathname.match(/\/providers\/([^/?]+)/);
+            if (pathMatch && pathMatch[1] && pathMatch[1] !== 'placeholder') {
+                console.log('[ProviderDetail] Extracted ID from URL:', pathMatch[1]);
+                setProviderId(pathMatch[1]);
+            }
+        }
+    }, [params.id]);
 
 
     useEffect(() => {
         const fetchProvider = async () => {
             if (!providerId) {
-                console.warn('[ProviderDetail] No providerId found in params');
-                return;
-            }
-            
-            if (providerId === 'placeholder') {
-                console.log('[ProviderDetail] Placeholder ID detected, waiting for hydration...');
+                console.warn('[ProviderDetail] No providerId found yet');
                 return;
             }
 

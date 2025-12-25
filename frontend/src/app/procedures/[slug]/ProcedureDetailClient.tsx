@@ -123,12 +123,29 @@ export default function ProcedureDetailClient() {
   const params = useParams();
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const slug = params.slug as string;
   const [procedureName, setProcedureName] = useState<string>('');
   const [groupedOrgs, setGroupedOrgs] = useState<OrgGroup[]>([]);
   const [avgPrice, setAvgPrice] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Get slug from params, but for static export fallback,
+  // read from URL pathname when placeholder is detected
+  const [slug, setSlug] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const paramSlug = params.slug as string;
+    if (paramSlug && paramSlug !== 'placeholder') {
+      setSlug(paramSlug);
+    } else if (typeof window !== 'undefined') {
+      // Static export fallback: extract slug from URL pathname
+      const pathMatch = window.location.pathname.match(/\/procedures\/([^/?]+)/);
+      if (pathMatch && pathMatch[1] && pathMatch[1] !== 'placeholder') {
+        console.log('[ProcedureDetail] Extracted slug from URL:', pathMatch[1]);
+        setSlug(pathMatch[1]);
+      }
+    }
+  }, [params.slug]);
 
   useEffect(() => {
     if (!authLoading && !user) {
