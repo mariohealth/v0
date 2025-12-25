@@ -1,5 +1,6 @@
 'use client'
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { Search, X, Loader2, Sparkles } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -27,6 +28,10 @@ interface SmartSearchProps {
   onFocus?: () => void;
   autoFocus?: boolean;
   className?: string;
+  /** Optional: control the query value externally */
+  value?: string;
+  /** Optional: callback when query changes */
+  onQueryChange?: (query: string) => void;
 }
 
 export function MarioSmartSearch({
@@ -35,17 +40,49 @@ export function MarioSmartSearch({
   onAutocompleteSelect,
   onFocus,
   autoFocus = false,
-  className
+  className,
+  value,
+  onQueryChange
 }: SmartSearchProps) {
-  const [query, setQuery] = useState('');
+  const [internalQuery, setInternalQuery] = useState('');
   const [autocompleteSuggestions, setAutocompleteSuggestions] = useState<AutocompleteSuggestion[]>([]);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Track URL changes to reset state on navigation
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  // Use controlled or uncontrolled pattern
+  const query = value !== undefined ? value : internalQuery;
+  const setQuery = useCallback((newQuery: string) => {
+    if (value === undefined) {
+      setInternalQuery(newQuery);
+    }
+    onQueryChange?.(newQuery);
+  }, [value, onQueryChange]);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<NodeJS.Timeout>();
+  // Track request ID to prevent stale responses from overwriting fresh ones
+  const requestIdRef = useRef(0);
+
+  // Reset search state when URL changes (navigation)
+  useEffect(() => {
+    // When route changes (procedure param changes, path changes), clear the search
+    const procedureParam = searchParams.get('procedure');
+    
+    // Clear suggestions and reset state when navigating to a procedure
+    if (procedureParam) {
+      setAutocompleteSuggestions([]);
+      setShowAutocomplete(false);
+      setSelectedIndex(-1);
+      setIsLoading(false);
+      // Don't clear query here - let handleClear do that explicitly
+    }
+  }, [searchParams, pathname]);
 
   // Auto focus if requested
   useEffect(() => {
@@ -53,6 +90,15 @@ export function MarioSmartSearch({
       inputRef.current.focus();
     }
   }, [autoFocus]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, []);
 
   // Fuzzy match helper
   const fuzzyMatch = (text: string, search: string): boolean => {
@@ -75,6 +121,7 @@ export function MarioSmartSearch({
   };
 
   // Search with debounce - populate autocomplete suggestions
+  // Includes race condition prevention via requestIdRef
   useEffect(() => {
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
@@ -88,15 +135,27 @@ export function MarioSmartSearch({
     }
 
     setIsLoading(true);
+    // Clear stale suggestions immediately to prevent flicker of old results
+    setAutocompleteSuggestions([]);
+
+    // Increment request ID to track this specific request
+    const currentRequestId = ++requestIdRef.current;
 
     debounceRef.current = setTimeout(async () => {
       const suggestions: AutocompleteSuggestion[] = [];
-      console.log(`[SmartSearch] Starting search for: "${query}"`);
+      console.log(`[SmartSearch] Starting search for: "${query}" (requestId: ${currentRequestId})`);
 
       try {
         // 1. Fetch procedures from API (with mock fallback for procedures only)
         try {
           const procedureResults = await searchProcedures(query);
+          
+          // Check if this request is still the latest one
+          if (requestIdRef.current !== currentRequestId) {
+            console.log(`[SmartSearch] Stale request ${currentRequestId} discarded (current: ${requestIdRef.current})`);
+            return;
+          }
+          
           console.log(`[SmartSearch] Procedure search result:`, procedureResults);
 
           // Handle both array (direct results) and object (full response) patterns
@@ -128,9 +187,22 @@ export function MarioSmartSearch({
           console.error('[SmartSearch] Procedure fetch failed:', err);
         }
 
+        // Check again if this request is still current after first async operation
+        if (requestIdRef.current !== currentRequestId) {
+          console.log(`[SmartSearch] Stale request ${currentRequestId} discarded after procedures`);
+          return;
+        }
+
         // 2. Fetch doctors from API (Placeholder)
         try {
           const doctorResults = await searchDoctors(query);
+          
+          // Check if this request is still the latest one
+          if (requestIdRef.current !== currentRequestId) {
+            console.log(`[SmartSearch] Stale request ${currentRequestId} discarded after doctors`);
+            return;
+          }
+          
           if (Array.isArray(doctorResults) && doctorResults.length > 0) {
             console.log(`[SmartSearch] Doctor results:`, doctorResults.length);
             doctorResults.forEach((doc) => {
@@ -190,6 +262,12 @@ export function MarioSmartSearch({
         console.error('[SmartSearch] Unified search failed:', error);
       }
 
+      // Final check before updating state - only update if this is still the latest request
+      if (requestIdRef.current !== currentRequestId) {
+        console.log(`[SmartSearch] Stale request ${currentRequestId} discarded at end`);
+        return;
+      }
+
       console.log(`[SmartSearch] Total suggestions:`, suggestions.length);
       setAutocompleteSuggestions(suggestions);
       setShowAutocomplete(suggestions.length > 0);
@@ -206,15 +284,21 @@ export function MarioSmartSearch({
   }, [query]);
 
   // Handle input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQuery(value);
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setQuery(newValue);
 
-    if (value.length === 0) {
+    if (newValue.length === 0) {
+      // Cancel pending requests when clearing
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+      requestIdRef.current++;
+      setAutocompleteSuggestions([]);
       setShowAutocomplete(false);
       setIsLoading(false);
     }
-  };
+  }, [setQuery]);
 
   // Handle input focus
   const handleFocus = () => {
@@ -272,10 +356,19 @@ export function MarioSmartSearch({
   };
 
   // Handle autocomplete selection
-  const handleAutocompleteSelect = (suggestion: AutocompleteSuggestion) => {
+  const handleAutocompleteSelect = useCallback((suggestion: AutocompleteSuggestion) => {
+    // Cancel any pending debounced requests
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    // Invalidate any in-flight requests
+    requestIdRef.current++;
+    
     setQuery(suggestion.primaryText);
+    setAutocompleteSuggestions([]);
     setShowAutocomplete(false);
     setSelectedIndex(-1);
+    setIsLoading(false);
 
     // Call the onSearch with the suggestion so App.tsx can route appropriately
     onSearch(suggestion.primaryText, suggestion);
@@ -284,25 +377,41 @@ export function MarioSmartSearch({
     if (onAutocompleteSelect) {
       onAutocompleteSelect(suggestion);
     }
-  };
+  }, [setQuery, onSearch, onAutocompleteSelect]);
 
   // Handle search submission
-  const handleSearch = (searchQuery: string) => {
+  const handleSearch = useCallback((searchQuery: string) => {
     if (searchQuery.trim().length === 0) return;
 
+    // Cancel pending autocomplete requests
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    requestIdRef.current++;
+    
+    setAutocompleteSuggestions([]);
     setShowAutocomplete(false);
     setSelectedIndex(-1);
+    setIsLoading(false);
     onSearch(searchQuery.trim());
-  };
+  }, [onSearch]);
 
-  // Clear search
-  const handleClear = () => {
+  // Clear search - also cancels pending requests
+  const handleClear = useCallback(() => {
+    // Cancel any pending debounced requests
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    // Increment request ID to invalidate any in-flight requests
+    requestIdRef.current++;
+    
     setQuery('');
     setAutocompleteSuggestions([]);
     setShowAutocomplete(false);
     setSelectedIndex(-1);
+    setIsLoading(false);
     inputRef.current?.focus();
-  };
+  }, [setQuery]);
 
   return (
     <div className={cn("relative w-full", className)}>

@@ -364,6 +364,7 @@ export function MarioHome({
           {/* 2. Main Search Bar */}
           <div className="space-y-3">
             <MarioSmartSearch
+              key={procedureSlug || 'home-search'}
               onSearch={onSearch || ((query) => console.log('Search:', query))}
               autoFocus={!isReturningUser}
             />
