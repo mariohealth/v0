@@ -10,17 +10,22 @@ const nextConfig = {
     },
     /**
      * 🚨 CRITICAL DEPLOYMENT SETTING 🚨
-     * DO NOT REMOVE OR COMMENT OUT 'output: export'
+     * DO NOT REMOVE 'output: export' for production builds!
      * 
-     * Why this is required:
+     * Why this is required for production:
      * 1. Firebase Hosting: We use static hosting which requires a full static export.
      * 2. Build Artifacts: Without this, 'npm run build' will not generate the '/out' directory.
      * 3. Deployment Safety: Commenting this out will cause stale code to be served in production
      *    because the Firebase CLI will deploy the last successfully generated '/out' folder.
      * 
+     * Why it's disabled in development:
+     * - Static export requires all dynamic route params to be pre-generated via generateStaticParams()
+     * - dynamicParams = true does NOT work with output: 'export'
+     * - This allows /providers/[id] and /procedures/[slug] to work with any ID during local dev
+     * 
      * Documentation: https://nextjs.org/docs/app/building-your-application/deploying/static-exports
      */
-    output: 'export',
+    output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
     // standalone output is NOT compatible with your current firebase.json config
     // output: 'standalone',
 
