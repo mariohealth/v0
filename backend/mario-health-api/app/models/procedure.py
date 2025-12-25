@@ -177,6 +177,11 @@ class ProcedureOrg(BaseModel):
 
     procedure_id: str
     org_id: str
+    org_name: str | None = None
+    city: str | None = None
+    state: str | None = None
+    address: str | None = None
+    zip_code: str | None = None
     carrier_id: str
     carrier_name: str
     count_provider: int

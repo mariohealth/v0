@@ -66,57 +66,27 @@ function getMPSColor(score: number): { text: string, bg: string, border: string 
   return { text: 'text-red-700', bg: 'bg-red-50', border: 'border-red-200' };
 }
 
-// Helper function to group providers/orgs
-function groupProvidersByOrg(items: Org[]): OrgGroup[] {
-  const grouped = items.reduce((acc, item) => {
-    const orgName = item.org_name || 'Unknown Organization';
-
-    if (!acc[orgName]) {
-      acc[orgName] = {
-        org_name: orgName,
-        org_id: item.org_id || orgName,
-        carrier_name: item.carrier_name,
-        address: item.address,
-        city: item.city,
-        state: item.state,
-        zip_code: item.zip_code,
-        count_provider: 0,
-        in_network: item.in_network,
-        distance_miles: item.distance_miles,
-        min_price: typeof item.min_price === 'string' ? parseFloat(item.min_price.replace(/[^0-9.]/g, '')) : item.min_price,
-        price_range: { min: Infinity, max: -Infinity },
-        providers: [],
-        // Keep other fields from first item as representative
-        savings: item.savings
-      };
-    }
-
-    acc[orgName].providers.push(item);
-    acc[orgName].count_provider += 1; // Count actual providers in this group
-
-    // Update price range
-    const price = typeof item.min_price === 'string' ? parseFloat(item.min_price.replace(/[^0-9.]/g, '')) : item.min_price;
-    if (!isNaN(price)) {
-      acc[orgName].price_range.min = Math.min(acc[orgName].price_range.min, price);
-      acc[orgName].price_range.max = Math.max(acc[orgName].price_range.max, price);
-
-      // Update group min_price to be the absolute minimum
-      if (typeof acc[orgName].min_price === 'number') {
-        acc[orgName].min_price = Math.min(acc[orgName].min_price, price);
-      } else {
-        acc[orgName].min_price = price;
-      }
-    }
-
-    return acc;
-  }, {} as Record<string, OrgGroup>);
-
-  // Convert to array and fix infinite values if no prices found
-  return Object.values(grouped).map(g => {
-    if (g.price_range.min === Infinity) g.price_range.min = 0;
-    if (g.price_range.max === -Infinity) g.price_range.max = 0;
-    return g;
-  });
+// Helper function to group items for the UI (not needed as much now but kept for interface compatibility)
+function mapOrgsToGroups(items: Org[]): OrgGroup[] {
+  return items.map(item => ({
+    org_name: item.org_name || 'Unknown Organization',
+    org_id: item.org_id,
+    carrier_name: item.carrier_name,
+    address: item.address,
+    city: item.city,
+    state: item.state,
+    zip_code: item.zip_code,
+    count_provider: item.count_provider,
+    in_network: item.in_network,
+    distance_miles: item.distance_miles,
+    min_price: typeof item.min_price === 'string' ? parseFloat(item.min_price.replace(/[^0-9.]/g, '')) : item.min_price,
+    price_range: {
+      min: typeof item.min_price === 'string' ? parseFloat(item.min_price.replace(/[^0-9.]/g, '')) : item.min_price,
+      max: typeof item.max_price === 'string' ? parseFloat(item.max_price.replace(/[^0-9.]/g, '')) : Number(item.max_price || 0)
+    },
+    providers: [], // Details are in the provider detail page
+    savings: item.savings
+  }));
 }
 
 export default function ProcedureDetailClient() {
@@ -128,11 +98,11 @@ export default function ProcedureDetailClient() {
   const [avgPrice, setAvgPrice] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Get slug from params, but for static export fallback,
   // read from URL pathname when placeholder is detected
   const [slug, setSlug] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const paramSlug = params.slug as string;
     if (paramSlug && paramSlug !== 'placeholder') {
@@ -163,8 +133,8 @@ export default function ProcedureDetailClient() {
         const data = await getProcedureOrgs(slug);
         setProcedureName(data.procedure_name);
 
-        // Group the "orgs" (which are effectively providers)
-        const groups = groupProvidersByOrg(data.orgs);
+        // Map the pre-grouped orgs from API
+        const groups = mapOrgsToGroups(data.orgs);
         setGroupedOrgs(groups);
 
         // Calculate average price for MPS baseline
@@ -320,7 +290,10 @@ export default function ProcedureDetailClient() {
                       </div>
                       <div className="text-right flex-shrink-0 ml-4">
                         <div className="text-2xl font-bold text-primary">
-                          ${typeof group.min_price === 'string' ? group.min_price : group.min_price.toFixed(0)}
+                          {(() => {
+                            const price = typeof group.min_price === 'string' ? parseFloat(group.min_price.replace(/[^0-9.]/g, '')) : group.min_price;
+                            return price > 0 ? `$${price.toFixed(0)}` : 'Contact for price';
+                          })()}
                         </div>
                         {/* Show price range if strict min/max differ */}
                         {group.price_range.min !== group.price_range.max && group.price_range.max > 0 && (

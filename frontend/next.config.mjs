@@ -61,12 +61,12 @@ const nextConfig = {
         NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
         NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     },
-    // Add rewrites for local development to proxy /api to the gateway
+    // Add rewrites for local development to proxy /api to the local backend
     async rewrites() {
         return [
             {
                 source: '/api/:path*',
-                destination: 'https://mario-health-api-gateway-x5pghxd.uc.gateway.dev/api/:path*',
+                destination: 'http://127.0.0.1:8000/api/:path*',
             },
         ];
     },

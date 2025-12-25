@@ -12,6 +12,7 @@ import { GlobalNav } from '@/components/navigation/GlobalNav';
 import { Card } from '@/components/ui/card';
 import { ProcedureCard } from '@/components/ProcedureCard';
 import { ProviderCard } from '@/components/mario-card';
+import { OrganizationCard } from '@/components/OrganizationCard';
 
 function SearchPageContent() {
     const { user, loading } = useAuth();
@@ -50,6 +51,14 @@ function SearchPageContent() {
             saveSearchQuery(searchQuery.trim());
 
             const response = await searchProcedures(searchQuery.trim());
+
+            // If we have exactly one procedure result and it's a close match, redirect directly
+            const procedures = response.results.filter(r => r.type === 'procedure') as SearchResult[];
+            if (procedures.length === 1 && procedures[0].procedure_slug) {
+                router.push(`/procedures/${procedures[0].procedure_slug}`);
+                return;
+            }
+
             setSearchResults(response.results);
         } catch (err) {
             console.error('Search error:', err);
@@ -97,88 +106,119 @@ function SearchPageContent() {
         );
     }
 
+    const getGroupedResults = () => {
+        const doctors = searchResults.filter(r => r.type === 'doctor') as DoctorResult[];
+        const procedures = searchResults.filter(r => r.type === 'procedure') as SearchResult[];
+
+        const groupedByOrg = doctors.reduce((acc, doc) => {
+            const orgName = doc.hospital_name || doc.provider_name;
+            if (!acc[orgName]) {
+                acc[orgName] = {
+                    org_name: orgName,
+                    providers: [],
+                    price_range: { min: Infinity, max: -Infinity },
+                    distance: doc.distance_miles ? `${doc.distance_miles} mi` : undefined,
+                    hospital_name: doc.hospital_name
+                };
+            }
+            acc[orgName].providers.push(doc);
+
+            const price = parseFloat(String(doc.price || '0').replace(/[^0-9.]/g, ''));
+            if (!isNaN(price) && price > 0) {
+                acc[orgName].price_range.min = Math.min(acc[orgName].price_range.min, price);
+                acc[orgName].price_range.max = Math.max(acc[orgName].price_range.max, price);
+            }
+
+            return acc;
+        }, {} as Record<string, any>);
+
+        return {
+            orgs: Object.values(groupedByOrg),
+            procedures
+        };
+    };
+
+    const { orgs, procedures } = getGroupedResults();
+
     return (
         <main className="min-h-screen bg-gray-50 pb-24 md:pb-8">
             <GlobalNav />
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
-
-                <div className="mb-8">
-                    <div className="flex items-center justify-between mb-2">
-                        <h1 className="text-3xl font-bold text-gray-900">Search Procedures</h1>
-                        <button
-                            onClick={handleClearHistory}
-                            className="text-sm text-gray-600 hover:text-gray-900 underline"
-                        >
-                            Clear History
-                        </button>
+                {query && (
+                    <div className="mb-8">
+                        <h1 className="text-2xl font-black text-[#2E5077] tracking-tight">
+                            {query.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                        </h1>
+                        <p className="text-sm font-medium text-gray-400">
+                            {searchResults.length > 0 ? `${searchResults.length} providers available` : 'Searching for best prices...'}
+                        </p>
                     </div>
-                    <p className="mt-2 text-gray-600">
-                        Search for healthcare procedures and compare prices
-                    </p>
-                </div>
+                )}
 
-                <form onSubmit={handleSearch} className="mb-8">
-                    <div className="flex gap-4">
+                {!query && (
+                    <div className="mb-8 text-center pt-10">
+                        <h1 className="text-3xl font-black text-[#2E5077] mb-2 tracking-tight">Know what care costs.</h1>
+                        <p className="text-xl text-[#4DA1A9] font-medium">Choose smart. Save with Mario.</p>
+                    </div>
+                )}
+
+                <form onSubmit={handleSearch} className="mb-10">
+                    <div className="relative group">
                         <input
                             type="text"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Search for doctors, specialties, or procedures"
-                            className="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Search services, doctors, or meds..."
+                            className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-[#2E5077]/10 focus:border-[#2E5077] focus:outline-none focus:ring-4 focus:ring-[#2E5077]/5 transition-all bg-white text-lg font-medium shadow-sm"
                             disabled={isSearching}
                         />
-                        <button
-                            type="submit"
-                            disabled={isSearching || !query.trim()}
-                            className="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        >
-                            {isSearching ? 'Searching...' : 'Search'}
-                        </button>
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                            <svg className="h-5 w-5 text-[#2E5077]/40 group-focus-within:text-[#2E5077]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
                     </div>
                 </form>
 
                 {error && (
-                    <div className="mb-4 rounded-md bg-red-50 p-4 text-red-800">
+                    <div className="mb-4 rounded-lg bg-red-50 p-4 text-red-800 border border-red-100">
                         {error}
                     </div>
                 )}
 
-                {searchResults.length > 0 && (
-                    <div className="space-y-4">
-                        <h2 className="text-xl font-semibold text-gray-900">
-                            Results ({searchResults.length})
-                        </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {searchResults.map((result, idx) => {
-                                if (result.type === 'doctor') {
-                                    const doctor = result as DoctorResult;
-                                    return (
-                                        <div key={doctor.provider_id} onClick={() => router.push(`/providers/${doctor.provider_id}`)}>
-                                            <ProviderCard
-                                                name={doctor.provider_name}
-                                                specialty={doctor.specialty}
-                                                distance={doctor.distance_miles ? `${doctor.distance_miles} mi` : "Nearby"}
-                                                inNetwork={true}
-                                                price={doctor.price && doctor.price !== "0" ? (doctor.price.startsWith('$') ? doctor.price : `$${doctor.price}`) : "Contact for price"}
-                                                comparedToMedian="15% below average"
-                                                onBook={() => { }}
-                                            />
-                                        </div>
-                                    );
-
-                                } else {
-                                    const procedure = result as SearchResult;
-                                    return (
-                                        <ProcedureCard
-                                            key={procedure.procedure_id || idx}
-                                            procedure={procedure}
-                                        />
-                                    );
-                                }
-                            })}
+                <div className="space-y-6">
+                    {procedures.length > 0 && (
+                        <div className="space-y-4">
+                            <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">Suggested Procedures</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {procedures.map((proc, idx) => (
+                                    <ProcedureCard key={proc.procedure_id || idx} procedure={proc} />
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+
+                    {orgs.length > 0 && (
+                        <div className="space-y-4">
+                            <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">Facilities & Groups</h2>
+                            <div className="grid grid-cols-1 gap-6">
+                                {orgs.map((org, idx) => (
+                                    <OrganizationCard
+                                        key={idx}
+                                        orgName={org.org_name}
+                                        procedureName={query || "Procedure"}
+                                        priceRange={org.price_range}
+                                        providerCount={org.providers.length}
+                                        distance={org.distance}
+                                        providers={org.providers}
+                                        mariosPick={idx === 0} // For demo purposes, make first result Mario's Pick
+                                        onBookProvider={(p: any) => router.push(`/providers/${p.provider_id}`)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
 
                 {!isSearching && searchResults.length === 0 && query && !error && (
                     <div className="rounded-md bg-gray-50 p-8 text-center">
@@ -187,7 +227,7 @@ function SearchPageContent() {
                 )}
             </div>
             <BottomNav />
-        </main>
+        </main >
     );
 }
 
