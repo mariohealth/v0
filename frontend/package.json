@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "validate": "bash scripts/validate-build.sh",
+    "deploy": "bash scripts/deploy.sh",
+    "deploy:safe": "npm run validate && firebase deploy --only hosting"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
