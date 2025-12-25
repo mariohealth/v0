@@ -8,8 +8,19 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
-    // CRITICAL: Enable static export for Firebase Hosting
-    // output: 'export',
+    /**
+     * 🚨 CRITICAL DEPLOYMENT SETTING 🚨
+     * DO NOT REMOVE OR COMMENT OUT 'output: export'
+     * 
+     * Why this is required:
+     * 1. Firebase Hosting: We use static hosting which requires a full static export.
+     * 2. Build Artifacts: Without this, 'npm run build' will not generate the '/out' directory.
+     * 3. Deployment Safety: Commenting this out will cause stale code to be served in production
+     *    because the Firebase CLI will deploy the last successfully generated '/out' folder.
+     * 
+     * Documentation: https://nextjs.org/docs/app/building-your-application/deploying/static-exports
+     */
+    output: 'export',
     // standalone output is NOT compatible with your current firebase.json config
     // output: 'standalone',
 
