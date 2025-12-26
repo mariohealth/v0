@@ -1,0 +1,10 @@
+id,name,is_used
+1,Cigna,TRUE
+2,UnitedHealthcare,TRUE
+3,Aetna,TRUE
+4,Anthem,TRUE
+5,Blue Cross Blue Shield,TRUE
+6,Centene,TRUE
+7,Humana,TRUE
+8,Kaiser Permanente,TRUE
+9,Other,TRUE

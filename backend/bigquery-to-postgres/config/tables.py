@@ -4,6 +4,83 @@ Add/remove tables here to control what gets synced
 """
 
 TABLES = {
+    'hospital_aliases' : {
+        'bigquery_table': 'hospital_aliases',
+        'postgres_table': 'hospital_aliases',
+        'required_columns': ['hospital_id',
+                         'alias',
+                         'alias_type'
+                         ],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
+    'hospital_systems' : {
+        'bigquery_table': 'hospital_systems',
+        'postgres_table': 'hospital_systems',
+        'primary_key': 'system_id',
+        'required_columns': ['system_name',
+                             'headquarters_city',
+                             'headquarters_state',
+                             'system_type',
+                             'total_hospitals',
+                             'coverage_area'
+                         ],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
+    'hospitals': {
+        'bigquery_table': 'hospitals',
+        'postgres_table': 'hospitals',
+        'primary_key': 'hospital_id',
+        'required_columns': ['hospital_name',
+                             'system_id',
+                             'address',
+                             'city',
+                             'state',
+                             'zip_code',
+                             'latitude',
+                             'longitude',
+                             'phone',
+                             'hospital_type',
+                             'operational_status',
+                             ],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
+    'insurance_carriers' : {
+        'bigquery_table': 'insurance_carriers',
+    'postgres_table': 'insurance_carriers',
+    'primary_key': 'id',
+    'required_columns': ['name', 'is_used'],
+    'sync_mode': 'full_refresh',
+    'incremental_column': None,
+    },
+
+    'insurance_plans' : {
+        'bigquery_table': 'insurance_plans',
+    'postgres_table': 'insurance_plans',
+    'primary_key': 'id',
+    'required_columns': ['name', 'carrier_id', 'type'],
+    'sync_mode': 'full_refresh',
+    'incremental_column': None,
+    },
+
+
+    'nucc_specialty_individual':{
+        'bigquery_table': 'nucc_specialty_individual',
+        'postgres_table': 'nucc_specialty_individual',
+        'primary_key': 'id',
+        'required_columns': ['grouping',
+                         'display_name',
+                         'definition'
+                         ],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
     'procedure': {
         'bigquery_table': 'procedure',
         'postgres_table': 'procedure',
@@ -118,14 +195,20 @@ TABLES = {
         'incremental_column': None,  # e.g., 'last_updated' for incremental
     },
 
-    'specialty_individual':{
-        'bigquery_table': 'specialty_individual',
-        'postgres_table': 'specialty_individual',
+    'specialty': {
+        'bigquery_table': 'specialty',
+        'postgres_table': 'specialty',
         'primary_key': 'id',
-        'required_columns': ['grouping',
-                         'display_name',
-                         'definition'
-                         ],
+        'required_columns': ['name', 'slug', 'is_used', 'description'],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
+    'specialty_map': {
+        'bigquery_table': 'specialty_map',
+        'postgres_table': 'specialty_map',
+        'primary_key': 'id',
+        'required_columns': ['specialty_id','taxonomy_id'],
         'sync_mode': 'full_refresh',
         'incremental_column': None,
     },

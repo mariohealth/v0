@@ -37,7 +37,7 @@ LEFT JOIN
 ON
         t0.provider_id = taxon_map.npi
 LEFT JOIN
-    {{ ref('specialty_individual') }} AS si
+    {{ ref('nucc_specialty_individual') }} AS si
 ON
     taxon_map.healthcare_provider_taxonomy_code = si.id
     )
