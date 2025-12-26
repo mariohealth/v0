@@ -1,67 +1,67 @@
-id,name,slug,description
-1,Acupuncturist,acupuncturist,Practitioner who treats patients by inserting thin needles into the skin at specific points.
-2,Allergist,allergist,Specialist in diagnosing and treating allergies and immune system diseases.
-3,Audiologist,audiologist,Professional who evaluates and treats hearing and balance disorders.
-4,Cardiologist,cardiologist,Doctor who specializes in the study and treatment of heart diseases and abnormalities.
-5,Chiropractor,chiropractor,Practitioner focused on the diagnosis and treatment of neuromuscular disorders through manual adjustment.
-6,Dentist,dentist,Professional qualified to treat the diseases and conditions that affect the teeth and gums.
-7,Dermatologist,dermatologist,Medical practitioner qualified to diagnose and treat skin disorders.
-8,Dietitian,dietitian,"Expert in dietetics, helping people manage their health through nutrition and food choices."
-9,"Ear, Nose & Throat Doctor",ear-nose-throat-doctor,"Specialist (Otolaryngologist) focused on the ears, nose, and throat area."
-10,Emergency Medicine Physician,emergency-medicine-physician,Doctor who focuses on the immediate decision making and action necessary to prevent death or further disability.
-11,Endocrinologist,endocrinologist,"Specialist in the endocrine system and its diseases, including diabetes and thyroid issues."
-12,Endodontist,endodontist,Dental specialist concerned with the study and treatment of the dental pulp.
-13,Family Physician,family-physician,Doctor who provides comprehensive healthcare for people of all ages.
-14,Gastroenterologist,gastroenterologist,Specialist in the digestive system and its disorders.
-15,Genetic Counselor,genetic-counselor,Professional with specialized education in genetics and counseling to help people understand their genetic risks.
-16,Geriatrician,geriatrician,Primary care physician who specializes in treating elderly patients.
-17,Hand Surgeon,hand-surgeon,"Surgical specialist focused on treating conditions of the hand, wrist, and forearm."
-18,Hematologist,hematologist,Specialist in the study of blood and blood-forming tissues.
-19,Hepatologist,hepatologist,"Specialist in the study and treatment of the liver, gallbladder, biliary tree, and pancreas."
-20,Infectious Disease Specialist,infectious-disease-specialist,"Physician who diagnoses and treats complex infections caused by bacteria, viruses, or parasites."
-21,Infertility Specialist,infertility-specialist,Doctor specializing in diagnosing and treating reproductive issues and infertility.
-22,Internist,internist,"Physician specializing in internal medicine, focusing on adult care."
-23,Lactation Consultant,lactation-consultant,Professional who specializes in the clinical management of breastfeeding.
-24,Naturopathic Doctor,naturopathic-doctor,Practitioner of a system of alternative medicine based on the theory that diseases can be successfully treated or prevented without the use of drugs.
-25,Neonatologist,neonatologist,"Specialist in the medical care of newborn infants, especially the ill or premature newborn."
-26,Nephrologist,nephrologist,Specialist in the diagnosis and management of kidney diseases.
-27,Neurologist,neurologist,"Specialist in the anatomy, functions, and organic disorders of nerves and the nervous system."
-28,Neurosurgeon,neurosurgeon,"Surgeon specializing in the nervous system, including the brain and spinal cord."
-29,Nurse Practitioner,nurse-practitioner,"Advanced practice nurse trained to assess patient needs, order and interpret diagnostic and laboratory tests, and diagnose disease."
-30,Nutritionist,nutritionist,Person who advises on matters of food and nutrition and their impacts on health.
-31,OB-GYN,ob-gyn,"Specialist in female reproductive health, pregnancy, and childbirth."
-32,Occupational Therapist,occupational-therapist,Helps people across the lifespan participate in the things they want and need to do through the therapeutic use of everyday activities.
-33,Oncologist,oncologist,Medical practitioner qualified to diagnose and treat tumors and cancer.
-34,Ophthalmologist,ophthalmologist,Medical doctor specializing in the diagnosis and treatment of eye disorders and performing eye surgery.
-35,Optometrist,optometrist,"Professional who provides primary vision care, ranging from sight testing and correction to the diagnosis, management, and treatment of vision changes."
-36,Oral Surgeon,oral-surgeon,"Surgeon specializing in the mouth, jaws, and face."
-37,Orthodontist,orthodontist,Dentist who specializes in correcting teeth and jaws that are positioned improperly.
-38,Orthopedic Surgeon,orthopedic-surgeon,Surgeon who specializes in the musculoskeletal system.
-39,Pain Management Specialist,pain-management-specialist,"Physician who evaluates, diagnoses, and treats all different types of pain."
-40,Palliative Care Specialist,palliative-care-specialist,Medical professional focused on providing relief from the symptoms and stress of a serious illness.
-41,Pediatric Dentist,pediatric-dentist,Dentist who specializes in the oral health of children from infancy through the teen years.
-42,Pediatrician,pediatrician,Medical practitioner specializing in children and their diseases.
-43,Periodontist,periodontist,"Dentist who specializes in the prevention, diagnosis, and treatment of periodontal disease (gum disease)."
-44,Physiatrist,physiatrist,Medical doctor who specializes in physical medicine and rehabilitation.
-45,Physical Therapist,physical-therapist,Professional who helps patients improve their movement and manage their pain.
-46,Plastic Surgeon,plastic-surgeon,"Surgeon who specializes in the repair, reconstruction, or replacement of physical defects of form or function."
-47,Podiatrist,podiatrist,Specialist in the treatment of feet and their ailments.
-49,Prosthodontist,prosthodontist,Dentist who specializes in the restoration and replacement of teeth.
-50,Psychiatrist,psychiatrist,Medical practitioner specializing in the diagnosis and treatment of mental illness.
-51,Psychologist,psychologist,"Specialist in the study of mind and behavior and the treatment of mental, emotional, and behavioral disorders."
-52,Psychotherapist,psychotherapist,"Practitioner who treats mental health problems by talking with a psychiatrist, psychologist or other mental health provider."
-53,Pulmonologist,pulmonologist,"Specialist in the anatomy, physiology, and pathology of the lungs."
-54,Radiologist,radiologist,Medical doctor who specializes in diagnosing and treating diseases and injuries using medical imaging techniques.
-55,Rheumatologist,rheumatologist,"Specialist in the diagnosis and treatment of arthritis and other diseases of the joints, muscles, and bones."
-56,Sleep Medicine Specialist,sleep-medicine-specialist,Physician who diagnoses and treats sleep disturbances and disorders.
-57,Speech-Language Pathologist,speech-language-pathologist,"Specialist who works to prevent, assess, diagnose, and treat speech, language, social communication, and swallowing disorders."
-58,Sports Medicine Specialist,sports-medicine-specialist,Medical professional who specializes in the treatment of people who have injuries from sports and exercise.
-59,Surgeon,surgeon,Medical professional who performs surgery.
-60,Urologist,urologist,Doctor who specializes in diseases of the urinary tract and the male reproductive system.
-61,Vascular Surgeon,vascular-surgeon,"Surgeon who manages diseases of the vascular system (arteries, veins, and lymphatic circulation)."
-62,Medical Assistant,medical-assistant,"Medical assistant, fitters, ..."
-63,Clinical Nurse Specialist,clinical-nurse-specialist,"Clinical nurse specialist (CNS)"
-64,Anesthesiologist,anesthesiologist,"Anesthesiologist"
-65,Pharmacist,pharmacist,"Pharmacist"
-66,Respiratory Therapist,respiratory-therapist,"Respiratory therapist"
-67,Technologist,technologist,"Technologist, technicians, techs..."
+id,name,slug,is_used,description
+1,Acupuncturist,acupuncturist,TRUE,Practitioner who treats patients by inserting thin needles into the skin at specific points.
+2,Allergist,allergist,TRUE,Specialist in diagnosing and treating allergies and immune system diseases.
+3,Audiologist,audiologist,TRUE,Professional who evaluates and treats hearing and balance disorders.
+4,Cardiologist,cardiologist,TRUE,Doctor who specializes in the study and treatment of heart diseases and abnormalities.
+5,Chiropractor,chiropractor,TRUE,Practitioner focused on the diagnosis and treatment of neuromuscular disorders through manual adjustment.
+6,Dentist,dentist,TRUE,Professional qualified to treat the diseases and conditions that affect the teeth and gums.
+7,Dermatologist,dermatologist,TRUE,Medical practitioner qualified to diagnose and treat skin disorders.
+8,Dietitian,dietitian,TRUE,"Expert in dietetics, helping people manage their health through nutrition and food choices."
+9,"Ear, Nose & Throat Doctor",ear-nose-throat-doctor,TRUE,"Specialist (Otolaryngologist) focused on the ears, nose, and throat area."
+10,Emergency Medicine Physician,emergency-medicine-physician,TRUE,Doctor who focuses on the immediate decision making and action necessary to prevent death or further disability.
+11,Endocrinologist,endocrinologist,TRUE,"Specialist in the endocrine system and its diseases, including diabetes and thyroid issues."
+12,Endodontist,endodontist,TRUE,Dental specialist concerned with the study and treatment of the dental pulp.
+13,Family Physician,family-physician,TRUE,Doctor who provides comprehensive healthcare for people of all ages.
+14,Gastroenterologist,gastroenterologist,TRUE,Specialist in the digestive system and its disorders.
+15,Genetic Counselor,genetic-counselor,TRUE,Professional with specialized education in genetics and counseling to help people understand their genetic risks.
+16,Geriatrician,geriatrician,TRUE,Primary care physician who specializes in treating elderly patients.
+17,Hand Surgeon,hand-surgeon,TRUE,"Surgical specialist focused on treating conditions of the hand, wrist, and forearm."
+18,Hematologist,hematologist,TRUE,Specialist in the study of blood and blood-forming tissues.
+19,Hepatologist,hepatologist,TRUE,"Specialist in the study and treatment of the liver, gallbladder, biliary tree, and pancreas."
+20,Infectious Disease Specialist,infectious-disease-specialist,TRUE,"Physician who diagnoses and treats complex infections caused by bacteria, viruses, or parasites."
+21,Infertility Specialist,infertility-specialist,TRUE,Doctor specializing in diagnosing and treating reproductive issues and infertility.
+22,Internist,internist,TRUE,"Physician specializing in internal medicine, focusing on adult care."
+23,Lactation Consultant,lactation-consultant,TRUE,Professional who specializes in the clinical management of breastfeeding.
+24,Naturopathic Doctor,naturopathic-doctor,TRUE,Practitioner of a system of alternative medicine based on the theory that diseases can be successfully treated or prevented without the use of drugs.
+25,Neonatologist,neonatologist,TRUE,"Specialist in the medical care of newborn infants, especially the ill or premature newborn."
+26,Nephrologist,nephrologist,TRUE,Specialist in the diagnosis and management of kidney diseases.
+27,Neurologist,neurologist,TRUE,"Specialist in the anatomy, functions, and organic disorders of nerves and the nervous system."
+28,Neurosurgeon,neurosurgeon,TRUE,"Surgeon specializing in the nervous system, including the brain and spinal cord."
+29,Nurse Practitioner,nurse-practitioner,TRUE,"Advanced practice nurse trained to assess patient needs, order and interpret diagnostic and laboratory tests, and diagnose disease."
+30,Nutritionist,nutritionist,TRUE,Person who advises on matters of food and nutrition and their impacts on health.
+31,OB-GYN,ob-gyn,TRUE,"Specialist in female reproductive health, pregnancy, and childbirth."
+32,Occupational Therapist,occupational-therapist,TRUE,Helps people across the lifespan participate in the things they want and need to do through the therapeutic use of everyday activities.
+33,Oncologist,oncologist,TRUE,Medical practitioner qualified to diagnose and treat tumors and cancer.
+34,Ophthalmologist,ophthalmologist,TRUE,Medical doctor specializing in the diagnosis and treatment of eye disorders and performing eye surgery.
+35,Optometrist,optometrist,TRUE,"Professional who provides primary vision care, ranging from sight testing and correction to the diagnosis, management, and treatment of vision changes."
+36,Oral Surgeon,oral-surgeon,TRUE,"Surgeon specializing in the mouth, jaws, and face."
+37,Orthodontist,orthodontist,TRUE,Dentist who specializes in correcting teeth and jaws that are positioned improperly.
+38,Orthopedic Surgeon,orthopedic-surgeon,TRUE,Surgeon who specializes in the musculoskeletal system.
+39,Pain Management Specialist,pain-management-specialist,TRUE,"Physician who evaluates, diagnoses, and treats all different types of pain."
+40,Palliative Care Specialist,palliative-care-specialist,TRUE,Medical professional focused on providing relief from the symptoms and stress of a serious illness.
+41,Pediatric Dentist,pediatric-dentist,TRUE,Dentist who specializes in the oral health of children from infancy through the teen years.
+42,Pediatrician,pediatrician,TRUE,Medical practitioner specializing in children and their diseases.
+43,Periodontist,periodontist,TRUE,"Dentist who specializes in the prevention, diagnosis, and treatment of periodontal disease (gum disease)."
+44,Physiatrist,physiatrist,TRUE,Medical doctor who specializes in physical medicine and rehabilitation.
+45,Physical Therapist,physical-therapist,TRUE,Professional who helps patients improve their movement and manage their pain.
+46,Plastic Surgeon,plastic-surgeon,TRUE,"Surgeon who specializes in the repair, reconstruction, or replacement of physical defects of form or function."
+47,Podiatrist,podiatrist,TRUE,Specialist in the treatment of feet and their ailments.
+49,Prosthodontist,prosthodontist,TRUE,Dentist who specializes in the restoration and replacement of teeth.
+50,Psychiatrist,psychiatrist,TRUE,Medical practitioner specializing in the diagnosis and treatment of mental illness.
+51,Psychologist,psychologist,TRUE,"Specialist in the study of mind and behavior and the treatment of mental, emotional, and behavioral disorders."
+52,Psychotherapist,psychotherapist,TRUE,"Practitioner who treats mental health problems by talking with a psychiatrist, psychologist or other mental health provider."
+53,Pulmonologist,pulmonologist,TRUE,"Specialist in the anatomy, physiology, and pathology of the lungs."
+54,Radiologist,radiologist,TRUE,Medical doctor who specializes in diagnosing and treating diseases and injuries using medical imaging techniques.
+55,Rheumatologist,rheumatologist,TRUE,"Specialist in the diagnosis and treatment of arthritis and other diseases of the joints, muscles, and bones."
+56,Sleep Medicine Specialist,sleep-medicine-specialist,TRUE,Physician who diagnoses and treats sleep disturbances and disorders.
+57,Speech-Language Pathologist,speech-language-pathologist,TRUE,"Specialist who works to prevent, assess, diagnose, and treat speech, language, social communication, and swallowing disorders."
+58,Sports Medicine Specialist,sports-medicine-specialist,TRUE,Medical professional who specializes in the treatment of people who have injuries from sports and exercise.
+59,Surgeon,surgeon,TRUE,Medical professional who performs surgery.
+60,Urologist,urologist,TRUE,Doctor who specializes in diseases of the urinary tract and the male reproductive system.
+61,Vascular Surgeon,vascular-surgeon,TRUE,"Surgeon who manages diseases of the vascular system (arteries, veins, and lymphatic circulation)."
+62,Medical Assistant,medical-assistant,TRUE,"Medical assistant, fitters, ..."
+63,Clinical Nurse Specialist,clinical-nurse-specialist,TRUE,Clinical nurse specialist (CNS)
+64,Anesthesiologist,anesthesiologist,TRUE,Anesthesiologist
+65,Pharmacist,pharmacist,TRUE,Pharmacist
+66,Respiratory Therapist,respiratory-therapist,TRUE,Respiratory therapist
+67,Technologist,technologist,TRUE,"Technologist, technicians, techs..."
