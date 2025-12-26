@@ -1,4 +1,4 @@
-Taxonomy ID,Taxonomy Name,Specialist Name,Specialist ID
+Taxonomy ID,display_name,Specialist Name,Specialist ID
 101200000X,Drama Therapist,Psychotherapist,52
 101Y00000X,Counselor,Psychotherapist,52
 101YA0400X,Addiction (Substance Use Disorder) Counselor,Psychotherapist,52
@@ -54,20 +54,19 @@ Taxonomy ID,Taxonomy Name,Specialist Name,Specialist ID
 1223X0400X,Orthodontics and Dentofacial Orthopedics Dentistry,Dentist,6
 1223X0400X,Orthodontics and Dentofacial Orthopedics Dentistry,Orthodontist,37
 1223X2210X,Orofacial Pain Dentistry,Dentist,6
-125J00000X,Dental Therapist,null,0
-125K00000X,Advanced Practice Dental Therapist,null,0
-125Q00000X,Oral Health Therapist,null,0
+125J00000X,Dental Therapist,,0
+125K00000X,Advanced Practice Dental Therapist,,0
+125Q00000X,Oral Medicine Dentistry,Dentist,6
 133N00000X,Nutritionist,Nutritionist,30
-133NN1002X,"Nutritionist, Public Health",Nutritionist,30
-133V00000X,"Dietitian, Registered",Dietitian,8
-133VN1004X,"Dietitian, Registered - Pediatric",Dietitian,8
-133VN1005X,"Dietitian, Registered - Renal",Dietitian,8
-133VN1006,"Dietitian, Registered - Metabolic",Dietitian,8
-133VN1101X,"Dietitian, Registered - Gerontological",Dietitian,8
-133VN1201X,"Dietitian, Registered - Obesity and Weight Management",Dietitian,8
-133VN1301X,"Dietitian, Registered - Oncology",Dietitian,8
-133VN1401X,"Dietitian, Registered - Pediatric Critical Care",Dietitian,8
-133VN1501X,"Dietitian, Registered - Sports Dietetics",Dietitian,8
+133NN1002X,Nutrition Education Nutritionist,Nutritionist,30
+133V00000X,Registered Dietitian,Dietitian,8
+133VN1004X,Pediatric Nutrition Registered Dietitian,Dietitian,8
+133VN1005X,Renal Nutrition Registered Dietitian,Dietitian,8
+133VN1101X,Gerontological Nutrition Registered Dietitian,Dietitian,8
+133VN1201X,Obesity and Weight Management Nutrition Registered Dietitian,Dietitian,8
+133VN1301X,Oncology Nutrition Registered Dietitian,Dietitian,8
+133VN1401X,Pediatric Critical Care Nutrition Registered Dietitian,Dietitian,8
+133VN1501X,Sports Dietetics Nutrition Registered Dietitian,Dietitian,8
 152W00000X,Optometrist,Optometrist,35
 152WC0802X,Corneal and Contact Management Optometrist,Optometrist,35
 152WL0500X,Low Vision Rehabilitation Optometrist,Optometrist,35
@@ -75,212 +74,298 @@ Taxonomy ID,Taxonomy Name,Specialist Name,Specialist ID
 152WS0006X,Sports Vision Optometrist,Optometrist,35
 152WV0400X,Vision Therapy Optometrist,Optometrist,35
 152WX0102X,Occupational Vision Optometrist,Optometrist,35
-163WG0000X,General Practice Dentistry,Dentist,6
-163WG0100X,Gastroenterology Physician,Gastroenterologist,14
-163WL0100X,Lactation Consultant (Non-Registered Nurse),Lactation Consultant,23
-163WN0002X,Neonatal Nurse Practitioner,Nurse Practitioner,29
-163WN0003X,"Neonatal, Critical Care Nurse Practitioner",Nurse Practitioner,29
-163WN0300X,Nephrology Nurse Practitioner,Nurse Practitioner,29
-163WN1003X,Nutrition Nurse Practitioner,Nurse Practitioner,29
-163WP0000X,Pain Management Nurse Practitioner,Nurse Practitioner,29
-163WP0200X,Pediatric Nurse Practitioner,Nurse Practitioner,29
-163WP0218X,Pediatric Oncology Nurse Practitioner,Nurse Practitioner,29
-163WR1000X,Reproductive Endocrinology Nurse Practitioner,Nurse Practitioner,29
-163WS0121X,Plastic Surgery Nurse Practitioner,Nurse Practitioner,29
-163WU0100X,Urology Nurse Practitioner,Nurse Practitioner,29
-163WX0200X,Oncology Nurse Practitioner,Nurse Practitioner,29
-163X00000X,Eye Doctor,Eye Doctor,62
+163WG0000X,General Practice Registered Nurse,Nurse Practitioner,29
+163WG0100X,Gastroenterology Registered Nurse,Nurse Practitioner,29
+163WL0100X,Lactation Consultant (Registered Nurse),Nurse Practitioner,29
+163WN0002X,Neonatal Intensive Care Registered Nurse,Nurse Practitioner,29
+163WN0003X,Low-Risk Neonatal Registered Nurse,Nurse Practitioner,29
+163WN0300X,Nephrology Registered Nurse,Nurse Practitioner,29
+163WN1003X,Nutrition Support Registered Nurse,Nurse Practitioner,29
+163WP0000X,Pain Management Registered Nurse,Nurse Practitioner,29
+163WP0200X,Pediatric Registered Nurse,Nurse Practitioner,29
+163WP0218X,Pediatric Oncology Registered Nurse,Nurse Practitioner,29
+163WR1000X,Reproductive Endocrinology/Infertility Registered Nurse,Nurse Practitioner,29
+163WS0121X,Plastic Surgery Registered Nurse,Nurse Practitioner,29
+163WU0100X,Urology Registered Nurse,Nurse Practitioner,29
+163WX0200X,Oncology Registered Nurse,Nurse Practitioner,29
 170300000X,Genetic Counselor (M.S.),Genetic Counselor,15
 171100000X,Acupuncturist,Acupuncturist,1
-174N00000X,Lactation Consultant,Lactation Consultant,23
-175F00000X,Naturopathic Physician,Naturopathic Doctor,24
-1835C0206X,Cardiology Physician Assistant,Physician Assistant,62
-1835E0208X,Emergency Medicine Physician Assistant,Physician Assistant,62
-1835G0303X,Geriatric Physician Assistant,Physician Assistant,62
-1835I0206X,Infectious Disease Physician Assistant,Physician Assistant,62
-1835N0905X,Nephrology Physician Assistant,Physician Assistant,62
-1835N1003X,Nutrition Physician Assistant,Physician Assistant,62
-1835P0200X,Pediatric Physician Assistant,Physician Assistant,62
-1835P1400X,Pain Management Physician Assistant,Physician Assistant,62
-1835X0200X,Oncology Physician Assistant,Physician Assistant,62
+174N00000X,Lactation Consultant (Non-RN),Lactation Consultant,23
+175F00000X,Naturopath,Naturopathic Doctor,24
+1835C0206X,Cardiology Pharmacist,Pharmacist,65
+1835E0208X,Emergency Medicine Pharmacist,Pharmacist,65
+1835G0303X,Geriatric Pharmacist,Pharmacist,65
+1835I0206X,Infectious Diseases Pharmacist,Pharmacist,65
+1835N0905X,Nuclear Pharmacist,Pharmacist,65
+1835N1003X,Nutrition Support Pharmacist,Pharmacist,65
+1835P0200X,Pediatric Pharmacist,Pharmacist,65
+1835P1400X,Pain Management Pharmacist,Pharmacist,65
+1835X0200X,Oncology Pharmacist,Pharmacist,65
 204C00000X,Sports Medicine (Neuromusculoskeletal Medicine) Physician,Sports Medicine Specialist,58
-204E00000X,Oral & Maxillofacial Surgery Physician,Surgeon,59
+204E00000X,Oral & Maxillofacial Surgery (D.M.D.),Surgeon,59
+204E00000X,Oral & Maxillofacial Surgery (D.M.D.),Oral Surgeon,36
 204F00000X,Transplant Surgery Physician,Surgeon,59
 207K00000X,Allergy & Immunology Physician,Allergist,2
 207KA0200X,Allergy Physician,Allergist,2
-207KI0005X,Immunology Physician,Allergist,2
-207L00000X,Eye Doctor,Eye Doctor,62
+207KI0005X,Clinical & Laboratory Immunology (Allergy & Immunology) Physician,Allergist,2
+207L00000X,Anesthesiology Physician,Anesthesiologist,64
 207LP2900X,Pain Medicine (Anesthesiology) Physician,Pain Management Specialist,39
-207LP3000X,Pediatric Anesthesiology Physician,Pediatrician,42
+207LP2900X,Pain Medicine (Anesthesiology) Physician,Anesthesiologist,64
+207LP3000X,Pediatric Anesthesiology Physician,Anesthesiologist,64
 207N00000X,Dermatology Physician,Dermatologist,7
 207ND0101X,MOHS-Micrographic Surgery Physician,Surgeon,59
 207NI0002X,Clinical & Laboratory Dermatological Immunology Physician,Allergist,2
-207NP0225X,Pediatric Dermatology Physician,"Dermatologist, Pediatrician","7, 42"
+207NP0225X,Pediatric Dermatology Physician,Dermatologist,7
 207NS0135X,Procedural Dermatology Physician,Dermatologist,7
 207P00000X,Emergency Medicine Physician,Emergency Medicine Physician,10
 207PE0004X,Emergency Medical Services (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207PE0005X,Medical Toxicology (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207PH0002X,Hospice and Palliative Medicine (Emergency Medicine) Physician,"Emergency Medicine Physician, Palliative Care Specialist","10, 40"
-207PP0204X,Pediatric Emergency Medicine (Emergency Medicine) Physician,"Emergency Medicine Physician, Pediatrician","10, 42"
-207PS0010X,Sports Medicine (Emergency Medicine) Physician,"Emergency Medicine Physician, Sports Medicine Specialist","10, 58"
-207PT0002X,Undersea and Hyperbaric Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207Q00000X,Family Medicine Physician,"Family Physician, Primary Care Doctor","13, 48"
-207QA0000X,Adolescent Medicine (Family Medicine) Physician,"Family Physician, Primary Care Doctor","13, 48"
-207QA0401X,Addiction Medicine (Family Medicine) Physician,"Family Physician, Primary Care Doctor","13, 48"
-207QB0002X,Obesity Medicine (Family Medicine) Physician,"Family Physician, Primary Care Doctor","13, 48"
-207QG0300X,Geriatric Medicine (Family Medicine) Physician,"Family Physician, Geriatrician, Primary Care Doctor","13, 16, 48"
-207QH0002X,Hospice and Palliative Medicine (Family Medicine) Physician,"Family Physician, Palliative Care Specialist, Primary Care Doctor","13, 40, 48"
-207QP0002X,Pain Medicine (Family Medicine) Physician,"Family Physician, Primary Care Doctor","13, 48"
-207QS0010X,Sports Medicine (Family Medicine) Physician,"Family Physician, Sports Medicine Specialist, Primary Care Doctor","13, 58, 48"
-207QS1201X,Sleep Medicine (Family Medicine) Physician,"Family Physician, Sleep Medicine Specialist","13, 56"
+207PE0005X,Undersea and Hyperbaric Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
+207PH0002X,Hospice and Palliative Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
+207PH0002X,Hospice and Palliative Medicine (Emergency Medicine) Physician,Palliative Care Specialist,40
+207PP0204X,Pediatric Emergency Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
+207PP0204X,Pediatric Emergency Medicine (Emergency Medicine) Physician,Pediatrician,42
+207PS0010X,Sports Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
+207PS0010X,Sports Medicine (Emergency Medicine) Physician,Sports Medicine Specialist,58
+207PT0002X,Medical Toxicology (Emergency Medicine) Physician,Emergency Medicine Physician,10
+207Q00000X,Family Medicine Physician,Family Physician,13
+207QA0000X,Adolescent Medicine (Family Medicine) Physician,Family Physician,13
+207QA0401X,Addiction Medicine (Family Medicine) Physician,Family Physician,13
+207QB0002X,Obesity Medicine (Family Medicine) Physician,Family Physician,13
+207QG0300X,Geriatric Medicine (Family Medicine) Physician,Geriatrician,16
+207QG0300X,Geriatric Medicine (Family Medicine) Physician,Family Physician,13
+207QH0002X,Hospice and Palliative Medicine (Family Medicine) Physician,Family Physician,13
+207QH0002X,Hospice and Palliative Medicine (Family Medicine) Physician,Palliative Care Specialist,40
+207QP0002X,Physician Nutrition Specialist (Family Medicine),Family Physician,13
+207QS0010X,Sports Medicine (Family Medicine) Physician,Family Physician,13
+207QS0010X,Sports Medicine (Family Medicine) Physician,Sports Medicine Specialist,58
+207QS1201X,Sleep Medicine (Family Medicine) Physician,Family Physician,13
+207QS1201X,Sleep Medicine (Family Medicine) Physician,Sleep Medicine Specialist,56
 207R00000X,Internal Medicine Physician,Internist,22
 207RA0000X,Adolescent Medicine (Internal Medicine) Physician,Internist,22
 207RA0001X,Advanced Heart Failure and Transplant Cardiology Physician,Cardiologist,4
-207RA0201X,Allergy & Immunology (Internal Medicine) Physician,"Allergist, Internist","2, 22"
+207RA0201X,Allergy & Immunology (Internal Medicine) Physician,Internist,22
+207RA0201X,Allergy & Immunology (Internal Medicine) Physician,Allergist,2
 207RA0401X,Addiction Medicine (Internal Medicine) Physician,Internist,22
 207RB0002X,Obesity Medicine (Internal Medicine) Physician,Internist,22
 207RC0000X,Cardiovascular Disease Physician,Cardiologist,4
 207RC0200X,Critical Care Medicine (Internal Medicine) Physician,Internist,22
 207RE0101X,"Endocrinology, Diabetes & Metabolism Physician",Endocrinologist,11
 207RG0100X,Gastroenterology Physician,Gastroenterologist,14
-207RG0300X,Geriatric Medicine (Internal Medicine) Physician,"Geriatrician, Internist","16, 22"
-207RH0000X,Hematology (Internal Medicine) Physician,"Hematologist, Internist","18, 22"
-207RH0002X,Hospice and Palliative Medicine (Internal Medicine) Physician,"Internist, Palliative Care Specialist","22, 40"
-207RH0003X,Hematology & Oncology Physician,"Hematologist, Oncologist","18, 33"
-207RI0001X,Clinical & Laboratory Immunology (Internal Medicine) Physician,"Allergist, Internist","2, 22"
+207RG0300X,Geriatric Medicine (Internal Medicine) Physician,Geriatrician,16
+207RG0300X,Geriatric Medicine (Internal Medicine) Physician,Internist,22
+207RH0000X,Hematology (Internal Medicine) Physician,Hematologist,18
+207RH0000X,Hematology (Internal Medicine) Physician,Internist,22
+207RH0002X,Hospice and Palliative Medicine (Internal Medicine) Physician,Palliative Care Specialist,40
+207RH0002X,Hospice and Palliative Medicine (Internal Medicine) Physician,Internist,22
+207RH0003X,Hematology & Oncology Physician,Hematologist,18
+207RH0003X,Hematology & Oncology Physician,Oncologist,33
+207RI0001X,Clinical & Laboratory Immunology (Internal Medicine) Physician,Internist,22
 207RI0008X,Hepatology Physician,Hepatologist,19
 207RI0011X,Interventional Cardiology Physician,Cardiologist,4
 207RI0200X,Infectious Disease Physician,Infectious Disease Specialist,20
-207RM1200X,Magnetic Resonance Imaging (Internal Medicine) Physician,Internist,22
+207RM1200X,Magnetic Resonance Imaging (MRI) Internal Medicine Physician,Internist,22
 207RN0300X,Nephrology Physician,Nephrologist,26
 207RP1001X,Pulmonary Disease Physician,Pulmonologist,53
 207RR0500X,Rheumatology Physician,Rheumatologist,55
 207RS0010X,Sports Medicine (Internal Medicine) Physician,Sports Medicine Specialist,58
 207RS0012X,Sleep Medicine (Internal Medicine) Physician,Sleep Medicine Specialist,56
-207RT0003X,Transplant Hepatology (Internal Medicine) Physician,Hepatologist,19
+207RT0003X,Transplant Hepatology Physician,Hepatologist,19
 207RX0202X,Medical Oncology Physician,Oncologist,33
-207T00000X,Neurological Surgery Physician,"Neurosurgeon, Surgeon","28, 59"
+207T00000X,Neurological Surgery Physician,Neurosurgeon,28
 207UN0901X,Nuclear Cardiology Physician,Cardiologist,4
 207V00000X,Obstetrics & Gynecology Physician,OB-GYN,31
 207VB0002X,Obesity Medicine (Obstetrics & Gynecology) Physician,OB-GYN,31
 207VC0200X,Critical Care Medicine (Obstetrics & Gynecology) Physician,OB-GYN,31
-207VE0102X,Reproductive Endocrinology Physician,"Endocrinologist, Infertility Specialist","11, 21"
-207VF0040X,Female Pelvic Medicine and Reconstructive Surgery Physician,"OB-GYN, Surgeon","31, 59"
+207VE0102X,Reproductive Endocrinology Physician,Endocrinologist,11
+207VE0102X,Reproductive Endocrinology Physician,Infertility Specialist,21
+207VF0040X,Urogynecology and Reconstructive Pelvic Surgery (Obstetrics & Gynecology) Physician,Surgeon,59
+207VF0040X,Urogynecology and Reconstructive Pelvic Surgery (Obstetrics & Gynecology) Physician,OB-GYN,31
 207VG0400X,Gynecology Physician,OB-GYN,31
-207VH0002X,Hospice and Palliative Medicine (Obstetrics & Gynecology) Physician,"OB-GYN, Palliative Care Specialist","31, 40"
+207VH0002X,Hospice and Palliative Medicine (Obstetrics & Gynecology) Physician,OB-GYN,31
+207VH0002X,Hospice and Palliative Medicine (Obstetrics & Gynecology) Physician,Palliative Care Specialist,40
 207VX0000X,Obstetrics Physician,OB-GYN,31
 207VX0201X,Gynecologic Oncology Physician,Oncologist,33
 207W00000X,Ophthalmology Physician,Ophthalmologist,34
 207WX0009X,Glaucoma Specialist (Ophthalmology) Physician,Ophthalmologist,34
 207WX0107X,Retina Specialist (Ophthalmology) Physician,Ophthalmologist,34
-207WX0108X,Cornea and External Diseases Specialist (Ophthalmology) Physician,Ophthalmologist,34
+207WX0108X,Uveitis and Ocular Inflammatory Disease (Ophthalmology) Physician,Ophthalmologist,34
 207WX0109X,Neuro-ophthalmology Physician,Ophthalmologist,34
-207WX0110X,Pediatric Ophthalmology Physician,"Ophthalmologist, Pediatrician","34, 42"
+207WX0110X,Pediatric Ophthalmology and Strabismus Specialist Physician Physician,Ophthalmologist,34
 207WX0200X,Ophthalmic Plastic and Reconstructive Surgery Physician,Surgeon,59
-207X00000X,Orthopaedic Surgery Physician,"Orthopedic Surgeon, Surgeon","38, 59"
-207XP3100X,Pediatric Orthopaedic Surgery Physician,"Orthopedic Surgeon, Pediatrician, Surgeon","38, 42, 59"
-207XS0106X,Hand Surgery (Orthopaedic Surgery) Physician,"Hand Surgeon, Surgeon","17, 59"
-207XS0114X,Adult Reconstructive Orthopaedic Surgery Physician,"Orthopedic Surgeon, Surgeon","38, 59"
-207XS0117X,Orthopaedic Surgery of the Spine Physician,"Orthopedic Surgeon, Surgeon","38, 59"
-207XX0005X,Sports Medicine (Orthopaedic Surgery) Physician,"Orthopedic Surgeon, Sports Medicine Specialist, Surgeon","38, 58, 59"
+207WX0200X,Ophthalmic Plastic and Reconstructive Surgery Physician,Ophthalmologist,34
+207X00000X,Orthopaedic Surgery Physician,Orthopedic Surgeon,38
+207X00000X,Orthopaedic Surgery Physician,Surgeon,59
+207XP3100X,Pediatric Orthopaedic Surgery Physician,Orthopedic Surgeon,38
+207XP3100X,Pediatric Orthopaedic Surgery Physician,Surgeon,59
+207XS0106X,Orthopaedic Hand Surgery Physician,Hand Surgeon,17
+207XS0106X,Orthopaedic Hand Surgery Physician,Surgeon,59
+207XS0106X,Orthopaedic Hand Surgery Physician,Orthopedic Surgeon,38
+207XS0114X,Adult Reconstructive Orthopaedic Surgery Physician,Orthopedic Surgeon,38
+207XS0114X,Adult Reconstructive Orthopaedic Surgery Physician,Surgeon,59
+207XS0117X,Orthopaedic Surgery of the Spine Physician,Surgeon,59
+207XS0117X,Orthopaedic Surgery of the Spine Physician,Orthopedic Surgeon,38
+207XX0005X,Sports Medicine (Orthopaedic Surgery) Physician,Orthopedic Surgeon,38
+207XX0005X,Sports Medicine (Orthopaedic Surgery) Physician,Sports Medicine Specialist,58
+207XX0005X,Sports Medicine (Orthopaedic Surgery) Physician,Surgeon,59
 207Y00000X,Otolaryngology Physician,"Ear, Nose & Throat Doctor",9
-207YP0228X,Pediatric Otolaryngology Physician,"Ear, Nose & Throat Doctor, Pediatrician","9, 42"
-207YS0012X,Sleep Medicine (Otolaryngology) Physician,"Ear, Nose & Throat Doctor, Sleep Medicine Specialist","9, 56"
-207YS0110X,Otology & Neurotology (Otolaryngology) Physician,"Ear, Nose & Throat Doctor",9
-207YS0123X,Facial Plastic Surgery Physician,"Plastic Surgeon, Surgeon","46, 59"
-207YX0007X,Plastic Surgery within the Head and Neck Physician,"Ear, Nose & Throat Doctor, Plastic Surgeon, Surgeon","9, 46, 59"
-207YX0602X,Otolaryngic Allergy Physician,"Allergist, Ear, Nose & Throat Doctor","2, 9"
-207YX0905X,Plastic Surgery within the Head and Neck (Otolaryngology) Physician,"Ear, Nose & Throat Doctor, Plastic Surgeon, Surgeon","9, 46, 59"
+207YP0228X,Pediatric Otolaryngology Physician,"Ear, Nose & Throat Doctor",9
+207YS0012X,Sleep Medicine (Otolaryngology) Physician,"Ear, Nose & Throat Doctor",9
+207YS0012X,Sleep Medicine (Otolaryngology) Physician,Sleep Medicine Specialist,56
+207YS0123X,Facial Plastic Surgery Physician,Plastic Surgeon,46
+207YS0123X,Facial Plastic Surgery Physician,Surgeon,59
+207YS0123X,Facial Plastic Surgery Physician,Oral Surgeon,36
+207YX0007X,Plastic Surgery within the Head & Neck (Otolaryngology) Physician,Surgeon,59
+207YX0007X,Plastic Surgery within the Head & Neck (Otolaryngology) Physician,Plastic Surgeon,46
+207YX0602X,Otolaryngic Allergy Physician,"Ear, Nose & Throat Doctor",9
+207YX0602X,Otolaryngic Allergy Physician,Allergist,2
+207YX0905X,Otolaryngology/Facial Plastic Surgery Physician,"Ear, Nose & Throat Doctor",9
+207YX0905X,Otolaryngology/Facial Plastic Surgery Physician,Plastic Surgeon,46
+207YX0905X,Otolaryngology/Facial Plastic Surgery Physician,Surgeon,59
 208000000X,Pediatrics Physician,Pediatrician,42
-2080A0000X,Adolescent Medicine (Pediatrics) Physician,Pediatrician,42
-2080I0007X,Pediatric Clinical & Laboratory Immunology Physician,"Allergist, Pediatrician","2, 42"
-2080N0001X,Neonatal-Perinatal Medicine Physician,"Neonatologist, Pediatrician","25, 42"
-2080P0006X,Pediatric Nephrology Physician,Pediatrician,42
-2080P0008X,Pediatric Pulmonology Physician,Pediatrician,42
-2080P0201X,Pediatric Allergy & Immunology Physician,"Allergist, Pediatrician","2, 42"
-2080P0202X,Pediatric Cardiology Physician,"Cardiologist, Pediatrician","4, 42"
+2080A0000X,Pediatric Adolescent Medicine Physician,Pediatrician,42
+2080I0007X,Pediatric Clinical & Laboratory Immunology Physician,Allergist,2
+2080I0007X,Pediatric Clinical & Laboratory Immunology Physician,Pediatrician,42
+2080N0001X,Neonatal-Perinatal Medicine Physician,Neonatologist,25
+2080N0001X,Neonatal-Perinatal Medicine Physician,Pediatrician,42
+2080P0006X,Developmental - Behavioral Pediatrics Physician,Pediatrician,42
+2080P0008X,Pediatric Neurodevelopmental Disabilities Physician,Pediatrician,42
+2080P0201X,Pediatric Allergy/Immunology Physician,Pediatrician,42
+2080P0201X,Pediatric Allergy/Immunology Physician,Allergist,2
+2080P0202X,Pediatric Cardiology Physician,Cardiologist,4
+2080P0202X,Pediatric Cardiology Physician,Pediatrician,42
 2080P0203X,Pediatric Critical Care Medicine Physician,Pediatrician,42
-2080P0204X,Pediatric Emergency Medicine (Pediatrics) Physician,"Emergency Medicine Physician, Pediatrician","10, 42"
-2080P0205X,Pediatric Endocrinology Physician,"Endocrinologist, Pediatrician","11, 42"
-2080P0206X,Pediatric Gastroenterology Physician,"Gastroenterologist, Pediatrician","14, 42"
-2080P0207X,Pediatric Hematology-Oncology Physician,"Hematologist, Oncologist, Pediatrician","18, 33, 42"
-2080P0208X,Pediatric Infectious Diseases Physician,"Infectious Disease Specialist, Pediatrician","20, 42"
-2080P0210X,Pediatric Nephrology Physician,"Nephrologist, Pediatrician","26, 42"
+2080P0204X,Pediatric Emergency Medicine (Pediatrics) Physician,Emergency Medicine Physician,10
+2080P0204X,Pediatric Emergency Medicine (Pediatrics) Physician,Pediatrician,42
+2080P0205X,Pediatric Endocrinology Physician,Endocrinologist,11
+2080P0205X,Pediatric Endocrinology Physician,Pediatrician,42
+2080P0206X,Pediatric Gastroenterology Physician,Gastroenterologist,14
+2080P0206X,Pediatric Gastroenterology Physician,Pediatrician,42
+2080P0207X,Pediatric Hematology & Oncology Physician,Pediatrician,42
+2080P0207X,Pediatric Hematology & Oncology Physician,Hematologist,18
+2080P0207X,Pediatric Hematology & Oncology Physician,Oncologist,33
+2080P0208X,Pediatric Infectious Diseases Physician,Infectious Disease Specialist,20
+2080P0208X,Pediatric Infectious Diseases Physician,Pediatrician,42
+2080P0210X,Pediatric Nephrology Physician,Nephrologist,26
+2080P0210X,Pediatric Nephrology Physician,Pediatrician,42
 2080P0214X,Pediatric Pulmonology Physician,Pediatrician,42
-2080P0216X,Pediatric Rheumatology Physician,"Pediatrician, Rheumatologist","42, 55"
-2080S0010X,Sports Medicine (Pediatrics) Physician,"Pediatrician, Sports Medicine Specialist","42, 58"
-2080S0012X,Sleep Medicine (Pediatrics) Physician,"Pediatrician, Sleep Medicine Specialist","42, 56"
-2080T0002X,Medical Toxicology (Pediatrics) Physician,Pediatrician,42
-2080T0004X,Transplant Hepatology (Pediatrics) Physician,"Hepatologist, Pediatrician","19, 42"
+2080P0216X,Pediatric Rheumatology Physician,Pediatrician,42
+2080P0216X,Pediatric Rheumatology Physician,Rheumatologist,55
+2080S0010X,Pediatric Sports Medicine Physician,Pediatrician,42
+2080S0010X,Pediatric Sports Medicine Physician,Sports Medicine Specialist,58
+2080S0012X,Pediatric Sleep Medicine Physician,Pediatrician,42
+2080S0012X,Pediatric Sleep Medicine Physician,Sleep Medicine Specialist,56
+2080T0002X,Pediatric Medical Toxicology Physician,Pediatrician,42
+2080T0004X,Pediatric Transplant Hepatology Physician,Hepatologist,19
+2080T0004X,Pediatric Transplant Hepatology Physician,Pediatrician,42
 208100000X,Physical Medicine & Rehabilitation Physician,Physiatrist,44
-2081H0002X,Hospice and Palliative Medicine (Physical Medicine & Rehabilitation) Physician,"Palliative Care Specialist, Physiatrist","40, 44"
+2081H0002X,Hospice and Palliative Medicine (Physical Medicine & Rehabilitation) Physician,Palliative Care Specialist,40
+2081H0002X,Hospice and Palliative Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
 2081N0008X,Neuromuscular Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
-2081P0301X,Pediatric Rehabilitation Medicine Physician,"Pediatrician, Physiatrist","42, 44"
-2081P2900X,Pain Medicine (Physical Medicine & Rehabilitation) Physician,"Pain Management Specialist, Physiatrist","39, 44"
-2081S0010X,Sports Medicine (Physical Medicine & Rehabilitation) Physician,"Physiatrist, Sports Medicine Specialist","44, 58"
-208200000X,Plastic Surgery Physician,"Plastic Surgeon, Surgeon","46, 59"
-2082S0099X,Plastic Surgery Within the Head and Neck Physician,"Plastic Surgeon, Surgeon","46, 59"
-2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,"Hand Surgeon, Plastic Surgeon, Surgeon","17, 46, 59"
-2083P0500X,Preventive Medicine Physician,Primary Care Doctor,48
+2081P0301X,Brain Injury Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
+2081P2900X,Pain Medicine (Physical Medicine & Rehabilitation) Physician,Pain Management Specialist,39
+2081P2900X,Pain Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
+2081S0010X,Sports Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
+2081S0010X,Sports Medicine (Physical Medicine & Rehabilitation) Physician,Sports Medicine Specialist,58
+208200000X,Plastic Surgery Physician,Plastic Surgeon,46
+208200000X,Plastic Surgery Physician,Surgeon,59
+2082S0099X,Plastic Surgery Within the Head and Neck (Plastic Surgery) Physician,Plastic Surgeon,46
+2082S0099X,Plastic Surgery Within the Head and Neck (Plastic Surgery) Physician,Surgeon,59
+2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Hand Surgeon,17
+2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Plastic Surgeon,46
+2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Surgeon,59
+2083P0500X,Preventive Medicine/Occupational Environmental Medicine Physician,Primary Care Doctor,48
 2083P0901X,Public Health & General Preventive Medicine Physician,Primary Care Doctor,48
 2083S0010X,Sports Medicine (Preventive Medicine) Physician,Sports Medicine Specialist,58
-2084A0401X,Addiction Medicine (Psychiatry & Neurology) Physician,"Neurologist, Psychiatrist, Urologist","27, 50, 60"
-2084B0002X,Obesity Medicine (Psychiatry & Neurology) Physician,"Neurologist, Psychiatrist, Urologist","27, 50, 60"
-2084B0040X,Behavioral Neurology & Neuropsychiatry Physician,"Neurologist, Psychiatrist, Urologist","27, 50, 60"
-2084D0003X,Diagnostic Neuroimaging (Psychiatry & Neurology) Physician,"Neurologist, Psychiatrist, Urologist","27, 50, 60"
+2084A0401X,Addiction Medicine (Psychiatry & Neurology) Physician,Neurologist,27
+2084A0401X,Addiction Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
+2084B0002X,Obesity Medicine (Psychiatry & Neurology) Physician,Neurologist,27
+2084B0002X,Obesity Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
+2084B0040X,Behavioral Neurology & Neuropsychiatry Physician,Neurologist,27
+2084B0040X,Behavioral Neurology & Neuropsychiatry Physician,Psychiatrist,50
+2084D0003X,Diagnostic Neuroimaging (Psychiatry & Neurology) Physician,Neurologist,27
+2084D0003X,Diagnostic Neuroimaging (Psychiatry & Neurology) Physician,Psychiatrist,50
 2084F0202X,Forensic Psychiatry Physician,Psychiatrist,50
-2084H0002X,Hospice and Palliative Medicine (Psychiatry & Neurology) Physician,"Neurologist, Palliative Care Specialist, Psychiatrist, Urologist","27, 40, 50, 60"
-2084N0008X,Neuromuscular Medicine (Psychiatry & Neurology) Physician,"Neurologist, Psychiatrist, Urologist","27, 50, 60"
-2084N0400X,Neurology Physician,"Neurologist, Urologist","27, 60"
-2084N0402X,Neurology with Special Qualifications in Child Neurology Physician,"Neurologist, Pediatrician, Urologist","27, 42, 60"
-2084P0301X,Psychosomatic Medicine Physician,"Neurologist, Psychiatrist, Urologist","27, 50, 60"
+2084H0002X,Hospice and Palliative Medicine (Psychiatry & Neurology) Physician,Neurologist,27
+2084H0002X,Hospice and Palliative Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
+2084H0002X,Hospice and Palliative Medicine (Psychiatry & Neurology) Physician,Palliative Care Specialist,40
+2084N0008X,Neuromuscular Medicine (Psychiatry & Neurology) Physician,Neurologist,27
+2084N0008X,Neuromuscular Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
+2084N0400X,Neurology Physician,Neurologist,27
+2084N0402X,Neurology with Special Qualifications in Child Neurology Physician,Neurologist,27
+2084N0402X,Neurology with Special Qualifications in Child Neurology Physician,Pediatrician,42
+2084P0301X,Brain Injury Medicine (Psychiatry & Neurology) Physician,Neurologist,27
+2084P0301X,Brain Injury Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
 2084P0800X,Psychiatry Physician,Psychiatrist,50
 2084P0802X,Addiction Psychiatry Physician,Psychiatrist,50
-2084P0804X,Child & Adolescent Psychiatry Physician,"Pediatrician, Psychiatrist","42, 50"
-2084P0805X,Geriatric Psychiatry Physician,"Geriatrician, Psychiatrist","16, 50"
-2084P2900X,Pain Medicine (Psychiatry & Neurology) Physician,"Neurologist, Pain Management Specialist, Urologist","27, 39, 60"
-2084S0010X,Sports Medicine (Psychiatry & Neurology) Physician,"Neurologist, Sports Medicine Specialist, Urologist","27, 58, 60"
+2084P0804X,Child & Adolescent Psychiatry Physician,Pediatrician,42
+2084P0804X,Child & Adolescent Psychiatry Physician,Psychiatrist,50
+2084P0805X,Geriatric Psychiatry Physician,Geriatrician,16
+2084P0805X,Geriatric Psychiatry Physician,Psychiatrist,50
+2084P2900X,Pain Medicine (Psychiatry & Neurology) Physician,Neurologist,27
+2084P2900X,Pain Medicine (Psychiatry & Neurology) Physician,Pain Management Specialist,39
+2084P2900X,Pain Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
+2084S0010X,Sports Medicine (Psychiatry & Neurology) Physician,Neurologist,27
+2084S0010X,Sports Medicine (Psychiatry & Neurology) Physician,Sports Medicine Specialist,58
+2084S0010X,Sports Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
 2084S0012X,Sleep Medicine (Psychiatry & Neurology) Physician,Sleep Medicine Specialist,56
-2085D0003X,Diagnostic Radiology Physician,Radiologist,54
-2085H0002X,Hospice and Palliative Medicine (Radiology) Physician,"Palliative Care Specialist, Radiologist","40, 54"
-2085N0700X,Nuclear Radiology Physician,Radiologist,54
-2085N0904,Neuroradiology Physician,Radiologist,54
-2085P0229X,Pediatric Radiology Physician,"Pediatrician, Radiologist","42, 54"
+2084S0012X,Sleep Medicine (Psychiatry & Neurology) Physician,Neurologist,27
+2084S0012X,Sleep Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
+2085D0003X,Diagnostic Neuroimaging (Radiology) Physician,Radiologist,54
+2085H0002X,Hospice and Palliative Medicine (Radiology) Physician,Palliative Care Specialist,40
+2085H0002X,Hospice and Palliative Medicine (Radiology) Physician,Radiologist,54
+2085N0700X,Neuroradiology Physician,Radiologist,54
+2085P0229X,Pediatric Radiology Physician,Radiologist,54
+2085P0229X,Pediatric Radiology Physician,Pediatrician,42
 2085R0001X,Radiation Oncology Physician,Oncologist,33
+2085R0001X,Radiation Oncology Physician,Radiologist,54
 2085R0202X,Diagnostic Radiology Physician,Radiologist,54
 2085R0203X,Therapeutic Radiology Physician,Radiologist,54
 2085R0204X,Vascular & Interventional Radiology Physician,Radiologist,54
-2086H0002X,Hospice and Palliative Medicine (Surgery) Physician,"Palliative Care Specialist, Surgeon","40, 59"
-2086S0105X,Surgery of the Hand (Surgery) Physician,"Hand Surgeon, Surgeon","17, 59"
-2086S0120X,Pediatric Surgery Physician,"Pediatrician, Surgeon","42, 59"
+2086H0002X,Hospice and Palliative Medicine (Surgery) Physician,Palliative Care Specialist,40
+2086H0002X,Hospice and Palliative Medicine (Surgery) Physician,Surgeon,59
+2086S0105X,Surgery of the Hand (Surgery) Physician,Hand Surgeon,17
+2086S0105X,Surgery of the Hand (Surgery) Physician,Surgeon,59
+2086S0120X,Pediatric Surgery Physician,Pediatrician,42
+2086S0120X,Pediatric Surgery Physician,Surgeon,59
 2086S0122X,Plastic and Reconstructive Surgery Physician,Surgeon,59
 2086S0127X,Trauma Surgery Physician,Surgeon,59
-2086S0129X,Vascular Surgery Physician,"Surgeon, Vascular Surgeon","59, 61"
-2086X0206X,Surgical Oncology Physician,"Oncologist, Surgeon","33, 59"
-2088F0040X,Female Pelvic Medicine and Reconstructive Surgery Physician,"OB-GYN, Surgeon","31, 59"
-208G00000X,Thoracic Surgery (Cardiothoracic Surgery) Physician,"Surgeon, Vascular Surgeon","59, 61"
-211D00000X,Podiatrist,Podiatrist,47
+2086S0129X,Vascular Surgery Physician,Surgeon,59
+2086S0129X,Vascular Surgery Physician,Vascular Surgeon,61
+2086X0206X,Surgical Oncology Physician,Oncologist,33
+2086X0206X,Surgical Oncology Physician,Surgeon,59
+208800000X,Urology Physician,Urologist,60
+2088F0040X,Urogynecology and Reconstructive Pelvic Surgery (Urology) Physician,OB-GYN,31
+2088F0040X,Urogynecology and Reconstructive Pelvic Surgery (Urology) Physician,Surgeon,59
+2088P0231X,Pediatric Urology Physician,Urologist,60
+2088P0231X,Pediatric Urology Physician,Pediatrician,42
+208G00000X,Thoracic Surgery (Cardiothoracic Vascular Surgery) Physician,Surgeon,59
+208G00000X,Thoracic Surgery (Cardiothoracic Vascular Surgery) Physician,Vascular Surgeon,61
+211D00000X,Podiatric Assistant,Medical Assistant,62
 213E00000X,Podiatrist,Podiatrist,47
-213EG0000X,General Practice Podiatrist,Podiatrist,47
 213EP0504X,Public Medicine Podiatrist,Podiatrist,47
 213EP1101X,Primary Podiatric Medicine Podiatrist,Podiatrist,47
-213ER0200X,Radiology Podiatrist,"Podiatrist, Radiologist","47, 54"
-213ES0000X,Sports Medicine Podiatrist,"Podiatrist, Sports Medicine Specialist","47, 58"
-213ES0103X,Foot & Ankle Surgery Podiatrist,"Podiatrist, Surgeon","47, 59"
-213ES0131X,Foot Surgery Podiatrist,"Podiatrist, Surgeon","47, 59"
+213ER0200X,Radiology Podiatrist,Podiatrist,47
+213ER0200X,Radiology Podiatrist,Radiologist,54
+213ES0000X,Sports Medicine Podiatrist,Podiatrist,47
+213ES0000X,Sports Medicine Podiatrist,Sports Medicine Specialist,58
+213ES0103X,Foot & Ankle Surgery Podiatrist,Podiatrist,47
+213ES0103X,Foot & Ankle Surgery Podiatrist,Surgeon,59
+213ES0131X,Foot Surgery Podiatrist,Podiatrist,47
+213ES0131X,Foot Surgery Podiatrist,Surgeon,59
 225100000X,Physical Therapist,Physical Therapist,45
-2251C2600X,Cardiopulmonary Physical Therapist,"Physical Therapist, Pulmonologist","45, 53"
+2251C2600X,Cardiopulmonary Physical Therapist,Physical Therapist,45
 2251E1200X,Ergonomics Physical Therapist,Physical Therapist,45
-2251E1300X,"Electrophysiology, Clinical Physical Therapist",Physical Therapist,45
-2251G0304X,Geriatric Physical Therapist,"Geriatrician, Physical Therapist","16, 45"
+2251E1300X,Clinical Electrophysiology Physical Therapist,Physical Therapist,45
+2251G0304X,Geriatric Physical Therapist,Physical Therapist,45
 2251H1200X,Hand Physical Therapist,Physical Therapist,45
 2251H1300X,Human Factors Physical Therapist,Physical Therapist,45
 2251N0400X,Neurology Physical Therapist,Physical Therapist,45
-2251P0200X,Pediatric Physical Therapist,"Pediatrician, Physical Therapist","42, 45"
+2251P0200X,Pediatric Physical Therapist,Physical Therapist,45
 2251S0007X,Sports Physical Therapist,Physical Therapist,45
 2251X0800X,Orthopedic Physical Therapist,Physical Therapist,45
+225B00000X,Pulmonary Function Technologist,,0
 225X00000X,Occupational Therapist,Occupational Therapist,32
-225XE0001X,Environmental Modifications Occupational Therapist,Occupational Therapist,32
+225XE0001X,Environmental Modification Occupational Therapist,Occupational Therapist,32
 225XE1200X,Ergonomics Occupational Therapist,Occupational Therapist,32
 225XF0002X,"Feeding, Eating & Swallowing Occupational Therapist",Occupational Therapist,32
 225XG0600X,Gerontology Occupational Therapist,Occupational Therapist,32
@@ -290,39 +375,37 @@ Taxonomy ID,Taxonomy Name,Specialist Name,Specialist ID
 225XM0800X,Mental Health Occupational Therapist,Occupational Therapist,32
 225XN1300X,Neurorehabilitation Occupational Therapist,Occupational Therapist,32
 225XP0019X,Physical Rehabilitation Occupational Therapist,Occupational Therapist,32
-225XP0200X,Pediatrics Occupational Therapist,"Pediatrician, Occupational Therapist","42, 32"
-225XS0403X,Driving and Community Mobility Occupational Therapist,Occupational Therapist,32
-225B00000X,Pulmonary Medicine Respiratory Therapist,Pulmonologist,53
-2278G0305X,Geriatric Care Physical Therapist,Geriatrician,16
-2278P1004X,Pulmonary Care Respiratory Care Practitioner,Pulmonologist,53
-2278P1005X,Pulmonary Diagnostics Respiratory Care Practitioner,Pulmonologist,53
-2278P1006X,Pulmonary Rehabilitation Respiratory Care Practitioner,Pulmonologist,53
-2278P3800X,Palliative Care Practitioner,Palliative Care Specialist,40
-2278P3900X,Neonatal Care Respiratory Care Practitioner,Neonatologist,25
-2278P4000X,Pediatric Care Respiratory Care Practitioner,Pediatrician,42
-2279G0305X,Geriatric Care Physical Therapist,Geriatrician,16
-2279P1004X,Pulmonary Care Respiratory Care Practitioner,Pulmonologist,53
-2279P1005X,Pulmonary Diagnostics Respiratory Care Practitioner,Pulmonologist,53
-2279P1006X,Pulmonary Rehabilitation Respiratory Care Practitioner,Pulmonologist,53
-2279P3800X,Palliative Care Practitioner,Palliative Care Specialist,40
-2279P3900X,Neonatal Care Respiratory Care Practitioner,Neonatologist,25
-2279P4000X,Pediatric Care Respiratory Care Practitioner,Pediatrician,42
+225XP0200X,Pediatric Occupational Therapist,Occupational Therapist,32
+2278G0305X,Geriatric Care Certified Respiratory Therapist,Respiratory Therapist,66
+2278P1004X,Pulmonary Diagnostics Certified Respiratory Therapist,Respiratory Therapist,66
+2278P1005X,Pulmonary Rehabilitation Certified Respiratory Therapist,Respiratory Therapist,66
+2278P1006X,Pulmonary Function Technologist Certified Respiratory Therapist,Respiratory Therapist,66
+2278P3800X,Palliative/Hospice Certified Respiratory Therapist,Respiratory Therapist,66
+2278P3900X,Neonatal/Pediatric Certified Respiratory Therapist,Respiratory Therapist,66
+2278P4000X,Patient Transport Certified Respiratory Therapist,Respiratory Therapist,66
+2279G0305X,Geriatric Care Registered Respiratory Therapist,Respiratory Therapist,66
+2279P1004X,Pulmonary Diagnostics Registered Respiratory Therapist,Respiratory Therapist,66
+2279P1005X,Pulmonary Rehabilitation Registered Respiratory Therapist,Respiratory Therapist,66
+2279P1006X,Pulmonary Function Technologist Registered Respiratory Therapist,Respiratory Therapist,66
+2279P3800X,Palliative/Hospice Registered Respiratory Therapist,Respiratory Therapist,66
+2279P3900X,Neonatal/Pediatric Registered Respiratory Therapist,Respiratory Therapist,66
+2279P4000X,Patient Transport Registered Respiratory Therapist,Respiratory Therapist,66
 231H00000X,Audiologist,Audiologist,3
 231HA2400X,Assistive Technology Practitioner Audiologist,Audiologist,3
 231HA2500X,Assistive Technology Supplier Audiologist,Audiologist,3
-2355A2700X,Audiology Assistant,Audiologist,3
+2355A2700X,Audiology Assistant,Medical Assistant,62
 235Z00000X,Speech-Language Pathologist,Speech-Language Pathologist,57
-237600000X,Audiologist-Hearing Aid Fitter,Audiologist,3
-243U00000X,Radiology Practitioner Assistant,Radiologist,54
-246QH0000X,Hematology Technologist,Hematologist,18
-246QI0000X,Immunology Technologist,Allergist,2
-246W00000X,Cardiology Technician,Cardiologist,4
-246X00000X,Cardiovascular Technologist,Cardiologist,4
-246XC2901X,Cardiovascular Invasive Specialist,Cardiologist,4
-246XC2903X,Vascular Specialist (Cardiovascular),Cardiologist,4
-246XS1301X,Sonographer (Cardiovascular),Cardiologist,4
-246ZN0300X,Nephrology Technologist,Nephrologist,26
-2471C1101X,Cardiovascular-Interventional Technologist,Cardiologist,4
+237600000X,Audiologist-Hearing Aid Fitter,Medical Assistant,62
+243U00000X,Radiology Practitioner Assistant,Medical Assistant,62
+246QH0000X,Hematology Specialist/Technologist,Technologist,67
+246QI0000X,Immunology Pathology Specialist/Technologist,Technologist,67
+246W00000X,Cardiology Technician,Technologist,67
+246X00000X,Cardiovascular Specialist/Technologist,Technologist,67
+246XC2901X,Cardiovascular Invasive Specialist/Technologist,Technologist,67
+246XC2903X,Vascular Specialist/Technologist Cardiovascular,Technologist,67
+246XS1301X,Sonography Specialist/Technologist Cardiovascular,Technologist,67
+246ZN0300X,Nephrology Specialist/Technologist,Technologist,67
+2471C1101X,Cardiovascular-Interventional Technology Radiologic Technologist,Technologist,67
 363L00000X,Nurse Practitioner,Nurse Practitioner,29
 363LA2100X,Acute Care Nurse Practitioner,Nurse Practitioner,29
 363LA2200X,Adult Health Nurse Practitioner,Nurse Practitioner,29
@@ -331,9 +414,9 @@ Taxonomy ID,Taxonomy Name,Specialist Name,Specialist ID
 363LF0000X,Family Nurse Practitioner,Nurse Practitioner,29
 363LG0600X,Gerontology Nurse Practitioner,Nurse Practitioner,29
 363LN0000X,Neonatal Nurse Practitioner,Nurse Practitioner,29
-363LN0005X,"Neonatal, Critical Care Nurse Practitioner",Nurse Practitioner,29
+363LN0005X,Critical Care Neonatal Nurse Practitioner,Nurse Practitioner,29
 363LP0200X,Pediatric Nurse Practitioner,Nurse Practitioner,29
-363LP0222X,Pediatric Critical Care Nurse Practitioner,Nurse Practitioner,29
+363LP0222X,Critical Care Pediatric Nurse Practitioner,Nurse Practitioner,29
 363LP0808X,Psychiatric/Mental Health Nurse Practitioner,Nurse Practitioner,29
 363LP1700X,Perinatal Nurse Practitioner,Nurse Practitioner,29
 363LP2300X,Primary Care Nurse Practitioner,Nurse Practitioner,29
@@ -341,8 +424,8 @@ Taxonomy ID,Taxonomy Name,Specialist Name,Specialist ID
 363LW0102X,Women's Health Nurse Practitioner,Nurse Practitioner,29
 363LX0001X,Obstetrics & Gynecology Nurse Practitioner,Nurse Practitioner,29
 363LX0106X,Occupational Health Nurse Practitioner,Nurse Practitioner,29
-364S00000X,Pediatric Clinical Nurse Specialist,Pediatrician,42
-364SN0000X,Neonatal Clinical Nurse Specialist,Neonatologist,25
-364SP0808X,Psychiatric/Mental Health Clinical Nurse Specialist,Psychiatrist,50
-364SX0200X,Oncology Clinical Nurse Specialist,Oncologist,33
-364SX0204X,"Oncology, Pediatric Clinical Nurse Specialist","Oncologist, Pediatrician","33, 42"
+364S00000X,Clinical Nurse Specialist,Clinical Nurse Specialist,63
+364SN0000X,Neonatal Clinical Nurse Specialist,Clinical Nurse Specialist,63
+364SP0808X,Psychiatric/Mental Health Clinical Nurse Specialist,Clinical Nurse Specialist,63
+364SX0200X,Oncology Clinical Nurse Specialist,Clinical Nurse Specialist,63
+364SX0204X,Pediatric Oncology Clinical Nurse Specialist,Clinical Nurse Specialist,63
