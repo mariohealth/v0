@@ -1,431 +1,431 @@
-taxonomy_id,taxonomy_name,specialty_name,specialty_id
-101200000X,Drama Therapist,Psychotherapist,52
-101Y00000X,Counselor,Psychotherapist,52
-101YA0400X,Addiction (Substance Use Disorder) Counselor,Psychotherapist,52
-101YM0800X,Mental Health Counselor,Psychotherapist,52
-101YP1600X,Pastoral Counselor,Psychotherapist,52
-101YP2500X,Professional Counselor,Psychotherapist,52
-101YS0200X,School Counselor,Psychotherapist,52
-102X00000X,Poetry Therapist,Psychotherapist,52
-103T00000X,Psychologist,Psychologist,51
-103TA0400X,Addiction (Substance Use Disorder) Psychologist,Psychologist,51
-103TA0700X,Adult Development & Aging Psychologist,Psychologist,51
-103TB0200X,Cognitive & Behavioral Psychologist,Psychologist,51
-103TC0700X,Clinical Psychologist,Psychologist,51
-103TC1900X,Counseling Psychologist,Psychologist,51
-103TC2200X,Clinical Child & Adolescent Psychologist,Psychologist,51
-103TE1100X,Exercise & Sports Psychologist,Psychologist,51
-103TF0000X,Family Psychologist,Psychologist,51
-103TF0200X,Forensic Psychologist,Psychologist,51
-103TH0004X,Health Psychologist,Psychologist,51
-103TH0100X,Health Service Psychologist,Psychologist,51
-103TM1800X,Intellectual & Developmental Disabilities Psychologist,Psychologist,51
-103TP0016X,Prescribing (Medical) Psychologist,Psychologist,51
-103TP0814X,Psychoanalysis Psychologist,Psychologist,51
-103TP2701X,Group Psychotherapy Psychologist,Psychologist,51
-103TR0400X,Rehabilitation Psychologist,Psychologist,51
-103TS0200X,School Psychologist,Psychologist,51
-104100000X,Social Worker,Psychotherapist,52
-1041C0700X,Clinical Social Worker,Psychotherapist,52
-1041S0200X,School Social Worker,Psychotherapist,52
-106H00000X,Marriage & Family Therapist,Psychotherapist,52
-111N00000X,Chiropractor,Chiropractor,5
-111NI0013X,Independent Medical Examiner Chiropractor,Chiropractor,5
-111NI0900X,Internist Chiropractor,Chiropractor,5
-111NN0400X,Neurology Chiropractor,Chiropractor,5
-111NN1001X,Nutrition Chiropractor,Chiropractor,5
-111NP0017X,Pediatric Chiropractor,Chiropractor,5
-111NR0200X,Radiology Chiropractor,Chiropractor,5
-111NR0400X,Rehabilitation Chiropractor,Chiropractor,5
-111NS0005X,Sports Physician Chiropractor,Chiropractor,5
-111NT0100X,Thermography Chiropractor,Chiropractor,5
-111NX0100X,Occupational Health Chiropractor,Chiropractor,5
-111NX0800X,Orthopedic Chiropractor,Chiropractor,5
-122300000X,Dentist,Dentist,6
-1223D0001X,Public Health Dentistry,Dentist,6
-1223E0200X,Endodontics,Endodontist,12
-1223G0001X,General Practice Dentistry,Dentist,6
-1223P0106X,Oral and Maxillofacial Pathology Dentistry,Dentist,6
-1223P0221X,Pediatric Dentistry,Pediatric Dentist,41
-1223P0300X,Periodontics,Periodontist,43
-1223P0700X,Prosthodontics,Prosthodontist,49
-1223S0112X,Oral and Maxillofacial Surgery (Dentist),Dentist,6
-1223X0008X,Oral and Maxillofacial Radiology Dentistry,Dentist,6
-1223X0400X,Orthodontics and Dentofacial Orthopedics Dentistry,Dentist,6
-1223X0400X,Orthodontics and Dentofacial Orthopedics Dentistry,Orthodontist,37
-1223X2210X,Orofacial Pain Dentistry,Dentist,6
-125J00000X,Dental Therapist,,0
-125K00000X,Advanced Practice Dental Therapist,,0
-125Q00000X,Oral Medicine Dentistry,Dentist,6
-133N00000X,Nutritionist,Nutritionist,30
-133NN1002X,Nutrition Education Nutritionist,Nutritionist,30
-133V00000X,Registered Dietitian,Dietitian,8
-133VN1004X,Pediatric Nutrition Registered Dietitian,Dietitian,8
-133VN1005X,Renal Nutrition Registered Dietitian,Dietitian,8
-133VN1101X,Gerontological Nutrition Registered Dietitian,Dietitian,8
-133VN1201X,Obesity and Weight Management Nutrition Registered Dietitian,Dietitian,8
-133VN1301X,Oncology Nutrition Registered Dietitian,Dietitian,8
-133VN1401X,Pediatric Critical Care Nutrition Registered Dietitian,Dietitian,8
-133VN1501X,Sports Dietetics Nutrition Registered Dietitian,Dietitian,8
-152W00000X,Optometrist,Optometrist,35
-152WC0802X,Corneal and Contact Management Optometrist,Optometrist,35
-152WL0500X,Low Vision Rehabilitation Optometrist,Optometrist,35
-152WP0200X,Pediatric Optometrist,Optometrist,35
-152WS0006X,Sports Vision Optometrist,Optometrist,35
-152WV0400X,Vision Therapy Optometrist,Optometrist,35
-152WX0102X,Occupational Vision Optometrist,Optometrist,35
-163WG0000X,General Practice Registered Nurse,Nurse Practitioner,29
-163WG0100X,Gastroenterology Registered Nurse,Nurse Practitioner,29
-163WL0100X,Lactation Consultant (Registered Nurse),Nurse Practitioner,29
-163WN0002X,Neonatal Intensive Care Registered Nurse,Nurse Practitioner,29
-163WN0003X,Low-Risk Neonatal Registered Nurse,Nurse Practitioner,29
-163WN0300X,Nephrology Registered Nurse,Nurse Practitioner,29
-163WN1003X,Nutrition Support Registered Nurse,Nurse Practitioner,29
-163WP0000X,Pain Management Registered Nurse,Nurse Practitioner,29
-163WP0200X,Pediatric Registered Nurse,Nurse Practitioner,29
-163WP0218X,Pediatric Oncology Registered Nurse,Nurse Practitioner,29
-163WR1000X,Reproductive Endocrinology/Infertility Registered Nurse,Nurse Practitioner,29
-163WS0121X,Plastic Surgery Registered Nurse,Nurse Practitioner,29
-163WU0100X,Urology Registered Nurse,Nurse Practitioner,29
-163WX0200X,Oncology Registered Nurse,Nurse Practitioner,29
-170300000X,Genetic Counselor (M.S.),Genetic Counselor,15
-171100000X,Acupuncturist,Acupuncturist,1
-174N00000X,Lactation Consultant (Non-RN),Lactation Consultant,23
-175F00000X,Naturopath,Naturopathic Doctor,24
-1835C0206X,Cardiology Pharmacist,Pharmacist,65
-1835E0208X,Emergency Medicine Pharmacist,Pharmacist,65
-1835G0303X,Geriatric Pharmacist,Pharmacist,65
-1835I0206X,Infectious Diseases Pharmacist,Pharmacist,65
-1835N0905X,Nuclear Pharmacist,Pharmacist,65
-1835N1003X,Nutrition Support Pharmacist,Pharmacist,65
-1835P0200X,Pediatric Pharmacist,Pharmacist,65
-1835P1400X,Pain Management Pharmacist,Pharmacist,65
-1835X0200X,Oncology Pharmacist,Pharmacist,65
-204C00000X,Sports Medicine (Neuromusculoskeletal Medicine) Physician,Sports Medicine Specialist,58
-204E00000X,Oral & Maxillofacial Surgery (D.M.D.),Surgeon,59
-204E00000X,Oral & Maxillofacial Surgery (D.M.D.),Oral Surgeon,36
-204F00000X,Transplant Surgery Physician,Surgeon,59
-207K00000X,Allergy & Immunology Physician,Allergist,2
-207KA0200X,Allergy Physician,Allergist,2
-207KI0005X,Clinical & Laboratory Immunology (Allergy & Immunology) Physician,Allergist,2
-207L00000X,Anesthesiology Physician,Anesthesiologist,64
-207LP2900X,Pain Medicine (Anesthesiology) Physician,Pain Management Specialist,39
-207LP2900X,Pain Medicine (Anesthesiology) Physician,Anesthesiologist,64
-207LP3000X,Pediatric Anesthesiology Physician,Anesthesiologist,64
-207N00000X,Dermatology Physician,Dermatologist,7
-207ND0101X,MOHS-Micrographic Surgery Physician,Surgeon,59
-207NI0002X,Clinical & Laboratory Dermatological Immunology Physician,Allergist,2
-207NP0225X,Pediatric Dermatology Physician,Dermatologist,7
-207NS0135X,Procedural Dermatology Physician,Dermatologist,7
-207P00000X,Emergency Medicine Physician,Emergency Medicine Physician,10
-207PE0004X,Emergency Medical Services (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207PE0005X,Undersea and Hyperbaric Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207PH0002X,Hospice and Palliative Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207PH0002X,Hospice and Palliative Medicine (Emergency Medicine) Physician,Palliative Care Specialist,40
-207PP0204X,Pediatric Emergency Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207PP0204X,Pediatric Emergency Medicine (Emergency Medicine) Physician,Pediatrician,42
-207PS0010X,Sports Medicine (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207PS0010X,Sports Medicine (Emergency Medicine) Physician,Sports Medicine Specialist,58
-207PT0002X,Medical Toxicology (Emergency Medicine) Physician,Emergency Medicine Physician,10
-207Q00000X,Family Medicine Physician,Family Physician,13
-207QA0000X,Adolescent Medicine (Family Medicine) Physician,Family Physician,13
-207QA0401X,Addiction Medicine (Family Medicine) Physician,Family Physician,13
-207QB0002X,Obesity Medicine (Family Medicine) Physician,Family Physician,13
-207QG0300X,Geriatric Medicine (Family Medicine) Physician,Geriatrician,16
-207QG0300X,Geriatric Medicine (Family Medicine) Physician,Family Physician,13
-207QH0002X,Hospice and Palliative Medicine (Family Medicine) Physician,Family Physician,13
-207QH0002X,Hospice and Palliative Medicine (Family Medicine) Physician,Palliative Care Specialist,40
-207QP0002X,Physician Nutrition Specialist (Family Medicine),Family Physician,13
-207QS0010X,Sports Medicine (Family Medicine) Physician,Family Physician,13
-207QS0010X,Sports Medicine (Family Medicine) Physician,Sports Medicine Specialist,58
-207QS1201X,Sleep Medicine (Family Medicine) Physician,Family Physician,13
-207QS1201X,Sleep Medicine (Family Medicine) Physician,Sleep Medicine Specialist,56
-207R00000X,Internal Medicine Physician,Internist,22
-207RA0000X,Adolescent Medicine (Internal Medicine) Physician,Internist,22
-207RA0001X,Advanced Heart Failure and Transplant Cardiology Physician,Cardiologist,4
-207RA0201X,Allergy & Immunology (Internal Medicine) Physician,Internist,22
-207RA0201X,Allergy & Immunology (Internal Medicine) Physician,Allergist,2
-207RA0401X,Addiction Medicine (Internal Medicine) Physician,Internist,22
-207RB0002X,Obesity Medicine (Internal Medicine) Physician,Internist,22
-207RC0000X,Cardiovascular Disease Physician,Cardiologist,4
-207RC0200X,Critical Care Medicine (Internal Medicine) Physician,Internist,22
-207RE0101X,"Endocrinology, Diabetes & Metabolism Physician",Endocrinologist,11
-207RG0100X,Gastroenterology Physician,Gastroenterologist,14
-207RG0300X,Geriatric Medicine (Internal Medicine) Physician,Geriatrician,16
-207RG0300X,Geriatric Medicine (Internal Medicine) Physician,Internist,22
-207RH0000X,Hematology (Internal Medicine) Physician,Hematologist,18
-207RH0000X,Hematology (Internal Medicine) Physician,Internist,22
-207RH0002X,Hospice and Palliative Medicine (Internal Medicine) Physician,Palliative Care Specialist,40
-207RH0002X,Hospice and Palliative Medicine (Internal Medicine) Physician,Internist,22
-207RH0003X,Hematology & Oncology Physician,Hematologist,18
-207RH0003X,Hematology & Oncology Physician,Oncologist,33
-207RI0001X,Clinical & Laboratory Immunology (Internal Medicine) Physician,Internist,22
-207RI0008X,Hepatology Physician,Hepatologist,19
-207RI0011X,Interventional Cardiology Physician,Cardiologist,4
-207RI0200X,Infectious Disease Physician,Infectious Disease Specialist,20
-207RM1200X,Magnetic Resonance Imaging (MRI) Internal Medicine Physician,Internist,22
-207RN0300X,Nephrology Physician,Nephrologist,26
-207RP1001X,Pulmonary Disease Physician,Pulmonologist,53
-207RR0500X,Rheumatology Physician,Rheumatologist,55
-207RS0010X,Sports Medicine (Internal Medicine) Physician,Sports Medicine Specialist,58
-207RS0012X,Sleep Medicine (Internal Medicine) Physician,Sleep Medicine Specialist,56
-207RT0003X,Transplant Hepatology Physician,Hepatologist,19
-207RX0202X,Medical Oncology Physician,Oncologist,33
-207T00000X,Neurological Surgery Physician,Neurosurgeon,28
-207UN0901X,Nuclear Cardiology Physician,Cardiologist,4
-207V00000X,Obstetrics & Gynecology Physician,OB-GYN,31
-207VB0002X,Obesity Medicine (Obstetrics & Gynecology) Physician,OB-GYN,31
-207VC0200X,Critical Care Medicine (Obstetrics & Gynecology) Physician,OB-GYN,31
-207VE0102X,Reproductive Endocrinology Physician,Endocrinologist,11
-207VE0102X,Reproductive Endocrinology Physician,Infertility Specialist,21
-207VF0040X,Urogynecology and Reconstructive Pelvic Surgery (Obstetrics & Gynecology) Physician,Surgeon,59
-207VF0040X,Urogynecology and Reconstructive Pelvic Surgery (Obstetrics & Gynecology) Physician,OB-GYN,31
-207VG0400X,Gynecology Physician,OB-GYN,31
-207VH0002X,Hospice and Palliative Medicine (Obstetrics & Gynecology) Physician,OB-GYN,31
-207VH0002X,Hospice and Palliative Medicine (Obstetrics & Gynecology) Physician,Palliative Care Specialist,40
-207VX0000X,Obstetrics Physician,OB-GYN,31
-207VX0201X,Gynecologic Oncology Physician,Oncologist,33
-207W00000X,Ophthalmology Physician,Ophthalmologist,34
-207WX0009X,Glaucoma Specialist (Ophthalmology) Physician,Ophthalmologist,34
-207WX0107X,Retina Specialist (Ophthalmology) Physician,Ophthalmologist,34
-207WX0108X,Uveitis and Ocular Inflammatory Disease (Ophthalmology) Physician,Ophthalmologist,34
-207WX0109X,Neuro-ophthalmology Physician,Ophthalmologist,34
-207WX0110X,Pediatric Ophthalmology and Strabismus Specialist Physician Physician,Ophthalmologist,34
-207WX0200X,Ophthalmic Plastic and Reconstructive Surgery Physician,Surgeon,59
-207WX0200X,Ophthalmic Plastic and Reconstructive Surgery Physician,Ophthalmologist,34
-207X00000X,Orthopaedic Surgery Physician,Orthopedic Surgeon,38
-207X00000X,Orthopaedic Surgery Physician,Surgeon,59
-207XP3100X,Pediatric Orthopaedic Surgery Physician,Orthopedic Surgeon,38
-207XP3100X,Pediatric Orthopaedic Surgery Physician,Surgeon,59
-207XS0106X,Orthopaedic Hand Surgery Physician,Hand Surgeon,17
-207XS0106X,Orthopaedic Hand Surgery Physician,Surgeon,59
-207XS0106X,Orthopaedic Hand Surgery Physician,Orthopedic Surgeon,38
-207XS0114X,Adult Reconstructive Orthopaedic Surgery Physician,Orthopedic Surgeon,38
-207XS0114X,Adult Reconstructive Orthopaedic Surgery Physician,Surgeon,59
-207XS0117X,Orthopaedic Surgery of the Spine Physician,Surgeon,59
-207XS0117X,Orthopaedic Surgery of the Spine Physician,Orthopedic Surgeon,38
-207XX0005X,Sports Medicine (Orthopaedic Surgery) Physician,Orthopedic Surgeon,38
-207XX0005X,Sports Medicine (Orthopaedic Surgery) Physician,Sports Medicine Specialist,58
-207XX0005X,Sports Medicine (Orthopaedic Surgery) Physician,Surgeon,59
-207Y00000X,Otolaryngology Physician,"Ear, Nose & Throat Doctor",9
-207YP0228X,Pediatric Otolaryngology Physician,"Ear, Nose & Throat Doctor",9
-207YS0012X,Sleep Medicine (Otolaryngology) Physician,"Ear, Nose & Throat Doctor",9
-207YS0012X,Sleep Medicine (Otolaryngology) Physician,Sleep Medicine Specialist,56
-207YS0123X,Facial Plastic Surgery Physician,Plastic Surgeon,46
-207YS0123X,Facial Plastic Surgery Physician,Surgeon,59
-207YS0123X,Facial Plastic Surgery Physician,Oral Surgeon,36
-207YX0007X,Plastic Surgery within the Head & Neck (Otolaryngology) Physician,Surgeon,59
-207YX0007X,Plastic Surgery within the Head & Neck (Otolaryngology) Physician,Plastic Surgeon,46
-207YX0602X,Otolaryngic Allergy Physician,"Ear, Nose & Throat Doctor",9
-207YX0602X,Otolaryngic Allergy Physician,Allergist,2
-207YX0905X,Otolaryngology/Facial Plastic Surgery Physician,"Ear, Nose & Throat Doctor",9
-207YX0905X,Otolaryngology/Facial Plastic Surgery Physician,Plastic Surgeon,46
-207YX0905X,Otolaryngology/Facial Plastic Surgery Physician,Surgeon,59
-208000000X,Pediatrics Physician,Pediatrician,42
-2080A0000X,Pediatric Adolescent Medicine Physician,Pediatrician,42
-2080I0007X,Pediatric Clinical & Laboratory Immunology Physician,Allergist,2
-2080I0007X,Pediatric Clinical & Laboratory Immunology Physician,Pediatrician,42
-2080N0001X,Neonatal-Perinatal Medicine Physician,Neonatologist,25
-2080N0001X,Neonatal-Perinatal Medicine Physician,Pediatrician,42
-2080P0006X,Developmental - Behavioral Pediatrics Physician,Pediatrician,42
-2080P0008X,Pediatric Neurodevelopmental Disabilities Physician,Pediatrician,42
-2080P0201X,Pediatric Allergy/Immunology Physician,Pediatrician,42
-2080P0201X,Pediatric Allergy/Immunology Physician,Allergist,2
-2080P0202X,Pediatric Cardiology Physician,Cardiologist,4
-2080P0202X,Pediatric Cardiology Physician,Pediatrician,42
-2080P0203X,Pediatric Critical Care Medicine Physician,Pediatrician,42
-2080P0204X,Pediatric Emergency Medicine (Pediatrics) Physician,Emergency Medicine Physician,10
-2080P0204X,Pediatric Emergency Medicine (Pediatrics) Physician,Pediatrician,42
-2080P0205X,Pediatric Endocrinology Physician,Endocrinologist,11
-2080P0205X,Pediatric Endocrinology Physician,Pediatrician,42
-2080P0206X,Pediatric Gastroenterology Physician,Gastroenterologist,14
-2080P0206X,Pediatric Gastroenterology Physician,Pediatrician,42
-2080P0207X,Pediatric Hematology & Oncology Physician,Pediatrician,42
-2080P0207X,Pediatric Hematology & Oncology Physician,Hematologist,18
-2080P0207X,Pediatric Hematology & Oncology Physician,Oncologist,33
-2080P0208X,Pediatric Infectious Diseases Physician,Infectious Disease Specialist,20
-2080P0208X,Pediatric Infectious Diseases Physician,Pediatrician,42
-2080P0210X,Pediatric Nephrology Physician,Nephrologist,26
-2080P0210X,Pediatric Nephrology Physician,Pediatrician,42
-2080P0214X,Pediatric Pulmonology Physician,Pediatrician,42
-2080P0216X,Pediatric Rheumatology Physician,Pediatrician,42
-2080P0216X,Pediatric Rheumatology Physician,Rheumatologist,55
-2080S0010X,Pediatric Sports Medicine Physician,Pediatrician,42
-2080S0010X,Pediatric Sports Medicine Physician,Sports Medicine Specialist,58
-2080S0012X,Pediatric Sleep Medicine Physician,Pediatrician,42
-2080S0012X,Pediatric Sleep Medicine Physician,Sleep Medicine Specialist,56
-2080T0002X,Pediatric Medical Toxicology Physician,Pediatrician,42
-2080T0004X,Pediatric Transplant Hepatology Physician,Hepatologist,19
-2080T0004X,Pediatric Transplant Hepatology Physician,Pediatrician,42
-208100000X,Physical Medicine & Rehabilitation Physician,Physiatrist,44
-2081H0002X,Hospice and Palliative Medicine (Physical Medicine & Rehabilitation) Physician,Palliative Care Specialist,40
-2081H0002X,Hospice and Palliative Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
-2081N0008X,Neuromuscular Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
-2081P0301X,Brain Injury Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
-2081P2900X,Pain Medicine (Physical Medicine & Rehabilitation) Physician,Pain Management Specialist,39
-2081P2900X,Pain Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
-2081S0010X,Sports Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
-2081S0010X,Sports Medicine (Physical Medicine & Rehabilitation) Physician,Sports Medicine Specialist,58
-208200000X,Plastic Surgery Physician,Plastic Surgeon,46
-208200000X,Plastic Surgery Physician,Surgeon,59
-2082S0099X,Plastic Surgery Within the Head and Neck (Plastic Surgery) Physician,Plastic Surgeon,46
-2082S0099X,Plastic Surgery Within the Head and Neck (Plastic Surgery) Physician,Surgeon,59
-2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Hand Surgeon,17
-2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Plastic Surgeon,46
-2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Surgeon,59
-2083P0500X,Preventive Medicine/Occupational Environmental Medicine Physician,Primary Care Doctor,48
-2083P0901X,Public Health & General Preventive Medicine Physician,Primary Care Doctor,48
-2083S0010X,Sports Medicine (Preventive Medicine) Physician,Sports Medicine Specialist,58
-2084A0401X,Addiction Medicine (Psychiatry & Neurology) Physician,Neurologist,27
-2084A0401X,Addiction Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
-2084B0002X,Obesity Medicine (Psychiatry & Neurology) Physician,Neurologist,27
-2084B0002X,Obesity Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
-2084B0040X,Behavioral Neurology & Neuropsychiatry Physician,Neurologist,27
-2084B0040X,Behavioral Neurology & Neuropsychiatry Physician,Psychiatrist,50
-2084D0003X,Diagnostic Neuroimaging (Psychiatry & Neurology) Physician,Neurologist,27
-2084D0003X,Diagnostic Neuroimaging (Psychiatry & Neurology) Physician,Psychiatrist,50
-2084F0202X,Forensic Psychiatry Physician,Psychiatrist,50
-2084H0002X,Hospice and Palliative Medicine (Psychiatry & Neurology) Physician,Neurologist,27
-2084H0002X,Hospice and Palliative Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
-2084H0002X,Hospice and Palliative Medicine (Psychiatry & Neurology) Physician,Palliative Care Specialist,40
-2084N0008X,Neuromuscular Medicine (Psychiatry & Neurology) Physician,Neurologist,27
-2084N0008X,Neuromuscular Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
-2084N0400X,Neurology Physician,Neurologist,27
-2084N0402X,Neurology with Special Qualifications in Child Neurology Physician,Neurologist,27
-2084N0402X,Neurology with Special Qualifications in Child Neurology Physician,Pediatrician,42
-2084P0301X,Brain Injury Medicine (Psychiatry & Neurology) Physician,Neurologist,27
-2084P0301X,Brain Injury Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
-2084P0800X,Psychiatry Physician,Psychiatrist,50
-2084P0802X,Addiction Psychiatry Physician,Psychiatrist,50
-2084P0804X,Child & Adolescent Psychiatry Physician,Pediatrician,42
-2084P0804X,Child & Adolescent Psychiatry Physician,Psychiatrist,50
-2084P0805X,Geriatric Psychiatry Physician,Geriatrician,16
-2084P0805X,Geriatric Psychiatry Physician,Psychiatrist,50
-2084P2900X,Pain Medicine (Psychiatry & Neurology) Physician,Neurologist,27
-2084P2900X,Pain Medicine (Psychiatry & Neurology) Physician,Pain Management Specialist,39
-2084P2900X,Pain Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
-2084S0010X,Sports Medicine (Psychiatry & Neurology) Physician,Neurologist,27
-2084S0010X,Sports Medicine (Psychiatry & Neurology) Physician,Sports Medicine Specialist,58
-2084S0010X,Sports Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
-2084S0012X,Sleep Medicine (Psychiatry & Neurology) Physician,Sleep Medicine Specialist,56
-2084S0012X,Sleep Medicine (Psychiatry & Neurology) Physician,Neurologist,27
-2084S0012X,Sleep Medicine (Psychiatry & Neurology) Physician,Psychiatrist,50
-2085D0003X,Diagnostic Neuroimaging (Radiology) Physician,Radiologist,54
-2085H0002X,Hospice and Palliative Medicine (Radiology) Physician,Palliative Care Specialist,40
-2085H0002X,Hospice and Palliative Medicine (Radiology) Physician,Radiologist,54
-2085N0700X,Neuroradiology Physician,Radiologist,54
-2085P0229X,Pediatric Radiology Physician,Radiologist,54
-2085P0229X,Pediatric Radiology Physician,Pediatrician,42
-2085R0001X,Radiation Oncology Physician,Oncologist,33
-2085R0001X,Radiation Oncology Physician,Radiologist,54
-2085R0202X,Diagnostic Radiology Physician,Radiologist,54
-2085R0203X,Therapeutic Radiology Physician,Radiologist,54
-2085R0204X,Vascular & Interventional Radiology Physician,Radiologist,54
-2086H0002X,Hospice and Palliative Medicine (Surgery) Physician,Palliative Care Specialist,40
-2086H0002X,Hospice and Palliative Medicine (Surgery) Physician,Surgeon,59
-2086S0105X,Surgery of the Hand (Surgery) Physician,Hand Surgeon,17
-2086S0105X,Surgery of the Hand (Surgery) Physician,Surgeon,59
-2086S0120X,Pediatric Surgery Physician,Pediatrician,42
-2086S0120X,Pediatric Surgery Physician,Surgeon,59
-2086S0122X,Plastic and Reconstructive Surgery Physician,Surgeon,59
-2086S0127X,Trauma Surgery Physician,Surgeon,59
-2086S0129X,Vascular Surgery Physician,Surgeon,59
-2086S0129X,Vascular Surgery Physician,Vascular Surgeon,61
-2086X0206X,Surgical Oncology Physician,Oncologist,33
-2086X0206X,Surgical Oncology Physician,Surgeon,59
-208800000X,Urology Physician,Urologist,60
-2088F0040X,Urogynecology and Reconstructive Pelvic Surgery (Urology) Physician,OB-GYN,31
-2088F0040X,Urogynecology and Reconstructive Pelvic Surgery (Urology) Physician,Surgeon,59
-2088P0231X,Pediatric Urology Physician,Urologist,60
-2088P0231X,Pediatric Urology Physician,Pediatrician,42
-208G00000X,Thoracic Surgery (Cardiothoracic Vascular Surgery) Physician,Surgeon,59
-208G00000X,Thoracic Surgery (Cardiothoracic Vascular Surgery) Physician,Vascular Surgeon,61
-211D00000X,Podiatric Assistant,Medical Assistant,62
-213E00000X,Podiatrist,Podiatrist,47
-213EP0504X,Public Medicine Podiatrist,Podiatrist,47
-213EP1101X,Primary Podiatric Medicine Podiatrist,Podiatrist,47
-213ER0200X,Radiology Podiatrist,Podiatrist,47
-213ER0200X,Radiology Podiatrist,Radiologist,54
-213ES0000X,Sports Medicine Podiatrist,Podiatrist,47
-213ES0000X,Sports Medicine Podiatrist,Sports Medicine Specialist,58
-213ES0103X,Foot & Ankle Surgery Podiatrist,Podiatrist,47
-213ES0103X,Foot & Ankle Surgery Podiatrist,Surgeon,59
-213ES0131X,Foot Surgery Podiatrist,Podiatrist,47
-213ES0131X,Foot Surgery Podiatrist,Surgeon,59
-225100000X,Physical Therapist,Physical Therapist,45
-2251C2600X,Cardiopulmonary Physical Therapist,Physical Therapist,45
-2251E1200X,Ergonomics Physical Therapist,Physical Therapist,45
-2251E1300X,Clinical Electrophysiology Physical Therapist,Physical Therapist,45
-2251G0304X,Geriatric Physical Therapist,Physical Therapist,45
-2251H1200X,Hand Physical Therapist,Physical Therapist,45
-2251H1300X,Human Factors Physical Therapist,Physical Therapist,45
-2251N0400X,Neurology Physical Therapist,Physical Therapist,45
-2251P0200X,Pediatric Physical Therapist,Physical Therapist,45
-2251S0007X,Sports Physical Therapist,Physical Therapist,45
-2251X0800X,Orthopedic Physical Therapist,Physical Therapist,45
-225B00000X,Pulmonary Function Technologist,,0
-225X00000X,Occupational Therapist,Occupational Therapist,32
-225XE0001X,Environmental Modification Occupational Therapist,Occupational Therapist,32
-225XE1200X,Ergonomics Occupational Therapist,Occupational Therapist,32
-225XF0002X,"Feeding, Eating & Swallowing Occupational Therapist",Occupational Therapist,32
-225XG0600X,Gerontology Occupational Therapist,Occupational Therapist,32
-225XH1200X,Hand Occupational Therapist,Occupational Therapist,32
-225XH1300X,Human Factors Occupational Therapist,Occupational Therapist,32
-225XL0004X,Low Vision Occupational Therapist,Occupational Therapist,32
-225XM0800X,Mental Health Occupational Therapist,Occupational Therapist,32
-225XN1300X,Neurorehabilitation Occupational Therapist,Occupational Therapist,32
-225XP0019X,Physical Rehabilitation Occupational Therapist,Occupational Therapist,32
-225XP0200X,Pediatric Occupational Therapist,Occupational Therapist,32
-2278G0305X,Geriatric Care Certified Respiratory Therapist,Respiratory Therapist,66
-2278P1004X,Pulmonary Diagnostics Certified Respiratory Therapist,Respiratory Therapist,66
-2278P1005X,Pulmonary Rehabilitation Certified Respiratory Therapist,Respiratory Therapist,66
-2278P1006X,Pulmonary Function Technologist Certified Respiratory Therapist,Respiratory Therapist,66
-2278P3800X,Palliative/Hospice Certified Respiratory Therapist,Respiratory Therapist,66
-2278P3900X,Neonatal/Pediatric Certified Respiratory Therapist,Respiratory Therapist,66
-2278P4000X,Patient Transport Certified Respiratory Therapist,Respiratory Therapist,66
-2279G0305X,Geriatric Care Registered Respiratory Therapist,Respiratory Therapist,66
-2279P1004X,Pulmonary Diagnostics Registered Respiratory Therapist,Respiratory Therapist,66
-2279P1005X,Pulmonary Rehabilitation Registered Respiratory Therapist,Respiratory Therapist,66
-2279P1006X,Pulmonary Function Technologist Registered Respiratory Therapist,Respiratory Therapist,66
-2279P3800X,Palliative/Hospice Registered Respiratory Therapist,Respiratory Therapist,66
-2279P3900X,Neonatal/Pediatric Registered Respiratory Therapist,Respiratory Therapist,66
-2279P4000X,Patient Transport Registered Respiratory Therapist,Respiratory Therapist,66
-231H00000X,Audiologist,Audiologist,3
-231HA2400X,Assistive Technology Practitioner Audiologist,Audiologist,3
-231HA2500X,Assistive Technology Supplier Audiologist,Audiologist,3
-2355A2700X,Audiology Assistant,Medical Assistant,62
-235Z00000X,Speech-Language Pathologist,Speech-Language Pathologist,57
-237600000X,Audiologist-Hearing Aid Fitter,Medical Assistant,62
-243U00000X,Radiology Practitioner Assistant,Medical Assistant,62
-246QH0000X,Hematology Specialist/Technologist,Technologist,67
-246QI0000X,Immunology Pathology Specialist/Technologist,Technologist,67
-246W00000X,Cardiology Technician,Technologist,67
-246X00000X,Cardiovascular Specialist/Technologist,Technologist,67
-246XC2901X,Cardiovascular Invasive Specialist/Technologist,Technologist,67
-246XC2903X,Vascular Specialist/Technologist Cardiovascular,Technologist,67
-246XS1301X,Sonography Specialist/Technologist Cardiovascular,Technologist,67
-246ZN0300X,Nephrology Specialist/Technologist,Technologist,67
-2471C1101X,Cardiovascular-Interventional Technology Radiologic Technologist,Technologist,67
-363L00000X,Nurse Practitioner,Nurse Practitioner,29
-363LA2100X,Acute Care Nurse Practitioner,Nurse Practitioner,29
-363LA2200X,Adult Health Nurse Practitioner,Nurse Practitioner,29
-363LC0200X,Critical Care Medicine Nurse Practitioner,Nurse Practitioner,29
-363LC1500X,Community Health Nurse Practitioner,Nurse Practitioner,29
-363LF0000X,Family Nurse Practitioner,Nurse Practitioner,29
-363LG0600X,Gerontology Nurse Practitioner,Nurse Practitioner,29
-363LN0000X,Neonatal Nurse Practitioner,Nurse Practitioner,29
-363LN0005X,Critical Care Neonatal Nurse Practitioner,Nurse Practitioner,29
-363LP0200X,Pediatric Nurse Practitioner,Nurse Practitioner,29
-363LP0222X,Critical Care Pediatric Nurse Practitioner,Nurse Practitioner,29
-363LP0808X,Psychiatric/Mental Health Nurse Practitioner,Nurse Practitioner,29
-363LP1700X,Perinatal Nurse Practitioner,Nurse Practitioner,29
-363LP2300X,Primary Care Nurse Practitioner,Nurse Practitioner,29
-363LS0200X,School Nurse Practitioner,Nurse Practitioner,29
-363LW0102X,Women's Health Nurse Practitioner,Nurse Practitioner,29
-363LX0001X,Obstetrics & Gynecology Nurse Practitioner,Nurse Practitioner,29
-363LX0106X,Occupational Health Nurse Practitioner,Nurse Practitioner,29
-364S00000X,Clinical Nurse Specialist,Clinical Nurse Specialist,63
-364SN0000X,Neonatal Clinical Nurse Specialist,Clinical Nurse Specialist,63
-364SP0808X,Psychiatric/Mental Health Clinical Nurse Specialist,Clinical Nurse Specialist,63
-364SX0200X,Oncology Clinical Nurse Specialist,Clinical Nurse Specialist,63
-364SX0204X,Pediatric Oncology Clinical Nurse Specialist,Clinical Nurse Specialist,63
+taxonomy_id,specialty_id
+101200000X,52
+101Y00000X,52
+101YA0400X,52
+101YM0800X,52
+101YP1600X,52
+101YP2500X,52
+101YS0200X,52
+102X00000X,52
+103T00000X,51
+103TA0400X,51
+103TA0700X,51
+103TB0200X,51
+103TC0700X,51
+103TC1900X,51
+103TC2200X,51
+103TE1100X,51
+103TF0000X,51
+103TF0200X,51
+103TH0004X,51
+103TH0100X,51
+103TM1800X,51
+103TP0016X,51
+103TP0814X,51
+103TP2701X,51
+103TR0400X,51
+103TS0200X,51
+104100000X,52
+1041C0700X,52
+1041S0200X,52
+106H00000X,52
+111N00000X,5
+111NI0013X,5
+111NI0900X,5
+111NN0400X,5
+111NN1001X,5
+111NP0017X,5
+111NR0200X,5
+111NR0400X,5
+111NS0005X,5
+111NT0100X,5
+111NX0100X,5
+111NX0800X,5
+122300000X,6
+1223D0001X,6
+1223E0200X,12
+1223G0001X,6
+1223P0106X,6
+1223P0221X,41
+1223P0300X,43
+1223P0700X,49
+1223S0112X,6
+1223X0008X,6
+1223X0400X,6
+1223X0400X,37
+1223X2210X,6
+125J00000X,0
+125K00000X,0
+125Q00000X,6
+133N00000X,30
+133NN1002X,30
+133V00000X,8
+133VN1004X,8
+133VN1005X,8
+133VN1101X,8
+133VN1201X,8
+133VN1301X,8
+133VN1401X,8
+133VN1501X,8
+152W00000X,35
+152WC0802X,35
+152WL0500X,35
+152WP0200X,35
+152WS0006X,35
+152WV0400X,35
+152WX0102X,35
+163WG0000X,29
+163WG0100X,29
+163WL0100X,29
+163WN0002X,29
+163WN0003X,29
+163WN0300X,29
+163WN1003X,29
+163WP0000X,29
+163WP0200X,29
+163WP0218X,29
+163WR1000X,29
+163WS0121X,29
+163WU0100X,29
+163WX0200X,29
+170300000X,15
+171100000X,1
+174N00000X,23
+175F00000X,24
+1835C0206X,65
+1835E0208X,65
+1835G0303X,65
+1835I0206X,65
+1835N0905X,65
+1835N1003X,65
+1835P0200X,65
+1835P1400X,65
+1835X0200X,65
+204C00000X,58
+204E00000X,59
+204E00000X,36
+204F00000X,59
+207K00000X,2
+207KA0200X,2
+207KI0005X,2
+207L00000X,64
+207LP2900X,39
+207LP2900X,64
+207LP3000X,64
+207N00000X,7
+207ND0101X,59
+207NI0002X,2
+207NP0225X,7
+207NS0135X,7
+207P00000X,10
+207PE0004X,10
+207PE0005X,10
+207PH0002X,10
+207PH0002X,40
+207PP0204X,10
+207PP0204X,42
+207PS0010X,10
+207PS0010X,58
+207PT0002X,10
+207Q00000X,13
+207QA0000X,13
+207QA0401X,13
+207QB0002X,13
+207QG0300X,16
+207QG0300X,13
+207QH0002X,13
+207QH0002X,40
+207QP0002X,13
+207QS0010X,13
+207QS0010X,58
+207QS1201X,13
+207QS1201X,56
+207R00000X,22
+207RA0000X,22
+207RA0001X,4
+207RA0201X,22
+207RA0201X,2
+207RA0401X,22
+207RB0002X,22
+207RC0000X,4
+207RC0200X,22
+207RE0101X,11
+207RG0100X,14
+207RG0300X,16
+207RG0300X,22
+207RH0000X,18
+207RH0000X,22
+207RH0002X,40
+207RH0002X,22
+207RH0003X,18
+207RH0003X,33
+207RI0001X,22
+207RI0008X,19
+207RI0011X,4
+207RI0200X,20
+207RM1200X,22
+207RN0300X,26
+207RP1001X,53
+207RR0500X,55
+207RS0010X,58
+207RS0012X,56
+207RT0003X,19
+207RX0202X,33
+207T00000X,28
+207UN0901X,4
+207V00000X,31
+207VB0002X,31
+207VC0200X,31
+207VE0102X,11
+207VE0102X,21
+207VF0040X,59
+207VF0040X,31
+207VG0400X,31
+207VH0002X,31
+207VH0002X,40
+207VX0000X,31
+207VX0201X,33
+207W00000X,34
+207WX0009X,34
+207WX0107X,34
+207WX0108X,34
+207WX0109X,34
+207WX0110X,34
+207WX0200X,59
+207WX0200X,34
+207X00000X,38
+207X00000X,59
+207XP3100X,38
+207XP3100X,59
+207XS0106X,17
+207XS0106X,59
+207XS0106X,38
+207XS0114X,38
+207XS0114X,59
+207XS0117X,59
+207XS0117X,38
+207XX0005X,38
+207XX0005X,58
+207XX0005X,59
+207Y00000X,9
+207YP0228X,9
+207YS0012X,9
+207YS0012X,56
+207YS0123X,46
+207YS0123X,59
+207YS0123X,36
+207YX0007X,59
+207YX0007X,46
+207YX0602X,9
+207YX0602X,2
+207YX0905X,9
+207YX0905X,46
+207YX0905X,59
+208000000X,42
+2080A0000X,42
+2080I0007X,2
+2080I0007X,42
+2080N0001X,25
+2080N0001X,42
+2080P0006X,42
+2080P0008X,42
+2080P0201X,42
+2080P0201X,2
+2080P0202X,4
+2080P0202X,42
+2080P0203X,42
+2080P0204X,10
+2080P0204X,42
+2080P0205X,11
+2080P0205X,42
+2080P0206X,14
+2080P0206X,42
+2080P0207X,42
+2080P0207X,18
+2080P0207X,33
+2080P0208X,20
+2080P0208X,42
+2080P0210X,26
+2080P0210X,42
+2080P0214X,42
+2080P0216X,42
+2080P0216X,55
+2080S0010X,42
+2080S0010X,58
+2080S0012X,42
+2080S0012X,56
+2080T0002X,42
+2080T0004X,19
+2080T0004X,42
+208100000X,44
+2081H0002X,40
+2081H0002X,44
+2081N0008X,44
+2081P0301X,44
+2081P2900X,39
+2081P2900X,44
+2081S0010X,44
+2081S0010X,58
+208200000X,46
+208200000X,59
+2082S0099X,46
+2082S0099X,59
+2082S0105X,17
+2082S0105X,46
+2082S0105X,59
+2083P0500X,48
+2083P0901X,48
+2083S0010X,58
+2084A0401X,27
+2084A0401X,50
+2084B0002X,27
+2084B0002X,50
+2084B0040X,27
+2084B0040X,50
+2084D0003X,27
+2084D0003X,50
+2084F0202X,50
+2084H0002X,27
+2084H0002X,50
+2084H0002X,40
+2084N0008X,27
+2084N0008X,50
+2084N0400X,27
+2084N0402X,27
+2084N0402X,42
+2084P0301X,27
+2084P0301X,50
+2084P0800X,50
+2084P0802X,50
+2084P0804X,42
+2084P0804X,50
+2084P0805X,16
+2084P0805X,50
+2084P2900X,27
+2084P2900X,39
+2084P2900X,50
+2084S0010X,27
+2084S0010X,58
+2084S0010X,50
+2084S0012X,56
+2084S0012X,27
+2084S0012X,50
+2085D0003X,54
+2085H0002X,40
+2085H0002X,54
+2085N0700X,54
+2085P0229X,54
+2085P0229X,42
+2085R0001X,33
+2085R0001X,54
+2085R0202X,54
+2085R0203X,54
+2085R0204X,54
+2086H0002X,40
+2086H0002X,59
+2086S0105X,17
+2086S0105X,59
+2086S0120X,42
+2086S0120X,59
+2086S0122X,59
+2086S0127X,59
+2086S0129X,59
+2086S0129X,61
+2086X0206X,33
+2086X0206X,59
+208800000X,60
+2088F0040X,31
+2088F0040X,59
+2088P0231X,60
+2088P0231X,42
+208G00000X,59
+208G00000X,61
+211D00000X,62
+213E00000X,47
+213EP0504X,47
+213EP1101X,47
+213ER0200X,47
+213ER0200X,54
+213ES0000X,47
+213ES0000X,58
+213ES0103X,47
+213ES0103X,59
+213ES0131X,47
+213ES0131X,59
+225100000X,45
+2251C2600X,45
+2251E1200X,45
+2251E1300X,45
+2251G0304X,45
+2251H1200X,45
+2251H1300X,45
+2251N0400X,45
+2251P0200X,45
+2251S0007X,45
+2251X0800X,45
+225B00000X,0
+225X00000X,32
+225XE0001X,32
+225XE1200X,32
+225XF0002X,32
+225XG0600X,32
+225XH1200X,32
+225XH1300X,32
+225XL0004X,32
+225XM0800X,32
+225XN1300X,32
+225XP0019X,32
+225XP0200X,32
+2278G0305X,66
+2278P1004X,66
+2278P1005X,66
+2278P1006X,66
+2278P3800X,66
+2278P3900X,66
+2278P4000X,66
+2279G0305X,66
+2279P1004X,66
+2279P1005X,66
+2279P1006X,66
+2279P3800X,66
+2279P3900X,66
+2279P4000X,66
+231H00000X,3
+231HA2400X,3
+231HA2500X,3
+2355A2700X,62
+235Z00000X,57
+237600000X,62
+243U00000X,62
+246QH0000X,67
+246QI0000X,67
+246W00000X,67
+246X00000X,67
+246XC2901X,67
+246XC2903X,67
+246XS1301X,67
+246ZN0300X,67
+2471C1101X,67
+363L00000X,29
+363LA2100X,29
+363LA2200X,29
+363LC0200X,29
+363LC1500X,29
+363LF0000X,29
+363LG0600X,29
+363LN0000X,29
+363LN0005X,29
+363LP0200X,29
+363LP0222X,29
+363LP0808X,29
+363LP1700X,29
+363LP2300X,29
+363LS0200X,29
+363LW0102X,29
+363LX0001X,29
+363LX0106X,29
+364S00000X,63
+364SN0000X,63
+364SP0808X,63
+364SX0200X,63
+364SX0204X,63

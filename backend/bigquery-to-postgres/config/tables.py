@@ -207,7 +207,6 @@ TABLES = {
     'specialty_map': {
         'bigquery_table': 'specialty_map',
         'postgres_table': 'specialty_map',
-        'primary_key': 'id',
         'required_columns': ['specialty_id','taxonomy_id'],
         'sync_mode': 'full_refresh',
         'incremental_column': None,
