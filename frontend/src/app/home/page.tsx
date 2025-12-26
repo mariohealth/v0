@@ -83,9 +83,9 @@ function HomePageContent() {
 
     // Handle different suggestion types
     if (suggestion) {
-      // Procedure - navigate to /home with procedure query param
+      // Procedure - navigate directly to /procedures/{slug} for immediate results
       if (suggestion.procedureSlug) {
-        router.push(`/home?procedure=${encodeURIComponent(suggestion.procedureSlug)}`);
+        router.push(`/procedures/${encodeURIComponent(suggestion.procedureSlug)}`);
         return;
       }
 
@@ -109,8 +109,8 @@ function HomePageContent() {
       }
     }
 
-    // Regular search (Enter key without autocomplete selection) - search for procedure
-    await navigateToProcedure(trimmedQuery, router);
+    // Regular search (Enter key without autocomplete selection) - search for procedure on /search page
+    router.push(`/search?q=${encodeURIComponent(trimmedQuery)}`);
   };
 
   const handleProviderClick = (providerId: string) => {
