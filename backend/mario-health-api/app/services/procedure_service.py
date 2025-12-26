@@ -188,71 +188,54 @@ class ProcedureService:
         # Get orgs offering this procedure
         # Query procedure_org_pricing table
         try:
-            # Query procedure_org_pricing table joined with provider_location
-            # We join based on org_id to get human-readable names and location info
+            # Use a query to get orgs with pricing for this procedure
             orgs_result = (
                 self.supabase.table("procedure_org_pricing")
                 .select(
-                    "procedure_id, org_id, carrier_id, carrier_name, count_provider, min_price, max_price, avg_price"
+                    "procedure_id",
+                    "org_id",
+                    "carrier_id",
+                    "carrier_name",
+                    "count_provider",
+                    "min_price",
+                    "max_price",
+                    "avg_price",
+                    "org_name",
+                    "org_type",
+                    "address",
+                    "city",
+                    "state",
+                    "zip_code",
+                    "latitude",
+                    "longitude",
+                    "phone",
                 )
                 .eq("procedure_id", procedure_id)
                 .execute()
             )
 
-            # To get org_name and address, we need to join with provider_location
-            # Since Supabase JS client doesn't support complex joins well on distinct tables unless foreign keys are set perfectly,
-            # we will fetch the location info separately and merge, or try a join if the schema allows.
-            # Best way for this specific case is to fetch the unique org_ids and their location info.
-            
-            org_ids = list(set([o.get("org_id") for o in orgs_result.data if o.get("org_id")]))
-            
-            location_data = {}
-            if org_ids:
-                loc_result = (
-                    self.supabase.table("provider_location")
-                    .select("org_id, org_name, city, state, address, zip_code")
-                    .in_("org_id", org_ids)
-                    .execute()
-                )
-                # Map by org_id - take the first occurrence
-                for loc in loc_result.data:
-                    oid = loc.get("org_id")
-                    if oid and oid not in location_data:
-                        location_data[oid] = loc
-
-            # Fallback names for core organizations missing from provider_location
-            FALLBACK_ORG_NAMES = {
-                "nyc_003": {"org_name": "NYU Langone Hospital", "city": "New York", "state": "NY", "address": "550 1st Ave", "zip_code": "10016"},
-                "nyc_005": {"org_name": "Hospital for Special Surgery", "city": "New York", "state": "NY", "address": "535 E 70th St", "zip_code": "10021"},
-                "nyc_006": {"org_name": "Lenox Hill Hospital", "city": "New York", "state": "NY", "address": "100 E 77th St", "zip_code": "10075"},
-            }
-
             orgs: List[ProcedureOrg] = []
             for p in orgs_result.data:
-                oid = p.get("org_id")
-                loc = location_data.get(oid)
-                
-                # If loc is missing from DB, check our fallback map
-                if not loc and oid in FALLBACK_ORG_NAMES:
-                    loc = FALLBACK_ORG_NAMES[oid]
-                else:
-                    loc = loc or {}
 
                 orgs.append(
                     ProcedureOrg(
                         procedure_id=p.get("procedure_id"),
-                        org_id=oid,
-                        org_name=loc.get("org_name") or oid, # Fallback to ID if name missing
-                        city=loc.get("city"),
-                        state=loc.get("state"),
-                        address=loc.get("address"),
-                        zip_code=loc.get("zip_code"),
-                        carrier_id=p.get("carrier_id"),
-                        carrier_name=p.get("carrier_name"),
-                        count_provider=p.get("count_provider"),
-                        min_price=p.get("min_price"),
-                        max_price=p.get("max_price"),
-                        avg_price=p.get("avg_price"),
+                        org_id= p.get("org_id"),
+                        carrier_id= p.get("carrier_id"),
+                        carrier_name= p.get("carrier_name"),
+                        count_provider= p.get("count_provider"),
+                        min_price= p.get("min_price"),
+                        max_price= p.get("max_price"),
+                        avg_price= p.get("avg_price"),
+                        org_name= p.get("org_name"),
+                        org_type= p.get("org_type"),
+                        address= p.get("address"),
+                        city= p.get("city"),
+                        state= p.get("state"),
+                        zip_code= p.get("zip_code"),
+                        latitude= p.get("latitude"),
+                        longitude= p.get("longitude"),
+                        phone= p.get("phone"),
                     )
                 )
 
