@@ -48,7 +48,8 @@ from app.models.specialty import (
     NuccSpecialty,
     NuccSpecialtiesResponse,
     Specialty,
-    SpecialtiesResponse
+    SpecialtiesResponse,
+    SpecialtyDetailsResponse
 )
 
 # User preferences models
@@ -89,8 +90,11 @@ __all__ = [
     "ProviderDetail",
     "ProviderProcedureDetail",
     #Specialty
+    "NuccSpecialty",
+    "NuccSpecialtiesResponse",
     "Specialty",
     "SpecialtiesResponse",
+    "SpecialtyDetailsResponse",
     # User preferences
     "SavedLocation",
     "Notifications",

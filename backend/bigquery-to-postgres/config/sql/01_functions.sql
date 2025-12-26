@@ -192,7 +192,7 @@ END;
 $function$;
 
 
-CREATE OR REPLACE FUNCTION get_specialty_details(specialty_id TEXT)
+CREATE OR REPLACE FUNCTION get_specialty_details(specialty_slug_input TEXT)
 RETURNS TABLE (
 id TEXT,
 name TEXT,
@@ -200,6 +200,7 @@ slug TEXT,
 is_used BOOL,
 description TEXT,
 taxonomy_id TEXT,
+taxonomy_grouping TEXT,
 taxonomy_name TEXT,
 taxonomy_description TEXT
 ) AS $$
@@ -212,11 +213,12 @@ BEGIN
         sp.is_used,
         sp.description,
         sm.taxonomy_id,
+        ns.grouping AS taxonomy_grouping,
         ns.display_name AS taxonomy_name,
         ns.definition AS taxonomy_description
     FROM specialty AS sp
     JOIN specialty_map AS sm ON sp.id = sm.specialty_id
     LEFT JOIN nucc_specialty_individual AS ns ON sm.taxonomy_id = ns.id
-    WHERE sp.id = specialty_id;
+    WHERE sp.slug = specialty_slug_input;
 END;
 $$ LANGUAGE plpgsql;

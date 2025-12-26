@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
 from supabase import Client
 from app.core.dependencies import get_supabase
-from app.models import SpecialtiesResponse
+from app.models import SpecialtiesResponse, SpecialtyDetailsResponse
 from app.services.specialty_service import SpecialtyService
 from app.middleware.logging import log_structured
 
@@ -24,3 +24,24 @@ async def get_specialties(
     )
 
     return await service.get_all_specialties()
+
+@router.get("/{specialty_slug}", response_model=SpecialtyDetailsResponse)
+async def get_specialty_details(
+        request: Request,
+        specialty_slug: str,
+        supabase: Client = Depends(get_supabase),
+):
+    """Get all NUCC specialties for a specific specialty."""
+    service = SpecialtyService(supabase)
+
+    # Log view event for analytics
+    log_structured(
+        severity="INFO",
+        message="List of all NUCC specialties for a given specialty viewed",
+        event_type="get_specialty_details",
+        request_id=request.state.request_id,
+        specialty_slug=specialty_slug,
+    )
+
+    return await service.get_specialties_details(specialty_slug)
+

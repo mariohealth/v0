@@ -54,3 +54,23 @@ class NuccSpecialtiesResponse(BaseModel):
                 ]
             }
         }
+
+class SpecialtyDetailsResponse(BaseModel):
+    """Response for GET /api/v1/specialty/{slug}."""
+    specialty_slug: str
+    nucc_specialties: List[NuccSpecialty]
+
+    class ConfigDict:
+        json_schema_extra = {
+            "example": {
+                "specialty_slug": 'cardiologist',
+                "nucc_specialties": [
+                    {
+                        "id": "bla",
+                        "grouping": "Bla",
+                        "display_name": "bla",
+                        "definition": "Cardiologist bla bla",
+                    }
+                ]
+            }
+        }
