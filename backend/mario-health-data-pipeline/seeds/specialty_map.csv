@@ -103,6 +103,7 @@ Taxonomy ID,display_name,Specialist Name,Specialist ID
 1835X0200X,Oncology Pharmacist,Pharmacist,65
 204C00000X,Sports Medicine (Neuromusculoskeletal Medicine) Physician,Sports Medicine Specialist,58
 204E00000X,Oral & Maxillofacial Surgery (D.M.D.),Surgeon,59
+204E00000X,Oral & Maxillofacial Surgery (D.M.D.),Oral Surgeon,36
 204F00000X,Transplant Surgery Physician,Surgeon,59
 207K00000X,Allergy & Immunology Physician,Allergist,2
 207KA0200X,Allergy Physician,Allergist,2
@@ -212,6 +213,7 @@ Taxonomy ID,display_name,Specialist Name,Specialist ID
 207YS0012X,Sleep Medicine (Otolaryngology) Physician,Sleep Medicine Specialist,56
 207YS0123X,Facial Plastic Surgery Physician,Plastic Surgeon,46
 207YS0123X,Facial Plastic Surgery Physician,Surgeon,59
+207YS0123X,Facial Plastic Surgery Physician,Oral Surgeon,36
 207YX0007X,Plastic Surgery within the Head & Neck (Otolaryngology) Physician,Surgeon,59
 207YX0007X,Plastic Surgery within the Head & Neck (Otolaryngology) Physician,Plastic Surgeon,46
 207YX0602X,Otolaryngic Allergy Physician,"Ear, Nose & Throat Doctor",9
@@ -259,7 +261,7 @@ Taxonomy ID,display_name,Specialist Name,Specialist ID
 2081H0002X,Hospice and Palliative Medicine (Physical Medicine & Rehabilitation) Physician,Palliative Care Specialist,40
 2081H0002X,Hospice and Palliative Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
 2081N0008X,Neuromuscular Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
-2081P0301X,Brain Injury Medicine (Physical Medicine & Rehabilitation) Physician, Physiatrist,44
+2081P0301X,Brain Injury Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
 2081P2900X,Pain Medicine (Physical Medicine & Rehabilitation) Physician,Pain Management Specialist,39
 2081P2900X,Pain Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
 2081S0010X,Sports Medicine (Physical Medicine & Rehabilitation) Physician,Physiatrist,44
@@ -269,7 +271,7 @@ Taxonomy ID,display_name,Specialist Name,Specialist ID
 2082S0099X,Plastic Surgery Within the Head and Neck (Plastic Surgery) Physician,Plastic Surgeon,46
 2082S0099X,Plastic Surgery Within the Head and Neck (Plastic Surgery) Physician,Surgeon,59
 2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Hand Surgeon,17
-2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Plastic Surgeon, Surgeon,46
+2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Plastic Surgeon,46
 2082S0105X,Surgery of the Hand (Plastic Surgery) Physician,Surgeon,59
 2083P0500X,Preventive Medicine/Occupational Environmental Medicine Physician,Primary Care Doctor,48
 2083P0901X,Public Health & General Preventive Medicine Physician,Primary Care Doctor,48
@@ -328,11 +330,14 @@ Taxonomy ID,display_name,Specialist Name,Specialist ID
 2086S0122X,Plastic and Reconstructive Surgery Physician,Surgeon,59
 2086S0127X,Trauma Surgery Physician,Surgeon,59
 2086S0129X,Vascular Surgery Physician,Surgeon,59
-2086S0129X,Vascular Surgery Physician,Surgeon,61
+2086S0129X,Vascular Surgery Physician,Vascular Surgeon,61
 2086X0206X,Surgical Oncology Physician,Oncologist,33
 2086X0206X,Surgical Oncology Physician,Surgeon,59
+208800000X,Urology Physician,Urologist,60
 2088F0040X,Urogynecology and Reconstructive Pelvic Surgery (Urology) Physician,OB-GYN,31
 2088F0040X,Urogynecology and Reconstructive Pelvic Surgery (Urology) Physician,Surgeon,59
+2088P0231X,Pediatric Urology Physician,Urologist,60
+2088P0231X,Pediatric Urology Physician,Pediatrician,42
 208G00000X,Thoracic Surgery (Cardiothoracic Vascular Surgery) Physician,Surgeon,59
 208G00000X,Thoracic Surgery (Cardiothoracic Vascular Surgery) Physician,Vascular Surgeon,61
 211D00000X,Podiatric Assistant,Medical Assistant,62
