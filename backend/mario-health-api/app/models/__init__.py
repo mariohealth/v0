@@ -45,6 +45,8 @@ from app.models.provider import (
 
 # Specialty nmodels
 from app.models.specialty import (
+    NuccSpecialty,
+    NuccSpecialtiesResponse,
     Specialty,
     SpecialtiesResponse
 )

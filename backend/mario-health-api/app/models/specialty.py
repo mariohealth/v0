@@ -2,18 +2,44 @@
 from pydantic import BaseModel, Field
 from typing import List
 
-
 class Specialty(BaseModel):
-    """Single specialty."""
+    """Specialty-related model."""
+    id: str
+    name: str
+    slug: str
+    is_used: bool
+    description: str
+
+class SpecialtiesResponse(BaseModel):
+    """Response for GET /api/v1/specialties."""
+    specialties: List[Specialty]
+
+    class ConfigDict:
+        json_schema_extra = {
+            "example": {
+                "specialties": [
+                    {
+                        "id": "1",
+                        "name": "Cardiologist",
+                        "slug": "cardiologist",
+                        "is_used": True,
+                        "description": "Cardiologist bla bla",
+                    }
+                ]
+            }
+        }
+
+class NuccSpecialty(BaseModel):
+    """Single NUCC specialty."""
     id: str
     grouping: str | None = None
     display_name: str
     definition: str | None = None
 
 
-class SpecialtiesResponse(BaseModel):
-    """Response for GET /api/v1/specialties."""
-    specialties: List[Specialty]
+class NuccSpecialtiesResponse(BaseModel):
+    """Response for GET /api/v1/nucc_specialties."""
+    specialties: List[NuccSpecialty]
 
     class ConfigDict:
         json_schema_extra = {

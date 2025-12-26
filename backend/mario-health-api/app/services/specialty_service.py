@@ -11,7 +11,7 @@ class SpecialtyService:
         """Fetch all specialties."""
 
         result = (
-                self.supabase.table("specialty_individual")
+                self.supabase.table("specialty")
                 .select("*")
                 .execute()
             )
@@ -19,9 +19,10 @@ class SpecialtyService:
         specialties = [
             Specialty(
                 id=s.get("id"),
-                grouping=s.get("grouping"),
-                display_name=s.get("display_name"),
-                definition=s.get("definition"),
+                name=s.get("name"),
+                slug=s.get("slug"),
+                is_used=s.get("is_used"),
+                description=s.get("description"),
             )
             for s in result.data
         ]
