@@ -46,7 +46,6 @@ id,name,slug,description
 45,Physical Therapist,physical-therapist,Professional who helps patients improve their movement and manage their pain.
 46,Plastic Surgeon,plastic-surgeon,"Surgeon who specializes in the repair, reconstruction, or replacement of physical defects of form or function."
 47,Podiatrist,podiatrist,Specialist in the treatment of feet and their ailments.
-48,Primary Care Doctor,primary-care-doctor,Physician who provides both the first contact for a person with an undiagnosed health concern as well as continuing care of varied medical conditions.
 49,Prosthodontist,prosthodontist,Dentist who specializes in the restoration and replacement of teeth.
 50,Psychiatrist,psychiatrist,Medical practitioner specializing in the diagnosis and treatment of mental illness.
 51,Psychologist,psychologist,"Specialist in the study of mind and behavior and the treatment of mental, emotional, and behavioral disorders."
@@ -61,3 +60,5 @@ id,name,slug,description
 60,Urologist,urologist,Doctor who specializes in diseases of the urinary tract and the male reproductive system.
 61,Vascular Surgeon,vascular-surgeon,"Surgeon who manages diseases of the vascular system (arteries, veins, and lymphatic circulation)."
 62,Physician Assistant,physician-assistant,"Physician assistant"
+63,Clinical Nurse Specialist,clinical-nurse-specialist,"Clinical nurse specialist (CNS)"
+64,Anesthesiologist,anesthesiologist,"Anesthesiologist"
