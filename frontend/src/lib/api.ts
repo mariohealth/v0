@@ -578,6 +578,38 @@ export async function getProcedureOrgs(
 }
 
 /**
+ * Fetches details for a specific organization within a procedure context.
+ * TEMPORARY: Uses client-side filtering until backend implements GET /orgs/{org_id}
+ * 
+ * @param orgId - The organization's NPI identifier
+ * @param procedureSlug - The procedure slug (required for now)
+ * @returns Single organization with pricing data
+ * @throws Error if org not found or API call fails
+ */
+export async function getOrgDetail(
+  orgId: string,
+  procedureSlug: string
+): Promise<Org> {
+  if (!orgId || !procedureSlug) {
+    throw new Error('Both orgId and procedureSlug are required');
+  }
+
+  console.log('[API] TEMPORARY getOrgDetail filtering client-side for:', { orgId, procedureSlug });
+
+  // Fetch all orgs for this procedure
+  const response = await getProcedureOrgs(procedureSlug);
+  
+  // Find the specific org
+  const org = response.orgs.find(o => o.org_id === orgId);
+  
+  if (!org) {
+    throw new Error(`Organization ${orgId} not found for procedure ${procedureSlug}`);
+  }
+  
+  return org;
+}
+
+/**
  * Create mock provider response from fallback data
  */
 function createMockProviderResponse(procedureSlug: string): ProcedureProvidersResponse {
