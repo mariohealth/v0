@@ -163,6 +163,7 @@ export interface Org {
     org_name: string;
     carrier_name?: string;
     min_price: number | string;
+    max_price?: number | string;
     savings?: string;
     distance_miles?: number;
     count_provider: number;
@@ -171,6 +172,7 @@ export interface Org {
     city?: string;
     state?: string;
     zip_code?: string;
+    phone?: string;
 }
 
 export interface ProcedureOrgsResponse {
