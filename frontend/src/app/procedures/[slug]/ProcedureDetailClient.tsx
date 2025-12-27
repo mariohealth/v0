@@ -154,7 +154,7 @@ export default function ProcedureDetailClient() {
   };
 
   const handleOrgClick = (group: OrgGroup) => {
-    router.push(`/providers/${group.org_id}`);
+    router.push(`/providers/${group.org_id}?procedure=${encodeURIComponent(slug || '')}`);
   };
 
   const handleBookClick = () => {
