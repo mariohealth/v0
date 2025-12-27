@@ -150,11 +150,6 @@ export interface ProviderDetail {
     phone?: string;
     email?: string;
     website?: string;
-    specialty?: string;
-    distance_miles?: number | string;
-    rating?: number | string;
-    review_count?: number;
-    price?: string;
     procedures?: Array<{
         procedure_id: string;
         procedure_name: string;
@@ -168,8 +163,6 @@ export interface Org {
     org_name: string;
     carrier_name?: string;
     min_price: number | string;
-    max_price?: number | string;
-    avg_price?: number | string;
     savings?: string;
     distance_miles?: number;
     count_provider: number;
@@ -514,60 +507,43 @@ export async function getProcedureProviders(
 
 /**
  * Get organizations (facilities) for a specific procedure
- * NOW CALLS DEDICATED /orgs ENDPOINT which returns grouped organization data with real pricing
+ * Aggregates providers into organizations or fetches from a dedicated endpoint
  */
 export async function getProcedureOrgs(
     procedureSlug: string
 ): Promise<ProcedureOrgsResponse> {
-    const url = `${getApiBaseUrl()}/procedures/${procedureSlug}/orgs`;
-
-    console.log('[API] Fetching procedure orgs from dedicated endpoint:', url);
+    if (process.env.NODE_ENV === 'development') {
+        console.log('[API] Fetching procedure orgs for:', procedureSlug);
+    }
 
     try {
-        const res = await fetch(url, { method: "GET" });
+        // For now, we'll use getProcedureProviders and aggregate/map the data
+        // In the future, this should call a dedicated API endpoint like /api/v1/procedures/{slug}/orgs
+        const providerResponse = await getProcedureProviders(procedureSlug);
 
-        if (!res.ok) {
-            throw new Error(`Orgs API failed: ${res.status} ${res.statusText}`);
-        }
+        // Group providers by organization (if possible) or map directly if they are already org-like
+        // The current backend seems to return "providers" which can be individual doctors OR organizations
+        // based on the filtering logic in getProcedureProviders.
 
-        const data = await res.json();
-
-        // Map the API response to our Org interface
-        // The backend returns: procedure_id, org_id, org_name, city, state, address, zip_code, carrier_id, carrier_name, count_provider, min_price, max_price, avg_price
-        const orgs: Org[] = (data.orgs || []).map((o: any) => ({
-            org_id: o.org_id,
-            org_name: o.org_name || o.org_id,
-            carrier_name: o.carrier_name || 'Unknown Carrier',
-            min_price: parseFloat(o.min_price) || 0,
-            max_price: parseFloat(o.max_price) || 0,
-            avg_price: parseFloat(o.avg_price) || 0,
-            savings: undefined,
-            distance_miles: o.distance_miles,
-            count_provider: o.count_provider || 1,
-            in_network: o.in_network ?? true,
-            address: o.address,
-            city: o.city,
-            state: o.state,
-            zip_code: o.zip_code,
+        const orgs: Org[] = providerResponse.providers.map((p: any) => ({
+            org_id: p.provider_id,
+            org_name: p.provider_name,
+            carrier_name: p.carrier_name || 'Unknown Carrier', // Placeholder if missing
+            min_price: p.price || 0,
+            savings: p.savings || undefined,
+            distance_miles: p.distance_miles,
+            count_provider: p.provider_count || 1,
+            in_network: p.in_network ?? true, // Default to true for now if missing
+            address: p.address,
+            city: p.city,
+            state: p.state,
+            zip_code: p.zip,
         }));
 
-        // Dev log
-        if (process.env.NODE_ENV === "development") {
-            console.log("[API:LIVE] orgs url:", url, "count:", orgs.length);
-            if (orgs.length > 0) {
-                console.log("[API:LIVE] Sample org:", {
-                    id: orgs[0].org_id,
-                    name: orgs[0].org_name,
-                    min_price: orgs[0].min_price,
-                    count_provider: orgs[0].count_provider
-                });
-            }
-        }
-
         return {
-            procedure_id: data.procedure_id || procedureSlug,
-            procedure_name: data.procedure_name || procedureSlug.replace(/-/g, ' '),
-            procedure_slug: data.procedure_slug || procedureSlug,
+            procedure_id: providerResponse.procedure_id,
+            procedure_name: providerResponse.procedure_name,
+            procedure_slug: providerResponse.procedure_slug,
             orgs: orgs,
             total_count: orgs.length,
         };
@@ -587,26 +563,28 @@ export async function getProcedureOrgs(
  * @throws Error if org not found or API call fails
  */
 export async function getOrgDetail(
-  orgId: string,
-  procedureSlug: string
+    orgId: string,
+    procedureSlug: string
 ): Promise<Org> {
-  if (!orgId || !procedureSlug) {
-    throw new Error('Both orgId and procedureSlug are required');
-  }
+    if (!orgId || !procedureSlug) {
+        throw new Error('Both orgId and procedureSlug are required');
+    }
 
-  console.log('[API] TEMPORARY getOrgDetail filtering client-side for:', { orgId, procedureSlug });
+    if (process.env.NODE_ENV === 'development') {
+        console.log('[API] TEMPORARY getOrgDetail filtering client-side for:', { orgId, procedureSlug });
+    }
 
-  // Fetch all orgs for this procedure
-  const response = await getProcedureOrgs(procedureSlug);
-  
-  // Find the specific org
-  const org = response.orgs.find(o => o.org_id === orgId);
-  
-  if (!org) {
-    throw new Error(`Organization ${orgId} not found for procedure ${procedureSlug}`);
-  }
-  
-  return org;
+    // Fetch all orgs for this procedure
+    const response = await getProcedureOrgs(procedureSlug);
+
+    // Find the specific org
+    const org = response.orgs.find(o => o.org_id === orgId);
+
+    if (!org) {
+        throw new Error(`Organization ${orgId} not found for procedure ${procedureSlug}`);
+    }
+
+    return org;
 }
 
 /**
