@@ -507,7 +507,7 @@ export async function getProcedureProviders(
 
 /**
  * Get organizations (facilities) for a specific procedure
- * Aggregates providers into organizations or fetches from a dedicated endpoint
+ * Calls the dedicated /procedures/{slug}/orgs endpoint which returns grouped organization data
  */
 export async function getProcedureOrgs(
     procedureSlug: string
@@ -517,33 +517,38 @@ export async function getProcedureOrgs(
     }
 
     try {
-        // For now, we'll use getProcedureProviders and aggregate/map the data
-        // In the future, this should call a dedicated API endpoint like /api/v1/procedures/{slug}/orgs
-        const providerResponse = await getProcedureProviders(procedureSlug);
+        const url = `${getApiBaseUrl()}/procedures/${procedureSlug}/orgs`;
+        const res = await fetch(url, { method: "GET" });
 
-        // Group providers by organization (if possible) or map directly if they are already org-like
-        // The current backend seems to return "providers" which can be individual doctors OR organizations
-        // based on the filtering logic in getProcedureProviders.
+        if (!res.ok) {
+            throw new Error(`Orgs API failed: ${res.status} ${res.statusText}`);
+        }
 
-        const orgs: Org[] = providerResponse.providers.map((p: any) => ({
-            org_id: p.provider_id,
-            org_name: p.provider_name,
-            carrier_name: p.carrier_name || 'Unknown Carrier', // Placeholder if missing
-            min_price: p.price || 0,
-            savings: p.savings || undefined,
-            distance_miles: p.distance_miles,
-            count_provider: p.provider_count || 1,
-            in_network: p.in_network ?? true, // Default to true for now if missing
-            address: p.address,
-            city: p.city,
-            state: p.state,
-            zip_code: p.zip,
+        const data = await res.json();
+
+        // Map the API response to our Org interface
+        // The backend returns: procedure_id, org_id, org_name, city, state, address, zip_code, carrier_id, carrier_name, count_provider, min_price, max_price, avg_price
+        const orgs: Org[] = (data.orgs || []).map((o: any) => ({
+            org_id: o.org_id,
+            org_name: o.org_name || o.org_id,
+            carrier_name: o.carrier_name,
+            min_price: parseFloat(o.min_price) || 0,
+            max_price: parseFloat(o.max_price) || 0,
+            savings: undefined,
+            distance_miles: o.distance_miles,
+            count_provider: o.count_provider || 1,
+            in_network: o.in_network ?? true,
+            address: o.address,
+            city: o.city,
+            state: o.state,
+            zip_code: o.zip_code,
+            phone: o.phone,
         }));
 
         return {
-            procedure_id: providerResponse.procedure_id,
-            procedure_name: providerResponse.procedure_name,
-            procedure_slug: providerResponse.procedure_slug,
+            procedure_id: data.procedure_id || procedureSlug,
+            procedure_name: data.procedure_name || procedureSlug.replace(/-/g, ' '),
+            procedure_slug: data.procedure_slug || procedureSlug,
             orgs: orgs,
             total_count: orgs.length,
         };
