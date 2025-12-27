@@ -150,11 +150,6 @@ export interface ProviderDetail {
     phone?: string;
     email?: string;
     website?: string;
-    specialty?: string;
-    distance_miles?: number | string;
-    rating?: number | string;
-    review_count?: number;
-    price?: string;
     procedures?: Array<{
         procedure_id: string;
         procedure_name: string;
@@ -169,7 +164,6 @@ export interface Org {
     carrier_name?: string;
     min_price: number | string;
     max_price?: number | string;
-    avg_price?: number | string;
     savings?: string;
     distance_miles?: number;
     count_provider: number;
@@ -178,6 +172,7 @@ export interface Org {
     city?: string;
     state?: string;
     zip_code?: string;
+    phone?: string;
 }
 
 export interface ProcedureOrgsResponse {
@@ -514,16 +509,17 @@ export async function getProcedureProviders(
 
 /**
  * Get organizations (facilities) for a specific procedure
- * NOW CALLS DEDICATED /orgs ENDPOINT which returns grouped organization data with real pricing
+ * Calls the dedicated /procedures/{slug}/orgs endpoint which returns grouped organization data
  */
 export async function getProcedureOrgs(
     procedureSlug: string
 ): Promise<ProcedureOrgsResponse> {
-    const url = `${getApiBaseUrl()}/procedures/${procedureSlug}/orgs`;
-
-    console.log('[API] Fetching procedure orgs from dedicated endpoint:', url);
+    if (process.env.NODE_ENV === 'development') {
+        console.log('[API] Fetching procedure orgs for:', procedureSlug);
+    }
 
     try {
+        const url = `${getApiBaseUrl()}/procedures/${procedureSlug}/orgs`;
         const res = await fetch(url, { method: "GET" });
 
         if (!res.ok) {
@@ -537,10 +533,9 @@ export async function getProcedureOrgs(
         const orgs: Org[] = (data.orgs || []).map((o: any) => ({
             org_id: o.org_id,
             org_name: o.org_name || o.org_id,
-            carrier_name: o.carrier_name || 'Unknown Carrier',
+            carrier_name: o.carrier_name,
             min_price: parseFloat(o.min_price) || 0,
             max_price: parseFloat(o.max_price) || 0,
-            avg_price: parseFloat(o.avg_price) || 0,
             savings: undefined,
             distance_miles: o.distance_miles,
             count_provider: o.count_provider || 1,
@@ -549,20 +544,8 @@ export async function getProcedureOrgs(
             city: o.city,
             state: o.state,
             zip_code: o.zip_code,
+            phone: o.phone,
         }));
-
-        // Dev log
-        if (process.env.NODE_ENV === "development") {
-            console.log("[API:LIVE] orgs url:", url, "count:", orgs.length);
-            if (orgs.length > 0) {
-                console.log("[API:LIVE] Sample org:", {
-                    id: orgs[0].org_id,
-                    name: orgs[0].org_name,
-                    min_price: orgs[0].min_price,
-                    count_provider: orgs[0].count_provider
-                });
-            }
-        }
 
         return {
             procedure_id: data.procedure_id || procedureSlug,
@@ -575,6 +558,40 @@ export async function getProcedureOrgs(
         console.error('[API] Error fetching procedure orgs:', error);
         throw error;
     }
+}
+
+/**
+ * Fetches details for a specific organization within a procedure context.
+ * TEMPORARY: Uses client-side filtering until backend implements GET /orgs/{org_id}
+ * 
+ * @param orgId - The organization's NPI identifier
+ * @param procedureSlug - The procedure slug (required for now)
+ * @returns Single organization with pricing data
+ * @throws Error if org not found or API call fails
+ */
+export async function getOrgDetail(
+    orgId: string,
+    procedureSlug: string
+): Promise<Org> {
+    if (!orgId || !procedureSlug) {
+        throw new Error('Both orgId and procedureSlug are required');
+    }
+
+    if (process.env.NODE_ENV === 'development') {
+        console.log('[API] TEMPORARY getOrgDetail filtering client-side for:', { orgId, procedureSlug });
+    }
+
+    // Fetch all orgs for this procedure
+    const response = await getProcedureOrgs(procedureSlug);
+
+    // Find the specific org
+    const org = response.orgs.find(o => o.org_id === orgId);
+
+    if (!org) {
+        throw new Error(`Organization ${orgId} not found for procedure ${procedureSlug}`);
+    }
+
+    return org;
 }
 
 /**

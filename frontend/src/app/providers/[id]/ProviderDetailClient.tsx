@@ -164,9 +164,13 @@ function ProviderDetailContent() {
 
     const handleBack = () => {
         if (procedureSlug) {
-            router.push(`/home?procedure=${encodeURIComponent(procedureSlug)}`);
+            router.push(`/procedures/${encodeURIComponent(procedureSlug)}`);
         } else {
-            router.push('/home');
+            if (window.history.length > 1) {
+                router.back();
+            } else {
+                router.push('/home');
+            }
         }
     };
 
