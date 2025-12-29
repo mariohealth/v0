@@ -6,9 +6,6 @@
 
 SELECT
     prov_ref.hospital_id,
-    prov_ref.hospital_name,
-    prov_ref.city,
-    prov_ref.state,
     prov_ref.npi,
     prov_ref.healthcare_provider_taxonomy_code,
     rates.* EXCEPT (provider_group_id),

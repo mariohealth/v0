@@ -5,13 +5,14 @@
 }}
 
 WITH t0 AS (
-        SELECT hospital_id, hospital_name,
-COUNT(DISTINCT tin) AS count_tin,
+        SELECT hospital_id,
+--COUNT(DISTINCT tin) AS count_tin,-- removing the TIN count because we converted it to an array, see explanation in
+-- the cigna_national_oap_prov_ref_hospital model
 COUNT(DISTINCT provider_group_id) AS count_provider_group,
 COUNT(DISTINCT npi) AS count_npi,
 COUNT(DISTINCT healthcare_provider_taxonomy_code) AS count_taxonomy,
  FROM {{ ref('united_pp1_00_prov_ref_hospital') }}
- GROUP BY 1,2
+ GROUP BY hospital_id
     ),
 
 t1 AS (
