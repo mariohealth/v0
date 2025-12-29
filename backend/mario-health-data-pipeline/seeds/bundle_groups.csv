@@ -1,0 +1,99 @@
+id,bundle_id,name,selection_type,display_order,is_required,min_selections,max_selections,phase
+bg001,b001,Primary Procedure,ALL,1,true,1,1,procedure
+bg002,b001,Anesthesia - Epidural/Neuraxial,ONE,2,true,1,1,procedure
+bg003,b001,Facility Fee,ONE,3,true,1,1,facility
+bg004,b001,Prenatal Labs - Initial Panel,ALL,4,true,1,,preop
+bg005,b001,Prenatal Labs - Additional Screening,ZERO_OR_MORE,5,false,0,,preop
+bg006,b001,Prenatal Imaging - Ultrasounds,ONE_OR_MORE,6,true,1,,preop
+bg007,b001,Prenatal Monitoring,ZERO_OR_MORE,7,false,0,,preop
+bg008,b001,Delivery Room Procedures,ZERO_OR_MORE,8,false,0,,procedure
+bg009,b001,Newborn Care,ALL,9,true,1,,postop
+bg010,b001,Newborn Additional Services,ZERO_OR_MORE,10,false,0,,postop
+bg011,b001,Postpartum Medications,ZERO_OR_MORE,11,false,0,,postop
+bg012,b001,Hidden Charges - Commonly Missed,ZERO_OR_MORE,12,false,0,,surprise
+bg013,b003,Primary Procedure,ALL,1,true,1,1,procedure
+bg014,b003,Anesthesia,ONE,2,true,1,1,procedure
+bg015,b003,Nerve Blocks - Pain Management,ZERO_OR_MORE,3,false,0,2,procedure
+bg016,b003,Facility Fee,ONE,4,true,1,1,facility
+bg017,b003,Pre-Op Imaging,ONE,5,true,1,1,preop
+bg018,b003,Pre-Op Imaging - Additional,ZERO_OR_MORE,6,false,0,,preop
+bg019,b003,Pre-Op Labs - Required,ALL,7,true,1,,preop
+bg020,b003,Pre-Op Labs - Conditional,ZERO_OR_MORE,8,false,0,,preop
+bg021,b003,Pre-Op Clearance,ZERO_OR_MORE,9,false,0,,preop
+bg022,b003,Intraoperative Medications,ALL,10,true,1,,procedure
+bg023,b003,Implants,ALL,11,true,1,1,procedure
+bg024,b003,Post-Op DVT Prophylaxis,ONE,12,true,1,1,postop
+bg025,b003,Physical Therapy - Inpatient,ALL,13,true,1,,postop
+bg026,b003,Post-Op Imaging,ALL,14,true,1,1,postop
+bg027,b003,Intraoperative Services - Optional,ZERO_OR_MORE,15,false,0,,procedure
+bg028,b003,Hidden Charges - Commonly Missed,ZERO_OR_MORE,16,false,0,,surprise
+bg029,b005,Primary Evaluation,ALL,1,true,1,1,procedure
+bg030,b005,Facility Fee,ONE,2,true,1,1,facility
+bg031,b005,Labs - Standard ER Panel,ALL,3,true,1,,procedure
+bg032,b005,Labs - Cardiac Workup,ZERO_OR_MORE,4,false,0,,procedure
+bg033,b005,Labs - Infection Workup,ZERO_OR_MORE,5,false,0,,procedure
+bg034,b005,Imaging - Common ER Studies,ZERO_OR_MORE,6,false,0,,procedure
+bg035,b005,Imaging - Advanced,ZERO_OR_MORE,7,false,0,,procedure
+bg036,b005,Procedures - Common ER,ZERO_OR_MORE,8,false,0,,procedure
+bg037,b005,IV Medications and Fluids,ZERO_OR_MORE,9,false,0,,procedure
+bg038,b005,Respiratory Services,ZERO_OR_MORE,10,false,0,,procedure
+bg039,b005,Critical Care - If Needed,ZERO_OR_ONE,11,false,0,1,procedure
+bg040,b005,Hidden Charges - Commonly Missed,ZERO_OR_MORE,12,false,0,,surprise
+bg041,b006,Primary Procedure,ONE,1,true,1,1,procedure
+bg042,b006,Anesthesia,ONE,2,true,1,1,procedure
+bg043,b006,Facility Fee,ONE,3,true,1,1,facility
+bg044,b006,Pre-Procedure - Bowel Prep,ALL,4,true,1,,preop
+bg045,b006,Pre-Procedure - Labs,ZERO_OR_MORE,5,false,0,,preop
+bg046,b006,Pathology - If Polyps Found,ZERO_OR_MORE,6,false,0,,procedure
+bg047,b006,Interventions - During Procedure,ZERO_OR_MORE,7,false,0,,procedure
+bg048,b006,Hidden Charges - Commonly Missed,ZERO_OR_MORE,8,false,0,,surprise
+bg049,b008,Primary Procedure,ONE,1,true,1,1,procedure
+bg050,b008,Anesthesia,ONE,2,true,1,1,procedure
+bg051,b008,Facility Fee,ONE,3,true,1,1,facility
+bg052,b008,Pre-Op Imaging,ONE,4,true,1,1,preop
+bg053,b008,Pre-Op Labs,ALL,5,true,1,,preop
+bg054,b008,Intraoperative Services,ALL,6,true,1,,procedure
+bg055,b008,Pathology,ALL,7,true,1,1,procedure
+bg056,b008,Post-Op Hospital Care,ALL,8,true,1,,postop
+bg057,b008,Post-Op Medications,ALL,9,true,1,,postop
+bg058,b008,Hidden Charges - Commonly Missed,ZERO_OR_MORE,10,false,0,,surprise
+bg059,b010,Primary Procedure,ONE,1,true,1,1,procedure
+bg060,b010,Anesthesia,ONE,2,true,1,1,procedure
+bg061,b010,Facility Fee,ONE,3,true,1,1,facility
+bg062,b010,Pre-Op Imaging,ONE,4,true,1,1,preop
+bg063,b010,Pre-Op Labs,ALL,5,true,1,,preop
+bg064,b010,Intraoperative Services,ALL,6,true,1,,procedure
+bg065,b010,Pathology,ALL,7,true,1,1,procedure
+bg066,b010,Hidden Charges - Commonly Missed,ZERO_OR_MORE,8,false,0,,surprise
+bg067,b012,Primary Procedure,ALL,1,true,1,1,procedure
+bg068,b012,Anesthesia,ONE,2,true,1,1,procedure
+bg069,b012,Facility Fee,ONE,3,true,1,1,facility
+bg070,b012,Pre-Op Evaluation,ALL,4,true,1,,preop
+bg071,b012,Pre-Op Testing,ALL,5,true,1,,preop
+bg072,b012,Implant - IOL,ONE,6,true,1,1,procedure
+bg073,b012,Intraoperative Medications,ALL,7,true,1,,procedure
+bg074,b012,Post-Op Visits,ALL,8,true,1,,postop
+bg075,b012,Hidden Charges - Commonly Missed,ZERO_OR_MORE,9,false,0,,surprise
+bg076,b014,Primary Procedure,ONE,1,true,1,1,procedure
+bg077,b014,Anesthesia,ONE,2,true,1,1,procedure
+bg078,b014,Facility Fee,ONE,3,true,1,1,facility
+bg079,b014,Pre-Procedure Labs,ZERO_OR_MORE,4,false,0,,preop
+bg080,b014,Pathology - If Biopsy,ZERO_OR_MORE,5,false,0,,procedure
+bg081,b014,H. Pylori Testing,ZERO_OR_ONE,6,false,0,1,procedure
+bg082,b014,Hidden Charges - Commonly Missed,ZERO_OR_MORE,7,false,0,,surprise
+bg083,b016,Primary Procedure,ALL,1,true,1,1,procedure
+bg084,b016,Anesthesia,ONE,2,true,1,1,procedure
+bg085,b016,Facility Fee,ONE,3,true,1,1,facility
+bg086,b016,Pre-Op Labs,ALL,4,true,1,,preop
+bg087,b016,Implant - Mesh,ONE,5,true,1,1,procedure
+bg088,b016,Intraoperative Services,ALL,6,true,1,,procedure
+bg089,b016,Post-Op Care,ALL,7,true,1,,postop
+bg090,b016,Hidden Charges - Commonly Missed,ZERO_OR_MORE,8,false,0,,surprise
+bg091,b018,Primary Procedure,ALL,1,true,1,1,procedure
+bg092,b018,Anesthesia,ONE,2,true,1,1,procedure
+bg093,b018,Facility Fee,ONE,3,true,1,1,facility
+bg094,b018,Pre-Op Diagnostic Testing,ONE_OR_MORE,4,true,1,,preop
+bg095,b018,Pre-Op Imaging,ZERO_OR_ONE,5,false,0,1,preop
+bg096,b018,Intraoperative Services,ALL,6,true,1,,procedure
+bg097,b018,Post-Op Care,ALL,7,true,1,,postop
+bg098,b018,Hidden Charges - Commonly Missed,ZERO_OR_MORE,8,false,0,,surprise

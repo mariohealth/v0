@@ -1,0 +1,601 @@
+id,code,code_type,name,description,default_price,is_active,category
+c001,59400,CPT,Vaginal Delivery Global,Routine obstetric care including antepartum/delivery/postpartum,4500.00,true,Obstetric
+c002,59409,CPT,Vaginal Delivery Only,Delivery only without antepartum or postpartum care,2800.00,true,Obstetric
+c003,59410,CPT,Vaginal Delivery with Postpartum,Delivery plus postpartum care only,3200.00,true,Obstetric
+c004,59412,CPT,External Cephalic Version,Turning breech baby to head-down position,650.00,true,Obstetric
+c005,59414,CPT,Delivery of Placenta,Separate delivery of placenta if not routine,350.00,true,Obstetric
+c006,59300,CPT,Episiotomy Repair,Surgical cut repair to widen vaginal opening,425.00,true,Obstetric
+c007,59320,CPT,Cervical Cerclage Repair,Cervical stitch placement or repair,850.00,true,Obstetric
+c008,01960,CPT,Anesthesia Vaginal Delivery,Anesthesia for vaginal delivery,1200.00,true,Anesthesia
+c009,01961,CPT,Anesthesia C-Section After Labor,Anesthesia for cesarean after attempted labor,1800.00,true,Anesthesia
+c010,01967,CPT,Epidural Anesthesia Labor,Neuraxial labor analgesia/anesthesia,1650.00,true,Anesthesia
+c011,01968,CPT,Epidural C-Section Conversion,Anesthesia for cesarean following epidural,450.00,true,Anesthesia
+c012,62320,CPT,Epidural Injection Lumbar,Lumbar epidural injection placement,875.00,true,Anesthesia
+c013,62321,CPT,Epidural with Imaging,Lumbar epidural with fluoroscopic guidance,1100.00,true,Anesthesia
+c014,36400,CPT,Venipuncture Younger Than 3,Blood draw for infant,35.00,true,Lab
+c015,36415,CPT,Venipuncture Routine,Routine blood draw,25.00,true,Lab
+c016,80055,CPT,Obstetric Panel,Prenatal lab panel blood type antibody rubella syphilis,185.00,true,Lab
+c017,80081,CPT,Obstetric Panel Extended,Extended prenatal panel with additional tests,245.00,true,Lab
+c018,81000,CPT,Urinalysis with Microscopy,Complete urinalysis manual microscopy,35.00,true,Lab
+c019,81001,CPT,Urinalysis Automated with Microscopy,Automated UA with microscopy,30.00,true,Lab
+c020,81025,CPT,Urine Pregnancy Test,Pregnancy confirmation test,25.00,true,Lab
+c021,82105,CPT,Alpha-Fetoprotein Serum,AFP screening for neural tube defects,85.00,true,Lab
+c022,82947,CPT,Glucose Blood Test,Blood glucose level,15.00,true,Lab
+c023,82950,CPT,Glucose Post-Dose,Post-glucose load testing,25.00,true,Lab
+c024,82951,CPT,Glucose Tolerance Test,3-specimen GTT for gestational diabetes,95.00,true,Lab
+c025,83036,CPT,Hemoglobin A1c,Glycated hemoglobin test,55.00,true,Lab
+c026,84702,CPT,HCG Quantitative,Quantitative pregnancy hormone level,75.00,true,Lab
+c027,84703,CPT,HCG Qualitative,Qualitative pregnancy test,45.00,true,Lab
+c028,85025,CPT,Complete Blood Count,CBC with automated differential,45.00,true,Lab
+c029,85027,CPT,CBC Automated,Automated CBC without differential,35.00,true,Lab
+c030,85610,CPT,Prothrombin Time PT/INR,Coagulation screening test,35.00,true,Lab
+c031,85730,CPT,Partial Thromboplastin Time PTT,Coagulation screening test,40.00,true,Lab
+c032,86580,CPT,TB Skin Test,Tuberculosis intradermal test,25.00,true,Lab
+c033,86703,CPT,HIV Antibody Test,HIV-1/HIV-2 antibody screen,65.00,true,Lab
+c034,86762,CPT,Rubella Antibody,Rubella immunity test,45.00,true,Lab
+c035,86803,CPT,Hepatitis C Antibody,HCV antibody screening,75.00,true,Lab
+c036,86850,CPT,RBC Antibody Screen,Red blood cell antibody detection,55.00,true,Lab
+c037,87081,CPT,Culture Bacterial Screen,Bacterial culture screening,75.00,true,Lab
+c038,87086,CPT,Urine Culture,Bacterial culture of urine,65.00,true,Lab
+c039,87110,CPT,Chlamydia Culture,Chlamydia trachomatis culture,95.00,true,Lab
+c040,87340,CPT,Hepatitis B Surface Antigen,HBsAg screening,55.00,true,Lab
+c041,87389,CPT,HIV-1 Antigen with Antibodies,HIV combo Ag/Ab screen,85.00,true,Lab
+c042,87491,CPT,Chlamydia DNA Probe,Chlamydia molecular detection,125.00,true,Lab
+c043,87591,CPT,Neisseria DNA Probe,Gonorrhea molecular detection,125.00,true,Lab
+c044,87801,CPT,Multiple Organism DNA Probe,Multi-organism molecular panel,185.00,true,Lab
+c045,87880,CPT,Strep A Rapid Test,Group A strep rapid antigen,35.00,true,Lab
+c046,87905,CPT,SARS-CoV-2 Antigen,COVID-19 rapid antigen test,75.00,true,Lab
+c047,88141,CPT,Pap Smear Interpretation,Cervical cytology interpretation,65.00,true,Lab
+c048,88142,CPT,Pap Smear Thin Prep,Thin prep cervical cytology,95.00,true,Lab
+c049,88175,CPT,Pap Smear Liquid Based,Liquid-based cervical cytology,85.00,true,Lab
+c050,86900,CPT,Blood Typing ABO,ABO blood group determination,45.00,true,Lab
+c051,86901,CPT,Blood Typing Rh,Rh factor determination,35.00,true,Lab
+c052,86870,CPT,Antibody Identification,RBC antibody identification panel,125.00,true,Lab
+c053,76801,CPT,Ultrasound OB First Trimester,First trimester fetal ultrasound transabdominal,285.00,true,Imaging
+c054,76802,CPT,Ultrasound OB First Trimester Addl,Additional fetus first trimester,125.00,true,Imaging
+c055,76805,CPT,Ultrasound OB Complete,Complete OB ultrasound after first trimester,325.00,true,Imaging
+c056,76811,CPT,Ultrasound OB Detailed,Detailed anatomic fetal evaluation,485.00,true,Imaging
+c057,76812,CPT,Ultrasound OB Detailed Addl,Additional fetus detailed scan,195.00,true,Imaging
+c058,76815,CPT,Ultrasound OB Limited,Limited OB ultrasound,175.00,true,Imaging
+c059,76816,CPT,Ultrasound OB Follow-Up,Follow-up fetal evaluation,195.00,true,Imaging
+c060,76817,CPT,Ultrasound Transvaginal OB,Transvaginal OB ultrasound,285.00,true,Imaging
+c061,76818,CPT,Fetal Biophysical Profile,Fetal biophysical profile with NST,225.00,true,Imaging
+c062,76819,CPT,Fetal Biophysical Profile Without NST,BPP without non-stress test,175.00,true,Imaging
+c063,76820,CPT,Umbilical Artery Doppler,Doppler velocimetry umbilical artery,185.00,true,Imaging
+c064,76821,CPT,Middle Cerebral Artery Doppler,Fetal MCA Doppler assessment,195.00,true,Imaging
+c065,59025,CPT,Fetal Non-Stress Test,Fetal heart rate monitoring NST,145.00,true,Obstetric
+c066,59020,CPT,Contraction Stress Test,Fetal monitoring with contractions,195.00,true,Obstetric
+c067,99211,CPT,Office Visit Level 1,Established patient minimal visit,45.00,true,E/M
+c068,99212,CPT,Office Visit Level 2,Established patient straightforward visit,85.00,true,E/M
+c069,99213,CPT,Office Visit Level 3,Established patient low complexity visit,125.00,true,E/M
+c070,99214,CPT,Office Visit Level 4,Established patient moderate complexity visit,185.00,true,E/M
+c071,99215,CPT,Office Visit Level 5,Established patient high complexity visit,250.00,true,E/M
+c072,99201,CPT,New Patient Visit Level 1,New patient straightforward visit,95.00,true,E/M
+c073,99202,CPT,New Patient Visit Level 2,New patient low complexity visit,145.00,true,E/M
+c074,99203,CPT,New Patient Visit Level 3,New patient moderate complexity visit,195.00,true,E/M
+c075,99204,CPT,New Patient Visit Level 4,New patient moderate-high complexity visit,285.00,true,E/M
+c076,99205,CPT,New Patient Visit Level 5,New patient high complexity visit,375.00,true,E/M
+c077,99221,CPT,Initial Hospital Care Level 1,Initial inpatient low complexity,195.00,true,E/M
+c078,99222,CPT,Initial Hospital Care Level 2,Initial inpatient moderate complexity,285.00,true,E/M
+c079,99223,CPT,Initial Hospital Care Level 3,Initial inpatient high complexity,385.00,true,E/M
+c080,99231,CPT,Subsequent Hospital Care Level 1,Follow-up inpatient low complexity,85.00,true,E/M
+c081,99232,CPT,Subsequent Hospital Care Level 2,Follow-up inpatient moderate complexity,125.00,true,E/M
+c082,99233,CPT,Subsequent Hospital Care Level 3,Follow-up inpatient high complexity,185.00,true,E/M
+c083,99238,CPT,Hospital Discharge Day 30 Min or Less,Discharge day management up to 30 min,145.00,true,E/M
+c084,99239,CPT,Hospital Discharge Day More Than 30 Min,Discharge day management over 30 min,195.00,true,E/M
+c085,99281,CPT,ER Visit Level 1,Emergency dept self-limited problem,95.00,true,E/M
+c086,99282,CPT,ER Visit Level 2,Emergency dept low complexity,185.00,true,E/M
+c087,99283,CPT,ER Visit Level 3,Emergency dept moderate complexity,285.00,true,E/M
+c088,99284,CPT,ER Visit Level 4,Emergency dept moderate-high complexity,425.00,true,E/M
+c089,99285,CPT,ER Visit Level 5,Emergency dept high complexity life threatening,625.00,true,E/M
+c090,99291,CPT,Critical Care First Hour,Critical care first 30-74 minutes,575.00,true,E/M
+c091,99292,CPT,Critical Care Additional 30 Min,Critical care each additional 30 min,285.00,true,E/M
+c092,99460,CPT,Newborn Initial Hospital Care,Initial newborn care first day,325.00,true,E/M
+c093,99461,CPT,Newborn Initial Care Other Than Hospital,Initial newborn care other facility,285.00,true,E/M
+c094,99462,CPT,Newborn Subsequent Care,Subsequent newborn hospital care per day,165.00,true,E/M
+c095,99463,CPT,Newborn Same Day Admit Discharge,Newborn same-day admit and discharge,425.00,true,E/M
+c096,99464,CPT,Newborn Attendance at Delivery,Attendance at delivery for newborn care,285.00,true,E/M
+c097,99465,CPT,Newborn Resuscitation,Delivery room resuscitation,485.00,true,E/M
+c098,99477,CPT,Initial Intensive Care Neonate,Initial day intensive care 28 days or younger,1250.00,true,E/M
+c099,99478,CPT,Intensive Care Very Low Birth Weight,Intensive care VLBW 1500-2500g subsequent,785.00,true,E/M
+c100,99479,CPT,Intensive Care Low Birth Weight,Intensive care LBW 2501-5000g subsequent,645.00,true,E/M
+c101,99480,CPT,Intensive Care Normal Weight,Intensive care normal weight subsequent,545.00,true,E/M
+c102,59430,CPT,Postpartum Care Only,Postpartum care only,425.00,true,Obstetric
+c103,59510,CPT,Cesarean Delivery Global,C-section with antepartum and postpartum care,6500.00,true,Obstetric
+c104,59514,CPT,Cesarean Delivery Only,C-section delivery only,4200.00,true,Obstetric
+c105,59515,CPT,Cesarean with Postpartum Only,C-section with postpartum care only,4800.00,true,Obstetric
+c106,59525,CPT,Hysterectomy After Cesarean,Hysterectomy performed after cesarean,2500.00,true,Obstetric
+c107,59812,CPT,Treatment Incomplete Abortion,Treatment of incomplete spontaneous abortion,750.00,true,Obstetric
+c108,59820,CPT,Treatment Missed Abortion First Trimester,Missed abortion treatment first trimester,850.00,true,Obstetric
+c109,59821,CPT,Treatment Missed Abortion Second Trimester,Missed abortion treatment second trimester,1250.00,true,Obstetric
+c110,59840,CPT,Induced Abortion D and C,Induced abortion by D&C,950.00,true,Obstetric
+c111,59841,CPT,Induced Abortion D and E,Induced abortion by D&E,1450.00,true,Obstetric
+c112,59850,CPT,Induced Abortion Intra-Amniotic,Induced abortion by intra-amniotic injection,1850.00,true,Obstetric
+c113,59851,CPT,Induced Abortion with D and C,Intra-amniotic injection with D&C,2250.00,true,Obstetric
+c114,59866,CPT,Multifetal Pregnancy Reduction,Reduction of multiple fetuses,2500.00,true,Obstetric
+c115,59870,CPT,Uterine Evacuation Hydatidiform Mole,Evacuation of molar pregnancy,1150.00,true,Obstetric
+c116,59871,CPT,Removal Cerclage Under Anesthesia,Cerclage removal with anesthesia,650.00,true,Obstetric
+c117,59897,CPT,Unlisted Fetal Procedure,Unlisted fetal invasive procedure,2500.00,true,Obstetric
+c118,59898,CPT,Unlisted Laparoscopy Procedure Maternity,Unlisted laparoscopic maternity procedure,2500.00,true,Obstetric
+c119,59899,CPT,Unlisted Maternity Care Procedure,Unlisted maternity procedure,2500.00,true,Obstetric
+c120,27447,CPT,Total Knee Arthroplasty,Total knee replacement surgery,25000.00,true,Orthopedic
+c121,27446,CPT,Medial or Lateral Knee Arthroplasty,Unicompartmental knee replacement,18500.00,true,Orthopedic
+c122,27486,CPT,Revision Knee Arthroplasty One Component,Revision total knee single component,22000.00,true,Orthopedic
+c123,27487,CPT,Revision Knee Arthroplasty Total,Revision total knee all components,32000.00,true,Orthopedic
+c124,27580,CPT,Arthrodesis Knee,Knee fusion procedure,15000.00,true,Orthopedic
+c125,20610,CPT,Aspiration Major Joint,Aspiration or injection of major joint,185.00,true,Orthopedic
+c126,20611,CPT,Aspiration Major Joint with Ultrasound,Joint aspiration with ultrasound guidance,285.00,true,Orthopedic
+c127,01402,CPT,Anesthesia Total Knee Replacement,Anesthesia for total knee arthroplasty,1800.00,true,Anesthesia
+c128,01400,CPT,Anesthesia Knee Arthroscopy,Anesthesia for open or arthroscopic knee,1200.00,true,Anesthesia
+c129,01996,CPT,Daily Management Epidural,Daily hospital management of epidural or subarachnoid,450.00,true,Anesthesia
+c130,64447,CPT,Femoral Nerve Block,Injection anesthetic femoral nerve,650.00,true,Anesthesia
+c131,64448,CPT,Femoral Nerve Continuous Block,Continuous femoral nerve block with catheter,850.00,true,Anesthesia
+c132,64445,CPT,Sciatic Nerve Block,Injection anesthetic sciatic nerve,650.00,true,Anesthesia
+c133,64446,CPT,Sciatic Nerve Continuous Block,Continuous sciatic nerve block with catheter,850.00,true,Anesthesia
+c134,64450,CPT,Other Peripheral Nerve Block,Injection anesthetic other peripheral nerve,425.00,true,Anesthesia
+c135,73560,CPT,Knee X-ray 2 Views,Knee radiograph AP and lateral,165.00,true,Imaging
+c136,73562,CPT,Knee X-ray 3 Views,Knee radiograph 3 views,225.00,true,Imaging
+c137,73564,CPT,Knee X-ray Complete 4+ Views,Knee radiograph complete 4 or more views,285.00,true,Imaging
+c138,73580,CPT,Knee Arthrography,Knee contrast radiography,425.00,true,Imaging
+c139,73721,CPT,MRI Knee Without Contrast,Knee MRI without contrast,1200.00,true,Imaging
+c140,73722,CPT,MRI Knee With Contrast,Knee MRI with contrast,1450.00,true,Imaging
+c141,73723,CPT,MRI Knee Without and With Contrast,Knee MRI without then with contrast,1650.00,true,Imaging
+c142,73592,CPT,Lower Extremity X-ray,Full leg radiograph for alignment,195.00,true,Imaging
+c143,76000,CPT,Fluoroscopy Guidance,Fluoroscopy up to 1 hour physician time,350.00,true,Imaging
+c144,76942,CPT,Ultrasound Guidance Needle Placement,Ultrasonic guidance for needle placement,225.00,true,Imaging
+c145,77002,CPT,Fluoroscopic Guidance Needle Placement,Fluoroscopic guidance for needle placement,285.00,true,Imaging
+c146,97161,CPT,PT Evaluation Low Complexity,Physical therapy evaluation low complexity,125.00,true,Therapy
+c147,97162,CPT,PT Evaluation Moderate Complexity,Physical therapy evaluation moderate complexity,150.00,true,Therapy
+c148,97163,CPT,PT Evaluation High Complexity,Physical therapy evaluation high complexity,175.00,true,Therapy
+c149,97110,CPT,Therapeutic Exercise,Therapeutic exercises per 15 minutes,65.00,true,Therapy
+c150,97112,CPT,Neuromuscular Reeducation,Neuromuscular reeducation per 15 minutes,65.00,true,Therapy
+c151,97116,CPT,Gait Training,Gait training therapy per 15 minutes,65.00,true,Therapy
+c152,97140,CPT,Manual Therapy,Manual therapy per 15 minutes,65.00,true,Therapy
+c153,97530,CPT,Therapeutic Activities,Therapeutic activities per 15 minutes,65.00,true,Therapy
+c154,97535,CPT,Self-Care Training,Self-care/home management training per 15 min,65.00,true,Therapy
+c155,97542,CPT,Wheelchair Management,Wheelchair management training per 15 min,65.00,true,Therapy
+c156,97750,CPT,Physical Performance Test,Physical performance test per 15 minutes,85.00,true,Therapy
+c157,97760,CPT,Orthotic Management Training,Orthotic management and training per 15 min,75.00,true,Therapy
+c158,97761,CPT,Prosthetic Management Training,Prosthetic management and training per 15 min,75.00,true,Therapy
+c159,97763,CPT,Orthotic/Prosthetic Checkout,Orthotic/prosthetic checkout per 15 min,75.00,true,Therapy
+c160,L8699,HCPCS,Prosthetic Implant NOS,Prosthetic implant not otherwise specified,8500.00,true,Implant
+c161,80048,CPT,Basic Metabolic Panel,BMP electrolytes glucose kidney function,65.00,true,Lab
+c162,80053,CPT,Comprehensive Metabolic Panel,CMP full chemistry panel,85.00,true,Lab
+c163,88304,CPT,Surgical Pathology Level III,Gross and microscopic exam level 3,145.00,true,Pathology
+c164,88305,CPT,Surgical Pathology Level IV,Gross and microscopic exam level 4,185.00,true,Pathology
+c165,88307,CPT,Surgical Pathology Level V,Gross and microscopic exam level 5,285.00,true,Pathology
+c166,88309,CPT,Surgical Pathology Level VI,Gross and microscopic exam level 6,425.00,true,Pathology
+c167,J0690,HCPCS,Cefazolin Injection,Cefazolin sodium injection per 500mg,35.00,true,Drug
+c168,J3370,HCPCS,Vancomycin Injection,Vancomycin injection per 500mg,85.00,true,Drug
+c169,J1650,HCPCS,Enoxaparin Injection,Enoxaparin sodium injection per 10mg,45.00,true,Drug
+c170,J8510,HCPCS,Rivaroxaban Oral,Rivaroxaban tablet,18.00,true,Drug
+c171,J3490,HCPCS,Unclassified Drug,Unclassified drugs,125.00,true,Drug
+c172,J1040,HCPCS,Methylprednisolone 80mg,Methylprednisolone acetate injection 80mg,45.00,true,Drug
+c173,J2001,HCPCS,Lidocaine Injection,Lidocaine injection per 10ml,15.00,true,Drug
+c174,J2270,HCPCS,Morphine Injection,Morphine sulfate injection up to 10mg,25.00,true,Drug
+c175,J2310,HCPCS,Naloxone Injection,Naloxone injection per 1mg,45.00,true,Drug
+c176,J2704,HCPCS,Propofol Injection,Propofol injection per 10mg,8.00,true,Drug
+c177,J2550,HCPCS,Promethazine Injection,Promethazine HCl injection up to 50mg,15.00,true,Drug
+c178,J2765,HCPCS,Metoclopramide Injection,Metoclopramide injection up to 10mg,12.00,true,Drug
+c179,J2405,HCPCS,Ondansetron Injection,Ondansetron HCl injection 1mg,25.00,true,Drug
+c180,J0456,HCPCS,Azithromycin Injection,Azithromycin injection 500mg,125.00,true,Drug
+c181,J1100,HCPCS,Dexamethasone Injection,Dexamethasone sodium phosphate 1mg,12.00,true,Drug
+c182,J0585,HCPCS,Onabotulinumtoxin A,Botulinum toxin type A per unit,15.00,true,Drug
+c183,J0171,HCPCS,Adrenaline Injection,Adrenalin epinephrine injection,35.00,true,Drug
+c184,J2175,HCPCS,Meperidine Injection,Meperidine HCl injection per 100mg,18.00,true,Drug
+c185,J2250,HCPCS,Midazolam Injection,Midazolam injection per 1mg,15.00,true,Drug
+c186,J0360,HCPCS,Hydralazine Injection,Hydralazine HCl injection up to 20mg,22.00,true,Drug
+c187,J2920,HCPCS,Methylprednisolone 40mg,Methylprednisolone injection 40mg,28.00,true,Drug
+c188,470,MS-DRG,Major Joint Replacement Without MCC,Hospital stay joint replacement no complications,18500.00,true,Facility
+c189,469,MS-DRG,Major Joint Replacement With MCC,Hospital stay joint replacement with major complications,28500.00,true,Facility
+c190,5115,C-APC,Comprehensive Observation Joint Replacement,Outpatient total joint replacement,15000.00,true,Facility
+c191,768,MS-DRG,Vaginal Delivery Without Complicating Diagnosis,Vaginal delivery uncomplicated,5500.00,true,Facility
+c192,767,MS-DRG,Vaginal Delivery With Sterilization/D&C,Vaginal delivery with procedures,7200.00,true,Facility
+c193,766,MS-DRG,Cesarean Section Without CC/MCC,C-section uncomplicated,9500.00,true,Facility
+c194,765,MS-DRG,Cesarean Section With CC/MCC,C-section with complications,13500.00,true,Facility
+c195,774,MS-DRG,Vaginal Delivery With Complicating Diagnosis,Vaginal delivery complicated,7500.00,true,Facility
+c196,775,MS-DRG,Vaginal Delivery With OR Procedure Except Sterilization,Vaginal delivery with OR procedure,8500.00,true,Facility
+c197,45378,CPT,Colonoscopy Diagnostic,Diagnostic colonoscopy screening or surveillance,1250.00,true,GI
+c198,45380,CPT,Colonoscopy with Biopsy,Colonoscopy with biopsy single or multiple,1450.00,true,GI
+c199,45381,CPT,Colonoscopy with Submucosal Injection,Colonoscopy with submucosal injection,1350.00,true,GI
+c200,45382,CPT,Colonoscopy with Control Bleeding,Colonoscopy with control of bleeding,1650.00,true,GI
+c201,45384,CPT,Colonoscopy with Lesion Removal Hot Biopsy,Colonoscopy with hot biopsy removal,1550.00,true,GI
+c202,45385,CPT,Colonoscopy with Polypectomy Snare,Colonoscopy with snare polypectomy,1650.00,true,GI
+c203,45386,CPT,Colonoscopy with Dilation,Colonoscopy with balloon dilation,1750.00,true,GI
+c204,45388,CPT,Colonoscopy with Ablation,Colonoscopy with ablation of lesion,1850.00,true,GI
+c205,45389,CPT,Colonoscopy with Stent,Colonoscopy with endoscopic stent placement,2450.00,true,GI
+c206,45390,CPT,Colonoscopy with Foreign Body Removal,Colonoscopy with foreign body removal,1550.00,true,GI
+c207,45391,CPT,Colonoscopy with Endoscopic Ultrasound,Colonoscopy with EUS,2250.00,true,GI
+c208,45392,CPT,Colonoscopy with Endoscopic Mucosal Resection,Colonoscopy with EMR,2150.00,true,GI
+c209,45393,CPT,Colonoscopy with Decompression,Colonoscopy with decompression,1650.00,true,GI
+c210,45395,CPT,Colonoscopy Laparoscopic,Laparoscopic assisted colonoscopy,3250.00,true,GI
+c211,45397,CPT,Colonoscopy with Transanal Hemorrhoid Dearterialization,Colonoscopy with hemorrhoid procedure,2850.00,true,GI
+c212,00810,CPT,Anesthesia Lower GI Endoscopy,Anesthesia for lower GI endoscopic procedures,850.00,true,Anesthesia
+c213,00811,CPT,Anesthesia Lower GI Screening,Anesthesia for screening colonoscopy,750.00,true,Anesthesia
+c214,00812,CPT,Anesthesia Lower GI Interventional,Anesthesia for colonoscopy interventional,950.00,true,Anesthesia
+c215,99152,CPT,Moderate Sedation Initial,Moderate sedation same physician initial 15 min,185.00,true,Anesthesia
+c216,99153,CPT,Moderate Sedation Additional,Moderate sedation same physician each additional 15 min,95.00,true,Anesthesia
+c217,99155,CPT,Moderate Sedation Other Physician,Moderate sedation by other physician initial,225.00,true,Anesthesia
+c218,99156,CPT,Moderate Sedation Other Physician Addl,Moderate sedation other physician additional,115.00,true,Anesthesia
+c219,G0105,HCPCS,Colorectal Cancer Screening High Risk,Screening colonoscopy high risk individual,1250.00,true,GI
+c220,G0121,HCPCS,Colorectal Cancer Screening Not High Risk,Screening colonoscopy average risk,1250.00,true,GI
+c221,88305,CPT,Surgical Pathology GI Biopsy,Pathology exam GI biopsy specimen,185.00,true,Pathology
+c222,43235,CPT,Upper GI Endoscopy Diagnostic,Diagnostic esophagogastroduodenoscopy EGD,1150.00,true,GI
+c223,43236,CPT,EGD with Submucosal Injection,EGD with directed submucosal injection,1350.00,true,GI
+c224,43237,CPT,EGD with Endoscopic Ultrasound,EGD with endoscopic ultrasound,2050.00,true,GI
+c225,43238,CPT,EGD with EUS and Biopsy,EGD with EUS and fine needle aspiration,2350.00,true,GI
+c226,43239,CPT,EGD with Biopsy,EGD with biopsy single or multiple,1350.00,true,GI
+c227,43240,CPT,EGD with Transmural Drainage,EGD with drainage of pseudocyst,2650.00,true,GI
+c228,43241,CPT,EGD with Tube Placement,EGD with tube or catheter insertion,1550.00,true,GI
+c229,43242,CPT,EGD with EUS and FNA Pancreatobiliary,EGD with EUS and FNA pancreas or bile duct,2650.00,true,GI
+c230,43243,CPT,EGD with Injection Sclerosis Varices,EGD with injection sclerosis of esophageal varices,1850.00,true,GI
+c231,43244,CPT,EGD with Variceal Ligation,EGD with band ligation of esophageal varices,1950.00,true,GI
+c232,43245,CPT,EGD with Dilation Stricture,EGD with dilation of gastric outlet stricture,1650.00,true,GI
+c233,43246,CPT,EGD with PEG Placement,EGD with PEG tube placement,1950.00,true,GI
+c234,43247,CPT,EGD with Foreign Body Removal,EGD with foreign body removal,1550.00,true,GI
+c235,43248,CPT,EGD with Dilation Esophagus,EGD with esophageal dilation,1550.00,true,GI
+c236,43249,CPT,EGD with Balloon Dilation Esophagus,EGD with balloon dilation of esophagus,1650.00,true,GI
+c237,43250,CPT,EGD with Tumor Removal Hot Biopsy,EGD with tumor removal by hot biopsy,1750.00,true,GI
+c238,43251,CPT,EGD with Tumor Removal Snare,EGD with tumor removal by snare,1850.00,true,GI
+c239,43252,CPT,EGD with Ablation,EGD with ablation of tumor or mucosal lesion,1950.00,true,GI
+c240,43253,CPT,EGD with Radiofrequency Ablation,EGD with radiofrequency ablation,2250.00,true,GI
+c241,43254,CPT,EGD with EMR,EGD with endoscopic mucosal resection,2150.00,true,GI
+c242,43255,CPT,EGD with Bleeding Control,EGD with control of bleeding,1750.00,true,GI
+c243,43257,CPT,EGD with Thermal Therapy Esophagus,EGD with delivery of thermal energy to sphincter,2050.00,true,GI
+c244,43259,CPT,EGD with Capsule Deployment,EGD with endoscopic ultrasound with capsule,2450.00,true,GI
+c245,00731,CPT,Anesthesia Upper GI Endoscopy,Anesthesia for upper GI endoscopy not including biopsy,750.00,true,Anesthesia
+c246,00732,CPT,Anesthesia Upper GI with Biopsy,Anesthesia for upper GI endoscopy with biopsy,850.00,true,Anesthesia
+c247,44970,CPT,Laparoscopic Appendectomy,Laparoscopic appendectomy,8500.00,true,General Surgery
+c248,44950,CPT,Open Appendectomy,Open appendectomy,7500.00,true,General Surgery
+c249,44955,CPT,Appendectomy with Abscess Drainage,Appendectomy with creation of abscess drainage,9500.00,true,General Surgery
+c250,44960,CPT,Open Appendectomy Ruptured,Open appendectomy for ruptured appendix with abscess,11000.00,true,General Surgery
+c251,44979,CPT,Unlisted Laparoscopic Appendix,Unlisted laparoscopic procedure appendix,8500.00,true,General Surgery
+c252,00840,CPT,Anesthesia Lower Abdominal,Anesthesia for lower intraperitoneal procedures,1250.00,true,Anesthesia
+c253,00860,CPT,Anesthesia Lower Abdominal Extensive,Anesthesia for extraperitoneal procedures lower abdomen,1450.00,true,Anesthesia
+c254,00790,CPT,Anesthesia Upper Abdominal,Anesthesia for upper intraperitoneal procedures,1350.00,true,Anesthesia
+c255,343,MS-DRG,Appendectomy with Complicated Principal Diagnosis with MCC,Appendectomy complicated with major CC,18500.00,true,Facility
+c256,344,MS-DRG,Appendectomy with Complicated Principal Diagnosis with CC,Appendectomy complicated with CC,13500.00,true,Facility
+c257,345,MS-DRG,Appendectomy with Complicated Principal Diagnosis without CC,Appendectomy complicated without CC,9500.00,true,Facility
+c258,346,MS-DRG,Appendectomy without Complicated Principal Diagnosis with MCC,Appendectomy uncomplicated with major CC,12500.00,true,Facility
+c259,347,MS-DRG,Appendectomy without Complicated Principal Diagnosis with CC,Appendectomy uncomplicated with CC,9500.00,true,Facility
+c260,348,MS-DRG,Appendectomy without Complicated Principal Diagnosis without CC,Appendectomy uncomplicated without CC,7500.00,true,Facility
+c261,49320,CPT,Diagnostic Laparoscopy,Diagnostic laparoscopy,4500.00,true,General Surgery
+c262,49321,CPT,Laparoscopy with Biopsy,Laparoscopy with biopsy single or multiple,5500.00,true,General Surgery
+c263,49322,CPT,Laparoscopy with Aspiration,Laparoscopy with aspiration of cavity or cyst,5200.00,true,General Surgery
+c264,74150,CPT,CT Abdomen Without Contrast,CT scan abdomen without contrast,750.00,true,Imaging
+c265,74160,CPT,CT Abdomen With Contrast,CT scan abdomen with contrast,950.00,true,Imaging
+c266,74170,CPT,CT Abdomen Without and With Contrast,CT scan abdomen without then with contrast,1150.00,true,Imaging
+c267,74176,CPT,CT Abdomen and Pelvis Without Contrast,CT abdomen and pelvis without contrast,1050.00,true,Imaging
+c268,74177,CPT,CT Abdomen and Pelvis With Contrast,CT abdomen and pelvis with contrast,1350.00,true,Imaging
+c269,74178,CPT,CT Abdomen and Pelvis Without and With,CT abdomen and pelvis without then with contrast,1550.00,true,Imaging
+c270,76700,CPT,Ultrasound Abdomen Complete,Complete abdominal ultrasound,385.00,true,Imaging
+c271,76705,CPT,Ultrasound Abdomen Limited,Limited abdominal ultrasound,265.00,true,Imaging
+c272,76770,CPT,Ultrasound Retroperitoneal Complete,Complete retroperitoneal ultrasound,385.00,true,Imaging
+c273,76775,CPT,Ultrasound Retroperitoneal Limited,Limited retroperitoneal ultrasound,265.00,true,Imaging
+c274,71046,CPT,Chest X-ray 2 Views,Chest radiograph PA and lateral,145.00,true,Imaging
+c275,71047,CPT,Chest X-ray 3 Views,Chest radiograph 3 views,185.00,true,Imaging
+c276,71048,CPT,Chest X-ray 4+ Views,Chest radiograph 4 or more views,225.00,true,Imaging
+c277,47562,CPT,Laparoscopic Cholecystectomy,Laparoscopic gallbladder removal,9500.00,true,General Surgery
+c278,47563,CPT,Laparoscopic Cholecystectomy with Cholangiography,Laparoscopic cholecystectomy with operative cholangiogram,10500.00,true,General Surgery
+c279,47564,CPT,Laparoscopic Cholecystectomy with Exploration,Laparoscopic cholecystectomy with exploration common duct,12500.00,true,General Surgery
+c280,47600,CPT,Open Cholecystectomy,Open gallbladder removal,8500.00,true,General Surgery
+c281,47605,CPT,Open Cholecystectomy with Cholangiography,Open cholecystectomy with operative cholangiogram,9500.00,true,General Surgery
+c282,47610,CPT,Open Cholecystectomy with Exploration,Open cholecystectomy with exploration common duct,14500.00,true,General Surgery
+c283,47612,CPT,Cholecystectomy with Exploration T-Tube,Cholecystectomy with exploration and T-tube,15500.00,true,General Surgery
+c284,74300,CPT,Cholangiography Intraoperative,Intraoperative cholangiography radiological supervision,425.00,true,Imaging
+c285,74301,CPT,Cholangiography Additional Imaging,Additional cholangiography images,185.00,true,Imaging
+c286,418,MS-DRG,Laparoscopic Cholecystectomy with ERCP with CC,Lap chole with ERCP with complications,16500.00,true,Facility
+c287,419,MS-DRG,Laparoscopic Cholecystectomy with ERCP without CC,Lap chole with ERCP without complications,12500.00,true,Facility
+c288,417,MS-DRG,Laparoscopic Cholecystectomy with ERCP with MCC,Lap chole with ERCP with major complications,22500.00,true,Facility
+c289,416,MS-DRG,Laparoscopic Cholecystectomy without ERCP with MCC,Lap chole without ERCP with major complications,15500.00,true,Facility
+c290,414,MS-DRG,Cholecystectomy without ERCP without MCC,Cholecystectomy except laparoscopic without ERCP,9500.00,true,Facility
+c291,415,MS-DRG,Cholecystectomy without ERCP with CC,Cholecystectomy except laparoscopic with CC,12500.00,true,Facility
+c292,66984,CPT,Cataract Surgery Phacoemulsification,Cataract removal with IOL insertion,3500.00,true,Ophthalmology
+c293,66982,CPT,Complex Cataract Surgery,Complex cataract by phacoemulsification,4500.00,true,Ophthalmology
+c294,66987,CPT,Complex Cataract with Stent,Complex cataract with insertion of stent,5500.00,true,Ophthalmology
+c295,66988,CPT,Cataract with Endoscopic Cyclophotocoagulation,Cataract with ECP for glaucoma,5000.00,true,Ophthalmology
+c296,66989,CPT,Cataract with Stent,Cataract surgery with insertion of trabecular stent,4800.00,true,Ophthalmology
+c297,66991,CPT,Cataract with Intraocular Stent,Cataract with insertion of intraocular anterior stent,5200.00,true,Ophthalmology
+c298,V2632,HCPCS,Posterior Chamber IOL Standard,Standard posterior chamber intraocular lens,350.00,true,Implant
+c299,V2787,HCPCS,Astigmatism Correcting IOL,Toric astigmatism correcting IOL,1250.00,true,Implant
+c300,V2788,HCPCS,Presbyopia Correcting IOL,Presbyopia correcting extended depth IOL,2500.00,true,Implant
+c301,C1840,HCPCS,Lens Intraocular New Technology,New technology intraocular lens category 1,1850.00,true,Implant
+c302,Q1004,HCPCS,Lens Intraocular New Technology Cat 4,New technology IOL category 4,2250.00,true,Implant
+c303,Q1005,HCPCS,Lens Intraocular New Technology Cat 5,New technology IOL category 5,2650.00,true,Implant
+c304,00142,CPT,Anesthesia Lens Surgery,Anesthesia for procedures on lens,650.00,true,Anesthesia
+c305,00140,CPT,Anesthesia Eye Extraocular,Anesthesia for procedures on extraocular eye,550.00,true,Anesthesia
+c306,00145,CPT,Anesthesia Eye Vitreoretinal,Anesthesia for vitreoretinal surgery,850.00,true,Anesthesia
+c307,92012,CPT,Eye Exam Established Intermediate,Intermediate ophthalmologic exam established,95.00,true,Ophthalmology
+c308,92014,CPT,Eye Exam Established Comprehensive,Comprehensive ophthalmologic exam established,145.00,true,Ophthalmology
+c309,92002,CPT,Eye Exam New Intermediate,Intermediate ophthalmologic exam new patient,125.00,true,Ophthalmology
+c310,92004,CPT,Eye Exam New Comprehensive,Comprehensive ophthalmologic exam new patient,185.00,true,Ophthalmology
+c311,92015,CPT,Refraction,Determination of refractive state,55.00,true,Ophthalmology
+c312,92020,CPT,Gonioscopy,Gonioscopy angle assessment,85.00,true,Ophthalmology
+c313,92134,CPT,OCT Posterior Segment,Optical coherence tomography posterior segment,125.00,true,Imaging
+c314,92133,CPT,OCT Optic Nerve,Optical coherence tomography optic nerve,125.00,true,Imaging
+c315,92083,CPT,Visual Field Extended,Extended visual field examination,135.00,true,Ophthalmology
+c316,92082,CPT,Visual Field Intermediate,Intermediate visual field examination,95.00,true,Ophthalmology
+c317,92060,CPT,Sensorimotor Examination,Sensorimotor examination,95.00,true,Ophthalmology
+c318,92136,CPT,Ophthalmic Biometry,Ophthalmic biometry IOL power calculation,125.00,true,Ophthalmology
+c319,76510,CPT,Ophthalmic Ultrasound B-Scan,B-scan ophthalmic ultrasound,185.00,true,Imaging
+c320,76511,CPT,Ophthalmic Ultrasound A-Scan,A-scan ophthalmic ultrasound biometry,145.00,true,Imaging
+c321,76512,CPT,Ophthalmic Ultrasound B-Scan with A-Scan,B-scan with A-scan quantitative,225.00,true,Imaging
+c322,76513,CPT,Ultrasound Anterior Segment,Anterior segment ultrasound biomicroscopy,165.00,true,Imaging
+c323,76514,CPT,Corneal Pachymetry,Corneal pachymetry unilateral or bilateral,95.00,true,Imaging
+c324,76519,CPT,Ophthalmic Biometry Ultrasound,Ophthalmic biometric ultrasound A-scan,145.00,true,Imaging
+c325,J2400,HCPCS,Chloroprocaine Injection,Chloroprocaine injection,35.00,true,Drug
+c326,J0475,HCPCS,Baclofen Injection,Baclofen injection 10mg,85.00,true,Drug
+c327,J1030,HCPCS,Methylprednisolone 40mg Depo,Methylprednisolone acetate 40mg,35.00,true,Drug
+c328,J7324,HCPCS,Triamcinolone Ophthalmic,Triamcinolone acetonide ophthalmic,125.00,true,Drug
+c329,J7316,HCPCS,Sodium Hyaluronate Ophthalmic,Sodium hyaluronate ophthalmic,185.00,true,Drug
+c330,J7322,HCPCS,Viscoelastic Substance,Viscoelastic substance ophthalmic,145.00,true,Drug
+c331,5503,C-APC,Cataract with IOL,Comprehensive APC cataract with IOL,3850.00,true,Facility
+c332,5504,C-APC,Cataract with IOL Complex,Comprehensive APC complex cataract,4650.00,true,Facility
+c333,49505,CPT,Inguinal Hernia Repair Initial,Repair initial inguinal hernia age 5 or older,5500.00,true,General Surgery
+c334,49507,CPT,Inguinal Hernia Repair Incarcerated,Repair incarcerated inguinal hernia age 5 or older,7500.00,true,General Surgery
+c335,49520,CPT,Inguinal Hernia Repair Recurrent,Repair recurrent inguinal hernia,7000.00,true,General Surgery
+c336,49521,CPT,Inguinal Hernia Repair Recurrent Incarcerated,Repair recurrent incarcerated inguinal hernia,9000.00,true,General Surgery
+c337,49525,CPT,Inguinal Hernia Repair Sliding,Repair sliding inguinal hernia,6500.00,true,General Surgery
+c338,49650,CPT,Laparoscopic Inguinal Hernia Repair Initial,Laparoscopic inguinal hernia repair initial,7500.00,true,General Surgery
+c339,49651,CPT,Laparoscopic Inguinal Hernia Repair Recurrent,Laparoscopic inguinal hernia repair recurrent,8500.00,true,General Surgery
+c340,49560,CPT,Incisional Hernia Repair Initial,Repair initial incisional hernia,8500.00,true,General Surgery
+c341,49561,CPT,Incisional Hernia Repair Incarcerated,Repair incarcerated incisional hernia,10500.00,true,General Surgery
+c342,49565,CPT,Incisional Hernia Repair Recurrent,Repair recurrent incisional hernia,9500.00,true,General Surgery
+c343,49566,CPT,Incisional Hernia Repair Recurrent Incarcerated,Repair recurrent incarcerated incisional hernia,11500.00,true,General Surgery
+c344,49568,CPT,Hernia Repair with Mesh,Implantation of mesh other than incisional,1850.00,true,General Surgery
+c345,49572,CPT,Epigastric Hernia Repair Reducible,Repair epigastric hernia reducible,4500.00,true,General Surgery
+c346,49580,CPT,Umbilical Hernia Repair Under 5,Repair umbilical hernia under age 5,3500.00,true,General Surgery
+c347,49585,CPT,Umbilical Hernia Repair Age 5 or Older,Repair umbilical hernia age 5 or older,4500.00,true,General Surgery
+c348,49587,CPT,Umbilical Hernia Repair Incarcerated,Repair umbilical hernia incarcerated,6500.00,true,General Surgery
+c349,C1781,HCPCS,Mesh Surgical Implantable,Mesh surgical implantable,850.00,true,Implant
+c350,00830,CPT,Anesthesia Hernia Repair Upper,Anesthesia for hernia repair upper abdominal,1050.00,true,Anesthesia
+c351,00832,CPT,Anesthesia Hernia Repair Lower,Anesthesia for hernia repair lower abdominal,1150.00,true,Anesthesia
+c352,00834,CPT,Anesthesia Hernia Repair Laparoscopic,Anesthesia for hernia repair laparoscopic,1250.00,true,Anesthesia
+c353,351,MS-DRG,Inguinal and Femoral Hernia with MCC,Hernia repair inguinal femoral with major CC,12500.00,true,Facility
+c354,352,MS-DRG,Inguinal and Femoral Hernia with CC,Hernia repair inguinal femoral with CC,8500.00,true,Facility
+c355,353,MS-DRG,Inguinal and Femoral Hernia without CC,Hernia repair inguinal femoral without CC,6500.00,true,Facility
+c356,354,MS-DRG,Other Hernia with MCC,Hernia repair other with major CC,15500.00,true,Facility
+c357,355,MS-DRG,Other Hernia with CC,Hernia repair other with CC,10500.00,true,Facility
+c358,356,MS-DRG,Other Hernia without CC,Hernia repair other without CC,7500.00,true,Facility
+c359,64721,CPT,Carpal Tunnel Release,Neuroplasty median nerve at carpal tunnel,3500.00,true,Hand Surgery
+c360,29848,CPT,Endoscopic Carpal Tunnel Release,Endoscopic release transverse carpal ligament,4500.00,true,Hand Surgery
+c361,64704,CPT,Neuroplasty Major Peripheral Nerve,Nerve decompression digital cutaneous,2500.00,true,Hand Surgery
+c362,64708,CPT,Neuroplasty Digital Nerve,Neuroplasty major peripheral nerve arm or leg,2800.00,true,Hand Surgery
+c363,64718,CPT,Neuroplasty Ulnar Nerve at Elbow,Neuroplasty ulnar nerve at elbow,4500.00,true,Hand Surgery
+c364,64719,CPT,Neuroplasty Ulnar Nerve at Wrist,Neuroplasty ulnar nerve at wrist,3500.00,true,Hand Surgery
+c365,64722,CPT,Decompression Unspecified Nerve,Decompression unspecified nerve,2800.00,true,Hand Surgery
+c366,01810,CPT,Anesthesia Forearm Wrist Hand,Anesthesia procedures on forearm wrist and hand,750.00,true,Anesthesia
+c367,01820,CPT,Anesthesia Plastic Surgery Hand,Anesthesia for plastic procedure hand,850.00,true,Anesthesia
+c368,64415,CPT,Brachial Plexus Block Single,Brachial plexus nerve block single injection,550.00,true,Anesthesia
+c369,64416,CPT,Brachial Plexus Block Continuous,Brachial plexus nerve block continuous infusion,750.00,true,Anesthesia
+c370,64417,CPT,Axillary Nerve Block,Axillary nerve block,450.00,true,Anesthesia
+c371,01995,CPT,Bier Block,Regional IV extremity IV regional block,450.00,true,Anesthesia
+c372,73100,CPT,Wrist X-ray 2 Views,Wrist radiograph 2 views,125.00,true,Imaging
+c373,73110,CPT,Wrist X-ray Complete,Wrist radiograph complete minimum 3 views,165.00,true,Imaging
+c374,73200,CPT,CT Upper Extremity Without Contrast,CT scan upper extremity without contrast,650.00,true,Imaging
+c375,73201,CPT,CT Upper Extremity With Contrast,CT scan upper extremity with contrast,850.00,true,Imaging
+c376,73218,CPT,MRI Upper Extremity Without Contrast,MRI upper extremity without contrast,950.00,true,Imaging
+c377,73219,CPT,MRI Upper Extremity With Contrast,MRI upper extremity with contrast,1150.00,true,Imaging
+c378,73220,CPT,MRI Upper Extremity Without and With,MRI upper extremity without then with contrast,1350.00,true,Imaging
+c379,95885,CPT,EMG Limited,Needle EMG limited extremity muscles,185.00,true,Diagnostics
+c380,95886,CPT,EMG Complete Extremity,Needle EMG complete extremity muscles,285.00,true,Diagnostics
+c381,95907,CPT,Nerve Conduction Study 1-2,Nerve conduction studies 1-2 nerves,185.00,true,Diagnostics
+c382,95908,CPT,Nerve Conduction Study 3-4,Nerve conduction studies 3-4 nerves,285.00,true,Diagnostics
+c383,95909,CPT,Nerve Conduction Study 5-6,Nerve conduction studies 5-6 nerves,385.00,true,Diagnostics
+c384,95910,CPT,Nerve Conduction Study 7-8,Nerve conduction studies 7-8 nerves,485.00,true,Diagnostics
+c385,95911,CPT,Nerve Conduction Study 9-10,Nerve conduction studies 9-10 nerves,585.00,true,Diagnostics
+c386,95912,CPT,Nerve Conduction Study 11-12,Nerve conduction studies 11-12 nerves,685.00,true,Diagnostics
+c387,95913,CPT,Nerve Conduction Study 13+,Nerve conduction studies 13 or more nerves,785.00,true,Diagnostics
+c388,6,MS-DRG,Carpal Tunnel Release with MCC,Carpal tunnel release with major complications,8500.00,true,Facility
+c389,7,MS-DRG,Carpal Tunnel Release with CC,Carpal tunnel release with complications,6500.00,true,Facility
+c390,8,MS-DRG,Carpal Tunnel Release without CC,Carpal tunnel release without complications,4500.00,true,Facility
+c391,93000,CPT,Electrocardiogram Complete,12-lead ECG with interpretation and report,95.00,true,Diagnostics
+c392,93005,CPT,Electrocardiogram Tracing Only,12-lead ECG tracing only,55.00,true,Diagnostics
+c393,93010,CPT,Electrocardiogram Interpretation,12-lead ECG interpretation and report only,45.00,true,Diagnostics
+c394,93015,CPT,Cardiovascular Stress Test,Cardiovascular stress test complete,325.00,true,Diagnostics
+c395,93016,CPT,Stress Test Supervision,Cardiovascular stress test physician supervision,95.00,true,Diagnostics
+c396,93017,CPT,Stress Test Tracing,Cardiovascular stress test tracing only,185.00,true,Diagnostics
+c397,93018,CPT,Stress Test Interpretation,Cardiovascular stress test interpretation only,75.00,true,Diagnostics
+c398,93306,CPT,Echocardiography Complete,Transthoracic echocardiography complete,585.00,true,Imaging
+c399,93307,CPT,Echocardiography Limited,Transthoracic echocardiography limited,385.00,true,Imaging
+c400,93308,CPT,Echocardiography Follow-Up,Echocardiography follow-up or limited,285.00,true,Imaging
+c401,620,MS-DRG,ER High Severity with MCC,ER visit high severity with major complications,8500.00,true,Facility
+c402,621,MS-DRG,ER High Severity with CC,ER visit high severity with complications,5500.00,true,Facility
+c403,622,MS-DRG,ER High Severity without CC,ER visit high severity without complications,3500.00,true,Facility
+c404,5045,C-APC,ER Visit Level 5,Level 5 emergency department visit,1250.00,true,Facility
+c405,5044,C-APC,ER Visit Level 4,Level 4 emergency department visit,825.00,true,Facility
+c406,5043,C-APC,ER Visit Level 3,Level 3 emergency department visit,425.00,true,Facility
+c407,5042,C-APC,ER Visit Level 2,Level 2 emergency department visit,225.00,true,Facility
+c408,5041,C-APC,ER Visit Level 1,Level 1 emergency department visit,125.00,true,Facility
+c409,96374,CPT,IV Push Single Drug,Therapeutic IV push single drug,95.00,true,Nursing
+c410,96375,CPT,IV Push Additional Drug,Therapeutic IV push each additional drug,65.00,true,Nursing
+c411,96360,CPT,IV Infusion Hydration Initial,IV infusion hydration initial 31-60 min,165.00,true,Nursing
+c412,96361,CPT,IV Infusion Hydration Additional,IV infusion hydration each additional hour,85.00,true,Nursing
+c413,96365,CPT,IV Infusion Therapeutic Initial,IV infusion therapeutic first hour,195.00,true,Nursing
+c414,96366,CPT,IV Infusion Therapeutic Additional,IV infusion therapeutic each additional hour,95.00,true,Nursing
+c415,96367,CPT,IV Infusion Additional Drug,IV infusion additional sequential infusion,125.00,true,Nursing
+c416,96368,CPT,IV Infusion Concurrent,Concurrent IV infusion,85.00,true,Nursing
+c417,94640,CPT,Nebulizer Treatment,Nebulizer treatment inhalation,85.00,true,Respiratory
+c418,94060,CPT,Spirometry Pre and Post,Bronchodilation responsiveness spirometry,145.00,true,Respiratory
+c419,94010,CPT,Spirometry Basic,Spirometry basic,65.00,true,Respiratory
+c420,94760,CPT,Pulse Oximetry,Noninvasive pulse oximetry,25.00,true,Respiratory
+c421,94761,CPT,Pulse Oximetry Multiple,Pulse oximetry multiple determinations,45.00,true,Respiratory
+c422,94762,CPT,Pulse Oximetry Continuous,Pulse oximetry continuous overnight,125.00,true,Respiratory
+c423,36556,CPT,Central Venous Catheter Insertion,Insertion non-tunneled central venous catheter,585.00,true,Procedure
+c424,36569,CPT,PICC Insertion,Peripherally inserted central catheter insertion,485.00,true,Procedure
+c425,36600,CPT,Arterial Puncture,Arterial puncture for blood sample,45.00,true,Procedure
+c426,43752,CPT,NG Tube Placement,Nasogastric tube placement requiring fluoroscopy,285.00,true,Procedure
+c427,43760,CPT,Gastric Intubation,Nasogastric or orogastric tube placement,85.00,true,Procedure
+c428,51702,CPT,Foley Catheter Insertion,Insertion of bladder catheter simple,65.00,true,Procedure
+c429,51703,CPT,Foley Catheter Insertion Complex,Insertion of bladder catheter complicated,145.00,true,Procedure
+c430,12001,CPT,Simple Laceration Repair 2.5cm or Less,Simple wound repair up to 2.5 cm,185.00,true,Procedure
+c431,12002,CPT,Simple Laceration Repair 2.6-7.5cm,Simple wound repair 2.6-7.5 cm,265.00,true,Procedure
+c432,12004,CPT,Simple Laceration Repair 7.6-12.5cm,Simple wound repair 7.6-12.5 cm,345.00,true,Procedure
+c433,12011,CPT,Simple Repair Face 2.5cm or Less,Simple wound repair face to 2.5 cm,225.00,true,Procedure
+c434,12013,CPT,Simple Repair Face 2.6-5.0cm,Simple wound repair face 2.6-5.0 cm,285.00,true,Procedure
+c435,12031,CPT,Intermediate Repair 2.5cm or Less,Intermediate wound repair to 2.5 cm,345.00,true,Procedure
+c436,12032,CPT,Intermediate Repair 2.6-7.5cm,Intermediate wound repair 2.6-7.5 cm,425.00,true,Procedure
+c437,13100,CPT,Complex Repair Trunk 1.1-2.5cm,Complex repair trunk 1.1-2.5 cm,585.00,true,Procedure
+c438,13101,CPT,Complex Repair Trunk 2.6-7.5cm,Complex repair trunk 2.6-7.5 cm,785.00,true,Procedure
+c439,10060,CPT,Incision and Drainage Abscess Simple,I&D of abscess simple,345.00,true,Procedure
+c440,10061,CPT,Incision and Drainage Abscess Complicated,I&D of abscess complicated,585.00,true,Procedure
+c441,10120,CPT,Foreign Body Removal Simple,Removal of foreign body subcutaneous simple,285.00,true,Procedure
+c442,10121,CPT,Foreign Body Removal Complicated,Removal of foreign body subcutaneous complicated,485.00,true,Procedure
+c443,23650,CPT,Closed Treatment Shoulder Dislocation,Closed treatment shoulder dislocation,685.00,true,Procedure
+c444,25600,CPT,Closed Treatment Distal Radius Fracture,Closed treatment distal radial fracture,785.00,true,Procedure
+c445,27752,CPT,Closed Treatment Tibial Shaft Fracture,Closed treatment tibial shaft fracture,1285.00,true,Procedure
+c446,27786,CPT,Closed Treatment Distal Fibula Fracture,Closed treatment lateral malleolus fracture,685.00,true,Procedure
+c447,29515,CPT,Application Short Leg Splint,Application short leg splint,145.00,true,Procedure
+c448,29105,CPT,Application Long Arm Splint,Application long arm splint,175.00,true,Procedure
+c449,29125,CPT,Application Short Arm Splint,Application short arm splint,125.00,true,Procedure
+c450,62270,CPT,Lumbar Puncture Diagnostic,Spinal puncture lumbar diagnostic,385.00,true,Procedure
+c451,62272,CPT,Lumbar Puncture Therapeutic,Spinal puncture therapeutic,485.00,true,Procedure
+c452,31500,CPT,Endotracheal Intubation,Emergency endotracheal intubation,285.00,true,Procedure
+c453,31502,CPT,Tracheostomy Tube Change,Tracheostomy tube change,185.00,true,Procedure
+c454,31603,CPT,Tracheostomy Emergency,Tracheostomy emergency procedure,1850.00,true,Procedure
+c455,32551,CPT,Chest Tube Insertion,Tube thoracostomy with water seal,685.00,true,Procedure
+c456,32557,CPT,Chest Tube with Imaging,Pleural drainage with imaging guidance,985.00,true,Procedure
+c457,92950,CPT,Cardiopulmonary Resuscitation,CPR cardiopulmonary resuscitation,485.00,true,Procedure
+c458,92960,CPT,Cardioversion External,Cardioversion external elective,285.00,true,Procedure
+c459,36620,CPT,Arterial Line Placement,Arterial catheterization for blood sampling,385.00,true,Procedure
+c460,70553,CPT,MRI Brain Without and With Contrast,MRI brain with and without contrast,1850.00,true,Imaging
+c461,70551,CPT,MRI Brain Without Contrast,MRI brain without contrast,1250.00,true,Imaging
+c462,70552,CPT,MRI Brain With Contrast,MRI brain with contrast,1550.00,true,Imaging
+c463,70450,CPT,CT Head Without Contrast,CT head/brain without contrast,650.00,true,Imaging
+c464,70460,CPT,CT Head With Contrast,CT head/brain with contrast,850.00,true,Imaging
+c465,70470,CPT,CT Head Without and With Contrast,CT head/brain without then with contrast,1050.00,true,Imaging
+c466,70486,CPT,CT Maxillofacial Without Contrast,CT maxillofacial without contrast,585.00,true,Imaging
+c467,70487,CPT,CT Maxillofacial With Contrast,CT maxillofacial with contrast,785.00,true,Imaging
+c468,70490,CPT,CT Neck Without Contrast,CT soft tissue neck without contrast,585.00,true,Imaging
+c469,70491,CPT,CT Neck With Contrast,CT soft tissue neck with contrast,785.00,true,Imaging
+c470,71250,CPT,CT Chest Without Contrast,CT thorax without contrast,685.00,true,Imaging
+c471,71260,CPT,CT Chest With Contrast,CT thorax with contrast,885.00,true,Imaging
+c472,71270,CPT,CT Chest Without and With Contrast,CT thorax without then with contrast,1085.00,true,Imaging
+c473,71275,CPT,CTA Chest,CT angiography chest with contrast,1285.00,true,Imaging
+c474,74174,CPT,CTA Abdomen and Pelvis,CT angiography abdomen and pelvis,1485.00,true,Imaging
+c475,72148,CPT,MRI Lumbar Without Contrast,MRI lumbar spine without contrast,1150.00,true,Imaging
+c476,72149,CPT,MRI Lumbar With Contrast,MRI lumbar spine with contrast,1350.00,true,Imaging
+c477,72158,CPT,MRI Lumbar Without and With Contrast,MRI lumbar spine without then with,1550.00,true,Imaging
+c478,72141,CPT,MRI Cervical Without Contrast,MRI cervical spine without contrast,1150.00,true,Imaging
+c479,72142,CPT,MRI Cervical With Contrast,MRI cervical spine with contrast,1350.00,true,Imaging
+c480,72125,CPT,CT Cervical Spine Without Contrast,CT cervical spine without contrast,685.00,true,Imaging
+c481,72128,CPT,CT Thoracic Spine Without Contrast,CT thoracic spine without contrast,685.00,true,Imaging
+c482,72131,CPT,CT Lumbar Spine Without Contrast,CT lumbar spine without contrast,685.00,true,Imaging
+c483,93880,CPT,Duplex Carotid,Duplex scan extracranial arteries,485.00,true,Imaging
+c484,93925,CPT,Duplex Lower Extremity Arterial,Duplex scan lower extremity arteries,485.00,true,Imaging
+c485,93926,CPT,Duplex Lower Extremity Arterial Unilateral,Duplex lower extremity arteries unilateral,325.00,true,Imaging
+c486,93970,CPT,Duplex Lower Extremity Venous,Duplex scan lower extremity veins complete,485.00,true,Imaging
+c487,93971,CPT,Duplex Lower Extremity Venous Unilateral,Duplex lower extremity veins unilateral,325.00,true,Imaging
+c488,78452,CPT,Myocardial Perfusion SPECT Multiple,Myocardial perfusion imaging SPECT multiple studies,1850.00,true,Imaging
+c489,78451,CPT,Myocardial Perfusion SPECT Single,Myocardial perfusion imaging SPECT single study,1250.00,true,Imaging
+c490,84484,CPT,Troponin Quantitative,Troponin quantitative,85.00,true,Lab
+c491,84443,CPT,TSH,Thyroid stimulating hormone,65.00,true,Lab
+c492,82310,CPT,Calcium Total,Calcium total serum,25.00,true,Lab
+c493,84132,CPT,Potassium,Potassium serum,15.00,true,Lab
+c494,84295,CPT,Sodium,Sodium serum,15.00,true,Lab
+c495,82565,CPT,Creatinine,Creatinine blood,20.00,true,Lab
+c496,84520,CPT,BUN,Blood urea nitrogen,15.00,true,Lab
+c497,82040,CPT,Albumin,Albumin serum,20.00,true,Lab
+c498,84450,CPT,AST/SGOT,Aspartate aminotransferase,20.00,true,Lab
+c499,84460,CPT,ALT/SGPT,Alanine aminotransferase,20.00,true,Lab
+c500,84075,CPT,Alkaline Phosphatase,Alkaline phosphatase serum,20.00,true,Lab
+c501,82248,CPT,Bilirubin Total,Bilirubin total,20.00,true,Lab
+c502,82247,CPT,Bilirubin Direct,Bilirubin direct,20.00,true,Lab
+c503,82550,CPT,CK Total,Creatine kinase total,35.00,true,Lab
+c504,82553,CPT,CK-MB,Creatine kinase MB fraction,45.00,true,Lab
+c505,83735,CPT,Magnesium,Magnesium serum,25.00,true,Lab
+c506,84100,CPT,Phosphorus,Phosphorus inorganic,20.00,true,Lab
+c507,83615,CPT,LDH,Lactate dehydrogenase,25.00,true,Lab
+c508,82784,CPT,IgA,Immunoglobulin A,55.00,true,Lab
+c509,82785,CPT,IgE,Immunoglobulin E,75.00,true,Lab
+c510,82787,CPT,IgG Subclasses,Immunoglobulin G subclasses,125.00,true,Lab
+c511,83540,CPT,Iron,Iron serum,25.00,true,Lab
+c512,83550,CPT,Iron Binding Capacity,Iron binding capacity total,30.00,true,Lab
+c513,82728,CPT,Ferritin,Ferritin serum,55.00,true,Lab
+c514,83051,CPT,Hemoglobin Methemoglobin,Methemoglobin,45.00,true,Lab
+c515,85014,CPT,Hematocrit,Hematocrit,15.00,true,Lab
+c516,85018,CPT,Hemoglobin,Hemoglobin,15.00,true,Lab
+c517,82270,CPT,Fecal Occult Blood,Fecal occult blood test,25.00,true,Lab
+c518,87070,CPT,Culture Bacterial Except Blood,Bacterial culture any source except blood,85.00,true,Lab
+c519,87040,CPT,Blood Culture,Blood culture bacterial,125.00,true,Lab
+c520,87045,CPT,Stool Culture,Stool culture bacterial pathogens,95.00,true,Lab
+c521,87046,CPT,Stool Culture Additional,Stool culture additional pathogens,65.00,true,Lab
+c522,87207,CPT,Smear Special Stain,Smear with special stain parasites,55.00,true,Lab
+c523,87177,CPT,Ova and Parasites,Ova and parasites examination,65.00,true,Lab
+c524,87624,CPT,C. Difficile Toxin,Detection C. difficile toxin,125.00,true,Lab
+c525,87635,CPT,COVID-19 PCR,SARS-CoV-2 COVID-19 amplified probe,125.00,true,Lab
+c526,87426,CPT,COVID-19 Antigen,SARS-CoV-2 antigen detection,75.00,true,Lab
+c527,80076,CPT,Hepatic Function Panel,Hepatic function panel,85.00,true,Lab
+c528,80074,CPT,Acute Hepatitis Panel,Acute hepatitis panel,185.00,true,Lab
+c529,84550,CPT,Uric Acid Blood,Uric acid blood,25.00,true,Lab
+c530,83001,CPT,FSH,Follicle stimulating hormone,65.00,true,Lab
+c531,83002,CPT,LH,Luteinizing hormone,65.00,true,Lab
+c532,82670,CPT,Estradiol,Estradiol,75.00,true,Lab
+c533,84402,CPT,Testosterone Free,Testosterone free,75.00,true,Lab
+c534,84403,CPT,Testosterone Total,Testosterone total,65.00,true,Lab
+c535,82306,CPT,Vitamin D 25-Hydroxy,Vitamin D 25-hydroxy,85.00,true,Lab
+c536,84630,CPT,Zinc,Zinc serum,45.00,true,Lab
+c537,82725,CPT,Fatty Acids,Fatty acids nonesterified,65.00,true,Lab
+c538,81003,CPT,Urinalysis Automated,Urinalysis automated without microscopy,25.00,true,Lab
+c539,83883,CPT,Nephelometry,Nephelometry each analyte,55.00,true,Lab
+c540,86147,CPT,Cardiolipin Antibody,Cardiolipin antibody each,85.00,true,Lab
+c541,86140,CPT,C-Reactive Protein,C-reactive protein,35.00,true,Lab
+c542,86141,CPT,CRP High Sensitivity,C-reactive protein high sensitivity,55.00,true,Lab
+c543,85651,CPT,Sedimentation Rate Automated,Erythrocyte sedimentation rate automated,25.00,true,Lab
+c544,85652,CPT,Sedimentation Rate Non-Automated,Sedimentation rate non-automated,35.00,true,Lab
+c545,86038,CPT,Antinuclear Antibody,Antinuclear antibody ANA,55.00,true,Lab
+c546,86039,CPT,Anti-DNA Antibody,Anti-DNA antibody native or double stranded,75.00,true,Lab
+c547,86225,CPT,DNA Antibody Native,DNA antibody native double stranded,85.00,true,Lab
+c548,86235,CPT,Extractable Nuclear Antigen,Extractable nuclear antigen ENA antibody,95.00,true,Lab
+c549,86255,CPT,Fluorescent Antibody Screen,Fluorescent noninfectious agent antibody screen,85.00,true,Lab
+c550,86300,CPT,CA 125,Cancer antigen CA 125,95.00,true,Lab
+c551,86304,CPT,CA 19-9,Cancer antigen CA 19-9,95.00,true,Lab
+c552,84153,CPT,PSA Total,Prostate specific antigen total,85.00,true,Lab
+c553,84154,CPT,PSA Free,Prostate specific antigen free,95.00,true,Lab
+c554,82378,CPT,CEA,Carcinoembryonic antigen,85.00,true,Lab
+c555,86592,CPT,Syphilis Test Qualitative,Syphilis test non-treponemal antibody qualitative,35.00,true,Lab
+c556,86593,CPT,Syphilis Test Quantitative,Syphilis test quantitative,45.00,true,Lab
+c557,86780,CPT,Treponema Pallidum Antibody,Treponema pallidum specific antibody,65.00,true,Lab
+c558,86689,CPT,HTLV Antibody,HTLV antibody confirmatory,125.00,true,Lab
+c559,87536,CPT,HIV-1 Quantitative,HIV-1 quantification viral load,185.00,true,Lab
+c560,87539,CPT,HIV-2 Quantitative,HIV-2 quantification viral load,185.00,true,Lab
+c561,86677,CPT,Helicobacter Pylori Antibody,H. pylori antibody,75.00,true,Lab
+c562,87338,CPT,H. Pylori Stool Antigen,H. pylori stool antigen,95.00,true,Lab
+c563,83516,CPT,Immunoassay Analyte NOS,Immunoassay for analyte not otherwise specified,85.00,true,Lab
+c564,82379,CPT,Carnitine,Carnitine quantitative,125.00,true,Lab
+c565,82652,CPT,Vitamin D 1 25-Dihydroxy,Vitamin D 1 25-dihydroxy,145.00,true,Lab
+c566,82380,CPT,Carotene,Carotene,65.00,true,Lab
+c567,82746,CPT,Folic Acid Serum,Folic acid serum,55.00,true,Lab
+c568,82607,CPT,Cyanocobalamin B12,Cyanocobalamin vitamin B-12,65.00,true,Lab
+c569,84466,CPT,Transferrin,Transferrin,55.00,true,Lab
+c570,83880,CPT,Natriuretic Peptide BNP,Natriuretic peptide BNP or proBNP,125.00,true,Lab
+c571,82542,CPT,Column Chromatography Quantitative,Column chromatography quantitative,145.00,true,Lab
+c572,80307,CPT,Drug Screen Quantitative,Drug testing quantitative,125.00,true,Lab
+c573,80305,CPT,Drug Screen Presumptive,Drug testing presumptive,85.00,true,Lab
+c574,80320,CPT,Alcohols,Alcohols breath or blood,45.00,true,Lab
+c575,82977,CPT,GGT,Gamma glutamyltransferase,25.00,true,Lab
+c576,83718,CPT,HDL Cholesterol,Lipoprotein direct HDL cholesterol,35.00,true,Lab
+c577,83721,CPT,LDL Cholesterol,Lipoprotein direct LDL cholesterol,35.00,true,Lab
+c578,82465,CPT,Cholesterol Total,Cholesterol serum or whole blood total,25.00,true,Lab
+c579,84478,CPT,Triglycerides,Triglycerides,30.00,true,Lab
+c580,80061,CPT,Lipid Panel,Lipid panel total cholesterol HDL LDL triglycerides,95.00,true,Lab
+c581,82330,CPT,Calcium Ionized,Calcium ionized,45.00,true,Lab
+c582,83970,CPT,Parathyroid Hormone PTH,Parathormone PTH intact,95.00,true,Lab
+c583,83525,CPT,Insulin,Insulin,65.00,true,Lab
+c584,83527,CPT,Insulin Free,Insulin free,85.00,true,Lab
+c585,84681,CPT,C-Peptide,C-peptide,95.00,true,Lab
+c586,83090,CPT,Homocysteine,Homocysteine,85.00,true,Lab
+c587,82127,CPT,Amino Acids Single,Amino acid single quantitative,75.00,true,Lab
+c588,82131,CPT,Amino Acids Qualitative,Amino acids qualitative multiple,125.00,true,Lab
+c589,82136,CPT,Amino Acids 6 or More,Amino acids 6 or more quantitative,285.00,true,Lab
+c590,84155,CPT,Protein Total Serum,Protein total serum,20.00,true,Lab
+c591,84165,CPT,Protein Electrophoresis,Protein electrophoresis serum,75.00,true,Lab
+c592,86334,CPT,Immunofix Electrophoresis,Immunofixation electrophoresis serum,125.00,true,Lab
+c593,82803,CPT,Blood Gas Any Combination,Blood gas any combination,85.00,true,Lab
+c594,82805,CPT,Blood Gas with O2 Saturation,Blood gas with O2 saturation,95.00,true,Lab
+c595,83605,CPT,Lactate,Lactic acid lactate,35.00,true,Lab
+c596,82507,CPT,Citrate,Citrate,55.00,true,Lab
+c597,83915,CPT,Nucleotidase,Nucleotidase 5-prime,45.00,true,Lab
+c598,83945,CPT,Oxalate,Oxalate,65.00,true,Lab
+c599,82693,CPT,Ethylene Glycol,Ethylene glycol,95.00,true,Lab
+c600,80299,CPT,Drug Quantitative NOS,Quantitation of therapeutic drug not otherwise specified,85.00,true,Lab
