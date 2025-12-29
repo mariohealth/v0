@@ -1,0 +1,39 @@
+
+> frontend@0.1.0 build
+> next build
+
+ ⚠ Specified "rewrites" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes
+ ⚠ Specified "rewrites" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ⚠ Specified "rewrites" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes
+ ⚠ Specified "rewrites" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes
+ ⚠ Specified "rewrites" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes
+ ✓ Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/54) ...
+   Generating static pages (13/54) 
+ ⨯ useSearchParams() should be wrapped in a suspense boundary at page "/orgs/[id]". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at i (/Users/az/Projects/mario-health/frontend/.next/server/chunks/969.js:1:13968)
+    at c (/Users/az/Projects/mario-health/frontend/.next/server/chunks/969.js:1:24904)
+    at u (/Users/az/Projects/mario-health/frontend/.next/server/app/orgs/[id]/page.js:1:4285)
+    at nj (/Users/az/Projects/mario-health/frontend/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:46252)
+    at nM (/Users/az/Projects/mario-health/frontend/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:47572)
+    at nM (/Users/az/Projects/mario-health/frontend/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:61547)
+    at nN (/Users/az/Projects/mario-health/frontend/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64547)
+    at nB (/Users/az/Projects/mario-health/frontend/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:67539)
+    at nD (/Users/az/Projects/mario-health/frontend/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:66681)
+    at nN (/Users/az/Projects/mario-health/frontend/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:64854)
+
+Error occurred prerendering page "/orgs/placeholder". Read more: https://nextjs.org/docs/messages/prerender-error
+
+   Generating static pages (26/54) 
+   Generating static pages (40/54) 
+ ✓ Generating static pages (54/54)
+
+> Export encountered errors on following paths:
+	/orgs/[id]/page: /orgs/placeholder
