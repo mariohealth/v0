@@ -49,7 +49,13 @@ from app.models.specialty import (
     NuccSpecialtiesResponse,
     Specialty,
     SpecialtiesResponse,
-    SpecialtyDetailsResponse
+    SpecialtyDetailsResponse,
+    SpecialtyProvider,
+    SpecialtyProvidersResponse,
+    SpecialtyProvidersMetadata,
+    SpecialtyInfo,
+    ProviderLocation,
+    ProviderPricing
 )
 
 # User preferences models
@@ -95,6 +101,12 @@ __all__ = [
     "Specialty",
     "SpecialtiesResponse",
     "SpecialtyDetailsResponse",
+    "SpecialtyProvider",
+    "SpecialtyProvidersResponse",
+    "SpecialtyProvidersMetadata",
+    "SpecialtyInfo",
+    "ProviderLocation",
+    "ProviderPricing",
     # User preferences
     "SavedLocation",
     "Notifications",
