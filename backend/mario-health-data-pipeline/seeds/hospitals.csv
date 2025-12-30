@@ -16,7 +16,7 @@ nyc_015,NYU Langone Hospital - Brooklyn,SYS_NYULANGONE,150 55th St,Brooklyn,NY,1
 nyc_016,NYU Langone Hospital - Long Island,SYS_NYULANGONE,259 1st St,Mineola,NY,11501,40.740986,-73.643092,+15166630333,Community Hospital,active
 nyc_017,NewYork-Presbyterian Allen Hospital,SYS_NYP,5141 Broadway,New York,NY,10034,40.873348,-73.913017,+12129324000,?,active
 nyc_018,NewYork-Presbyterian Lower Manhattan Hospital,SYS_NYP,170 William St,New York,NY,10038,40.710079,-74.004860,+12123125000,?,active
-nyc_019,"NYU Langone Orthopedic Hospital",SYS_NYULANGONE,301 E 17th St,New York,NY,10003,,,+12125986000,?,active
+nyc_019,"NYU Langone Orthopedic Hospital",SYS_NYULANGONE,301 E 17th St,New York,NY,10003,40.734025,-73.982851,+12125986000,?,active
 sf_001,UCSF Medical Center,SYS_UCSF,505 Parnassus Ave,San Francisco,CA,94143,37.763123,-122.457823,+14154761000,Academic Medical Center,active
 sf_002,Stanford Health Care,SYS_STANFORD,300 Pasteur Dr,Stanford,CA,94304,37.434033,-122.180740,+16507234000,Academic Medical Center,active
 sf_003,California Pacific Medical Center,SYS_SUTTER,3555 Cesar Chavez St,San Francisco,CA,94110,37.747807,-122.420583,+14156006000,Community Hospital,active
@@ -28,6 +28,6 @@ sf_008,Kaiser Permanente San Francisco Medical Center,SYS_KAISER_NCA,2425 Geary 
 sf_009,Mills-Peninsula Medical Center,SYS_SUTTER,1501 Trousdale Dr,Burlingame,CA,94010,37.594392,-122.383214,+16506965400,Community Hospital,active
 sf_010,UCSF Health Hyde Hospital,SYS_UCSF,900 Hyde St,San Francisco,CA,94109,37.7896437,-122.4165414,+14153536000,Community Hospital,active
 sf_011,Zuckerberg San Francisco General Hospital,SYS_SFHEALTH,1001 Potrero Ave,San Francisco,CA,94110,37.7568103,-122.4052532,+16282068000,Public Hospital,active
-sf_012,"California Pacific Medical Center, Davies Campus",SYS_SUTTER,601 Duboce Ave,San Francisco,CA,94114,,,+14156006000,Community Hospital,active
-sf_013,"California Pacific Medical Center, Van Ness Campus",SYS_SUTTER,1101 Van Ness Ave,San Francisco,CA,94109,,,+14156006000,Community Hospital,active
-sf_014,"UCSF Health Stanyan Hospital",SYS_UCSF,450 Stanyan St,San Francisco,CA,94117,,,+14156681000,Community Hospital,active
+sf_012,"California Pacific Medical Center, Davies Campus",SYS_SUTTER,601 Duboce Ave,San Francisco,CA,94114,37.768783,-122.434591,+14156006000,Community Hospital,active
+sf_013,"California Pacific Medical Center, Van Ness Campus",SYS_SUTTER,1101 Van Ness Ave,San Francisco,CA,94109,37.786286,-122.421884,+14156006000,Community Hospital,active
+sf_014,"UCSF Health Stanyan Hospital",SYS_UCSF,450 Stanyan St,San Francisco,CA,94117,37.774092,-122.453707,+14156681000,Community Hospital,active
