@@ -103,8 +103,6 @@ sf_003,California Pacific Medical Center,official
 sf_003,CPMC,abbreviation
 sf_003,Cal Pacific Medical Center,common
 sf_003,California Pacific,short
-sf_003,CPMC Van Ness,campus
-sf_003,CPMC Davies,campus
 sf_003,CPMC Mission Bernal,campus
 sf_003,Cal Pac Med Ctr,short
 sf_004,UCSF Benioff Children's Hospitals,official
@@ -144,3 +142,7 @@ sf_011,San Francisco General,common
 sf_011,ZSFG,abbreviation
 sf_011,SF Gen,short
 sf_011,Zuckerberg General,common
+sf_012,CPMC Davies,campus
+sf_013,CPMC Van Ness,campus
+sf_014,Saint Mary's,common
+sf_014,St Mary's,common
