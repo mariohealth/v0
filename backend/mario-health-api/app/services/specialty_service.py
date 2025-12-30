@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from supabase import Client
 from decimal import Decimal
 from typing import Optional
+import os
 from app.models import (
     NuccSpecialty,
     Specialty,
@@ -13,6 +14,10 @@ from app.models import (
     SpecialtyProvidersMetadata,
     ProviderLocation,
     ProviderPricing,
+)
+
+USE_PROVIDER_SEARCH_MV = (
+    os.getenv("USE_PROVIDER_SEARCH_MV", "false").lower() in ("1", "true", "yes", "on")
 )
 
 
@@ -92,7 +97,7 @@ class SpecialtyService:
         limit: int = 20,
     ) -> SpecialtyProvidersResponse:
         """Fetch providers for a specialty with location filtering and pricing.
-        
+
         Query flow:
         1. Validate specialty exists
         2. Resolve zip code to coordinates
@@ -101,24 +106,25 @@ class SpecialtyService:
         5. Calculate haversine distance and filter by radius
         6. Sort by distance, limit to top N
         7. Join pricing data via organization (org_id)
-        
+        8. Optional: if USE_PROVIDER_SEARCH_MV is enabled, read from provider_search_mv
+
         Pricing model:
         - Pricing is stored at ORGANIZATION/FACILITY level (procedure_pricing.org_id)
         - Providers work at organizations (provider_location.org_id)
         - Multiple providers at same facility share same pricing
         - Pricing may be null if no data exists for that organization
-        
+
         Edge cases handled:
         - Providers with no location data (skipped)
         - All providers outside search radius (empty results)
         - Organizations with no pricing data (pricing=null)
-        
+
         Args:
             specialty_slug: Specialty identifier (e.g., 'cardiologist')
             zip_code: Search center ZIP code (required)
             radius_miles: Search radius in miles (default: 25, max: 100)
             limit: Max providers to return (default: 20, max: 100)
-            
+
         Returns:
             SpecialtyProvidersResponse with providers sorted by distance
         """
@@ -213,7 +219,7 @@ class SpecialtyService:
         3. Getting all locations for those providers (1 query)
         4. Getting all pricing for representative procedure (1 query)
         5. Aggregating and filtering in Python
-        
+
         Returns:
             Tuple of (providers_list, total_found_within_radius)
         """
@@ -248,22 +254,36 @@ class SpecialtyService:
 
         # Get providers with matching specialty_id (which corresponds to taxonomy_id)
         # Fetch more than needed to account for distance filtering
-        provider_result = (
-            self.supabase.table("provider")
-            .select("provider_id, first_name, last_name, credential, specialty_id")
-            .in_("specialty_id", taxonomy_codes)
-            .limit(limit * 10)  # Fetch more to account for distance filtering
-            .execute()
-        )
+        if USE_PROVIDER_SEARCH_MV:
+            provider_result = (
+                self.supabase.table("provider_search_mv")
+                .select(
+                    "provider_id, first_name, last_name, credential, specialty_id, "
+                    "org_id, provider_name, address, city, state, zip_code, latitude, longitude"
+                )
+                .in_("specialty_id", taxonomy_codes)
+                .limit(limit * 10)  # align with non-MV path
+                .execute()
+            )
+        else:
+            provider_result = (
+                self.supabase.table("provider")
+                .select("provider_id, first_name, last_name, credential, specialty_id")
+                .in_("specialty_id", taxonomy_codes)
+                .limit(limit * 10)  # Fetch more to account for distance filtering
+                .execute()
+            )
 
         if not provider_result.data:
             # Log when no providers found for specialty
             from app.middleware.logging import log_structured
+
             log_structured(
                 severity="INFO",
                 message="No providers found for specialty",
                 specialty_id=specialty_id,
                 taxonomy_codes=taxonomy_codes,
+                use_provider_search_mv=USE_PROVIDER_SEARCH_MV,
             )
             return [], 0
 
@@ -297,31 +317,45 @@ class SpecialtyService:
 
         # Get provider locations (including org_id for pricing join)
         # Apply bounding box prefilter for performance
-        location_result = (
-            self.supabase.table("provider_location")
-            .select(
-                "provider_id, provider_name, org_id, address, city, state, zip_code, latitude, longitude"
+        if USE_PROVIDER_SEARCH_MV:
+            # Data already includes location/org info; apply bbox in-memory
+            location_rows = [
+                row
+                for row in provider_result.data
+                if row.get("latitude") is not None
+                and row.get("longitude") is not None
+                and min_lat <= float(row["latitude"]) <= max_lat
+                and min_lng <= float(row["longitude"]) <= max_lng
+            ]
+        else:
+            location_result = (
+                self.supabase.table("provider_location")
+                .select(
+                    "provider_id, provider_name, org_id, address, city, state, zip_code, latitude, longitude"
+                )
+                .in_("provider_id", provider_ids)
+                .gte("latitude", min_lat)
+                .lte("latitude", max_lat)
+                .gte("longitude", min_lng)
+                .lte("longitude", max_lng)
+                .execute()
             )
-            .in_("provider_id", provider_ids)
-            .gte("latitude", min_lat)
-            .lte("latitude", max_lat)
-            .gte("longitude", min_lng)
-            .lte("longitude", max_lng)
-            .execute()
-        )
-        
-        bbox_filtered_count = len(location_result.data)
-        
+            location_rows = location_result.data
+
+        bbox_filtered_count = len(location_rows)
+
         # Log if providers have no location data (graceful degradation)
         providers_without_location = candidate_provider_count - bbox_filtered_count
         if providers_without_location > 0:
             from app.middleware.logging import log_structured
+
             log_structured(
                 severity="WARNING",
                 message="Providers without location data",
                 specialty_id=specialty_id,
                 providers_without_location=providers_without_location,
                 candidate_providers=candidate_provider_count,
+                use_provider_search_mv=USE_PROVIDER_SEARCH_MV,
             )
 
         # Calculate distances and filter by radius
@@ -343,7 +377,7 @@ class SpecialtyService:
             return R * c
 
         nearby_locations = []
-        for loc in location_result.data:
+        for loc in location_rows:
             if loc.get("latitude") and loc.get("longitude"):
                 distance = haversine_distance(
                     search_lat,
@@ -377,6 +411,7 @@ class SpecialtyService:
 
         # Log search funnel metrics
         from app.middleware.logging import log_structured
+
         log_structured(
             severity="INFO",
             message="Specialty provider search funnel",
@@ -387,6 +422,7 @@ class SpecialtyService:
             returned_after_limit=len(nearby_locations),
             search_radius_miles=radius_miles,
             limit=limit,
+            use_provider_search_mv=USE_PROVIDER_SEARCH_MV,
         )
 
         # Collect org_ids (not provider_ids) for pricing join
