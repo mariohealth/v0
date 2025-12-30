@@ -4,6 +4,9 @@
   )
 }}
 
+-- this table doesn't include all billing codes but only the ones included in procedure_billing_code to make the size
+--of the table more manageable
+
 WITH t0 AS (
     SELECT DISTINCT code, code_type
     FROM {{ ref('procedure_billing_code') }}
