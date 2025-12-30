@@ -151,6 +151,12 @@ class SpecialtyService:
             limit=limit,
         )
 
+        # Calculate pricing coverage for metadata
+        providers_with_pricing = sum(1 for p in providers if p.pricing is not None)
+        pricing_coverage_pct = (
+            round(providers_with_pricing / len(providers) * 100, 1) if providers else 0.0
+        )
+        
         return SpecialtyProvidersResponse(
             specialty=SpecialtyInfo(
                 id=specialty_data["id"],
@@ -159,7 +165,10 @@ class SpecialtyService:
             ),
             providers=providers,
             metadata=SpecialtyProvidersMetadata(
-                total_results=len(providers), search_radius=radius_miles
+                total_results=len(providers),
+                search_radius=radius_miles,
+                providers_with_pricing=providers_with_pricing,
+                pricing_coverage_pct=pricing_coverage_pct,
             ),
         )
 
@@ -237,13 +246,30 @@ class SpecialtyService:
         if not provider_ids:
             return []
 
+        # Calculate bounding box for performance optimization
+        # Approximate: 1 degree latitude ≈ 69 miles, 1 degree longitude ≈ 69 * cos(lat) miles
+        from math import cos, radians
+        
+        lat_delta = radius_miles / 69.0
+        lng_delta = radius_miles / (69.0 * abs(cos(radians(search_lat))))
+        
+        min_lat = search_lat - lat_delta
+        max_lat = search_lat + lat_delta
+        min_lng = search_lon - lng_delta
+        max_lng = search_lon + lng_delta
+
         # Get provider locations (including org_id for pricing join)
+        # Apply bounding box prefilter for performance
         location_result = (
             self.supabase.table("provider_location")
             .select(
                 "provider_id, provider_name, org_id, address, city, state, zip_code, latitude, longitude"
             )
             .in_("provider_id", provider_ids)
+            .gte("latitude", min_lat)
+            .lte("latitude", max_lat)
+            .gte("longitude", min_lng)
+            .lte("longitude", max_lng)
             .execute()
         )
 
@@ -278,7 +304,9 @@ class SpecialtyService:
                     nearby_locations.append(
                         {
                             "provider_id": loc["provider_id"],
-                            "org_id": loc.get("org_id"),  # Include org_id for pricing join
+                            "org_id": loc.get(
+                                "org_id"
+                            ),  # Include org_id for pricing join
                             "provider_name": loc.get("provider_name")
                             or provider_name_map.get(
                                 loc["provider_id"], "Unknown Provider"
@@ -335,7 +363,7 @@ class SpecialtyService:
         # Build final provider list
         providers = []
         providers_with_pricing = 0
-        
+
         for loc in nearby_locations:
             provider_id = loc["provider_id"]
             org_id = loc.get("org_id")
@@ -370,13 +398,18 @@ class SpecialtyService:
 
         # Debug logging
         from app.middleware.logging import log_structured
+
         log_structured(
             severity="INFO",
             message="Specialty provider pricing aggregation",
             specialty_id=specialty_id,
             total_providers=len(providers),
             providers_with_pricing=providers_with_pricing,
-            pricing_coverage_pct=round(providers_with_pricing / len(providers) * 100, 1) if providers else 0,
+            pricing_coverage_pct=(
+                round(providers_with_pricing / len(providers) * 100, 1)
+                if providers
+                else 0
+            ),
         )
 
         return providers

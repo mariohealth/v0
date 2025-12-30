@@ -112,6 +112,8 @@ class SpecialtyProvidersMetadata(BaseModel):
     """Metadata for specialty providers search."""
     total_results: int
     search_radius: int
+    providers_with_pricing: int
+    pricing_coverage_pct: float
 
 
 class SpecialtyProvidersResponse(BaseModel):
