@@ -27,14 +27,13 @@ async function fetchSpecialtyProviders(
   searchParams: PageProps['searchParams']
 ): Promise<SpecialtyProvidersResponse> {
   const base = getApiBaseUrl();
-  const params = new URLSearchParams();
-  if (searchParams.zip_code) params.set('zip_code', searchParams.zip_code);
-  if (searchParams.radius_miles) params.set('radius_miles', searchParams.radius_miles);
-  params.set('offset', searchParams.offset ?? '0');
-  params.set('limit', searchParams.limit ?? '20');
+  const url = new URL(`/api/v1/specialties/${slug}/providers`, base);
+  if (searchParams.zip_code) url.searchParams.set('zip_code', searchParams.zip_code);
+  if (searchParams.radius_miles) url.searchParams.set('radius_miles', searchParams.radius_miles);
+  url.searchParams.set('offset', searchParams.offset ?? '0');
+  url.searchParams.set('limit', searchParams.limit ?? '20');
 
-  const url = `${base}/specialties/${slug}/providers?${params.toString()}`;
-  const res = await fetch(url, { cache: 'no-store' });
+  const res = await fetch(url.toString(), { cache: 'no-store' });
 
   if (res.status === 404) {
     throw new Error('Specialty not found');

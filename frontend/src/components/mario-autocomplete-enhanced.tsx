@@ -621,15 +621,15 @@ export async function getAutocompleteSuggestions(query: string): Promise<Autocom
 
   // Filter specialties client-side using fuzzy case-insensitive match on display_name
   const matchedSpecialties = allSpecialties
-    .filter(specialty =>
-      specialty.display_name.toLowerCase().includes(lowerQuery)
+    .filter((specialty) =>
+      (specialty.name || '').toLowerCase().includes(lowerQuery)
     )
-    .map(specialty => ({
+    .map((specialty) => ({
       id: `specialty-${specialty.slug}`,
       type: 'specialty' as AutocompleteCategory,
-      primaryText: specialty.display_name,
+      primaryText: specialty.name,
       secondaryText: specialty.grouping || undefined,
-      specialtyId: specialty.slug // use slug for routing
+      specialtyId: specialty.slug, // use slug for routing
     }));
 
   // Add specialties FIRST
