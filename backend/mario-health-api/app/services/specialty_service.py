@@ -265,6 +265,7 @@ class SpecialtyService:
                     "org_id, provider_name, address, city, state, zip_code, latitude, longitude"
                 )
                 .in_("specialty_id", taxonomy_codes)
+                .order("provider_id")
                 .limit(limit * 10)  # align with non-MV path
                 .execute()
             )
@@ -273,6 +274,7 @@ class SpecialtyService:
                 self.supabase.table("provider")
                 .select("provider_id, first_name, last_name, credential, specialty_id")
                 .in_("specialty_id", taxonomy_codes)
+                .order("provider_id")
                 .limit(limit * 10)  # Fetch more to account for distance filtering
                 .execute()
             )
@@ -317,6 +319,21 @@ class SpecialtyService:
         max_lat = search_lat + lat_delta
         min_lng = search_lon - lng_delta
         max_lng = search_lon + lng_delta
+
+        # Debug logging for bbox and zip resolution (helps diagnose radius anomalies)
+        from app.middleware.logging import log_structured
+        log_structured(
+            severity="INFO",
+            message="Specialty provider bbox debug",
+            specialty_id=specialty_id,
+            search_lat=search_lat,
+            search_lon=search_lon,
+            radius_miles=radius_miles,
+            min_lat=min_lat,
+            max_lat=max_lat,
+            min_lng=min_lng,
+            max_lng=max_lng,
+        )
 
         # Get provider locations (including org_id for pricing join)
         # Apply bounding box prefilter for performance
@@ -412,7 +429,7 @@ class SpecialtyService:
         total_within_radius = len(nearby_locations)
         nearby_locations = nearby_locations[:limit]
 
-        # Log search funnel metrics
+        # Log search funnel metrics (counts should be monotonic w.r.t radius)
         from app.middleware.logging import log_structured
 
         log_structured(
