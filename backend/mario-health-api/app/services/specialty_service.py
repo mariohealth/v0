@@ -180,9 +180,10 @@ class SpecialtyService:
         
         This still avoids N+1 queries by:
         1. Getting all taxonomy codes for specialty (1 query)
-        2. Getting all nearby providers (1 query with geography filter)
-        3. Getting all pricing for representative procedure (1 query)
-        4. Aggregating in Python
+        2. Getting all providers with matching specialty_id (1 query)
+        3. Getting all locations for those providers (1 query)
+        4. Getting all pricing for representative procedure (1 query)
+        5. Aggregating and filtering in Python
         """
         
         # Get taxonomy codes for this specialty
@@ -213,31 +214,37 @@ class SpecialtyService:
         if proc_map_result.data:
             representative_procedure_id = proc_map_result.data[0]["procedure_id"]
         
-        # Note: PostgREST doesn't support ST_Distance directly in filters
-        # We'll need to fetch more providers and filter/sort in Python
-        # This is a limitation of the fallback approach
-        
-        # Get providers with matching taxonomy
-        # We'll fetch more than needed and filter by distance in Python
+        # Get providers with matching specialty_id (which corresponds to taxonomy_id)
+        # Fetch more than needed to account for distance filtering
         provider_result = (
             self.supabase.table("provider")
-            .select("npi, name, taxonomy_code")
-            .in_("taxonomy_code", taxonomy_codes)
+            .select("provider_id, first_name, last_name, credential, specialty_id")
+            .in_("specialty_id", taxonomy_codes)
             .limit(limit * 10)  # Fetch more to account for distance filtering
             .execute()
         )
         
-        provider_npis = [p["npi"] for p in provider_result.data]
-        provider_map = {p["npi"]: p["name"] for p in provider_result.data}
+        if not provider_result.data:
+            return []
         
-        if not provider_npis:
+        provider_ids = [p["provider_id"] for p in provider_result.data]
+        
+        # Build provider name map (first_name + last_name + credential)
+        provider_name_map = {}
+        for p in provider_result.data:
+            name_parts = [p.get("first_name", ""), p.get("last_name", "")]
+            if p.get("credential"):
+                name_parts.append(p["credential"])
+            provider_name_map[p["provider_id"]] = " ".join(filter(None, name_parts)).strip() or "Unknown Provider"
+        
+        if not provider_ids:
             return []
         
         # Get provider locations
         location_result = (
             self.supabase.table("provider_location")
-            .select("npi, address_line_1, city, state, zip_code, latitude, longitude")
-            .in_("npi", provider_npis)
+            .select("provider_id, provider_name, address, city, state, zip_code, latitude, longitude")
+            .in_("provider_id", provider_ids)
             .execute()
         )
         
@@ -266,8 +273,9 @@ class SpecialtyService:
                 )
                 if distance <= radius_miles:
                     nearby_locations.append({
-                        "npi": loc["npi"],
-                        "address": loc.get("address_line_1"),
+                        "provider_id": loc["provider_id"],
+                        "provider_name": loc.get("provider_name") or provider_name_map.get(loc["provider_id"], "Unknown Provider"),
+                        "address": loc.get("address"),
                         "city": loc.get("city"),
                         "state": loc.get("state"),
                         "zip_code": loc.get("zip_code"),
@@ -278,9 +286,9 @@ class SpecialtyService:
         nearby_locations.sort(key=lambda x: x["distance"])
         nearby_locations = nearby_locations[:limit]
         
-        final_npis = [loc["npi"] for loc in nearby_locations]
+        final_provider_ids = [loc["provider_id"] for loc in nearby_locations]
         
-        if not final_npis:
+        if not final_provider_ids:
             return []
         
         # Get pricing for these providers (single query)
@@ -290,7 +298,7 @@ class SpecialtyService:
                 self.supabase.table("procedure_pricing")
                 .select("provider_id, price")
                 .eq("procedure_id", representative_procedure_id)
-                .in_("provider_id", final_npis)
+                .in_("provider_id", final_provider_ids)
                 .execute()
             )
             
@@ -310,7 +318,7 @@ class SpecialtyService:
         # Build final provider list
         providers = []
         for loc in nearby_locations:
-            npi = loc["npi"]
+            provider_id = loc["provider_id"]
             
             location = ProviderLocation(
                 address=loc.get("address"),
@@ -321,8 +329,8 @@ class SpecialtyService:
             )
             
             pricing = None
-            if npi in pricing_map:
-                p = pricing_map[npi]
+            if provider_id in pricing_map:
+                p = pricing_map[provider_id]
                 pricing = ProviderPricing(
                     min_price=Decimal(str(p["min_price"])),
                     max_price=Decimal(str(p["max_price"])),
@@ -330,8 +338,8 @@ class SpecialtyService:
                 )
             
             providers.append(SpecialtyProvider(
-                provider_id=npi,
-                provider_name=provider_map.get(npi, "Unknown Provider"),
+                provider_id=provider_id,
+                provider_name=loc["provider_name"],
                 location=location,
                 pricing=pricing
             ))
