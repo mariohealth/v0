@@ -22,7 +22,7 @@ export interface AutocompleteSuggestion {
   hospital?: HospitalInfo;
   medication?: MedicationData;
   procedureSlug?: string;
-  specialtyId?: string;
+  specialtyId?: string; // use slug for routing
   metadata?: any;
 }
 
@@ -54,9 +54,21 @@ export function MarioAutocompleteEnhanced({
       return;
     }
 
-    // Check if this is a specialty result from API (has specialtyId and type is 'specialty')
+    // Specialty selection: route to /specialties/{slug}?zip_code={userZipCode?}
     if (suggestion.type === 'specialty' && suggestion.specialtyId) {
-      router.push(`/specialties/${suggestion.specialtyId}`);
+      // Try localStorage for a saved zip code
+      let zipParam = '';
+      try {
+        const storedZip = localStorage.getItem('userZipCode');
+        if (storedZip && storedZip.trim().length > 0) {
+          zipParam = `?zip_code=${encodeURIComponent(storedZip.trim())}`;
+        }
+      } catch (e) {
+        // ignore
+      }
+
+      // Route using slug (specialtyId here represents slug from API)
+      router.push(`/specialties/${suggestion.specialtyId}${zipParam}`);
       return;
     }
 
@@ -613,11 +625,11 @@ export async function getAutocompleteSuggestions(query: string): Promise<Autocom
       specialty.display_name.toLowerCase().includes(lowerQuery)
     )
     .map(specialty => ({
-      id: `specialty-${specialty.id}`,
+      id: `specialty-${specialty.slug}`,
       type: 'specialty' as AutocompleteCategory,
       primaryText: specialty.display_name,
       secondaryText: specialty.grouping || undefined,
-      specialtyId: specialty.id
+      specialtyId: specialty.slug // use slug for routing
     }));
 
   // Add specialties FIRST
