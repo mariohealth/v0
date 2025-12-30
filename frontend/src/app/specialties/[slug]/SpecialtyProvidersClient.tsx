@@ -173,6 +173,9 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold">{specialty.name}</h1>
         {rangeText && <p className="text-sm text-muted-foreground">{rangeText}</p>}
+        <p className="text-xs text-muted-foreground">
+          Pricing is shown at the facility (organization) level. Providers at the same location may share the same pricing.
+        </p>
         {hasPartialPricing && (
           <p className="text-sm text-muted-foreground">
             Pricing available for {metadata.providers_with_pricing} of {metadata.total_providers_found} providers.
