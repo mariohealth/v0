@@ -1,20 +1,11 @@
 id,name,slug,description,primary_cpt_code,category,global_period_days,is_active,typical_setting,estimated_duration_hours
 b001,Vaginal Delivery - Global,vaginal-delivery-global,Complete obstetric care including antepartum delivery and postpartum,59400,Obstetric,0,true,Inpatient,48
-b002,Vaginal Delivery - Delivery Only,vaginal-delivery-only,Delivery and immediate postpartum care only,59409,Obstetric,0,true,Inpatient,24
 b003,Total Knee Replacement - Inpatient,tka-inpatient,Total knee arthroplasty with hospital admission,27447,Orthopedic,90,true,Inpatient,72
-b004,Total Knee Replacement - Outpatient,tka-outpatient,Same-day discharge total knee arthroplasty,27447,Orthopedic,90,true,Outpatient,8
 b005,ER Visit - High Complexity,er-visit-high,Emergency department visit level 5 life-threatening,99285,Emergency,0,true,Emergency,4
 b006,Colonoscopy - Screening,colonoscopy-screening,Screening colonoscopy average risk patient,45378,GI,0,true,Outpatient,2
-b007,Colonoscopy - Diagnostic,colonoscopy-diagnostic,Diagnostic colonoscopy with likely polypectomy,45378,GI,0,true,Outpatient,2
 b008,Appendectomy - Laparoscopic,appendectomy-lap,Laparoscopic appendectomy uncomplicated,44970,General Surgery,90,true,Inpatient,24
-b009,Appendectomy - Complicated,appendectomy-complicated,Appendectomy for ruptured or complicated appendicitis,44970,General Surgery,90,true,Inpatient,72
 b010,Cholecystectomy - Laparoscopic,cholecystectomy-lap,Laparoscopic gallbladder removal,47562,General Surgery,90,true,Outpatient,8
-b011,Cholecystectomy - With Cholangiography,cholecystectomy-chol,Lap cholecystectomy with intraoperative imaging,47563,General Surgery,90,true,Outpatient,10
 b012,Cataract Surgery - Standard,cataract-standard,Standard phacoemulsification with IOL,66984,Ophthalmology,90,true,Outpatient,3
-b013,Cataract Surgery - Premium IOL,cataract-premium,Cataract surgery with premium multifocal or toric IOL,66984,Ophthalmology,90,true,Outpatient,3
 b014,Upper Endoscopy - Diagnostic,egd-diagnostic,Diagnostic esophagogastroduodenoscopy,43235,GI,0,true,Outpatient,1
-b015,Upper Endoscopy - With Biopsy,egd-biopsy,EGD with tissue biopsy,43239,GI,0,true,Outpatient,1
 b016,Inguinal Hernia Repair - Open,hernia-open,Open inguinal hernia repair with mesh,49505,General Surgery,90,true,Outpatient,4
-b017,Inguinal Hernia Repair - Laparoscopic,hernia-lap,Laparoscopic inguinal hernia repair,49650,General Surgery,90,true,Outpatient,4
 b018,Carpal Tunnel Release - Open,carpal-tunnel-open,Open carpal tunnel release,64721,Hand Surgery,90,true,Outpatient,2
-b019,Carpal Tunnel Release - Endoscopic,carpal-tunnel-endo,Endoscopic carpal tunnel release,29848,Hand Surgery,90,true,Outpatient,2

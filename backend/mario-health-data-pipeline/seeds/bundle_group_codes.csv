@@ -197,7 +197,6 @@ bgc210,bg072,c278,sometimes,false,2,Toric IOL for astigmatism - patient pays dif
 bgc211,bg072,c279,sometimes,false,3,Premium multifocal IOL - patient pays difference,false
 bgc212,bg073,c309,usually,true,1,Viscoelastic substance used during surgery,false
 bgc213,bg073,c307,sometimes,false,2,Steroid injection to reduce inflammation,false
-bgc214,bg073,c304,usually,true,3,Local anesthetic,false
 bgc215,bg074,c286,always,true,1,Post-op day 1 exam,false
 bgc216,bg074,c286,always,true,2,1-week post-op exam,false
 bgc217,bg074,c287,always,true,3,1-month post-op exam with refraction,false
@@ -229,7 +228,6 @@ bgc245,bg086,c147,always,true,2,BMP for kidney function,false
 bgc246,bg086,c015,always,true,3,Blood draw fee,false
 bgc247,bg087,c329,usually,true,1,Surgical mesh implant,false
 bgc248,bg088,c153,always,true,1,Prophylactic antibiotic,false
-bgc249,bg088,c159,usually,true,2,Local anesthetic injection,false
 bgc250,bg089,c069,usually,true,1,Post-op visit wound check,false
 bgc251,bg089,c070,sometimes,false,2,Post-op visit if complex follow-up,false
 bgc252,bg090,c138,sometimes,false,1,SURPRISE: Manual therapy if PT ordered,true
@@ -247,7 +245,6 @@ bgc265,bg094,c359,sometimes,false,4,EMG complete study,false
 bgc266,bg095,c352,sometimes,false,1,Wrist x-ray if arthritis suspected,false
 bgc267,bg095,c355,rarely,false,2,MRI if diagnosis uncertain,false
 bgc268,bg096,c153,usually,true,1,Prophylactic antibiotic,false
-bgc269,bg096,c159,always,true,2,Local anesthetic,false
 bgc270,bg097,c069,usually,true,1,Post-op wound check visit,false
 bgc271,bg097,c427,sometimes,false,2,Splint application,false
 bgc272,bg098,c361,sometimes,false,1,SURPRISE: Extensive NCS billed when simpler would suffice,true
