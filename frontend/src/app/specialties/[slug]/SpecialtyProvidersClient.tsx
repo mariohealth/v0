@@ -125,7 +125,6 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
         <div className="space-y-4">
           {providers.map((p) => {
             const distance = formatDistance(p.location.distance_miles);
-            const priceInfo = formatPrice(p.pricing);
             return (
               <ProviderCard
                 key={p.provider_id}
@@ -133,9 +132,13 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
                 specialty={specialty.name}
                 distance={distance}
                 inNetwork={false}
-                price={priceInfo.price}
-                comparedToMedian={priceInfo.compared}
+                pricing={p.pricing}
                 savingsText={p.pricing ? undefined : 'Pricing unavailable'}
+                addressLine={p.location.address || undefined}
+                city={p.location.city || undefined}
+                state={p.location.state || undefined}
+                zip={p.location.zip_code || undefined}
+                linkHref={`/providers/${p.provider_id}`}
                 onBook={() => router.push(`/providers/${p.provider_id}`)}
               />
             );
