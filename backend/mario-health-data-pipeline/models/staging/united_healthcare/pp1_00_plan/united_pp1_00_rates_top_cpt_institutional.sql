@@ -16,7 +16,7 @@ WITH t0 AS (
         rates.negotiated_prices,
         rates.provider_references,
 
-    FROM {{ ref('united_pp1_00_rates_top_cpt') }} AS source -- when using this smaller input the resulting table is 180k rows 1.7 GiB, good enough for MVP
+    FROM {{ ref('united_pp1_00_rates_top_cpt') }} AS source -- when using this smaller input the resulting table is 180k rows 918 MiB, good enough for MVP
 --    FROM {{ source('mario-mrf-data', 'uhc_apple_in_network_rates') }} AS source -- when using the full input the resulting table is 45.9m rows 73.2 GiB, too big for MVP
         , UNNEST(negotiated_rates) AS rates
 ),
