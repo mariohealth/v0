@@ -96,6 +96,19 @@ interface Props {
   };
 }
 
+function normalizeSearchParams(input: Props['searchParams']) {
+  // Ensure consistent numeric values; defaults applied only when absent.
+  const toNumber = (value: number | undefined, fallback: number) =>
+    typeof value === 'number' && Number.isFinite(value) ? value : fallback;
+
+  return {
+    zip: input.zip_code,
+    radius: toNumber(input.radius_miles, 25),
+    offset: toNumber(input.offset, 0),
+    limit: toNumber(input.limit, 20),
+  };
+}
+
 function formatDistance(distance?: number | null) {
   if (distance === null || distance === undefined) return '—';
   return `${distance.toFixed(1)} mi`;
@@ -120,10 +133,7 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
     });
   }
   const { specialty } = data;
-  const offset = searchParams.offset ?? 0;
-  const limit = searchParams.limit ?? 20;
-  const zip = searchParams.zip_code;
-  const radius = searchParams.radius_miles ?? metadata.search_radius;
+  const { offset, limit, zip, radius } = normalizeSearchParams(searchParams);
   const [isPending, startTransition] = useTransition();
 
   const hasPartialPricing = metadata.pricing_coverage_pct < 100;
