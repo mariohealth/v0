@@ -16,8 +16,11 @@ from app.models import (
     ProviderPricing,
 )
 
-USE_PROVIDER_SEARCH_MV = (
-    os.getenv("USE_PROVIDER_SEARCH_MV", "false").lower() in ("1", "true", "yes", "on")
+USE_PROVIDER_SEARCH_MV = os.getenv("USE_PROVIDER_SEARCH_MV", "false").lower() in (
+    "1",
+    "true",
+    "yes",
+    "on",
 )
 
 
