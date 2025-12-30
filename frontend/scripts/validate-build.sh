@@ -16,14 +16,20 @@ FRONTEND_DIR="$( cd "$SCRIPT_DIR/.." && pwd )"
 cd "$FRONTEND_DIR"
 
 # 1. Check next.config.mjs for 'output: export'
-echo -e "${BLUE}Step 1: Checking next.config.mjs for 'output: export'...${NC}"
-if grep -E "^\s*output:\s*'export'" next.config.mjs > /dev/null; then
-    echo -e "${GREEN}✅ Found 'output: export' in next.config.mjs${NC}"
-else
-    echo -e "${RED}❌ ERROR: 'output: export' is missing or commented out in next.config.mjs${NC}"
-    echo -e "This is required for Firebase Hosting deployment."
-    echo -e "Please ensure the following line is present and NOT commented out:"
-    echo -e "    output: 'export',"
+echo -e "${BLUE}Step 1: Validating production output mode in next.config.mjs...${NC}"
+if ! NODE_ENV=production node --input-type=module <<'NODE'
+import config from './next.config.mjs';
+
+if (config.output === 'export') {
+  console.log('✅ output is set to "export" when NODE_ENV=production');
+  process.exit(0);
+}
+
+console.error('❌ ERROR: next.config.mjs did not export "output: \'export\'" in production.');
+console.error('Please ensure the config resolves to output: \'export\' when NODE_ENV=production without forcing it in development.');
+process.exit(1);
+NODE
+then
     exit 1
 fi
 
