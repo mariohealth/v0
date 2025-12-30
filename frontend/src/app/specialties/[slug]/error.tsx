@@ -11,7 +11,7 @@ interface ErrorProps {
 function messageFor(errorMessage: string) {
   const msg = errorMessage.toLowerCase();
   if (msg.includes("specialty not found")) {
-    return "Specialty not found. Please try another specialty.";
+    return "Specialty not found. Please try another specialty or pick from the list.";
   }
   if (msg.includes("zip") && msg.includes("invalid")) {
     return "Invalid ZIP code. Please check the ZIP and try again.";
@@ -46,6 +46,12 @@ export default function Error({ error, reset }: ErrorProps) {
             className="px-4 py-2 rounded-md border text-sm text-foreground hover:bg-accent mario-transition"
           >
             Go home
+          </Link>
+          <Link
+            href="/specialties"
+            className="px-4 py-2 rounded-md border text-sm text-foreground hover:bg-accent mario-transition"
+          >
+            Choose another specialty
           </Link>
         </div>
       </div>
