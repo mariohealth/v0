@@ -237,11 +237,11 @@ class SpecialtyService:
         if not provider_ids:
             return []
 
-        # Get provider locations
+        # Get provider locations (including org_id for pricing join)
         location_result = (
             self.supabase.table("provider_location")
             .select(
-                "provider_id, provider_name, address, city, state, zip_code, latitude, longitude"
+                "provider_id, provider_name, org_id, address, city, state, zip_code, latitude, longitude"
             )
             .in_("provider_id", provider_ids)
             .execute()
@@ -278,6 +278,7 @@ class SpecialtyService:
                     nearby_locations.append(
                         {
                             "provider_id": loc["provider_id"],
+                            "org_id": loc.get("org_id"),  # Include org_id for pricing join
                             "provider_name": loc.get("provider_name")
                             or provider_name_map.get(
                                 loc["provider_id"], "Unknown Provider"
@@ -294,31 +295,38 @@ class SpecialtyService:
         nearby_locations.sort(key=lambda x: x["distance"])
         nearby_locations = nearby_locations[:limit]
 
-        final_provider_ids = [loc["provider_id"] for loc in nearby_locations]
+        # Collect org_ids (not provider_ids) for pricing join
+        org_ids_with_location = {}  # Map org_id -> location data
+        for loc in nearby_locations:
+            if loc.get("org_id"):
+                org_ids_with_location[loc["org_id"]] = loc
 
-        if not final_provider_ids:
+        if not nearby_locations:
             return []
 
-        # Get pricing for these providers (single query)
-        pricing_map = {}
-        if representative_procedure_id:
+        # Get pricing for these organizations (single query)
+        # Pricing is associated with org_id in procedure_pricing, not provider_id
+        pricing_map = {}  # Map org_id -> pricing data
+        if representative_procedure_id and org_ids_with_location:
+            org_ids_list = list(org_ids_with_location.keys())
             pricing_result = (
                 self.supabase.table("procedure_pricing")
-                .select("provider_id, price")
+                .select("org_id, price")
                 .eq("procedure_id", representative_procedure_id)
-                .in_("provider_id", final_provider_ids)
+                .in_("org_id", org_ids_list)
                 .execute()
             )
 
-            # Aggregate pricing per provider
+            # Aggregate pricing per organization
             from collections import defaultdict
 
-            provider_prices = defaultdict(list)
+            org_prices = defaultdict(list)
             for p in pricing_result.data:
-                provider_prices[p["provider_id"]].append(float(p["price"]))
+                if p.get("org_id"):
+                    org_prices[p["org_id"]].append(float(p["price"]))
 
-            for provider_id, prices in provider_prices.items():
-                pricing_map[provider_id] = {
+            for org_id, prices in org_prices.items():
+                pricing_map[org_id] = {
                     "min_price": min(prices),
                     "max_price": max(prices),
                     "avg_price": sum(prices) / len(prices),
@@ -326,8 +334,11 @@ class SpecialtyService:
 
         # Build final provider list
         providers = []
+        providers_with_pricing = 0
+        
         for loc in nearby_locations:
             provider_id = loc["provider_id"]
+            org_id = loc.get("org_id")
 
             location = ProviderLocation(
                 address=loc.get("address"),
@@ -337,14 +348,16 @@ class SpecialtyService:
                 distance_miles=round(loc["distance"], 1),
             )
 
+            # Join pricing by org_id (pricing is at organization level)
             pricing = None
-            if provider_id in pricing_map:
-                p = pricing_map[provider_id]
+            if org_id and org_id in pricing_map:
+                p = pricing_map[org_id]
                 pricing = ProviderPricing(
                     min_price=Decimal(str(p["min_price"])),
                     max_price=Decimal(str(p["max_price"])),
                     avg_price=Decimal(str(p["avg_price"])),
                 )
+                providers_with_pricing += 1
 
             providers.append(
                 SpecialtyProvider(
@@ -354,5 +367,16 @@ class SpecialtyService:
                     pricing=pricing,
                 )
             )
+
+        # Debug logging
+        from app.middleware.logging import log_structured
+        log_structured(
+            severity="INFO",
+            message="Specialty provider pricing aggregation",
+            specialty_id=specialty_id,
+            total_providers=len(providers),
+            providers_with_pricing=providers_with_pricing,
+            pricing_coverage_pct=round(providers_with_pricing / len(providers) * 100, 1) if providers else 0,
+        )
 
         return providers
