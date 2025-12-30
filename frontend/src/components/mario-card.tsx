@@ -1,37 +1,102 @@
 'use client'
+import Link from 'next/link';
 import { ReactNode } from 'react';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { MapPin, Phone, Award, Gift } from 'lucide-react';
 
-interface ProviderCardProps {
+export interface PricingDisplayProps {
+  min_price: number;
+  max_price: number;
+  avg_price?: number;
+}
+
+export interface ProviderCardProps {
   name: string;
   specialty: string;
-  distance: string;
-  inNetwork: boolean;
-  price: string;
-  comparedToMedian: string;
+  /** Distance text, e.g. "2.3 mi away" or "2.3 mi" */
+  distance?: string;
+  /** Optional flag; kept for backward compatibility */
+  inNetwork?: boolean;
+  /** Legacy price text (will be ignored if pricing provided) */
+  price?: string;
+  /** Legacy compared text (will be ignored if pricing provided) */
+  comparedToMedian?: string;
+  /** New pricing object (org-level pricing) */
+  pricing?: PricingDisplayProps | null;
   savingsText?: string;
   mariosPick?: boolean;
   rating?: number;
   avatar?: string;
-  onBook: () => void;
+  onBook?: () => void;
   onCall?: () => void;
+  /** Optional provider detail link; if present, name becomes a link */
+  linkHref?: string;
+  /** Optional address block */
+  addressLine?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+}
+
+/**
+ * Pricing display component.
+ * - pricing null => "Pricing unavailable"
+ * - min == max => single price
+ * - else => range with optional avg
+ */
+function PricingDisplay({ pricing }: { pricing: PricingDisplayProps | null | undefined }) {
+  if (!pricing) {
+    return (
+      <div className="text-sm text-muted-foreground">
+        Pricing unavailable
+      </div>
+    );
+  }
+
+  const same = Number(pricing.min_price) === Number(pricing.max_price);
+  const min = Number(pricing.min_price).toFixed(0);
+  const max = Number(pricing.max_price).toFixed(0);
+  const avg = pricing.avg_price !== undefined ? Number(pricing.avg_price).toFixed(0) : null;
+
+  if (same) {
+    return (
+      <div className="space-y-1">
+        <div className="text-xl font-bold text-primary">${min}</div>
+        {avg && <div className="text-xs text-muted-foreground">Avg ${avg}</div>}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-1 text-right">
+      <div className="text-xl font-bold text-primary">
+        ${min}–${max}
+      </div>
+      {avg && <div className="text-xs text-muted-foreground">Avg ${avg}</div>}
+    </div>
+  );
 }
 
 export function ProviderCard({
   name,
   specialty,
   distance,
-  inNetwork,
+  inNetwork = false,
   price,
   comparedToMedian,
+  pricing,
   savingsText,
   mariosPick = false,
   rating,
   avatar,
   onBook,
-  onCall
+  onCall,
+  linkHref,
+  addressLine,
+  city,
+  state,
+  zip,
 }: ProviderCardProps) {
   return (
     <div className="relative bg-card rounded-lg mario-shadow-card p-4 md:p-6 mario-transition mario-hover-provider cursor-pointer">
@@ -57,18 +122,36 @@ export function ProviderCard({
           </div>
           
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-card-foreground truncate">{name}</h3>
+            {linkHref ? (
+              <Link href={linkHref} className="font-semibold text-card-foreground truncate hover:underline">
+                {name}
+              </Link>
+            ) : (
+              <h3 className="font-semibold text-card-foreground truncate">{name}</h3>
+            )}
             <p className="text-sm text-muted-foreground">{specialty}</p>
             
             <div className="flex items-center gap-2 mt-1">
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <MapPin className="h-3 w-3" />
-                {distance}
-              </div>
+              {distance && (
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <MapPin className="h-3 w-3" />
+                  {distance}
+                </div>
+              )}
               <Badge variant={inNetwork ? "default" : "secondary"} className="text-xs">
                 {inNetwork ? "In-Network" : "Out-of-Network"}
               </Badge>
             </div>
+            {(addressLine || city || state || zip) && (
+              <div className="mt-1 text-xs text-muted-foreground truncate">
+                {addressLine && <span>{addressLine}, </span>}
+                {(city || state || zip) && (
+                  <span>
+                    {city}{city && state ? ', ' : ''}{state} {zip}
+                  </span>
+                )}
+              </div>
+            )}
             
             {rating && (
               <div className="flex items-center gap-1 mt-1">
@@ -81,10 +164,16 @@ export function ProviderCard({
           </div>
           
           <div className="text-right">
-            <div className="text-xl font-bold text-primary">{price}</div>
-            <div className="text-xs px-2 py-1 bg-accent/20 text-accent rounded-full">
-              {comparedToMedian}
-            </div>
+            {pricing ? (
+              <PricingDisplay pricing={pricing} />
+            ) : (
+              <>
+                <div className="text-xl font-bold text-primary">{price}</div>
+                <div className="text-xs px-2 py-1 bg-accent/20 text-accent rounded-full">
+                  {comparedToMedian}
+                </div>
+              </>
+            )}
           </div>
         </div>
         

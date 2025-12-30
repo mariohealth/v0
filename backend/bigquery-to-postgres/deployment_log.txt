@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/az/Projects/mario-health/backend/bigquery-to-postgres/scripts/setup_schemas.py", line 14, in <module>
+    from sqlalchemy import create_engine, text
+ModuleNotFoundError: No module named 'sqlalchemy'

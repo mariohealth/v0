@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 
 interface MarioLandingPageProps {
-  onSearch?: (query: string) => void;
+  onSearch?: (query: string, suggestion?: AutocompleteSuggestion) => void;
   onSignUp?: () => void;
   onLogin?: () => void;
   onNavigateToAbout?: () => void;
@@ -60,9 +60,9 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleSearch = (query: string) => {
+  const handleSearch = (query: string, suggestion?: AutocompleteSuggestion) => {
     if (query.trim() && onSearch) {
-      onSearch(query);
+      onSearch(query, suggestion);
     }
   };
 
@@ -492,7 +492,7 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
               placeholder="Search doctors, services, or meds..."
               onSearch={(query) => handleSearch(query)}
               onAutocompleteSelect={(suggestion: AutocompleteSuggestion) => {
-                handleSearch(suggestion.primaryText);
+                handleSearch(suggestion.primaryText, suggestion);
               }}
               className="w-full"
             />

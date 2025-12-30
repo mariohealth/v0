@@ -15,14 +15,31 @@
  * In the browser, this typically returns a relative path like '/api/v1'.
  */
 export function getApiBaseUrl(): string {
+    const isBrowser = typeof window !== 'undefined';
+
+    // SERVER (SSR) — must return ABSOLUTE URL to avoid "Failed to parse URL"
+    if (!isBrowser) {
+        // Env precedence for absolute base URL
+        const envBase =
+            process.env.API_BASE_URL ||
+            process.env.NEXT_PUBLIC_API_BASE_URL ||
+            'http://localhost:8000';
+
+        // Normalize trailing slash
+        return envBase.endsWith('/') ? envBase.slice(0, -1) : envBase;
+    }
+
     // 1. In browser on Firebase Hosting, ALWAYS use relative URL to leverage proxy
-    if (typeof window !== 'undefined') {
-        const hostname = window.location.hostname;
-        if (hostname.includes('web.app') || hostname.includes('mariohealth.com') || hostname === 'localhost' || hostname === '127.0.0.1') {
-            // For both production and local dev, relative paths are handled by proxies 
-            // (Firebase rewrites in prod, Next.js rewrites in local dev)
-            return '/api/v1';
-        }
+    const hostname = window.location.hostname;
+    if (
+        hostname.includes('web.app') ||
+        hostname.includes('mariohealth.com') ||
+        hostname === 'localhost' ||
+        hostname === '127.0.0.1'
+    ) {
+        // For both production and local dev, relative paths are handled by proxies 
+        // (Firebase rewrites in prod, Next.js rewrites in local dev)
+        return '/api/v1';
     }
 
     // 2. Fallback for SSR or other environments (should use relative whenever possible)
