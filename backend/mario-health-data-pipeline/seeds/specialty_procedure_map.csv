@@ -63,4 +63,6 @@ specialty_id,procedure_id,visit_type,is_representative
 62,proc_office_visit,standard,true
 63,proc_office_visit,standard,true
 64,proc_office_visit,standard,true
+65,proc_office_visit,standard,true
+66,proc_office_visit,standard,true
 
