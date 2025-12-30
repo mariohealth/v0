@@ -109,8 +109,13 @@ class SpecialtyInfo(BaseModel):
 
 
 class SpecialtyProvidersMetadata(BaseModel):
-    """Metadata for specialty providers search."""
-    total_results: int
+    """Metadata for specialty providers search.
+    
+    Note: Pricing is at organization/facility level (org_id), not individual provider level.
+    Multiple providers at the same facility will share the same pricing data.
+    """
+    total_providers_found: int  # Total matching providers (before limit)
+    providers_returned: int  # Providers in response (after limit)
     search_radius: int
     providers_with_pricing: int
     pricing_coverage_pct: float

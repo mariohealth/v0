@@ -92,14 +92,35 @@ class SpecialtyService:
         limit: int = 20,
     ) -> SpecialtyProvidersResponse:
         """Fetch providers for a specialty with location filtering and pricing.
-
-        Uses a single SQL query to:
-        - Validate specialty exists
-        - Resolve zip code to coordinates
-        - Find providers via specialty → specialty_map → taxonomy → provider
-        - Calculate distance in SQL (haversine via PostGIS)
-        - Aggregate pricing from specialty_procedure_map + procedure_pricing
-        - Return sorted by distance, limited to top N
+        
+        Query flow:
+        1. Validate specialty exists
+        2. Resolve zip code to coordinates
+        3. Find providers via specialty → specialty_map → taxonomy → provider
+        4. Apply bounding-box prefilter on provider_location (performance)
+        5. Calculate haversine distance and filter by radius
+        6. Sort by distance, limit to top N
+        7. Join pricing data via organization (org_id)
+        
+        Pricing model:
+        - Pricing is stored at ORGANIZATION/FACILITY level (procedure_pricing.org_id)
+        - Providers work at organizations (provider_location.org_id)
+        - Multiple providers at same facility share same pricing
+        - Pricing may be null if no data exists for that organization
+        
+        Edge cases handled:
+        - Providers with no location data (skipped)
+        - All providers outside search radius (empty results)
+        - Organizations with no pricing data (pricing=null)
+        
+        Args:
+            specialty_slug: Specialty identifier (e.g., 'cardiologist')
+            zip_code: Search center ZIP code (required)
+            radius_miles: Search radius in miles (default: 25, max: 100)
+            limit: Max providers to return (default: 20, max: 100)
+            
+        Returns:
+            SpecialtyProvidersResponse with providers sorted by distance
         """
 
         # Step 1: Verify specialty exists and get specialty info
@@ -143,7 +164,7 @@ class SpecialtyService:
         # 2. Get nearby provider locations (1 query)
         # 3. Get pricing for representative procedure (1 query)
         # 4. Aggregate and filter in Python
-        providers = await self._get_specialty_providers_query(
+        providers, total_providers_found = await self._get_specialty_providers_query(
             specialty_id=specialty_id,
             search_lat=search_lat,
             search_lon=search_lon,
@@ -152,11 +173,14 @@ class SpecialtyService:
         )
 
         # Calculate pricing coverage for metadata
+        providers_returned = len(providers)
         providers_with_pricing = sum(1 for p in providers if p.pricing is not None)
         pricing_coverage_pct = (
-            round(providers_with_pricing / len(providers) * 100, 1) if providers else 0.0
+            round(providers_with_pricing / providers_returned * 100, 1)
+            if providers_returned > 0
+            else 0.0
         )
-        
+
         return SpecialtyProvidersResponse(
             specialty=SpecialtyInfo(
                 id=specialty_data["id"],
@@ -165,7 +189,8 @@ class SpecialtyService:
             ),
             providers=providers,
             metadata=SpecialtyProvidersMetadata(
-                total_results=len(providers),
+                total_providers_found=total_providers_found,
+                providers_returned=providers_returned,
                 search_radius=radius_miles,
                 providers_with_pricing=providers_with_pricing,
                 pricing_coverage_pct=pricing_coverage_pct,
@@ -179,7 +204,7 @@ class SpecialtyService:
         search_lon: float,
         radius_miles: int,
         limit: int,
-    ) -> list[SpecialtyProvider]:
+    ) -> tuple[list[SpecialtyProvider], int]:
         """Query providers using efficient PostgREST queries.
 
         This still avoids N+1 queries by:
@@ -188,6 +213,9 @@ class SpecialtyService:
         3. Getting all locations for those providers (1 query)
         4. Getting all pricing for representative procedure (1 query)
         5. Aggregating and filtering in Python
+        
+        Returns:
+            Tuple of (providers_list, total_found_within_radius)
         """
 
         # Get taxonomy codes for this specialty
@@ -201,7 +229,7 @@ class SpecialtyService:
         taxonomy_codes = [row["taxonomy_id"] for row in taxonomy_result.data]
 
         if not taxonomy_codes:
-            return []
+            return [], 0
 
         # Get representative procedure for this specialty
         proc_map_result = (
@@ -229,8 +257,17 @@ class SpecialtyService:
         )
 
         if not provider_result.data:
-            return []
+            # Log when no providers found for specialty
+            from app.middleware.logging import log_structured
+            log_structured(
+                severity="INFO",
+                message="No providers found for specialty",
+                specialty_id=specialty_id,
+                taxonomy_codes=taxonomy_codes,
+            )
+            return [], 0
 
+        candidate_provider_count = len(provider_result.data)
         provider_ids = [p["provider_id"] for p in provider_result.data]
 
         # Build provider name map (first_name + last_name + credential)
@@ -244,15 +281,15 @@ class SpecialtyService:
             )
 
         if not provider_ids:
-            return []
+            return [], 0
 
         # Calculate bounding box for performance optimization
         # Approximate: 1 degree latitude ≈ 69 miles, 1 degree longitude ≈ 69 * cos(lat) miles
         from math import cos, radians
-        
+
         lat_delta = radius_miles / 69.0
         lng_delta = radius_miles / (69.0 * abs(cos(radians(search_lat))))
-        
+
         min_lat = search_lat - lat_delta
         max_lat = search_lat + lat_delta
         min_lng = search_lon - lng_delta
@@ -272,6 +309,20 @@ class SpecialtyService:
             .lte("longitude", max_lng)
             .execute()
         )
+        
+        bbox_filtered_count = len(location_result.data)
+        
+        # Log if providers have no location data (graceful degradation)
+        providers_without_location = candidate_provider_count - bbox_filtered_count
+        if providers_without_location > 0:
+            from app.middleware.logging import log_structured
+            log_structured(
+                severity="WARNING",
+                message="Providers without location data",
+                specialty_id=specialty_id,
+                providers_without_location=providers_without_location,
+                candidate_providers=candidate_provider_count,
+            )
 
         # Calculate distances and filter by radius
         from math import radians, sin, cos, sqrt, atan2
@@ -321,7 +372,22 @@ class SpecialtyService:
 
         # Sort by distance and limit
         nearby_locations.sort(key=lambda x: x["distance"])
+        total_within_radius = len(nearby_locations)
         nearby_locations = nearby_locations[:limit]
+
+        # Log search funnel metrics
+        from app.middleware.logging import log_structured
+        log_structured(
+            severity="INFO",
+            message="Specialty provider search funnel",
+            specialty_id=specialty_id,
+            candidate_providers=candidate_provider_count,
+            bbox_filtered=bbox_filtered_count,
+            within_radius=total_within_radius,
+            returned_after_limit=len(nearby_locations),
+            search_radius_miles=radius_miles,
+            limit=limit,
+        )
 
         # Collect org_ids (not provider_ids) for pricing join
         org_ids_with_location = {}  # Map org_id -> location data
@@ -330,7 +396,7 @@ class SpecialtyService:
                 org_ids_with_location[loc["org_id"]] = loc
 
         if not nearby_locations:
-            return []
+            return [], 0
 
         # Get pricing for these organizations (single query)
         # Pricing is associated with org_id in procedure_pricing, not provider_id
@@ -396,7 +462,7 @@ class SpecialtyService:
                 )
             )
 
-        # Debug logging
+        # Debug logging for pricing coverage
         from app.middleware.logging import log_structured
 
         log_structured(
@@ -412,4 +478,4 @@ class SpecialtyService:
             ),
         )
 
-        return providers
+        return providers, total_within_radius
