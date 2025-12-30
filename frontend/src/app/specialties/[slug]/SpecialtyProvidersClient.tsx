@@ -47,6 +47,42 @@ export interface SpecialtyProvidersResponse {
   metadata: SpecialtyProvidersMetadata;
 }
 
+// Runtime guard to keep UX graceful on malformed API data.
+function coerceMetadata(
+  incoming: Partial<SpecialtyProvidersMetadata> | undefined
+): SpecialtyProvidersMetadata {
+  const fallback: SpecialtyProvidersMetadata = {
+    total_providers_found: 0,
+    providers_returned: 0,
+    search_radius: 25,
+    providers_with_pricing: 0,
+    pricing_coverage_pct: 0,
+  };
+
+  const meta = incoming || {};
+
+  // Dev-only console warning; never throw for users.
+  const warn = (msg: string) => {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(`[specialty-search] ${msg}`, { incoming });
+    }
+  };
+
+  const asNumber = (v: unknown, field: keyof SpecialtyProvidersMetadata) => {
+    if (typeof v === 'number' && Number.isFinite(v)) return v;
+    warn(`Invalid or missing ${field}, using fallback ${fallback[field]}`);
+    return fallback[field];
+  };
+
+  return {
+    total_providers_found: asNumber(meta.total_providers_found, 'total_providers_found'),
+    providers_returned: asNumber(meta.providers_returned, 'providers_returned'),
+    search_radius: asNumber(meta.search_radius, 'search_radius'),
+    providers_with_pricing: asNumber(meta.providers_with_pricing, 'providers_with_pricing'),
+    pricing_coverage_pct: asNumber(meta.pricing_coverage_pct, 'pricing_coverage_pct'),
+  };
+}
+
 interface Props {
   data: SpecialtyProvidersResponse;
   params: {
@@ -75,7 +111,15 @@ function formatPrice(pricing: SpecialtyProviderPricing | null) {
 
 export default function SpecialtyProvidersClient({ data, searchParams }: Props) {
   const router = useRouter();
-  const { providers, metadata, specialty } = data;
+  // Runtime guards to keep UX graceful if API shape drifts.
+  const metadata = coerceMetadata(data.metadata);
+  const providers = Array.isArray(data.providers) ? data.providers : [];
+  if (!Array.isArray(data.providers) && process.env.NODE_ENV !== 'production') {
+    console.warn('[specialty-search] Invalid providers array, falling back to empty', {
+      providers: data.providers,
+    });
+  }
+  const { specialty } = data;
   const offset = searchParams.offset ?? 0;
   const limit = searchParams.limit ?? 20;
   const zip = searchParams.zip_code;
