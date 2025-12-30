@@ -4,6 +4,7 @@ import { useMemo, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ProviderCard } from '@/components/mario-card';
+import { EmptyResults } from './EmptyResults';
 
 export interface SpecialtyProviderLocation {
   address?: string | null;
@@ -125,13 +126,12 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
         )}
       </header>
 
-      {!hasResults && (
-        <div className="rounded-lg border border-border bg-card p-6 text-sm text-muted-foreground">
-          No providers found within {metadata.search_radius} miles.
-        </div>
-      )}
-
-      {hasResults && (
+      {!hasResults ? (
+        <EmptyResults
+          specialtyName={specialty.name}
+          searchRadius={metadata.search_radius}
+        />
+      ) : (
         <div className="space-y-4">
           {providers.map((p) => {
             const distance = formatDistance(p.location.distance_miles);
