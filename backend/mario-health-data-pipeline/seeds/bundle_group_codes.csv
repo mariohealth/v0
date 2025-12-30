@@ -3,9 +3,9 @@ bgc001,bg001,c001,always,true,1,Global OB care covers all prenatal visits delive
 bgc002,bg002,c010,usually,true,1,Epidural anesthesia for labor pain management,false
 bgc003,bg002,c008,sometimes,false,2,General anesthesia if emergency C-section needed,false
 bgc004,bg002,c012,sometimes,false,3,Epidural catheter placement technical fee,false
-bgc005,bg003,c191,usually,true,1,Hospital room and board for uncomplicated vaginal delivery,false
-bgc006,bg003,c195,sometimes,false,2,Hospital fee if delivery has complications,false
-bgc007,bg003,c192,sometimes,false,3,Hospital fee if sterilization or D&C performed,false
+bgc005,bg003,c177,usually,true,1,Hospital room and board for uncomplicated vaginal delivery,false
+bgc006,bg003,c181,sometimes,false,2,Hospital fee if delivery has complications,false
+bgc007,bg003,c178,sometimes,false,3,Hospital fee if sterilization or D&C performed,false
 bgc008,bg004,c016,always,true,1,Initial prenatal blood panel required for all pregnancies,false
 bgc009,bg004,c028,always,true,2,CBC to check for anemia and infection,false
 bgc010,bg004,c050,always,true,3,Blood type needed for Rh compatibility,false
@@ -19,7 +19,7 @@ bgc017,bg005,c042,usually,false,3,Chlamydia screening prevents newborn infection
 bgc018,bg005,c043,usually,false,4,Gonorrhea screening prevents newborn infection,false
 bgc019,bg005,c048,usually,false,5,Pap smear if not current,false
 bgc020,bg005,c035,sometimes,false,6,Hepatitis C screening if risk factors,false
-bgc021,bg005,c087,sometimes,false,7,MRSA screening per facility protocol,false
+bgc021,bg005,c037,sometimes,false,7,MRSA screening per facility protocol,false
 bgc022,bg006,c053,always,true,1,Dating ultrasound to confirm gestational age,false
 bgc023,bg006,c055,usually,true,2,Anatomy scan at 18-22 weeks,false
 bgc024,bg006,c060,sometimes,false,3,Transvaginal ultrasound if needed for better visualization,false
@@ -30,248 +30,247 @@ bgc028,bg007,c063,rarely,false,3,Doppler studies if growth concerns,false
 bgc029,bg008,c006,sometimes,false,1,Episiotomy repair if surgical cut made during delivery,false
 bgc030,bg008,c005,rarely,false,2,Separate placenta delivery if manual removal needed,false
 bgc031,bg008,c004,rarely,false,3,Version procedure if baby is breech,false
-bgc032,bg009,c092,always,true,1,Initial newborn exam and care in hospital,false
-bgc033,bg009,c094,usually,true,2,Daily newborn care during hospital stay,false
-bgc034,bg010,c096,sometimes,false,1,Pediatrician attendance at delivery if complications expected,false
-bgc035,bg010,c097,rarely,false,2,Newborn resuscitation if breathing difficulties,false
+bgc032,bg009,c091,always,true,1,Initial newborn exam and care in hospital,false
+bgc033,bg009,c093,usually,true,2,Daily newborn care during hospital stay,false
+bgc034,bg010,c095,sometimes,false,1,Pediatrician attendance at delivery if complications expected,false
+bgc035,bg010,c096,rarely,false,2,Newborn resuscitation if breathing difficulties,false
 bgc036,bg010,c014,sometimes,false,3,Newborn blood draw for required screenings,false
-bgc037,bg011,c174,sometimes,false,1,Pain medication after delivery,false
-bgc038,bg011,c177,sometimes,false,2,Anti-nausea medication if needed,false
-bgc039,bg011,c181,rarely,false,3,Steroid if preterm delivery risk,false
+bgc037,bg011,c160,sometimes,false,1,Pain medication after delivery,false
+bgc038,bg011,c163,sometimes,false,2,Anti-nausea medication if needed,false
+bgc039,bg011,c167,rarely,false,3,Steroid if preterm delivery risk,false
 bgc040,bg012,c015,usually,false,1,SURPRISE: Blood draw fees billed separately from lab tests,true
 bgc041,bg012,c019,sometimes,false,2,SURPRISE: Urinalysis charged at each prenatal visit,true
 bgc042,bg012,c069,sometimes,false,3,SURPRISE: Prenatal visits may bill as separate E/M if complications,true
-bgc043,bg012,c083,usually,false,4,SURPRISE: Discharge day management fee,true
+bgc043,bg012,c082,usually,false,4,SURPRISE: Discharge day management fee,true
 bgc044,bg012,c058,sometimes,false,5,SURPRISE: Additional limited ultrasounds during labor,true
-bgc045,bg012,c098,rarely,false,6,SURPRISE: NICU charges if baby needs monitoring,true
-bgc046,bg013,c120,always,true,1,Primary knee replacement surgical procedure,false
-bgc047,bg014,c127,always,true,1,General anesthesia for knee replacement,false
-bgc048,bg014,c129,sometimes,false,2,Spinal/epidural management if regional anesthesia used,false
-bgc049,bg015,c130,usually,true,1,Femoral nerve block for post-op pain control,false
-bgc050,bg015,c132,sometimes,false,2,Sciatic nerve block for additional pain control,false
-bgc051,bg015,c131,sometimes,false,3,Continuous femoral block catheter for extended pain relief,false
-bgc052,bg016,c188,usually,true,1,Hospital stay without major complications,false
-bgc053,bg016,c189,sometimes,false,2,Hospital stay with major complications,false
-bgc054,bg017,c137,usually,true,1,Complete knee x-ray series for surgical planning,false
-bgc055,bg017,c135,sometimes,false,2,Basic knee x-ray if recent films available,false
-bgc056,bg018,c142,usually,false,1,Full leg alignment x-ray for prosthesis sizing,false
-bgc057,bg018,c139,sometimes,false,2,MRI if soft tissue evaluation needed,false
+bgc045,bg012,c097,rarely,false,6,SURPRISE: NICU charges if baby needs monitoring,true
+bgc046,bg013,c106,always,true,1,Primary knee replacement surgical procedure,false
+bgc047,bg014,c113,always,true,1,General anesthesia for knee replacement,false
+bgc048,bg014,c115,sometimes,false,2,Spinal/epidural management if regional anesthesia used,false
+bgc049,bg015,c116,usually,true,1,Femoral nerve block for post-op pain control,false
+bgc050,bg015,c118,sometimes,false,2,Sciatic nerve block for additional pain control,false
+bgc051,bg015,c117,sometimes,false,3,Continuous femoral block catheter for extended pain relief,false
+bgc052,bg016,c174,usually,true,1,Hospital stay without major complications,false
+bgc053,bg016,c175,sometimes,false,2,Hospital stay with major complications,false
+bgc054,bg017,c123,usually,true,1,Complete knee x-ray series for surgical planning,false
+bgc055,bg017,c121,sometimes,false,2,Basic knee x-ray if recent films available,false
+bgc056,bg018,c128,usually,false,1,Full leg alignment x-ray for prosthesis sizing,false
+bgc057,bg018,c125,sometimes,false,2,MRI if soft tissue evaluation needed,false
 bgc058,bg019,c028,always,true,1,CBC to check blood counts before surgery,false
-bgc059,bg019,c161,always,true,2,Basic metabolic panel for kidney function,false
+bgc059,bg019,c147,always,true,2,Basic metabolic panel for kidney function,false
 bgc060,bg019,c030,always,true,3,PT/INR coagulation test,false
 bgc061,bg019,c015,always,true,4,Blood draw for pre-op labs,false
-bgc062,bg020,c162,sometimes,false,1,Comprehensive metabolic if more detail needed,false
+bgc062,bg020,c148,sometimes,false,1,Comprehensive metabolic if more detail needed,false
 bgc063,bg020,c031,sometimes,false,2,PTT if patient on blood thinners,false
 bgc064,bg020,c050,usually,false,3,Type and screen for possible transfusion,false
 bgc065,bg020,c051,usually,false,4,Rh factor for transfusion compatibility,false
-bgc066,bg020,c538,usually,false,5,Urinalysis to rule out infection,false
+bgc066,bg020,c502,usually,false,5,Urinalysis to rule out infection,false
 bgc067,bg020,c025,sometimes,false,6,A1c for diabetic patients,false
 bgc068,bg020,c037,usually,false,7,MRSA screening per facility protocol,false
-bgc069,bg021,c391,usually,true,1,EKG for cardiac clearance,false
-bgc070,bg021,c274,sometimes,false,2,Chest x-ray if pulmonary concerns,false
-bgc071,bg022,c171,usually,true,1,Tranexamic acid to reduce blood loss,false
-bgc072,bg022,c167,always,true,2,Prophylactic antibiotic to prevent infection,false
-bgc073,bg022,c168,sometimes,false,3,Vancomycin if penicillin allergy,false
-bgc074,bg023,c160,always,true,1,Knee prosthesis implant,false
-bgc075,bg024,c169,usually,true,1,Injectable blood thinner to prevent clots,false
-bgc076,bg024,c170,sometimes,false,2,Oral blood thinner alternative,false
-bgc077,bg025,c147,usually,true,1,Physical therapy evaluation,false
-bgc078,bg025,c149,always,true,2,Therapeutic exercises - expect 4-8 units per day,false
-bgc079,bg025,c151,always,true,3,Gait training - expect 2-4 units per day,false
-bgc080,bg026,c135,always,true,1,Post-op x-ray to confirm implant position,false
-bgc081,bg027,c163,sometimes,false,1,Pathology if tissue sent for analysis,false
-bgc082,bg027,c143,sometimes,false,2,Fluoroscopy if used during surgery,false
-bgc083,bg028,c081,usually,false,1,SURPRISE: Daily hospital visits by surgeon,true
-bgc084,bg028,c174,usually,false,2,SURPRISE: Each IV pain medication dose billed separately,true
-bgc085,bg028,c179,usually,false,3,SURPRISE: Anti-nausea medications billed per dose,true
-bgc086,bg028,c411,usually,false,4,SURPRISE: IV fluid administration charges,true
-bgc087,bg028,c083,usually,false,5,SURPRISE: Discharge day management fee,true
-bgc088,bg028,c152,sometimes,false,6,SURPRISE: Manual therapy billed separately from PT,true
-bgc089,bg029,c089,always,true,1,Level 5 ER physician evaluation for life-threatening condition,false
-bgc090,bg030,c404,always,true,1,Level 5 ER facility fee,false
-bgc091,bg030,c401,sometimes,false,2,Facility fee if admitted with complications,false
+bgc069,bg021,c370,usually,true,1,EKG for cardiac clearance,false
+bgc070,bg021,c253,sometimes,false,2,Chest x-ray if pulmonary concerns,false
+bgc071,bg022,c157,usually,true,1,Tranexamic acid to reduce blood loss,false
+bgc072,bg022,c153,always,true,2,Prophylactic antibiotic to prevent infection,false
+bgc073,bg022,c154,sometimes,false,3,Vancomycin if penicillin allergy,false
+bgc074,bg023,c146,always,true,1,Knee prosthesis implant,false
+bgc075,bg024,c155,usually,true,1,Injectable blood thinner to prevent clots,false
+bgc076,bg024,c156,sometimes,false,2,Oral blood thinner alternative,false
+bgc077,bg025,c133,usually,true,1,Physical therapy evaluation,false
+bgc078,bg025,c135,always,true,2,Therapeutic exercises - expect 4-8 units per day,false
+bgc079,bg025,c137,always,true,3,Gait training - expect 2-4 units per day,false
+bgc080,bg026,c121,always,true,1,Post-op x-ray to confirm implant position,false
+bgc081,bg027,c149,sometimes,false,1,Pathology if tissue sent for analysis,false
+bgc082,bg027,c129,sometimes,false,2,Fluoroscopy if used during surgery,false
+bgc083,bg028,c080,usually,false,1,SURPRISE: Daily hospital visits by surgeon,true
+bgc084,bg028,c160,usually,false,2,SURPRISE: Each IV pain medication dose billed separately,true
+bgc085,bg028,c165,usually,false,3,SURPRISE: Anti-nausea medications billed per dose,true
+bgc086,bg028,c390,usually,false,4,SURPRISE: IV fluid administration charges,true
+bgc087,bg028,c082,usually,false,5,SURPRISE: Discharge day management fee,true
+bgc088,bg028,c138,sometimes,false,6,SURPRISE: Manual therapy billed separately from PT,true
+bgc089,bg029,c088,always,true,1,Level 5 ER physician evaluation for life-threatening condition,false
+bgc090,bg030,c383,always,true,1,Level 5 ER facility fee,false
+bgc091,bg030,c380,sometimes,false,2,Facility fee if admitted with complications,false
 bgc092,bg031,c028,always,true,1,CBC standard for ER evaluation,false
-bgc093,bg031,c162,always,true,2,CMP to assess organ function,false
-bgc094,bg031,c538,usually,true,3,Urinalysis to check for infection,false
+bgc093,bg031,c148,always,true,2,CMP to assess organ function,false
+bgc094,bg031,c502,usually,true,3,Urinalysis to check for infection,false
 bgc095,bg031,c015,always,true,4,Blood draw fee,false
-bgc096,bg032,c490,usually,false,1,Troponin to rule out heart attack,false
-bgc097,bg032,c570,sometimes,false,2,BNP for heart failure evaluation,false
-bgc098,bg032,c391,usually,false,3,EKG for cardiac evaluation,false
-bgc099,bg032,c504,sometimes,false,4,CK-MB cardiac enzyme,false
-bgc100,bg033,c519,sometimes,false,1,Blood cultures if sepsis suspected,false
-bgc101,bg033,c541,sometimes,false,2,CRP for inflammation marker,false
-bgc102,bg033,c595,sometimes,false,3,Lactate if sepsis suspected,false
+bgc096,bg032,c468,usually,false,1,Troponin to rule out heart attack,false
+bgc097,bg032,c527,sometimes,false,2,BNP for heart failure evaluation,false
+bgc098,bg032,c370,usually,false,3,EKG for cardiac evaluation,false
+bgc099,bg032,c482,sometimes,false,4,CK-MB cardiac enzyme,false
+bgc100,bg033,c493,sometimes,false,1,Blood cultures if sepsis suspected,false
+bgc101,bg033,c503,sometimes,false,2,CRP for inflammation marker,false
+bgc102,bg033,c526,sometimes,false,3,Lactate if sepsis suspected,false
 bgc103,bg033,c030,sometimes,false,4,Coagulation studies,false
-bgc104,bg034,c274,usually,false,1,Chest x-ray very common in ER,false
-bgc105,bg034,c463,sometimes,false,2,CT head if neurological symptoms,false
-bgc106,bg034,c267,sometimes,false,3,CT abdomen/pelvis for abdominal pain,false
-bgc107,bg034,c270,sometimes,false,4,Abdominal ultrasound,false
-bgc108,bg035,c460,sometimes,false,1,MRI brain if stroke suspected,false
-bgc109,bg035,c473,sometimes,false,2,CT angiography chest for PE,false
-bgc110,bg035,c398,sometimes,false,3,Echocardiogram for cardiac evaluation,false
-bgc111,bg035,c486,sometimes,false,4,Leg vein ultrasound for DVT,false
-bgc112,bg036,c428,sometimes,false,1,Foley catheter insertion,false
-bgc113,bg036,c423,sometimes,false,2,Central line placement if needed,false
-bgc114,bg036,c452,rarely,false,3,Intubation if respiratory failure,false
-bgc115,bg036,c455,rarely,false,4,Chest tube if needed,false
-bgc116,bg036,c430,sometimes,false,5,Laceration repair,false
-bgc117,bg036,c450,sometimes,false,6,Lumbar puncture if meningitis suspected,false
-bgc118,bg037,c411,usually,false,1,IV fluid hydration initial hour,false
-bgc119,bg037,c412,sometimes,false,2,Additional hours of IV fluids,false
-bgc120,bg037,c409,usually,false,3,IV medication push,false
-bgc121,bg037,c413,sometimes,false,4,IV antibiotic infusion,false
-bgc122,bg037,c174,sometimes,false,5,IV pain medication,false
-bgc123,bg037,c179,sometimes,false,6,IV anti-nausea medication,false
-bgc124,bg038,c417,sometimes,false,1,Nebulizer breathing treatment,false
-bgc125,bg038,c420,usually,false,2,Pulse oximetry monitoring,false
-bgc126,bg038,c593,sometimes,false,3,Arterial blood gas,false
-bgc127,bg039,c090,rarely,false,1,Critical care first hour if life-threatening,false
-bgc128,bg039,c091,rarely,false,2,Additional critical care time,false
+bgc104,bg034,c253,usually,false,1,Chest x-ray very common in ER,false
+bgc105,bg034,c441,sometimes,false,2,CT head if neurological symptoms,false
+bgc106,bg034,c246,sometimes,false,3,CT abdomen/pelvis for abdominal pain,false
+bgc107,bg034,c249,sometimes,false,4,Abdominal ultrasound,false
+bgc108,bg035,c438,sometimes,false,1,MRI brain if stroke suspected,false
+bgc109,bg035,c451,sometimes,false,2,CT angiography chest for PE,false
+bgc110,bg035,c377,sometimes,false,3,Echocardiogram for cardiac evaluation,false
+bgc111,bg035,c464,sometimes,false,4,Leg vein ultrasound for DVT,false
+bgc112,bg036,c406,sometimes,false,1,Foley catheter insertion,false
+bgc113,bg036,c402,sometimes,false,2,Central line placement if needed,false
+bgc114,bg036,c430,rarely,false,3,Intubation if respiratory failure,false
+bgc115,bg036,c433,rarely,false,4,Chest tube if needed,false
+bgc116,bg036,c408,sometimes,false,5,Laceration repair,false
+bgc117,bg036,c428,sometimes,false,6,Lumbar puncture if meningitis suspected,false
+bgc118,bg037,c390,usually,false,1,IV fluid hydration initial hour,false
+bgc119,bg037,c391,sometimes,false,2,Additional hours of IV fluids,false
+bgc120,bg037,c388,usually,false,3,IV medication push,false
+bgc121,bg037,c392,sometimes,false,4,IV antibiotic infusion,false
+bgc122,bg037,c160,sometimes,false,5,IV pain medication,false
+bgc123,bg037,c165,sometimes,false,6,IV anti-nausea medication,false
+bgc124,bg038,c396,sometimes,false,1,Nebulizer breathing treatment,false
+bgc125,bg038,c399,usually,false,2,Pulse oximetry monitoring,false
+bgc126,bg038,c524,sometimes,false,3,Arterial blood gas,false
+bgc127,bg039,c089,rarely,false,1,Critical care first hour if life-threatening,false
+bgc128,bg039,c090,rarely,false,2,Additional critical care time,false
 bgc129,bg040,c069,usually,false,1,SURPRISE: Separate physician fees for each specialist consulted,true
-bgc130,bg040,c410,usually,false,2,SURPRISE: Each additional IV medication billed separately,true
-bgc131,bg040,c421,sometimes,false,3,SURPRISE: Continuous pulse ox monitoring fee,true
-bgc132,bg040,c425,sometimes,false,4,SURPRISE: Arterial blood draw fee separate from test,true
-bgc133,bg040,c175,rarely,false,5,SURPRISE: Naloxone if given for any reason,true
-bgc134,bg040,c457,rarely,false,6,SURPRISE: CPR charges if resuscitation needed,true
-bgc135,bg041,c197,usually,true,1,Diagnostic colonoscopy - may upgrade if polyps found,false
-bgc136,bg041,c219,sometimes,false,2,High-risk screening colonoscopy code,false
-bgc137,bg041,c220,sometimes,false,3,Average-risk screening colonoscopy code,false
-bgc138,bg042,c212,usually,true,1,Anesthesia for colonoscopy,false
-bgc139,bg042,c213,sometimes,false,2,Anesthesia for screening colonoscopy,false
-bgc140,bg042,c215,sometimes,false,3,Moderate sedation by same physician,false
-bgc141,bg043,c406,usually,true,1,Outpatient facility fee for colonoscopy,false
+bgc130,bg040,c389,usually,false,2,SURPRISE: Each additional IV medication billed separately,true
+bgc131,bg040,c400,sometimes,false,3,SURPRISE: Continuous pulse ox monitoring fee,true
+bgc132,bg040,c404,sometimes,false,4,SURPRISE: Arterial blood draw fee separate from test,true
+bgc133,bg040,c161,rarely,false,5,SURPRISE: Naloxone if given for any reason,true
+bgc134,bg040,c435,rarely,false,6,SURPRISE: CPR charges if resuscitation needed,true
+bgc135,bg041,c183,usually,true,1,Diagnostic colonoscopy - may upgrade if polyps found,false
+bgc136,bg041,c202,sometimes,false,2,High-risk screening colonoscopy code,false
+bgc137,bg041,c203,sometimes,false,3,Average-risk screening colonoscopy code,false
+bgc138,bg042,c196,usually,true,1,Anesthesia for screening colonoscopy,false
+bgc139,bg042,c197,sometimes,false,2,Anesthesia for non-screening colonoscopy,false
+bgc140,bg042,c198,sometimes,false,3,Moderate sedation by same physician,false
+bgc141,bg043,c385,usually,true,1,Outpatient facility fee for colonoscopy,false
 bgc142,bg044,c069,always,true,1,Pre-procedure visit to discuss bowel prep,false
 bgc143,bg044,c015,usually,true,2,Blood draw if labs ordered,false
 bgc144,bg045,c028,sometimes,false,1,CBC if patient has bleeding history,false
-bgc145,bg045,c162,sometimes,false,2,CMP if patient has chronic conditions,false
+bgc145,bg045,c148,sometimes,false,2,CMP if patient has chronic conditions,false
 bgc146,bg045,c030,sometimes,false,3,Coagulation studies if on blood thinners,false
-bgc147,bg046,c221,usually,false,1,Pathology for polyp tissue examination,false
-bgc148,bg046,c164,sometimes,false,2,Additional pathology specimens,false
-bgc149,bg047,c202,sometimes,false,1,Snare polypectomy if polyps removed,false
-bgc150,bg047,c198,sometimes,false,2,Biopsy if suspicious tissue found,false
-bgc151,bg047,c200,rarely,false,3,Bleeding control if complication,false
-bgc152,bg048,c217,sometimes,false,1,SURPRISE: Anesthesiologist billed separately from facility,true
-bgc153,bg048,c216,sometimes,false,2,SURPRISE: Additional sedation time charges,true
-bgc154,bg048,c165,sometimes,false,3,SURPRISE: Complex pathology if multiple polyps,true
+bgc147,bg046,c150,usually,false,1,Pathology for polyp tissue examination,false
+bgc148,bg046,c151,sometimes,false,2,Additional pathology specimens,false
+bgc149,bg047,c188,sometimes,false,1,Snare polypectomy if polyps removed,false
+bgc150,bg047,c184,sometimes,false,2,Biopsy if suspicious tissue found,false
+bgc151,bg047,c186,rarely,false,3,Bleeding control if complication,false
+bgc152,bg048,c200,sometimes,false,1,SURPRISE: Anesthesiologist billed separately from facility,true
+bgc153,bg048,c199,sometimes,false,2,SURPRISE: Additional sedation time charges,true
+bgc154,bg048,c151,sometimes,false,3,SURPRISE: Complex pathology if multiple polyps,true
 bgc155,bg048,c069,sometimes,false,4,SURPRISE: Follow-up visit not included in screening,true
-bgc156,bg049,c247,usually,true,1,Laparoscopic appendectomy primary procedure,false
-bgc157,bg049,c248,sometimes,false,2,Open appendectomy if lap converted,false
-bgc158,bg050,c252,always,true,1,General anesthesia for abdominal surgery,false
-bgc159,bg051,c260,usually,true,1,Hospital stay uncomplicated appendectomy,false
-bgc160,bg051,c259,sometimes,false,2,Hospital stay with complications,false
-bgc161,bg052,c267,always,true,1,CT abdomen/pelvis to diagnose appendicitis,false
-bgc162,bg052,c268,sometimes,false,2,CT with contrast for better visualization,false
+bgc156,bg049,c227,usually,true,1,Laparoscopic appendectomy primary procedure,false
+bgc157,bg049,c228,sometimes,false,2,Open appendectomy if lap converted,false
+bgc158,bg050,c231,always,true,1,General anesthesia for abdominal surgery,false
+bgc159,bg051,c239,usually,true,1,Hospital stay uncomplicated appendectomy,false
+bgc160,bg051,c238,sometimes,false,2,Hospital stay with complications,false
+bgc161,bg052,c246,always,true,1,CT abdomen/pelvis to diagnose appendicitis,false
+bgc162,bg052,c247,sometimes,false,2,CT with contrast for better visualization,false
 bgc163,bg053,c028,always,true,1,CBC to check white blood cell count,false
-bgc164,bg053,c162,always,true,2,CMP to assess organ function,false
-bgc165,bg053,c538,always,true,3,Urinalysis to rule out UTI,false
+bgc164,bg053,c148,always,true,2,CMP to assess organ function,false
+bgc165,bg053,c502,always,true,3,Urinalysis to rule out UTI,false
 bgc166,bg053,c015,always,true,4,Blood draw fee,false
-bgc167,bg054,c167,always,true,1,Prophylactic antibiotic,false
-bgc168,bg054,c171,sometimes,false,2,Additional medications during surgery,false
-bgc169,bg055,c164,always,true,1,Pathology examination of appendix,false
-bgc170,bg056,c081,usually,true,1,Daily hospital physician visits,false
-bgc171,bg056,c083,always,true,2,Discharge day management,false
-bgc172,bg057,c174,usually,false,1,IV pain medication,false
-bgc173,bg057,c179,usually,false,2,Anti-nausea medication,false
-bgc174,bg057,c167,usually,false,3,IV antibiotics during stay,false
-bgc175,bg058,c089,sometimes,false,1,SURPRISE: ER physician fee if presented to ER,true
-bgc176,bg058,c404,sometimes,false,2,SURPRISE: ER facility fee before admission,true
-bgc177,bg058,c411,usually,false,3,SURPRISE: IV fluid charges,true
-bgc178,bg058,c410,usually,false,4,SURPRISE: Each IV medication push billed separately,true
-bgc179,bg058,c261,sometimes,false,5,SURPRISE: Diagnostic laparoscopy billed if done before appendectomy,true
-bgc180,bg059,c277,usually,true,1,Laparoscopic cholecystectomy,false
-bgc181,bg059,c278,sometimes,false,2,With cholangiography if bile duct imaging needed,false
-bgc182,bg060,c254,always,true,1,General anesthesia for upper abdominal surgery,false
-bgc183,bg061,c290,usually,true,1,Facility fee for cholecystectomy,false
-bgc184,bg061,c291,sometimes,false,2,Facility fee if complications,false
-bgc185,bg062,c270,usually,true,1,Abdominal ultrasound to visualize gallbladder,false
-bgc186,bg062,c267,sometimes,false,2,CT scan if ultrasound inconclusive,false
+bgc167,bg054,c153,always,true,1,Prophylactic antibiotic,false
+bgc168,bg054,c157,sometimes,false,2,Additional medications during surgery,false
+bgc169,bg055,c150,always,true,1,Pathology examination of appendix,false
+bgc170,bg056,c080,usually,true,1,Daily hospital physician visits,false
+bgc171,bg056,c082,always,true,2,Discharge day management,false
+bgc172,bg057,c160,usually,false,1,IV pain medication,false
+bgc173,bg057,c165,usually,false,2,Anti-nausea medication,false
+bgc174,bg057,c153,usually,false,3,IV antibiotics during stay,false
+bgc175,bg058,c088,sometimes,false,1,SURPRISE: ER physician fee if presented to ER,true
+bgc176,bg058,c383,sometimes,false,2,SURPRISE: ER facility fee before admission,true
+bgc177,bg058,c390,usually,false,3,SURPRISE: IV fluid charges,true
+bgc178,bg058,c389,usually,false,4,SURPRISE: Each IV medication push billed separately,true
+bgc179,bg058,c240,sometimes,false,5,SURPRISE: Diagnostic laparoscopy billed if done before appendectomy,true
+bgc180,bg059,c256,usually,true,1,Laparoscopic cholecystectomy,false
+bgc181,bg059,c257,sometimes,false,2,With cholangiography if bile duct imaging needed,false
+bgc182,bg060,c233,always,true,1,General anesthesia for upper abdominal surgery,false
+bgc183,bg061,c269,usually,true,1,Facility fee for cholecystectomy,false
+bgc184,bg061,c270,sometimes,false,2,Facility fee if complications,false
+bgc185,bg062,c249,usually,true,1,Abdominal ultrasound to visualize gallbladder,false
+bgc186,bg062,c246,sometimes,false,2,CT scan if ultrasound inconclusive,false
 bgc187,bg063,c028,always,true,1,CBC before surgery,false
-bgc188,bg063,c162,always,true,2,CMP including liver function,false
+bgc188,bg063,c148,always,true,2,CMP including liver function,false
 bgc189,bg063,c030,usually,true,3,Coagulation studies,false
 bgc190,bg063,c015,always,true,4,Blood draw fee,false
-bgc191,bg064,c167,always,true,1,Prophylactic antibiotic,false
-bgc192,bg064,c284,sometimes,false,2,Intraoperative cholangiography if performed,false
-bgc193,bg065,c164,always,true,1,Pathology examination of gallbladder,false
-bgc194,bg066,c089,sometimes,false,1,SURPRISE: ER fee if presented with acute attack,true
-bgc195,bg066,c404,sometimes,false,2,SURPRISE: ER facility fee,true
+bgc191,bg064,c153,always,true,1,Prophylactic antibiotic,false
+bgc192,bg064,c263,sometimes,false,2,Intraoperative cholangiography if performed,false
+bgc193,bg065,c150,always,true,1,Pathology examination of gallbladder,false
+bgc194,bg066,c088,sometimes,false,1,SURPRISE: ER fee if presented with acute attack,true
+bgc195,bg066,c383,sometimes,false,2,SURPRISE: ER facility fee,true
 bgc196,bg066,c069,sometimes,false,3,SURPRISE: Separate surgeon consultation fee,true
-bgc197,bg066,c081,sometimes,false,4,SURPRISE: Daily hospital visits if admitted,true
-bgc198,bg066,c143,sometimes,false,5,SURPRISE: Fluoroscopy fee for cholangiography,true
-bgc199,bg067,c292,always,true,1,Standard cataract phacoemulsification with IOL,false
-bgc200,bg068,c304,usually,true,1,Local/topical anesthesia for cataract surgery,false
-bgc201,bg068,c305,sometimes,false,2,General anesthesia if patient cannot cooperate,false
-bgc202,bg069,c331,always,true,1,Outpatient facility fee for cataract surgery,false
-bgc203,bg070,c308,always,true,1,Comprehensive eye exam before surgery,false
-bgc204,bg070,c311,usually,true,2,Refraction to determine lens power,false
-bgc205,bg071,c318,always,true,1,Biometry to calculate IOL power,false
-bgc206,bg071,c313,usually,true,2,OCT scan of retina,false
-bgc207,bg071,c323,usually,true,3,Corneal pachymetry thickness measurement,false
-bgc208,bg071,c320,sometimes,false,4,A-scan ultrasound if needed,false
-bgc209,bg072,c298,usually,true,1,Standard monofocal IOL,false
-bgc210,bg072,c299,sometimes,false,2,Toric IOL for astigmatism - patient pays difference,false
-bgc211,bg072,c300,sometimes,false,3,Premium multifocal IOL - patient pays difference,false
-bgc212,bg073,c329,usually,true,1,Viscoelastic substance used during surgery,false
-bgc213,bg073,c328,sometimes,false,2,Steroid injection to reduce inflammation,false
-bgc214,bg073,c325,usually,true,3,Local anesthetic,false
-bgc215,bg074,c307,always,true,1,Post-op day 1 exam,false
-bgc216,bg074,c307,always,true,2,1-week post-op exam,false
-bgc217,bg074,c308,always,true,3,1-month post-op exam with refraction,false
-bgc218,bg075,c311,sometimes,false,1,SURPRISE: Refraction often not covered by insurance,true
-bgc219,bg075,c314,sometimes,false,2,SURPRISE: Additional OCT scans may be billed,true
-bgc220,bg075,c312,sometimes,false,3,SURPRISE: Gonioscopy if glaucoma concern,true
-bgc221,bg075,c330,sometimes,false,4,SURPRISE: Additional viscoelastic charges,true
-bgc222,bg076,c222,usually,true,1,Diagnostic EGD,false
-bgc223,bg076,c226,sometimes,false,2,EGD with biopsy if tissue sampling needed,false
-bgc224,bg077,c245,usually,true,1,Anesthesia for upper GI endoscopy,false
-bgc225,bg077,c246,sometimes,false,2,Anesthesia with biopsy,false
-bgc226,bg077,c215,sometimes,false,3,Moderate sedation by same physician,false
-bgc227,bg078,c406,usually,true,1,Outpatient facility fee for EGD,false
-bgc228,bg079,c028,sometimes,false,1,CBC if bleeding history,false
-bgc229,bg079,c030,sometimes,false,2,Coagulation if on blood thinners,false
-bgc230,bg079,c015,sometimes,false,3,Blood draw fee,false
-bgc231,bg080,c221,usually,false,1,Pathology for biopsy specimens,false
-bgc232,bg080,c164,sometimes,false,2,Additional pathology if multiple biopsies,false
-bgc233,bg081,c561,sometimes,false,1,H. pylori antibody test,false
-bgc234,bg081,c562,sometimes,false,2,H. pylori stool antigen,false
-bgc235,bg082,c217,sometimes,false,1,SURPRISE: Anesthesiologist separate from facility,true
-bgc236,bg082,c216,sometimes,false,2,SURPRISE: Additional sedation time,true
-bgc237,bg082,c165,sometimes,false,3,SURPRISE: Complex pathology charges,true
-bgc238,bg082,c236,rarely,false,4,SURPRISE: Dilation if stricture found,true
-bgc239,bg083,c333,always,true,1,Open inguinal hernia repair,false
-bgc240,bg083,c344,usually,true,2,Mesh implantation,false
-bgc241,bg084,c351,usually,true,1,General anesthesia for hernia repair,false
-bgc242,bg084,c352,sometimes,false,2,Anesthesia if laparoscopic approach,false
-bgc243,bg085,c355,usually,true,1,Facility fee without complications,false
-bgc244,bg085,c354,sometimes,false,2,Facility fee with complications,false
-bgc245,bg086,c028,always,true,1,CBC before surgery,false
-bgc246,bg086,c161,always,true,2,BMP for kidney function,false
-bgc247,bg086,c015,always,true,3,Blood draw fee,false
-bgc248,bg087,c349,usually,true,1,Surgical mesh implant,false
-bgc249,bg088,c167,always,true,1,Prophylactic antibiotic,false
-bgc250,bg088,c173,usually,true,2,Local anesthetic injection,false
-bgc251,bg089,c069,usually,true,1,Post-op visit wound check,false
-bgc252,bg089,c070,sometimes,false,2,Post-op visit if complex follow-up,false
-bgc253,bg090,c152,sometimes,false,1,SURPRISE: Manual therapy if PT ordered,true
-bgc254,bg090,c409,sometimes,false,2,SURPRISE: IV medication push in recovery,true
-bgc255,bg090,c174,sometimes,false,3,SURPRISE: Pain medication doses,true
-bgc256,bg090,c083,sometimes,false,4,SURPRISE: Discharge management if stay extended,true
-bgc257,bg091,c359,always,true,1,Open carpal tunnel release,false
-bgc258,bg092,c366,usually,true,1,Local/regional anesthesia for hand surgery,false
-bgc259,bg092,c371,sometimes,false,2,Bier block IV regional anesthesia,false
-bgc260,bg092,c368,sometimes,false,3,Brachial plexus block,false
-bgc261,bg093,c390,usually,true,1,Facility fee without complications,false
-bgc262,bg093,c389,sometimes,false,2,Facility fee with complications,false
-bgc263,bg094,c381,usually,true,1,Nerve conduction studies 1-2 nerves,false
-bgc264,bg094,c382,sometimes,false,2,Nerve conduction studies 3-4 nerves,false
-bgc265,bg094,c379,usually,true,3,EMG limited study,false
-bgc266,bg094,c380,sometimes,false,4,EMG complete study,false
-bgc267,bg095,c373,sometimes,false,1,Wrist x-ray if arthritis suspected,false
-bgc268,bg095,c376,rarely,false,2,MRI if diagnosis uncertain,false
-bgc269,bg096,c167,usually,true,1,Prophylactic antibiotic,false
-bgc270,bg096,c173,always,true,2,Local anesthetic,false
-bgc271,bg097,c069,usually,true,1,Post-op wound check visit,false
-bgc272,bg097,c449,sometimes,false,2,Splint application,false
-bgc273,bg098,c382,sometimes,false,1,SURPRISE: Extensive NCS billed when simpler would suffice,true
-bgc274,bg098,c070,sometimes,false,2,SURPRISE: Pre-op visit billed separately from surgery,true
-bgc275,bg098,c157,sometimes,false,3,SURPRISE: Splint/brace fitting charges,true
-bgc276,bg098,c146,sometimes,false,4,SURPRISE: Occupational therapy evaluation,true
+bgc197,bg066,c080,sometimes,false,4,SURPRISE: Daily hospital visits if admitted,true
+bgc198,bg066,c129,sometimes,false,5,SURPRISE: Fluoroscopy fee for cholangiography,true
+bgc199,bg067,c271,always,true,1,Standard cataract phacoemulsification with IOL,false
+bgc200,bg068,c283,usually,true,1,Local/topical anesthesia for cataract surgery,false
+bgc201,bg068,c284,sometimes,false,2,General anesthesia if patient cannot cooperate,false
+bgc202,bg069,c310,always,true,1,Outpatient facility fee for cataract surgery,false
+bgc203,bg070,c287,always,true,1,Comprehensive eye exam before surgery,false
+bgc204,bg070,c290,usually,true,2,Refraction to determine lens power,false
+bgc205,bg071,c297,always,true,1,Biometry to calculate IOL power,false
+bgc206,bg071,c292,usually,true,2,OCT scan of retina,false
+bgc207,bg071,c302,usually,true,3,Corneal pachymetry thickness measurement,false
+bgc208,bg071,c299,sometimes,false,4,A-scan ultrasound if needed,false
+bgc209,bg072,c277,usually,true,1,Standard monofocal IOL,false
+bgc210,bg072,c278,sometimes,false,2,Toric IOL for astigmatism - patient pays difference,false
+bgc211,bg072,c279,sometimes,false,3,Premium multifocal IOL - patient pays difference,false
+bgc212,bg073,c309,usually,true,1,Viscoelastic substance used during surgery,false
+bgc213,bg073,c307,sometimes,false,2,Steroid injection to reduce inflammation,false
+bgc214,bg073,c304,usually,true,3,Local anesthetic,false
+bgc215,bg074,c286,always,true,1,Post-op day 1 exam,false
+bgc216,bg074,c286,always,true,2,1-week post-op exam,false
+bgc217,bg074,c287,always,true,3,1-month post-op exam with refraction,false
+bgc218,bg075,c290,sometimes,false,1,SURPRISE: Refraction often not covered by insurance,true
+bgc219,bg075,c293,sometimes,false,2,SURPRISE: Additional OCT scans may be billed,true
+bgc220,bg075,c291,sometimes,false,3,SURPRISE: Gonioscopy if glaucoma concern,true
+bgc221,bg075,c309,sometimes,false,4,SURPRISE: Additional viscoelastic charges,true
+bgc222,bg076,c204,usually,true,1,Diagnostic EGD,false
+bgc223,bg076,c208,sometimes,false,2,EGD with biopsy if tissue sampling needed,false
+bgc224,bg077,c226,usually,true,1,Anesthesia for upper GI endoscopy,false
+bgc225,bg077,c198,sometimes,false,2,Moderate sedation by same physician,false
+bgc226,bg078,c385,usually,true,1,Outpatient facility fee for EGD,false
+bgc227,bg079,c028,sometimes,false,1,CBC if bleeding history,false
+bgc228,bg079,c030,sometimes,false,2,Coagulation if on blood thinners,false
+bgc229,bg079,c015,sometimes,false,3,Blood draw fee,false
+bgc230,bg080,c150,usually,false,1,Pathology for biopsy specimens,false
+bgc231,bg080,c151,sometimes,false,2,Additional pathology if multiple biopsies,false
+bgc232,bg081,c513,sometimes,false,1,H. pylori antibody test,false
+bgc233,bg081,c514,sometimes,false,2,H. pylori stool antigen,false
+bgc234,bg082,c200,sometimes,false,1,SURPRISE: Anesthesiologist separate from facility,true
+bgc235,bg082,c199,sometimes,false,2,SURPRISE: Additional sedation time,true
+bgc236,bg082,c151,sometimes,false,3,SURPRISE: Complex pathology charges,true
+bgc237,bg082,c218,rarely,false,4,SURPRISE: Dilation if stricture found,true
+bgc238,bg083,c312,always,true,1,Open inguinal hernia repair,false
+bgc239,bg083,c329,usually,true,2,Mesh implantation - now bundled into procedure,false
+bgc240,bg084,c331,usually,true,1,General anesthesia for hernia repair,false
+bgc241,bg084,c332,sometimes,false,2,Anesthesia if laparoscopic approach,false
+bgc242,bg085,c335,usually,true,1,Facility fee without complications,false
+bgc243,bg085,c334,sometimes,false,2,Facility fee with complications,false
+bgc244,bg086,c028,always,true,1,CBC before surgery,false
+bgc245,bg086,c147,always,true,2,BMP for kidney function,false
+bgc246,bg086,c015,always,true,3,Blood draw fee,false
+bgc247,bg087,c329,usually,true,1,Surgical mesh implant,false
+bgc248,bg088,c153,always,true,1,Prophylactic antibiotic,false
+bgc249,bg088,c159,usually,true,2,Local anesthetic injection,false
+bgc250,bg089,c069,usually,true,1,Post-op visit wound check,false
+bgc251,bg089,c070,sometimes,false,2,Post-op visit if complex follow-up,false
+bgc252,bg090,c138,sometimes,false,1,SURPRISE: Manual therapy if PT ordered,true
+bgc253,bg090,c388,sometimes,false,2,SURPRISE: IV medication push in recovery,true
+bgc254,bg090,c160,sometimes,false,3,SURPRISE: Pain medication doses,true
+bgc255,bg090,c082,sometimes,false,4,SURPRISE: Discharge management if stay extended,true
+bgc256,bg091,c339,always,true,1,Open carpal tunnel release,false
+bgc257,bg092,c346,usually,true,1,Local/regional anesthesia for hand surgery,false
+bgc258,bg092,c348,sometimes,false,2,Brachial plexus block,false
+bgc259,bg092,c350,sometimes,false,3,Axillary nerve block,false
+bgc260,bg093,c369,usually,true,1,Facility fee without complications,false
+bgc261,bg093,c368,sometimes,false,2,Facility fee with complications,false
+bgc262,bg094,c360,usually,true,1,Nerve conduction studies 1-2 nerves,false
+bgc263,bg094,c361,sometimes,false,2,Nerve conduction studies 3-4 nerves,false
+bgc264,bg094,c358,usually,true,3,EMG limited study,false
+bgc265,bg094,c359,sometimes,false,4,EMG complete study,false
+bgc266,bg095,c352,sometimes,false,1,Wrist x-ray if arthritis suspected,false
+bgc267,bg095,c355,rarely,false,2,MRI if diagnosis uncertain,false
+bgc268,bg096,c153,usually,true,1,Prophylactic antibiotic,false
+bgc269,bg096,c159,always,true,2,Local anesthetic,false
+bgc270,bg097,c069,usually,true,1,Post-op wound check visit,false
+bgc271,bg097,c427,sometimes,false,2,Splint application,false
+bgc272,bg098,c361,sometimes,false,1,SURPRISE: Extensive NCS billed when simpler would suffice,true
+bgc273,bg098,c070,sometimes,false,2,SURPRISE: Pre-op visit billed separately from surgery,true
+bgc274,bg098,c143,sometimes,false,3,SURPRISE: Splint/brace fitting charges,true
+bgc275,bg098,c132,sometimes,false,4,SURPRISE: Occupational therapy evaluation,true
