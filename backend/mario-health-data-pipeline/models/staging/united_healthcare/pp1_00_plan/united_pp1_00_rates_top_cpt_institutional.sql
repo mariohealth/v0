@@ -23,7 +23,7 @@ WITH t0 AS (
 
 t1 AS (
   SELECT
-    provider_group_id,
+    CAST(provider_group_id AS STRING) AS provider_group_id,
     t0.billing_code,
     t0.billing_code_type,
     t0.billing_code_type_version,
