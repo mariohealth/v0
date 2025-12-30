@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ProviderCard } from '@/components/mario-card';
@@ -79,6 +79,7 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
   const limit = searchParams.limit ?? 20;
   const zip = searchParams.zip_code;
   const radius = searchParams.radius_miles ?? metadata.search_radius;
+  const [isPending, startTransition] = useTransition();
 
   const hasPartialPricing = metadata.pricing_coverage_pct < 100;
   const hasResults = providers.length > 0;
@@ -102,6 +103,15 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
   const nextOffset = offset + limit;
   const hasNext = nextOffset < metadata.total_providers_found;
   const hasPrev = offset > 0;
+
+  const handlePageChange = (next: number) => {
+    startTransition(() => {
+      router.push(`?${queryWith(next)}`);
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
@@ -151,26 +161,26 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
           Page size {limit}. Total {metadata.total_providers_found}.
         </div>
         <div className="flex gap-2">
-          <Link
-            href={`?${queryWith(Math.max(0, offset - limit))}`}
-            className={`px-3 py-2 rounded-md text-sm border ${hasPrev ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'}`}
-            aria-disabled={!hasPrev}
-            onClick={(e) => {
-              if (!hasPrev) e.preventDefault();
-            }}
+          <button
+            type="button"
+            disabled={!hasPrev || isPending}
+            onClick={() => hasPrev && handlePageChange(Math.max(0, offset - limit))}
+            className={`px-3 py-2 rounded-md text-sm border ${
+              hasPrev ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
+            }`}
           >
             Previous
-          </Link>
-          <Link
-            href={`?${queryWith(nextOffset)}`}
-            className={`px-3 py-2 rounded-md text-sm border ${hasNext ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'}`}
-            aria-disabled={!hasNext}
-            onClick={(e) => {
-              if (!hasNext) e.preventDefault();
-            }}
+          </button>
+          <button
+            type="button"
+            disabled={!hasNext || isPending}
+            onClick={() => hasNext && handlePageChange(nextOffset)}
+            className={`px-3 py-2 rounded-md text-sm border ${
+              hasNext ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
+            }`}
           >
             Next
-          </Link>
+          </button>
         </div>
       </div>
     </div>
