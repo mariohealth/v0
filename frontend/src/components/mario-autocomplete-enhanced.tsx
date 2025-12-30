@@ -23,6 +23,7 @@ export interface AutocompleteSuggestion {
   medication?: MedicationData;
   procedureSlug?: string;
   specialtyId?: string; // use slug for routing
+  slug?: string; // optional alias for slug
   metadata?: any;
 }
 
@@ -630,6 +631,7 @@ export async function getAutocompleteSuggestions(query: string): Promise<Autocom
       primaryText: specialty.name,
       secondaryText: specialty.grouping || undefined,
       specialtyId: specialty.slug, // use slug for routing
+      slug: specialty.slug,
     }));
 
   // Add specialties FIRST

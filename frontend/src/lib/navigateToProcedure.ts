@@ -24,16 +24,27 @@
 import { searchProcedures, type UnifiedResult, type SearchResult, type DoctorResult } from './api';
 import { MarioToast } from '@/components/mario-toast-helper';
 
+type MaybeSpecialtySuggestion = { type?: string; specialtyId?: string; slug?: string };
+
 export async function navigateToProcedure(
   query: string,
   router: any,
-  options?: { silent?: boolean }
+  options?: { silent?: boolean; suggestion?: MaybeSpecialtySuggestion }
 ): Promise<boolean> {
   if (!query || !query.trim()) {
     return false;
   }
 
   const trimmedQuery = query.trim();
+
+  // Safety fallback: if a specialty suggestion leaks here, route directly to specialty
+  if (options?.suggestion?.type === 'specialty') {
+    const slug = options.suggestion.slug || options.suggestion.specialtyId;
+    if (slug) {
+      router.push(`/specialties/${slug}`);
+      return true;
+    }
+  }
 
   try {
     // Call the searchProcedures API to get matching results
