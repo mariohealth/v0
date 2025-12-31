@@ -32,12 +32,28 @@ function DoctorsPageContent() {
             return;
         }
 
+        // Specialty redirect: route /doctors?specialty=... to /specialties/{slug}
+        // This is a safety net for stale links and autocomplete regressions
+        if (specialtyParam) {
+            // Preserve other params like zip_code, radius_miles, offset
+            const params = new URLSearchParams();
+            const zipCode = searchParams.get('zip_code');
+            const radiusMiles = searchParams.get('radius_miles');
+            const offset = searchParams.get('offset');
+            if (zipCode) params.set('zip_code', zipCode);
+            if (radiusMiles) params.set('radius_miles', radiusMiles);
+            if (offset) params.set('offset', offset);
+            const query = params.toString();
+            router.replace(`/specialties/${encodeURIComponent(specialtyParam)}${query ? `?${query}` : ''}`);
+            return;
+        }
+
         // If a procedure is provided, we should redirect to the procedure pricing page
         // as per the requirement: Procedure search -> Fetch procedure-prices
         if (procedureParam) {
             router.push(`/search?q=${encodeURIComponent(procedureParam)}`);
         }
-    }, [user, loading, router, procedureParam]);
+    }, [user, loading, router, procedureParam, specialtyParam, searchParams]);
 
     useEffect(() => {
         if (specialtyParam) {

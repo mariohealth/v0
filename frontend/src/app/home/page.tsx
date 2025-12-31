@@ -83,6 +83,22 @@ function HomePageContent() {
 
     // Handle different suggestion types
     if (suggestion) {
+      // Specialty - route to /specialties/{slug} (check first before fallback patterns)
+      // Supports: suggestion.type === 'specialty', or legacy suggestion.specialty object
+      const specialtySlug = suggestion.slug || suggestion.specialtyId || suggestion.specialty?.slug || suggestion.specialty?.id;
+      if (suggestion.type === 'specialty' && specialtySlug) {
+        // Include user zip if available
+        let zipParam = '';
+        try {
+          const storedZip = typeof window !== 'undefined' ? localStorage.getItem('userZipCode') : null;
+          if (storedZip?.trim()) {
+            zipParam = `?zip_code=${encodeURIComponent(storedZip.trim())}`;
+          }
+        } catch { /* ignore */ }
+        router.push(`/specialties/${encodeURIComponent(specialtySlug)}${zipParam}`);
+        return;
+      }
+
       // Procedure - navigate directly to /procedures/{slug} for immediate results
       if (suggestion.procedureSlug) {
         router.push(`/procedures/${encodeURIComponent(suggestion.procedureSlug)}`);
@@ -102,9 +118,17 @@ function HomePageContent() {
         return;
       }
 
-      // Specialty - navigate to doctors page filtered by specialty
+      // Legacy specialty fallback (if not caught above) - still route to specialty page
       if (suggestion.specialty) {
-        router.push(`/doctors?specialty=${encodeURIComponent(suggestion.specialty.id)}`);
+        const slug = suggestion.specialty.slug || suggestion.specialty.id;
+        let zipParam = '';
+        try {
+          const storedZip = typeof window !== 'undefined' ? localStorage.getItem('userZipCode') : null;
+          if (storedZip?.trim()) {
+            zipParam = `?zip_code=${encodeURIComponent(storedZip.trim())}`;
+          }
+        } catch { /* ignore */ }
+        router.push(`/specialties/${encodeURIComponent(slug)}${zipParam}`);
         return;
       }
     }
