@@ -1,346 +1,346 @@
-id,family_id,name,slug,description,common_name
-proc_abdomen_mri,fam_mri,Abdominal MRI,abdominal-mri,Belly MRI scan,Belly MRI
-proc_abdomen_pelvis_ct_scan,fam_ct_scan,Abdomen/Pelvis CT,abdomen-pelvis-ct,Combined CT scan,Abd/Pelvis CT
-proc_abdomen_ultrasound,fam_ultrasound,Abdominal Ultrasound,abdominal-ultrasound,Belly ultrasound,Belly Ultrasound
-proc_abdomen_x_ray,fam_x_ray,Abdominal X-Ray,abdominal-x-ray,Belly X-ray,Belly X-Ray
-proc_abdominal_cavity_ultrasound,fam_ultrasound,Retroperitoneal Ultrasound,retroperitoneal-ultrasound,Deep belly ultrasound,Retroperitoneal US
-proc_acute_hepatitis_panel,fam_blood_test,Hepatitis Panel,hepatitis-panel,Hepatitis testing,Hep Panel
-proc_adrenaline_injection,fam_injection,Epinephrine Injection,epinephrine-injection,Adrenaline injection,Epinephrine
-proc_advance_care_planning,fam_care_planning,Advance Care Planning,advance-care-planning,Discussion of future healthcare wishes,Care Planning
-proc_albumin,fam_blood_test,Albumin Test,albumin-test,Blood protein test,Albumin
-proc_alcohols,fam_blood_test,Alcohol Level,alcohol-level,Blood alcohol,Alcohol Test
-proc_alkaline_phosphatase,fam_blood_test,Alkaline Phosphatase,alkaline-phosphatase,Liver/bone enzyme,Alk Phos
-proc_alpha_fetoprotein_serum,fam_blood_test,AFP Test,afp-test,Tumor marker,AFP
-proc_alt_sgpt,fam_blood_test,ALT Test,alt-test,Liver enzyme test,ALT
-proc_anesthesia_abdominal,fam_anesthesia,Abdominal Surgery Anesthesia,abdominal-anesthesia,Anesthesia for abdominal procedures,Anesthesia
-proc_anesthesia_arm_hand,fam_anesthesia,Arm/Hand Surgery Anesthesia,arm-hand-anesthesia,Anesthesia for arm or hand surgery,Anesthesia
-proc_anesthesia_eye,fam_anesthesia,Eye Surgery Anesthesia,eye-anesthesia,Anesthesia for eye surgery,Anesthesia
-proc_anesthesia_hernia,fam_anesthesia,Hernia Surgery Anesthesia,hernia-anesthesia,Anesthesia for hernia repair,Anesthesia
-proc_anesthesia_knee,fam_anesthesia,Knee Surgery Anesthesia,knee-anesthesia,Anesthesia for knee procedures,Anesthesia
-proc_anesthesia_obstetric,fam_anesthesia,Labor & Delivery Anesthesia,obstetric-anesthesia,Anesthesia for childbirth,Labor Anesthesia
-proc_ankle_x_ray,fam_x_ray,Ankle X-Ray,ankle-x-ray,Ankle X-ray,Ankle X-Ray
-proc_annual_alcohol_screening,fam_mental_health_screen,Alcohol Screening,alcohol-screening,Alcohol misuse screening,Alcohol Screening
-proc_annual_depression_screening,fam_mental_health_screen,Depression Screening,depression-screening,Depression assessment,Depression Screening
-proc_annual_wellness_visit,fam_wellness_visit,Annual Wellness Visit,annual-wellness-visit,Yearly preventive care checkup,Annual Checkup
-proc_antibody_identification,fam_blood_test,Antibody ID,antibody-id,Antibody identification,Antibody ID
-proc_antinuclear_antibody,fam_blood_test,ANA Test,ana-test,Autoimmune test,ANA
-proc_appendectomy,fam_appendix,Appendectomy,appendectomy,Appendix removal surgery,Appendix Removal
-proc_application_long_arm_splint,fam_splint,Long Arm Splint,long-arm-splint,Splint from shoulder to hand,Arm Splint
-proc_application_short_arm_splint,fam_splint,Short Arm Splint,short-arm-splint,Splint from elbow to hand,Wrist Splint
-proc_application_short_leg_splint,fam_splint,Short Leg Splint,short-leg-splint,Splint from knee to foot,Ankle Splint
-proc_arm_joint_mri,fam_mri,Arm Joint MRI,arm-joint-mri,Shoulder/elbow MRI,Arm Joint MRI
-proc_arm_leg_arteries_ultrasound,fam_ultrasound,Arterial Ultrasound,arterial-ultrasound,Arm/leg artery ultrasound,Arterial Doppler
-proc_arm_leg_veins_ultrasound,fam_ultrasound,Venous Ultrasound,venous-ultrasound,Arm/leg vein ultrasound,Venous Doppler
-proc_arm_mri,fam_mri,Arm MRI,arm-mri,Arm MRI scan,Arm MRI
-proc_arterial_line_placement,fam_vascular_access,Arterial Line Placement,arterial-line,Arterial catheter for monitoring,Art Line
-proc_arterial_puncture,fam_vascular_access,Arterial Blood Draw,arterial-puncture,Arterial blood sample collection,ABG Draw
-proc_arthrocentesis,fam_joint_clinical_procedure,Joint Injection,joint-injection,Joint fluid aspiration or injection,Joint Injection
-proc_arthrodesis_knee,fam_joint_replacement,Knee Fusion,knee-fusion,Surgical knee joint fusion,Knee Fusion
-proc_ast_sgot,fam_blood_test,AST Test,ast-test,Liver enzyme test,AST
-proc_axillary_nerve_block,fam_nerve_block,Axillary Nerve Block,axillary-nerve-block,Armpit area nerve block,Axillary Block
-proc_azithromycin_injection,fam_injection,Azithromycin Injection,azithromycin-injection,Antibiotic injection,Zithromax IV
-proc_baclofen_injection,fam_injection,Baclofen Injection,baclofen-injection,Muscle relaxant injection,Baclofen
-proc_bilirubin,fam_blood_test,Bilirubin Test,bilirubin-test,Liver function test,Bilirubin
-proc_bladder_capacity_ultrasound,fam_bladder,Bladder Scan,bladder-scan,Bladder volume ultrasound,Bladder Scan
-proc_bladder_urethra_endoscopy,fam_bladder,Cystoscopy,cystoscopy,Bladder examination,Bladder Scope
-proc_blood_collection,fam_blood_test,Blood Draw,blood-draw,Venous blood sample collection,Blood Draw
-proc_blood_culture,fam_culture,Blood Culture,blood-culture,Blood infection test,Blood Culture
-proc_blood_gas,fam_blood_test,Blood Gas Test,blood-gas-test,Arterial blood gas,ABG
-proc_blood_typing,fam_blood_test,Blood Type Test,blood-type-test,ABO and Rh typing,Blood Type
-proc_blood_vessels_abdomen_pelvis_ct_scan,fam_ct_scan,Abdominal CTA,abdominal-cta,Belly vessel CT,Abd CTA
-proc_blood_vessels_chest_ct_scan,fam_ct_scan,Chest CTA,chest-cta,Chest vessel CT,Chest CTA
-proc_blood_vessels_head_ct_scan,fam_ct_scan,Head CTA,head-cta,Brain vessel CT,Head CTA
-proc_blood_vessels_neck_ct_scan,fam_ct_scan,Neck CTA,neck-cta,Neck vessel CT,Neck CTA
-proc_brachial_plexus_block,fam_nerve_block,Arm Nerve Block,arm-nerve-block,Brachial plexus nerve block,Arm Block
-proc_brain_intracranial_mri,fam_mri,Brain MRA,brain-mra,Brain vessel MRI,Brain MRA
-proc_brain_mri,fam_mri,Brain MRI,brain-mri,Brain MRI scan,Brain MRI
-proc_brain_stem_mri,fam_mri,Brain Stem MRI,brain-stem-mri,Brain stem imaging,Brain Stem MRI
-proc_breast_ultrasound,fam_ultrasound,Breast Ultrasound,breast-ultrasound,Breast imaging,Breast Ultrasound
-proc_bun,fam_blood_test,BUN Test,bun-test,Blood urea nitrogen,BUN
-proc_c_difficile_toxin,fam_culture,C. Diff Test,c-diff-test,C. difficile test,C. Diff
-proc_c_reactive_protein,fam_blood_test,CRP Test,crp-test,Inflammation marker,CRP
-proc_ca_125,fam_blood_test,CA-125 Test,ca-125-test,Ovarian cancer marker,CA-125
-proc_ca_19_9,fam_blood_test,CA 19-9 Test,ca-19-9-test,Pancreatic cancer marker,CA 19-9
-proc_calcium_total,fam_blood_test,Calcium Test,calcium-test,Blood calcium,Calcium
-proc_cardiopulmonary_resuscitation,fam_cardiac_procedure,CPR,cpr,Cardiopulmonary resuscitation,CPR
-proc_cardioversion_external,fam_cardiac_procedure,Cardioversion,cardioversion,Electric shock for heart rhythm,Heart Shock
-proc_carpal_tunnel_release,fam_nerve_surgery,Carpal Tunnel Surgery,carpal-tunnel-surgery,Wrist nerve decompression,Carpal Tunnel Release
-proc_cataract_surgery,fam_eye_surgery,Cataract Surgery,cataract-surgery,Clouded lens removal,Cataract Surgery
-proc_cbc_automated,fam_blood_test,CBC,cbc,Complete blood count,CBC
-proc_cea,fam_blood_test,CEA Test,cea-test,Cancer marker,CEA
-proc_cefazolin_injection,fam_injection,Cefazolin Injection,cefazolin-injection,Antibiotic injection,Ancef
-proc_central_venous_catheter_insertion,fam_vascular_access,Central Line Insertion,central-line,Central venous catheter placement,Central Line
-proc_cervical_cerclage_repair,fam_pregnancy_care,Cervical Cerclage,cervical-cerclage,Cervix stitching during pregnancy,Cervical Stitch
-proc_cesarean_delivery,fam_delivery,Cesarean Section,cesarean-section,C-section delivery,C-Section
-proc_chest_cancer_screen_ct_scan,fam_ct_scan,Lung Cancer Screening,lung-cancer-screening,Low-dose lung CT,Lung Screening
-proc_chest_ct_scan,fam_ct_scan,Chest CT Scan,chest-ct,Lung CT imaging,Chest CT
-proc_chest_mri,fam_mri,Chest MRI,chest-mri,Chest MRI scan,Chest MRI
-proc_chest_tube,fam_chest_procedure,Chest Tube,chest-tube,Tube to drain chest,Chest Tube
-proc_chest_x_ray,fam_x_ray,Chest X-Ray,chest-x-ray,Lung and heart X-ray,Chest X-Ray
-proc_chlamydia_culture,fam_culture,Chlamydia Culture,chlamydia-culture,Chlamydia test,Chlamydia
-proc_chlamydia_dna_probe,fam_culture,Chlamydia PCR,chlamydia-pcr,Chlamydia DNA test,Chlamydia PCR
-proc_chloroprocaine_injection,fam_injection,Chloroprocaine Injection,chloroprocaine-injection,Local anesthetic,Nesacaine
-proc_cholangiography,fam_gallbladder,Bile Duct Imaging,cholangiography,Bile duct X-ray during surgery,Bile Duct X-ray
-proc_cholesterol_total,fam_blood_test,Total Cholesterol,total-cholesterol,Cholesterol level,Cholesterol
-proc_chronic_care_management,fam_chronic_care,Chronic Care Management,chronic-care-management,Ongoing management of chronic conditions,Chronic Care
-proc_ck,fam_blood_test,CK Test,ck-test,Muscle enzyme test,CK
-proc_closed_treatment_distal_fibula_fracture,fam_fracture_treatment,Ankle Fracture Treatment,ankle-fracture,Treatment for broken fibula,Fibula Fracture
-proc_closed_treatment_distal_radius_fracture,fam_fracture_treatment,Wrist Fracture Treatment,wrist-fracture,Treatment for broken wrist,Wrist Fracture
-proc_closed_treatment_shoulder_dislocation,fam_fracture_treatment,Shoulder Dislocation Treatment,shoulder-dislocation,Treatment for dislocated shoulder,Shoulder Reduction
-proc_closed_treatment_tibial_shaft_fracture,fam_fracture_treatment,Shin Fracture Treatment,shin-fracture,Treatment for broken tibia,Tibia Fracture
-proc_clotting_time_blood_test,fam_blood_test,PT/INR Test,pt-inr-test,Blood clotting test,INR
-proc_colonoscopy,fam_colonoscopy,Colonoscopy,colonoscopy,Colon examination with camera,Colonoscopy
-proc_colonoscopy_with_ablation,fam_colonoscopy,Colonoscopy with Ablation,colonoscopy-ablation,Colonoscopy with tissue destruction,Colon Ablation
-proc_colonoscopy_with_decompression,fam_colonoscopy,Colonoscopy with Decompression,colonoscopy-decompression,Colonoscopy to relieve blockage,Colon Decompression
-proc_colonoscopy_with_dilation,fam_colonoscopy,Colonoscopy with Dilation,colonoscopy-dilation,Colonoscopy with stricture widening,Colon Dilation
-proc_colonoscopy_with_emr,fam_colonoscopy,Colonoscopy with EMR,colonoscopy-emr,Colonoscopy with mucosal resection,Colon EMR
-proc_colonoscopy_with_endoscopic_ultrasound,fam_colonoscopy,Colonoscopy with EUS,colonoscopy-eus,Colonoscopy with ultrasound,Colon EUS
-proc_colonoscopy_with_foreign_body_removal,fam_colonoscopy,Colonoscopy Foreign Body Removal,colonoscopy-foreign-body,Colonoscopy to remove object,Colon Foreign Body
-proc_colonoscopy_with_polypectomy,fam_colonoscopy,Colonoscopy with Polyp Removal,colonoscopy-polyp-removal,Colonoscopy with polyp removal,Polyp Removal
-proc_colonoscopy_with_stent,fam_colonoscopy,Colonoscopy with Stent,colonoscopy-stent,Colonoscopy with stent placement,Colon Stent
-proc_complete_blood_cell_count_blood_test,fam_blood_test,CBC with Differential,cbc-differential,Complete blood count with types,CBC with Diff
-proc_complex_laceration_repair,fam_wound_repair,Complex Wound Repair,complex-wound-repair,Repair for complex wounds,Complex Stitches
-proc_contraction_stress_test,fam_fetal_monitoring,Contraction Stress Test,contraction-stress-test,Baby monitoring during contractions,CST
-proc_covid_19_pcr,fam_immunoassay,COVID-19 PCR,covid-pcr,COVID molecular test,COVID PCR
-proc_creatinine,fam_blood_test,Creatinine Test,creatinine-test,Kidney function test,Creatinine
-proc_creatinine_blood_test,fam_blood_test,Creatinine (Other),creatinine-other,Creatinine from other source,Creatinine
-proc_critical_care,fam_critical_care,Critical Care,critical-care,Intensive care for critical illness,ICU Care
-proc_ct_abdomen,fam_ct_scan,Abdominal CT Scan,abdominal-ct,Belly CT imaging,Belly CT
-proc_ct_neck,fam_ct_scan,Neck CT Scan,neck-ct,Neck CT imaging,Neck CT
-proc_ct_upper_extremity,fam_ct_scan,Arm CT Scan,arm-ct,Arm CT imaging,Arm CT
-proc_culture_bacterial,fam_culture,Bacterial Culture,bacterial-culture,General bacterial culture,Culture
-proc_cyanocobalamin_blood_test,fam_blood_test,Vitamin B12 Test,vitamin-b12-test,B12 level,B12
-proc_daily_management_epidural,fam_anesthesia,Epidural Management,epidural-management,Daily epidural catheter care,Epidural Care
-proc_decompression_unspecified_nerve,fam_nerve_surgery,Nerve Surgery,nerve-surgery,Nerve decompression surgery,Nerve Surgery
-proc_delivery_of_placenta,fam_delivery,Placenta Delivery,placenta-delivery,Afterbirth delivery,Afterbirth
-proc_dexamethasone_injection,fam_injection,Dexamethasone Injection,dexamethasone-injection,Steroid injection,Decadron
-proc_diagnostic_laparoscopy,fam_abdominal_surgery,Diagnostic Laparoscopy,diagnostic-laparoscopy,Minimally invasive abdominal exam,Belly Scope
-proc_diagnostic_mammography,fam_mammography,Diagnostic Mammogram,diagnostic-mammogram,Breast problem evaluation,Diagnostic Mammogram
-proc_drug_screen,fam_blood_test,Drug Screen,drug-screen,Drug test,Drug Test
-proc_duplex_lower_extremity_arterial_unilateral,fam_ultrasound,Leg Arterial Duplex,leg-arterial-duplex,Single leg artery ultrasound,Leg Duplex
-proc_egd,fam_egd,Upper Endoscopy (EGD),upper-endoscopy,Stomach and esophagus exam,EGD
-proc_egd_with_ablation,fam_egd,EGD with Ablation,egd-ablation,Upper endoscopy with tissue destruction,Esophageal Ablation
-proc_egd_with_bleeding_control,fam_egd,EGD Bleeding Control,egd-bleeding,Upper endoscopy to stop bleeding,GI Bleeding Control
-proc_egd_with_dilation,fam_egd,EGD with Dilation,egd-dilation,Upper endoscopy with stricture widening,Esophageal Dilation
-proc_egd_with_eus,fam_egd,EGD with Ultrasound,egd-ultrasound,Upper endoscopy with EUS,EGD EUS
-proc_egd_with_foreign_body_removal,fam_egd,EGD Foreign Body Removal,egd-foreign-body,Upper endoscopy to remove object,Swallowed Object Removal
-proc_egd_with_peg_placement,fam_gi_tube,PEG Tube Placement,peg-tube,Feeding tube through stomach,Feeding Tube
-proc_egd_with_thermal_therapy_esophagus,fam_egd,EGD Thermal Therapy,egd-thermal,Upper endoscopy with heat treatment,Esophageal Thermal
-proc_egd_with_transmural_drainage,fam_egd,EGD with Drainage,egd-drainage,Upper endoscopy with fluid drainage,EGD Drainage
-proc_egd_with_tube_placement,fam_gi_tube,EGD with Tube,egd-tube,Upper endoscopy with tube insertion,GI Tube
-proc_egd_with_tumor_removal,fam_egd,EGD with Tumor Removal,egd-tumor-removal,Upper endoscopy with lesion removal,EGD Tumor Removal
-proc_egd_with_variceal_treatment,fam_egd,EGD Variceal Treatment,egd-varices,Upper endoscopy for bleeding veins,Variceal Banding
-proc_elbow_x_ray,fam_x_ray,Elbow X-Ray,elbow-x-ray,Elbow X-ray,Elbow X-Ray
-proc_electrical_stimulation_physical_therapy,fam_physical_therapy,Electrical Stimulation,electrical-stimulation,E-stim therapy,E-Stim
-proc_emergency_visit,fam_emergency,Emergency Room Visit,er-visit,Emergency department care,ER Visit
-proc_emg,fam_nerve_study,EMG Test,emg-test,Muscle electrical activity test,EMG
-proc_endoscopic_carpal_tunnel_release,fam_nerve_surgery,Endoscopic Carpal Tunnel,endoscopic-carpal-tunnel,Minimally invasive carpal tunnel,Scope Carpal Tunnel
-proc_endotracheal_intubation,fam_airway,Intubation,intubation,Breathing tube placement,Intubation
-proc_enoxaparin_injection,fam_injection,Enoxaparin Injection,enoxaparin-injection,Blood thinner injection,Lovenox
-proc_epidural_injection,fam_lumbar_puncture,Epidural Steroid Injection,epidural-injection,Steroid injection near spine,Epidural
-proc_epigastric_hernia_repair,fam_hernia,Upper Belly Hernia Repair,epigastric-hernia-repair,Epigastric hernia surgery,Upper Belly Hernia
-proc_episiotomy_repair,fam_delivery,Episiotomy Repair,episiotomy-repair,Delivery incision repair,Episiotomy
-proc_external_cephalic_version,fam_pregnancy_care,Baby Turning Procedure,external-cephalic-version,Turning breech baby,Baby Turning
-proc_eye_exam,fam_eye_exam,Comprehensive Eye Exam,eye-exam,Complete vision examination,Eye Exam
-proc_face_ct_scan,fam_ct_scan,Face CT Scan,face-ct,Facial CT imaging,Face CT
-proc_fecal_occult_blood,fam_culture,Stool Blood Test,stool-blood-test,Hidden blood in stool,FOBT
-proc_femoral_nerve_block,fam_nerve_block,Thigh Nerve Block,thigh-nerve-block,Femoral nerve block,Femoral Block
-proc_ferritin_blood_test,fam_blood_test,Ferritin Test,ferritin-test,Iron storage test,Ferritin
-proc_fetal_biophysical_profile,fam_fetal_monitoring,Fetal Biophysical Profile,biophysical-profile,Comprehensive fetal assessment,BPP
-proc_fetal_non_stress_test,fam_fetal_monitoring,Fetal Non-Stress Test,non-stress-test,Baby heart rate monitoring,NST
-proc_fluoroscopic_guidance_needle_placement,fam_fluoroscopy,Fluoroscopy-Guided Procedure,fluoroscopy-guided-procedure,Fluoro needle guidance,Fluoro Guidance
-proc_fluoroscopy_guidance,fam_fluoroscopy,Fluoroscopy Guidance,fluoroscopy-guidance,Real-time X-ray guidance,Fluoro Guidance
-proc_foley_catheter_insertion,fam_catheter,Urinary Catheter,urinary-catheter,Foley catheter insertion,Foley
-proc_foot_x_ray,fam_x_ray,Foot X-Ray,foot-x-ray,Foot X-ray,Foot X-Ray
-proc_foreign_body_removal,fam_abscess,Foreign Body Removal,foreign-body-removal,Removing embedded objects,Splinter Removal
-proc_free_thyroxine_blood_test,fam_blood_test,Free T4 Test,free-t4-test,Thyroid hormone test,T4
-proc_ggt,fam_blood_test,GGT Test,ggt-test,Liver enzyme test,GGT
-proc_glucose_blood_test,fam_blood_test,Blood Sugar Test,blood-sugar-test,Blood glucose,Blood Sugar
-proc_glucose_tolerance_test,fam_blood_test,Glucose Tolerance Test,glucose-tolerance-test,Diabetes screening,GTT
-proc_gonioscopy,fam_eye_exam,Glaucoma Angle Exam,gonioscopy,Eye drainage angle exam,Glaucoma Test
-proc_group_chemicals_blood_test,fam_blood_test,Metabolic Panel,metabolic-panel,Blood chemistry panel,Chem Panel
-proc_h_pylori_stool_antigen,fam_culture,H. Pylori Stool Test,h-pylori-stool,Stomach bacteria stool test,H. Pylori Stool
-proc_hand_wrist_proc,fam_hand_wrist,Hand/Wrist Procedure,hand-wrist-procedure,Hand or wrist surgery,Hand Surgery
-proc_hand_x_ray,fam_x_ray,Hand X-Ray,hand-x-ray,Hand X-ray,Hand X-Ray
-proc_hcg,fam_blood_test,HCG Test,hcg-test,Pregnancy hormone,HCG
-proc_hdl_cholesterol,fam_blood_test,HDL Cholesterol,hdl-cholesterol,Good cholesterol,HDL
-proc_head_brain_ct_scan,fam_ct_scan,Head CT Scan,head-ct,Brain CT imaging,Head CT
-proc_head_neck_blood_flow_ultrasound,fam_ultrasound,Carotid Ultrasound,carotid-ultrasound,Neck artery ultrasound,Carotid Doppler
-proc_head_neck_tissue_ultrasound,fam_ultrasound,Neck Ultrasound,neck-ultrasound,Thyroid and neck ultrasound,Neck Ultrasound
-proc_hearing_speech_test,fam_hearing_speech,Hearing and Speech Test,hearing-speech-test,Audiometry and speech test,Hearing Test
-proc_heart_blood_flow_ultrasound,fam_heart_ultrasound,Heart Doppler,heart-doppler,Heart blood flow ultrasound,Cardiac Doppler
-proc_heart_stress_test_ecg,fam_ecg,Stress Test,stress-test,Exercise heart test,Stress Test
-proc_heart_ultrasound,fam_heart_ultrasound,Echocardiogram,echocardiogram,Heart ultrasound,Echo
-proc_helicobacter_pylori_antibody,fam_blood_test,H. Pylori Antibody,h-pylori-antibody,Stomach bacteria test,H. Pylori
-proc_hematocrit,fam_blood_test,Hematocrit,hematocrit,Red blood cell percentage,Hematocrit
-proc_hemoglobin,fam_blood_test,Hemoglobin,hemoglobin,Hemoglobin level,Hemoglobin
-proc_hemoglobin_a1c_blood_test,fam_blood_test,Hemoglobin A1C,hemoglobin-a1c,Diabetes control test,A1C
-proc_hepatic_function_panel,fam_blood_test,Liver Panel,liver-panel,Liver function tests,Liver Panel
-proc_hepatitis_b_surface_antigen,fam_blood_test,Hepatitis B Test,hepatitis-b-test,Hep B surface antigen,Hep B
-proc_hepatitis_c_antibody,fam_blood_test,Hepatitis C Test,hepatitis-c-test,Hep C antibody,Hep C
-proc_hip_pelvis_spine_density_dxa,fam_dxa,Bone Density Test,bone-density-test,DXA bone density scan,DEXA Scan
-proc_hip_replacement,fam_joint_replacement,Hip Replacement,hip-replacement,Hip joint replacement surgery,Hip Replacement
-proc_hip_x_ray,fam_x_ray,Hip X-Ray,hip-x-ray,Hip X-ray,Hip X-Ray
-proc_hiv_1_antigen_with_antibodies,fam_blood_test,HIV Combo Test,hiv-combo-test,HIV antigen/antibody,HIV Combo
-proc_hiv_antibody_test,fam_blood_test,HIV Test,hiv-test,HIV screening,HIV Test
-proc_home_visit,fam_home_visit,Home Visit,home-visit,Medical care at patient home,Home Doctor Visit
-proc_hospital_discharge_day_30_min_or_less,fam_hospital_care,Hospital Discharge,hospital-discharge,Discharge planning and instructions,Discharge
-proc_hydralazine_injection,fam_injection,Hydralazine Injection,hydralazine-injection,Blood pressure medication,Hydralazine
-proc_hysterectomy_after_cesarean,fam_delivery,Emergency Hysterectomy,emergency-hysterectomy,Uterus removal after C-section,Emergency Hysterectomy
-proc_immunohistochemistry,fam_pathology,Immunohistochemistry,immunohistochemistry,Special tissue stain,IHC
-proc_incision_and_drainage_abscess,fam_abscess,Abscess Drainage,abscess-drainage,Draining infected collection,Abscess I&D
-proc_influenza_doo_immunoassay,fam_immunoassay,Flu Rapid Test,flu-rapid,Influenza rapid test,Flu Test
-proc_influenza_vaccine,fam_vaccine,Flu Vaccine,flu-vaccine,Influenza vaccination,Flu Shot
-proc_inguinal_hernia_repair,fam_hernia,Groin Hernia Repair,groin-hernia-repair,Inguinal hernia surgery,Groin Hernia Repair
-proc_initial_hospital_care,fam_hospital_care,Hospital Admission,hospital-admission,First day hospital care,Hospital Admission
-proc_initial_nursing_facility_care,fam_nursing_facility_care,Nursing Facility Admission,nursing-admission,Initial nursing facility evaluation,Nursing Home Admission
-proc_intermediate_laceration_repair,fam_wound_repair,Intermediate Wound Repair,intermediate-wound-repair,Stitches for deeper cuts,Deep Stitches
-proc_iron_binding_capacity,fam_blood_test,Iron Binding Test,iron-binding-test,TIBC test,TIBC
-proc_iron_blood_test,fam_blood_test,Iron Test,iron-test,Serum iron level,Iron
-proc_iv_infusion_hydration,fam_infusion,IV Hydration,iv-hydration,Intravenous fluid administration,IV Fluids
-proc_iv_infusion_therapeutic,fam_infusion,IV Medication Infusion,iv-medication,Intravenous medication delivery,IV Medication
-proc_iv_push,fam_infusion,IV Push Medication,iv-push,Quick IV medication injection,IV Push
-proc_knee_arthrography,fam_joint_clinical_procedure,Knee Arthrogram,knee-arthrogram,Knee joint imaging with contrast,Knee Arthrogram
-proc_knee_replacement,fam_joint_replacement,Knee Replacement,knee-replacement,Knee joint replacement surgery,Knee Replacement
-proc_knee_x_ray,fam_x_ray,Knee X-Ray,knee-x-ray,Knee X-ray,Knee X-Ray
-proc_lactate,fam_blood_test,Lactate Test,lactate-test,Lactic acid level,Lactate
-proc_laparoscopic_cholecystectomy,fam_gallbladder,Laparoscopic Gallbladder Removal,lap-cholecystectomy,Minimally invasive gallbladder surgery,Lap Chole
-proc_laparoscopic_inguinal_hernia_repair,fam_hernia,Laparoscopic Hernia Repair,lap-hernia-repair,Minimally invasive hernia surgery,Lap Hernia
-proc_ldh,fam_blood_test,LDH Test,ldh-test,Tissue damage marker,LDH
-proc_ldl_cholesterol,fam_blood_test,LDL Cholesterol,ldl-cholesterol,Bad cholesterol,LDL
-proc_leg_arteries_ultrasound,fam_ultrasound,Leg Arterial Ultrasound,leg-arterial-ultrasound,Leg artery ultrasound,Leg Arterial
-proc_leg_ct_scan,fam_ct_scan,Leg CT Scan,leg-ct,Leg CT imaging,Leg CT
-proc_leg_joint_mri,fam_mri,Leg Joint MRI,leg-joint-mri,Knee/ankle MRI,Leg Joint MRI
-proc_leg_mri,fam_mri,Leg MRI,leg-mri,Leg MRI scan,Leg MRI
-proc_lens_intraocular,fam_eye_implant,Intraocular Lens,intraocular-lens,Artificial eye lens,IOL
-proc_lidocaine_injection,fam_injection,Lidocaine Injection,lidocaine-injection,Local anesthetic,Lidocaine
-proc_lipids_blood_test,fam_blood_test,Lipid Panel,lipid-panel,Cholesterol test,Cholesterol
-proc_lower_extremity_x_ray,fam_x_ray,Full Leg X-Ray,full-leg-x-ray,Entire leg X-ray,Leg X-Ray
-proc_lower_leg_x_ray,fam_x_ray,Lower Leg X-Ray,lower-leg-x-ray,Shin X-ray,Shin X-Ray
-proc_lower_spine_ct_scan,fam_ct_scan,Lumbar Spine CT,lumbar-spine-ct,Lower back CT,L-Spine CT
-proc_lower_spine_x_ray,fam_x_ray,Lower Back X-Ray,lower-back-x-ray,Lumbar spine X-ray,Back X-Ray
-proc_lumbar_puncture,fam_lumbar_puncture,Spinal Tap,spinal-tap,Lumbar puncture for diagnosis,Spinal Tap
-proc_lung_diffusing_capacity_test,fam_lung_test,Lung Diffusion Test,lung-diffusion-test,Oxygen absorption test,DLCO
-proc_magnesium,fam_blood_test,Magnesium Test,magnesium-test,Blood magnesium,Magnesium
-proc_meperidine_injection,fam_injection,Meperidine Injection,meperidine-injection,Pain medication,Demerol
-proc_mesh_surgical_implantable,fam_implant,Surgical Mesh,surgical-mesh,Implantable hernia mesh,Hernia Mesh
-proc_methylprednisolone_injection,fam_injection,Methylprednisolone Injection,methylprednisolone-injection,Steroid injection,Depo-Medrol
-proc_metoclopramide_injection,fam_injection,Metoclopramide Injection,metoclopramide-injection,Anti-nausea medication,Reglan
-proc_microalbumin_urinalysis,fam_urine_test,Microalbumin Test,microalbumin-test,Urine protein for kidney,Microalbumin
-proc_midazolam_injection,fam_injection,Midazolam Injection,midazolam-injection,Sedative injection,Versed
-proc_middle_cerebral_artery_doppler,fam_fetal_monitoring,Fetal Brain Doppler,fetal-brain-doppler,Fetal brain blood flow,MCA Doppler
-proc_moderate_sedation,fam_sedation,Moderate Sedation,moderate-sedation,Conscious sedation for procedures,Sedation
-proc_morphine_injection,fam_injection,Morphine Injection,morphine-injection,Pain medication,Morphine
-proc_multiple_organism_dna_probe,fam_culture,Multi-Pathogen PCR,multi-pathogen-pcr,Multiple organism test,Multiplex PCR
-proc_myocardial_perfusion_spect,fam_cardiac_imaging,Nuclear Heart Scan,nuclear-heart-scan,Heart perfusion imaging,SPECT Scan
-proc_naloxone_injection,fam_injection,Naloxone Injection,naloxone-injection,Opioid reversal agent,Narcan
-proc_natriuretic_peptide_bnp,fam_blood_test,BNP Test,bnp-test,Heart failure marker,BNP
-proc_nebulizer_treatment,fam_breathing_treatment,Breathing Treatment,breathing-treatment,Nebulizer medication,Nebulizer
-proc_neisseria_dna_probe,fam_culture,Gonorrhea PCR,gonorrhea-pcr,Gonorrhea DNA test,GC PCR
-proc_neonatal_intensive_care,fam_nicu,NICU Care,nicu-care,Neonatal intensive care,NICU
-proc_nerve_conduction_study,fam_nerve_study,Nerve Conduction Study,nerve-conduction-study,Nerve electrical signal test,NCS
-proc_neuroplasty,fam_nerve_surgery,Nerve Decompression,nerve-decompression,Surgical nerve release,Nerve Release
-proc_newborn_care,fam_newborn,Newborn Care,newborn-care,Initial newborn evaluation,Baby Checkup
-proc_ng_tube_placement_with_imaging,fam_gi_tube,NG Tube Placement,ng-tube,Nasogastric tube insertion,NG Tube
-proc_obstetric_panel,fam_blood_test,Pregnancy Blood Panel,pregnancy-blood-panel,Prenatal blood tests,Prenatal Labs
-proc_oct_optic_nerve,fam_eye_exam,OCT Scan,oct-scan,Optic nerve imaging,OCT
-proc_office_visit,fam_office_visit,Office Visit,office-visit,Doctor visit for evaluation and management,Doctor Visit
-proc_onabotulinumtoxin_a,fam_injection,Botox Injection,botox-injection,Botulinum toxin injection,Botox
-proc_ondansetron_injection,fam_injection,Ondansetron Injection,ondansetron-injection,Anti-nausea medication,Zofran
-proc_open_cholecystectomy,fam_gallbladder,Open Gallbladder Removal,open-cholecystectomy,Traditional gallbladder surgery,Open Chole
-proc_ophthalmic_biometry,fam_eye_exam,Eye Measurement,eye-measurement,Eye length measurement,IOL Calc
-proc_ophthalmic_biometry_ultrasound,fam_eye_ultrasound,Eye A-Scan,eye-a-scan,Eye measurement ultrasound,A-Scan
-proc_ophthalmic_ultrasound,fam_eye_ultrasound,Eye Ultrasound,eye-ultrasound,Ultrasound of eye,Eye Ultrasound
-proc_orbit_face_neck_mri,fam_mri,Face/Neck MRI,face-neck-mri,Face and neck MRI,Face MRI
-proc_orthotic_prosthetic_training,fam_training,Orthotic/Prosthetic Training,orthotic-prosthetic-training,Brace or prosthetic training,Device Training
-proc_other_peripheral_nerve_block,fam_nerve_block,Peripheral Nerve Block,peripheral-nerve-block,Other nerve block,Nerve Block
-proc_pap_smear,fam_smear_test,Pap Smear,pap-smear,Cervical cancer screening,Pap Smear
-proc_pap_smear_test,fam_smear_test,Pap Smear Collection,pap-collection,Pap specimen collection,Pap Collection
-proc_partial_thromboplastin_time_ptt,fam_blood_test,PTT Test,ptt-test,Clotting time test,PTT
-proc_pelvis_mri,fam_mri,Pelvis MRI,pelvis-mri,Pelvis MRI scan,Pelvis MRI
-proc_pelvis_x_ray,fam_x_ray,Pelvis X-Ray,pelvis-x-ray,Hip and pelvis X-ray,Pelvis X-Ray
-proc_phosphorus,fam_blood_test,Phosphorus Test,phosphorus-test,Blood phosphorus,Phosphorus
-proc_physical_performance_test,fam_physical_therapy,Physical Function Test,physical-function-test,Physical performance assessment,Function Test
-proc_physical_therapy,fam_physical_therapy,Physical Therapy,physical-therapy,PT treatment session,Physical Therapy
-proc_picc_insertion,fam_vascular_access,PICC Line Insertion,picc-line,Peripherally inserted central catheter,PICC Line
-proc_pneumococcal_vaccine,fam_vaccine,Pneumonia Vaccine,pneumonia-vaccine,Pneumococcal vaccination,Pneumonia Shot
-proc_postpartum_care_only,fam_pregnancy_care,Postpartum Care,postpartum-care,Care after delivery,Post-Birth Care
-proc_potassium,fam_blood_test,Potassium Test,potassium-test,Blood potassium,Potassium
-proc_precancer_skin_growth_destruction,fam_skin,Precancer Lesion Removal,precancer-removal,Removing precancerous skin growths,Actinic Keratosis Treatment
-proc_promethazine_injection,fam_injection,Promethazine Injection,promethazine-injection,Anti-nausea medication,Phenergan
-proc_propofol_injection,fam_injection,Propofol Injection,propofol-injection,Anesthetic agent,Propofol
-proc_prostate_specific_antigen_blood_test,fam_blood_test,PSA Test,psa-test,Prostate screening,PSA
-proc_prosthetic_implant_nos,fam_implant,Prosthetic Implant,prosthetic-implant,Surgical prosthetic device,Implant
-proc_psychiatric_eval,fam_mental_health_eval,Psychiatric Evaluation,psychiatric-evaluation,Mental health assessment,Psych Eval
-proc_psychotherapy,fam_mental_health_therapy,Psychotherapy,psychotherapy,Therapy session,Therapy
-proc_pulse_oximetry,fam_breathing_treatment,Oxygen Level Check,oxygen-level-check,Blood oxygen measurement,Pulse Ox
-proc_rbc_antibody_screen,fam_blood_test,Antibody Screen,antibody-screen,RBC antibody test,Antibody Screen
-proc_refraction,fam_eye_exam,Refraction Test,refraction-test,Eyeglass prescription measurement,Glasses Rx
-proc_revision_knee_arthroplasty,fam_joint_replacement,Knee Replacement Revision,knee-revision,Redo knee replacement,Knee Revision
-proc_rivaroxaban_oral,fam_drug,Rivaroxaban,rivaroxaban,Oral blood thinner,Xarelto
-proc_routine_ecg,fam_ecg,ECG,ecg,Electrocardiogram heart test,ECG
-proc_rubella_antibody,fam_blood_test,Rubella Test,rubella-test,German measles immunity,Rubella
-proc_sars_cov_2_antigen,fam_immunoassay,COVID-19 Rapid Test,covid-rapid,COVID rapid antigen,COVID Rapid
-proc_sarscov2_doo_immunoassay,fam_immunoassay,COVID-19 POC Test,covid-poc,COVID point of care,COVID Quick
-proc_sarscov2_immunoassay,fam_immunoassay,COVID-19 Antibody,covid-antibody,COVID antibody test,COVID Antibody
-proc_sarscov2_influenza_immunoassay,fam_immunoassay,COVID/Flu Combo,covid-flu-combo,COVID and flu test,COVID/Flu
-proc_sarscov2_vaccine,fam_vaccine,COVID-19 Vaccine,covid-vaccine,COVID-19 vaccination,COVID Shot
-proc_sciatic_nerve_block,fam_nerve_block,Leg Nerve Block,leg-nerve-block,Sciatic nerve block,Sciatic Block
-proc_screening_mammography,fam_mammography,Screening Mammogram,screening-mammogram,Routine breast cancer screening,Screening Mammogram
-proc_sedimentation_rate_automated,fam_blood_test,Sed Rate,sed-rate,Inflammation marker,ESR
-proc_self_care_training,fam_training,Self Care Training,self-care-training,Activities of daily living training,Self Care Training
-proc_sensorimotor_examination,fam_eye_exam,Eye Movement Exam,eye-movement-exam,Eye muscle coordination test,Eye Movement Test
-proc_shoulder_x_ray,fam_x_ray,Shoulder X-Ray,shoulder-x-ray,Shoulder X-ray,Shoulder X-Ray
-proc_simple_laceration_repair,fam_wound_repair,Simple Wound Repair,simple-wound-repair,Stitches for simple cuts,Stitches
-proc_skin_growth_biopsy,fam_biopsy,Skin Biopsy,skin-biopsy,Skin tissue sampling,Skin Biopsy
-proc_skin_growth_destruction,fam_skin,Skin Growth Removal,skin-growth-removal,Removing benign skin lesions,Wart Removal
-proc_sodium,fam_blood_test,Sodium Test,sodium-test,Blood sodium,Sodium
-proc_sodium_hyaluronate_ophthalmic,fam_eye_implant,Eye Lubricant,eye-lubricant,Surgical eye lubricant,Healon
-proc_spinal_canal_cervical_mri,fam_mri,Cervical Spine MRI,cervical-spine-mri,Neck spine MRI,C-Spine MRI
-proc_spinal_canal_lumbar_mri,fam_mri,Lumbar Spine MRI,lumbar-spine-mri,Lower back MRI,L-Spine MRI
-proc_spinal_canal_thoracic_mri,fam_mri,Thoracic Spine MRI,thoracic-spine-mri,Mid-back MRI,T-Spine MRI
-proc_spinal_chiropractic,fam_chiropractic,Chiropractic Adjustment,chiropractic-adjustment,Spinal manipulation,Adjustment
-proc_spirometry_test,fam_lung_test,Breathing Test,breathing-test,Lung function spirometry,Spirometry
-proc_stool_culture,fam_culture,Stool Culture,stool-culture,Stool infection test,Stool Culture
-proc_streptococcus_doo_immunoassay,fam_immunoassay,Strep Rapid Test,strep-rapid,Strep throat test,Strep Test
-proc_subsequent_hospital_care,fam_hospital_care,Hospital Follow-up Care,hospital-followup,Daily hospital care after admission,Hospital Follow-up
-proc_subsequent_nursing_facility_care,fam_nursing_facility_care,Nursing Facility Follow-up,nursing-followup,Ongoing nursing facility care,Nursing Home Care
-proc_surgical_pathology,fam_pathology,Surgical Pathology,surgical-pathology,Tissue examination,Pathology
-proc_syphilis_test_qualitative,fam_blood_test,Syphilis Test,syphilis-test,Syphilis screening,RPR
-proc_tb_skin_test,fam_immunoassay,TB Skin Test,tb-skin-test,Tuberculosis screening,PPD
-proc_tele_medical_discussion,fam_telemedicine,Telemedicine Visit,telemedicine-visit,Phone or video medical consultation,Phone Consultation
-proc_thigh_bone_x_ray,fam_x_ray,Femur X-Ray,femur-x-ray,Thigh bone X-ray,Thigh X-Ray
-proc_thoracic_spine_ct_scan,fam_ct_scan,Thoracic Spine CT,thoracic-spine-ct,Mid-back CT,T-Spine CT
-proc_tracheostomy_emergency,fam_airway,Emergency Tracheostomy,emergency-tracheostomy,Emergency airway creation,Emergency Trach
-proc_tracheostomy_tube_change,fam_airway,Trach Tube Change,trach-tube-change,Tracheostomy tube replacement,Trach Change
-proc_transitional_care_mngmnt,fam_hospital_care,Transitional Care,transitional-care,Care coordination after hospital,Post-Hospital Care
-proc_transvaginal_ultrasound,fam_ultrasound,Transvaginal Ultrasound,transvaginal-ultrasound,Pelvic ultrasound,Transvaginal US
-proc_treponema_pallidum_antibody,fam_blood_test,Syphilis Confirmation,syphilis-confirm,Syphilis confirmatory,FTA-ABS
-proc_triamcinolone_ophthalmic,fam_eye_implant,Eye Steroid Injection,eye-steroid,Steroid injection in eye,Eye Steroid
-proc_triglycerides,fam_blood_test,Triglycerides,triglycerides,Blood fat test,Triglycerides
-proc_troponin_quantitative,fam_blood_test,Troponin Test,troponin-test,Heart attack marker,Troponin
-proc_tsh_blood_test,fam_blood_test,TSH Test,tsh-test,Thyroid function test,TSH
-proc_tympanometry_test,fam_hearing,Tympanometry,tympanometry,Middle ear function test,Ear Pressure Test
-proc_ultrasound_guidance_needle_placement,fam_ultrasound,Ultrasound-Guided Procedure,ultrasound-guided-procedure,Ultrasound needle guidance,US Guidance
-proc_ultrasound_ob,fam_ob_ultrasound,Pregnancy Ultrasound,pregnancy-ultrasound,Prenatal ultrasound imaging,Baby Ultrasound
-proc_ultrasound_retroperitoneal_limited,fam_ultrasound,Limited Retroperitoneal US,limited-retroperitoneal-us,Limited deep belly ultrasound,Limited Retro US
-proc_umbilical_artery_doppler,fam_fetal_monitoring,Umbilical Cord Doppler,umbilical-doppler,Cord blood flow monitoring,Cord Doppler
-proc_umbilical_hernia_repair,fam_hernia,Belly Button Hernia Repair,umbilical-hernia-repair,Umbilical hernia surgery,Belly Button Hernia
-proc_unclassified_drug,fam_drug,Unclassified Drug,unclassified-drug,Miscellaneous medication,Other Medication
-proc_upper_spine_ct_scan,fam_ct_scan,Cervical Spine CT,cervical-spine-ct,Neck spine CT,C-Spine CT
-proc_upper_spine_x_ray,fam_x_ray,Neck X-Ray,neck-x-ray,Cervical spine X-ray,Neck X-Ray
-proc_uric_acid_blood,fam_blood_test,Uric Acid Test,uric-acid-test,Gout test,Uric Acid
-proc_urinalysis,fam_urine_test,Urinalysis,urinalysis,Urine analysis,Urine Test
-proc_urine_culture,fam_culture,Urine Culture,urine-culture,Urine infection test,Urine Culture
-proc_urine_pregnancy_test,fam_urine_test,Urine Pregnancy Test,urine-pregnancy-test,Pregnancy test,Pregnancy Test
-proc_vaginal_delivery,fam_delivery,Vaginal Delivery,vaginal-delivery,Natural childbirth,Natural Birth
-proc_vancomycin_injection,fam_injection,Vancomycin Injection,vancomycin-injection,Antibiotic injection,Vancomycin
-proc_vein_chemotherapy,fam_chemotherapy,Chemotherapy Infusion,chemotherapy-infusion,Cancer treatment infusion,Chemo
-proc_venipuncture_younger_than_3,fam_blood_test,Pediatric Blood Draw,pediatric-blood-draw,Blood draw for young children,Child Blood Draw
-proc_ventral_hernia_repair,fam_hernia,Abdominal Wall Hernia Repair,ventral-hernia-repair,Ventral hernia surgery,Abdominal Hernia
-proc_viscoelastic_substance,fam_eye_implant,Viscoelastic,viscoelastic,Eye surgery protective gel,Viscoelastic
-proc_visual_field,fam_eye_exam,Visual Field Test,visual-field-test,Peripheral vision test,Visual Field
-proc_vitamin_d3_blood_test,fam_blood_test,Vitamin D Test,vitamin-d-test,Vitamin D level,Vitamin D
-proc_voice_box_endoscopy,fam_airway,Laryngoscopy,laryngoscopy,Voice box examination,Throat Scope
-proc_wheelchair_management,fam_training,Wheelchair Training,wheelchair-training,Wheelchair use training,Wheelchair Training
-proc_wrist_x_ray,fam_x_ray,Wrist X-Ray,wrist-x-ray,Wrist X-ray,Wrist X-Ray
+id,family_id,name,slug,description,common_name,search_terms
+proc_abdomen_mri,fam_mri,Abdominal MRI,abdominal-mri,Belly MRI scan,Belly MRI,"stomach mri,belly mri,abdominal imaging,liver mri,abdominal scan"
+proc_abdomen_pelvis_ct_scan,fam_ct_scan,Abdomen/Pelvis CT,abdomen-pelvis-ct,Combined CT scan,Abd/Pelvis CT,"belly ct,abdominal ct,pelvic ct,stomach ct scan"
+proc_abdomen_ultrasound,fam_ultrasound,Abdominal Ultrasound,abdominal-ultrasound,Belly ultrasound,Belly Ultrasound,"belly ultrasound,stomach ultrasound,liver ultrasound,abdominal sonogram"
+proc_abdomen_x_ray,fam_x_ray,Abdominal X-Ray,abdominal-x-ray,Belly X-ray,Belly X-Ray,"belly xray,stomach xray,abdominal film"
+proc_abdominal_cavity_ultrasound,fam_ultrasound,Retroperitoneal Ultrasound,retroperitoneal-ultrasound,Deep belly ultrasound,Retroperitoneal US,
+proc_acute_hepatitis_panel,fam_blood_test,Hepatitis Panel,hepatitis-panel,Hepatitis testing,Hep Panel,
+proc_adrenaline_injection,fam_injection,Epinephrine Injection,epinephrine-injection,Adrenaline injection,Epinephrine,
+proc_advance_care_planning,fam_care_planning,Advance Care Planning,advance-care-planning,Discussion of future healthcare wishes,Care Planning,
+proc_albumin,fam_blood_test,Albumin Test,albumin-test,Blood protein test,Albumin,
+proc_alcohols,fam_blood_test,Alcohol Level,alcohol-level,Blood alcohol,Alcohol Test,
+proc_alkaline_phosphatase,fam_blood_test,Alkaline Phosphatase,alkaline-phosphatase,Liver/bone enzyme,Alk Phos,
+proc_alpha_fetoprotein_serum,fam_blood_test,AFP Test,afp-test,Tumor marker,AFP,
+proc_alt_sgpt,fam_blood_test,ALT Test,alt-test,Liver enzyme test,ALT,
+proc_anesthesia_abdominal,fam_anesthesia,Abdominal Surgery Anesthesia,abdominal-anesthesia,Anesthesia for abdominal procedures,Anesthesia,
+proc_anesthesia_arm_hand,fam_anesthesia,Arm/Hand Surgery Anesthesia,arm-hand-anesthesia,Anesthesia for arm or hand surgery,Anesthesia,
+proc_anesthesia_eye,fam_anesthesia,Eye Surgery Anesthesia,eye-anesthesia,Anesthesia for eye surgery,Anesthesia,
+proc_anesthesia_hernia,fam_anesthesia,Hernia Surgery Anesthesia,hernia-anesthesia,Anesthesia for hernia repair,Anesthesia,
+proc_anesthesia_knee,fam_anesthesia,Knee Surgery Anesthesia,knee-anesthesia,Anesthesia for knee procedures,Anesthesia,
+proc_anesthesia_obstetric,fam_anesthesia,Labor & Delivery Anesthesia,obstetric-anesthesia,Anesthesia for childbirth,Labor Anesthesia,
+proc_ankle_x_ray,fam_x_ray,Ankle X-Ray,ankle-x-ray,Ankle X-ray,Ankle X-Ray,
+proc_annual_alcohol_screening,fam_mental_health_screen,Alcohol Screening,alcohol-screening,Alcohol misuse screening,Alcohol Screening,
+proc_annual_depression_screening,fam_mental_health_screen,Depression Screening,depression-screening,Depression assessment,Depression Screening,
+proc_annual_wellness_visit,fam_wellness_visit,Annual Wellness Visit,annual-wellness-visit,Yearly preventive care checkup,Annual Checkup,"yearly physical,annual physical,annual checkup,preventive care,yearly checkup,wellness exam"
+proc_antibody_identification,fam_blood_test,Antibody ID,antibody-id,Antibody identification,Antibody ID,
+proc_antinuclear_antibody,fam_blood_test,ANA Test,ana-test,Autoimmune test,ANA,
+proc_appendectomy,fam_appendix,Appendectomy,appendectomy,Appendix removal surgery,Appendix Removal,"appendix surgery,appendix removal,appendicitis surgery,appy"
+proc_application_long_arm_splint,fam_splint,Long Arm Splint,long-arm-splint,Splint from shoulder to hand,Arm Splint,
+proc_application_short_arm_splint,fam_splint,Short Arm Splint,short-arm-splint,Splint from elbow to hand,Wrist Splint,
+proc_application_short_leg_splint,fam_splint,Short Leg Splint,short-leg-splint,Splint from knee to foot,Ankle Splint,
+proc_arm_joint_mri,fam_mri,Arm Joint MRI,arm-joint-mri,Shoulder/elbow MRI,Arm Joint MRI,
+proc_arm_leg_arteries_ultrasound,fam_ultrasound,Arterial Ultrasound,arterial-ultrasound,Arm/leg artery ultrasound,Arterial Doppler,
+proc_arm_leg_veins_ultrasound,fam_ultrasound,Venous Ultrasound,venous-ultrasound,Arm/leg vein ultrasound,Venous Doppler,"dvt ultrasound,blood clot ultrasound,leg vein ultrasound"
+proc_arm_mri,fam_mri,Arm MRI,arm-mri,Arm MRI scan,Arm MRI,
+proc_arterial_line_placement,fam_vascular_access,Arterial Line Placement,arterial-line,Arterial catheter for monitoring,Art Line,
+proc_arterial_puncture,fam_vascular_access,Arterial Blood Draw,arterial-puncture,Arterial blood sample collection,ABG Draw,
+proc_arthrocentesis,fam_joint_clinical_procedure,Joint Injection,joint-injection,Joint fluid aspiration or injection,Joint Injection,"joint aspiration,joint tap,knee injection,joint fluid"
+proc_arthrodesis_knee,fam_joint_replacement,Knee Fusion,knee-fusion,Surgical knee joint fusion,Knee Fusion,
+proc_ast_sgot,fam_blood_test,AST Test,ast-test,Liver enzyme test,AST,
+proc_axillary_nerve_block,fam_nerve_block,Axillary Nerve Block,axillary-nerve-block,Armpit area nerve block,Axillary Block,
+proc_azithromycin_injection,fam_injection,Azithromycin Injection,azithromycin-injection,Antibiotic injection,Zithromax IV,
+proc_baclofen_injection,fam_injection,Baclofen Injection,baclofen-injection,Muscle relaxant injection,Baclofen,
+proc_bilirubin,fam_blood_test,Bilirubin Test,bilirubin-test,Liver function test,Bilirubin,
+proc_bladder_capacity_ultrasound,fam_bladder,Bladder Scan,bladder-scan,Bladder volume ultrasound,Bladder Scan,
+proc_bladder_urethra_endoscopy,fam_bladder,Cystoscopy,cystoscopy,Bladder examination,Bladder Scope,
+proc_blood_collection,fam_blood_test,Blood Draw,blood-draw,Venous blood sample collection,Blood Draw,"blood draw,phlebotomy,get blood drawn,needle stick"
+proc_blood_culture,fam_culture,Blood Culture,blood-culture,Blood infection test,Blood Culture,
+proc_blood_gas,fam_blood_test,Blood Gas Test,blood-gas-test,Arterial blood gas,ABG,"abg,arterial blood gas,oxygen level test"
+proc_blood_typing,fam_blood_test,Blood Type Test,blood-type-test,ABO and Rh typing,Blood Type,
+proc_blood_vessels_abdomen_pelvis_ct_scan,fam_ct_scan,Abdominal CTA,abdominal-cta,Belly vessel CT,Abd CTA,
+proc_blood_vessels_chest_ct_scan,fam_ct_scan,Chest CTA,chest-cta,Chest vessel CT,Chest CTA,
+proc_blood_vessels_head_ct_scan,fam_ct_scan,Head CTA,head-cta,Brain vessel CT,Head CTA,
+proc_blood_vessels_neck_ct_scan,fam_ct_scan,Neck CTA,neck-cta,Neck vessel CT,Neck CTA,
+proc_brachial_plexus_block,fam_nerve_block,Arm Nerve Block,arm-nerve-block,Brachial plexus nerve block,Arm Block,
+proc_brain_intracranial_mri,fam_mri,Brain MRA,brain-mra,Brain vessel MRI,Brain MRA,
+proc_brain_mri,fam_mri,Brain MRI,brain-mri,Brain MRI scan,Brain MRI,"brain scan,head mri,neurological mri,brain imaging,head scan"
+proc_brain_stem_mri,fam_mri,Brain Stem MRI,brain-stem-mri,Brain stem imaging,Brain Stem MRI,"brain stem scan,brainstem imaging"
+proc_breast_ultrasound,fam_ultrasound,Breast Ultrasound,breast-ultrasound,Breast imaging,Breast Ultrasound,"breast imaging,breast lump,breast exam,breast sonogram"
+proc_bun,fam_blood_test,BUN Test,bun-test,Blood urea nitrogen,BUN,
+proc_c_difficile_toxin,fam_culture,C. Diff Test,c-diff-test,C. difficile test,C. Diff,
+proc_c_reactive_protein,fam_blood_test,CRP Test,crp-test,Inflammation marker,CRP,
+proc_ca_125,fam_blood_test,CA-125 Test,ca-125-test,Ovarian cancer marker,CA-125,
+proc_ca_19_9,fam_blood_test,CA 19-9 Test,ca-19-9-test,Pancreatic cancer marker,CA 19-9,
+proc_calcium_total,fam_blood_test,Calcium Test,calcium-test,Blood calcium,Calcium,
+proc_cardiopulmonary_resuscitation,fam_cardiac_procedure,CPR,cpr,Cardiopulmonary resuscitation,CPR,
+proc_cardioversion_external,fam_cardiac_procedure,Cardioversion,cardioversion,Electric shock for heart rhythm,Heart Shock,
+proc_carpal_tunnel_release,fam_nerve_surgery,Carpal Tunnel Surgery,carpal-tunnel-surgery,Wrist nerve decompression,Carpal Tunnel Release,"carpal tunnel surgery,wrist surgery,hand numbness surgery"
+proc_cataract_surgery,fam_eye_surgery,Cataract Surgery,cataract-surgery,Clouded lens removal,Cataract Surgery,"lens surgery,eye lens,cloudy vision,vision restoration,lens replacement"
+proc_cbc_automated,fam_blood_test,CBC,cbc,Complete blood count,CBC,"blood count,complete blood count,infection test,anemia test,white blood cell"
+proc_cea,fam_blood_test,CEA Test,cea-test,Cancer marker,CEA,
+proc_cefazolin_injection,fam_injection,Cefazolin Injection,cefazolin-injection,Antibiotic injection,Ancef,
+proc_central_venous_catheter_insertion,fam_vascular_access,Central Line Insertion,central-line,Central venous catheter placement,Central Line,
+proc_cervical_cerclage_repair,fam_pregnancy_care,Cervical Cerclage,cervical-cerclage,Cervix stitching during pregnancy,Cervical Stitch,
+proc_cesarean_delivery,fam_delivery,Cesarean Section,cesarean-section,C-section delivery,C-Section,"c section,c-section,csection,surgical delivery,surgical birth"
+proc_chest_cancer_screen_ct_scan,fam_ct_scan,Lung Cancer Screening,lung-cancer-screening,Low-dose lung CT,Lung Screening,
+proc_chest_ct_scan,fam_ct_scan,Chest CT Scan,chest-ct,Lung CT imaging,Chest CT,"lung ct,chest scan,lung scan,pulmonary ct,thoracic ct"
+proc_chest_mri,fam_mri,Chest MRI,chest-mri,Chest MRI scan,Chest MRI,"lung mri,thoracic mri,chest imaging"
+proc_chest_tube,fam_chest_procedure,Chest Tube,chest-tube,Tube to drain chest,Chest Tube,
+proc_chest_x_ray,fam_x_ray,Chest X-Ray,chest-x-ray,Lung and heart X-ray,Chest X-Ray,"lung xray,lung x-ray,cxr,chest film,pneumonia test,chest radiograph"
+proc_chlamydia_culture,fam_culture,Chlamydia Culture,chlamydia-culture,Chlamydia test,Chlamydia,
+proc_chlamydia_dna_probe,fam_culture,Chlamydia PCR,chlamydia-pcr,Chlamydia DNA test,Chlamydia PCR,
+proc_chloroprocaine_injection,fam_injection,Chloroprocaine Injection,chloroprocaine-injection,Local anesthetic,Nesacaine,
+proc_cholangiography,fam_gallbladder,Bile Duct Imaging,cholangiography,Bile duct X-ray during surgery,Bile Duct X-ray,
+proc_cholesterol_total,fam_blood_test,Total Cholesterol,total-cholesterol,Cholesterol level,Cholesterol,"cholesterol check,cholesterol screening,cholesterol level"
+proc_chronic_care_management,fam_chronic_care,Chronic Care Management,chronic-care-management,Ongoing management of chronic conditions,Chronic Care,
+proc_ck,fam_blood_test,CK Test,ck-test,Muscle enzyme test,CK,
+proc_closed_treatment_distal_fibula_fracture,fam_fracture_treatment,Ankle Fracture Treatment,ankle-fracture,Treatment for broken fibula,Fibula Fracture,
+proc_closed_treatment_distal_radius_fracture,fam_fracture_treatment,Wrist Fracture Treatment,wrist-fracture,Treatment for broken wrist,Wrist Fracture,
+proc_closed_treatment_shoulder_dislocation,fam_fracture_treatment,Shoulder Dislocation Treatment,shoulder-dislocation,Treatment for dislocated shoulder,Shoulder Reduction,
+proc_closed_treatment_tibial_shaft_fracture,fam_fracture_treatment,Shin Fracture Treatment,shin-fracture,Treatment for broken tibia,Tibia Fracture,
+proc_clotting_time_blood_test,fam_blood_test,PT/INR Test,pt-inr-test,Blood clotting test,INR,
+proc_colonoscopy,fam_colonoscopy,Colonoscopy,colonoscopy,Colon examination with camera,Colonoscopy,"colon cancer screening,colon exam,bowel scope,colorectal,colon check"
+proc_colonoscopy_with_ablation,fam_colonoscopy,Colonoscopy with Ablation,colonoscopy-ablation,Colonoscopy with tissue destruction,Colon Ablation,
+proc_colonoscopy_with_decompression,fam_colonoscopy,Colonoscopy with Decompression,colonoscopy-decompression,Colonoscopy to relieve blockage,Colon Decompression,
+proc_colonoscopy_with_dilation,fam_colonoscopy,Colonoscopy with Dilation,colonoscopy-dilation,Colonoscopy with stricture widening,Colon Dilation,
+proc_colonoscopy_with_emr,fam_colonoscopy,Colonoscopy with EMR,colonoscopy-emr,Colonoscopy with mucosal resection,Colon EMR,
+proc_colonoscopy_with_endoscopic_ultrasound,fam_colonoscopy,Colonoscopy with EUS,colonoscopy-eus,Colonoscopy with ultrasound,Colon EUS,
+proc_colonoscopy_with_foreign_body_removal,fam_colonoscopy,Colonoscopy Foreign Body Removal,colonoscopy-foreign-body,Colonoscopy to remove object,Colon Foreign Body,
+proc_colonoscopy_with_polypectomy,fam_colonoscopy,Colonoscopy with Polyp Removal,colonoscopy-polyp-removal,Colonoscopy with polyp removal,Polyp Removal,"polyp removal,colon polyp,colonoscopy polyp,precancer removal"
+proc_colonoscopy_with_stent,fam_colonoscopy,Colonoscopy with Stent,colonoscopy-stent,Colonoscopy with stent placement,Colon Stent,
+proc_complete_blood_cell_count_blood_test,fam_blood_test,CBC with Differential,cbc-differential,Complete blood count with types,CBC with Diff,"cbc differential,blood count with diff,full blood count"
+proc_complex_laceration_repair,fam_wound_repair,Complex Wound Repair,complex-wound-repair,Repair for complex wounds,Complex Stitches,
+proc_contraction_stress_test,fam_fetal_monitoring,Contraction Stress Test,contraction-stress-test,Baby monitoring during contractions,CST,
+proc_covid_19_pcr,fam_immunoassay,COVID-19 PCR,covid-pcr,COVID molecular test,COVID PCR,
+proc_creatinine,fam_blood_test,Creatinine Test,creatinine-test,Kidney function test,Creatinine,"kidney function,renal function,kidney test,creatinine level"
+proc_creatinine_blood_test,fam_blood_test,Creatinine (Other),creatinine-other,Creatinine from other source,Creatinine,
+proc_critical_care,fam_critical_care,Critical Care,critical-care,Intensive care for critical illness,ICU Care,"icu,intensive care,critical illness"
+proc_ct_abdomen,fam_ct_scan,Abdominal CT Scan,abdominal-ct,Belly CT imaging,Belly CT,"belly ct,stomach ct,abdominal ct scan"
+proc_ct_neck,fam_ct_scan,Neck CT Scan,neck-ct,Neck CT imaging,Neck CT,
+proc_ct_upper_extremity,fam_ct_scan,Arm CT Scan,arm-ct,Arm CT imaging,Arm CT,
+proc_culture_bacterial,fam_culture,Bacterial Culture,bacterial-culture,General bacterial culture,Culture,
+proc_cyanocobalamin_blood_test,fam_blood_test,Vitamin B12 Test,vitamin-b12-test,B12 level,B12,
+proc_daily_management_epidural,fam_anesthesia,Epidural Management,epidural-management,Daily epidural catheter care,Epidural Care,
+proc_decompression_unspecified_nerve,fam_nerve_surgery,Nerve Surgery,nerve-surgery,Nerve decompression surgery,Nerve Surgery,
+proc_delivery_of_placenta,fam_delivery,Placenta Delivery,placenta-delivery,Afterbirth delivery,Afterbirth,
+proc_dexamethasone_injection,fam_injection,Dexamethasone Injection,dexamethasone-injection,Steroid injection,Decadron,
+proc_diagnostic_laparoscopy,fam_abdominal_surgery,Diagnostic Laparoscopy,diagnostic-laparoscopy,Minimally invasive abdominal exam,Belly Scope,
+proc_diagnostic_mammography,fam_mammography,Diagnostic Mammogram,diagnostic-mammogram,Breast problem evaluation,Diagnostic Mammogram,"breast lump mammogram,suspicious mammogram,breast workup"
+proc_drug_screen,fam_blood_test,Drug Screen,drug-screen,Drug test,Drug Test,
+proc_duplex_lower_extremity_arterial_unilateral,fam_ultrasound,Leg Arterial Duplex,leg-arterial-duplex,Single leg artery ultrasound,Leg Duplex,
+proc_egd,fam_egd,Upper Endoscopy (EGD),upper-endoscopy,Stomach and esophagus exam,EGD,"stomach scope,esophagus exam,throat scope,upper gi,gastroscopy,stomach exam"
+proc_egd_with_ablation,fam_egd,EGD with Ablation,egd-ablation,Upper endoscopy with tissue destruction,Esophageal Ablation,
+proc_egd_with_bleeding_control,fam_egd,EGD Bleeding Control,egd-bleeding,Upper endoscopy to stop bleeding,GI Bleeding Control,
+proc_egd_with_dilation,fam_egd,EGD with Dilation,egd-dilation,Upper endoscopy with stricture widening,Esophageal Dilation,
+proc_egd_with_eus,fam_egd,EGD with Ultrasound,egd-ultrasound,Upper endoscopy with EUS,EGD EUS,
+proc_egd_with_foreign_body_removal,fam_egd,EGD Foreign Body Removal,egd-foreign-body,Upper endoscopy to remove object,Swallowed Object Removal,
+proc_egd_with_peg_placement,fam_gi_tube,PEG Tube Placement,peg-tube,Feeding tube through stomach,Feeding Tube,
+proc_egd_with_thermal_therapy_esophagus,fam_egd,EGD Thermal Therapy,egd-thermal,Upper endoscopy with heat treatment,Esophageal Thermal,
+proc_egd_with_transmural_drainage,fam_egd,EGD with Drainage,egd-drainage,Upper endoscopy with fluid drainage,EGD Drainage,
+proc_egd_with_tube_placement,fam_gi_tube,EGD with Tube,egd-tube,Upper endoscopy with tube insertion,GI Tube,
+proc_egd_with_tumor_removal,fam_egd,EGD with Tumor Removal,egd-tumor-removal,Upper endoscopy with lesion removal,EGD Tumor Removal,
+proc_egd_with_variceal_treatment,fam_egd,EGD Variceal Treatment,egd-varices,Upper endoscopy for bleeding veins,Variceal Banding,
+proc_elbow_x_ray,fam_x_ray,Elbow X-Ray,elbow-x-ray,Elbow X-ray,Elbow X-Ray,
+proc_electrical_stimulation_physical_therapy,fam_physical_therapy,Electrical Stimulation,electrical-stimulation,E-stim therapy,E-Stim,
+proc_emergency_visit,fam_emergency,Emergency Room Visit,er-visit,Emergency department care,ER Visit,"er visit,emergency room,urgent care,emergency,ed visit"
+proc_emg,fam_nerve_study,EMG Test,emg-test,Muscle electrical activity test,EMG,"muscle test,nerve muscle test,electromyography"
+proc_endoscopic_carpal_tunnel_release,fam_nerve_surgery,Endoscopic Carpal Tunnel,endoscopic-carpal-tunnel,Minimally invasive carpal tunnel,Scope Carpal Tunnel,
+proc_endotracheal_intubation,fam_airway,Intubation,intubation,Breathing tube placement,Intubation,
+proc_enoxaparin_injection,fam_injection,Enoxaparin Injection,enoxaparin-injection,Blood thinner injection,Lovenox,
+proc_epidural_injection,fam_lumbar_puncture,Epidural Steroid Injection,epidural-injection,Steroid injection near spine,Epidural,"epidural steroid,back injection,spine injection,esi"
+proc_epigastric_hernia_repair,fam_hernia,Upper Belly Hernia Repair,epigastric-hernia-repair,Epigastric hernia surgery,Upper Belly Hernia,
+proc_episiotomy_repair,fam_delivery,Episiotomy Repair,episiotomy-repair,Delivery incision repair,Episiotomy,
+proc_external_cephalic_version,fam_pregnancy_care,Baby Turning Procedure,external-cephalic-version,Turning breech baby,Baby Turning,
+proc_eye_exam,fam_eye_exam,Comprehensive Eye Exam,eye-exam,Complete vision examination,Eye Exam,"vision exam,eye check,vision check,eye test,glasses exam"
+proc_face_ct_scan,fam_ct_scan,Face CT Scan,face-ct,Facial CT imaging,Face CT,
+proc_fecal_occult_blood,fam_culture,Stool Blood Test,stool-blood-test,Hidden blood in stool,FOBT,
+proc_femoral_nerve_block,fam_nerve_block,Thigh Nerve Block,thigh-nerve-block,Femoral nerve block,Femoral Block,
+proc_ferritin_blood_test,fam_blood_test,Ferritin Test,ferritin-test,Iron storage test,Ferritin,
+proc_fetal_biophysical_profile,fam_fetal_monitoring,Fetal Biophysical Profile,biophysical-profile,Comprehensive fetal assessment,BPP,
+proc_fetal_non_stress_test,fam_fetal_monitoring,Fetal Non-Stress Test,non-stress-test,Baby heart rate monitoring,NST,"nst,baby heartbeat test,fetal monitoring"
+proc_fluoroscopic_guidance_needle_placement,fam_fluoroscopy,Fluoroscopy-Guided Procedure,fluoroscopy-guided-procedure,Fluoro needle guidance,Fluoro Guidance,
+proc_fluoroscopy_guidance,fam_fluoroscopy,Fluoroscopy Guidance,fluoroscopy-guidance,Real-time X-ray guidance,Fluoro Guidance,
+proc_foley_catheter_insertion,fam_catheter,Urinary Catheter,urinary-catheter,Foley catheter insertion,Foley,
+proc_foot_x_ray,fam_x_ray,Foot X-Ray,foot-x-ray,Foot X-ray,Foot X-Ray,
+proc_foreign_body_removal,fam_abscess,Foreign Body Removal,foreign-body-removal,Removing embedded objects,Splinter Removal,
+proc_free_thyroxine_blood_test,fam_blood_test,Free T4 Test,free-t4-test,Thyroid hormone test,T4,
+proc_ggt,fam_blood_test,GGT Test,ggt-test,Liver enzyme test,GGT,
+proc_glucose_blood_test,fam_blood_test,Blood Sugar Test,blood-sugar-test,Blood glucose,Blood Sugar,"blood sugar,glucose,fasting glucose,diabetes test,sugar test"
+proc_glucose_tolerance_test,fam_blood_test,Glucose Tolerance Test,glucose-tolerance-test,Diabetes screening,GTT,
+proc_gonioscopy,fam_eye_exam,Glaucoma Angle Exam,gonioscopy,Eye drainage angle exam,Glaucoma Test,
+proc_group_chemicals_blood_test,fam_blood_test,Metabolic Panel,metabolic-panel,Blood chemistry panel,Chem Panel,"metabolic panel,chem panel,bmp,cmp,blood chemistry"
+proc_h_pylori_stool_antigen,fam_culture,H. Pylori Stool Test,h-pylori-stool,Stomach bacteria stool test,H. Pylori Stool,
+proc_hand_wrist_proc,fam_hand_wrist,Hand/Wrist Procedure,hand-wrist-procedure,Hand or wrist surgery,Hand Surgery,
+proc_hand_x_ray,fam_x_ray,Hand X-Ray,hand-x-ray,Hand X-ray,Hand X-Ray,
+proc_hcg,fam_blood_test,HCG Test,hcg-test,Pregnancy hormone,HCG,
+proc_hdl_cholesterol,fam_blood_test,HDL Cholesterol,hdl-cholesterol,Good cholesterol,HDL,
+proc_head_brain_ct_scan,fam_ct_scan,Head CT Scan,head-ct,Brain CT imaging,Head CT,"brain ct,head scan,brain scan,concussion scan,stroke scan"
+proc_head_neck_blood_flow_ultrasound,fam_ultrasound,Carotid Ultrasound,carotid-ultrasound,Neck artery ultrasound,Carotid Doppler,"carotid ultrasound,carotid doppler,neck artery ultrasound"
+proc_head_neck_tissue_ultrasound,fam_ultrasound,Neck Ultrasound,neck-ultrasound,Thyroid and neck ultrasound,Neck Ultrasound,
+proc_hearing_speech_test,fam_hearing_speech,Hearing and Speech Test,hearing-speech-test,Audiometry and speech test,Hearing Test,
+proc_heart_blood_flow_ultrasound,fam_heart_ultrasound,Heart Doppler,heart-doppler,Heart blood flow ultrasound,Cardiac Doppler,"cardiac doppler,heart flow,doppler echo"
+proc_heart_stress_test_ecg,fam_ecg,Stress Test,stress-test,Exercise heart test,Stress Test,"treadmill test,exercise test,cardiac stress,stress ecg"
+proc_heart_ultrasound,fam_heart_ultrasound,Echocardiogram,echocardiogram,Heart ultrasound,Echo,"echo,echocardiogram,cardiac ultrasound,heart echo,cardiac echo"
+proc_helicobacter_pylori_antibody,fam_blood_test,H. Pylori Antibody,h-pylori-antibody,Stomach bacteria test,H. Pylori,
+proc_hematocrit,fam_blood_test,Hematocrit,hematocrit,Red blood cell percentage,Hematocrit,
+proc_hemoglobin,fam_blood_test,Hemoglobin,hemoglobin,Hemoglobin level,Hemoglobin,"hgb,blood hemoglobin"
+proc_hemoglobin_a1c_blood_test,fam_blood_test,Hemoglobin A1C,hemoglobin-a1c,Diabetes control test,A1C,"a1c,hba1c,diabetes control,blood sugar control,glycated hemoglobin"
+proc_hepatic_function_panel,fam_blood_test,Liver Panel,liver-panel,Liver function tests,Liver Panel,"liver function,liver test,lft,liver panel"
+proc_hepatitis_b_surface_antigen,fam_blood_test,Hepatitis B Test,hepatitis-b-test,Hep B surface antigen,Hep B,
+proc_hepatitis_c_antibody,fam_blood_test,Hepatitis C Test,hepatitis-c-test,Hep C antibody,Hep C,
+proc_hip_pelvis_spine_density_dxa,fam_dxa,Bone Density Test,bone-density-test,DXA bone density scan,DEXA Scan,
+proc_hip_replacement,fam_joint_replacement,Hip Replacement,hip-replacement,Hip joint replacement surgery,Hip Replacement,"hip surgery,total hip,tha,hip arthroplasty,new hip"
+proc_hip_x_ray,fam_x_ray,Hip X-Ray,hip-x-ray,Hip X-ray,Hip X-Ray,
+proc_hiv_1_antigen_with_antibodies,fam_blood_test,HIV Combo Test,hiv-combo-test,HIV antigen/antibody,HIV Combo,
+proc_hiv_antibody_test,fam_blood_test,HIV Test,hiv-test,HIV screening,HIV Test,"hiv test,aids test,hiv screening"
+proc_home_visit,fam_home_visit,Home Visit,home-visit,Medical care at patient home,Home Doctor Visit,
+proc_hospital_discharge_day_30_min_or_less,fam_hospital_care,Hospital Discharge,hospital-discharge,Discharge planning and instructions,Discharge,
+proc_hydralazine_injection,fam_injection,Hydralazine Injection,hydralazine-injection,Blood pressure medication,Hydralazine,
+proc_hysterectomy_after_cesarean,fam_delivery,Emergency Hysterectomy,emergency-hysterectomy,Uterus removal after C-section,Emergency Hysterectomy,
+proc_immunohistochemistry,fam_pathology,Immunohistochemistry,immunohistochemistry,Special tissue stain,IHC,
+proc_incision_and_drainage_abscess,fam_abscess,Abscess Drainage,abscess-drainage,Draining infected collection,Abscess I&D,
+proc_influenza_doo_immunoassay,fam_immunoassay,Flu Rapid Test,flu-rapid,Influenza rapid test,Flu Test,
+proc_influenza_vaccine,fam_vaccine,Flu Vaccine,flu-vaccine,Influenza vaccination,Flu Shot,"flu shot,flu vaccine,influenza shot,flu jab"
+proc_inguinal_hernia_repair,fam_hernia,Groin Hernia Repair,groin-hernia-repair,Inguinal hernia surgery,Groin Hernia Repair,
+proc_initial_hospital_care,fam_hospital_care,Hospital Admission,hospital-admission,First day hospital care,Hospital Admission,
+proc_initial_nursing_facility_care,fam_nursing_facility_care,Nursing Facility Admission,nursing-admission,Initial nursing facility evaluation,Nursing Home Admission,
+proc_intermediate_laceration_repair,fam_wound_repair,Intermediate Wound Repair,intermediate-wound-repair,Stitches for deeper cuts,Deep Stitches,
+proc_iron_binding_capacity,fam_blood_test,Iron Binding Test,iron-binding-test,TIBC test,TIBC,
+proc_iron_blood_test,fam_blood_test,Iron Test,iron-test,Serum iron level,Iron,
+proc_iv_infusion_hydration,fam_infusion,IV Hydration,iv-hydration,Intravenous fluid administration,IV Fluids,
+proc_iv_infusion_therapeutic,fam_infusion,IV Medication Infusion,iv-medication,Intravenous medication delivery,IV Medication,
+proc_iv_push,fam_infusion,IV Push Medication,iv-push,Quick IV medication injection,IV Push,
+proc_knee_arthrography,fam_joint_clinical_procedure,Knee Arthrogram,knee-arthrogram,Knee joint imaging with contrast,Knee Arthrogram,
+proc_knee_replacement,fam_joint_replacement,Knee Replacement,knee-replacement,Knee joint replacement surgery,Knee Replacement,"knee surgery,total knee,tka,knee arthroplasty,new knee"
+proc_knee_x_ray,fam_x_ray,Knee X-Ray,knee-x-ray,Knee X-ray,Knee X-Ray,"knee xray,knee injury,knee pain xray,knee film"
+proc_lactate,fam_blood_test,Lactate Test,lactate-test,Lactic acid level,Lactate,
+proc_laparoscopic_cholecystectomy,fam_gallbladder,Laparoscopic Gallbladder Removal,lap-cholecystectomy,Minimally invasive gallbladder surgery,Lap Chole,"gallbladder surgery,lap chole,gallbladder removal,gallstone surgery"
+proc_laparoscopic_inguinal_hernia_repair,fam_hernia,Laparoscopic Hernia Repair,lap-hernia-repair,Minimally invasive hernia surgery,Lap Hernia,
+proc_ldh,fam_blood_test,LDH Test,ldh-test,Tissue damage marker,LDH,
+proc_ldl_cholesterol,fam_blood_test,LDL Cholesterol,ldl-cholesterol,Bad cholesterol,LDL,
+proc_leg_arteries_ultrasound,fam_ultrasound,Leg Arterial Ultrasound,leg-arterial-ultrasound,Leg artery ultrasound,Leg Arterial,
+proc_leg_ct_scan,fam_ct_scan,Leg CT Scan,leg-ct,Leg CT imaging,Leg CT,
+proc_leg_joint_mri,fam_mri,Leg Joint MRI,leg-joint-mri,Knee/ankle MRI,Leg Joint MRI,
+proc_leg_mri,fam_mri,Leg MRI,leg-mri,Leg MRI scan,Leg MRI,
+proc_lens_intraocular,fam_eye_implant,Intraocular Lens,intraocular-lens,Artificial eye lens,IOL,
+proc_lidocaine_injection,fam_injection,Lidocaine Injection,lidocaine-injection,Local anesthetic,Lidocaine,
+proc_lipids_blood_test,fam_blood_test,Lipid Panel,lipid-panel,Cholesterol test,Cholesterol,"cholesterol panel,lipid profile,heart health test,cholesterol test"
+proc_lower_extremity_x_ray,fam_x_ray,Full Leg X-Ray,full-leg-x-ray,Entire leg X-ray,Leg X-Ray,
+proc_lower_leg_x_ray,fam_x_ray,Lower Leg X-Ray,lower-leg-x-ray,Shin X-ray,Shin X-Ray,
+proc_lower_spine_ct_scan,fam_ct_scan,Lumbar Spine CT,lumbar-spine-ct,Lower back CT,L-Spine CT,
+proc_lower_spine_x_ray,fam_x_ray,Lower Back X-Ray,lower-back-x-ray,Lumbar spine X-ray,Back X-Ray,
+proc_lumbar_puncture,fam_lumbar_puncture,Spinal Tap,spinal-tap,Lumbar puncture for diagnosis,Spinal Tap,"spinal tap,lp,csf test,meningitis test"
+proc_lung_diffusing_capacity_test,fam_lung_test,Lung Diffusion Test,lung-diffusion-test,Oxygen absorption test,DLCO,
+proc_magnesium,fam_blood_test,Magnesium Test,magnesium-test,Blood magnesium,Magnesium,
+proc_meperidine_injection,fam_injection,Meperidine Injection,meperidine-injection,Pain medication,Demerol,
+proc_mesh_surgical_implantable,fam_implant,Surgical Mesh,surgical-mesh,Implantable hernia mesh,Hernia Mesh,
+proc_methylprednisolone_injection,fam_injection,Methylprednisolone Injection,methylprednisolone-injection,Steroid injection,Depo-Medrol,
+proc_metoclopramide_injection,fam_injection,Metoclopramide Injection,metoclopramide-injection,Anti-nausea medication,Reglan,
+proc_microalbumin_urinalysis,fam_urine_test,Microalbumin Test,microalbumin-test,Urine protein for kidney,Microalbumin,
+proc_midazolam_injection,fam_injection,Midazolam Injection,midazolam-injection,Sedative injection,Versed,
+proc_middle_cerebral_artery_doppler,fam_fetal_monitoring,Fetal Brain Doppler,fetal-brain-doppler,Fetal brain blood flow,MCA Doppler,
+proc_moderate_sedation,fam_sedation,Moderate Sedation,moderate-sedation,Conscious sedation for procedures,Sedation,
+proc_morphine_injection,fam_injection,Morphine Injection,morphine-injection,Pain medication,Morphine,
+proc_multiple_organism_dna_probe,fam_culture,Multi-Pathogen PCR,multi-pathogen-pcr,Multiple organism test,Multiplex PCR,
+proc_myocardial_perfusion_spect,fam_cardiac_imaging,Nuclear Heart Scan,nuclear-heart-scan,Heart perfusion imaging,SPECT Scan,"nuclear stress test,cardiac nuclear,heart perfusion,thallium stress"
+proc_naloxone_injection,fam_injection,Naloxone Injection,naloxone-injection,Opioid reversal agent,Narcan,
+proc_natriuretic_peptide_bnp,fam_blood_test,BNP Test,bnp-test,Heart failure marker,BNP,
+proc_nebulizer_treatment,fam_breathing_treatment,Breathing Treatment,breathing-treatment,Nebulizer medication,Nebulizer,"breathing treatment,nebulizer,neb treatment,asthma treatment"
+proc_neisseria_dna_probe,fam_culture,Gonorrhea PCR,gonorrhea-pcr,Gonorrhea DNA test,GC PCR,
+proc_neonatal_intensive_care,fam_nicu,NICU Care,nicu-care,Neonatal intensive care,NICU,
+proc_nerve_conduction_study,fam_nerve_study,Nerve Conduction Study,nerve-conduction-study,Nerve electrical signal test,NCS,"ncs,nerve test,nerve function test"
+proc_neuroplasty,fam_nerve_surgery,Nerve Decompression,nerve-decompression,Surgical nerve release,Nerve Release,
+proc_newborn_care,fam_newborn,Newborn Care,newborn-care,Initial newborn evaluation,Baby Checkup,
+proc_ng_tube_placement_with_imaging,fam_gi_tube,NG Tube Placement,ng-tube,Nasogastric tube insertion,NG Tube,
+proc_obstetric_panel,fam_blood_test,Pregnancy Blood Panel,pregnancy-blood-panel,Prenatal blood tests,Prenatal Labs,
+proc_oct_optic_nerve,fam_eye_exam,OCT Scan,oct-scan,Optic nerve imaging,OCT,
+proc_office_visit,fam_office_visit,Office Visit,office-visit,Doctor visit for evaluation and management,Doctor Visit,"doctor visit,doctor appointment,checkup,clinic visit,medical visit"
+proc_onabotulinumtoxin_a,fam_injection,Botox Injection,botox-injection,Botulinum toxin injection,Botox,
+proc_ondansetron_injection,fam_injection,Ondansetron Injection,ondansetron-injection,Anti-nausea medication,Zofran,
+proc_open_cholecystectomy,fam_gallbladder,Open Gallbladder Removal,open-cholecystectomy,Traditional gallbladder surgery,Open Chole,
+proc_ophthalmic_biometry,fam_eye_exam,Eye Measurement,eye-measurement,Eye length measurement,IOL Calc,
+proc_ophthalmic_biometry_ultrasound,fam_eye_ultrasound,Eye A-Scan,eye-a-scan,Eye measurement ultrasound,A-Scan,
+proc_ophthalmic_ultrasound,fam_eye_ultrasound,Eye Ultrasound,eye-ultrasound,Ultrasound of eye,Eye Ultrasound,
+proc_orbit_face_neck_mri,fam_mri,Face/Neck MRI,face-neck-mri,Face and neck MRI,Face MRI,
+proc_orthotic_prosthetic_training,fam_training,Orthotic/Prosthetic Training,orthotic-prosthetic-training,Brace or prosthetic training,Device Training,
+proc_other_peripheral_nerve_block,fam_nerve_block,Peripheral Nerve Block,peripheral-nerve-block,Other nerve block,Nerve Block,
+proc_pap_smear,fam_smear_test,Pap Smear,pap-smear,Cervical cancer screening,Pap Smear,
+proc_pap_smear_test,fam_smear_test,Pap Smear Collection,pap-collection,Pap specimen collection,Pap Collection,
+proc_partial_thromboplastin_time_ptt,fam_blood_test,PTT Test,ptt-test,Clotting time test,PTT,
+proc_pelvis_mri,fam_mri,Pelvis MRI,pelvis-mri,Pelvis MRI scan,Pelvis MRI,
+proc_pelvis_x_ray,fam_x_ray,Pelvis X-Ray,pelvis-x-ray,Hip and pelvis X-ray,Pelvis X-Ray,
+proc_phosphorus,fam_blood_test,Phosphorus Test,phosphorus-test,Blood phosphorus,Phosphorus,
+proc_physical_performance_test,fam_physical_therapy,Physical Function Test,physical-function-test,Physical performance assessment,Function Test,
+proc_physical_therapy,fam_physical_therapy,Physical Therapy,physical-therapy,PT treatment session,Physical Therapy,"pt,physio,rehab,rehabilitation,physical rehab"
+proc_picc_insertion,fam_vascular_access,PICC Line Insertion,picc-line,Peripherally inserted central catheter,PICC Line,
+proc_pneumococcal_vaccine,fam_vaccine,Pneumonia Vaccine,pneumonia-vaccine,Pneumococcal vaccination,Pneumonia Shot,"pneumonia shot,pneumonia vaccine,prevnar,pneumovax"
+proc_postpartum_care_only,fam_pregnancy_care,Postpartum Care,postpartum-care,Care after delivery,Post-Birth Care,
+proc_potassium,fam_blood_test,Potassium Test,potassium-test,Blood potassium,Potassium,
+proc_precancer_skin_growth_destruction,fam_skin,Precancer Lesion Removal,precancer-removal,Removing precancerous skin growths,Actinic Keratosis Treatment,
+proc_promethazine_injection,fam_injection,Promethazine Injection,promethazine-injection,Anti-nausea medication,Phenergan,
+proc_propofol_injection,fam_injection,Propofol Injection,propofol-injection,Anesthetic agent,Propofol,
+proc_prostate_specific_antigen_blood_test,fam_blood_test,PSA Test,psa-test,Prostate screening,PSA,
+proc_prosthetic_implant_nos,fam_implant,Prosthetic Implant,prosthetic-implant,Surgical prosthetic device,Implant,
+proc_psychiatric_eval,fam_mental_health_eval,Psychiatric Evaluation,psychiatric-evaluation,Mental health assessment,Psych Eval,"mental health evaluation,psych eval,psychiatric assessment,mental health exam"
+proc_psychotherapy,fam_mental_health_therapy,Psychotherapy,psychotherapy,Therapy session,Therapy,"therapy,counseling,talk therapy,therapist visit,mental health therapy"
+proc_pulse_oximetry,fam_breathing_treatment,Oxygen Level Check,oxygen-level-check,Blood oxygen measurement,Pulse Ox,"oxygen saturation,o2 sat,pulse ox,finger oxygen"
+proc_rbc_antibody_screen,fam_blood_test,Antibody Screen,antibody-screen,RBC antibody test,Antibody Screen,
+proc_refraction,fam_eye_exam,Refraction Test,refraction-test,Eyeglass prescription measurement,Glasses Rx,
+proc_revision_knee_arthroplasty,fam_joint_replacement,Knee Replacement Revision,knee-revision,Redo knee replacement,Knee Revision,
+proc_rivaroxaban_oral,fam_drug,Rivaroxaban,rivaroxaban,Oral blood thinner,Xarelto,
+proc_routine_ecg,fam_ecg,ECG,ecg,Electrocardiogram heart test,ECG,"ekg,heart test,heart rhythm,electrocardiogram,heart monitor,cardiac rhythm"
+proc_rubella_antibody,fam_blood_test,Rubella Test,rubella-test,German measles immunity,Rubella,
+proc_sars_cov_2_antigen,fam_immunoassay,COVID-19 Rapid Test,covid-rapid,COVID rapid antigen,COVID Rapid,
+proc_sarscov2_doo_immunoassay,fam_immunoassay,COVID-19 POC Test,covid-poc,COVID point of care,COVID Quick,
+proc_sarscov2_immunoassay,fam_immunoassay,COVID-19 Antibody,covid-antibody,COVID antibody test,COVID Antibody,
+proc_sarscov2_influenza_immunoassay,fam_immunoassay,COVID/Flu Combo,covid-flu-combo,COVID and flu test,COVID/Flu,
+proc_sarscov2_vaccine,fam_vaccine,COVID-19 Vaccine,covid-vaccine,COVID-19 vaccination,COVID Shot,"covid shot,covid vaccine,coronavirus vaccine,covid-19 shot"
+proc_sciatic_nerve_block,fam_nerve_block,Leg Nerve Block,leg-nerve-block,Sciatic nerve block,Sciatic Block,
+proc_screening_mammography,fam_mammography,Screening Mammogram,screening-mammogram,Routine breast cancer screening,Screening Mammogram,"mammogram,breast screening,breast cancer test,routine mammogram"
+proc_sedimentation_rate_automated,fam_blood_test,Sed Rate,sed-rate,Inflammation marker,ESR,
+proc_self_care_training,fam_training,Self Care Training,self-care-training,Activities of daily living training,Self Care Training,
+proc_sensorimotor_examination,fam_eye_exam,Eye Movement Exam,eye-movement-exam,Eye muscle coordination test,Eye Movement Test,
+proc_shoulder_x_ray,fam_x_ray,Shoulder X-Ray,shoulder-x-ray,Shoulder X-ray,Shoulder X-Ray,
+proc_simple_laceration_repair,fam_wound_repair,Simple Wound Repair,simple-wound-repair,Stitches for simple cuts,Stitches,"stitches,wound repair,cut repair,sutures,laceration"
+proc_skin_growth_biopsy,fam_biopsy,Skin Biopsy,skin-biopsy,Skin tissue sampling,Skin Biopsy,
+proc_skin_growth_destruction,fam_skin,Skin Growth Removal,skin-growth-removal,Removing benign skin lesions,Wart Removal,
+proc_sodium,fam_blood_test,Sodium Test,sodium-test,Blood sodium,Sodium,
+proc_sodium_hyaluronate_ophthalmic,fam_eye_implant,Eye Lubricant,eye-lubricant,Surgical eye lubricant,Healon,
+proc_spinal_canal_cervical_mri,fam_mri,Cervical Spine MRI,cervical-spine-mri,Neck spine MRI,C-Spine MRI,"neck mri,c-spine mri,cervical mri,neck spine scan"
+proc_spinal_canal_lumbar_mri,fam_mri,Lumbar Spine MRI,lumbar-spine-mri,Lower back MRI,L-Spine MRI,"lower back mri,l-spine mri,lumbar mri,back scan"
+proc_spinal_canal_thoracic_mri,fam_mri,Thoracic Spine MRI,thoracic-spine-mri,Mid-back MRI,T-Spine MRI,
+proc_spinal_chiropractic,fam_chiropractic,Chiropractic Adjustment,chiropractic-adjustment,Spinal manipulation,Adjustment,
+proc_spirometry_test,fam_lung_test,Breathing Test,breathing-test,Lung function spirometry,Spirometry,"breathing test,lung function,pft,pulmonary function"
+proc_stool_culture,fam_culture,Stool Culture,stool-culture,Stool infection test,Stool Culture,
+proc_streptococcus_doo_immunoassay,fam_immunoassay,Strep Rapid Test,strep-rapid,Strep throat test,Strep Test,"strep test,strep throat test,rapid strep"
+proc_subsequent_hospital_care,fam_hospital_care,Hospital Follow-up Care,hospital-followup,Daily hospital care after admission,Hospital Follow-up,
+proc_subsequent_nursing_facility_care,fam_nursing_facility_care,Nursing Facility Follow-up,nursing-followup,Ongoing nursing facility care,Nursing Home Care,
+proc_surgical_pathology,fam_pathology,Surgical Pathology,surgical-pathology,Tissue examination,Pathology,
+proc_syphilis_test_qualitative,fam_blood_test,Syphilis Test,syphilis-test,Syphilis screening,RPR,
+proc_tb_skin_test,fam_immunoassay,TB Skin Test,tb-skin-test,Tuberculosis screening,PPD,
+proc_tele_medical_discussion,fam_telemedicine,Telemedicine Visit,telemedicine-visit,Phone or video medical consultation,Phone Consultation,
+proc_thigh_bone_x_ray,fam_x_ray,Femur X-Ray,femur-x-ray,Thigh bone X-ray,Thigh X-Ray,
+proc_thoracic_spine_ct_scan,fam_ct_scan,Thoracic Spine CT,thoracic-spine-ct,Mid-back CT,T-Spine CT,
+proc_tracheostomy_emergency,fam_airway,Emergency Tracheostomy,emergency-tracheostomy,Emergency airway creation,Emergency Trach,
+proc_tracheostomy_tube_change,fam_airway,Trach Tube Change,trach-tube-change,Tracheostomy tube replacement,Trach Change,
+proc_transitional_care_mngmnt,fam_hospital_care,Transitional Care,transitional-care,Care coordination after hospital,Post-Hospital Care,
+proc_transvaginal_ultrasound,fam_ultrasound,Transvaginal Ultrasound,transvaginal-ultrasound,Pelvic ultrasound,Transvaginal US,
+proc_treponema_pallidum_antibody,fam_blood_test,Syphilis Confirmation,syphilis-confirm,Syphilis confirmatory,FTA-ABS,
+proc_triamcinolone_ophthalmic,fam_eye_implant,Eye Steroid Injection,eye-steroid,Steroid injection in eye,Eye Steroid,
+proc_triglycerides,fam_blood_test,Triglycerides,triglycerides,Blood fat test,Triglycerides,
+proc_troponin_quantitative,fam_blood_test,Troponin Test,troponin-test,Heart attack marker,Troponin,
+proc_tsh_blood_test,fam_blood_test,TSH Test,tsh-test,Thyroid function test,TSH,"thyroid test,thyroid function,thyroid screening,thyroid level"
+proc_tympanometry_test,fam_hearing,Tympanometry,tympanometry,Middle ear function test,Ear Pressure Test,
+proc_ultrasound_guidance_needle_placement,fam_ultrasound,Ultrasound-Guided Procedure,ultrasound-guided-procedure,Ultrasound needle guidance,US Guidance,
+proc_ultrasound_ob,fam_ob_ultrasound,Pregnancy Ultrasound,pregnancy-ultrasound,Prenatal ultrasound imaging,Baby Ultrasound,"baby ultrasound,pregnancy scan,prenatal ultrasound,pregnancy ultrasound"
+proc_ultrasound_retroperitoneal_limited,fam_ultrasound,Limited Retroperitoneal US,limited-retroperitoneal-us,Limited deep belly ultrasound,Limited Retro US,
+proc_umbilical_artery_doppler,fam_fetal_monitoring,Umbilical Cord Doppler,umbilical-doppler,Cord blood flow monitoring,Cord Doppler,
+proc_umbilical_hernia_repair,fam_hernia,Belly Button Hernia Repair,umbilical-hernia-repair,Umbilical hernia surgery,Belly Button Hernia,
+proc_unclassified_drug,fam_drug,Unclassified Drug,unclassified-drug,Miscellaneous medication,Other Medication,
+proc_upper_spine_ct_scan,fam_ct_scan,Cervical Spine CT,cervical-spine-ct,Neck spine CT,C-Spine CT,
+proc_upper_spine_x_ray,fam_x_ray,Neck X-Ray,neck-x-ray,Cervical spine X-ray,Neck X-Ray,
+proc_uric_acid_blood,fam_blood_test,Uric Acid Test,uric-acid-test,Gout test,Uric Acid,
+proc_urinalysis,fam_urine_test,Urinalysis,urinalysis,Urine analysis,Urine Test,"urine test,ua,uti test,bladder infection test,pee test"
+proc_urine_culture,fam_culture,Urine Culture,urine-culture,Urine infection test,Urine Culture,"uti culture,bladder infection test,urine infection test"
+proc_urine_pregnancy_test,fam_urine_test,Urine Pregnancy Test,urine-pregnancy-test,Pregnancy test,Pregnancy Test,
+proc_vaginal_delivery,fam_delivery,Vaginal Delivery,vaginal-delivery,Natural childbirth,Natural Birth,"natural birth,childbirth,labor delivery,natural delivery,vaginal birth"
+proc_vancomycin_injection,fam_injection,Vancomycin Injection,vancomycin-injection,Antibiotic injection,Vancomycin,
+proc_vein_chemotherapy,fam_chemotherapy,Chemotherapy Infusion,chemotherapy-infusion,Cancer treatment infusion,Chemo,
+proc_venipuncture_younger_than_3,fam_blood_test,Pediatric Blood Draw,pediatric-blood-draw,Blood draw for young children,Child Blood Draw,
+proc_ventral_hernia_repair,fam_hernia,Abdominal Wall Hernia Repair,ventral-hernia-repair,Ventral hernia surgery,Abdominal Hernia,
+proc_viscoelastic_substance,fam_eye_implant,Viscoelastic,viscoelastic,Eye surgery protective gel,Viscoelastic,
+proc_visual_field,fam_eye_exam,Visual Field Test,visual-field-test,Peripheral vision test,Visual Field,
+proc_vitamin_d3_blood_test,fam_blood_test,Vitamin D Test,vitamin-d-test,Vitamin D level,Vitamin D,"vitamin d test,vitamin d level,vit d test"
+proc_voice_box_endoscopy,fam_airway,Laryngoscopy,laryngoscopy,Voice box examination,Throat Scope,
+proc_wheelchair_management,fam_training,Wheelchair Training,wheelchair-training,Wheelchair use training,Wheelchair Training,
+proc_wrist_x_ray,fam_x_ray,Wrist X-Ray,wrist-x-ray,Wrist X-ray,Wrist X-Ray,
