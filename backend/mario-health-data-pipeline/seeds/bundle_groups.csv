@@ -87,3 +87,9 @@ bg095,b018,Pre-Op Imaging,ZERO_OR_ONE,5,false,0,1,preop
 bg096,b018,Intraoperative Services,ALL,6,true,1,,procedure
 bg097,b018,Post-Op Care,ALL,7,true,1,,postop
 bg098,b018,Hidden Charges - Commonly Missed,ZERO_OR_MORE,8,false,0,,surprise
+bg099,b001,Facility Fee,ONE,3,true,1,1,facility
+bg100,b003,Facility Fee,ONE,4,true,1,1,facility
+bg101,b008,Facility Fee,ONE,3,true,1,1,facility
+bg102,b010,Facility Fee,ONE,3,true,1,1,facility
+bg103,b016,Facility Fee,ONE,3,true,1,1,facility
+bg104,b018,Facility Fee,ONE,3,true,1,1,facility
