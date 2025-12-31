@@ -2,27 +2,27 @@ id,category_id,name,slug,description
 fam_office_visit,cat_office_visits,Office Visits,office-visit,Routine doctor visits
 fam_wellness_visit,cat_office_visits,Wellness Visits,wellness-visit,Preventive care checkups
 fam_telemedicine,cat_office_visits,Telemedicine,telemedicine,Phone and video consultations
-fam_care_planning,cat_office_visits,Care Planning,care-planning,Advance care planning
+fam_care_planning,cat_office_visits,Future Care Planning,care-planning,Advance directives and care planning discussions
 fam_hospital_care,cat_hospital,Hospital Care,hospital-care,Inpatient hospital services
 fam_nursing_facility_care,cat_hospital,Nursing Facility,nursing-facility,Skilled nursing care
 fam_home_visit,cat_hospital,Home Visits,home-visit,Medical care at home
-fam_chronic_care,cat_hospital,Chronic Care,chronic-care,Chronic condition management
+fam_chronic_care,cat_hospital,Ongoing Care Management,chronic-care,Chronic disease management services
 fam_emergency,cat_emergency_care,Emergency Room,emergency-room,ER visits
 fam_critical_care,cat_emergency_care,Critical Care,critical-care,ICU services
 fam_anesthesia,cat_anesthesia,Anesthesia,anesthesia,General and regional anesthesia
 fam_sedation,cat_anesthesia,Sedation,sedation,Moderate sedation
 fam_injection,cat_injections,Injections,injection,Medication injections
 fam_infusion,cat_injections,IV Infusions,iv-infusion,IV medication and fluids
-fam_vascular_access,cat_injections,Vascular Access,vascular-access,IV lines and catheters
+fam_vascular_access,cat_injections,IV Lines & Catheters,vascular-access,"IV placement, central lines, and vascular access"
 fam_drug,cat_injections,Medications,medication,Injectable medications
 fam_delivery,cat_womens_health,Delivery,delivery,Childbirth
 fam_pregnancy_care,cat_womens_health,Pregnancy Care,pregnancy-care,Prenatal and postpartum
 fam_ob_ultrasound,cat_womens_health,Pregnancy Ultrasound,pregnancy-ultrasound,Obstetric imaging
-fam_fetal_monitoring,cat_womens_health,Fetal Monitoring,fetal-monitoring,Baby monitoring
-fam_ecg,cat_heart,ECG,ecg,Heart rhythm tests
+fam_fetal_monitoring,cat_womens_health,Baby Monitoring,fetal-monitoring,Fetal heart rate and fetal wellness tests
+fam_ecg,cat_heart,Heart Rhythm Tests,ecg,"ECG, EKG, and heart rhythm monitoring"
 fam_heart_ultrasound,cat_heart,Heart Ultrasound,heart-ultrasound,Echocardiograms
 fam_cardiac_procedure,cat_heart,Cardiac Procedures,cardiac-procedure,Heart interventions
-fam_cardiac_imaging,cat_heart,Cardiac Imaging,cardiac-imaging,Nuclear heart imaging
+fam_cardiac_imaging,cat_heart,Heart Imaging,cardiac-imaging,Nuclear cardiology and heart perfusion scans
 fam_eye_exam,cat_eye,Eye Exams,eye-exam,Vision examinations
 fam_eye_surgery,cat_eye,Eye Surgery,eye-surgery,Cataract and eye surgery
 fam_eye_ultrasound,cat_eye,Eye Ultrasound,eye-ultrasound,Ophthalmic imaging
@@ -34,14 +34,14 @@ fam_splint,cat_orthopedic,Splints & Casts,splint,Immobilization
 fam_hand_wrist,cat_orthopedic,Hand & Wrist,hand-wrist,Hand surgery
 fam_nerve_block,cat_nerve,Nerve Blocks,nerve-block,Pain management
 fam_nerve_surgery,cat_nerve,Nerve Surgery,nerve-surgery,Nerve decompression
-fam_nerve_study,cat_nerve,Nerve Studies,nerve-study,EMG and nerve tests
-fam_lumbar_puncture,cat_nerve,Spinal Procedures,spinal-procedure,Lumbar puncture and epidural
+fam_nerve_study,cat_nerve,Nerve Function Tests,nerve-study,"EMG, nerve conduction studies"
+fam_lumbar_puncture,cat_nerve,Spine Procedures,spinal-procedure,"Lumbar puncture, epidural, and spinal procedures"
 fam_lung_test,cat_respiratory,Lung Tests,lung-test,Pulmonary function
 fam_breathing_treatment,cat_respiratory,Breathing Treatment,breathing-treatment,Nebulizer and oxygen
 fam_airway,cat_respiratory,Airway Procedures,airway,Intubation and tracheostomy
 fam_chest_procedure,cat_respiratory,Chest Procedures,chest-procedure,Chest tube
-fam_colonoscopy,cat_digestive,Colonoscopy,colonoscopy,Colon examination
-fam_egd,cat_digestive,Upper Endoscopy,egd,EGD procedures
+fam_colonoscopy,cat_digestive,Colon Exams,colonoscopy,Colonoscopy and colon procedures
+fam_egd,cat_digestive,Stomach & Esophagus Procedures,egd,Upper endoscopy and related procedures
 fam_gallbladder,cat_digestive,Gallbladder Surgery,gallbladder,Cholecystectomy
 fam_appendix,cat_digestive,Appendix Surgery,appendix,Appendectomy
 fam_hernia,cat_digestive,Hernia Repair,hernia,Hernia surgery
@@ -60,12 +60,12 @@ fam_ct_scan,cat_imaging,CT Scans,ct-scan,Computed tomography
 fam_mri,cat_imaging,MRI Scans,mri-scan,Magnetic resonance imaging
 fam_ultrasound,cat_imaging,Ultrasounds,ultrasound,Sonography
 fam_mammography,cat_imaging,Mammography,mammography,Breast imaging
-fam_dxa,cat_imaging,Bone Density,bone-density,DXA scans
+fam_dxa,cat_imaging,Bone Density Scans,bone-density,DXA and bone density testing
 fam_fluoroscopy,cat_imaging,Fluoroscopy,fluoroscopy,Real-time X-ray
 fam_blood_test,cat_lab_work,Blood Tests,blood-test,Blood analysis
 fam_urine_test,cat_lab_work,Urine Tests,urine-test,Urinalysis
 fam_culture,cat_lab_work,Cultures,culture,Infection testing
-fam_immunoassay,cat_lab_work,Rapid Tests,rapid-test,Point of care testing
+fam_immunoassay,cat_lab_work,Rapid Tests,rapid-test,"COVID, flu, strep, and other rapid diagnostic tests"
 fam_pathology,cat_lab_work,Pathology,pathology,Tissue examination
 fam_smear_test,cat_lab_work,Smear Tests,smear-test,Pap smears
 fam_vaccine,cat_vaccine,Vaccines,vaccine,Immunizations
