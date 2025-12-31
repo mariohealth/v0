@@ -640,3 +640,32 @@ proc_voice_box_endoscopy,31575,CPT,True,
 proc_wheelchair_management,97542,CPT,True,
 proc_wrist_x_ray,73100,CPT,True,2 views
 proc_wrist_x_ray,73110,CPT,False,3+ views
+proc_office_visit,99385,CPT,False,preventive new 18-39
+proc_office_visit,99386,CPT,False,preventive new 40-64
+proc_office_visit,99387,CPT,False,preventive new 65+
+proc_office_visit,99395,CPT,False,preventive established 18-39
+proc_office_visit,99396,CPT,False,preventive established 40-64
+proc_office_visit,99397,CPT,False,preventive established 65+
+proc_heart_ultrasound,93303,CPT,False,complete transthoracic initial
+proc_heart_ultrasound,93304,CPT,False,transthoracic limited
+proc_influenza_vaccine,90471,CPT,False,immunization admin single injection
+proc_influenza_vaccine,90472,CPT,False,each additional injection
+proc_pneumococcal_vaccine,90471,CPT,False,immunization admin single injection
+proc_sarscov2_vaccine,90471,CPT,False,immunization admin single injection
+proc_emergency_visit,99221,CPT,False,initial observation low
+proc_emergency_visit,99222,CPT,False,initial observation moderate
+proc_emergency_visit,99223,CPT,False,initial observation high
+proc_tele_medical_discussion,99421,CPT,False,online digital 5-10 min
+proc_tele_medical_discussion,99422,CPT,False,online digital 11-20 min
+proc_tele_medical_discussion,99423,CPT,False,online digital 21+ min
+proc_colonoscopy,45330,CPT,False,flexible sigmoidoscopy diagnostic
+proc_glucose_blood_test,82962,CPT,False,glucose blood test glucose monitor
+proc_knee_x_ray,73565,CPT,False,both knees standing
+proc_simple_laceration_repair,12005,CPT,False,scalp neck trunk 12.6-20cm
+proc_simple_laceration_repair,12006,CPT,False,scalp neck trunk 20.1-30cm
+proc_simple_laceration_repair,12014,CPT,False,face 5.1-7.5cm
+proc_simple_laceration_repair,12015,CPT,False,face 7.6-12.5cm
+proc_arthrocentesis,20600,CPT,False,small joint without ultrasound
+proc_arthrocentesis,20604,CPT,False,small joint with ultrasound
+proc_arthrocentesis,20605,CPT,False,medium joint without ultrasound
+proc_arthrocentesis,20606,CPT,False,medium joint with ultrasound
