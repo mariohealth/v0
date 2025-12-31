@@ -251,3 +251,19 @@ bgc272,bg098,c361,sometimes,false,1,SURPRISE: Extensive NCS billed when simpler 
 bgc273,bg098,c070,sometimes,false,2,SURPRISE: Pre-op visit billed separately from surgery,true
 bgc274,bg098,c143,sometimes,false,3,SURPRISE: Splint/brace fitting charges,true
 bgc275,bg098,c132,sometimes,false,4,SURPRISE: Occupational therapy evaluation,true
+bgc276,bg099,c530,usually,true,1,Hospital room board and delivery room for uncomplicated vaginal delivery,false
+bgc277,bg099,c531,sometimes,false,2,Hospital facility fee if delivery has complications,false
+bgc278,bg099,c532,rarely,false,3,Hospital facility fee if major complications occur,false
+bgc279,bg100,c528,usually,true,1,Hospital stay for knee replacement without major complications,false
+bgc280,bg100,c529,sometimes,false,2,Hospital stay if major complications occur,false
+bgc281,bg101,c533,usually,true,1,Hospital stay for uncomplicated appendectomy,false
+bgc282,bg101,c534,sometimes,false,2,Hospital stay if complications occur,false
+bgc283,bg101,c535,rarely,false,3,Hospital stay if major complications occur,false
+bgc284,bg102,c536,usually,true,1,Facility fee for outpatient gallbladder removal,false
+bgc285,bg102,c537,sometimes,false,2,Hospital stay if kept overnight or complications,false
+bgc286,bg102,c538,rarely,false,3,Hospital stay if major complications occur,false
+bgc287,bg103,c539,usually,true,1,Facility fee for outpatient hernia repair,false
+bgc288,bg103,c540,sometimes,false,2,Hospital stay if kept overnight or complications,false
+bgc289,bg103,c541,rarely,false,3,Hospital stay if major complications occur,false
+bgc290,bg104,c542,usually,true,1,Facility fee for outpatient carpal tunnel release,false
+bgc291,bg104,c543,sometimes,false,2,Facility fee if complications,false
