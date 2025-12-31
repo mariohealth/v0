@@ -1,23 +1,23 @@
 id,name,slug,emoji,description
 cat_office_visits,Office & Clinic Visits,office-visits,🏥👨‍⚕️,"Doctor visits, consultations, and checkups"
-cat_hospital,Hospital Care,hospital-care,🏨,Inpatient hospital and nursing facility care
+cat_hospital,Hospital & Facility Care,hospital-care,🏨,"Inpatient hospital, nursing facility, and home care"
 cat_emergency_care,Emergency Care,emergency-care,🚑,Emergency room and critical care
-cat_injections,Injections & Infusions,injections-infusions,💉,IV infusions and medication injections
-cat_anesthesia,Anesthesia & Sedation,anesthesia-sedation,😴💤,Anesthesia and sedation services
+cat_injections,Medications & IVs,injections-infusions,💉💧,"IV infusions, injections, and medication administration"
+cat_anesthesia,Anesthesia & Sedation,anesthesia-sedation,💉😴,Anesthesia and sedation services
 cat_womens_health,Women's Health & Maternity,womens-health,🤰👩‍🍼,"Pregnancy, delivery, and gynecological care"
 cat_heart,Heart & Cardiovascular,heart-cardiovascular,❤️🫀,Heart tests and cardiovascular procedures
 cat_eye,Eye Care,eye-care,👁️👓,Vision exams and eye procedures
 cat_orthopedic,Bones & Joints,bones-joints,🦴🦵,Orthopedic procedures and fracture care
-cat_nerve,Nerve & Pain Management,nerve-pain,⚡,Nerve blocks and pain procedures
+cat_nerve,Nerve & Pain Management,nerve-pain,🧠⚡,Nerve blocks and pain procedures
 cat_respiratory,Breathing & Lungs,breathing-lungs,🫁💨,Lung tests and respiratory procedures
-cat_digestive,Digestive & GI,digestive-gi,🍽️,"Colonoscopy, endoscopy, and GI surgery"
-cat_urinary,Urinary & Kidney,urinary-kidney,🚽,Bladder and urinary procedures
+cat_digestive,Digestive & Stomach,digestive-gi,🫃,"Colonoscopy, endoscopy, gallbladder, and GI surgery"
+cat_urinary,Bladder & Urinary,urinary-kidney,🚽,"Bladder, urinary, and kidney procedures"
 cat_skin,Skin & Wounds,skin-wounds,🩹,Wound repair and skin procedures
-cat_newborn,Newborn & Pediatric,newborn-pediatric,👶,Newborn and pediatric care
-cat_imaging,Imaging,imaging,🩻,"X-rays, CT scans, MRIs, and ultrasounds"
+cat_newborn,Newborn & Baby Care,newborn-pediatric,👶,Newborn care and NICU services
+cat_imaging,Scans & Imaging,imaging,🩻,"X-rays, CT scans, MRIs, ultrasounds, and mammograms"
 cat_lab_work,Lab Work,lab-work,🧪🔬,"Blood tests, cultures, and pathology"
 cat_vaccine,Vaccines,vaccines,💉🦠,Immunizations and vaccines
 cat_mental_health,Mental Health,mental-health,🧠😌,Psychiatric care and therapy
 cat_physical_therapy,Physical Therapy & Rehab,physical-therapy,🏃,Physical therapy and rehabilitation
 cat_cancer_treatment,Cancer Treatment,cancer-treatment,💊,Chemotherapy and cancer care
-cat_supplies,Medical Supplies,medical-supplies,🧰,Implants and medical devices
+cat_supplies,Implants & Devices,medical-supplies,⚙️,Surgical implants and medical devices
