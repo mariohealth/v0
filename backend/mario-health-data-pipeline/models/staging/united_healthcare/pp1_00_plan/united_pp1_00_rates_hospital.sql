@@ -17,7 +17,7 @@ ON
     prov_ref.provider_group_id = rates.provider_group_id
     AND rates.billing_code_type_version = '2025'
 JOIN -- this join is to make sure we only list relevant NPIs for a given billing code
-    {{ ref('billing_code_provider_taxonomy_map') }} AS taxon_map
+    {{ ref('billing_code_nucc_specialty_map') }} AS taxon_map
 ON
     taxon_map.billing_code = rates.billing_code
     AND taxon_map.billing_code_type = rates.billing_code_type
