@@ -4,7 +4,7 @@
   )
 }}
 
--- this table only includes institutional rates (no professional rates included)
+-- this table only includes institutional (no professional rates included) and negotiated (no percentages) rates
 
 WITH t0 AS (
     SELECT
@@ -38,7 +38,10 @@ t1 AS (
   FROM t0
   , UNNEST(provider_references) AS provider_group_id
   , UNNEST(negotiated_prices) AS prices
-  WHERE prices.billing_class = 'institutional'
+  WHERE
+    prices.billing_class = 'institutional'
+    AND prices.negotiated_type = 'negotiated' -- removing negotiated_type='percentage' for now because they require
+--    more joins and only represent ~2% of institutional rates
   )
 
 SELECT
