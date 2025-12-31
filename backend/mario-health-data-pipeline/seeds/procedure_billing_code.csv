@@ -1,637 +1,642 @@
-procedure_id,code,code_type,is_primary
-proc_anesthesia_eye_extraocular,00140,CPT,
-proc_anesthesia_eye_vitreoretinal,00145,CPT,
-proc_anesthesia_hernia_repair_upper,00830,CPT,
-proc_anesthesia_hernia_repair_lower,00832,CPT,
-proc_anesthesia_hernia_repair_laparoscopic,00834,CPT,
-proc_anesthesia_lower_abdominal,00840,CPT,
-proc_anesthesia_lower_abdominal_extensive,00860,CPT,
-proc_anesthesia_knee_arthroscopy,01400,CPT,
-proc_anesthesia_forearm_wrist_hand,01810,CPT,
-proc_anesthesia_plastic_surgery_hand,01820,CPT,
-proc_anesthesia_vaginal_delivery,01960,CPT,
-proc_anesthesia_c_section_after_labor,01961,CPT,
-proc_epidural_anesthesia_labor,01967,CPT,
-proc_epidural_c_section_conversion,01968,CPT,
-proc_daily_management_epidural,01996,CPT,
-proc_incision_and_drainage_abscess_simple,10060,CPT,
-proc_incision_and_drainage_abscess_complicated,10061,CPT,
-proc_foreign_body_removal_simple,10120,CPT,
-proc_foreign_body_removal_complicated,10121,CPT,
-proc_simple_laceration_repair_2.5cm_or_less,12001,CPT,
-proc_simple_laceration_repair_2.6_7.5cm,12002,CPT,
-proc_simple_laceration_repair_7.6_12.5cm,12004,CPT,
-proc_simple_repair_face_2.5cm_or_less,12011,CPT,
-proc_simple_repair_face_2.6_5.0cm,12013,CPT,
-proc_intermediate_repair_2.5cm_or_less,12031,CPT,
-proc_intermediate_repair_2.6_7.5cm,12032,CPT,
-proc_complex_repair_trunk_1.1_2.5cm,13100,CPT,
-proc_complex_repair_trunk_2.6_7.5cm,13101,CPT,
-proc_closed_treatment_shoulder_dislocation,23650,CPT,
-proc_closed_treatment_distal_radius_fracture,25600,CPT,
-proc_medial_or_lateral_knee_arthroplasty,27446,CPT,
-proc_revision_knee_arthroplasty_one_component,27486,CPT,
-proc_revision_knee_arthroplasty_total,27487,CPT,
-proc_arthrodesis_knee,27580,CPT,
-proc_closed_treatment_tibial_shaft_fracture,27752,CPT,
-proc_closed_treatment_distal_fibula_fracture,27786,CPT,
-proc_application_long_arm_splint,29105,CPT,
-proc_application_short_arm_splint,29125,CPT,
-proc_application_short_leg_splint,29515,CPT,
-proc_endoscopic_carpal_tunnel_release,29848,CPT,
-proc_endotracheal_intubation,31500,CPT,
-proc_tracheostomy_tube_change,31502,CPT,
-proc_tracheostomy_emergency,31603,CPT,
-proc_chest_tube_insertion,32551,CPT,
-proc_chest_tube_with_imaging,32557,CPT,
-proc_venipuncture_younger_than_3,36400,CPT,
-proc_central_venous_catheter_insertion,36556,CPT,
-proc_picc_insertion,36569,CPT,
-proc_arterial_puncture,36600,CPT,
-proc_arterial_line_placement,36620,CPT,
-proc_egd_with_submucosal_injection,43236,CPT,
-proc_egd_with_endoscopic_ultrasound,43237,CPT,
-proc_egd_with_eus_and_biopsy,43238,CPT,
-proc_egd_with_transmural_drainage,43240,CPT,
-proc_egd_with_tube_placement,43241,CPT,
-proc_egd_with_eus_and_fna_pancreatobiliary,43242,CPT,
-proc_egd_with_injection_sclerosis_varices,43243,CPT,
-proc_egd_with_variceal_ligation,43244,CPT,
-proc_egd_with_dilation_stricture,43245,CPT,
-proc_egd_with_peg_placement,43246,CPT,
-proc_egd_with_foreign_body_removal,43247,CPT,
-proc_egd_with_dilation_esophagus,43248,CPT,
-proc_egd_with_balloon_dilation_esophagus,43249,CPT,
-proc_egd_with_tumor_removal_hot_biopsy,43250,CPT,
-proc_egd_with_tumor_removal_snare,43251,CPT,
-proc_egd_with_ablation,43252,CPT,
-proc_egd_with_radiofrequency_ablation,43253,CPT,
-proc_egd_with_emr,43254,CPT,
-proc_egd_with_bleeding_control,43255,CPT,
-proc_egd_with_thermal_therapy_esophagus,43257,CPT,
-proc_ng_tube_placement_with_imaging,43752,CPT,
-proc_open_appendectomy,44950,CPT,
-proc_appendectomy_with_abscess_drainage,44955,CPT,
-proc_open_appendectomy_ruptured,44960,CPT,
-proc_laparoscopic_appendectomy,44970,CPT,
-proc_colonoscopy_with_submucosal_injection,45381,CPT,
-proc_colonoscopy_with_control_bleeding,45382,CPT,
-proc_colonoscopy_with_lesion_removal_hot_biopsy,45384,CPT,
-proc_colonoscopy_with_polypectomy_snare,45385,CPT,
-proc_colonoscopy_with_dilation,45386,CPT,
-proc_colonoscopy_with_ablation,45388,CPT,
-proc_colonoscopy_with_stent,45389,CPT,
-proc_colonoscopy_with_foreign_body_removal,45390,CPT,
-proc_colonoscopy_with_endoscopic_ultrasound,45391,CPT,
-proc_colonoscopy_with_endoscopic_mucosal_resection,45392,CPT,
-proc_colonoscopy_with_decompression,45393,CPT,
-proc_laparoscopic_cholecystectomy,47562,CPT,
-proc_laparoscopic_cholecystectomy_with_cholangiography,47563,CPT,
-proc_laparoscopic_cholecystectomy_with_exploration,47564,CPT,
-proc_open_cholecystectomy,47600,CPT,
-proc_open_cholecystectomy_with_cholangiography,47605,CPT,
-proc_open_cholecystectomy_with_exploration,47610,CPT,
-proc_cholecystectomy_with_exploration_t_tube,47612,CPT,
-proc_diagnostic_laparoscopy,49320,CPT,
-proc_laparoscopy_with_biopsy,49321,CPT,
-proc_laparoscopy_with_aspiration,49322,CPT,
-proc_inguinal_hernia_repair_initial,49505,CPT,
-proc_inguinal_hernia_repair_incarcerated,49507,CPT,
-proc_inguinal_hernia_repair_recurrent,49520,CPT,
-proc_inguinal_hernia_repair_recurrent_incarcerated,49521,CPT,
-proc_inguinal_hernia_repair_sliding,49525,CPT,
-proc_umbilical_hernia_repair_reducible,49581,CPT,
-proc_umbilical_hernia_repair_incarcerated,49582,CPT,
-proc_epigastric_hernia_repair_reducible,49585,CPT,
-proc_epigastric_hernia_repair_incarcerated,49586,CPT,
-proc_ventral_hernia_repair_small_reducible,49591,CPT,
-proc_ventral_hernia_repair_medium_reducible,49592,CPT,
-proc_ventral_hernia_repair_small_incarcerated,49593,CPT,
-proc_ventral_hernia_repair_medium_incarcerated,49594,CPT,
-proc_ventral_hernia_repair_large_reducible,49595,CPT,
-proc_ventral_hernia_repair_large_incarcerated,49596,CPT,
-proc_laparoscopic_inguinal_hernia_repair_initial,49650,CPT,
-proc_laparoscopic_inguinal_hernia_repair_recurrent,49651,CPT,
-proc_foley_catheter_insertion,51702,CPT,
-proc_foley_catheter_insertion_complex,51703,CPT,
-proc_contraction_stress_test,59020,CPT,
-proc_fetal_non_stress_test,59025,CPT,
-proc_episiotomy_repair,59300,CPT,
-proc_cervical_cerclage_repair,59320,CPT,
-proc_vaginal_delivery_global,59400,CPT,
-proc_vaginal_delivery_only,59409,CPT,
-proc_vaginal_delivery_with_postpartum,59410,CPT,
-proc_external_cephalic_version,59412,CPT,
-proc_delivery_of_placenta,59414,CPT,
-proc_postpartum_care_only,59430,CPT,
-proc_cesarean_delivery_global,59510,CPT,
-proc_cesarean_delivery_only,59514,CPT,
-proc_cesarean_with_postpartum_only,59515,CPT,
-proc_hysterectomy_after_cesarean,59525,CPT,
-proc_lumbar_puncture_diagnostic,62270,CPT,
-proc_lumbar_puncture_therapeutic,62272,CPT,
-proc_epidural_injection_lumbar,62320,CPT,
-proc_epidural_with_imaging,62321,CPT,
-proc_brachial_plexus_block_single,64415,CPT,
-proc_brachial_plexus_block_continuous,64416,CPT,
-proc_axillary_nerve_block,64417,CPT,
-proc_sciatic_nerve_block,64445,CPT,
-proc_sciatic_nerve_continuous_block,64446,CPT,
-proc_femoral_nerve_block,64447,CPT,
-proc_femoral_nerve_continuous_block,64448,CPT,
-proc_other_peripheral_nerve_block,64450,CPT,
-proc_neuroplasty_major_peripheral_nerve,64704,CPT,
-proc_neuroplasty_digital_nerve,64708,CPT,
-proc_neuroplasty_ulnar_nerve_at_elbow,64718,CPT,
-proc_neuroplasty_ulnar_nerve_at_wrist,64719,CPT,
-proc_carpal_tunnel_release,64721,CPT,
-proc_decompression_unspecified_nerve,64722,CPT,
-proc_complex_cataract_surgery,66982,CPT,
-proc_cataract_surgery_phacoemulsification,66984,CPT,
-proc_complex_cataract_with_stent,66987,CPT,
-proc_cataract_with_endoscopic_cyclophotocoagulation,66988,CPT,
-proc_cataract_with_stent,66989,CPT,
-proc_cataract_with_intraocular_stent,66991,CPT,
-proc_ct_head_with_contrast,70460,CPT,
-proc_ct_head_without_and_with_contrast,70470,CPT,
-proc_ct_maxillofacial_with_contrast,70487,CPT,
-proc_ct_neck_without_contrast,70490,CPT,
-proc_ct_neck_with_contrast,70491,CPT,
-proc_chest_x_ray_3_views,71047,CPT,
-proc_chest_x_ray_4+_views,71048,CPT,
-proc_ct_chest_without_and_with_contrast,71270,CPT,
-proc_ct_thoracic_spine_without_contrast,72128,CPT,
-proc_wrist_x_ray_2_views,73100,CPT,
-proc_ct_upper_extremity_without_contrast,73200,CPT,
-proc_ct_upper_extremity_with_contrast,73201,CPT,
-proc_knee_arthrography,73580,CPT,
-proc_lower_extremity_x_ray,73592,CPT,
-proc_ct_abdomen_without_contrast,74150,CPT,
-proc_ct_abdomen_with_contrast,74160,CPT,
-proc_ct_abdomen_without_and_with_contrast,74170,CPT,
-proc_cholangiography_intraoperative,74300,CPT,
-proc_cholangiography_additional_imaging,74301,CPT,
-proc_fluoroscopy_guidance,76000,CPT,
-proc_ophthalmic_ultrasound_b_scan,76510,CPT,
-proc_ophthalmic_ultrasound_a_scan,76511,CPT,
-proc_ophthalmic_ultrasound_b_scan_with_a_scan,76512,CPT,
-proc_ultrasound_anterior_segment,76513,CPT,
-proc_ophthalmic_biometry_ultrasound,76519,CPT,
-proc_ultrasound_retroperitoneal_limited,76775,CPT,
-proc_ultrasound_ob_first_trimester,76801,CPT,
-proc_ultrasound_ob_first_trimester_addl,76802,CPT,
-proc_ultrasound_ob_complete,76805,CPT,
-proc_ultrasound_ob_detailed,76811,CPT,
-proc_ultrasound_ob_detailed_addl,76812,CPT,
-proc_ultrasound_ob_limited,76815,CPT,
-proc_ultrasound_ob_follow_up,76816,CPT,
-proc_ultrasound_transvaginal_ob,76817,CPT,
-proc_fetal_biophysical_profile,76818,CPT,
-proc_fetal_biophysical_profile_without_nst,76819,CPT,
-proc_umbilical_artery_doppler,76820,CPT,
-proc_middle_cerebral_artery_doppler,76821,CPT,
-proc_ultrasound_guidance_needle_placement,76942,CPT,
-proc_fluoroscopic_guidance_needle_placement,77002,CPT,
-proc_myocardial_perfusion_spect_single,78451,CPT,
-proc_myocardial_perfusion_spect_multiple,78452,CPT,
-proc_obstetric_panel,80055,CPT,
-proc_acute_hepatitis_panel,80074,CPT,
-proc_hepatic_function_panel,80076,CPT,
-proc_obstetric_panel_extended,80081,CPT,
-proc_drug_screen_presumptive,80305,CPT,
-proc_drug_screen_quantitative,80307,CPT,
-proc_alcohols,80320,CPT,
-proc_urinalysis_with_microscopy,81000,CPT,
-proc_urine_pregnancy_test,81025,CPT,
-proc_albumin,82040,CPT,
-proc_alpha_fetoprotein_serum,82105,CPT,
-proc_bilirubin_direct,82247,CPT,
-proc_bilirubin_total,82248,CPT,
-proc_fecal_occult_blood,82270,CPT,
-proc_calcium_total,82310,CPT,
-proc_cea,82378,CPT,
-proc_cholesterol_total,82465,CPT,
-proc_ck_total,82550,CPT,
-proc_ck_mb,82553,CPT,
-proc_creatinine,82565,CPT,
-proc_blood_gas_any_combination,82803,CPT,
-proc_blood_gas_with_o2_saturation,82805,CPT,
-proc_glucose_blood_test,82947,CPT,
-proc_glucose_post_dose,82950,CPT,
-proc_glucose_tolerance_test,82951,CPT,
-proc_ggt,82977,CPT,
-proc_iron_binding_capacity,83550,CPT,
-proc_lactate,83605,CPT,
-proc_ldh,83615,CPT,
-proc_hdl_cholesterol,83718,CPT,
-proc_ldl_cholesterol,83721,CPT,
-proc_magnesium,83735,CPT,
-proc_natriuretic_peptide_bnp,83880,CPT,
-proc_alkaline_phosphatase,84075,CPT,
-proc_phosphorus,84100,CPT,
-proc_potassium,84132,CPT,
-proc_sodium,84295,CPT,
-proc_ast/sgot,84450,CPT,
-proc_alt/sgpt,84460,CPT,
-proc_triglycerides,84478,CPT,
-proc_troponin_quantitative,84484,CPT,
-proc_bun,84520,CPT,
-proc_uric_acid_blood,84550,CPT,
-proc_hcg_quantitative,84702,CPT,
-proc_hcg_qualitative,84703,CPT,
-proc_hematocrit,85014,CPT,
-proc_hemoglobin,85018,CPT,
-proc_cbc_automated,85027,CPT,
-proc_sedimentation_rate_automated,85651,CPT,
-proc_partial_thromboplastin_time_ptt,85730,CPT,
-proc_antinuclear_antibody,86038,CPT,
-proc_c_reactive_protein,86140,CPT,
-proc_crp_high_sensitivity,86141,CPT,
-proc_ca_125,86300,CPT,
-proc_ca_19_9,86304,CPT,
-proc_tb_skin_test,86580,CPT,
-proc_syphilis_test_qualitative,86592,CPT,
-proc_helicobacter_pylori_antibody,86677,CPT,
-proc_hiv_antibody_test,86703,CPT,
-proc_rubella_antibody,86762,CPT,
-proc_treponema_pallidum_antibody,86780,CPT,
-proc_hepatitis_c_antibody,86803,CPT,
-proc_rbc_antibody_screen,86850,CPT,
-proc_antibody_identification,86870,CPT,
-proc_blood_typing_abo,86900,CPT,
-proc_blood_typing_rh,86901,CPT,
-proc_blood_culture,87040,CPT,
-proc_stool_culture,87045,CPT,
-proc_culture_bacterial_except_blood,87070,CPT,
-proc_culture_bacterial_screen,87081,CPT,
-proc_urine_culture,87086,CPT,
-proc_chlamydia_culture,87110,CPT,
-proc_h._pylori_stool_antigen,87338,CPT,
-proc_hepatitis_b_surface_antigen,87340,CPT,
-proc_hiv_1_antigen_with_antibodies,87389,CPT,
-proc_chlamydia_dna_probe,87491,CPT,
-proc_neisseria_dna_probe,87591,CPT,
-proc_c._difficile_toxin,87624,CPT,
-proc_covid_19_pcr,87635,CPT,
-proc_multiple_organism_dna_probe,87801,CPT,
-proc_sars_cov_2_antigen,87905,CPT,
-proc_pap_smear_interpretation,88141,CPT,
-proc_pap_smear_thin_prep,88142,CPT,
-proc_pap_smear_liquid_based,88175,CPT,
-proc_surgical_pathology_level_iii,88304,CPT,
-proc_surgical_pathology_level_v,88307,CPT,
-proc_surgical_pathology_level_vi,88309,CPT,
-proc_eye_exam_new_intermediate,92002,CPT,
-proc_refraction,92015,CPT,
-proc_gonioscopy,92020,CPT,
-proc_sensorimotor_examination,92060,CPT,
-proc_visual_field_intermediate,92082,CPT,
-proc_oct_optic_nerve,92133,CPT,
-proc_ophthalmic_biometry,92136,CPT,
-proc_cardiopulmonary_resuscitation,92950,CPT,
-proc_cardioversion_external,92960,CPT,
-proc_electrocardiogram_tracing_only,93005,CPT,
-proc_stress_test_tracing,93017,CPT,
-proc_echocardiography_limited,93307,CPT,
-proc_duplex_lower_extremity_arterial_unilateral,93926,CPT,
-proc_nebulizer_treatment,94640,CPT,
-proc_pulse_oximetry,94760,CPT,
-proc_pulse_oximetry_multiple,94761,CPT,
-proc_pulse_oximetry_continuous,94762,CPT,
-proc_emg_limited,95885,CPT,
-proc_emg_complete_extremity,95886,CPT,
-proc_nerve_conduction_study_1_2,95907,CPT,
-proc_nerve_conduction_study_3_4,95908,CPT,
-proc_nerve_conduction_study_5_6,95909,CPT,
-proc_nerve_conduction_study_7_8,95910,CPT,
-proc_nerve_conduction_study_9-10,95911,CPT,
-proc_nerve_conduction_study_11-12,95912,CPT,
-proc_nerve_conduction_study_13+,95913,CPT,
-proc_iv_infusion_hydration_initial,96360,CPT,
-proc_iv_infusion_hydration_additional,96361,CPT,
-proc_iv_infusion_therapeutic_initial,96365,CPT,
-proc_iv_infusion_therapeutic_additional,96366,CPT,
-proc_iv_infusion_additional_drug,96367,CPT,
-proc_iv_infusion_concurrent,96368,CPT,
-proc_iv_push_single_drug,96374,CPT,
-proc_iv_push_additional_drug,96375,CPT,
-proc_pt_evaluation_high_complexity,97163,CPT,
-proc_wheelchair_management,97542,CPT,
-proc_physical_performance_test,97750,CPT,
-proc_orthotic_management_training,97760,CPT,
-proc_prosthetic_management_training,97761,CPT,
-proc_orthotic/prosthetic_checkout,97763,CPT,
-proc_moderate_sedation_additional,99153,CPT,
-proc_moderate_sedation_other_physician,99155,CPT,
-proc_moderate_sedation_other_physician_addl,99156,CPT,
-proc_hospital_discharge_day_30_min_or_less,99238,CPT,
-proc_er_visit_level_1,99281,CPT,
-proc_er_visit_level_2,99282,CPT,
-proc_critical_care_additional_30_min,99292,CPT,
-proc_newborn_initial_hospital_care,99460,CPT,
-proc_newborn_initial_care_other_than_hospital,99461,CPT,
-proc_newborn_subsequent_care,99462,CPT,
-proc_newborn_same_day_admit_discharge,99463,CPT,
-proc_newborn_attendance_at_delivery,99464,CPT,
-proc_newborn_resuscitation,99465,CPT,
-proc_initial_intensive_care_neonate,99477,CPT,
-proc_intensive_care_very_low_birth_weight,99478,CPT,
-proc_intensive_care_low_birth_weight,99479,CPT,
-proc_intensive_care_normal_weight,99480,CPT,
-proc_mesh_surgical_implantable,C1781,HCPCS,
-proc_lens_intraocular_new_technology,C1840,HCPCS,
-proc_adrenaline_injection,J0171,HCPCS,
-proc_hydralazine_injection,J0360,HCPCS,
-proc_azithromycin_injection,J0456,HCPCS,
-proc_baclofen_injection,J0475,HCPCS,
-proc_onabotulinumtoxin_a,J0585,HCPCS,
-proc_cefazolin_injection,J0690,HCPCS,
-proc_methylprednisolone_40mg_depo,J1030,HCPCS,
-proc_methylprednisolone_80mg,J1040,HCPCS,
-proc_dexamethasone_injection,J1100,HCPCS,
-proc_enoxaparin_injection,J1650,HCPCS,
-proc_lidocaine_injection,J2001,HCPCS,
-proc_meperidine_injection,J2175,HCPCS,
-proc_midazolam_injection,J2250,HCPCS,
-proc_morphine_injection,J2270,HCPCS,
-proc_naloxone_injection,J2310,HCPCS,
-proc_chloroprocaine_injection,J2400,HCPCS,
-proc_ondansetron_injection,J2405,HCPCS,
-proc_promethazine_injection,J2550,HCPCS,
-proc_propofol_injection,J2704,HCPCS,
-proc_metoclopramide_injection,J2765,HCPCS,
-proc_vancomycin_injection,J3370,HCPCS,
-proc_unclassified_drug,J3490,HCPCS,
-proc_sodium_hyaluronate_ophthalmic,J7316,HCPCS,
-proc_viscoelastic_substance,J7322,HCPCS,
-proc_triamcinolone_ophthalmic,J7324,HCPCS,
-proc_rivaroxaban_oral,J8510,HCPCS,
-proc_prosthetic_implant_nos,L8699,HCPCS,
-proc_lens_intraocular_new_technology_cat_4,Q1004,HCPCS,
-proc_lens_intraocular_new_technology_cat_5,Q1005,HCPCS,
-proc_posterior_chamber_iol_standard,V2632,HCPCS,
-proc_astigmatism_correcting_iol,V2787,HCPCS,
-proc_presbyopia_correcting_iol,V2788,HCPCS,
-proc_sarscov2_vaccine,0124A,???,
-proc_sarscov2_vaccine,0134A,???,
-proc_lens_surgery_anesthesia,00142,CPT,
-proc_small_bowel_anesthesia,00731,CPT,
-proc_upper_abdomen_anesthesia,00790,CPT,
-proc_large_bowel_anesthesia,00811,CPT,
-proc_colon_exam_anesthesia,00812,CPT,
-proc_small_large_bowel_anesthesia,00813,CPT,
-proc_knee_joint_replacement_anesthesia,01402,CPT,
-proc_skin_growth_biopsy,11102,CPT,
-proc_skin_growth_biopsy,11103,CPT,
-proc_precancer_skin_growth_destruction,17000,CPT,
-proc_precancer_skin_growth_destruction,17003,CPT,
-proc_precancer_skin_growth_destruction,17004,CPT,
-proc_skin_growth_destruction,17110,CPT,
-proc_arthrocentesis,20610,CPT,
-proc_arthrocentesis,20611,CPT,
-proc_hip_thigh_joint_replacement,27130,CPT,
-proc_knee_joint_replacement,27447,CPT,
-proc_voice_box_endoscopy,31575,CPT,
-proc_blood_collection,36415,CPT,
-proc_small_bowel_endoscopy,43235,CPT,
-proc_small_bowel_biopsy,43239,CPT,
-proc_large_bowel_endoscopy,45378,CPT,
-proc_large_bowel_biopsy,45380,CPT,
-proc_bladder_capacity_ultrasound,51798,CPT,
-proc_bladder_urethra_endoscopy,52000,CPT,
-proc_head_brain_ct_scan,70450,CPT,
-proc_head_brain_ct_scan,70460,CPT,
-proc_head_brain_ct_scan,70470,CPT,
-proc_face_ct_scan,70486,CPT,
-proc_face_ct_scan,70487,CPT,
-proc_face_ct_scan,70488,CPT,
-proc_blood_vessels_head_ct_scan,70496,CPT,
-proc_blood_vessels_neck_ct_scan,70498,CPT,
-proc_orbit_face_neck_mri,70540,CPT,
-proc_orbit_face_neck_mri,70542,CPT,
-proc_orbit_face_neck_mri,70543,CPT,
-proc_brain_stem_mri,70551,CPT,
-proc_brain_stem_mri,70552,CPT,
-proc_brain_stem_mri,70553,CPT,
-proc_brain_mri,70554,CPT,
-proc_brain_mri,70555,CPT,
-proc_brain_intracranial_mri,70557,CPT,
-proc_brain_intracranial_mri,70558,CPT,
-proc_brain_intracranial_mri,70559,CPT,
-proc_chest_x_ray,71045,CPT,
-proc_chest_x_ray,71046,CPT,
-proc_chest_ct_scan,71250,CPT,
-proc_chest_ct_scan,71260,CPT,
-proc_chest_ct_scan,71270,CPT,
-proc_chest_cancer_screen_ct_scan,71271,CPT,
-proc_blood_vessels_chest_ct_scan,71275,CPT,
-proc_chest_mri,71550,CPT,
-proc_chest_mri,71551,CPT,
-proc_chest_mri,71552,CPT,
-proc_upper_spine_x_ray,72040,CPT,
-proc_upper_spine_x_ray,72050,CPT,
-proc_upper_spine_x_ray,72052,CPT,
-proc_lower_spine_x_ray,72100,CPT,
-proc_lower_spine_x_ray,72110,CPT,
-proc_upper_spine_ct_scan,72125,CPT,
-proc_lower_spine_ct_scan,72131,CPT,
-proc_spinal_canal_cervical_mri,72141,CPT,
-proc_spinal_canal_cervical_mri,72142,CPT,
-proc_spinal_canal_thoracic_mri,72146,CPT,
-proc_spinal_canal_thoracic_mri,72147,CPT,
-proc_spinal_canal_lumbar_mri,72148,CPT,
-proc_spinal_canal_lumbar_mri,72149,CPT,
-proc_spinal_canal_cervical_mri,72156,CPT,
-proc_spinal_canal_thoracic_mri,72157,CPT,
-proc_spinal_canal_lumbar_mri,72158,CPT,
-proc_pelvis_x_ray,72170,CPT,
-proc_pelvis_mri,72195,CPT,
-proc_pelvis_mri,72196,CPT,
-proc_pelvis_mri,72197,CPT,
-proc_shoulder_x_ray,73030,CPT,
-proc_elbow_x_ray,73080,CPT,
-proc_wrist_x_ray,73110,CPT,
-proc_hand_x_ray,73130,CPT,
-proc_arm_mri,73218,CPT,
-proc_arm_mri,73219,CPT,
-proc_arm_mri,73220,CPT,
-proc_arm_joint_mri,73221,CPT,
-proc_arm_joint_mri,73222,CPT,
-proc_arm_joint_mri,73223,CPT,
-proc_hip_x_ray,73501,CPT,
-proc_hip_x_ray,73502,CPT,
-proc_hip_x_ray,73503,CPT,
-proc_thigh_bone_x_ray,73552,CPT,
-proc_knee_x_ray,73560,CPT,
-proc_knee_x_ray,73562,CPT,
-proc_knee_x_ray,73564,CPT,
-proc_lower_leg_x_ray,73590,CPT,
-proc_ankle_x_ray,73610,CPT,
-proc_foot_x_ray,73630,CPT,
-proc_leg_ct_scan,73700,CPT,
-proc_leg_mri,73718,CPT,
-proc_leg_mri,73719,CPT,
-proc_leg_mri,73720,CPT,
-proc_leg_joint_mri,73721,CPT,
-proc_leg_joint_mri,73722,CPT,
-proc_leg_joint_mri,73723,CPT,
-proc_abdomen_x_ray,74018,CPT,
-proc_blood_vessels_abdomen_pelvis_ct_scan,74174,CPT,
-proc_abdomen_pelvis_ct_scan,74176,CPT,
-proc_abdomen_pelvis_ct_scan,74177,CPT,
-proc_abdomen_pelvis_ct_scan,74178,CPT,
-proc_abdomen_mri,74181,CPT,
-proc_abdomen_mri,74182,CPT,
-proc_abdomen_mri,74183,CPT,
-proc_cornea_ultrasound,76514,CPT,
-proc_head_neck_tissue_ultrasound,76536,CPT,
-proc_breast_ultrasound,76642,CPT,
-proc_abdomen_ultrasound,76700,CPT,
-proc_abdomen_ultrasound,76705,CPT,
-proc_abdominal_cavity_ultrasound,76770,CPT,
-proc_transvaginal_ultrasound,76830,CPT,
-proc_screening_mammography,77063,CPT,
-proc_diagnostic_mammography,77065,CPT,
-proc_diagnostic_mammography,77066,CPT,
-proc_screening_mammography,77067,CPT,
-proc_hip_pelvis_spine_density_dxa,77080,CPT,
-proc_group_chemicals_blood_test,80048,CPT,
-proc_group_chemicals_blood_test,80053,CPT,
-proc_lipids_blood_test,80061,CPT,
-proc_microscope_urinalysis,81001,CPT,
-proc_urinalysis,81002,CPT,
-proc_automated_urine_test,81003,CPT,
-proc_microalbumin_urinalysis,82043,CPT,
-proc_vitamin_d3_blood_test,82306,CPT,
-proc_creatinine_blood_test,82570,CPT,
-proc_cyanocobalamin_blood_test,82607,CPT,
-proc_ferritin_blood_test,82728,CPT,
-proc_hemoglobin_a1c_blood_test,83036,CPT,
-proc_iron_blood_test,83540,CPT,
-proc_prostate_specific_antigen_blood_test,84153,CPT,
-proc_free_thyroxine_blood_test,84439,CPT,
-proc_tsh_blood_test,84443,CPT,
-proc_complete_blood_cell_count_blood_test,85025,CPT,
-proc_clotting_time_blood_test,85610,CPT,
-proc_sarscov2_immunoassay,87426,CPT,
-proc_sarscov2_influenza_immunoassay,87428,CPT,
-proc_influenza_doo_immunoassay,87804,CPT,
-proc_sarscov2_doo_immunoassay,87811,CPT,
-proc_streptococcus_doo_immunoassay,87880,CPT,
-proc_immunohistochemistry,88341,CPT,
-proc_immunohistochemistry,88342,CPT,
-proc_sarscov2_vaccine,90480,CPT,
-proc_influenza_vaccine,90662,CPT,
-proc_pneumococcal_vaccine,90677,CPT,
-proc_influenza_vaccine,90686,CPT,
-proc_influenza_vaccine,90694,CPT,
-proc_psychiatric_eval,90791,CPT,
-proc_psychiatric_eval,90792,CPT,
-proc_psychotherapy,90833,CPT,
-proc_psychotherapy,90834,CPT,
-proc_psychotherapy,90837,CPT,
-proc_sarscov2_vaccine,91320,CPT,
-proc_sarscov2_vaccine,91322,CPT,
-proc_visual_system_exam,92004,CPT,
-proc_visual_system_exam,92012,CPT,
-proc_visual_system_exam,92014,CPT,
-proc_visual_system_exam,92083,CPT,
-proc_hearing_speech_test,92557,CPT,
-proc_tympanometry_test,92567,CPT,
-proc_routine_ecg,93000,CPT,
-proc_routine_ecg,93010,CPT,
-proc_heart_stress_test_ecg,93015,CPT,
-proc_heart_stress_test_ecg,93016,CPT,
-proc_heart_stress_test_ecg,93018,CPT,
-proc_heart_blood_flow_ultrasound,93306,CPT,
-proc_heart_ultrasound,93308,CPT,
-proc_heart_ultrasound,93312,CPT,
-proc_heart_blood_flow_ultrasound,93320,CPT,
-proc_heart_blood_flow_ultrasound,93325,CPT,
-proc_head_neck_blood_flow_ultrasound,93880,CPT,
-proc_arm_leg_arteries_ultrasound,93922,CPT,
-proc_leg_arteries_ultrasound,93925,CPT,
-proc_arm_leg_veins_ultrasound,93970,CPT,
-proc_arm_leg_veins_ultrasound,93971,CPT,
-proc_spirometry_test,94010,CPT,
-proc_spirometry_test,94060,CPT,
-proc_lung_diffusing_capacity_test,94729,CPT,
-proc_vein_chemotherapy,96413,CPT,
-proc_physical_therapy,97110,CPT,
-proc_physical_therapy,97112,CPT,
-proc_physical_therapy,97116,CPT,
-proc_physical_therapy,97140,CPT,
-proc_physical_therapy,97150,CPT,
-proc_physical_therapy,97161,CPT,
-proc_physical_therapy,97162,CPT,
-proc_physical_therapy,97164,CPT,
-proc_physical_therapy,97530,CPT,
-proc_self_care_training,97535,CPT,
-proc_spinal_chiropractic,98940,CPT,
-proc_spinal_chiropractic,98941,CPT,
-proc_moderate_sedation_services,99152,CPT,
-proc_office_visit,99202,CPT,
-proc_office_visit,99203,CPT,
-proc_office_visit,99204,CPT,
-proc_office_visit,99205,CPT,
-proc_office_visit,99211,CPT,
-proc_office_visit,99212,CPT,
-proc_office_visit,99213,CPT,
-proc_office_visit,99214,CPT,
-proc_office_visit,99215,CPT,
-proc_initial_hospital_care,99221,CPT,
-proc_initial_hospital_care,99222,CPT,
-proc_initial_hospital_care,99223,CPT,
-proc_subsequent_hospital_care,99231,CPT,
-proc_subsequent_hospital_care,99232,CPT,
-proc_subsequent_hospital_care,99233,CPT,
-proc_emergency_visit,99283,CPT,
-proc_emergency_visit,99284,CPT,
-proc_emergency_visit,99285,CPT,
-proc_critical_care,99291,CPT,
-proc_initial_nursing_facility_care,99305,CPT,
-proc_initial_nursing_facility_care,99306,CPT,
-proc_subsequent_nursing_facility_care,99307,CPT,
-proc_subsequent_nursing_facility_care,99308,CPT,
-proc_subsequent_nursing_facility_care,99309,CPT,
-proc_subsequent_nursing_facility_care,99310,CPT,
-proc_home_visit,99348,CPT,
-proc_home_visit,99349,CPT,
-proc_chronic_care_management,99439,CPT,
-proc_tele_medical_discussion,99441,CPT,
-proc_tele_medical_discussion,99442,CPT,
-proc_tele_medical_discussion,99443,CPT,
-proc_chronic_care_management,99490,CPT,
-proc_transitional_care_mngmnt,99495,CPT,
-proc_transitional_care_mngmnt,99496,CPT,
-proc_advance_care_planning,99497,CPT,
-proc_influenza_vaccine,G0008,HCPCS,
-proc_pneumococcal_vaccine,G0009,HCPCS,
-proc_colonoscopy,G0105,HCPCS,
-proc_colonoscopy,G0121,HCPCS,
-proc_diagnostic_mammography,G0279,HCPCS,
-proc_electrical_stimulation_physical_therapy,G0283,HCPCS,
-proc_annual_wellness_visit,G0438,HCPCS,
-proc_annual_wellness_visit,G0439,HCPCS,
-proc_annual_alcohol_screening,G0442,HCPCS,
-proc_annual_depression_screening,G0444,HCPCS,
-proc_pap_smear_test,Q0091,HCPCS,
-proc_knee_joint_replacement,0466,MS-DRG,
-proc_knee_joint_replacement,0467,MS-DRG,
-proc_knee_joint_replacement,0468,MS-DRG,
-proc_major_joint_replacement,0470,MS-DRG,
-proc_major_joint_replacement,0469,MS-DRG,
-proc_vaginal_delivery,0807,MS-DRG,
-proc_vaginal_delivery,0806,MS-DRG,
-proc_vaginal_delivery,0805,MS-DRG,
-proc_appendectomy_simple,0343,MS-DRG,
-proc_appendectomy_simple,0342,MS-DRG,
-proc_appendectomy_simple,0341,MS-DRG,
-proc_lap_cholecystectomy,0419,MS-DRG,
-proc_lap_cholecystectomy,0418,MS-DRG,
-proc_lap_cholecystectomy,0417,MS-DRG,
-proc_inguinal_hernia,0352,MS-DRG,
-proc_inguinal_hernia,0351,MS-DRG,
-proc_inguinal_hernia,0350,MS-DRG,
-proc_hand_wrist_proc,0514,MS-DRG,
-proc_hand_wrist_proc,0513,MS-DRG,
+procedure_id,code,code_type,is_primary,code_description
+proc_abdomen_mri,74181,CPT,True,without contrast
+proc_abdomen_mri,74182,CPT,False,with contrast
+proc_abdomen_mri,74183,CPT,False,without and with contrast
+proc_abdomen_pelvis_ct_scan,74176,CPT,True,without contrast
+proc_abdomen_pelvis_ct_scan,74177,CPT,False,with contrast
+proc_abdomen_pelvis_ct_scan,74178,CPT,False,without and with contrast
+proc_abdomen_ultrasound,76700,CPT,True,complete
+proc_abdomen_ultrasound,76705,CPT,False,limited
+proc_abdomen_x_ray,74018,CPT,True,
+proc_abdominal_cavity_ultrasound,76770,CPT,True,
+proc_acute_hepatitis_panel,80074,CPT,True,
+proc_adrenaline_injection,J0171,HCPCS,True,
+proc_advance_care_planning,99497,CPT,True,
+proc_albumin,82040,CPT,True,
+proc_alcohols,80320,CPT,True,
+proc_alkaline_phosphatase,84075,CPT,True,
+proc_alpha_fetoprotein_serum,82105,CPT,True,
+proc_alt_sgpt,84460,CPT,True,
+proc_anesthesia_abdominal,00731,CPT,False,small bowel
+proc_anesthesia_abdominal,00790,CPT,False,upper abdomen
+proc_anesthesia_abdominal,00811,CPT,False,large bowel
+proc_anesthesia_abdominal,00812,CPT,False,colon exam
+proc_anesthesia_abdominal,00813,CPT,False,combined small and large bowel
+proc_anesthesia_abdominal,00840,CPT,True,lower abdominal
+proc_anesthesia_abdominal,00860,CPT,False,lower abdominal extensive
+proc_anesthesia_arm_hand,01810,CPT,True,forearm wrist hand
+proc_anesthesia_arm_hand,01820,CPT,False,plastic surgery hand
+proc_anesthesia_eye,00140,CPT,True,extraocular muscles
+proc_anesthesia_eye,00142,CPT,False,lens surgery
+proc_anesthesia_eye,00145,CPT,False,vitreoretinal surgery
+proc_anesthesia_hernia,00830,CPT,False,upper abdominal
+proc_anesthesia_hernia,00832,CPT,True,lower abdominal (ventral/umbilical)
+proc_anesthesia_hernia,00834,CPT,False,laparoscopic
+proc_anesthesia_knee,01400,CPT,True,arthroscopy
+proc_anesthesia_knee,01402,CPT,False,joint replacement
+proc_anesthesia_obstetric,01960,CPT,True,vaginal delivery
+proc_anesthesia_obstetric,01961,CPT,False,c-section after labor
+proc_anesthesia_obstetric,01967,CPT,False,epidural labor
+proc_anesthesia_obstetric,01968,CPT,False,epidural c-section conversion
+proc_ankle_x_ray,73610,CPT,True,
+proc_annual_alcohol_screening,G0442,HCPCS,True,
+proc_annual_depression_screening,G0444,HCPCS,True,
+proc_annual_wellness_visit,G0438,HCPCS,True,initial
+proc_annual_wellness_visit,G0439,HCPCS,False,subsequent
+proc_antibody_identification,86870,CPT,True,
+proc_antinuclear_antibody,86038,CPT,True,
+proc_appendectomy,44950,CPT,True,open standard
+proc_appendectomy,44955,CPT,False,with abscess drainage
+proc_appendectomy,44960,CPT,False,open ruptured
+proc_appendectomy,44970,CPT,False,laparoscopic
+proc_appendectomy,0341,MS-DRG,False,with peritonitis with MCC
+proc_appendectomy,0342,MS-DRG,False,with peritonitis with CC
+proc_appendectomy,0343,MS-DRG,False,with peritonitis without CC/MCC
+proc_application_long_arm_splint,29105,CPT,True,
+proc_application_short_arm_splint,29125,CPT,True,
+proc_application_short_leg_splint,29515,CPT,True,
+proc_arm_joint_mri,73221,CPT,True,without contrast
+proc_arm_joint_mri,73222,CPT,False,with contrast
+proc_arm_joint_mri,73223,CPT,False,without and with contrast
+proc_arm_leg_arteries_ultrasound,93922,CPT,True,bilateral
+proc_arm_leg_veins_ultrasound,93970,CPT,True,bilateral
+proc_arm_leg_veins_ultrasound,93971,CPT,False,unilateral
+proc_arm_mri,73218,CPT,True,without contrast
+proc_arm_mri,73219,CPT,False,with contrast
+proc_arm_mri,73220,CPT,False,without and with contrast
+proc_arterial_line_placement,36620,CPT,True,
+proc_arterial_puncture,36600,CPT,True,
+proc_arthrocentesis,20610,CPT,True,without ultrasound
+proc_arthrocentesis,20611,CPT,False,with ultrasound
+proc_arthrodesis_knee,27580,CPT,True,
+proc_ast_sgot,84450,CPT,True,
+proc_axillary_nerve_block,64417,CPT,True,
+proc_azithromycin_injection,J0456,HCPCS,True,
+proc_baclofen_injection,J0475,HCPCS,True,
+proc_bilirubin,82247,CPT,False,direct
+proc_bilirubin,82248,CPT,True,total
+proc_bladder_capacity_ultrasound,51798,CPT,True,
+proc_bladder_urethra_endoscopy,52000,CPT,True,
+proc_blood_collection,36415,CPT,True,
+proc_blood_culture,87040,CPT,True,
+proc_blood_gas,82803,CPT,True,any combination
+proc_blood_gas,82805,CPT,False,with O2 saturation
+proc_blood_typing,86900,CPT,True,ABO
+proc_blood_typing,86901,CPT,False,Rh
+proc_blood_vessels_abdomen_pelvis_ct_scan,74174,CPT,True,
+proc_blood_vessels_chest_ct_scan,71275,CPT,True,
+proc_blood_vessels_head_ct_scan,70496,CPT,True,
+proc_blood_vessels_neck_ct_scan,70498,CPT,True,
+proc_brachial_plexus_block,64415,CPT,True,single injection
+proc_brachial_plexus_block,64416,CPT,False,continuous
+proc_brain_intracranial_mri,70557,CPT,True,without contrast
+proc_brain_intracranial_mri,70558,CPT,False,with contrast
+proc_brain_intracranial_mri,70559,CPT,False,without and with contrast
+proc_brain_mri,70554,CPT,True,functional without physician
+proc_brain_mri,70555,CPT,False,functional with physician
+proc_brain_stem_mri,70551,CPT,True,without contrast
+proc_brain_stem_mri,70552,CPT,False,with contrast
+proc_brain_stem_mri,70553,CPT,False,without and with contrast
+proc_breast_ultrasound,76642,CPT,True,
+proc_bun,84520,CPT,True,
+proc_c_difficile_toxin,87624,CPT,True,
+proc_c_reactive_protein,86140,CPT,True,standard
+proc_c_reactive_protein,86141,CPT,False,high sensitivity
+proc_ca_125,86300,CPT,True,
+proc_ca_19_9,86304,CPT,True,
+proc_calcium_total,82310,CPT,True,
+proc_cardiopulmonary_resuscitation,92950,CPT,True,
+proc_cardioversion_external,92960,CPT,True,
+proc_carpal_tunnel_release,64721,CPT,True,
+proc_cataract_surgery,66982,CPT,False,complex
+proc_cataract_surgery,66984,CPT,True,phacoemulsification standard
+proc_cataract_surgery,66987,CPT,False,complex with stent
+proc_cataract_surgery,66988,CPT,False,with endoscopic cyclophotocoagulation
+proc_cataract_surgery,66989,CPT,False,with stent
+proc_cataract_surgery,66991,CPT,False,with intraocular stent
+proc_cbc_automated,85027,CPT,True,without differential
+proc_cea,82378,CPT,True,
+proc_cefazolin_injection,J0690,HCPCS,True,
+proc_central_venous_catheter_insertion,36556,CPT,True,
+proc_cervical_cerclage_repair,59320,CPT,True,
+proc_cesarean_delivery,59510,CPT,True,global (antepartum + delivery + postpartum)
+proc_cesarean_delivery,59514,CPT,False,delivery only
+proc_cesarean_delivery,59515,CPT,False,delivery with postpartum
+proc_chest_cancer_screen_ct_scan,71271,CPT,True,
+proc_chest_ct_scan,71250,CPT,True,without contrast
+proc_chest_ct_scan,71260,CPT,False,with contrast
+proc_chest_ct_scan,71270,CPT,False,without and with contrast
+proc_chest_mri,71550,CPT,True,without contrast
+proc_chest_mri,71551,CPT,False,with contrast
+proc_chest_mri,71552,CPT,False,without and with contrast
+proc_chest_tube,32551,CPT,True,insertion
+proc_chest_tube,32557,CPT,False,with imaging guidance
+proc_chest_x_ray,71045,CPT,False,single view
+proc_chest_x_ray,71046,CPT,True,2 views
+proc_chest_x_ray,71047,CPT,False,3 views
+proc_chest_x_ray,71048,CPT,False,4+ views
+proc_chlamydia_culture,87110,CPT,True,
+proc_chlamydia_dna_probe,87491,CPT,True,
+proc_chloroprocaine_injection,J2400,HCPCS,True,
+proc_cholangiography,74300,CPT,True,intraoperative
+proc_cholangiography,74301,CPT,False,additional imaging
+proc_cholesterol_total,82465,CPT,True,
+proc_chronic_care_management,99439,CPT,False,each additional 20 min
+proc_chronic_care_management,99490,CPT,True,first 20 min
+proc_ck,82550,CPT,True,total
+proc_ck,82553,CPT,False,MB fraction
+proc_closed_treatment_distal_fibula_fracture,27786,CPT,True,
+proc_closed_treatment_distal_radius_fracture,25600,CPT,True,
+proc_closed_treatment_shoulder_dislocation,23650,CPT,True,
+proc_closed_treatment_tibial_shaft_fracture,27752,CPT,True,
+proc_clotting_time_blood_test,85610,CPT,True,
+proc_colonoscopy,45378,CPT,True,diagnostic
+proc_colonoscopy,45380,CPT,False,with biopsy
+proc_colonoscopy,45381,CPT,False,with submucosal injection
+proc_colonoscopy,45382,CPT,False,with control bleeding
+proc_colonoscopy,G0105,HCPCS,False,screening high risk
+proc_colonoscopy,G0121,HCPCS,False,screening not high risk
+proc_colonoscopy_with_ablation,45388,CPT,True,
+proc_colonoscopy_with_decompression,45393,CPT,True,
+proc_colonoscopy_with_dilation,45386,CPT,True,
+proc_colonoscopy_with_emr,45392,CPT,True,
+proc_colonoscopy_with_endoscopic_ultrasound,45391,CPT,True,
+proc_colonoscopy_with_foreign_body_removal,45390,CPT,True,
+proc_colonoscopy_with_polypectomy,45384,CPT,True,hot biopsy
+proc_colonoscopy_with_polypectomy,45385,CPT,False,snare
+proc_colonoscopy_with_stent,45389,CPT,True,
+proc_complete_blood_cell_count_blood_test,85025,CPT,True,with differential
+proc_complex_laceration_repair,13100,CPT,True,trunk 1.1-2.5cm
+proc_complex_laceration_repair,13101,CPT,False,trunk 2.6-7.5cm
+proc_contraction_stress_test,59020,CPT,True,
+proc_covid_19_pcr,87635,CPT,True,
+proc_creatinine,82565,CPT,True,serum
+proc_creatinine_blood_test,82570,CPT,True,other source
+proc_critical_care,99291,CPT,True,first 30-74 min
+proc_critical_care,99292,CPT,False,each additional 30 min
+proc_ct_abdomen,74150,CPT,True,without contrast
+proc_ct_abdomen,74160,CPT,False,with contrast
+proc_ct_abdomen,74170,CPT,False,without and with contrast
+proc_ct_neck,70490,CPT,True,without contrast
+proc_ct_neck,70491,CPT,False,with contrast
+proc_ct_upper_extremity,73200,CPT,True,without contrast
+proc_ct_upper_extremity,73201,CPT,False,with contrast
+proc_culture_bacterial,87070,CPT,True,except blood
+proc_culture_bacterial,87081,CPT,False,screen
+proc_cyanocobalamin_blood_test,82607,CPT,True,
+proc_daily_management_epidural,01996,CPT,True,
+proc_decompression_unspecified_nerve,64722,CPT,True,
+proc_delivery_of_placenta,59414,CPT,True,
+proc_dexamethasone_injection,J1100,HCPCS,True,
+proc_diagnostic_laparoscopy,49320,CPT,True,diagnostic only
+proc_diagnostic_laparoscopy,49321,CPT,False,with biopsy
+proc_diagnostic_laparoscopy,49322,CPT,False,with aspiration
+proc_diagnostic_mammography,77065,CPT,False,unilateral
+proc_diagnostic_mammography,77066,CPT,True,bilateral
+proc_diagnostic_mammography,G0279,HCPCS,False,
+proc_drug_screen,80305,CPT,True,presumptive
+proc_drug_screen,80307,CPT,False,quantitative
+proc_duplex_lower_extremity_arterial_unilateral,93926,CPT,True,
+proc_egd,43235,CPT,True,diagnostic
+proc_egd,43236,CPT,False,with submucosal injection
+proc_egd,43239,CPT,False,with biopsy
+proc_egd_with_ablation,43252,CPT,True,standard
+proc_egd_with_ablation,43253,CPT,False,radiofrequency
+proc_egd_with_bleeding_control,43255,CPT,True,
+proc_egd_with_dilation,43245,CPT,True,stricture
+proc_egd_with_dilation,43248,CPT,False,esophagus
+proc_egd_with_dilation,43249,CPT,False,balloon esophagus
+proc_egd_with_eus,43237,CPT,True,endoscopic ultrasound
+proc_egd_with_eus,43238,CPT,False,with biopsy
+proc_egd_with_eus,43242,CPT,False,with FNA pancreatobiliary
+proc_egd_with_foreign_body_removal,43247,CPT,True,
+proc_egd_with_peg_placement,43246,CPT,True,
+proc_egd_with_thermal_therapy_esophagus,43257,CPT,True,
+proc_egd_with_transmural_drainage,43240,CPT,True,
+proc_egd_with_tube_placement,43241,CPT,True,
+proc_egd_with_tumor_removal,43250,CPT,True,hot biopsy
+proc_egd_with_tumor_removal,43251,CPT,False,snare
+proc_egd_with_tumor_removal,43254,CPT,False,EMR
+proc_egd_with_variceal_treatment,43243,CPT,True,injection sclerosis
+proc_egd_with_variceal_treatment,43244,CPT,False,ligation
+proc_elbow_x_ray,73080,CPT,True,
+proc_electrical_stimulation_physical_therapy,G0283,HCPCS,True,
+proc_emergency_visit,99281,CPT,False,level 1 self-limited
+proc_emergency_visit,99282,CPT,False,level 2 low severity
+proc_emergency_visit,99283,CPT,True,level 3 moderate severity
+proc_emergency_visit,99284,CPT,False,level 4 high severity
+proc_emergency_visit,99285,CPT,False,level 5 immediate threat
+proc_emg,95885,CPT,False,limited
+proc_emg,95886,CPT,True,complete extremity
+proc_endoscopic_carpal_tunnel_release,29848,CPT,True,
+proc_endotracheal_intubation,31500,CPT,True,
+proc_enoxaparin_injection,J1650,HCPCS,True,
+proc_epidural_injection,62320,CPT,True,lumbar without imaging
+proc_epidural_injection,62321,CPT,False,lumbar with imaging
+proc_epigastric_hernia_repair,49585,CPT,True,reducible
+proc_epigastric_hernia_repair,49586,CPT,False,incarcerated
+proc_episiotomy_repair,59300,CPT,True,
+proc_external_cephalic_version,59412,CPT,True,
+proc_eye_exam,92002,CPT,True,new intermediate
+proc_eye_exam,92004,CPT,False,new comprehensive
+proc_eye_exam,92012,CPT,False,established intermediate
+proc_eye_exam,92014,CPT,False,established comprehensive
+proc_face_ct_scan,70486,CPT,True,without contrast
+proc_face_ct_scan,70487,CPT,False,with contrast
+proc_face_ct_scan,70488,CPT,False,without and with contrast
+proc_fecal_occult_blood,82270,CPT,True,
+proc_femoral_nerve_block,64447,CPT,True,single injection
+proc_femoral_nerve_block,64448,CPT,False,continuous
+proc_ferritin_blood_test,82728,CPT,True,
+proc_fetal_biophysical_profile,76818,CPT,True,with NST
+proc_fetal_biophysical_profile,76819,CPT,False,without NST
+proc_fetal_non_stress_test,59025,CPT,True,
+proc_fluoroscopic_guidance_needle_placement,77002,CPT,True,
+proc_fluoroscopy_guidance,76000,CPT,True,
+proc_foley_catheter_insertion,51702,CPT,True,standard
+proc_foley_catheter_insertion,51703,CPT,False,complex
+proc_foot_x_ray,73630,CPT,True,
+proc_foreign_body_removal,10120,CPT,True,simple
+proc_foreign_body_removal,10121,CPT,False,complicated
+proc_free_thyroxine_blood_test,84439,CPT,True,
+proc_ggt,82977,CPT,True,
+proc_glucose_blood_test,82947,CPT,True,fasting
+proc_glucose_blood_test,82950,CPT,False,post dose
+proc_glucose_tolerance_test,82951,CPT,True,
+proc_gonioscopy,92020,CPT,True,
+proc_group_chemicals_blood_test,80048,CPT,True,basic metabolic
+proc_group_chemicals_blood_test,80053,CPT,False,comprehensive metabolic
+proc_h_pylori_stool_antigen,87338,CPT,True,
+proc_hand_wrist_proc,0513,MS-DRG,False,with CC/MCC
+proc_hand_wrist_proc,0514,MS-DRG,True,without CC/MCC
+proc_hand_x_ray,73130,CPT,True,
+proc_hcg,84702,CPT,True,quantitative
+proc_hcg,84703,CPT,False,qualitative
+proc_hdl_cholesterol,83718,CPT,True,
+proc_head_brain_ct_scan,70450,CPT,True,without contrast
+proc_head_brain_ct_scan,70460,CPT,False,with contrast
+proc_head_brain_ct_scan,70470,CPT,False,without and with contrast
+proc_head_neck_blood_flow_ultrasound,93880,CPT,True,
+proc_head_neck_tissue_ultrasound,76536,CPT,True,
+proc_hearing_speech_test,92557,CPT,True,
+proc_heart_blood_flow_ultrasound,93306,CPT,True,complete with doppler
+proc_heart_blood_flow_ultrasound,93320,CPT,False,doppler complete
+proc_heart_blood_flow_ultrasound,93325,CPT,False,doppler color flow
+proc_heart_stress_test_ecg,93015,CPT,True,complete
+proc_heart_stress_test_ecg,93016,CPT,False,supervision only
+proc_heart_stress_test_ecg,93017,CPT,False,tracing only
+proc_heart_stress_test_ecg,93018,CPT,False,interpretation only
+proc_heart_ultrasound,93307,CPT,False,limited
+proc_heart_ultrasound,93308,CPT,True,follow up
+proc_heart_ultrasound,93312,CPT,False,transesophageal
+proc_helicobacter_pylori_antibody,86677,CPT,True,
+proc_hematocrit,85014,CPT,True,
+proc_hemoglobin,85018,CPT,True,
+proc_hemoglobin_a1c_blood_test,83036,CPT,True,
+proc_hepatic_function_panel,80076,CPT,True,
+proc_hepatitis_b_surface_antigen,87340,CPT,True,
+proc_hepatitis_c_antibody,86803,CPT,True,
+proc_hip_pelvis_spine_density_dxa,77080,CPT,True,
+proc_hip_replacement,27130,CPT,True,total hip arthroplasty
+proc_hip_replacement,0469,MS-DRG,False,with MCC
+proc_hip_replacement,0470,MS-DRG,False,without MCC
+proc_hip_x_ray,73501,CPT,True,1 view
+proc_hip_x_ray,73502,CPT,False,2-3 views
+proc_hip_x_ray,73503,CPT,False,4+ views
+proc_hiv_1_antigen_with_antibodies,87389,CPT,True,
+proc_hiv_antibody_test,86703,CPT,True,
+proc_home_visit,99348,CPT,True,established low
+proc_home_visit,99349,CPT,False,established moderate
+proc_hospital_discharge_day_30_min_or_less,99238,CPT,True,
+proc_hydralazine_injection,J0360,HCPCS,True,
+proc_hysterectomy_after_cesarean,59525,CPT,True,
+proc_immunohistochemistry,88341,CPT,True,first stain
+proc_immunohistochemistry,88342,CPT,False,each additional
+proc_incision_and_drainage_abscess,10060,CPT,True,simple
+proc_incision_and_drainage_abscess,10061,CPT,False,complicated
+proc_influenza_doo_immunoassay,87804,CPT,True,
+proc_influenza_vaccine,90662,CPT,True,high dose
+proc_influenza_vaccine,90686,CPT,False,quadrivalent preservative free
+proc_influenza_vaccine,90694,CPT,False,quadrivalent adjuvanted
+proc_influenza_vaccine,G0008,HCPCS,False,administration
+proc_inguinal_hernia_repair,49505,CPT,True,initial reducible
+proc_inguinal_hernia_repair,49507,CPT,False,initial incarcerated
+proc_inguinal_hernia_repair,49520,CPT,False,recurrent reducible
+proc_inguinal_hernia_repair,49521,CPT,False,recurrent incarcerated
+proc_inguinal_hernia_repair,49525,CPT,False,sliding
+proc_inguinal_hernia_repair,0350,MS-DRG,False,with MCC
+proc_inguinal_hernia_repair,0351,MS-DRG,False,with CC
+proc_inguinal_hernia_repair,0352,MS-DRG,False,without CC/MCC
+proc_initial_hospital_care,99221,CPT,True,low severity
+proc_initial_hospital_care,99222,CPT,False,moderate severity
+proc_initial_hospital_care,99223,CPT,False,high severity
+proc_initial_nursing_facility_care,99305,CPT,True,low complexity
+proc_initial_nursing_facility_care,99306,CPT,False,moderate/high complexity
+proc_intermediate_laceration_repair,12031,CPT,True,scalp trunk extremities 2.5cm or less
+proc_intermediate_laceration_repair,12032,CPT,False,scalp trunk extremities 2.6-7.5cm
+proc_iron_binding_capacity,83550,CPT,True,
+proc_iron_blood_test,83540,CPT,True,
+proc_iv_infusion_hydration,96360,CPT,True,initial 31-60 min
+proc_iv_infusion_hydration,96361,CPT,False,each additional hour
+proc_iv_infusion_therapeutic,96365,CPT,True,initial up to 1 hour
+proc_iv_infusion_therapeutic,96366,CPT,False,each additional hour
+proc_iv_infusion_therapeutic,96367,CPT,False,additional drug sequential
+proc_iv_infusion_therapeutic,96368,CPT,False,concurrent infusion
+proc_iv_push,96374,CPT,True,single drug
+proc_iv_push,96375,CPT,False,each additional drug
+proc_knee_arthrography,73580,CPT,True,
+proc_knee_replacement,27446,CPT,False,medial or lateral compartment
+proc_knee_replacement,27447,CPT,True,total knee
+proc_knee_replacement,0466,MS-DRG,False,with MCC
+proc_knee_replacement,0467,MS-DRG,False,with CC
+proc_knee_replacement,0468,MS-DRG,False,without CC/MCC
+proc_knee_x_ray,73560,CPT,True,1-2 views
+proc_knee_x_ray,73562,CPT,False,3 views
+proc_knee_x_ray,73564,CPT,False,4+ views
+proc_lactate,83605,CPT,True,
+proc_laparoscopic_cholecystectomy,47562,CPT,True,standard
+proc_laparoscopic_cholecystectomy,47563,CPT,False,with cholangiography
+proc_laparoscopic_cholecystectomy,47564,CPT,False,with exploration
+proc_laparoscopic_cholecystectomy,0417,MS-DRG,False,with exploration with MCC
+proc_laparoscopic_cholecystectomy,0418,MS-DRG,False,with exploration with CC
+proc_laparoscopic_cholecystectomy,0419,MS-DRG,False,with exploration without CC/MCC
+proc_laparoscopic_inguinal_hernia_repair,49650,CPT,True,initial
+proc_laparoscopic_inguinal_hernia_repair,49651,CPT,False,recurrent
+proc_ldh,83615,CPT,True,
+proc_ldl_cholesterol,83721,CPT,True,
+proc_leg_arteries_ultrasound,93925,CPT,True,
+proc_leg_ct_scan,73700,CPT,True,
+proc_leg_joint_mri,73721,CPT,True,without contrast
+proc_leg_joint_mri,73722,CPT,False,with contrast
+proc_leg_joint_mri,73723,CPT,False,without and with contrast
+proc_leg_mri,73718,CPT,True,without contrast
+proc_leg_mri,73719,CPT,False,with contrast
+proc_leg_mri,73720,CPT,False,without and with contrast
+proc_lens_intraocular,C1840,HCPCS,False,new technology
+proc_lens_intraocular,Q1004,HCPCS,False,new technology cat 4
+proc_lens_intraocular,Q1005,HCPCS,False,new technology cat 5
+proc_lens_intraocular,V2632,HCPCS,True,posterior chamber standard
+proc_lens_intraocular,V2787,HCPCS,False,astigmatism correcting
+proc_lens_intraocular,V2788,HCPCS,False,presbyopia correcting
+proc_lidocaine_injection,J2001,HCPCS,True,
+proc_lipids_blood_test,80061,CPT,True,
+proc_lower_extremity_x_ray,73592,CPT,True,
+proc_lower_leg_x_ray,73590,CPT,True,
+proc_lower_spine_ct_scan,72131,CPT,True,lumbar
+proc_lower_spine_x_ray,72100,CPT,True,2-3 views
+proc_lower_spine_x_ray,72110,CPT,False,4+ views
+proc_lumbar_puncture,62270,CPT,True,diagnostic
+proc_lumbar_puncture,62272,CPT,False,therapeutic
+proc_lung_diffusing_capacity_test,94729,CPT,True,
+proc_magnesium,83735,CPT,True,
+proc_meperidine_injection,J2175,HCPCS,True,
+proc_mesh_surgical_implantable,C1781,HCPCS,True,
+proc_methylprednisolone_injection,J1030,HCPCS,True,40mg depo
+proc_methylprednisolone_injection,J1040,HCPCS,False,80mg
+proc_metoclopramide_injection,J2765,HCPCS,True,
+proc_microalbumin_urinalysis,82043,CPT,True,
+proc_midazolam_injection,J2250,HCPCS,True,
+proc_middle_cerebral_artery_doppler,76821,CPT,True,
+proc_moderate_sedation,99152,CPT,True,same physician initial
+proc_moderate_sedation,99153,CPT,False,same physician additional
+proc_moderate_sedation,99155,CPT,False,other physician initial
+proc_moderate_sedation,99156,CPT,False,other physician additional
+proc_morphine_injection,J2270,HCPCS,True,
+proc_multiple_organism_dna_probe,87801,CPT,True,
+proc_myocardial_perfusion_spect,78451,CPT,True,single study
+proc_myocardial_perfusion_spect,78452,CPT,False,multiple studies
+proc_naloxone_injection,J2310,HCPCS,True,
+proc_natriuretic_peptide_bnp,83880,CPT,True,
+proc_nebulizer_treatment,94640,CPT,True,
+proc_neisseria_dna_probe,87591,CPT,True,
+proc_neonatal_intensive_care,99477,CPT,True,initial
+proc_neonatal_intensive_care,99478,CPT,False,very low birth weight
+proc_neonatal_intensive_care,99479,CPT,False,low birth weight
+proc_neonatal_intensive_care,99480,CPT,False,normal weight
+proc_nerve_conduction_study,95907,CPT,True,1-2 studies
+proc_nerve_conduction_study,95908,CPT,False,3-4 studies
+proc_nerve_conduction_study,95909,CPT,False,5-6 studies
+proc_nerve_conduction_study,95910,CPT,False,7-8 studies
+proc_nerve_conduction_study,95911,CPT,False,9-10 studies
+proc_nerve_conduction_study,95912,CPT,False,11-12 studies
+proc_nerve_conduction_study,95913,CPT,False,13+ studies
+proc_neuroplasty,64704,CPT,True,major peripheral nerve
+proc_neuroplasty,64708,CPT,False,digital nerve
+proc_neuroplasty,64718,CPT,False,ulnar nerve at elbow
+proc_neuroplasty,64719,CPT,False,ulnar nerve at wrist
+proc_newborn_care,99460,CPT,True,initial hospital
+proc_newborn_care,99461,CPT,False,initial other than hospital
+proc_newborn_care,99462,CPT,False,subsequent hospital
+proc_newborn_care,99463,CPT,False,same day admit/discharge
+proc_newborn_care,99464,CPT,False,attendance at delivery
+proc_newborn_care,99465,CPT,False,resuscitation
+proc_ng_tube_placement_with_imaging,43752,CPT,True,
+proc_obstetric_panel,80055,CPT,True,standard
+proc_obstetric_panel,80081,CPT,False,extended
+proc_oct_optic_nerve,92133,CPT,True,
+proc_office_visit,99201,CPT,False,new patient minimal
+proc_office_visit,99202,CPT,False,new patient straightforward
+proc_office_visit,99203,CPT,False,new patient low
+proc_office_visit,99204,CPT,False,new patient moderate
+proc_office_visit,99205,CPT,False,new patient high
+proc_office_visit,99211,CPT,False,established patient minimal
+proc_office_visit,99212,CPT,False,established patient straightforward
+proc_office_visit,99213,CPT,True,established patient low
+proc_office_visit,99214,CPT,False,established patient moderate
+proc_office_visit,99215,CPT,False,established patient high
+proc_onabotulinumtoxin_a,J0585,HCPCS,True,
+proc_ondansetron_injection,J2405,HCPCS,True,
+proc_open_cholecystectomy,47600,CPT,True,standard
+proc_open_cholecystectomy,47605,CPT,False,with cholangiography
+proc_open_cholecystectomy,47610,CPT,False,with exploration
+proc_open_cholecystectomy,47612,CPT,False,with exploration and t-tube
+proc_ophthalmic_biometry,92136,CPT,True,
+proc_ophthalmic_biometry_ultrasound,76519,CPT,True,
+proc_ophthalmic_ultrasound,76510,CPT,True,b-scan
+proc_ophthalmic_ultrasound,76511,CPT,False,a-scan
+proc_ophthalmic_ultrasound,76512,CPT,False,b-scan with a-scan
+proc_ophthalmic_ultrasound,76513,CPT,False,anterior segment
+proc_ophthalmic_ultrasound,76514,CPT,False,cornea
+proc_orbit_face_neck_mri,70540,CPT,True,without contrast
+proc_orbit_face_neck_mri,70542,CPT,False,with contrast
+proc_orbit_face_neck_mri,70543,CPT,False,without and with contrast
+proc_orthotic_prosthetic_training,97760,CPT,True,orthotic management
+proc_orthotic_prosthetic_training,97761,CPT,False,prosthetic management
+proc_orthotic_prosthetic_training,97763,CPT,False,checkout
+proc_other_peripheral_nerve_block,64450,CPT,True,
+proc_pap_smear,88141,CPT,True,interpretation
+proc_pap_smear,88142,CPT,False,thin prep
+proc_pap_smear,88175,CPT,False,liquid based
+proc_pap_smear_test,Q0091,HCPCS,True,
+proc_partial_thromboplastin_time_ptt,85730,CPT,True,
+proc_pelvis_mri,72195,CPT,True,without contrast
+proc_pelvis_mri,72196,CPT,False,with contrast
+proc_pelvis_mri,72197,CPT,False,without and with contrast
+proc_pelvis_x_ray,72170,CPT,True,
+proc_phosphorus,84100,CPT,True,
+proc_physical_performance_test,97750,CPT,True,
+proc_physical_therapy,97110,CPT,False,therapeutic exercise
+proc_physical_therapy,97112,CPT,False,neuromuscular reeducation
+proc_physical_therapy,97116,CPT,False,gait training
+proc_physical_therapy,97140,CPT,False,manual therapy
+proc_physical_therapy,97150,CPT,False,group therapy
+proc_physical_therapy,97161,CPT,True,evaluation low complexity
+proc_physical_therapy,97162,CPT,False,evaluation moderate complexity
+proc_physical_therapy,97163,CPT,False,evaluation high complexity
+proc_physical_therapy,97164,CPT,False,re-evaluation
+proc_physical_therapy,97530,CPT,False,therapeutic activities
+proc_picc_insertion,36569,CPT,True,
+proc_pneumococcal_vaccine,90677,CPT,True,conjugate
+proc_pneumococcal_vaccine,G0009,HCPCS,False,administration
+proc_postpartum_care_only,59430,CPT,True,
+proc_potassium,84132,CPT,True,
+proc_precancer_skin_growth_destruction,17000,CPT,True,first lesion
+proc_precancer_skin_growth_destruction,17002,CPT,False,2-14 lesions each additional
+proc_precancer_skin_growth_destruction,17003,CPT,False,15+ lesions
+proc_precancer_skin_growth_destruction,17004,CPT,False,15+ lesions flat rate
+proc_promethazine_injection,J2550,HCPCS,True,
+proc_propofol_injection,J2704,HCPCS,True,
+proc_prostate_specific_antigen_blood_test,84153,CPT,True,
+proc_prosthetic_implant_nos,L8699,HCPCS,True,
+proc_psychiatric_eval,90791,CPT,True,without medical services
+proc_psychiatric_eval,90792,CPT,False,with medical services
+proc_psychotherapy,90833,CPT,True,30 min add-on
+proc_psychotherapy,90834,CPT,False,45 min
+proc_psychotherapy,90836,CPT,False,45 min add-on
+proc_psychotherapy,90837,CPT,False,60 min
+proc_psychotherapy,90838,CPT,False,60 min add-on
+proc_pulse_oximetry,94760,CPT,True,single reading
+proc_pulse_oximetry,94761,CPT,False,multiple readings
+proc_pulse_oximetry,94762,CPT,False,continuous
+proc_rbc_antibody_screen,86850,CPT,True,
+proc_refraction,92015,CPT,True,
+proc_revision_knee_arthroplasty,27486,CPT,False,one component
+proc_revision_knee_arthroplasty,27487,CPT,True,total revision
+proc_rivaroxaban_oral,J8510,HCPCS,True,
+proc_routine_ecg,93000,CPT,True,complete
+proc_routine_ecg,93005,CPT,False,tracing only
+proc_routine_ecg,93010,CPT,False,interpretation only
+proc_rubella_antibody,86762,CPT,True,
+proc_sars_cov_2_antigen,87905,CPT,True,
+proc_sarscov2_doo_immunoassay,87811,CPT,True,
+proc_sarscov2_immunoassay,87426,CPT,True,
+proc_sarscov2_influenza_immunoassay,87428,CPT,True,
+proc_sarscov2_vaccine,0124A,CPT,False,pfizer bivalent booster admin
+proc_sarscov2_vaccine,0134A,CPT,False,moderna bivalent booster admin
+proc_sarscov2_vaccine,90480,CPT,True,administration
+proc_sarscov2_vaccine,91320,CPT,False,vaccine product
+proc_sarscov2_vaccine,91322,CPT,False,vaccine product alternate
+proc_sciatic_nerve_block,64445,CPT,True,single injection
+proc_sciatic_nerve_block,64446,CPT,False,continuous
+proc_screening_mammography,77063,CPT,False,tomosynthesis
+proc_screening_mammography,77067,CPT,True,bilateral
+proc_sedimentation_rate_automated,85651,CPT,True,
+proc_self_care_training,97535,CPT,True,
+proc_sensorimotor_examination,92060,CPT,True,
+proc_shoulder_x_ray,73030,CPT,True,
+proc_simple_laceration_repair,12001,CPT,True,scalp neck trunk extremities 2.5cm or less
+proc_simple_laceration_repair,12002,CPT,False,scalp neck trunk extremities 2.6-7.5cm
+proc_simple_laceration_repair,12004,CPT,False,scalp neck trunk extremities 7.6-12.5cm
+proc_simple_laceration_repair,12011,CPT,False,face 2.5cm or less
+proc_simple_laceration_repair,12013,CPT,False,face 2.6-5.0cm
+proc_skin_growth_biopsy,11102,CPT,True,tangential first lesion
+proc_skin_growth_biopsy,11103,CPT,False,tangential each additional
+proc_skin_growth_biopsy,11104,CPT,False,punch first lesion
+proc_skin_growth_biopsy,11105,CPT,False,punch each additional
+proc_skin_growth_biopsy,11106,CPT,False,incisional first lesion
+proc_skin_growth_biopsy,11107,CPT,False,incisional each additional
+proc_skin_growth_destruction,17110,CPT,True,up to 14 lesions
+proc_skin_growth_destruction,17111,CPT,False,15 or more lesions
+proc_sodium,84295,CPT,True,
+proc_sodium_hyaluronate_ophthalmic,J7316,HCPCS,True,
+proc_spinal_canal_cervical_mri,72141,CPT,True,without contrast
+proc_spinal_canal_cervical_mri,72142,CPT,False,with contrast
+proc_spinal_canal_cervical_mri,72156,CPT,False,without and with contrast
+proc_spinal_canal_lumbar_mri,72148,CPT,True,without contrast
+proc_spinal_canal_lumbar_mri,72149,CPT,False,with contrast
+proc_spinal_canal_lumbar_mri,72158,CPT,False,without and with contrast
+proc_spinal_canal_thoracic_mri,72146,CPT,True,without contrast
+proc_spinal_canal_thoracic_mri,72147,CPT,False,with contrast
+proc_spinal_canal_thoracic_mri,72157,CPT,False,without and with contrast
+proc_spinal_chiropractic,98940,CPT,True,1-2 regions
+proc_spinal_chiropractic,98941,CPT,False,3-4 regions
+proc_spirometry_test,94010,CPT,True,without bronchodilator
+proc_spirometry_test,94060,CPT,False,with bronchodilator
+proc_stool_culture,87045,CPT,True,
+proc_streptococcus_doo_immunoassay,87880,CPT,True,
+proc_subsequent_hospital_care,99231,CPT,True,stable
+proc_subsequent_hospital_care,99232,CPT,False,responding inadequately
+proc_subsequent_hospital_care,99233,CPT,False,unstable
+proc_subsequent_nursing_facility_care,99307,CPT,True,stable
+proc_subsequent_nursing_facility_care,99308,CPT,False,responding inadequately
+proc_subsequent_nursing_facility_care,99309,CPT,False,significant complication
+proc_subsequent_nursing_facility_care,99310,CPT,False,unstable
+proc_surgical_pathology,88304,CPT,True,level III
+proc_surgical_pathology,88307,CPT,False,level V
+proc_surgical_pathology,88309,CPT,False,level VI
+proc_syphilis_test_qualitative,86592,CPT,True,
+proc_tb_skin_test,86580,CPT,True,
+proc_tele_medical_discussion,99441,CPT,False,5-10 min
+proc_tele_medical_discussion,99442,CPT,False,11-20 min
+proc_tele_medical_discussion,99443,CPT,True,21-30 min
+proc_thigh_bone_x_ray,73552,CPT,True,
+proc_thoracic_spine_ct_scan,72128,CPT,True,
+proc_tracheostomy_emergency,31603,CPT,True,
+proc_tracheostomy_tube_change,31502,CPT,True,
+proc_transitional_care_mngmnt,99495,CPT,True,moderate complexity
+proc_transitional_care_mngmnt,99496,CPT,False,high complexity
+proc_transvaginal_ultrasound,76830,CPT,True,
+proc_treponema_pallidum_antibody,86780,CPT,True,
+proc_triamcinolone_ophthalmic,J7324,HCPCS,True,
+proc_triglycerides,84478,CPT,True,
+proc_troponin_quantitative,84484,CPT,True,
+proc_tsh_blood_test,84443,CPT,True,
+proc_tympanometry_test,92567,CPT,True,
+proc_ultrasound_guidance_needle_placement,76942,CPT,True,
+proc_ultrasound_ob,76801,CPT,False,first trimester single
+proc_ultrasound_ob,76802,CPT,False,first trimester additional
+proc_ultrasound_ob,76805,CPT,True,complete
+proc_ultrasound_ob,76811,CPT,False,detailed single
+proc_ultrasound_ob,76812,CPT,False,detailed additional
+proc_ultrasound_ob,76815,CPT,False,limited
+proc_ultrasound_ob,76816,CPT,False,follow up
+proc_ultrasound_ob,76817,CPT,False,transvaginal
+proc_ultrasound_retroperitoneal_limited,76775,CPT,True,
+proc_umbilical_artery_doppler,76820,CPT,True,
+proc_umbilical_hernia_repair,49581,CPT,True,reducible
+proc_umbilical_hernia_repair,49582,CPT,False,incarcerated
+proc_unclassified_drug,J3490,HCPCS,True,
+proc_upper_spine_ct_scan,72125,CPT,True,cervical
+proc_upper_spine_x_ray,72040,CPT,True,2-3 views
+proc_upper_spine_x_ray,72050,CPT,False,4-5 views
+proc_upper_spine_x_ray,72052,CPT,False,6+ views
+proc_uric_acid_blood,84550,CPT,True,
+proc_urinalysis,81000,CPT,True,with microscopy manual
+proc_urinalysis,81001,CPT,False,with microscopy automated
+proc_urinalysis,81002,CPT,False,without microscopy
+proc_urinalysis,81003,CPT,False,automated
+proc_urine_culture,87086,CPT,True,
+proc_urine_pregnancy_test,81025,CPT,True,
+proc_vaginal_delivery,59400,CPT,True,global (antepartum + delivery + postpartum)
+proc_vaginal_delivery,59409,CPT,False,delivery only
+proc_vaginal_delivery,59410,CPT,False,delivery with postpartum
+proc_vaginal_delivery,0805,MS-DRG,False,without sterilization/D&C with MCC
+proc_vaginal_delivery,0806,MS-DRG,False,without sterilization/D&C with CC
+proc_vaginal_delivery,0807,MS-DRG,False,without sterilization/D&C without CC/MCC
+proc_vancomycin_injection,J3370,HCPCS,True,
+proc_vein_chemotherapy,96413,CPT,True,
+proc_venipuncture_younger_than_3,36400,CPT,True,
+proc_ventral_hernia_repair,49591,CPT,True,small reducible
+proc_ventral_hernia_repair,49592,CPT,False,medium reducible
+proc_ventral_hernia_repair,49593,CPT,False,small incarcerated
+proc_ventral_hernia_repair,49594,CPT,False,medium incarcerated
+proc_ventral_hernia_repair,49595,CPT,False,large reducible
+proc_ventral_hernia_repair,49596,CPT,False,large incarcerated
+proc_viscoelastic_substance,J7322,HCPCS,True,
+proc_visual_field,92082,CPT,True,intermediate
+proc_visual_field,92083,CPT,False,extended
+proc_vitamin_d3_blood_test,82306,CPT,True,
+proc_voice_box_endoscopy,31575,CPT,True,
+proc_wheelchair_management,97542,CPT,True,
+proc_wrist_x_ray,73100,CPT,True,2 views
+proc_wrist_x_ray,73110,CPT,False,3+ views
