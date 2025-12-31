@@ -9,6 +9,6 @@ SELECT DISTINCT
     t.display_name,
     t.definition,
 FROM
-    {{ source('mario-mrf-data', 'nucc_taxonomy_251_raw') }} AS t
+    {{ ref('nucc_specialty') }} AS t
 WHERE
     t.section = 'Individual'

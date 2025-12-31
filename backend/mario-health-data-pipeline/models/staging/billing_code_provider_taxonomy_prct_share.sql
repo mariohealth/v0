@@ -15,7 +15,7 @@ WITH t1 AS (
 FROM {{ source('mario-mrf-data', 'medicare_partB_utilization_raw') }} AS t1
 JOIN {{ ref('npi_data_taxonomy_code_primary') }} AS t2
 ON t1.rndrng_npi = t2.npi
-JOIN {{ source('mario-mrf-data', 'nucc_taxonomy_251_raw') }} AS t3
+JOIN {{ ref('nucc_specialty') }} AS t3
 ON healthcare_provider_taxonomy_code = t3.code
 ),
 

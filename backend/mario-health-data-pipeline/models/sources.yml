@@ -31,9 +31,6 @@ sources:
       - name: medicare_partB_utilization_raw
         description: |
           This table was downloaded from CMS and was first used to create a mapping from billing code to provider taxonomy
-      - name: nucc_taxonomy_251_raw
-        description: |
-          This table is used to get the description of the provider taxonomy codes found in npidata_pfile_20050523-20250907
       - name: uhc_apple_in_network_rates
         description: |
           This table is built from all the JSON files stored in mariohc-mrf-prod-usa/test_arnaud/in-network-rates-sharded
