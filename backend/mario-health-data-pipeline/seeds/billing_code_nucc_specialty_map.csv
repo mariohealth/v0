@@ -1,442 +1,1161 @@
 billing_code_type,billing_code,taxonomy_id,notes
-???,0124A,333600000X,"sarscov2 vaccines given by pharmacy and retail pharmacy"
-???,0124A,3336C0003X,
-???,0134A,333600000X,
-???,0134A,3336C0003X,
-MS-DRG,0466,???,
-MS-DRG,0467,???,
-MS-DRG,0468,???,
-MS-DRG,0469,???,
-MS-DRG,0470,???,
-CPT,00142,367500000X,"a bunch of anesthisia"
-CPT,00142,207L00000X,
-CPT,00731,367500000X,
-CPT,00731,207L00000X,
-CPT,00790,367500000X,
-CPT,00790,207L00000X,
-CPT,00811,367500000X,
-CPT,00811,207L00000X,
-CPT,00812,367500000X,
-CPT,00812,207L00000X,
-CPT,00813,367500000X,
-CPT,00813,207L00000X,
-CPT,01402,367500000X,
-CPT,01402,207L00000X,
-CPT,11102,207N00000X,"dermatology"
-CPT,11103,207N00000X,
-CPT,17004,207N00000X,
-CPT,17110,207N00000X,
-CPT,20610,207X00000X,"207X00000X Orthopaedic Surgery Physician"
-CPT,20611,207X00000X,
-CPT,27130,207X00000X,
-CPT,27447,207X00000X,
-CPT,31575,207Y00000X,"207Y00000X: Otolaryngology Physician"
-CPT,43235,207RG0100X,"207RG0100X: Gastroenterology Physician"
-CPT,43239,207RG0100X,
-CPT,45378,207RG0100X,
-CPT,45380,207RG0100X,
-CPT,51798,208800000X,"208800000X: Urology Physician"
-CPT,52000,208800000X,
-CPT,70450,2085R0202X,"2085R0202X: Diagnostic Radiology Physician"
-CPT,70486,2085R0202X,
-CPT,70496,2085R0202X,
-CPT,70498,2085R0202X,
-CPT,70540,2085R0202X,
-CPT,70542,2085R0202X,
-CPT,70543,2085R0202X,
-CPT,70551,2085R0202X,
-CPT,70552,2085R0202X,
-CPT,70553,2085R0202X,
-CPT,70554,2085R0202X,
-CPT,70555,2085R0202X,
-CPT,70557,2085R0202X,
-CPT,70558,2085R0202X,
-CPT,70559,2085R0202X,
-CPT,71250,2085R0202X,
-CPT,71260,2085R0202X,
-CPT,71271,2085R0202X,
-CPT,71275,2085R0202X,
-CPT,71550,2085R0202X,
-CPT,71551,2085R0202X,
-CPT,71552,2085R0202X,
-CPT,72040,2085R0202X,
-CPT,72050,2085R0202X,
-CPT,72100,2085R0202X,
-CPT,72110,2085R0202X,
-CPT,72125,2085R0202X,
-CPT,72131,2085R0202X,
-CPT,72141,2085R0202X,
-CPT,72142,2085R0202X,
-CPT,72146,2085R0202X,
-CPT,72147,2085R0202X,
-CPT,72148,2085R0202X,
-CPT,72149,2085R0202X,
-CPT,72156,2085R0202X,
-CPT,72157,2085R0202X,
-CPT,72158,2085R0202X,
-CPT,72170,2085R0202X,
-CPT,72195,2085R0202X,
-CPT,72196,2085R0202X,
-CPT,72197,2085R0202X,
-CPT,73030,2085R0202X,
-CPT,73080,2085R0202X,
-CPT,73110,2085R0202X,
-CPT,73130,2085R0202X,
-CPT,73218,2085R0202X,
-CPT,73219,2085R0202X,
-CPT,73220,2085R0202X,
-CPT,73221,2085R0202X,
-CPT,73222,2085R0202X,
-CPT,73223,2085R0202X,
-CPT,73502,2085R0202X,
-CPT,73552,2085R0202X,
-CPT,73560,2085R0202X,
-CPT,73562,2085R0202X,
-CPT,73564,2085R0202X,
-CPT,73590,2085R0202X,
-CPT,73610,2085R0202X,
-CPT,73630,2085R0202X,
-CPT,73700,2085R0202X,
-CPT,73718,2085R0202X,
-CPT,73719,2085R0202X,
-CPT,73720,2085R0202X,
-CPT,73721,2085R0202X,
-CPT,73722,2085R0202X,
-CPT,73723,2085R0202X,
-CPT,74018,2085R0202X,
-CPT,74174,2085R0202X,
-CPT,74176,2085R0202X,
-CPT,74177,2085R0202X,
-CPT,74178,2085R0202X,
-CPT,74181,2085R0202X,
-CPT,74182,2085R0202X,
-CPT,74183,2085R0202X,
-CPT,76514,207W00000X,"207W00000X: Ophthalmology Physician"
-CPT,76536,2085R0202X,"ultrasounds 2085R0202X: Diagnostic Radiology Physician"
-CPT,76642,2085R0202X,
-CPT,76700,2085R0202X,
-CPT,76705,2085R0202X,
-CPT,76770,2085R0202X,
-CPT,76830,2085R0202X,"proc_transvaginal_ultrasound"
-CPT,76830,207V00000X,
-CPT,77065,2085R0202X,"mammography"
-CPT,77066,2085R0202X,
-CPT,77080,2085R0202X,
-CPT,81002,207Q00000X,"urine"
-CPT,81002,207R00000X,
-CPT,82043,207Q00000X,
-CPT,82043,207R00000X,
-CPT,82570,207Q00000X,"blood tests"
-CPT,82570,207R00000X,
-CPT,82607,207Q00000X,
-CPT,82607,207R00000X,
-CPT,82728,207Q00000X,
-CPT,82728,207R00000X,
-CPT,83540,207Q00000X,
-CPT,83540,207R00000X,
-CPT,84153,207Q00000X,
-CPT,84153,207R00000X,
-CPT,84153,208800000X,"urology too because prostate"
-CPT,85610,207Q00000X,
-CPT,85610,207R00000X,
-CPT,87426,207Q00000X,"immunoassay"
-CPT,87426,207R00000X,
-CPT,87428,207Q00000X,
-CPT,87428,207R00000X,
-CPT,87804,207Q00000X,
-CPT,87804,207R00000X,
-CPT,87811,207Q00000X,
-CPT,87811,207R00000X,
-CPT,87880,207Q00000X,
-CPT,87880,207R00000X,
-CPT,88341,207ZP0102X,"immunohistochemistry"
-CPT,88341,207ZP0101X,
-CPT,88342,207ZP0102X,
-CPT,88342,207ZP0101X,
-CPT,90677,207Q00000X,"vaccines"
-CPT,90677,207R00000X,
-CPT,90677,3336C0003X,
-CPT,90677,333600000X,
-CPT,90686,207Q00000X,
-CPT,90686,207R00000X,
-CPT,90686,3336C0003X,
-CPT,90686,333600000X,
-CPT,90694,207Q00000X,
-CPT,90694,207R00000X,
-CPT,90694,3336C0003X,
-CPT,90694,333600000X,
-CPT,90791,1041C0700X,"psychiatry"
-CPT,90791,103TC0700X,
-CPT,90791,103T00000X,
-CPT,90792,2084P0800X,
-CPT,90792,363LP0808X,
-CPT,90833,2084P0800X,
-CPT,90833,363LP0808X,
-CPT,90834,1041C0700X,
-CPT,90834,103TC0700X,
-CPT,90834,103T00000X,
-CPT,91320,3336C0003X,"sarscov2 vaccines"
-CPT,91320,333600000X,
-CPT,91320,207Q00000X,
-CPT,91320,207R00000X,
-CPT,91322,3336C0003X,
-CPT,91322,333600000X,
-CPT,91322,207Q00000X,
-CPT,91322,207R00000X,
-CPT,92004,152W00000X,"visual"
-CPT,92004,207W00000X,
-CPT,92012,152W00000X,
-CPT,92012,207W00000X,
-CPT,92083,152W00000X,
-CPT,92083,207W00000X,
-CPT,92557,231H00000X,"hear and speech"
-CPT,92567,231H00000X,
-CPT,93015,207RC0000X,"heart ecg"
-CPT,93015,207RI0011X,
-CPT,93016,207RC0000X,
-CPT,93016,207RI0011X,
-CPT,93018,207RC0000X,
-CPT,93018,207RI0011X,
-CPT,93308,207RC0000X,"heart ultrasound"
-CPT,93308,207RI0011X,
-CPT,93312,207RC0000X,
-CPT,93312,207RI0011X,
-CPT,93320,207RC0000X,
-CPT,93320,207RI0011X,
-CPT,93325,207RC0000X,
-CPT,93325,207RI0011X,
-CPT,93880,2085R0202X,"head neck ultrasound"
-CPT,93880,207RC0000X,
-CPT,93922,2086S0129X,"arteries ultrasound"
-CPT,93922,2085R0202X,
-CPT,93925,2086S0129X,
-CPT,93925,2085R0202X,
-CPT,93970,2085R0202X,"veins ultrasound"
-CPT,93970,2086S0129X,
-CPT,93970,207RC0000X,
-CPT,93971,2085R0202X,
-CPT,93971,2086S0129X,
-CPT,93971,207RC0000X,
-CPT,94010,207RP1001X,"spirometry, 207RP1001X: Pulmonary Disease Physician"
-CPT,94060,207RP1001X,
-CPT,94729,207RP1001X,
-CPT,96413,207RH0003X,"vein chemo"
-CPT,96413,207RX0202X,
-CPT,97116,225100000X,"225100000X: physical therapist"
-CPT,97150,225100000X,
-CPT,97161,225100000X,
-CPT,97162,225100000X,
-CPT,97164,225100000X,
-CPT,97535,225100000X,
-CPT,97535,225X00000X,
-CPT,98940,111N00000X,
-CPT,99152,???,"sedation services"
-CPT,99202,363A00000X,"office visit"
-CPT,99202,363LF0000X,
-CPT,99202,207Q00000X,
-CPT,99202,207R00000X,
-CPT,99203,363A00000X,
-CPT,99203,363LF0000X,
-CPT,99203,207Q00000X,
-CPT,99203,207R00000X,
-CPT,99204,363A00000X,
-CPT,99204,363LF0000X,
-CPT,99204,207Q00000X,
-CPT,99204,207R00000X,
-CPT,99205,363A00000X,
-CPT,99205,363LF0000X,
-CPT,99205,207Q00000X,
-CPT,99205,207R00000X,
-CPT,99211,363A00000X,
-CPT,99211,363LF0000X,
-CPT,99211,207Q00000X,
-CPT,99211,207R00000X,
-CPT,99212,363A00000X,
-CPT,99212,363LF0000X,
-CPT,99212,207Q00000X,
-CPT,99212,207R00000X,
-CPT,99213,363A00000X,
-CPT,99213,363LF0000X,
-CPT,99213,207Q00000X,
-CPT,99213,207R00000X,
-CPT,99214,363A00000X,
-CPT,99214,363LF0000X,
-CPT,99214,207Q00000X,
-CPT,99214,207R00000X,
-CPT,99215,363A00000X,
-CPT,99215,363LF0000X,
-CPT,99215,207Q00000X,
-CPT,99215,207R00000X,
-CPT,99221,208600000X,"initial hospital care"
-CPT,99231,207R00000X,
-CPT,99231,208600000X,
-CPT,99231,208M00000X,
-CPT,99283,207P00000X,"emergency, 207P00000X: Emergency Medicine Physician"
-CPT,99284,207P00000X,
-CPT,99305,207R00000X,"nursing facility care"
-CPT,99305,207Q00000X,
-CPT,99306,207R00000X,
-CPT,99306,207Q00000X,
-CPT,99307,207R00000X,
-CPT,99307,207Q00000X,
-CPT,99310,207R00000X,
-CPT,99310,207Q00000X,
-CPT,99348,363LF0000X,"home visit"
-CPT,99348,363L00000X,
-CPT,99348,207R00000X,
-CPT,99348,207Q00000X,
-CPT,99349,363LF0000X,
-CPT,99349,363L00000X,
-CPT,99349,207R00000X,
-CPT,99349,207Q00000X,
-CPT,99439,207Q00000X,
-CPT,99439,207R00000X,
-CPT,99441,207Q00000X,
-CPT,99441,207R00000X,
-CPT,99442,207Q00000X,
-CPT,99442,207R00000X,
-CPT,99443,207Q00000X,
-CPT,99443,207R00000X,
-CPT,99495,207Q00000X,
-CPT,99495,207R00000X,
-CPT,99496,207Q00000X,
-CPT,99496,207R00000X,
-CPT,99497,207Q00000X,
-CPT,99497,207R00000X,
-CPT,11721,213ES0103X,
-CPT,11721,213E00000X,
-CPT,11721,213ES0131X,
-CPT,11721,213EP1101X,
-CPT,17000,207N00000X,
-CPT,17003,207N00000X,
-CPT,36415,207Q00000X,
-CPT,36415,207R00000X,
-CPT,71045,2085R0202X,
-CPT,71046,2085R0202X,
-CPT,77063,2085R0202X,
-CPT,77067,2085R0202X,
-CPT,80048,207Q00000X,
-CPT,80048,207R00000X,
-CPT,80053,207Q00000X,
-CPT,80053,207R00000X,
-CPT,80061,207Q00000X,
-CPT,80061,207R00000X,
-CPT,81001,207Q00000X,
-CPT,81001,207R00000X,
-CPT,81003,207Q00000X,
-CPT,81003,207R00000X,
-CPT,82306,207R00000X,
-CPT,82306,207Q00000X,
-CPT,83036,207Q00000X,
-CPT,83036,207R00000X,
-CPT,84439,207Q00000X,
-CPT,84439,207R00000X,
-CPT,84443,207Q00000X,
-CPT,84443,207R00000X,
-CPT,85025,207Q00000X,
-CPT,85025,207R00000X,
-CPT,87798,291U00000X,"not including 208800000X (Urology Physician)eventhough it's at 29% of CPT code 87798 Infectious agent detection by nucleic acid DNA"
-CPT,88305,207ZP0102X,
-CPT,88305,207ZP0101X,
-CPT,90480,332B00000X,
-CPT,90480,3336C0003X,
-CPT,90480,333600000X,
-CPT,90480,207Q00000X,
-CPT,90480,207R00000X,
-CPT,90662,332B00000X,
-CPT,90662,207Q00000X,
-CPT,90662,3336C0003X,
-CPT,90662,207R00000X,
-CPT,90662,333600000X,
-CPT,90837,1041C0700X,
-CPT,90837,103TC0700X,
-CPT,90837,103T00000X,
-CPT,90837,104100000X,
-CPT,90837,101YM0800X,
-CPT,90837,2084P0800X,
-CPT,90837,101YA0400X,
-CPT,90837,103G00000X,
-CPT,90837,103TC1900X,
-CPT,90837,363LP0808X,
-CPT,92014,152W00000X,
-CPT,92014,207W00000X,
-CPT,92014,207WX0107X,
-CPT,92134,152W00000X,
-CPT,92134,207W00000X,
-CPT,92134,207WX0107X,
-CPT,93000,207R00000X,
-CPT,93000,207Q00000X,
-CPT,93000,207RC0000X,
-CPT,93010,207R00000X,
-CPT,93010,207Q00000X,
-CPT,93010,207RC0000X,
-CPT,93306,207RC0000X,
-CPT,93306,207RI0011X,
-CPT,95004,207K00000X,
-CPT,95004,207KA0200X,
-CPT,95004,207RA0201X,
-CPT,95165,207K00000X,
-CPT,95165,207KA0200X,
-CPT,95165,207RA0201X,
-CPT,96372,207Q00000X,
-CPT,96372,207R00000X,
-CPT,97110,225100000X,
-CPT,97112,225100000X,
-CPT,97140,225100000X,
-CPT,97530,225100000X,
-CPT,98941,111N00000X,
-CPT,99203,???,"nothing for 99203 New patient office/outpatient visit of low com.. as the most common taxonomy  code is Mario's definition of other then Physician Assistant then Family Nurse Practictionner"
-CPT,99204,???,"New patient office/outpatient visit of moderat"
-CPT,99212,???,"Established patient office/outpatient visit..."
-CPT,99213,???,"Established patient office/outpatient visit..."
-CPT,99214,???,"Established patient office/outpatient visit..."
-CPT,99215,???,"Established patient office/outpatient visit..."
-CPT,99222,207R00000X,
-CPT,99223,207R00000X,
-CPT,99232,207R00000X,
-CPT,99233,207R00000X,
-CPT,99239,207R00000X,
-CPT,99285,207P00000X,
-CPT,99291,207P00000X,
-CPT,99308,363LF0000X,"this is the first time I include Nurse Praticionner in the mapping because the CPT code mentions nursing: 99308 	Subsequent nursing facility care low/moderate"
-CPT,99308,207R00000X,
-CPT,99308,207Q00000X,
-CPT,99308,363L00000X,
-CPT,99308,363LA2200X,
-CPT,99309,363LF0000X,"same as above"
-CPT,99309,207R00000X,
-CPT,99309,207Q00000X,
-CPT,99309,363L00000X,
-CPT,99309,363LA2200X,
-CPT,99490,207Q00000X,
-CPT,99490,207R00000X,
-HCPCS,G0008,207Q00000X,"HCPCS code vaccines"
-HCPCS,G0008,207R00000X,
-HCPCS,G0008,3336C0003X,
-HCPCS,G0008,333600000X,
-HCPCS,G0009,207Q00000X,
-HCPCS,G0009,207R00000X,
-HCPCS,G0009,3336C0003X,
-HCPCS,G0009,333600000X,
-HCPCS,G0105,207RG0100X,"colonoscopy"
-HCPCS,G0121,207RG0100X,
-HCPCS,G0279,2085R0202X,"mammography"
-HCPCS,G0283,225100000X,"electrical PT"
-HCPCS,G0438,207Q00000X,"wellness visits"
-HCPCS,G0438,207R00000X,
-HCPCS,G0438,363LF0000X,
-HCPCS,G0438,363A00000X,
-HCPCS,G0439,207Q00000X,
-HCPCS,G0439,207R00000X,
-HCPCS,G0439,363LF0000X,
-HCPCS,G0439,363A00000X,
-HCPCS,G0442,207Q00000X,
-HCPCS,G0442,207R00000X,
-HCPCS,G0442,363LF0000X,
-HCPCS,G0442,363A00000X,
-HCPCS,G0444,207Q00000X,
-HCPCS,G0444,207R00000X,
-HCPCS,G0444,363LF0000X,
-HCPCS,G0444,363A00000X,
-HCPCS,Q0091,207V00000X,"pap smear test"
-HCPCS,Q0091,207VG0400X,
+CPT,74181,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_mri
+CPT,74182,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_mri
+CPT,74183,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_mri
+CPT,73221,2085R0202X,Diagnostic Radiology Physician | proc_arm_joint_mri
+CPT,73222,2085R0202X,Diagnostic Radiology Physician | proc_arm_joint_mri
+CPT,73223,2085R0202X,Diagnostic Radiology Physician | proc_arm_joint_mri
+CPT,73218,2085R0202X,Diagnostic Radiology Physician | proc_arm_mri
+CPT,73219,2085R0202X,Diagnostic Radiology Physician | proc_arm_mri
+CPT,73220,2085R0202X,Diagnostic Radiology Physician | proc_arm_mri
+CPT,70557,2085R0202X,Diagnostic Radiology Physician | proc_brain_intracranial_mri
+CPT,70558,2085R0202X,Diagnostic Radiology Physician | proc_brain_intracranial_mri
+CPT,70559,2085R0202X,Diagnostic Radiology Physician | proc_brain_intracranial_mri
+CPT,70554,2085R0202X,Diagnostic Radiology Physician | proc_brain_mri
+CPT,70555,2085R0202X,Diagnostic Radiology Physician | proc_brain_mri
+CPT,70551,2085R0202X,Diagnostic Radiology Physician | proc_brain_stem_mri
+CPT,70552,2085R0202X,Diagnostic Radiology Physician | proc_brain_stem_mri
+CPT,70553,2085R0202X,Diagnostic Radiology Physician | proc_brain_stem_mri
+CPT,71550,2085R0202X,Diagnostic Radiology Physician | proc_chest_mri
+CPT,71551,2085R0202X,Diagnostic Radiology Physician | proc_chest_mri
+CPT,71552,2085R0202X,Diagnostic Radiology Physician | proc_chest_mri
+CPT,73721,2085R0202X,Diagnostic Radiology Physician | proc_leg_joint_mri
+CPT,73722,2085R0202X,Diagnostic Radiology Physician | proc_leg_joint_mri
+CPT,73723,2085R0202X,Diagnostic Radiology Physician | proc_leg_joint_mri
+CPT,73718,2085R0202X,Diagnostic Radiology Physician | proc_leg_mri
+CPT,73719,2085R0202X,Diagnostic Radiology Physician | proc_leg_mri
+CPT,73720,2085R0202X,Diagnostic Radiology Physician | proc_leg_mri
+CPT,70540,2085R0202X,Diagnostic Radiology Physician | proc_orbit_face_neck_mri
+CPT,70542,2085R0202X,Diagnostic Radiology Physician | proc_orbit_face_neck_mri
+CPT,70543,2085R0202X,Diagnostic Radiology Physician | proc_orbit_face_neck_mri
+CPT,72195,2085R0202X,Diagnostic Radiology Physician | proc_pelvis_mri
+CPT,72196,2085R0202X,Diagnostic Radiology Physician | proc_pelvis_mri
+CPT,72197,2085R0202X,Diagnostic Radiology Physician | proc_pelvis_mri
+CPT,72141,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_cervical_mri
+CPT,72142,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_cervical_mri
+CPT,72156,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_cervical_mri
+CPT,72148,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_lumbar_mri
+CPT,72149,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_lumbar_mri
+CPT,72158,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_lumbar_mri
+CPT,72146,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_thoracic_mri
+CPT,72147,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_thoracic_mri
+CPT,72157,2085R0202X,Diagnostic Radiology Physician | proc_spinal_canal_thoracic_mri
+CPT,74176,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_pelvis_ct_scan
+CPT,74177,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_pelvis_ct_scan
+CPT,74178,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_pelvis_ct_scan
+CPT,74174,2085R0202X,Diagnostic Radiology Physician | proc_blood_vessels_abdomen_pelvis_ct_scan
+CPT,71275,2085R0202X,Diagnostic Radiology Physician | proc_blood_vessels_chest_ct_scan
+CPT,70496,2085R0202X,Diagnostic Radiology Physician | proc_blood_vessels_head_ct_scan
+CPT,70498,2085R0202X,Diagnostic Radiology Physician | proc_blood_vessels_neck_ct_scan
+CPT,71271,2085R0202X,Diagnostic Radiology Physician | proc_chest_cancer_screen_ct_scan
+CPT,71250,2085R0202X,Diagnostic Radiology Physician | proc_chest_ct_scan
+CPT,71260,2085R0202X,Diagnostic Radiology Physician | proc_chest_ct_scan
+CPT,71270,2085R0202X,Diagnostic Radiology Physician | proc_chest_ct_scan
+CPT,74150,2085R0202X,Diagnostic Radiology Physician | proc_ct_abdomen
+CPT,74160,2085R0202X,Diagnostic Radiology Physician | proc_ct_abdomen
+CPT,74170,2085R0202X,Diagnostic Radiology Physician | proc_ct_abdomen
+CPT,70490,2085R0202X,Diagnostic Radiology Physician | proc_ct_neck
+CPT,70491,2085R0202X,Diagnostic Radiology Physician | proc_ct_neck
+CPT,73200,2085R0202X,Diagnostic Radiology Physician | proc_ct_upper_extremity
+CPT,73201,2085R0202X,Diagnostic Radiology Physician | proc_ct_upper_extremity
+CPT,70486,2085R0202X,Diagnostic Radiology Physician | proc_face_ct_scan
+CPT,70487,2085R0202X,Diagnostic Radiology Physician | proc_face_ct_scan
+CPT,70488,2085R0202X,Diagnostic Radiology Physician | proc_face_ct_scan
+CPT,70450,2085R0202X,Diagnostic Radiology Physician | proc_head_brain_ct_scan
+CPT,70460,2085R0202X,Diagnostic Radiology Physician | proc_head_brain_ct_scan
+CPT,70470,2085R0202X,Diagnostic Radiology Physician | proc_head_brain_ct_scan
+CPT,73700,2085R0202X,Diagnostic Radiology Physician | proc_leg_ct_scan
+CPT,72131,2085R0202X,Diagnostic Radiology Physician | proc_lower_spine_ct_scan
+CPT,72128,2085R0202X,Diagnostic Radiology Physician | proc_thoracic_spine_ct_scan
+CPT,72125,2085R0202X,Diagnostic Radiology Physician | proc_upper_spine_ct_scan
+CPT,74018,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_x_ray
+CPT,73610,2085R0202X,Diagnostic Radiology Physician | proc_ankle_x_ray
+CPT,71045,2085R0202X,Diagnostic Radiology Physician | proc_chest_x_ray
+CPT,71046,2085R0202X,Diagnostic Radiology Physician | proc_chest_x_ray
+CPT,71047,2085R0202X,Diagnostic Radiology Physician | proc_chest_x_ray
+CPT,71048,2085R0202X,Diagnostic Radiology Physician | proc_chest_x_ray
+CPT,74300,2085R0202X,Diagnostic Radiology Physician | proc_cholangiography
+CPT,74301,2085R0202X,Diagnostic Radiology Physician | proc_cholangiography
+CPT,77065,2085R0202X,Diagnostic Radiology Physician | proc_diagnostic_mammography
+CPT,77066,2085R0202X,Diagnostic Radiology Physician | proc_diagnostic_mammography
+HCPCS,G0279,2085R0202X,Diagnostic Radiology Physician | proc_diagnostic_mammography
+CPT,73080,2085R0202X,Diagnostic Radiology Physician | proc_elbow_x_ray
+CPT,77002,2085R0202X,Diagnostic Radiology Physician | proc_fluoroscopic_guidance_needle_placement
+CPT,76000,2085R0202X,Diagnostic Radiology Physician | proc_fluoroscopy_guidance
+CPT,73630,2085R0202X,Diagnostic Radiology Physician | proc_foot_x_ray
+CPT,73130,2085R0202X,Diagnostic Radiology Physician | proc_hand_x_ray
+CPT,77080,2085R0202X,Diagnostic Radiology Physician | proc_hip_pelvis_spine_density_dxa
+CPT,73501,2085R0202X,Diagnostic Radiology Physician | proc_hip_x_ray
+CPT,73502,2085R0202X,Diagnostic Radiology Physician | proc_hip_x_ray
+CPT,73503,2085R0202X,Diagnostic Radiology Physician | proc_hip_x_ray
+CPT,73560,2085R0202X,Diagnostic Radiology Physician | proc_knee_x_ray
+CPT,73562,2085R0202X,Diagnostic Radiology Physician | proc_knee_x_ray
+CPT,73564,2085R0202X,Diagnostic Radiology Physician | proc_knee_x_ray
+CPT,73565,2085R0202X,Diagnostic Radiology Physician | proc_knee_x_ray
+CPT,73592,2085R0202X,Diagnostic Radiology Physician | proc_lower_extremity_x_ray
+CPT,73590,2085R0202X,Diagnostic Radiology Physician | proc_lower_leg_x_ray
+CPT,72100,2085R0202X,Diagnostic Radiology Physician | proc_lower_spine_x_ray
+CPT,72110,2085R0202X,Diagnostic Radiology Physician | proc_lower_spine_x_ray
+CPT,72170,2085R0202X,Diagnostic Radiology Physician | proc_pelvis_x_ray
+CPT,77063,2085R0202X,Diagnostic Radiology Physician | proc_screening_mammography
+CPT,77067,2085R0202X,Diagnostic Radiology Physician | proc_screening_mammography
+CPT,73030,2085R0202X,Diagnostic Radiology Physician | proc_shoulder_x_ray
+CPT,73552,2085R0202X,Diagnostic Radiology Physician | proc_thigh_bone_x_ray
+CPT,72040,2085R0202X,Diagnostic Radiology Physician | proc_upper_spine_x_ray
+CPT,72050,2085R0202X,Diagnostic Radiology Physician | proc_upper_spine_x_ray
+CPT,72052,2085R0202X,Diagnostic Radiology Physician | proc_upper_spine_x_ray
+CPT,73100,2085R0202X,Diagnostic Radiology Physician | proc_wrist_x_ray
+CPT,73110,2085R0202X,Diagnostic Radiology Physician | proc_wrist_x_ray
+CPT,76700,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_ultrasound
+CPT,76705,2085R0202X,Diagnostic Radiology Physician | proc_abdomen_ultrasound
+CPT,76770,2085R0202X,Diagnostic Radiology Physician | proc_abdominal_cavity_ultrasound
+CPT,93922,2085R0202X,Diagnostic Radiology Physician | proc_arm_leg_arteries_ultrasound
+CPT,93922,2086S0129X,Vascular Surgery Physician | proc_arm_leg_arteries_ultrasound
+CPT,93970,207RC0000X,Cardiovascular Disease Physician | proc_arm_leg_veins_ultrasound
+CPT,93970,2085R0202X,Diagnostic Radiology Physician | proc_arm_leg_veins_ultrasound
+CPT,93970,2086S0129X,Vascular Surgery Physician | proc_arm_leg_veins_ultrasound
+CPT,93971,207RC0000X,Cardiovascular Disease Physician | proc_arm_leg_veins_ultrasound
+CPT,93971,2085R0202X,Diagnostic Radiology Physician | proc_arm_leg_veins_ultrasound
+CPT,93971,2086S0129X,Vascular Surgery Physician | proc_arm_leg_veins_ultrasound
+CPT,51798,208800000X,Urology Physician | proc_bladder_capacity_ultrasound
+CPT,76642,2085R0202X,Diagnostic Radiology Physician | proc_breast_ultrasound
+CPT,45391,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_endoscopic_ultrasound
+CPT,93880,207RC0000X,Cardiovascular Disease Physician | proc_head_neck_blood_flow_ultrasound
+CPT,93880,2085R0202X,Diagnostic Radiology Physician | proc_head_neck_blood_flow_ultrasound
+CPT,76536,2085R0202X,Diagnostic Radiology Physician | proc_head_neck_tissue_ultrasound
+CPT,93306,207RC0000X,Cardiovascular Disease Physician | proc_heart_blood_flow_ultrasound
+CPT,93306,207RI0011X,Interventional Cardiology Physician | proc_heart_blood_flow_ultrasound
+CPT,93320,207RC0000X,Cardiovascular Disease Physician | proc_heart_blood_flow_ultrasound
+CPT,93320,207RI0011X,Interventional Cardiology Physician | proc_heart_blood_flow_ultrasound
+CPT,93325,207RC0000X,Cardiovascular Disease Physician | proc_heart_blood_flow_ultrasound
+CPT,93325,207RI0011X,Interventional Cardiology Physician | proc_heart_blood_flow_ultrasound
+CPT,93303,207RC0000X,Cardiovascular Disease Physician | proc_heart_ultrasound
+CPT,93303,207RI0011X,Interventional Cardiology Physician | proc_heart_ultrasound
+CPT,93304,207RC0000X,Cardiovascular Disease Physician | proc_heart_ultrasound
+CPT,93304,207RI0011X,Interventional Cardiology Physician | proc_heart_ultrasound
+CPT,93307,207RC0000X,Cardiovascular Disease Physician | proc_heart_ultrasound
+CPT,93307,207RI0011X,Interventional Cardiology Physician | proc_heart_ultrasound
+CPT,93308,207RC0000X,Cardiovascular Disease Physician | proc_heart_ultrasound
+CPT,93308,207RI0011X,Interventional Cardiology Physician | proc_heart_ultrasound
+CPT,93312,207RC0000X,Cardiovascular Disease Physician | proc_heart_ultrasound
+CPT,93312,207RI0011X,Interventional Cardiology Physician | proc_heart_ultrasound
+CPT,93925,2085R0202X,Diagnostic Radiology Physician | proc_leg_arteries_ultrasound
+CPT,93925,2086S0129X,Vascular Surgery Physician | proc_leg_arteries_ultrasound
+CPT,76821,207VM0101X,Maternal & Fetal Medicine Physician | proc_middle_cerebral_artery_doppler
+CPT,76821,207V00000X,Obstetrics & Gynecology Physician | proc_middle_cerebral_artery_doppler
+CPT,76519,207W00000X,Ophthalmology Physician | proc_ophthalmic_biometry_ultrasound
+CPT,76510,207W00000X,Ophthalmology Physician | proc_ophthalmic_ultrasound
+CPT,76511,207W00000X,Ophthalmology Physician | proc_ophthalmic_ultrasound
+CPT,76512,207W00000X,Ophthalmology Physician | proc_ophthalmic_ultrasound
+CPT,76513,207W00000X,Ophthalmology Physician | proc_ophthalmic_ultrasound
+CPT,76514,207W00000X,Ophthalmology Physician | proc_ophthalmic_ultrasound
+CPT,76830,2085R0202X,Diagnostic Radiology Physician | proc_transvaginal_ultrasound
+CPT,76830,207V00000X,Obstetrics & Gynecology Physician | proc_transvaginal_ultrasound
+CPT,76942,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_guidance_needle_placement
+CPT,76801,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_ob
+CPT,76801,207V00000X,Obstetrics & Gynecology Physician | proc_ultrasound_ob
+CPT,76802,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_ob
+CPT,76802,207V00000X,Obstetrics & Gynecology Physician | proc_ultrasound_ob
+CPT,76805,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_ob
+CPT,76805,207V00000X,Obstetrics & Gynecology Physician | proc_ultrasound_ob
+CPT,76811,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_ob
+CPT,76811,207V00000X,Obstetrics & Gynecology Physician | proc_ultrasound_ob
+CPT,76812,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_ob
+CPT,76812,207V00000X,Obstetrics & Gynecology Physician | proc_ultrasound_ob
+CPT,76815,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_ob
+CPT,76815,207V00000X,Obstetrics & Gynecology Physician | proc_ultrasound_ob
+CPT,76816,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_ob
+CPT,76816,207V00000X,Obstetrics & Gynecology Physician | proc_ultrasound_ob
+CPT,76817,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_ob
+CPT,76817,207V00000X,Obstetrics & Gynecology Physician | proc_ultrasound_ob
+CPT,76775,2085R0202X,Diagnostic Radiology Physician | proc_ultrasound_retroperitoneal_limited
+CPT,76820,207VM0101X,Maternal & Fetal Medicine Physician | proc_umbilical_artery_doppler
+CPT,76820,207V00000X,Obstetrics & Gynecology Physician | proc_umbilical_artery_doppler
+CPT,92960,207RC0000X,Cardiovascular Disease Physician | proc_cardioversion_external
+CPT,92960,207P00000X,Emergency Medicine Physician | proc_cardioversion_external
+CPT,93015,207RC0000X,Cardiovascular Disease Physician | proc_heart_stress_test_ecg
+CPT,93015,207RI0011X,Interventional Cardiology Physician | proc_heart_stress_test_ecg
+CPT,93016,207RC0000X,Cardiovascular Disease Physician | proc_heart_stress_test_ecg
+CPT,93016,207RI0011X,Interventional Cardiology Physician | proc_heart_stress_test_ecg
+CPT,93017,207RC0000X,Cardiovascular Disease Physician | proc_heart_stress_test_ecg
+CPT,93017,207RI0011X,Interventional Cardiology Physician | proc_heart_stress_test_ecg
+CPT,93018,207RC0000X,Cardiovascular Disease Physician | proc_heart_stress_test_ecg
+CPT,93018,207RI0011X,Interventional Cardiology Physician | proc_heart_stress_test_ecg
+CPT,78451,207RC0000X,Cardiovascular Disease Physician | proc_myocardial_perfusion_spect
+CPT,78451,2085R0202X,Diagnostic Radiology Physician | proc_myocardial_perfusion_spect
+CPT,78452,207RC0000X,Cardiovascular Disease Physician | proc_myocardial_perfusion_spect
+CPT,78452,2085R0202X,Diagnostic Radiology Physician | proc_myocardial_perfusion_spect
+CPT,93000,207RC0000X,Cardiovascular Disease Physician | proc_routine_ecg
+CPT,93000,207Q00000X,Family Medicine Physician | proc_routine_ecg
+CPT,93000,207R00000X,Internal Medicine Physician | proc_routine_ecg
+CPT,93005,207RC0000X,Cardiovascular Disease Physician | proc_routine_ecg
+CPT,93005,207Q00000X,Family Medicine Physician | proc_routine_ecg
+CPT,93005,207R00000X,Internal Medicine Physician | proc_routine_ecg
+CPT,93010,207RC0000X,Cardiovascular Disease Physician | proc_routine_ecg
+CPT,93010,207Q00000X,Family Medicine Physician | proc_routine_ecg
+CPT,93010,207R00000X,Internal Medicine Physician | proc_routine_ecg
+CPT,45330,207RG0100X,Gastroenterology Physician | proc_colonoscopy
+CPT,45378,207RG0100X,Gastroenterology Physician | proc_colonoscopy
+CPT,45380,207RG0100X,Gastroenterology Physician | proc_colonoscopy
+CPT,45381,207RG0100X,Gastroenterology Physician | proc_colonoscopy
+CPT,45382,207RG0100X,Gastroenterology Physician | proc_colonoscopy
+HCPCS,G0105,207RG0100X,Gastroenterology Physician | proc_colonoscopy
+HCPCS,G0121,207RG0100X,Gastroenterology Physician | proc_colonoscopy
+CPT,45388,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_ablation
+CPT,45393,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_decompression
+CPT,45386,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_dilation
+CPT,45392,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_emr
+CPT,45390,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_foreign_body_removal
+CPT,45384,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_polypectomy
+CPT,45385,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_polypectomy
+CPT,45389,207RG0100X,Gastroenterology Physician | proc_colonoscopy_with_stent
+CPT,43252,207RG0100X,Gastroenterology Physician | proc_egd_with_ablation
+CPT,43253,207RG0100X,Gastroenterology Physician | proc_egd_with_ablation
+CPT,43255,207RG0100X,Gastroenterology Physician | proc_egd_with_bleeding_control
+CPT,43245,207RG0100X,Gastroenterology Physician | proc_egd_with_dilation
+CPT,43248,207RG0100X,Gastroenterology Physician | proc_egd_with_dilation
+CPT,43249,207RG0100X,Gastroenterology Physician | proc_egd_with_dilation
+CPT,43237,207RG0100X,Gastroenterology Physician | proc_egd_with_eus
+CPT,43238,207RG0100X,Gastroenterology Physician | proc_egd_with_eus
+CPT,43242,207RG0100X,Gastroenterology Physician | proc_egd_with_eus
+CPT,43247,207RG0100X,Gastroenterology Physician | proc_egd_with_foreign_body_removal
+CPT,43246,207RG0100X,Gastroenterology Physician | proc_egd_with_peg_placement
+CPT,43257,207RG0100X,Gastroenterology Physician | proc_egd_with_thermal_therapy_esophagus
+CPT,43240,207RG0100X,Gastroenterology Physician | proc_egd_with_transmural_drainage
+CPT,43241,207RG0100X,Gastroenterology Physician | proc_egd_with_tube_placement
+CPT,43250,207RG0100X,Gastroenterology Physician | proc_egd_with_tumor_removal
+CPT,43251,207RG0100X,Gastroenterology Physician | proc_egd_with_tumor_removal
+CPT,43254,207RG0100X,Gastroenterology Physician | proc_egd_with_tumor_removal
+CPT,43243,207RG0100X,Gastroenterology Physician | proc_egd_with_variceal_treatment
+CPT,43244,207RG0100X,Gastroenterology Physician | proc_egd_with_variceal_treatment
+CPT,66982,207W00000X,Ophthalmology Physician | proc_cataract_surgery
+CPT,66984,207W00000X,Ophthalmology Physician | proc_cataract_surgery
+CPT,66987,207W00000X,Ophthalmology Physician | proc_cataract_surgery
+CPT,66988,207W00000X,Ophthalmology Physician | proc_cataract_surgery
+CPT,66989,207W00000X,Ophthalmology Physician | proc_cataract_surgery
+CPT,66991,207W00000X,Ophthalmology Physician | proc_cataract_surgery
+CPT,92002,207W00000X,Ophthalmology Physician | proc_eye_exam
+CPT,92002,152W00000X,Optometrist | proc_eye_exam
+CPT,92004,207W00000X,Ophthalmology Physician | proc_eye_exam
+CPT,92004,152W00000X,Optometrist | proc_eye_exam
+CPT,92012,207W00000X,Ophthalmology Physician | proc_eye_exam
+CPT,92012,152W00000X,Optometrist | proc_eye_exam
+CPT,92014,207W00000X,Ophthalmology Physician | proc_eye_exam
+CPT,92014,152W00000X,Optometrist | proc_eye_exam
+CPT,92014,207WX0107X,Retina Specialist (Ophthalmology) Physician | proc_eye_exam
+CPT,92020,207W00000X,Ophthalmology Physician | proc_gonioscopy
+CPT,92020,152W00000X,Optometrist | proc_gonioscopy
+HCPCS,C1840,207W00000X,Ophthalmology Physician | proc_lens_intraocular
+HCPCS,Q1004,207W00000X,Ophthalmology Physician | proc_lens_intraocular
+HCPCS,Q1005,207W00000X,Ophthalmology Physician | proc_lens_intraocular
+HCPCS,V2632,207W00000X,Ophthalmology Physician | proc_lens_intraocular
+HCPCS,V2787,207W00000X,Ophthalmology Physician | proc_lens_intraocular
+HCPCS,V2788,207W00000X,Ophthalmology Physician | proc_lens_intraocular
+CPT,92133,207W00000X,Ophthalmology Physician | proc_oct_optic_nerve
+CPT,92133,152W00000X,Optometrist | proc_oct_optic_nerve
+CPT,92136,207W00000X,Ophthalmology Physician | proc_ophthalmic_biometry
+CPT,92015,207W00000X,Ophthalmology Physician | proc_refraction
+CPT,92015,152W00000X,Optometrist | proc_refraction
+CPT,92060,207W00000X,Ophthalmology Physician | proc_sensorimotor_examination
+CPT,92060,152W00000X,Optometrist | proc_sensorimotor_examination
+HCPCS,J7316,207W00000X,Ophthalmology Physician | proc_sodium_hyaluronate_ophthalmic
+HCPCS,J7324,207W00000X,Ophthalmology Physician | proc_triamcinolone_ophthalmic
+CPT,92082,207W00000X,Ophthalmology Physician | proc_visual_field
+CPT,92082,152W00000X,Optometrist | proc_visual_field
+CPT,92083,207W00000X,Ophthalmology Physician | proc_visual_field
+CPT,92083,152W00000X,Optometrist | proc_visual_field
+CPT,01960,207L00000X,Anesthesiology Physician | proc_anesthesia_obstetric
+CPT,01960,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_obstetric
+CPT,01961,207L00000X,Anesthesiology Physician | proc_anesthesia_obstetric
+CPT,01961,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_obstetric
+CPT,01967,207L00000X,Anesthesiology Physician | proc_anesthesia_obstetric
+CPT,01967,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_obstetric
+CPT,01968,207L00000X,Anesthesiology Physician | proc_anesthesia_obstetric
+CPT,01968,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_obstetric
+CPT,59320,207V00000X,Obstetrics & Gynecology Physician | proc_cervical_cerclage_repair
+CPT,59510,207V00000X,Obstetrics & Gynecology Physician | proc_cesarean_delivery
+CPT,59510,207VX0000X,Obstetrics Physician | proc_cesarean_delivery
+CPT,59514,207V00000X,Obstetrics & Gynecology Physician | proc_cesarean_delivery
+CPT,59514,207VX0000X,Obstetrics Physician | proc_cesarean_delivery
+CPT,59515,207V00000X,Obstetrics & Gynecology Physician | proc_cesarean_delivery
+CPT,59515,207VX0000X,Obstetrics Physician | proc_cesarean_delivery
+CPT,59020,207VM0101X,Maternal & Fetal Medicine Physician | proc_contraction_stress_test
+CPT,59020,207V00000X,Obstetrics & Gynecology Physician | proc_contraction_stress_test
+CPT,59414,207V00000X,Obstetrics & Gynecology Physician | proc_delivery_of_placenta
+CPT,59300,207V00000X,Obstetrics & Gynecology Physician | proc_episiotomy_repair
+CPT,59412,207V00000X,Obstetrics & Gynecology Physician | proc_external_cephalic_version
+CPT,76818,207VM0101X,Maternal & Fetal Medicine Physician | proc_fetal_biophysical_profile
+CPT,76818,207V00000X,Obstetrics & Gynecology Physician | proc_fetal_biophysical_profile
+CPT,76819,207VM0101X,Maternal & Fetal Medicine Physician | proc_fetal_biophysical_profile
+CPT,76819,207V00000X,Obstetrics & Gynecology Physician | proc_fetal_biophysical_profile
+CPT,59025,207VM0101X,Maternal & Fetal Medicine Physician | proc_fetal_non_stress_test
+CPT,59025,207V00000X,Obstetrics & Gynecology Physician | proc_fetal_non_stress_test
+CPT,59525,207V00000X,Obstetrics & Gynecology Physician | proc_hysterectomy_after_cesarean
+CPT,80055,207Q00000X,Family Medicine Physician | proc_obstetric_panel
+CPT,80055,207R00000X,Internal Medicine Physician | proc_obstetric_panel
+CPT,80081,207Q00000X,Family Medicine Physician | proc_obstetric_panel
+CPT,80081,207R00000X,Internal Medicine Physician | proc_obstetric_panel
+CPT,88141,207ZP0102X,Anatomic Pathology & Clinical Pathology Physician | proc_pap_smear
+CPT,88141,207ZP0101X,Anatomic Pathology Physician | proc_pap_smear
+CPT,88142,207ZP0102X,Anatomic Pathology & Clinical Pathology Physician | proc_pap_smear
+CPT,88142,207ZP0101X,Anatomic Pathology Physician | proc_pap_smear
+CPT,88175,207ZP0102X,Anatomic Pathology & Clinical Pathology Physician | proc_pap_smear
+CPT,88175,207ZP0101X,Anatomic Pathology Physician | proc_pap_smear
+HCPCS,Q0091,207VG0400X,Gynecology Physician | proc_pap_smear_test
+HCPCS,Q0091,207V00000X,Obstetrics & Gynecology Physician | proc_pap_smear_test
+CPT,59430,207V00000X,Obstetrics & Gynecology Physician | proc_postpartum_care_only
+CPT,59400,207V00000X,Obstetrics & Gynecology Physician | proc_vaginal_delivery
+CPT,59400,207VX0000X,Obstetrics Physician | proc_vaginal_delivery
+CPT,59409,207V00000X,Obstetrics & Gynecology Physician | proc_vaginal_delivery
+CPT,59409,207VX0000X,Obstetrics Physician | proc_vaginal_delivery
+CPT,59410,207V00000X,Obstetrics & Gynecology Physician | proc_vaginal_delivery
+CPT,59410,207VX0000X,Obstetrics Physician | proc_vaginal_delivery
+MS-DRG,0805,207V00000X,Obstetrics & Gynecology Physician | proc_vaginal_delivery
+MS-DRG,0806,207V00000X,Obstetrics & Gynecology Physician | proc_vaginal_delivery
+MS-DRG,0807,207V00000X,Obstetrics & Gynecology Physician | proc_vaginal_delivery
+CPT,00731,207L00000X,Anesthesiology Physician | proc_anesthesia_abdominal
+CPT,00731,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_abdominal
+CPT,00790,207L00000X,Anesthesiology Physician | proc_anesthesia_abdominal
+CPT,00790,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_abdominal
+CPT,00811,207L00000X,Anesthesiology Physician | proc_anesthesia_abdominal
+CPT,00811,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_abdominal
+CPT,00812,207L00000X,Anesthesiology Physician | proc_anesthesia_abdominal
+CPT,00812,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_abdominal
+CPT,00813,207L00000X,Anesthesiology Physician | proc_anesthesia_abdominal
+CPT,00813,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_abdominal
+CPT,00840,207L00000X,Anesthesiology Physician | proc_anesthesia_abdominal
+CPT,00840,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_abdominal
+CPT,00860,207L00000X,Anesthesiology Physician | proc_anesthesia_abdominal
+CPT,00860,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_abdominal
+CPT,01810,207L00000X,Anesthesiology Physician | proc_anesthesia_arm_hand
+CPT,01810,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_arm_hand
+CPT,01820,207L00000X,Anesthesiology Physician | proc_anesthesia_arm_hand
+CPT,01820,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_arm_hand
+CPT,00140,207L00000X,Anesthesiology Physician | proc_anesthesia_eye
+CPT,00140,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_eye
+CPT,00142,207L00000X,Anesthesiology Physician | proc_anesthesia_eye
+CPT,00142,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_eye
+CPT,00145,207L00000X,Anesthesiology Physician | proc_anesthesia_eye
+CPT,00145,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_eye
+CPT,00830,207L00000X,Anesthesiology Physician | proc_anesthesia_hernia
+CPT,00830,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_hernia
+CPT,00832,207L00000X,Anesthesiology Physician | proc_anesthesia_hernia
+CPT,00832,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_hernia
+CPT,00834,207L00000X,Anesthesiology Physician | proc_anesthesia_hernia
+CPT,00834,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_hernia
+CPT,01400,207L00000X,Anesthesiology Physician | proc_anesthesia_knee
+CPT,01400,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_knee
+CPT,01402,207L00000X,Anesthesiology Physician | proc_anesthesia_knee
+CPT,01402,367500000X,Certified Registered Nurse Anesthetist | proc_anesthesia_knee
+CPT,64417,207L00000X,Anesthesiology Physician | proc_axillary_nerve_block
+CPT,64417,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_axillary_nerve_block
+CPT,01996,207L00000X,Anesthesiology Physician | proc_daily_management_epidural
+CPT,01996,367500000X,Certified Registered Nurse Anesthetist | proc_daily_management_epidural
+CPT,62320,207L00000X,Anesthesiology Physician | proc_epidural_injection
+CPT,62320,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_epidural_injection
+CPT,62321,207L00000X,Anesthesiology Physician | proc_epidural_injection
+CPT,62321,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_epidural_injection
+CPT,64447,207L00000X,Anesthesiology Physician | proc_femoral_nerve_block
+CPT,64447,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_femoral_nerve_block
+CPT,64448,207L00000X,Anesthesiology Physician | proc_femoral_nerve_block
+CPT,64448,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_femoral_nerve_block
+CPT,99152,207L00000X,Anesthesiology Physician | proc_moderate_sedation
+CPT,99152,367500000X,Certified Registered Nurse Anesthetist | proc_moderate_sedation
+CPT,99153,207L00000X,Anesthesiology Physician | proc_moderate_sedation
+CPT,99153,367500000X,Certified Registered Nurse Anesthetist | proc_moderate_sedation
+CPT,99155,207L00000X,Anesthesiology Physician | proc_moderate_sedation
+CPT,99155,367500000X,Certified Registered Nurse Anesthetist | proc_moderate_sedation
+CPT,99156,207L00000X,Anesthesiology Physician | proc_moderate_sedation
+CPT,99156,367500000X,Certified Registered Nurse Anesthetist | proc_moderate_sedation
+CPT,64450,207L00000X,Anesthesiology Physician | proc_other_peripheral_nerve_block
+CPT,64450,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_other_peripheral_nerve_block
+CPT,64445,207L00000X,Anesthesiology Physician | proc_sciatic_nerve_block
+CPT,64445,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_sciatic_nerve_block
+CPT,64446,207L00000X,Anesthesiology Physician | proc_sciatic_nerve_block
+CPT,64446,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_sciatic_nerve_block
+CPT,44950,208600000X,Surgery Physician | proc_appendectomy
+CPT,44955,208600000X,Surgery Physician | proc_appendectomy
+CPT,44960,208600000X,Surgery Physician | proc_appendectomy
+CPT,44970,208600000X,Surgery Physician | proc_appendectomy
+MS-DRG,0341,208600000X,Surgery Physician | proc_appendectomy
+MS-DRG,0342,208600000X,Surgery Physician | proc_appendectomy
+MS-DRG,0343,208600000X,Surgery Physician | proc_appendectomy
+CPT,32551,207P00000X,Emergency Medicine Physician | proc_chest_tube
+CPT,32551,207RP1001X,Pulmonary Disease Physician | proc_chest_tube
+CPT,32551,208600000X,Surgery Physician | proc_chest_tube
+CPT,32557,207P00000X,Emergency Medicine Physician | proc_chest_tube
+CPT,32557,207RP1001X,Pulmonary Disease Physician | proc_chest_tube
+CPT,32557,208600000X,Surgery Physician | proc_chest_tube
+CPT,49320,208600000X,Surgery Physician | proc_diagnostic_laparoscopy
+CPT,49321,208600000X,Surgery Physician | proc_diagnostic_laparoscopy
+CPT,49322,208600000X,Surgery Physician | proc_diagnostic_laparoscopy
+CPT,49585,208600000X,Surgery Physician | proc_epigastric_hernia_repair
+CPT,49586,208600000X,Surgery Physician | proc_epigastric_hernia_repair
+CPT,10120,207P00000X,Emergency Medicine Physician | proc_foreign_body_removal
+CPT,10120,208600000X,Surgery Physician | proc_foreign_body_removal
+CPT,10121,207P00000X,Emergency Medicine Physician | proc_foreign_body_removal
+CPT,10121,208600000X,Surgery Physician | proc_foreign_body_removal
+CPT,10060,207P00000X,Emergency Medicine Physician | proc_incision_and_drainage_abscess
+CPT,10060,208600000X,Surgery Physician | proc_incision_and_drainage_abscess
+CPT,10061,207P00000X,Emergency Medicine Physician | proc_incision_and_drainage_abscess
+CPT,10061,208600000X,Surgery Physician | proc_incision_and_drainage_abscess
+CPT,49505,208600000X,Surgery Physician | proc_inguinal_hernia_repair
+CPT,49507,208600000X,Surgery Physician | proc_inguinal_hernia_repair
+CPT,49520,208600000X,Surgery Physician | proc_inguinal_hernia_repair
+CPT,49521,208600000X,Surgery Physician | proc_inguinal_hernia_repair
+CPT,49525,208600000X,Surgery Physician | proc_inguinal_hernia_repair
+MS-DRG,0350,208600000X,Surgery Physician | proc_inguinal_hernia_repair
+MS-DRG,0351,208600000X,Surgery Physician | proc_inguinal_hernia_repair
+MS-DRG,0352,208600000X,Surgery Physician | proc_inguinal_hernia_repair
+CPT,47562,208600000X,Surgery Physician | proc_laparoscopic_cholecystectomy
+CPT,47563,208600000X,Surgery Physician | proc_laparoscopic_cholecystectomy
+CPT,47564,208600000X,Surgery Physician | proc_laparoscopic_cholecystectomy
+MS-DRG,0417,208600000X,Surgery Physician | proc_laparoscopic_cholecystectomy
+MS-DRG,0418,208600000X,Surgery Physician | proc_laparoscopic_cholecystectomy
+MS-DRG,0419,208600000X,Surgery Physician | proc_laparoscopic_cholecystectomy
+CPT,49650,208600000X,Surgery Physician | proc_laparoscopic_inguinal_hernia_repair
+CPT,49651,208600000X,Surgery Physician | proc_laparoscopic_inguinal_hernia_repair
+HCPCS,C1781,208600000X,Surgery Physician | proc_mesh_surgical_implantable
+CPT,47600,208600000X,Surgery Physician | proc_open_cholecystectomy
+CPT,47605,208600000X,Surgery Physician | proc_open_cholecystectomy
+CPT,47610,208600000X,Surgery Physician | proc_open_cholecystectomy
+CPT,47612,208600000X,Surgery Physician | proc_open_cholecystectomy
+CPT,31603,207P00000X,Emergency Medicine Physician | proc_tracheostomy_emergency
+CPT,31603,207Y00000X,Otolaryngology Physician | proc_tracheostomy_emergency
+CPT,31502,207Y00000X,Otolaryngology Physician | proc_tracheostomy_tube_change
+CPT,31502,207RP1001X,Pulmonary Disease Physician | proc_tracheostomy_tube_change
+CPT,49581,208600000X,Surgery Physician | proc_umbilical_hernia_repair
+CPT,49582,208600000X,Surgery Physician | proc_umbilical_hernia_repair
+CPT,49591,208600000X,Surgery Physician | proc_ventral_hernia_repair
+CPT,49592,208600000X,Surgery Physician | proc_ventral_hernia_repair
+CPT,49593,208600000X,Surgery Physician | proc_ventral_hernia_repair
+CPT,49594,208600000X,Surgery Physician | proc_ventral_hernia_repair
+CPT,49595,208600000X,Surgery Physician | proc_ventral_hernia_repair
+CPT,49596,208600000X,Surgery Physician | proc_ventral_hernia_repair
+CPT,29105,207P00000X,Emergency Medicine Physician | proc_application_long_arm_splint
+CPT,29105,207X00000X,Orthopaedic Surgery Physician | proc_application_long_arm_splint
+CPT,29125,207P00000X,Emergency Medicine Physician | proc_application_short_arm_splint
+CPT,29125,207X00000X,Orthopaedic Surgery Physician | proc_application_short_arm_splint
+CPT,29515,207P00000X,Emergency Medicine Physician | proc_application_short_leg_splint
+CPT,29515,207X00000X,Orthopaedic Surgery Physician | proc_application_short_leg_splint
+CPT,20600,207X00000X,Orthopaedic Surgery Physician | proc_arthrocentesis
+CPT,20600,207RR0500X,Rheumatology Physician | proc_arthrocentesis
+CPT,20604,207X00000X,Orthopaedic Surgery Physician | proc_arthrocentesis
+CPT,20604,207RR0500X,Rheumatology Physician | proc_arthrocentesis
+CPT,20605,207X00000X,Orthopaedic Surgery Physician | proc_arthrocentesis
+CPT,20605,207RR0500X,Rheumatology Physician | proc_arthrocentesis
+CPT,20606,207X00000X,Orthopaedic Surgery Physician | proc_arthrocentesis
+CPT,20606,207RR0500X,Rheumatology Physician | proc_arthrocentesis
+CPT,20610,207X00000X,Orthopaedic Surgery Physician | proc_arthrocentesis
+CPT,20611,207X00000X,Orthopaedic Surgery Physician | proc_arthrocentesis
+CPT,27580,207X00000X,Orthopaedic Surgery Physician | proc_arthrodesis_knee
+CPT,27786,207P00000X,Emergency Medicine Physician | proc_closed_treatment_distal_fibula_fracture
+CPT,27786,207X00000X,Orthopaedic Surgery Physician | proc_closed_treatment_distal_fibula_fracture
+CPT,25600,207P00000X,Emergency Medicine Physician | proc_closed_treatment_distal_radius_fracture
+CPT,25600,207X00000X,Orthopaedic Surgery Physician | proc_closed_treatment_distal_radius_fracture
+CPT,23650,207P00000X,Emergency Medicine Physician | proc_closed_treatment_shoulder_dislocation
+CPT,23650,207X00000X,Orthopaedic Surgery Physician | proc_closed_treatment_shoulder_dislocation
+CPT,27752,207P00000X,Emergency Medicine Physician | proc_closed_treatment_tibial_shaft_fracture
+CPT,27752,207X00000X,Orthopaedic Surgery Physician | proc_closed_treatment_tibial_shaft_fracture
+MS-DRG,0513,207XS0117X,Orthopaedic Surgery of the Spine Physician | proc_hand_wrist_proc
+MS-DRG,0514,207XS0117X,Orthopaedic Surgery of the Spine Physician | proc_hand_wrist_proc
+CPT,27130,207X00000X,Orthopaedic Surgery Physician | proc_hip_replacement
+MS-DRG,0469,207X00000X,Orthopaedic Surgery Physician | proc_hip_replacement
+MS-DRG,0470,207X00000X,Orthopaedic Surgery Physician | proc_hip_replacement
+CPT,73580,2085R0202X,Diagnostic Radiology Physician | proc_knee_arthrography
+CPT,27446,207X00000X,Orthopaedic Surgery Physician | proc_knee_replacement
+CPT,27447,207X00000X,Orthopaedic Surgery Physician | proc_knee_replacement
+MS-DRG,0466,207X00000X,Orthopaedic Surgery Physician | proc_knee_replacement
+MS-DRG,0467,207X00000X,Orthopaedic Surgery Physician | proc_knee_replacement
+MS-DRG,0468,207X00000X,Orthopaedic Surgery Physician | proc_knee_replacement
+CPT,27486,207X00000X,Orthopaedic Surgery Physician | proc_revision_knee_arthroplasty
+CPT,27487,207X00000X,Orthopaedic Surgery Physician | proc_revision_knee_arthroplasty
+CPT,64721,207T00000X,Neurological Surgery Physician | proc_carpal_tunnel_release
+CPT,64721,207XS0117X,Orthopaedic Surgery of the Spine Physician | proc_carpal_tunnel_release
+CPT,64722,207T00000X,Neurological Surgery Physician | proc_decompression_unspecified_nerve
+CPT,29848,207T00000X,Neurological Surgery Physician | proc_endoscopic_carpal_tunnel_release
+CPT,29848,207XS0117X,Orthopaedic Surgery of the Spine Physician | proc_endoscopic_carpal_tunnel_release
+CPT,64704,207T00000X,Neurological Surgery Physician | proc_neuroplasty
+CPT,64708,207T00000X,Neurological Surgery Physician | proc_neuroplasty
+CPT,64718,207T00000X,Neurological Surgery Physician | proc_neuroplasty
+CPT,64719,207T00000X,Neurological Surgery Physician | proc_neuroplasty
+CPT,17000,207N00000X,Dermatology Physician | proc_precancer_skin_growth_destruction
+CPT,17002,207N00000X,Dermatology Physician | proc_precancer_skin_growth_destruction
+CPT,17003,207N00000X,Dermatology Physician | proc_precancer_skin_growth_destruction
+CPT,17004,207N00000X,Dermatology Physician | proc_precancer_skin_growth_destruction
+CPT,11102,207N00000X,Dermatology Physician | proc_skin_growth_biopsy
+CPT,11103,207N00000X,Dermatology Physician | proc_skin_growth_biopsy
+CPT,11104,207N00000X,Dermatology Physician | proc_skin_growth_biopsy
+CPT,11105,207N00000X,Dermatology Physician | proc_skin_growth_biopsy
+CPT,11106,207N00000X,Dermatology Physician | proc_skin_growth_biopsy
+CPT,11107,207N00000X,Dermatology Physician | proc_skin_growth_biopsy
+CPT,17110,207N00000X,Dermatology Physician | proc_skin_growth_destruction
+CPT,17111,207N00000X,Dermatology Physician | proc_skin_growth_destruction
+CPT,52000,208800000X,Urology Physician | proc_bladder_urethra_endoscopy
+CPT,51702,208800000X,Urology Physician | proc_foley_catheter_insertion
+CPT,51703,208800000X,Urology Physician | proc_foley_catheter_insertion
+CPT,92557,231H00000X,Audiologist | proc_hearing_speech_test
+CPT,92567,231H00000X,Audiologist | proc_tympanometry_test
+CPT,31575,207Y00000X,Otolaryngology Physician | proc_voice_box_endoscopy
+CPT,94729,207RP1001X,Pulmonary Disease Physician | proc_lung_diffusing_capacity_test
+CPT,94640,207P00000X,Emergency Medicine Physician | proc_nebulizer_treatment
+CPT,94640,207RP1001X,Pulmonary Disease Physician | proc_nebulizer_treatment
+CPT,94760,207P00000X,Emergency Medicine Physician | proc_pulse_oximetry
+CPT,94760,207R00000X,Internal Medicine Physician | proc_pulse_oximetry
+CPT,94760,207RP1001X,Pulmonary Disease Physician | proc_pulse_oximetry
+CPT,94761,207P00000X,Emergency Medicine Physician | proc_pulse_oximetry
+CPT,94761,207R00000X,Internal Medicine Physician | proc_pulse_oximetry
+CPT,94761,207RP1001X,Pulmonary Disease Physician | proc_pulse_oximetry
+CPT,94762,207P00000X,Emergency Medicine Physician | proc_pulse_oximetry
+CPT,94762,207R00000X,Internal Medicine Physician | proc_pulse_oximetry
+CPT,94762,207RP1001X,Pulmonary Disease Physician | proc_pulse_oximetry
+CPT,94010,207RP1001X,Pulmonary Disease Physician | proc_spirometry_test
+CPT,94060,207RP1001X,Pulmonary Disease Physician | proc_spirometry_test
+CPT,95885,2084N0400X,Neurology Physician | proc_emg
+CPT,95885,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_emg
+CPT,95886,2084N0400X,Neurology Physician | proc_emg
+CPT,95886,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_emg
+CPT,62270,207P00000X,Emergency Medicine Physician | proc_lumbar_puncture
+CPT,62270,2084N0400X,Neurology Physician | proc_lumbar_puncture
+CPT,62272,207P00000X,Emergency Medicine Physician | proc_lumbar_puncture
+CPT,62272,2084N0400X,Neurology Physician | proc_lumbar_puncture
+CPT,95907,2084N0400X,Neurology Physician | proc_nerve_conduction_study
+CPT,95907,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_nerve_conduction_study
+CPT,95908,2084N0400X,Neurology Physician | proc_nerve_conduction_study
+CPT,95908,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_nerve_conduction_study
+CPT,95909,2084N0400X,Neurology Physician | proc_nerve_conduction_study
+CPT,95909,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_nerve_conduction_study
+CPT,95910,2084N0400X,Neurology Physician | proc_nerve_conduction_study
+CPT,95910,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_nerve_conduction_study
+CPT,95911,2084N0400X,Neurology Physician | proc_nerve_conduction_study
+CPT,95911,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_nerve_conduction_study
+CPT,95912,2084N0400X,Neurology Physician | proc_nerve_conduction_study
+CPT,95912,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_nerve_conduction_study
+CPT,95913,2084N0400X,Neurology Physician | proc_nerve_conduction_study
+CPT,95913,204D00000X,Neuromusculoskeletal Medicine & OMM Physician | proc_nerve_conduction_study
+CPT,90791,103TC0700X,Clinical Psychologist | proc_psychiatric_eval
+CPT,90791,1041C0700X,Clinical Social Worker | proc_psychiatric_eval
+CPT,90791,103T00000X,Psychologist | proc_psychiatric_eval
+CPT,90792,363LP0808X,Psychiatric/Mental Health Nurse Practitioner | proc_psychiatric_eval
+CPT,90792,2084P0800X,Psychiatry Physician | proc_psychiatric_eval
+CPT,90833,363LP0808X,Psychiatric/Mental Health Nurse Practitioner | proc_psychotherapy
+CPT,90833,2084P0800X,Psychiatry Physician | proc_psychotherapy
+CPT,90834,103TC0700X,Clinical Psychologist | proc_psychotherapy
+CPT,90834,1041C0700X,Clinical Social Worker | proc_psychotherapy
+CPT,90834,103T00000X,Psychologist | proc_psychotherapy
+CPT,90836,103TC0700X,Clinical Psychologist | proc_psychotherapy
+CPT,90836,1041C0700X,Clinical Social Worker | proc_psychotherapy
+CPT,90836,2084P0800X,Psychiatry Physician | proc_psychotherapy
+CPT,90836,103T00000X,Psychologist | proc_psychotherapy
+CPT,90837,101YA0400X,Addiction (Substance Use Disorder) Counselor | proc_psychotherapy
+CPT,90837,103G00000X,Clinical Neuropsychologist | proc_psychotherapy
+CPT,90837,103TC0700X,Clinical Psychologist | proc_psychotherapy
+CPT,90837,1041C0700X,Clinical Social Worker | proc_psychotherapy
+CPT,90837,103TC1900X,Counseling Psychologist | proc_psychotherapy
+CPT,90837,101YM0800X,Mental Health Counselor | proc_psychotherapy
+CPT,90837,363LP0808X,Psychiatric/Mental Health Nurse Practitioner | proc_psychotherapy
+CPT,90837,2084P0800X,Psychiatry Physician | proc_psychotherapy
+CPT,90837,103T00000X,Psychologist | proc_psychotherapy
+CPT,90837,104100000X,Social Worker | proc_psychotherapy
+CPT,90838,103TC0700X,Clinical Psychologist | proc_psychotherapy
+CPT,90838,1041C0700X,Clinical Social Worker | proc_psychotherapy
+CPT,90838,2084P0800X,Psychiatry Physician | proc_psychotherapy
+CPT,90838,103T00000X,Psychologist | proc_psychotherapy
+HCPCS,G0283,225100000X,Physical Therapist | proc_electrical_stimulation_physical_therapy
+CPT,97760,225100000X,Physical Therapist | proc_orthotic_prosthetic_training
+CPT,97760,224P00000X,Prosthetist | proc_orthotic_prosthetic_training
+CPT,97761,225100000X,Physical Therapist | proc_orthotic_prosthetic_training
+CPT,97761,224P00000X,Prosthetist | proc_orthotic_prosthetic_training
+CPT,97763,225100000X,Physical Therapist | proc_orthotic_prosthetic_training
+CPT,97763,224P00000X,Prosthetist | proc_orthotic_prosthetic_training
+CPT,97750,225100000X,Physical Therapist | proc_physical_performance_test
+CPT,97110,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97112,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97116,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97140,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97150,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97161,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97162,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97163,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97164,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97530,225100000X,Physical Therapist | proc_physical_therapy
+CPT,97535,225X00000X,Occupational Therapist | proc_self_care_training
+CPT,97535,225100000X,Physical Therapist | proc_self_care_training
+CPT,98940,111N00000X,Chiropractor | proc_spinal_chiropractic
+CPT,98941,111N00000X,Chiropractor | proc_spinal_chiropractic
+CPT,97542,225X00000X,Occupational Therapist | proc_wheelchair_management
+CPT,97542,225100000X,Physical Therapist | proc_wheelchair_management
+CPT,92950,207RC0200X,Critical Care Medicine (Internal Medicine) Physician | proc_cardiopulmonary_resuscitation
+CPT,92950,207P00000X,Emergency Medicine Physician | proc_cardiopulmonary_resuscitation
+CPT,99291,207P00000X,Emergency Medicine Physician | proc_critical_care
+CPT,99292,207RC0200X,Critical Care Medicine (Internal Medicine) Physician | proc_critical_care
+CPT,99292,207P00000X,Emergency Medicine Physician | proc_critical_care
+CPT,99281,207P00000X,Emergency Medicine Physician | proc_emergency_visit
+CPT,99282,207P00000X,Emergency Medicine Physician | proc_emergency_visit
+CPT,99283,207P00000X,Emergency Medicine Physician | proc_emergency_visit
+CPT,99284,207P00000X,Emergency Medicine Physician | proc_emergency_visit
+CPT,99285,207P00000X,Emergency Medicine Physician | proc_emergency_visit
+CPT,31500,207L00000X,Anesthesiology Physician | proc_endotracheal_intubation
+CPT,31500,207P00000X,Emergency Medicine Physician | proc_endotracheal_intubation
+CPT,99238,208M00000X,Hospitalist Physician | proc_hospital_discharge_day_30_min_or_less
+CPT,99238,207R00000X,Internal Medicine Physician | proc_hospital_discharge_day_30_min_or_less
+CPT,99221,208600000X,Surgery Physician | proc_initial_hospital_care
+CPT,99222,207R00000X,Internal Medicine Physician | proc_initial_hospital_care
+CPT,99223,207R00000X,Internal Medicine Physician | proc_initial_hospital_care
+CPT,99305,207Q00000X,Family Medicine Physician | proc_initial_nursing_facility_care
+CPT,99305,207R00000X,Internal Medicine Physician | proc_initial_nursing_facility_care
+CPT,99306,207Q00000X,Family Medicine Physician | proc_initial_nursing_facility_care
+CPT,99306,207R00000X,Internal Medicine Physician | proc_initial_nursing_facility_care
+CPT,99231,208M00000X,Hospitalist Physician | proc_subsequent_hospital_care
+CPT,99231,207R00000X,Internal Medicine Physician | proc_subsequent_hospital_care
+CPT,99231,208600000X,Surgery Physician | proc_subsequent_hospital_care
+CPT,99232,207R00000X,Internal Medicine Physician | proc_subsequent_hospital_care
+CPT,99233,207R00000X,Internal Medicine Physician | proc_subsequent_hospital_care
+CPT,99307,207Q00000X,Family Medicine Physician | proc_subsequent_nursing_facility_care
+CPT,99307,207R00000X,Internal Medicine Physician | proc_subsequent_nursing_facility_care
+CPT,99308,363LA2200X,Adult Health Nurse Practitioner | proc_subsequent_nursing_facility_care
+CPT,99308,207Q00000X,Family Medicine Physician | proc_subsequent_nursing_facility_care
+CPT,99308,363LF0000X,Family Nurse Practitioner | proc_subsequent_nursing_facility_care
+CPT,99308,207R00000X,Internal Medicine Physician | proc_subsequent_nursing_facility_care
+CPT,99308,363L00000X,Nurse Practitioner | proc_subsequent_nursing_facility_care
+CPT,99309,363LA2200X,Adult Health Nurse Practitioner | proc_subsequent_nursing_facility_care
+CPT,99309,207Q00000X,Family Medicine Physician | proc_subsequent_nursing_facility_care
+CPT,99309,363LF0000X,Family Nurse Practitioner | proc_subsequent_nursing_facility_care
+CPT,99309,207R00000X,Internal Medicine Physician | proc_subsequent_nursing_facility_care
+CPT,99309,363L00000X,Nurse Practitioner | proc_subsequent_nursing_facility_care
+CPT,99310,207Q00000X,Family Medicine Physician | proc_subsequent_nursing_facility_care
+CPT,99310,207R00000X,Internal Medicine Physician | proc_subsequent_nursing_facility_care
+CPT,99497,207Q00000X,Family Medicine Physician | proc_advance_care_planning
+CPT,99497,207R00000X,Internal Medicine Physician | proc_advance_care_planning
+HCPCS,G0438,207Q00000X,Family Medicine Physician | proc_annual_wellness_visit
+HCPCS,G0438,363LF0000X,Family Nurse Practitioner | proc_annual_wellness_visit
+HCPCS,G0438,207R00000X,Internal Medicine Physician | proc_annual_wellness_visit
+HCPCS,G0438,363A00000X,Physician Assistant | proc_annual_wellness_visit
+HCPCS,G0439,207Q00000X,Family Medicine Physician | proc_annual_wellness_visit
+HCPCS,G0439,363LF0000X,Family Nurse Practitioner | proc_annual_wellness_visit
+HCPCS,G0439,207R00000X,Internal Medicine Physician | proc_annual_wellness_visit
+HCPCS,G0439,363A00000X,Physician Assistant | proc_annual_wellness_visit
+CPT,99439,207Q00000X,Family Medicine Physician | proc_chronic_care_management
+CPT,99439,207R00000X,Internal Medicine Physician | proc_chronic_care_management
+CPT,99490,207Q00000X,Family Medicine Physician | proc_chronic_care_management
+CPT,99490,207R00000X,Internal Medicine Physician | proc_chronic_care_management
+CPT,99348,207Q00000X,Family Medicine Physician | proc_home_visit
+CPT,99348,363LF0000X,Family Nurse Practitioner | proc_home_visit
+CPT,99348,207R00000X,Internal Medicine Physician | proc_home_visit
+CPT,99348,363L00000X,Nurse Practitioner | proc_home_visit
+CPT,99349,207Q00000X,Family Medicine Physician | proc_home_visit
+CPT,99349,363LF0000X,Family Nurse Practitioner | proc_home_visit
+CPT,99349,207R00000X,Internal Medicine Physician | proc_home_visit
+CPT,99349,363L00000X,Nurse Practitioner | proc_home_visit
+CPT,99201,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99201,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99201,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99201,363A00000X,Physician Assistant | proc_office_visit
+CPT,99202,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99202,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99202,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99202,363A00000X,Physician Assistant | proc_office_visit
+CPT,99203,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99203,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99203,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99203,363A00000X,Physician Assistant | proc_office_visit
+CPT,99204,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99204,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99204,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99204,363A00000X,Physician Assistant | proc_office_visit
+CPT,99205,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99205,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99205,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99205,363A00000X,Physician Assistant | proc_office_visit
+CPT,99211,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99211,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99211,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99211,363A00000X,Physician Assistant | proc_office_visit
+CPT,99212,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99212,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99212,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99212,363A00000X,Physician Assistant | proc_office_visit
+CPT,99213,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99213,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99213,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99213,363A00000X,Physician Assistant | proc_office_visit
+CPT,99214,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99214,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99214,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99214,363A00000X,Physician Assistant | proc_office_visit
+CPT,99215,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99215,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99215,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99215,363A00000X,Physician Assistant | proc_office_visit
+CPT,99385,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99385,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99385,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99385,363A00000X,Physician Assistant | proc_office_visit
+CPT,99386,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99386,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99386,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99386,363A00000X,Physician Assistant | proc_office_visit
+CPT,99387,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99387,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99387,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99387,363A00000X,Physician Assistant | proc_office_visit
+CPT,99395,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99395,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99395,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99395,363A00000X,Physician Assistant | proc_office_visit
+CPT,99396,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99396,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99396,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99396,363A00000X,Physician Assistant | proc_office_visit
+CPT,99397,207Q00000X,Family Medicine Physician | proc_office_visit
+CPT,99397,363LF0000X,Family Nurse Practitioner | proc_office_visit
+CPT,99397,207R00000X,Internal Medicine Physician | proc_office_visit
+CPT,99397,363A00000X,Physician Assistant | proc_office_visit
+CPT,99421,207Q00000X,Family Medicine Physician | proc_tele_medical_discussion
+CPT,99421,207R00000X,Internal Medicine Physician | proc_tele_medical_discussion
+CPT,99422,207Q00000X,Family Medicine Physician | proc_tele_medical_discussion
+CPT,99422,207R00000X,Internal Medicine Physician | proc_tele_medical_discussion
+CPT,99423,207Q00000X,Family Medicine Physician | proc_tele_medical_discussion
+CPT,99423,207R00000X,Internal Medicine Physician | proc_tele_medical_discussion
+CPT,99441,207Q00000X,Family Medicine Physician | proc_tele_medical_discussion
+CPT,99441,207R00000X,Internal Medicine Physician | proc_tele_medical_discussion
+CPT,99442,207Q00000X,Family Medicine Physician | proc_tele_medical_discussion
+CPT,99442,207R00000X,Internal Medicine Physician | proc_tele_medical_discussion
+CPT,99443,207Q00000X,Family Medicine Physician | proc_tele_medical_discussion
+CPT,99443,207R00000X,Internal Medicine Physician | proc_tele_medical_discussion
+CPT,99495,207Q00000X,Family Medicine Physician | proc_transitional_care_mngmnt
+CPT,99495,207R00000X,Internal Medicine Physician | proc_transitional_care_mngmnt
+CPT,99496,207Q00000X,Family Medicine Physician | proc_transitional_care_mngmnt
+CPT,99496,207R00000X,Internal Medicine Physician | proc_transitional_care_mngmnt
+CPT,80074,207Q00000X,Family Medicine Physician | proc_acute_hepatitis_panel
+CPT,80074,207R00000X,Internal Medicine Physician | proc_acute_hepatitis_panel
+CPT,82040,207Q00000X,Family Medicine Physician | proc_albumin
+CPT,82040,207R00000X,Internal Medicine Physician | proc_albumin
+CPT,84075,207Q00000X,Family Medicine Physician | proc_alkaline_phosphatase
+CPT,84075,207R00000X,Internal Medicine Physician | proc_alkaline_phosphatase
+CPT,84460,207Q00000X,Family Medicine Physician | proc_alt_sgpt
+CPT,84460,207R00000X,Internal Medicine Physician | proc_alt_sgpt
+CPT,84450,207Q00000X,Family Medicine Physician | proc_ast_sgot
+CPT,84450,207R00000X,Internal Medicine Physician | proc_ast_sgot
+CPT,82247,207Q00000X,Family Medicine Physician | proc_bilirubin
+CPT,82247,207R00000X,Internal Medicine Physician | proc_bilirubin
+CPT,82248,207Q00000X,Family Medicine Physician | proc_bilirubin
+CPT,82248,207R00000X,Internal Medicine Physician | proc_bilirubin
+CPT,36415,207Q00000X,Family Medicine Physician | proc_blood_collection
+CPT,36415,207R00000X,Internal Medicine Physician | proc_blood_collection
+CPT,87040,207Q00000X,Family Medicine Physician | proc_blood_culture
+CPT,87040,207R00000X,Internal Medicine Physician | proc_blood_culture
+CPT,82803,207Q00000X,Family Medicine Physician | proc_blood_gas
+CPT,82803,207R00000X,Internal Medicine Physician | proc_blood_gas
+CPT,82805,207Q00000X,Family Medicine Physician | proc_blood_gas
+CPT,82805,207R00000X,Internal Medicine Physician | proc_blood_gas
+CPT,86900,207Q00000X,Family Medicine Physician | proc_blood_typing
+CPT,86900,207R00000X,Internal Medicine Physician | proc_blood_typing
+CPT,86901,207Q00000X,Family Medicine Physician | proc_blood_typing
+CPT,86901,207R00000X,Internal Medicine Physician | proc_blood_typing
+CPT,64415,207L00000X,Anesthesiology Physician | proc_brachial_plexus_block
+CPT,64415,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_brachial_plexus_block
+CPT,64416,207L00000X,Anesthesiology Physician | proc_brachial_plexus_block
+CPT,64416,207LP2900X,Pain Medicine (Anesthesiology) Physician | proc_brachial_plexus_block
+CPT,84520,207Q00000X,Family Medicine Physician | proc_bun
+CPT,84520,207R00000X,Internal Medicine Physician | proc_bun
+CPT,82310,207Q00000X,Family Medicine Physician | proc_calcium_total
+CPT,82310,207R00000X,Internal Medicine Physician | proc_calcium_total
+CPT,82465,207Q00000X,Family Medicine Physician | proc_cholesterol_total
+CPT,82465,207R00000X,Internal Medicine Physician | proc_cholesterol_total
+CPT,82550,207Q00000X,Family Medicine Physician | proc_ck
+CPT,82550,207R00000X,Internal Medicine Physician | proc_ck
+CPT,82553,207Q00000X,Family Medicine Physician | proc_ck
+CPT,82553,207R00000X,Internal Medicine Physician | proc_ck
+CPT,85610,207Q00000X,Family Medicine Physician | proc_clotting_time_blood_test
+CPT,85610,207R00000X,Internal Medicine Physician | proc_clotting_time_blood_test
+CPT,85025,207Q00000X,Family Medicine Physician | proc_complete_blood_cell_count_blood_test
+CPT,85025,207R00000X,Internal Medicine Physician | proc_complete_blood_cell_count_blood_test
+CPT,82565,207Q00000X,Family Medicine Physician | proc_creatinine
+CPT,82565,207R00000X,Internal Medicine Physician | proc_creatinine
+CPT,82570,207Q00000X,Family Medicine Physician | proc_creatinine_blood_test
+CPT,82570,207R00000X,Internal Medicine Physician | proc_creatinine_blood_test
+CPT,82607,207Q00000X,Family Medicine Physician | proc_cyanocobalamin_blood_test
+CPT,82607,207R00000X,Internal Medicine Physician | proc_cyanocobalamin_blood_test
+CPT,82270,207Q00000X,Family Medicine Physician | proc_fecal_occult_blood
+CPT,82270,207R00000X,Internal Medicine Physician | proc_fecal_occult_blood
+CPT,82728,207Q00000X,Family Medicine Physician | proc_ferritin_blood_test
+CPT,82728,207R00000X,Internal Medicine Physician | proc_ferritin_blood_test
+CPT,84439,207Q00000X,Family Medicine Physician | proc_free_thyroxine_blood_test
+CPT,84439,207R00000X,Internal Medicine Physician | proc_free_thyroxine_blood_test
+CPT,82977,207Q00000X,Family Medicine Physician | proc_ggt
+CPT,82977,207R00000X,Internal Medicine Physician | proc_ggt
+CPT,82947,207Q00000X,Family Medicine Physician | proc_glucose_blood_test
+CPT,82947,207R00000X,Internal Medicine Physician | proc_glucose_blood_test
+CPT,82950,207Q00000X,Family Medicine Physician | proc_glucose_blood_test
+CPT,82950,207R00000X,Internal Medicine Physician | proc_glucose_blood_test
+CPT,82962,207Q00000X,Family Medicine Physician | proc_glucose_blood_test
+CPT,82962,207R00000X,Internal Medicine Physician | proc_glucose_blood_test
+CPT,82951,207Q00000X,Family Medicine Physician | proc_glucose_tolerance_test
+CPT,82951,207R00000X,Internal Medicine Physician | proc_glucose_tolerance_test
+CPT,80048,207Q00000X,Family Medicine Physician | proc_group_chemicals_blood_test
+CPT,80048,207R00000X,Internal Medicine Physician | proc_group_chemicals_blood_test
+CPT,80053,207Q00000X,Family Medicine Physician | proc_group_chemicals_blood_test
+CPT,80053,207R00000X,Internal Medicine Physician | proc_group_chemicals_blood_test
+CPT,83718,207Q00000X,Family Medicine Physician | proc_hdl_cholesterol
+CPT,83718,207R00000X,Internal Medicine Physician | proc_hdl_cholesterol
+CPT,85014,207Q00000X,Family Medicine Physician | proc_hematocrit
+CPT,85014,207R00000X,Internal Medicine Physician | proc_hematocrit
+CPT,85018,207Q00000X,Family Medicine Physician | proc_hemoglobin
+CPT,85018,207R00000X,Internal Medicine Physician | proc_hemoglobin
+CPT,83036,207Q00000X,Family Medicine Physician | proc_hemoglobin_a1c_blood_test
+CPT,83036,207R00000X,Internal Medicine Physician | proc_hemoglobin_a1c_blood_test
+CPT,80076,207Q00000X,Family Medicine Physician | proc_hepatic_function_panel
+CPT,80076,207R00000X,Internal Medicine Physician | proc_hepatic_function_panel
+CPT,83550,207Q00000X,Family Medicine Physician | proc_iron_binding_capacity
+CPT,83550,207R00000X,Internal Medicine Physician | proc_iron_binding_capacity
+CPT,83540,207Q00000X,Family Medicine Physician | proc_iron_blood_test
+CPT,83540,207R00000X,Internal Medicine Physician | proc_iron_blood_test
+CPT,83605,207Q00000X,Family Medicine Physician | proc_lactate
+CPT,83605,207R00000X,Internal Medicine Physician | proc_lactate
+CPT,83615,207Q00000X,Family Medicine Physician | proc_ldh
+CPT,83615,207R00000X,Internal Medicine Physician | proc_ldh
+CPT,83721,207Q00000X,Family Medicine Physician | proc_ldl_cholesterol
+CPT,83721,207R00000X,Internal Medicine Physician | proc_ldl_cholesterol
+CPT,80061,207Q00000X,Family Medicine Physician | proc_lipids_blood_test
+CPT,80061,207R00000X,Internal Medicine Physician | proc_lipids_blood_test
+CPT,83735,207Q00000X,Family Medicine Physician | proc_magnesium
+CPT,83735,207R00000X,Internal Medicine Physician | proc_magnesium
+CPT,82043,207Q00000X,Family Medicine Physician | proc_microalbumin_urinalysis
+CPT,82043,207R00000X,Internal Medicine Physician | proc_microalbumin_urinalysis
+CPT,83880,207Q00000X,Family Medicine Physician | proc_natriuretic_peptide_bnp
+CPT,83880,207R00000X,Internal Medicine Physician | proc_natriuretic_peptide_bnp
+CPT,85730,207Q00000X,Family Medicine Physician | proc_partial_thromboplastin_time_ptt
+CPT,85730,207R00000X,Internal Medicine Physician | proc_partial_thromboplastin_time_ptt
+CPT,84100,207Q00000X,Family Medicine Physician | proc_phosphorus
+CPT,84100,207R00000X,Internal Medicine Physician | proc_phosphorus
+CPT,84132,207Q00000X,Family Medicine Physician | proc_potassium
+CPT,84132,207R00000X,Internal Medicine Physician | proc_potassium
+CPT,84153,207Q00000X,Family Medicine Physician | proc_prostate_specific_antigen_blood_test
+CPT,84153,207R00000X,Internal Medicine Physician | proc_prostate_specific_antigen_blood_test
+CPT,84153,208800000X,Urology Physician | proc_prostate_specific_antigen_blood_test
+CPT,84295,207Q00000X,Family Medicine Physician | proc_sodium
+CPT,84295,207R00000X,Internal Medicine Physician | proc_sodium
+CPT,84478,207Q00000X,Family Medicine Physician | proc_triglycerides
+CPT,84478,207R00000X,Internal Medicine Physician | proc_triglycerides
+CPT,84484,207Q00000X,Family Medicine Physician | proc_troponin_quantitative
+CPT,84484,207R00000X,Internal Medicine Physician | proc_troponin_quantitative
+CPT,84443,207Q00000X,Family Medicine Physician | proc_tsh_blood_test
+CPT,84443,207R00000X,Internal Medicine Physician | proc_tsh_blood_test
+CPT,84550,207Q00000X,Family Medicine Physician | proc_uric_acid_blood
+CPT,84550,207R00000X,Internal Medicine Physician | proc_uric_acid_blood
+CPT,82306,207Q00000X,Family Medicine Physician | proc_vitamin_d3_blood_test
+CPT,82306,207R00000X,Internal Medicine Physician | proc_vitamin_d3_blood_test
+CPT,86870,207Q00000X,Family Medicine Physician | proc_antibody_identification
+CPT,86870,207R00000X,Internal Medicine Physician | proc_antibody_identification
+CPT,86038,207Q00000X,Family Medicine Physician | proc_antinuclear_antibody
+CPT,86038,207R00000X,Internal Medicine Physician | proc_antinuclear_antibody
+CPT,86140,207Q00000X,Family Medicine Physician | proc_c_reactive_protein
+CPT,86140,207R00000X,Internal Medicine Physician | proc_c_reactive_protein
+CPT,86141,207Q00000X,Family Medicine Physician | proc_c_reactive_protein
+CPT,86141,207R00000X,Internal Medicine Physician | proc_c_reactive_protein
+CPT,87338,207Q00000X,Family Medicine Physician | proc_h_pylori_stool_antigen
+CPT,87338,207R00000X,Internal Medicine Physician | proc_h_pylori_stool_antigen
+CPT,86677,207Q00000X,Family Medicine Physician | proc_helicobacter_pylori_antibody
+CPT,86677,207R00000X,Internal Medicine Physician | proc_helicobacter_pylori_antibody
+CPT,87340,207Q00000X,Family Medicine Physician | proc_hepatitis_b_surface_antigen
+CPT,87340,207R00000X,Internal Medicine Physician | proc_hepatitis_b_surface_antigen
+CPT,86803,207Q00000X,Family Medicine Physician | proc_hepatitis_c_antibody
+CPT,86803,207R00000X,Internal Medicine Physician | proc_hepatitis_c_antibody
+CPT,87389,207Q00000X,Family Medicine Physician | proc_hiv_1_antigen_with_antibodies
+CPT,87389,207R00000X,Internal Medicine Physician | proc_hiv_1_antigen_with_antibodies
+CPT,86703,207Q00000X,Family Medicine Physician | proc_hiv_antibody_test
+CPT,86703,207R00000X,Internal Medicine Physician | proc_hiv_antibody_test
+CPT,87804,207Q00000X,Family Medicine Physician | proc_influenza_doo_immunoassay
+CPT,87804,207R00000X,Internal Medicine Physician | proc_influenza_doo_immunoassay
+CPT,86850,207Q00000X,Family Medicine Physician | proc_rbc_antibody_screen
+CPT,86850,207R00000X,Internal Medicine Physician | proc_rbc_antibody_screen
+CPT,86762,207Q00000X,Family Medicine Physician | proc_rubella_antibody
+CPT,86762,207R00000X,Internal Medicine Physician | proc_rubella_antibody
+CPT,87905,207Q00000X,Family Medicine Physician | proc_sars_cov_2_antigen
+CPT,87905,207R00000X,Internal Medicine Physician | proc_sars_cov_2_antigen
+CPT,87811,207Q00000X,Family Medicine Physician | proc_sarscov2_doo_immunoassay
+CPT,87811,207R00000X,Internal Medicine Physician | proc_sarscov2_doo_immunoassay
+CPT,87426,207Q00000X,Family Medicine Physician | proc_sarscov2_immunoassay
+CPT,87426,207R00000X,Internal Medicine Physician | proc_sarscov2_immunoassay
+CPT,87428,207Q00000X,Family Medicine Physician | proc_sarscov2_influenza_immunoassay
+CPT,87428,207R00000X,Internal Medicine Physician | proc_sarscov2_influenza_immunoassay
+CPT,85651,207Q00000X,Family Medicine Physician | proc_sedimentation_rate_automated
+CPT,85651,207R00000X,Internal Medicine Physician | proc_sedimentation_rate_automated
+CPT,87880,207Q00000X,Family Medicine Physician | proc_streptococcus_doo_immunoassay
+CPT,87880,207R00000X,Internal Medicine Physician | proc_streptococcus_doo_immunoassay
+CPT,86780,207Q00000X,Family Medicine Physician | proc_treponema_pallidum_antibody
+CPT,86780,207R00000X,Internal Medicine Physician | proc_treponema_pallidum_antibody
+CPT,87624,207Q00000X,Family Medicine Physician | proc_c_difficile_toxin
+CPT,87624,207R00000X,Internal Medicine Physician | proc_c_difficile_toxin
+CPT,87110,207Q00000X,Family Medicine Physician | proc_chlamydia_culture
+CPT,87110,207R00000X,Internal Medicine Physician | proc_chlamydia_culture
+CPT,87491,207Q00000X,Family Medicine Physician | proc_chlamydia_dna_probe
+CPT,87491,207R00000X,Internal Medicine Physician | proc_chlamydia_dna_probe
+CPT,87635,207Q00000X,Family Medicine Physician | proc_covid_19_pcr
+CPT,87635,207R00000X,Internal Medicine Physician | proc_covid_19_pcr
+CPT,87070,207Q00000X,Family Medicine Physician | proc_culture_bacterial
+CPT,87070,207R00000X,Internal Medicine Physician | proc_culture_bacterial
+CPT,87081,207Q00000X,Family Medicine Physician | proc_culture_bacterial
+CPT,87081,207R00000X,Internal Medicine Physician | proc_culture_bacterial
+CPT,87801,207Q00000X,Family Medicine Physician | proc_multiple_organism_dna_probe
+CPT,87801,207R00000X,Internal Medicine Physician | proc_multiple_organism_dna_probe
+CPT,87591,207Q00000X,Family Medicine Physician | proc_neisseria_dna_probe
+CPT,87591,207R00000X,Internal Medicine Physician | proc_neisseria_dna_probe
+CPT,87045,207Q00000X,Family Medicine Physician | proc_stool_culture
+CPT,87045,207R00000X,Internal Medicine Physician | proc_stool_culture
+CPT,86592,207Q00000X,Family Medicine Physician | proc_syphilis_test_qualitative
+CPT,86592,207R00000X,Internal Medicine Physician | proc_syphilis_test_qualitative
+CPT,86580,207Q00000X,Family Medicine Physician | proc_tb_skin_test
+CPT,86580,207R00000X,Internal Medicine Physician | proc_tb_skin_test
+CPT,87086,207Q00000X,Family Medicine Physician | proc_urine_culture
+CPT,87086,207R00000X,Internal Medicine Physician | proc_urine_culture
+CPT,81000,207Q00000X,Family Medicine Physician | proc_urinalysis
+CPT,81000,207R00000X,Internal Medicine Physician | proc_urinalysis
+CPT,81001,207Q00000X,Family Medicine Physician | proc_urinalysis
+CPT,81001,207R00000X,Internal Medicine Physician | proc_urinalysis
+CPT,81002,207Q00000X,Family Medicine Physician | proc_urinalysis
+CPT,81002,207R00000X,Internal Medicine Physician | proc_urinalysis
+CPT,81003,207Q00000X,Family Medicine Physician | proc_urinalysis
+CPT,81003,207R00000X,Internal Medicine Physician | proc_urinalysis
+CPT,81025,207Q00000X,Family Medicine Physician | proc_urine_pregnancy_test
+CPT,81025,207R00000X,Internal Medicine Physician | proc_urine_pregnancy_test
+CPT,82105,207Q00000X,Family Medicine Physician | proc_alpha_fetoprotein_serum
+CPT,82105,207R00000X,Internal Medicine Physician | proc_alpha_fetoprotein_serum
+CPT,86300,207Q00000X,Family Medicine Physician | proc_ca_125
+CPT,86300,207R00000X,Internal Medicine Physician | proc_ca_125
+CPT,86304,207Q00000X,Family Medicine Physician | proc_ca_19_9
+CPT,86304,207R00000X,Internal Medicine Physician | proc_ca_19_9
+CPT,82378,207Q00000X,Family Medicine Physician | proc_cea
+CPT,82378,207R00000X,Internal Medicine Physician | proc_cea
+CPT,80305,207Q00000X,Family Medicine Physician | proc_drug_screen
+CPT,80305,207R00000X,Internal Medicine Physician | proc_drug_screen
+CPT,80307,207Q00000X,Family Medicine Physician | proc_drug_screen
+CPT,80307,207R00000X,Internal Medicine Physician | proc_drug_screen
+CPT,84702,207Q00000X,Family Medicine Physician | proc_hcg
+CPT,84702,207R00000X,Internal Medicine Physician | proc_hcg
+CPT,84703,207Q00000X,Family Medicine Physician | proc_hcg
+CPT,84703,207R00000X,Internal Medicine Physician | proc_hcg
+CPT,88341,207ZP0102X,Anatomic Pathology & Clinical Pathology Physician | proc_immunohistochemistry
+CPT,88341,207ZP0101X,Anatomic Pathology Physician | proc_immunohistochemistry
+CPT,88342,207ZP0102X,Anatomic Pathology & Clinical Pathology Physician | proc_immunohistochemistry
+CPT,88342,207ZP0101X,Anatomic Pathology Physician | proc_immunohistochemistry
+CPT,88304,207ZP0102X,Anatomic Pathology & Clinical Pathology Physician | proc_surgical_pathology
+CPT,88304,207ZP0101X,Anatomic Pathology Physician | proc_surgical_pathology
+CPT,88307,207ZP0102X,Anatomic Pathology & Clinical Pathology Physician | proc_surgical_pathology
+CPT,88307,207ZP0101X,Anatomic Pathology Physician | proc_surgical_pathology
+CPT,88309,207ZP0102X,Anatomic Pathology & Clinical Pathology Physician | proc_surgical_pathology
+CPT,88309,207ZP0101X,Anatomic Pathology Physician | proc_surgical_pathology
+CPT,96413,207RH0003X,Hematology & Oncology Physician | proc_vein_chemotherapy
+CPT,96413,207RX0202X,Medical Oncology Physician | proc_vein_chemotherapy
+CPT,99477,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_neonatal_intensive_care
+CPT,99477,208000000X,Pediatrics Physician | proc_neonatal_intensive_care
+CPT,99478,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_neonatal_intensive_care
+CPT,99478,208000000X,Pediatrics Physician | proc_neonatal_intensive_care
+CPT,99479,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_neonatal_intensive_care
+CPT,99479,208000000X,Pediatrics Physician | proc_neonatal_intensive_care
+CPT,99480,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_neonatal_intensive_care
+CPT,99480,208000000X,Pediatrics Physician | proc_neonatal_intensive_care
+CPT,99460,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_newborn_care
+CPT,99460,208000000X,Pediatrics Physician | proc_newborn_care
+CPT,99461,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_newborn_care
+CPT,99461,208000000X,Pediatrics Physician | proc_newborn_care
+CPT,99462,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_newborn_care
+CPT,99462,208000000X,Pediatrics Physician | proc_newborn_care
+CPT,99463,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_newborn_care
+CPT,99463,208000000X,Pediatrics Physician | proc_newborn_care
+CPT,99464,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_newborn_care
+CPT,99464,208000000X,Pediatrics Physician | proc_newborn_care
+CPT,99465,2080N0001X,Neonatal-Perinatal Medicine Physician | proc_newborn_care
+CPT,99465,208000000X,Pediatrics Physician | proc_newborn_care
+CPT,36400,207Q00000X,Family Medicine Physician | proc_venipuncture_younger_than_3
+CPT,36400,208000000X,Pediatrics Physician | proc_venipuncture_younger_than_3
+CPT,90471,3336C0003X,Community/Retail Pharmacy | proc_influenza_vaccine
+CPT,90471,207Q00000X,Family Medicine Physician | proc_influenza_vaccine
+CPT,90471,207R00000X,Internal Medicine Physician | proc_influenza_vaccine
+CPT,90471,333600000X,Pharmacy | proc_influenza_vaccine
+CPT,90472,3336C0003X,Community/Retail Pharmacy | proc_influenza_vaccine
+CPT,90472,207Q00000X,Family Medicine Physician | proc_influenza_vaccine
+CPT,90472,207R00000X,Internal Medicine Physician | proc_influenza_vaccine
+CPT,90472,333600000X,Pharmacy | proc_influenza_vaccine
+CPT,90662,3336C0003X,Community/Retail Pharmacy | proc_influenza_vaccine
+CPT,90662,332B00000X,Durable Medical Equipment & Medical Supplies | proc_influenza_vaccine
+CPT,90662,207Q00000X,Family Medicine Physician | proc_influenza_vaccine
+CPT,90662,207R00000X,Internal Medicine Physician | proc_influenza_vaccine
+CPT,90662,333600000X,Pharmacy | proc_influenza_vaccine
+CPT,90686,3336C0003X,Community/Retail Pharmacy | proc_influenza_vaccine
+CPT,90686,207Q00000X,Family Medicine Physician | proc_influenza_vaccine
+CPT,90686,207R00000X,Internal Medicine Physician | proc_influenza_vaccine
+CPT,90686,333600000X,Pharmacy | proc_influenza_vaccine
+CPT,90694,3336C0003X,Community/Retail Pharmacy | proc_influenza_vaccine
+CPT,90694,207Q00000X,Family Medicine Physician | proc_influenza_vaccine
+CPT,90694,207R00000X,Internal Medicine Physician | proc_influenza_vaccine
+CPT,90694,333600000X,Pharmacy | proc_influenza_vaccine
+HCPCS,G0008,3336C0003X,Community/Retail Pharmacy | proc_influenza_vaccine
+HCPCS,G0008,207Q00000X,Family Medicine Physician | proc_influenza_vaccine
+HCPCS,G0008,207R00000X,Internal Medicine Physician | proc_influenza_vaccine
+HCPCS,G0008,333600000X,Pharmacy | proc_influenza_vaccine
+CPT,90677,3336C0003X,Community/Retail Pharmacy | proc_pneumococcal_vaccine
+CPT,90677,207Q00000X,Family Medicine Physician | proc_pneumococcal_vaccine
+CPT,90677,207R00000X,Internal Medicine Physician | proc_pneumococcal_vaccine
+CPT,90677,333600000X,Pharmacy | proc_pneumococcal_vaccine
+HCPCS,G0009,3336C0003X,Community/Retail Pharmacy | proc_pneumococcal_vaccine
+HCPCS,G0009,207Q00000X,Family Medicine Physician | proc_pneumococcal_vaccine
+HCPCS,G0009,207R00000X,Internal Medicine Physician | proc_pneumococcal_vaccine
+HCPCS,G0009,333600000X,Pharmacy | proc_pneumococcal_vaccine
+CPT,0124A,3336C0003X,Community/Retail Pharmacy | proc_sarscov2_vaccine
+CPT,0124A,333600000X,Pharmacy | proc_sarscov2_vaccine
+CPT,0134A,3336C0003X,Community/Retail Pharmacy | proc_sarscov2_vaccine
+CPT,0134A,333600000X,Pharmacy | proc_sarscov2_vaccine
+CPT,90480,3336C0003X,Community/Retail Pharmacy | proc_sarscov2_vaccine
+CPT,90480,332B00000X,Durable Medical Equipment & Medical Supplies | proc_sarscov2_vaccine
+CPT,90480,207Q00000X,Family Medicine Physician | proc_sarscov2_vaccine
+CPT,90480,207R00000X,Internal Medicine Physician | proc_sarscov2_vaccine
+CPT,90480,333600000X,Pharmacy | proc_sarscov2_vaccine
+CPT,91320,3336C0003X,Community/Retail Pharmacy | proc_sarscov2_vaccine
+CPT,91320,207Q00000X,Family Medicine Physician | proc_sarscov2_vaccine
+CPT,91320,207R00000X,Internal Medicine Physician | proc_sarscov2_vaccine
+CPT,91320,333600000X,Pharmacy | proc_sarscov2_vaccine
+CPT,91322,3336C0003X,Community/Retail Pharmacy | proc_sarscov2_vaccine
+CPT,91322,207Q00000X,Family Medicine Physician | proc_sarscov2_vaccine
+CPT,91322,207R00000X,Internal Medicine Physician | proc_sarscov2_vaccine
+CPT,91322,333600000X,Pharmacy | proc_sarscov2_vaccine
+HCPCS,J0171,207P00000X,Emergency Medicine Physician | proc_adrenaline_injection
+HCPCS,J0171,207Q00000X,Family Medicine Physician | proc_adrenaline_injection
+HCPCS,J0171,207R00000X,Internal Medicine Physician | proc_adrenaline_injection
+HCPCS,J0456,207P00000X,Emergency Medicine Physician | proc_azithromycin_injection
+HCPCS,J0456,207Q00000X,Family Medicine Physician | proc_azithromycin_injection
+HCPCS,J0456,207R00000X,Internal Medicine Physician | proc_azithromycin_injection
+HCPCS,J0475,207P00000X,Emergency Medicine Physician | proc_baclofen_injection
+HCPCS,J0475,207Q00000X,Family Medicine Physician | proc_baclofen_injection
+HCPCS,J0475,207R00000X,Internal Medicine Physician | proc_baclofen_injection
+HCPCS,J0690,207P00000X,Emergency Medicine Physician | proc_cefazolin_injection
+HCPCS,J0690,207Q00000X,Family Medicine Physician | proc_cefazolin_injection
+HCPCS,J0690,207R00000X,Internal Medicine Physician | proc_cefazolin_injection
+HCPCS,J2400,207P00000X,Emergency Medicine Physician | proc_chloroprocaine_injection
+HCPCS,J2400,207Q00000X,Family Medicine Physician | proc_chloroprocaine_injection
+HCPCS,J2400,207R00000X,Internal Medicine Physician | proc_chloroprocaine_injection
+HCPCS,J1100,207P00000X,Emergency Medicine Physician | proc_dexamethasone_injection
+HCPCS,J1100,207Q00000X,Family Medicine Physician | proc_dexamethasone_injection
+HCPCS,J1100,207R00000X,Internal Medicine Physician | proc_dexamethasone_injection
+HCPCS,J1650,207P00000X,Emergency Medicine Physician | proc_enoxaparin_injection
+HCPCS,J1650,207Q00000X,Family Medicine Physician | proc_enoxaparin_injection
+HCPCS,J1650,207R00000X,Internal Medicine Physician | proc_enoxaparin_injection
+HCPCS,J0360,207P00000X,Emergency Medicine Physician | proc_hydralazine_injection
+HCPCS,J0360,207Q00000X,Family Medicine Physician | proc_hydralazine_injection
+HCPCS,J0360,207R00000X,Internal Medicine Physician | proc_hydralazine_injection
+HCPCS,J2001,207P00000X,Emergency Medicine Physician | proc_lidocaine_injection
+HCPCS,J2001,207Q00000X,Family Medicine Physician | proc_lidocaine_injection
+HCPCS,J2001,207R00000X,Internal Medicine Physician | proc_lidocaine_injection
+HCPCS,J2175,207P00000X,Emergency Medicine Physician | proc_meperidine_injection
+HCPCS,J2175,207Q00000X,Family Medicine Physician | proc_meperidine_injection
+HCPCS,J2175,207R00000X,Internal Medicine Physician | proc_meperidine_injection
+HCPCS,J1030,207P00000X,Emergency Medicine Physician | proc_methylprednisolone_injection
+HCPCS,J1030,207Q00000X,Family Medicine Physician | proc_methylprednisolone_injection
+HCPCS,J1030,207R00000X,Internal Medicine Physician | proc_methylprednisolone_injection
+HCPCS,J1040,207P00000X,Emergency Medicine Physician | proc_methylprednisolone_injection
+HCPCS,J1040,207Q00000X,Family Medicine Physician | proc_methylprednisolone_injection
+HCPCS,J1040,207R00000X,Internal Medicine Physician | proc_methylprednisolone_injection
+HCPCS,J2765,207P00000X,Emergency Medicine Physician | proc_metoclopramide_injection
+HCPCS,J2765,207Q00000X,Family Medicine Physician | proc_metoclopramide_injection
+HCPCS,J2765,207R00000X,Internal Medicine Physician | proc_metoclopramide_injection
+HCPCS,J2250,207P00000X,Emergency Medicine Physician | proc_midazolam_injection
+HCPCS,J2250,207Q00000X,Family Medicine Physician | proc_midazolam_injection
+HCPCS,J2250,207R00000X,Internal Medicine Physician | proc_midazolam_injection
+HCPCS,J2270,207P00000X,Emergency Medicine Physician | proc_morphine_injection
+HCPCS,J2270,207Q00000X,Family Medicine Physician | proc_morphine_injection
+HCPCS,J2270,207R00000X,Internal Medicine Physician | proc_morphine_injection
+HCPCS,J2310,207P00000X,Emergency Medicine Physician | proc_naloxone_injection
+HCPCS,J2310,207Q00000X,Family Medicine Physician | proc_naloxone_injection
+HCPCS,J2310,207R00000X,Internal Medicine Physician | proc_naloxone_injection
+HCPCS,J2405,207P00000X,Emergency Medicine Physician | proc_ondansetron_injection
+HCPCS,J2405,207Q00000X,Family Medicine Physician | proc_ondansetron_injection
+HCPCS,J2405,207R00000X,Internal Medicine Physician | proc_ondansetron_injection
+HCPCS,J2550,207P00000X,Emergency Medicine Physician | proc_promethazine_injection
+HCPCS,J2550,207Q00000X,Family Medicine Physician | proc_promethazine_injection
+HCPCS,J2550,207R00000X,Internal Medicine Physician | proc_promethazine_injection
+HCPCS,J2704,207P00000X,Emergency Medicine Physician | proc_propofol_injection
+HCPCS,J2704,207Q00000X,Family Medicine Physician | proc_propofol_injection
+HCPCS,J2704,207R00000X,Internal Medicine Physician | proc_propofol_injection
+HCPCS,J3370,207P00000X,Emergency Medicine Physician | proc_vancomycin_injection
+HCPCS,J3370,207Q00000X,Family Medicine Physician | proc_vancomycin_injection
+HCPCS,J3370,207R00000X,Internal Medicine Physician | proc_vancomycin_injection
+CPT,96360,207P00000X,Emergency Medicine Physician | proc_iv_infusion_hydration
+CPT,96360,207R00000X,Internal Medicine Physician | proc_iv_infusion_hydration
+CPT,96361,207P00000X,Emergency Medicine Physician | proc_iv_infusion_hydration
+CPT,96361,207R00000X,Internal Medicine Physician | proc_iv_infusion_hydration
+CPT,96365,207P00000X,Emergency Medicine Physician | proc_iv_infusion_therapeutic
+CPT,96365,207R00000X,Internal Medicine Physician | proc_iv_infusion_therapeutic
+CPT,96365,207RX0202X,Medical Oncology Physician | proc_iv_infusion_therapeutic
+CPT,96366,207P00000X,Emergency Medicine Physician | proc_iv_infusion_therapeutic
+CPT,96366,207R00000X,Internal Medicine Physician | proc_iv_infusion_therapeutic
+CPT,96366,207RX0202X,Medical Oncology Physician | proc_iv_infusion_therapeutic
+CPT,96367,207P00000X,Emergency Medicine Physician | proc_iv_infusion_therapeutic
+CPT,96367,207R00000X,Internal Medicine Physician | proc_iv_infusion_therapeutic
+CPT,96367,207RX0202X,Medical Oncology Physician | proc_iv_infusion_therapeutic
+CPT,96368,207P00000X,Emergency Medicine Physician | proc_iv_infusion_therapeutic
+CPT,96368,207R00000X,Internal Medicine Physician | proc_iv_infusion_therapeutic
+CPT,96368,207RX0202X,Medical Oncology Physician | proc_iv_infusion_therapeutic
+CPT,96374,207P00000X,Emergency Medicine Physician | proc_iv_push
+CPT,96374,207R00000X,Internal Medicine Physician | proc_iv_push
+CPT,96375,207P00000X,Emergency Medicine Physician | proc_iv_push
+CPT,96375,207R00000X,Internal Medicine Physician | proc_iv_push
+CPT,36620,207L00000X,Anesthesiology Physician | proc_arterial_line_placement
+CPT,36620,207RC0200X,Critical Care Medicine (Internal Medicine) Physician | proc_arterial_line_placement
+CPT,36620,207P00000X,Emergency Medicine Physician | proc_arterial_line_placement
+CPT,36600,207RC0200X,Critical Care Medicine (Internal Medicine) Physician | proc_arterial_puncture
+CPT,36600,207P00000X,Emergency Medicine Physician | proc_arterial_puncture
+CPT,36556,207RC0200X,Critical Care Medicine (Internal Medicine) Physician | proc_central_venous_catheter_insertion
+CPT,36556,207P00000X,Emergency Medicine Physician | proc_central_venous_catheter_insertion
+CPT,36569,2085R0202X,Diagnostic Radiology Physician | proc_picc_insertion
+CPT,36569,207R00000X,Internal Medicine Physician | proc_picc_insertion
+HCPCS,G0442,207Q00000X,Family Medicine Physician | proc_annual_alcohol_screening
+HCPCS,G0442,363LF0000X,Family Nurse Practitioner | proc_annual_alcohol_screening
+HCPCS,G0442,207R00000X,Internal Medicine Physician | proc_annual_alcohol_screening
+HCPCS,G0442,363A00000X,Physician Assistant | proc_annual_alcohol_screening
+HCPCS,G0444,207Q00000X,Family Medicine Physician | proc_annual_depression_screening
+HCPCS,G0444,363LF0000X,Family Nurse Practitioner | proc_annual_depression_screening
+HCPCS,G0444,207R00000X,Internal Medicine Physician | proc_annual_depression_screening
+HCPCS,G0444,363A00000X,Physician Assistant | proc_annual_depression_screening
+CPT,80320,207Q00000X,Family Medicine Physician | proc_alcohols
+CPT,80320,207R00000X,Internal Medicine Physician | proc_alcohols
+CPT,85027,207Q00000X,Family Medicine Physician | proc_cbc_automated
+CPT,85027,207R00000X,Internal Medicine Physician | proc_cbc_automated
+CPT,13100,208600000X,Surgery Physician | proc_complex_laceration_repair
+CPT,13101,208600000X,Surgery Physician | proc_complex_laceration_repair
+CPT,93926,207RC0000X,Cardiovascular Disease Physician | proc_duplex_lower_extremity_arterial_unilateral
+CPT,93926,2086S0129X,Vascular Surgery Physician | proc_duplex_lower_extremity_arterial_unilateral
+CPT,43235,207RG0100X,Gastroenterology Physician | proc_egd
+CPT,43236,207RG0100X,Gastroenterology Physician | proc_egd
+CPT,43239,207RG0100X,Gastroenterology Physician | proc_egd
+CPT,12031,207P00000X,Emergency Medicine Physician | proc_intermediate_laceration_repair
+CPT,12031,208600000X,Surgery Physician | proc_intermediate_laceration_repair
+CPT,12032,207P00000X,Emergency Medicine Physician | proc_intermediate_laceration_repair
+CPT,12032,208600000X,Surgery Physician | proc_intermediate_laceration_repair
+CPT,43752,2085R0202X,Diagnostic Radiology Physician | proc_ng_tube_placement_with_imaging
+HCPCS,J0585,207P00000X,Emergency Medicine Physician | proc_onabotulinumtoxin_a
+HCPCS,J0585,207Q00000X,Family Medicine Physician | proc_onabotulinumtoxin_a
+HCPCS,J0585,207R00000X,Internal Medicine Physician | proc_onabotulinumtoxin_a
+HCPCS,L8699,207X00000X,Orthopaedic Surgery Physician | proc_prosthetic_implant_nos
+HCPCS,J8510,207RC0000X,Cardiovascular Disease Physician | proc_rivaroxaban_oral
+HCPCS,J8510,207R00000X,Internal Medicine Physician | proc_rivaroxaban_oral
+CPT,12001,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12001,208600000X,Surgery Physician | proc_simple_laceration_repair
+CPT,12002,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12002,208600000X,Surgery Physician | proc_simple_laceration_repair
+CPT,12004,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12004,208600000X,Surgery Physician | proc_simple_laceration_repair
+CPT,12005,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12005,208600000X,Surgery Physician | proc_simple_laceration_repair
+CPT,12006,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12006,208600000X,Surgery Physician | proc_simple_laceration_repair
+CPT,12011,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12011,208600000X,Surgery Physician | proc_simple_laceration_repair
+CPT,12013,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12013,208600000X,Surgery Physician | proc_simple_laceration_repair
+CPT,12014,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12014,208600000X,Surgery Physician | proc_simple_laceration_repair
+CPT,12015,207P00000X,Emergency Medicine Physician | proc_simple_laceration_repair
+CPT,12015,208600000X,Surgery Physician | proc_simple_laceration_repair
+HCPCS,J3490,207R00000X,Internal Medicine Physician | proc_unclassified_drug
+HCPCS,J7322,207W00000X,Ophthalmology Physician | proc_viscoelastic_substance
