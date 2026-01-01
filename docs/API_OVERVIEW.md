@@ -153,5 +153,6 @@ Test endpoints using:
 
 - **[API Mapping Table](../API_MAPPING_TABLE.md)** - Detailed frontend-backend route mapping
 - **[API Contract](./API_CONTRACT.md)** - Formal API specification
+- **[Routing + Entity Identity Contract](./ROUTING_ENTITY_IDENTITY_CONTRACT.md)** - Canonical routes and entity model
 - **[Integration Guide](./INTEGRATION_GUIDE.md)** - Frontend integration guide
 

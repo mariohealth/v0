@@ -165,6 +165,7 @@ Note: Newly added endpoints contain stub responses and are marked for full imple
 - **[Complete Integration Guide](./docs/INTEGRATION_GUIDE.md)** - Detailed API specs, types, and examples
 - **[Monday Integration Call](./docs/MONDAY_INTEGRATION.md)** - Handoff checklist and success criteria
 - **[API Contract](./docs/API_CONTRACT.md)** - Formal API specification
+- **[Routing + Entity Identity Contract](./docs/ROUTING_ENTITY_IDENTITY_CONTRACT.md)** - Canonical routes and entity model
 - **[Deployment Checklist](./docs/DEPLOYMENT_CHECKLIST.md)** - Pre-deployment verification guide
 - **[Swagger API Docs](https://mario-health-api-72178908097.us-central1.run.app/docs)** - Interactive API documentation
 
