@@ -153,7 +153,7 @@ function HomePageContent() {
   };
 
   const handleFindDoctors = () => {
-    router.push('/doctors');
+    router.push('/specialties');
   };
 
   const handleFindMedication = () => {
