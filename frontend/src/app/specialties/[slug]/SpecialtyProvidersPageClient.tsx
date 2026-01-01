@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState, FormEvent } from 'react';
+import { useEffect, useMemo, useState, useRef, FormEvent } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { MapPin } from 'lucide-react';
@@ -149,10 +149,16 @@ type Props = {
   slug: string;
 };
 
+const SLUG_ALIAS: Record<string, string> = {
+  cardiology: 'cardiologist',
+  cardiologist: 'cardiologist',
+};
+
 export default function SpecialtyProvidersPageClient({ slug }: Props) {
   const router = useRouter();
   const searchParamsHook = useSearchParams();
   const queryKey = searchParamsHook?.toString() ?? '';
+  const aliasAttempted = useRef(false);
   const [state, setState] = useState<{
     data: SpecialtyProvidersResponse | null;
     error: string | null;
@@ -190,6 +196,22 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
         setState({ data: result, error: null, loading: false });
       } catch (err) {
         if (controller.signal.aborted) return;
+
+        // Handle slug alias redirect on 404 "Specialty not found"
+        const message = err instanceof Error ? err.message : String(err);
+        if (
+          message.toLowerCase().includes('specialty not found') &&
+          !aliasAttempted.current
+        ) {
+          const alias = SLUG_ALIAS[slug];
+          if (alias && alias !== slug) {
+            aliasAttempted.current = true;
+            const params = new URLSearchParams(searchParamsHook?.toString() ?? '');
+            router.replace(`/specialties/${encodeURIComponent(alias)}?${params.toString()}`);
+            return;
+          }
+        }
+
         setState({
           data: null,
           error: err instanceof Error ? err.message : 'Failed to load providers',

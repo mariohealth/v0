@@ -20,7 +20,7 @@ export default function HomePage() {
     
     // Specialty routing (preserve autocomplete metadata)
     if (suggestion?.type === 'specialty') {
-      const slug = suggestion.specialtyId || suggestion.slug
+      const slug = suggestion.slug || suggestion.specialtyId
       if (!slug) {
         if (process.env.NODE_ENV !== 'production') {
           console.warn('[home] specialty suggestion missing slug', suggestion)
