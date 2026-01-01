@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS billing_code_nucc_specialty_map (
     billing_code_type TEXT,
     billing_code TEXT,
     taxonomy_id TEXT,
+    notes TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );
 -- Row-level security (if using Supabase RLS)
