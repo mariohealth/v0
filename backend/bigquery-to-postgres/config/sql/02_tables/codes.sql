@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS codes (
     name TEXT,
     description TEXT,
     is_active BOOLEAN,
-    category TEXT
+    category TEXT,
     is_packaged BOOLEAN,
     packaging_note TEXT,
     created_at TIMESTAMP DEFAULT NOW()

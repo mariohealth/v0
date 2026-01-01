@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS bundle_groups (
     selection_type TEXT,
     display_order INTEGER,
     is_required BOOLEAN,
-    min_selections INTEGER
+    min_selections INTEGER,
     max_selections INTEGER,
     phase TEXT,
     created_at TIMESTAMP DEFAULT NOW()

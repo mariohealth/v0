@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS bundles (
     category TEXT,
     global_period_days INTEGER,
     is_active BOOLEAN,
-    typical_setting TEXT
+    typical_setting TEXT,
     estimated_duration_hours INTEGER,
     created_at TIMESTAMP DEFAULT NOW()
 );
