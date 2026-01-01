@@ -212,15 +212,6 @@ TABLES = {
         'incremental_column': None,
     },
 
-    'specialty_procedure_map': {
-        'bigquery_table': 'specialty_procedure_map',
-        'postgres_table': 'specialty_procedure_map',
-        'primary_key': 'id',
-        'required_columns': ['specialty_id', 'procedure_id', 'visit_type', 'is_representative'],
-        'sync_mode': 'full_refresh',
-        'incremental_column': None,
-    },
-
     'zip_codes': {
         'bigquery_table': 'zip_codes',
         'postgres_table': 'zip_codes',
