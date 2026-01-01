@@ -15,6 +15,10 @@ FRONTEND_DIR="$( cd "$SCRIPT_DIR/.." && pwd )"
 
 cd "$FRONTEND_DIR"
 
+# 0. Guardrail: ensure no /search navigations exist
+echo -e "${BLUE}Step 0: Checking for legacy /search navigations...${NC}"
+./scripts/validate-no-search-route.sh
+
 # 1. Check next.config.mjs for 'output: export'
 echo -e "${BLUE}Step 1: Validating production output mode in next.config.mjs...${NC}"
 if ! NODE_ENV=production node --input-type=module <<'NODE'
