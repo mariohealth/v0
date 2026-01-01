@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ProviderCard } from '@/components/mario-card';
 import { EmptyResults } from './EmptyResults';
+import { BackButton } from '@/components/navigation/BackButton';
 
 export interface SpecialtyProviderLocation {
   address?: string | null;
@@ -170,8 +171,11 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
-      <header className="space-y-2">
-        <h1 className="text-2xl font-semibold">{specialty.name}</h1>
+      <header className="space-y-4">
+        <div className="flex items-center gap-4">
+          <BackButton />
+          <h1 className="text-2xl font-semibold">{specialty.name}</h1>
+        </div>
         {rangeText && <p className="text-sm text-muted-foreground">{rangeText}</p>}
         <p className="text-xs text-muted-foreground">
           Pricing is shown at the facility (organization) level. Providers at the same location may share the same pricing.
@@ -222,9 +226,8 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
             type="button"
             disabled={!hasPrev || isPending}
             onClick={() => hasPrev && handlePageChange(Math.max(0, offset - limit))}
-            className={`px-3 py-2 rounded-md text-sm border ${
-              hasPrev ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
-            }`}
+            className={`px-3 py-2 rounded-md text-sm border ${hasPrev ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
+              }`}
           >
             Previous
           </button>
@@ -232,9 +235,8 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
             type="button"
             disabled={!hasNext || isPending}
             onClick={() => hasNext && handlePageChange(nextOffset)}
-            className={`px-3 py-2 rounded-md text-sm border ${
-              hasNext ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
-            }`}
+            className={`px-3 py-2 rounded-md text-sm border ${hasNext ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
+              }`}
           >
             Next
           </button>

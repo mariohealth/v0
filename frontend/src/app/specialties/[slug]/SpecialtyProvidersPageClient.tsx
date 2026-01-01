@@ -9,6 +9,7 @@ import SpecialtyProvidersClient, {
   SpecialtyProvidersResponse,
 } from './SpecialtyProvidersClient';
 import { getApiBaseUrl } from '@/lib/api-base';
+import { BackButton } from '@/components/navigation/BackButton';
 
 type SearchParamsRecord = {
   zip_code?: string;
@@ -86,9 +87,7 @@ function ZipPrompt({ onSubmit }: ZipPromptProps) {
             Find Providers
           </button>
         </form>
-        <Link href="/" className="text-sm text-primary underline">
-          Go back home
-        </Link>
+        <BackButton label="Go back" className="mx-auto" />
       </div>
     </main>
   );
@@ -247,9 +246,7 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
         <div className="max-w-lg text-center space-y-3">
           <h1 className="text-xl font-semibold text-foreground">Unable to load specialty providers</h1>
           <p className="text-sm text-muted-foreground">{state.error || 'Failed to load providers'}</p>
-          <Link href="/" className="text-primary text-sm underline">
-            Go back home
-          </Link>
+          <BackButton label="Go back" className="mx-auto" />
         </div>
       </main>
     );

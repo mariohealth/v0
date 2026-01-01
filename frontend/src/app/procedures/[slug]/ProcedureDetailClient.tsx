@@ -9,6 +9,7 @@ import { ArrowLeft, Filter, Map } from 'lucide-react';
 import { toast } from 'sonner';
 import { isFeatureEnabled } from '@/lib/flags';
 import { OrgCard } from '@/components/OrgCard';
+import { BackButton } from '@/components/navigation/BackButton';
 
 // Grouping interface
 interface OrgGroup {
@@ -149,9 +150,7 @@ export default function ProcedureDetailClient() {
     return null;
   }
 
-  const handleBack = () => {
-    router.push('/procedures');
-  };
+  // Removed local handleBack, using shared BackButton instead
 
   const handleOrgClick = (group: OrgGroup) => {
     // Navigate to org detail page with procedure context
@@ -184,12 +183,7 @@ export default function ProcedureDetailClient() {
       <div className="sticky top-0 bg-white z-10 shadow-sm border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
-            <button
-              onClick={handleBack}
-              className="p-2 hover:bg-gray-50 rounded-full transition-colors"
-            >
-              <ArrowLeft className="h-6 w-6 text-[#2E5077]" />
-            </button>
+            <BackButton />
             <div className="flex-1">
               <h1 className="text-xl font-bold text-[#2E5077]">{procedureName || slug}</h1>
               <p className="text-sm text-[#4DA1A9] font-medium">

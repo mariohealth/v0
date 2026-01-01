@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { AuthProvider } from "@/lib/contexts/AuthContext";
 import { ToastProvider } from "@/components/ui/toast-provider";
 import { GlobalNav } from "@/components/navigation/GlobalNav";
+import { NavigationTracker } from "@/components/navigation/NavigationTracker";
 import { MarioAIFloatingButton } from "@/components/mario-ai-floating-button";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
+          <NavigationTracker />
           <ToastProvider>
             {children}
             <MarioAIFloatingButton />
