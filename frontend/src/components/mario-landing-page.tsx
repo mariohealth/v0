@@ -490,7 +490,7 @@ export function MarioLandingPage({ onSearch, onSignUp, onLogin, onNavigateToAbou
           <div style={{ marginBottom: '16px', position: 'relative' }}>
             <MarioSmartSearch
               placeholder="Search doctors, services, or meds..."
-              onSearch={(query) => handleSearch(query)}
+              onSearch={(query, suggestion) => handleSearch(query, suggestion)}
               onAutocompleteSelect={(suggestion: AutocompleteSuggestion) => {
                 handleSearch(suggestion.primaryText, suggestion);
               }}

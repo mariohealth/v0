@@ -111,7 +111,10 @@ async function fetchSpecialtyProviders(
   signal?: AbortSignal
 ): Promise<SpecialtyProvidersResponse> {
   const base = getApiBaseUrl();
-  const url = new URL(`/api/v1/specialties/${slug}/providers`, base);
+  const path = `/api/v1/specialties/${slug}/providers`;
+  const url = base.startsWith('http')
+    ? new URL(path, base).toString()
+    : path;
 
   const zip = searchParams.get('zip_code');
   const radius = parseNumber(searchParams.get('radius_miles'), 25);
