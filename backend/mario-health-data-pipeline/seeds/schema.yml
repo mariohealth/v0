@@ -1,0 +1,100 @@
+version: 2
+
+# dbt seeds
+seeds:
+  - name: billing_code_nucc_specialty_map
+    description: >
+      A mapping of billing codes (CPT, MS-DRG, HSPCS) to NUCC specialties. Essential to avoid listing Brain MRI for 
+      psychologists for example. Originally built using Medicare utilization data then expanded using Claude. Be very 
+      thorough and conservative when expanding.
+  - name: bundle_group_codes
+    description: >
+      A mapping of bundle groups (defined in bundle_groups.csv) to codes (defined in codes.csv)
+  - name: bundle_groups
+    description: >
+      A definition of bundle groups and a mapping of bundle groups to bundles. Bundle groups are needed to display the 
+      different "groups" of codes in the UI in a user friendly way. Bundle groups are for example "Pre-op labs", 
+      "Physical Therapy", "Pre-op imaging"
+  - name: bundles
+    description: >
+      A definition of bundles. Bundles are made up of bundle groups which are themselves made up of codes. A bundle is 
+      a complete and complex medical procedure such as an inpatient total knee replacement for example.
+  - name: codes
+    description: >
+      In the future we shouldn't need this file since the "official" place to list billing codes is 
+      procedure_billing_code.csv. It's a definition of billing codes that are needed for our bundles and bundle groups.
+  - name: hospital_aliases
+    description: >
+      A mapping of hospital_ids (as defined in hospitals.csv) to aliases commonly used by Americans. Plan is to use it 
+      to improve hospital search (but I don't think it is used yet).
+  - name: hospital_npi
+    description: >
+      A mapping of hospital_ids to NPI type 2 providers. A single Mario-defined hospital can map to multiple NPIs. 
+      Needed to get institutional rates of billing code since those rates are only listed for NPI type 2 I believe. 
+      Might be redundant with hospital_tins.csv but not sure yet and might be used for other purposes.
+  - name: hospital_systems
+    description: >
+      A definition of hospital systems. An hospital system contains multiple hospitals defined in hospitals. Not sure 
+      why it's needed yet.
+  - name: hospital_tins
+    description: >
+      A mapping of hospital_ids to TIN (tax identification number). This is absolutely essential to list the rate of 
+      a given provider at a specific hospitals (one of our core value proposition). To list rates, insurance carriers 
+      use nameless provider_group_ids in their Transparency in Coverage (TiC) files. These nameless provider_group_ids 
+      are mapped to nameless TINs. This might be the most valuable seed file we have since most TIN data is very 
+      private and not really publicly available on the internet. AIs also struggle to create these mappings. We might
+      have to purchase proprietary data when we expand.
+  - name: hospitals
+    description: >
+      A definition of hospitals and a mapping of hospitals to their corresponding hospital systems (defined in 
+      hospital_systems.csv). The latitude and longitude of the address of the hospitals is very important to power the 
+      search of procedures and specialists based on the user's zip code.
+  - name: insurance_carriers
+    description: >
+      A very basic definition of insurance carriers. The plan is to have the front-end call the API to list available 
+      carriers (i don't think that's the case yet).
+  - name: insurance_plans
+    description: >
+      A very basic definition of insurance plans mapped to the insurance carrier that offer them.
+  - name: nucc_specialty
+    description: >
+      A definition and hierarchy of NUCC (National Uniform Claims Committee) specialties. Downloaded from 
+      https://taxonomy.nucc.org/. This is needed to intelligently map billing code to NUCC specialties which in return 
+      enables us to map billing codes to relevant providers. The main NPI file uses NUCC specialties (calls them 
+      taxonomy). The Medicare utilization files also use NUCC specialties.
+  - name: place_of_service_codes
+    description: >
+      A definition of place of service codes used by insurance carriers in their TiC files. Downloaded from Medicare: 
+      https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets
+  - name: procedure
+    description: >
+      A definition of Mario-created medical procedures meant to be more user-friendly, readable and searchable than 
+      billing codes. Originally created by hand then expanded with Claude. A lot of billing codes are too granular AND 
+      not user friendly thus can be grouped under a single Mario-created medical procedure. For example there are 
+      different CPT codes for incisions of different centimeter sizes, we decided to group them all under one procedure.
+      It also maps procedures to families defined in procedure_family.csv.
+  - name: procedure_billing_code
+    description: >
+      A mapping of Mario-created medical procedures to billing codes such as CPT, HCPCS, MS-DRG. This file is also used
+      throughout DBT to filter out un needed billing codes. Most TiC files are extremely large and we only need rates 
+      for these billing codes for now.
+  - name: procedure_category
+    description: >
+      A definition of Mario-defined categories of procedures. A category is made up of one or more families defined in 
+      procedure_family.csv
+  - name: procedure_family
+    description: >
+      A definition of Mario-defined families of procedures and a mapping of families to their category. A family is 
+      made up of one or more procedures defined in procedure.csv.
+  - name: specialty
+    description: >
+      A definition of Mario-defined medical specialties meant to be more user-friendly, readable and searchable than 
+      NUCC specialties. Used for our specialty search.
+  - name: specialty_map
+    description: >
+      A mapping of Mario-defined specialties to NUCC specialties.
+  - name: tin_metadata
+    description: >
+      A list of TINs and metadata attached to them. Be very careful with this data as TINs are private and not really 
+      available publicly on the internet so there are no guarantee of its accuracy. This is only used to map TINs to 
+      hospitals by hand.
