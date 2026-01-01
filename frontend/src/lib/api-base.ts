@@ -17,39 +17,22 @@
 export function getApiBaseUrl(): string {
     const isBrowser = typeof window !== 'undefined';
 
+    const normalize = (val: string) => (val.endsWith('/') ? val.slice(0, -1) : val);
+
     // SERVER (SSR) — must return ABSOLUTE URL to avoid "Failed to parse URL"
     if (!isBrowser) {
-        // Env precedence for absolute base URL
         const envBase =
             process.env.API_BASE_URL ||
             process.env.NEXT_PUBLIC_API_BASE_URL ||
             'http://localhost:8000';
-
-        // Normalize trailing slash
-        return envBase.endsWith('/') ? envBase.slice(0, -1) : envBase;
+        return normalize(envBase);
     }
 
-    // 1. In browser on Firebase Hosting, ALWAYS use relative URL to leverage proxy
-    const hostname = window.location.hostname;
-    if (
-        hostname.includes('web.app') ||
-        hostname.includes('mariohealth.com') ||
-        hostname === 'localhost' ||
-        hostname === '127.0.0.1'
-    ) {
-        // For both production and local dev, relative paths are handled by proxies 
-        // (Firebase rewrites in prod, Next.js rewrites in local dev)
-        return '/api/v1';
+    // BROWSER — prefer absolute env (needed for static export on Firebase)
+    if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+        return normalize(process.env.NEXT_PUBLIC_API_BASE_URL);
     }
 
-    // 2. Fallback for SSR or other environments (should use relative whenever possible)
-    const base = process.env.NEXT_PUBLIC_API_BASE || '/api/v1';
-
-    // Safety check: strip protocol if it accidentally leaked into NEXT_PUBLIC_API_BASE in a browser environment
-    if (typeof window !== 'undefined' && base.startsWith('http')) {
-        console.warn('[API Base] Absolute URL detected in browser environment. Falling back to relative path to avoid CORS issues.');
-        return '/api/v1';
-    }
-
-    return base.endsWith('/') ? base.slice(0, -1) : base;
+    // Local dev fallback: relative proxy
+    return '/api/v1';
 }

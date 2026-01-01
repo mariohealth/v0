@@ -6,11 +6,11 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { cn } from './ui/utils';
 import { MarioAutocompleteEnhanced, type AutocompleteSuggestion } from './mario-autocomplete-enhanced';
-import { doctors, specialties } from '@/lib/data/mario-doctors-data';
+import { doctors } from '@/lib/data/mario-doctors-data';
 import { searchMedications } from '@/lib/data/mario-medication-data';
 import {
   safeSearchProcedures as searchProcedures,
-  searchSpecialties,
+  getSpecialties,
   searchDoctors
 } from '@/lib/api';
 
@@ -50,6 +50,7 @@ function MarioSmartSearchInner({
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const specialtiesCacheRef = useRef<APISpecialty[] | null>(null);
 
   // Track URL changes to reset state on navigation
   const searchParams = useSearchParams();
@@ -219,22 +220,59 @@ function MarioSmartSearchInner({
           console.error('[SmartSearch] Doctor fetch failed:', err);
         }
 
-        // 3. Specialty suggestions (Local list for routing helpers)
-        const matchingSpecialties = specialties.filter(spec =>
-          fuzzyMatch(spec.name, query)
-        );
+        // 3. Specialty suggestions (API-backed, cached)
+        try {
+          // Fetch specialties once and cache in memory + localStorage
+          const now = Date.now();
+          const ttlMs = 24 * 60 * 60 * 1000; // 24h
+          const cacheKey = 'specialties_cache_v1';
 
-        if (matchingSpecialties.length > 0) {
-          console.log(`[SmartSearch] Specialty matches:`, matchingSpecialties.length);
-          matchingSpecialties.forEach(spec => {
-            suggestions.push({
-              id: spec.id,
-              type: 'specialty',
-              primaryText: spec.name,
-              secondaryText: `Find ${spec.name} specialists`,
-              specialty: spec
+          if (!specialtiesCacheRef.current) {
+            // try localStorage first
+            try {
+              const cached = localStorage.getItem(cacheKey);
+              if (cached) {
+                const parsed = JSON.parse(cached);
+                if (parsed?.ts && now - parsed.ts < ttlMs && Array.isArray(parsed.specialties)) {
+                  specialtiesCacheRef.current = parsed.specialties;
+                }
+              }
+            } catch {
+              // ignore parse/storage errors
+            }
+          }
+
+          if (!specialtiesCacheRef.current) {
+            const apiResult = await getSpecialties();
+            specialtiesCacheRef.current = apiResult?.specialties || [];
+            try {
+              localStorage.setItem(cacheKey, JSON.stringify({ ts: now, specialties: specialtiesCacheRef.current }));
+            } catch {
+              // ignore storage errors
+            }
+          }
+
+          const allSpecialties = specialtiesCacheRef.current || [];
+          const matchingSpecialties = allSpecialties.filter((spec) =>
+            (spec.name || '').toLowerCase().includes(lowerQuery)
+          );
+
+          if (matchingSpecialties.length > 0) {
+            console.log(`[SmartSearch] Specialty matches:`, matchingSpecialties.length);
+            matchingSpecialties.forEach(spec => {
+              suggestions.push({
+                id: spec.slug || spec.id,
+                type: 'specialty' as AutocompleteCategory,
+                primaryText: spec.name || spec.display_name || spec.slug,
+                secondaryText: spec.grouping || undefined,
+                slug: spec.slug,
+                specialtyId: spec.slug,
+                metadata: { display_name: spec.name },
+              });
             });
-          });
+          }
+        } catch (err) {
+          console.error('[SmartSearch] Specialty fetch failed:', err);
         }
 
         // 4. Medication suggestions (Local for now)
