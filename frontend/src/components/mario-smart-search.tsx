@@ -144,6 +144,7 @@ function MarioSmartSearchInner({
 
     debounceRef.current = setTimeout(async () => {
       const suggestions: AutocompleteSuggestion[] = [];
+      const lowerQuery = query.toLowerCase().trim();
       console.log(`[SmartSearch] Starting search for: "${query}" (requestId: ${currentRequestId})`);
 
       try {
@@ -225,7 +226,7 @@ function MarioSmartSearchInner({
           // Fetch specialties once and cache in memory + localStorage
           const now = Date.now();
           const ttlMs = 24 * 60 * 60 * 1000; // 24h
-          const cacheKey = 'specialties_cache_v1';
+          const cacheKey = 'specialties_cache_v2'; // bump to invalidate old empty cache
 
           if (!specialtiesCacheRef.current) {
             // try localStorage first
@@ -244,11 +245,15 @@ function MarioSmartSearchInner({
 
           if (!specialtiesCacheRef.current) {
             const apiResult = await getSpecialties();
-            specialtiesCacheRef.current = apiResult?.specialties || [];
-            try {
-              localStorage.setItem(cacheKey, JSON.stringify({ ts: now, specialties: specialtiesCacheRef.current }));
-            } catch {
-              // ignore storage errors
+            const fetched = apiResult?.specialties;
+            if (Array.isArray(fetched)) {
+              specialtiesCacheRef.current = fetched;
+              // Only cache when fetch succeeded (including a legitimate empty array)
+              try {
+                localStorage.setItem(cacheKey, JSON.stringify({ ts: now, specialties: fetched }));
+              } catch {
+                // ignore storage errors
+              }
             }
           }
 

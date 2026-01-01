@@ -24,7 +24,7 @@ export function getApiBaseUrl(): string {
         const envBase =
             process.env.API_BASE_URL ||
             process.env.NEXT_PUBLIC_API_BASE_URL ||
-            'http://localhost:8000';
+            'http://localhost:8000/api/v1';
         return normalize(envBase);
     }
 
@@ -33,6 +33,6 @@ export function getApiBaseUrl(): string {
         return normalize(process.env.NEXT_PUBLIC_API_BASE_URL);
     }
 
-    // Local dev fallback: relative proxy
-    return '/api/v1';
+    // Local dev fallback: hit local API directly
+    return normalize('http://localhost:8000/api/v1');
 }
