@@ -112,9 +112,12 @@ async function fetchSpecialtyProviders(
 ): Promise<SpecialtyProvidersResponse> {
   const base = getApiBaseUrl();
   const path = `/api/v1/specialties/${slug}/providers`;
-  const url = base.startsWith('http')
-    ? new URL(path, base).toString()
-    : path;
+  // Always construct an absolute URL to safely use searchParams APIs
+  const resolvedBase =
+    base && base.startsWith('http')
+      ? base
+      : (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000');
+  const url = new URL(path, resolvedBase);
 
   const zip = searchParams.get('zip_code');
   const radius = parseNumber(searchParams.get('radius_miles'), 25);
@@ -166,9 +169,9 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
 
   // Handler when user submits ZIP from prompt
   const handleZipSubmit = (zip: string) => {
-    const params = new URLSearchParams(queryKey);
+    const params = new URLSearchParams(searchParamsHook?.toString() ?? '');
     params.set('zip_code', zip);
-    router.push(`/specialties/${encodeURIComponent(slug)}?${params.toString()}`);
+    router.replace(`/specialties/${encodeURIComponent(slug)}?${params.toString()}`);
   };
 
   useEffect(() => {
