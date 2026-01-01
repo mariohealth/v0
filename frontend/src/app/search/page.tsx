@@ -72,7 +72,8 @@ function SearchPageContent() {
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!query.trim()) return;
-        router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+        // Legacy page: do not navigate; show inline guidance instead.
+        setError(`We didn’t find any results for “${query.trim()}”. Please choose a suggestion.`);
     };
 
     const handleClearHistory = () => {

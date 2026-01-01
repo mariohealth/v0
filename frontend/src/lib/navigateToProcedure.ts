@@ -66,9 +66,8 @@ export async function navigateToProcedure(
 
     }
 
-    // If no direct result or multiple results, go to search results page
-    router.push(`/search?q=${encodeURIComponent(trimmedQuery)}`);
-    return true;
+    // No navigation on fallback
+    return false;
 
   } catch (err) {
     console.error('[navigateToProcedure] Failed:', err);

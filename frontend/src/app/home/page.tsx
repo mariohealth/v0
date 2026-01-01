@@ -15,6 +15,7 @@ function HomePageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const procedureSlug = searchParams.get('procedure');
+  const [noResultsMessage, setNoResultsMessage] = useState<string | null>(null);
 
   const [providers, setProviders] = useState<Provider[]>([]);
   const [procedureName, setProcedureName] = useState<string>('');
@@ -129,12 +130,14 @@ function HomePageContent() {
           }
         } catch { /* ignore */ }
         router.push(`/specialties/${encodeURIComponent(slug)}${zipParam}`);
+        setNoResultsMessage(null);
         return;
       }
     }
 
     // Regular search (Enter key without autocomplete selection) - search for procedure on /search page
-    router.push(`/search?q=${encodeURIComponent(trimmedQuery)}`);
+    // Do not navigate; show inline message
+    setNoResultsMessage(`We didn’t find any results for “${trimmedQuery}”. Please choose a suggestion.`);
   };
 
   const handleProviderClick = (providerId: string) => {
@@ -184,6 +187,13 @@ function HomePageContent() {
   return (
     <div className="min-h-screen bg-background">
       <GlobalNav />
+      {noResultsMessage && (
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-4">
+          <div className="rounded-md border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800">
+            {noResultsMessage}
+          </div>
+        </div>
+      )}
       <MarioHome
 
         isReturningUser={true}

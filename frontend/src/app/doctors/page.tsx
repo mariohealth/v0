@@ -48,10 +48,10 @@ function DoctorsPageContent() {
             return;
         }
 
-        // If a procedure is provided, we should redirect to the procedure pricing page
-        // as per the requirement: Procedure search -> Fetch procedure-prices
+        // If a procedure is provided, redirect to the procedure pricing page directly
         if (procedureParam) {
-            router.push(`/search?q=${encodeURIComponent(procedureParam)}`);
+            router.replace(`/procedures/${encodeURIComponent(procedureParam)}`);
+            return;
         }
     }, [user, loading, router, procedureParam, specialtyParam, searchParams]);
 

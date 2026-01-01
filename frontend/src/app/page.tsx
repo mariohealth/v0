@@ -4,9 +4,11 @@ import { MarioLandingPage } from '@/components/mario-landing-page'
 import { useRouter } from 'next/navigation'
 import { navigateToProcedure } from '@/lib/navigateToProcedure'
 import { type AutocompleteSuggestion } from '@/components/mario-autocomplete-enhanced'
+import { useState } from 'react'
 
 export default function HomePage() {
   const router = useRouter()
+  const [noResultsMessage, setNoResultsMessage] = useState<string | null>(null)
 
   const handleSearch = async (query: string, suggestion?: AutocompleteSuggestion) => {
     if (!query.trim()) {
@@ -34,6 +36,7 @@ export default function HomePage() {
           // ignore localStorage errors
         }
         router.push(`/specialties/${slug}${zipParam}`)
+        setNoResultsMessage(null)
         return
       }
     }
@@ -42,9 +45,10 @@ export default function HomePage() {
     const navigated = await navigateToProcedure(trimmedQuery, router)
     
     // If no match found, navigateToProcedure shows toast but doesn't navigate
-    // So we route to /home to show the home page
     if (!navigated) {
-      router.push('/home')
+      setNoResultsMessage(`We didn’t find any results for “${trimmedQuery}”. Please choose a suggestion.`)
+    } else {
+      setNoResultsMessage(null)
     }
   }
 
@@ -61,15 +65,24 @@ export default function HomePage() {
   }
 
   return (
-    <MarioLandingPage
-      onSearch={handleSearch}
-      onSignUp={handleSignUp}
-      onLogin={handleLogin}
-      onNavigateToAbout={() => handleNavigate('/about')}
-      onNavigateToTransparency={() => handleNavigate('/transparency')}
-      onNavigateToContact={() => handleNavigate('/contact')}
-      onNavigateToEmployers={() => handleNavigate('/employers')}
-      onNavigateToPrivacy={() => handleNavigate('/privacy')}
-    />
+    <>
+      {noResultsMessage && (
+        <div className="mx-auto max-w-5xl px-4 pt-4">
+          <div className="rounded-md border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800">
+            {noResultsMessage}
+          </div>
+        </div>
+      )}
+      <MarioLandingPage
+        onSearch={handleSearch}
+        onSignUp={handleSignUp}
+        onLogin={handleLogin}
+        onNavigateToAbout={() => handleNavigate('/about')}
+        onNavigateToTransparency={() => handleNavigate('/transparency')}
+        onNavigateToContact={() => handleNavigate('/contact')}
+        onNavigateToEmployers={() => handleNavigate('/employers')}
+        onNavigateToPrivacy={() => handleNavigate('/privacy')}
+      />
+    </>
   )
 }

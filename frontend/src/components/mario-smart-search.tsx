@@ -323,6 +323,7 @@ function MarioSmartSearchInner({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!showAutocomplete || autocompleteSuggestions.length === 0) {
       if (e.key === 'Enter') {
+        e.preventDefault();
         handleSearch(query);
       }
       return;
