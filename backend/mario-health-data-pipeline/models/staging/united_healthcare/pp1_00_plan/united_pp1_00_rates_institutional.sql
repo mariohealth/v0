@@ -12,8 +12,8 @@ WITH t0 AS (
         source.billing_code,
         source.billing_code_type,
         source.billing_code_type_version,
-        source.description,
-        source.name,
+--        source.description,
+--        source.name,
         rates.negotiated_prices,
         rates.provider_references,
 
@@ -28,8 +28,8 @@ t1 AS (
     CAST(t0.billing_code AS STRING) AS billing_code,
     t0.billing_code_type,
     CAST(t0.billing_code_type_version AS STRING) AS billing_code_type_version,
-    t0.description,
-    t0.name,
+--    t0.description,
+--    t0.name,
     prices.additional_information AS additional_information, -- unlike I previously thought some rows have data for this
     prices.billing_class AS billing_class,
     prices.negotiated_rate AS negotiated_rate,
@@ -52,8 +52,8 @@ SELECT
     billing_code,
     billing_code_type,
     billing_code_type_version,
-    description,
-    name,
+--    description,
+--    name,
     billing_class,
     negotiated_type,
     MAX(negotiated_rate) AS negotiated_rate, -- using MAX to cover for the worst case
@@ -66,7 +66,7 @@ GROUP BY
     billing_code,
     billing_code_type,
     billing_code_type_version,
-    description,
-    name,
+--    description,
+--    name,
     billing_class,
     negotiated_type

@@ -11,7 +11,7 @@ WITH t0 AS ( -- because a procedure is made up of multiple CPT codes, we take th
         rates.npi,
         ROUND(MIN(negotiated_rate_avg), 0) AS negotiated_rate_avg_min,
     FROM
-       {{ ref('united_pp1_00_rates_hospital') }} AS rates
+       {{ ref('united_pp1_00_rates_prof_facility') }} AS rates
     JOIN
         {{ ref('procedure_billing_code') }} AS map
 ON
