@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS procedure_billing_code (
     procedure_id TEXT NOT NULL REFERENCES procedure(id),
     code TEXT NOT NULL,
     code_type TEXT NOT NULL,  -- 'CPT', 'HCPCS', 'G-CODE', 'ICD-10-PCS', etc.
-    description TEXT,
+    code_description TEXT,
     is_primary BOOLEAN DEFAULT false,  -- Is this the primary code for this procedure?
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),

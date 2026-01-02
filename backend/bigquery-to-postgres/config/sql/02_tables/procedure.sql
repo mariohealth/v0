@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS procedure (
     common_name VARCHAR(200),  -- User-friendly search term (e.g., "Brain Scan" for "MRI - Brain")
 
     -- Search optimization
-    search_terms TEXT[],  -- Array of keywords for search matching
+    search_terms TEXT,  -- String of comma separated keywords for search matching
 
     -- Clinical information fields
     typical_duration VARCHAR(100),  -- e.g., "30-45 minutes"
