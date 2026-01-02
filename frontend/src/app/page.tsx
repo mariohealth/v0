@@ -10,6 +10,11 @@ export default function HomePage() {
   const router = useRouter()
   const [noResultsMessage, setNoResultsMessage] = useState<string | null>(null)
 
+  // Helper to check if a string is a valid URL slug
+  const isSlugLike = (str: string): boolean => {
+    return /^[a-z0-9-]+$/i.test(str) && /[a-z-]/.test(str)
+  }
+
   const handleSearch = async (query: string, suggestion?: AutocompleteSuggestion) => {
     if (!query.trim()) {
       router.push('/procedures')
@@ -17,7 +22,7 @@ export default function HomePage() {
     }
 
     const trimmedQuery = query.trim()
-    
+
     // Specialty routing (preserve autocomplete metadata)
     if (suggestion?.type === 'specialty') {
       const slug = suggestion.slug || suggestion.specialtyId
@@ -40,8 +45,22 @@ export default function HomePage() {
         return
       }
     }
-    
-    // Search for procedure and route to /home?procedure=${slug} if found
+
+    // Procedure routing (direct navigation to canonical URL)
+    if (suggestion?.type === 'procedure') {
+      const slug = suggestion.procedureSlug ||
+                   suggestion.slug ||
+                   (suggestion.id && isSlugLike(suggestion.id) ? suggestion.id : null)
+      if (slug) {
+        router.push(`/procedures/${slug}`)
+        setNoResultsMessage(null)
+        return
+      } else if (process.env.NODE_ENV !== 'production') {
+        console.warn('[home] procedure suggestion missing slug', suggestion)
+      }
+    }
+
+    // Fallback: search for procedure and route to /procedures/${slug} if found
     const navigated = await navigateToProcedure(trimmedQuery, router)
     
     // If no match found, navigateToProcedure shows toast but doesn't navigate
