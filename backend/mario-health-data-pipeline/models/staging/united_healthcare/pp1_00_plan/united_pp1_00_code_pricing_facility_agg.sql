@@ -17,7 +17,7 @@ SELECT
     ARRAY_AGG(DISTINCT npi) AS npi_array,
     ARRAY_AGG(DISTINCT healthcare_provider_taxonomy_code) AS nucc_specialty_array,
 FROM
-    {{ ref('united_pp1_00_rates_hospital') }}
+    {{ ref('united_pp1_00_rates_prof_facility') }}
 GROUP BY hospital_id,
     billing_code,
     billing_code_type,

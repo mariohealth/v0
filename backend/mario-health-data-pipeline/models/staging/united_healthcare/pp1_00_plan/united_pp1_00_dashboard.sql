@@ -20,7 +20,7 @@ t1 AS (
 COUNT(DISTINCT npi) AS count_npi_with_billing_code,
 COUNT(DISTINCT healthcare_provider_taxonomy_code) AS count_taxonomy_with_billing_code,
 COUNT(DISTINCT billing_code) AS count_billing_code,
- FROM {{ ref('united_pp1_00_rates_hospital') }}
+ FROM {{ ref('united_pp1_00_rates_prof_facility') }}
  GROUP BY hospital_id
 ),
 

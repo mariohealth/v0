@@ -15,6 +15,9 @@ SELECT
     provider_location_id,
     carrier_id,
     carrier_name,
+    NULL AS professional_rate_min,
+    NULL AS institutional_rate_min,
+    NULL AS total_rate_min,
     price,
 FROM
     {{ ref('cigna_national_oap_proc_pricing') }}
@@ -29,7 +32,10 @@ SELECT
     provider_location_id,
     carrier_id,
     carrier_name,
-    price,
+    professional_rate_min,
+    institutional_rate_min,
+    total_rate_min,
+    total_rate_min AS price,
 FROM
     {{ ref('united_pp1_00_proc_pricing') }}
 
@@ -43,6 +49,9 @@ SELECT
     t_union_all.provider_location_id,
     t_union_all.carrier_id,
     t_union_all.carrier_name,
+    t_union_all.professional_rate_min,
+    t_union_all.institutional_rate_min,
+    t_union_all.total_rate_min,
     t_union_all.price,
     CONCAT(
               t_npi.provider_name_prefix_text,

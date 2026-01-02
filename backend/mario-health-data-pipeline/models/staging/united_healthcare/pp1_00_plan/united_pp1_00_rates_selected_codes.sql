@@ -17,8 +17,8 @@ SELECT
   rates.billing_code,
   rates.billing_code_type,
   rates.billing_code_type_version,
-  rates.description,
-  rates.name,
+--  rates.description, -- we DON'T need those, it will save us storage, we can join them back later
+--  rates.name, -- we DON'T need those, it will save us storage, we can join them back later
 --  rates.negotiation_arrangement, -- we don't need this column because it is always the string 'ffs' (Fee for service)
 --  rates.covered_services, -- we don't need this column because it is always an empty array
 FROM t0

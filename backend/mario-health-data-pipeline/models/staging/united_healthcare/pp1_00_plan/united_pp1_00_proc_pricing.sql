@@ -9,9 +9,11 @@ WITH t0 AS ( -- because a procedure is made up of multiple CPT codes, we take th
         map.procedure_id,
         rates.hospital_id,
         rates.npi,
-        ROUND(MIN(negotiated_rate_avg), 0) AS negotiated_rate_avg_min,
+        ROUND(MIN(professional_rate), 0) AS professional_rate_min,
+        ROUND(MIN(institutional_rate), 0) AS institutional_rate_min,
+        ROUND(MIN(total_rate), 0) AS total_rate_min,
     FROM
-       {{ ref('united_pp1_00_rates_hospital') }} AS rates
+       {{ ref('united_pp1_00_rates_total_facility') }} AS rates
     JOIN
         {{ ref('procedure_billing_code') }} AS map
 ON
@@ -32,6 +34,8 @@ SELECT
     CONCAT(hospital_id, "_", npi) AS provider_location_id,
     'united_pp1_00' AS carrier_id,
     'united' AS carrier_name,
-    {{ round_price('negotiated_rate_avg_min') }} AS price
+    {{ round_price('professional_rate_min') }} AS professional_rate_min,
+    {{ round_price('institutional_rate_min') }} AS institutional_rate_min,
+    {{ round_price('total_rate_min') }} AS total_rate_min,
 FROM
     t0
