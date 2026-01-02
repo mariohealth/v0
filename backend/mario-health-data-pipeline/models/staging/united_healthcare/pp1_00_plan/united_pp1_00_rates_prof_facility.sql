@@ -3,12 +3,15 @@
     materialized='table'
   )
 }}
-
+-- This table has one row per hospital per NPI type 1 per billing code.
 SELECT
     prov_ref.hospital_id,
     prov_ref.npi,
     prov_ref.healthcare_provider_taxonomy_code,
-    rates.* EXCEPT (provider_group_id),
+    rates.billing_code,
+    rates.billing_code_type,
+    rates.billing_code_type_version,
+    rates.negotiated_rate AS professional_rate,
 FROM
     {{ ref('united_pp1_00_prov_ref_hospital') }} AS prov_ref
 JOIN -- this is how we had the actual prices
