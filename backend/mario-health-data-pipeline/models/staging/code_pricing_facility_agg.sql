@@ -27,8 +27,8 @@ SELECT
     AVG(total_rate) AS avg_total_rate,
     MAX(total_rate) AS max_total_rate,
 
-    ARRAY_AGG(DISTINCT npi IGNORE NULLS) AS npi_array,
-    ARRAY_AGG(DISTINCT healthcare_provider_taxonomy_code IGNORE NULLS) AS nucc_specialty_array,
+--    ARRAY_AGG(DISTINCT npi IGNORE NULLS) AS npi_array, -- not really needed and hard to sync with Postgres
+--    ARRAY_AGG(DISTINCT healthcare_provider_taxonomy_code IGNORE NULLS) AS nucc_specialty_array,
 FROM
     {{ ref('code_pricing') }}
 GROUP BY carrier_id,

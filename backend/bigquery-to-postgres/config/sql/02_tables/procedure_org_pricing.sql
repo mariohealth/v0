@@ -6,6 +6,17 @@ CREATE TABLE IF NOT EXISTS procedure_org_pricing (
     carrier_id TEXT,
     carrier_name TEXT,
     count_provider NUMERIC,
+
+    min_professional_rate NUMERIC,
+    max_professional_rate NUMERIC,
+    avg_professional_rate NUMERIC,
+    min_institutional_rate NUMERIC,
+    max_institutional_rate NUMERIC,
+    avg_institutional_rate NUMERIC,
+    min_total_rate NUMERIC,
+    max_total_rate NUMERIC,
+    avg_total_rate NUMERIC,
+
     min_price NUMERIC,
     max_price NUMERIC,
     avg_price NUMERIC,

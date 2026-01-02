@@ -9,6 +9,9 @@ CREATE TABLE IF NOT EXISTS procedure_pricing (
     carrier_id TEXT,
     carrier_name TEXT,
     price NUMERIC,
+    professional_rate_min NUMERIC,
+    institutional_rate_min NUMERIC,
+    total_rate_min NUMERIC,
     updated_at TIMESTAMP
 );
 
