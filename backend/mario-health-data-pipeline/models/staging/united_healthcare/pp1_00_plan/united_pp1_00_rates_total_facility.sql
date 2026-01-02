@@ -15,6 +15,7 @@ SELECT
     t_prof.healthcare_provider_taxonomy_code,
     t_prof.professional_rate,
     t_inst.institutional_rate,
+    COALESCE(t_prof.professional_rate, 0) + COALESCE(t_inst.institutional_rate, 0) AS total_rate,
 FROM
     {{ ref('united_pp1_00_rates_prof_facility') }} AS t_prof
 FULL OUTER JOIN
