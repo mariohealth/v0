@@ -11,7 +11,7 @@ WITH t0 AS (
         top.* EXCEPT(negotiated_rates),
         rates.*,
 
-    FROM {{ ref('united_pp1_00_rates_top_cpt') }} AS top
+    FROM {{ ref('united_pp1_00_rates_selected_codes') }} AS top
         , UNNEST(negotiated_rates) AS rates
     --WHERE
     --    ARRAY_LENGTH(negotiated_prices) <= 1 -- !!!! we can't do that for United because most rates have more than 1 price
