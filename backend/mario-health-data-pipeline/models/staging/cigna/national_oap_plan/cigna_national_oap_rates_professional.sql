@@ -36,8 +36,8 @@ t1 AS (
   , UNNEST(negotiated_prices) AS prices
   WHERE
     prices.billing_class = 'professional'
-    AND prices.negotiated_type = 'negotiated' -- removing negotiated_type='percentage' for now because they require
---    more joins
+    AND prices.negotiated_type IN ('negotiated', 'fee schedule') -- removing negotiated_type='percentage' AND 'per diem'
+--     for now because they require more joins
     AND ARRAY_LENGTH(prices.billing_code_modifier) = 0 -- billing code modifiers can be "TC" or "26", we don't want those
   )
 

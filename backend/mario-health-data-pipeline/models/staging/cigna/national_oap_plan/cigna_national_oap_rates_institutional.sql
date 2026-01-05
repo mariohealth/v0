@@ -36,7 +36,7 @@ t1 AS (
   , UNNEST(negotiated_prices) AS prices
   WHERE
     prices.billing_class = 'institutional'
-    AND prices.negotiated_type = 'negotiated' -- removing negotiated_type='percentage' for now because they require
+    AND prices.negotiated_type IN ('fee schedule', 'derived')  -- removing negotiated_type='percentage' for now because they require
 --    more joins
   )
 
