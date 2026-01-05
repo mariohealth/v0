@@ -1,0 +1,29 @@
+{{
+  config(
+    materialized='table'
+  )
+}}
+
+-- this table doesn't include all billing codes but only the ones included in procedure_billing_code to make the size
+--of the table more manageable
+
+WITH t0 AS (
+    SELECT DISTINCT code, code_type
+    FROM {{ ref('procedure_billing_code') }}
+)
+
+SELECT
+  rates.negotiated_rates,
+  rates.billing_code,
+  rates.billing_code_type,
+  rates.billing_code_type_version,
+--  rates.description, -- we DON'T need those, it will save us storage, we can join them back later
+--  rates.name, -- we DON'T need those, it will save us storage, we can join them back later
+--  rates.negotiation_arrangement, -- we don't need this column because it is always the string 'ffs' (Fee for service)
+FROM t0
+JOIN {{ source('mario-mrf-data', 'cigna_nvidia_in_network_rates') }} AS rates -- don't do a left join here otherwise you
+-- have null rates if the insurer doesn't list some codes
+ON
+  t0.code = rates.billing_code
+  AND t0.code_type = rates.billing_code_type
+  AND rates.billing_code_type_version = 2025
