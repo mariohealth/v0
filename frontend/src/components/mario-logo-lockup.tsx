@@ -1,25 +1,25 @@
 import React from 'react';
 
 interface MarioLogoLockupProps {
-  size?: 'mobile' | 'desktop';
+  size?: 'mobile' | 'desktop' | 'nav';
   variant?: 'default' | 'white';
   className?: string;
 }
 
-export function MarioLogoLockup({ 
-  size = 'mobile', 
+export function MarioLogoLockup({
+  size = 'mobile',
   variant = 'default',
-  className = '' 
+  className = ''
 }: MarioLogoLockupProps) {
-  const iconSize = size === 'mobile' ? 48 : 64;
-  const wordmarkSize = size === 'mobile' ? 22 : 26;
-  const gap = 8;
-  
+  const iconSize = size === 'nav' ? 32 : size === 'mobile' ? 48 : 64;
+  const wordmarkSize = size === 'nav' ? 18 : size === 'mobile' ? 22 : 26;
+  const gap = size === 'nav' ? 6 : 8;
+
   const primaryBlue = '#2E5077';
   const color = variant === 'white' ? '#FFFFFF' : primaryBlue;
-  
+
   return (
-    <div 
+    <div
       className={`inline-flex items-center ${className}`}
       style={{ gap: `${gap}px` }}
     >
@@ -49,7 +49,7 @@ export function MarioLogoLockup({
           m
         </span>
       </div>
-      
+
       {/* Wordmark "mario" */}
       <span
         style={{
