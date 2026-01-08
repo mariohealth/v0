@@ -12,23 +12,7 @@ export default function HelpPage() {
     const router = useRouter();
     const [showAIModal, setShowAIModal] = useState(false);
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/login');
-        }
-    }, [user, loading, router]);
 
-    if (loading) {
-        return (
-            <main className="flex min-h-screen flex-col items-center justify-center">
-                <p className="text-gray-600">Loading...</p>
-            </main>
-        );
-    }
-
-    if (!user) {
-        return null;
-    }
 
     const faqs = [
         {

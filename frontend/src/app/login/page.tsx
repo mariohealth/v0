@@ -1,77 +1,99 @@
 'use client';
 
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { MarioAuthGetStarted } from '@/components/mario-auth-get-started';
+import { MarioAuthLogin } from '@/components/mario-auth-login';
 
-export default function LoginPage() {
-  const { user, loading, login, logout } = useAuth();
+type AuthView = 'get-started' | 'login-form';
+
+function LoginContent() {
+  const { user, loading, login } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get('returnUrl') || '/home';
+  const initialView = searchParams.get('view') === 'login' ? 'login-form' : 'get-started';
+
+  const [view, setView] = useState<AuthView>(initialView);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    setIsDesktop(window.innerWidth >= 1024);
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (!loading && user) {
-      router.push('/home');
+      router.push(returnUrl);
     }
-  }, [user, loading, router]);
+  }, [user, loading, router, returnUrl]);
 
-  const handleLogin = async () => {
+  const handleGoogleLogin = async () => {
     try {
       await login();
-      // Redirect will happen via useEffect
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('Google login failed:', error);
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
+  const handleEmailSignUp = () => {
+    router.push('/signup');
+  };
+
+  const handleSignInClick = () => {
+    setView('login-form');
+  };
+
+  const handleBackToGetStarted = () => {
+    setView('get-started');
   };
 
   if (loading) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        <p className="text-gray-600">Loading...</p>
-      </main>
+      <div className="flex min-h-screen items-center justify-center bg-[#FDFCFA]">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#2E5077] border-t-transparent" />
+      </div>
+    );
+  }
+
+  if (user) {
+    return null; // Will redirect
+  }
+
+  if (view === 'login-form') {
+    return (
+      <MarioAuthLogin
+        isDesktop={isDesktop}
+        onGoogleLogin={handleGoogleLogin}
+        onCreateAccount={() => router.push('/signup')}
+        onBack={handleBackToGetStarted}
+        showBackButton={true}
+        onAuthSuccess={() => router.push(returnUrl)}
+      />
     );
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <div className="w-full max-w-md space-y-6 rounded-lg bg-white p-8 shadow-md">
-        <h1 className="text-3xl font-bold text-center">Login</h1>
-        
-        {user ? (
-          <div className="space-y-4">
-            <div className="text-center">
-              <p className="text-gray-600">Signed in as:</p>
-              <p className="mt-2 text-lg font-semibold text-gray-900">
-                {user.displayName || user.email}
-              </p>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="w-full rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-            >
-              Sign Out
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <p className="text-center text-gray-600">Sign in to your account</p>
-            <button
-              onClick={handleLogin}
-              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Sign in with Google
-            </button>
-          </div>
-        )}
-      </div>
-    </main>
+    <MarioAuthGetStarted
+      isDesktop={isDesktop}
+      onGoogleSignUp={handleGoogleLogin}
+      onEmailSignUp={handleEmailSignUp}
+      onSignInClick={handleSignInClick}
+    />
   );
 }
 
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-[#FDFCFA]">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#2E5077] border-t-transparent" />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
+  );
+}

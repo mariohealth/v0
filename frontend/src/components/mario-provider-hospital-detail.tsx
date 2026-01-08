@@ -90,6 +90,18 @@ export function MarioProviderHospitalDetail({
   const [showBookingChat, setShowBookingChat] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
+  // useEffect must be called before any conditional returns (Rules of Hooks)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   // Guard against undefined pairing
   if (!pairing) {
     return (
@@ -131,17 +143,6 @@ export function MarioProviderHospitalDetail({
   const maxCost = Math.max(...costComparisonData.map(d => d.cost));
   const currentCost = parseInt(pairing.price.replace(/[^0-9]/g, ''));
   const savingsPercent = parseInt(pairing.savings.replace(/[^0-9]/g, ''));
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] pb-32 md:pb-8">

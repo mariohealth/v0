@@ -12,23 +12,7 @@ export default function MedicationsPage() {
     const router = useRouter();
     const [searchQuery, setSearchQuery] = useState('');
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/login');
-        }
-    }, [user, loading, router]);
 
-    if (loading) {
-        return (
-            <main className="flex min-h-screen flex-col items-center justify-center">
-                <p className="text-gray-600">Loading...</p>
-            </main>
-        );
-    }
-
-    if (!user) {
-        return null;
-    }
 
     const filteredMedications = marioMedicationsData.filter((med) =>
         med.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

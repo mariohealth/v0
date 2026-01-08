@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { Home, Search, Gift, User, Settings, LogOut, ChevronDown, Sparkles } from 'lucide-react';
 import { cn } from '@/components/ui/utils';
+import { MarioLogoLockup } from '@/components/mario-logo-lockup';
 
 interface GlobalNavProps {
     showOnMobile?: boolean;
@@ -88,8 +89,8 @@ export function GlobalNav({ showOnMobile = true, showOnDesktop = true }: GlobalN
                         <div className="flex h-16 items-center justify-between">
                             {/* Left: Mario Logo */}
                             <div className="flex items-center">
-                                <Link href="/home" className="text-xl font-bold" style={{ color: '#2E5077' }}>
-                                    mario
+                                <Link href="/home">
+                                    <MarioLogoLockup size="nav" />
                                 </Link>
                             </div>
 
@@ -105,7 +106,7 @@ export function GlobalNav({ showOnMobile = true, showOnDesktop = true }: GlobalN
                                             className={cn(
                                                 'flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors',
                                                 active
-                                                    ? 'text-[#2E5077] bg-[#E9F6F5]'
+                                                    ? 'text-[#2E5077] bg-[#F3F7FA]'
                                                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                                             )}
                                         >

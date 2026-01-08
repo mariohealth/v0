@@ -8,11 +8,16 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, MapPin, Phone, ChevronDown, ChevronUp } from 'lucide-react';
+import { useAuth } from '@/lib/contexts/AuthContext';
+import { useUserPreferences } from '@/lib/hooks/useUserPreferences';
+import { getEffectiveCarrier, getEffectiveZip } from '@/lib/user-locale';
 
 export default function OrgDetailClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { profile } = useAuth();
+  const { preferences } = useUserPreferences();
   
   // Extract org_id from URL path: /orgs/[id]
   const orgId = pathname?.split('/').pop() || '';
@@ -57,7 +62,18 @@ export default function OrgDetailClient() {
       try {
         setLoading(true);
         setError(null);
-        const data = await getOrgDetail(orgId, procedureSlug);
+        const effectiveZip = getEffectiveZip({
+          profileZip: profile?.zipCode,
+          preferenceZip: profile?.zipCode ? undefined : preferences?.default_zip,
+        });
+        const effectiveCarrier = getEffectiveCarrier({
+          preferredCarrierIds: preferences?.preferred_insurance_carriers || [],
+        });
+
+        const data = await getOrgDetail(orgId, procedureSlug, {
+          zip: effectiveZip,
+          carrier_id: effectiveCarrier,
+        });
         setOrgData(data);
       } catch (err) {
         console.error('Error fetching org:', err);
@@ -68,7 +84,7 @@ export default function OrgDetailClient() {
     }
     
     fetchOrg();
-  }, [orgId, procedureSlug]);
+  }, [orgId, procedureSlug, profile?.zipCode, preferences?.default_zip, preferences?.preferred_insurance_carriers]);
   
   // Loading state
   if (loading) {
