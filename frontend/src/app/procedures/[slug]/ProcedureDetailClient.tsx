@@ -10,6 +10,8 @@ import { toast } from 'sonner';
 import { isFeatureEnabled } from '@/lib/flags';
 import { OrgCard } from '@/components/OrgCard';
 import { BackButton } from '@/components/navigation/BackButton';
+import { useUserPreferences } from '@/lib/hooks/useUserPreferences';
+import { getEffectiveCarrier, getEffectiveZip } from '@/lib/user-locale';
 
 // Grouping interface
 interface OrgGroup {
@@ -77,7 +79,8 @@ function mapOrgsToGroups(items: Org[]): OrgGroup[] {
 export default function ProcedureDetailClient() {
   const params = useParams();
   const router = useRouter();
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, profile } = useAuth();
+  const { preferences } = useUserPreferences();
   const [procedureName, setProcedureName] = useState<string>('');
   const [groupedOrgs, setGroupedOrgs] = useState<OrgGroup[]>([]);
   const [avgPrice, setAvgPrice] = useState<number>(0);
@@ -98,12 +101,7 @@ export default function ProcedureDetailClient() {
     }
   }, [params.slug]);
 
-  useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/login');
-    }
-  }, [user, authLoading, router]);
-
+  // Fetch procedure data regardless of auth status (public teaser)
   useEffect(() => {
     const fetchProcedureOrgs = async () => {
       if (!slug) return;
@@ -111,7 +109,18 @@ export default function ProcedureDetailClient() {
       setLoading(true);
       setError(null);
       try {
-        const data = await getProcedureOrgs(slug);
+        const effectiveZip = getEffectiveZip({
+          profileZip: profile?.zipCode,
+          preferenceZip: preferences?.default_zip,
+        });
+        const effectiveCarrier = getEffectiveCarrier({
+          preferredCarrierIds: preferences?.preferred_insurance_carriers || [],
+        });
+
+        const data = await getProcedureOrgs(slug, {
+          zip: effectiveZip,
+          carrier_id: effectiveCarrier,
+        });
         setProcedureName(data.procedure_name);
 
         const groups = mapOrgsToGroups(data.orgs);
@@ -136,7 +145,7 @@ export default function ProcedureDetailClient() {
     if (slug) {
       fetchProcedureOrgs();
     }
-  }, [slug]);
+  }, [slug, profile?.zipCode, preferences?.default_zip, preferences?.preferred_insurance_carriers]);
 
   if (authLoading || loading) {
     return (
@@ -146,9 +155,10 @@ export default function ProcedureDetailClient() {
     );
   }
 
-  if (!user) {
-    return null;
-  }
+  // Teaser mode when logged out: show limited results (Rule 1 acceptable)
+  // TODO: Rule 2 - only fetch slice from API, not full list
+  const isLoggedOut = !user;
+  const displayOrgs = isLoggedOut ? groupedOrgs.slice(0, 3) : groupedOrgs;
 
   // Removed local handleBack, using shared BackButton instead
 
@@ -187,7 +197,10 @@ export default function ProcedureDetailClient() {
             <div className="flex-1">
               <h1 className="text-xl font-bold text-[#2E5077]">{procedureName || slug}</h1>
               <p className="text-sm text-[#4DA1A9] font-medium">
-                {groupedOrgs.length} options nearby
+                {isLoggedOut && groupedOrgs.length > 3
+                  ? `Showing 3 of ${groupedOrgs.length} options`
+                  : `${groupedOrgs.length} options nearby`
+                }
               </p>
             </div>
           </div>
@@ -233,36 +246,58 @@ export default function ProcedureDetailClient() {
             <p className="text-muted-foreground font-medium">No facilities found for this procedure.</p>
           </div>
         ) : (
-          <div className="space-y-4">
-            {groupedOrgs.map((group, index) => {
-              const price = typeof group.min_price === 'number' ? group.min_price : 0;
-              const originalPrice = avgPrice > price ? avgPrice : undefined;
-              const savingsPercentage = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : undefined;
-              const mpsScore = avgPrice > 0 ? calculateMPS(price, avgPrice) : undefined;
+          <>
+            <div className="space-y-4">
+              {displayOrgs.map((group, index) => {
+                const price = typeof group.min_price === 'number' ? group.min_price : 0;
+                const originalPrice = avgPrice > price ? avgPrice : undefined;
+                const savingsPercentage = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : undefined;
+                const mpsScore = avgPrice > 0 ? calculateMPS(price, avgPrice) : undefined;
 
-              // Simulate "Mario's Pick" for the first result or if MPS is high
-              const isMariosPick = index === 0 && (mpsScore || 0) > 80;
+                // Simulate "Mario's Pick" for the first result or if MPS is high
+                const isMariosPick = index === 0 && (mpsScore || 0) > 80;
 
-              return (
-                <OrgCard
-                  key={group.org_id}
-                  orgName={group.org_name}
-                  procedureName={procedureName}
-                  price={price}
-                  originalPrice={originalPrice}
-                  savingsPercentage={savingsPercentage}
-                  distance={group.distance_miles?.toFixed(1)}
-                  inNetwork={group.in_network}
-                  mpsScore={mpsScore}
-                  address={[group.address, group.city, group.state].filter(Boolean).join(', ')}
-                  mariosPick={isMariosPick}
-                  onClick={() => handleOrgClick(group)}
-                  onBook={handleBookClick}
-                  onCall={() => handleCallClick(group.org_name)}
-                />
-              );
-            })}
-          </div>
+                return (
+                  <OrgCard
+                    key={group.org_id}
+                    orgName={group.org_name}
+                    procedureName={procedureName}
+                    price={price}
+                    originalPrice={originalPrice}
+                    savingsPercentage={savingsPercentage}
+                    distance={group.distance_miles?.toFixed(1)}
+                    inNetwork={group.in_network}
+                    mpsScore={mpsScore}
+                    address={[group.address, group.city, group.state].filter(Boolean).join(', ')}
+                    mariosPick={isMariosPick}
+                    onClick={() => handleOrgClick(group)}
+                    onBook={handleBookClick}
+                    onCall={() => handleCallClick(group.org_name)}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Login CTA for logged-out users (teaser gate) */}
+            {isLoggedOut && groupedOrgs.length > 3 && (
+              <div className="mt-6 bg-gradient-to-br from-[#2E5077] to-[#4DA1A9] rounded-3xl shadow-lg p-8 text-center text-white">
+                <h3 className="text-2xl font-bold mb-2">See {groupedOrgs.length - 3} More Options</h3>
+                <p className="text-white/90 mb-6">
+                  Sign in to compare all facilities and find the best price for your procedure.
+                </p>
+                <Button
+                  size="lg"
+                  className="bg-white text-[#2E5077] hover:bg-gray-100 font-bold px-8 py-6 text-lg rounded-xl"
+                  onClick={() => {
+                    const returnUrl = encodeURIComponent(window.location.pathname);
+                    router.push(`/login?returnUrl=${returnUrl}`);
+                  }}
+                >
+                  Sign In to See All Options
+                </Button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import {
   User,
   signInWithPopup,
@@ -9,6 +9,7 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase';
+import { getEffectiveZip, persistZip } from '../user-locale';
 
 interface UserProfile {
   uid: string;
@@ -35,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const refreshProfile = async (currentUser?: User | null) => {
+  const refreshProfile = useCallback(async (currentUser?: User | null) => {
     const activeUser = currentUser || user;
     if (!activeUser) {
       setProfile(null);
@@ -46,19 +47,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Placeholder: Fetch from /api/v1/profile
       // For now, satisfy logic with local storage and Firebase info
       const storedZip = typeof window !== 'undefined' ? localStorage.getItem('userZipCode') : null;
+      const effectiveZip = getEffectiveZip({ profileZip: storedZip });
+      if (effectiveZip) {
+        persistZip(effectiveZip);
+      }
 
       setProfile({
         uid: activeUser.uid,
         email: activeUser.email,
         displayName: activeUser.displayName,
-        zipCode: storedZip || undefined,
-        profileComplete: !!storedZip,
+        zipCode: effectiveZip || undefined,
+        profileComplete: !!effectiveZip,
         avatarUrl: activeUser.photoURL || undefined
       });
     } catch (error) {
       console.error('Error fetching profile:', error);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -72,7 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [refreshProfile]);
 
   const login = async () => {
     try {

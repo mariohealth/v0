@@ -3,6 +3,8 @@ import { mockProceduresFallback, type MockProcedureFallback } from '@/mock/live/
 import { getMockProvidersForProcedure, type MockProviderFallback } from '@/mock/live/providersFallback';
 
 import { getApiBaseUrl } from './api-base';
+import { getEffectiveCarrier, getEffectiveZip } from './user-locale';
+import { logSearchContext } from './dev-assertions/search-context-log';
 
 
 
@@ -259,19 +261,40 @@ async function fetchSmartAuth(url: string, options: RequestInit = {}): Promise<R
 export async function searchProcedures(
     query: string,
     location?: string | null,
-    radius_miles?: number
+    radius_miles?: number,
+    options?: {
+        zip?: string | null;
+        carrier_id?: string | null;
+    }
 ): Promise<SearchResponse> {
     const params = new URLSearchParams({
         q: query,
     });
 
-    if (location) {
-        params.append('location', location);
+    const effectiveZip = getEffectiveZip({
+        profileZip: options?.zip || location || undefined,
+    });
+
+    const effectiveCarrier = getEffectiveCarrier({
+        selectedCarrierId: options?.carrier_id || undefined,
+    });
+
+    if (effectiveZip) {
+        params.append('location', effectiveZip);
     }
 
     if (radius_miles) {
         params.append('radius_miles', radius_miles.toString());
     }
+
+    if (effectiveCarrier) {
+        params.append('carrier_id', effectiveCarrier);
+    }
+
+    logSearchContext('searchProcedures', {
+        zip: effectiveZip,
+        carrier: effectiveCarrier,
+    });
 
     const url = `${getApiBaseUrl()}/search?${params.toString()}`;
 
@@ -447,13 +470,26 @@ function generateSlugVariants(slug: string): string[] {
  * Mock fallback temporarily disabled for verification
  */
 export async function getProcedureProviders(
-    procedureSlug: string
+    procedureSlug: string,
+    options?: {
+        zip?: string | null;
+        carrier_id?: string | null;
+    }
 ): Promise<ProcedureProvidersResponse> {
     // === Restored core logic from b6d802c (last known-good) ===
     // Note: Keep current API_BASE_URL/fetchWithAuth utilities as-is
     const base = `${getApiBaseUrl()}/procedures/${procedureSlug}/providers`;
+    const effectiveZip = getEffectiveZip({ profileZip: options?.zip || undefined });
+    const effectiveCarrier = getEffectiveCarrier({ selectedCarrierId: options?.carrier_id || undefined });
+    const url = new URL(base);
+    if (effectiveZip) url.searchParams.set('zip_code', effectiveZip);
+    if (effectiveCarrier) url.searchParams.set('carrier_id', effectiveCarrier);
+    logSearchContext('getProcedureProviders', {
+        zip: effectiveZip,
+        carrier: effectiveCarrier,
+    });
 
-    const res = await fetch(base, {
+    const res = await fetch(url.toString(), {
         method: "GET",
     });
 
@@ -476,7 +512,7 @@ export async function getProcedureProviders(
 
     // Dev log to confirm we are using LIVE data and from which URL
     if (process.env.NODE_ENV === "development") {
-        console.log("[API:LIVE] providers url:", base, "count:", providers.length);
+        console.log("[API:LIVE] providers url:", url.toString(), "count:", providers.length);
         if (providers.length > 0) {
             console.log("[API:LIVE] Sample provider:", {
                 id: providers[0].provider_id,
@@ -512,15 +548,29 @@ export async function getProcedureProviders(
  * Calls the dedicated /procedures/{slug}/orgs endpoint which returns grouped organization data
  */
 export async function getProcedureOrgs(
-    procedureSlug: string
+    procedureSlug: string,
+    options?: {
+        zip?: string | null;
+        carrier_id?: string | null;
+    }
 ): Promise<ProcedureOrgsResponse> {
     if (process.env.NODE_ENV === 'development') {
         console.log('[API] Fetching procedure orgs for:', procedureSlug);
     }
 
     try {
-        const url = `${getApiBaseUrl()}/procedures/${procedureSlug}/orgs`;
-        const res = await fetch(url, { method: "GET" });
+        const base = `${getApiBaseUrl()}/procedures/${procedureSlug}/orgs`;
+        const effectiveZip = getEffectiveZip({ profileZip: options?.zip || undefined });
+        const effectiveCarrier = getEffectiveCarrier({ selectedCarrierId: options?.carrier_id || undefined });
+        const url = new URL(base);
+        if (effectiveZip) url.searchParams.set('zip_code', effectiveZip);
+        if (effectiveCarrier) url.searchParams.set('carrier_id', effectiveCarrier);
+        logSearchContext('getProcedureOrgs', {
+            zip: effectiveZip,
+            carrier: effectiveCarrier,
+        });
+
+        const res = await fetch(url.toString(), { method: "GET" });
 
         if (!res.ok) {
             throw new Error(`Orgs API failed: ${res.status} ${res.statusText}`);
@@ -571,7 +621,11 @@ export async function getProcedureOrgs(
  */
 export async function getOrgDetail(
     orgId: string,
-    procedureSlug: string
+    procedureSlug: string,
+    options?: {
+        zip?: string | null;
+        carrier_id?: string | null;
+    }
 ): Promise<Org> {
     if (!orgId || !procedureSlug) {
         throw new Error('Both orgId and procedureSlug are required');
@@ -582,7 +636,7 @@ export async function getOrgDetail(
     }
 
     // Fetch all orgs for this procedure
-    const response = await getProcedureOrgs(procedureSlug);
+    const response = await getProcedureOrgs(procedureSlug, options);
 
     // Find the specific org
     const org = response.orgs.find(o => o.org_id === orgId);

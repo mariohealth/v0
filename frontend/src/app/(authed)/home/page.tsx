@@ -8,10 +8,13 @@ import { getProcedureProviders, type Provider } from '@/lib/api';
 import { navigateToProcedure } from '@/lib/navigateToProcedure';
 import { DataSourceBanner } from '@/lib/dataSourceBanner';
 import { GlobalNav } from '@/components/navigation/GlobalNav';
+import { useUserPreferences } from '@/lib/hooks/useUserPreferences';
+import { getEffectiveCarrier, getEffectiveZip } from '@/lib/user-locale';
 
 
 function HomePageContent() {
-  const { user, loading } = useAuth();
+  const { user, loading, profile } = useAuth();
+  const { preferences } = useUserPreferences();
   const router = useRouter();
   const searchParams = useSearchParams();
   const procedureSlug = searchParams.get('procedure');
@@ -33,7 +36,19 @@ function HomePageContent() {
       setProvidersError(null);
 
       try {
-        const data = await getProcedureProviders(procedureSlug);
+        const effectiveZip = getEffectiveZip({
+          profileZip: profile?.zipCode,
+          preferenceZip: preferences?.default_zip,
+          urlZip: null,
+        });
+        const effectiveCarrier = getEffectiveCarrier({
+          preferredCarrierIds: preferences?.preferred_insurance_carriers || [],
+        });
+
+        const data = await getProcedureProviders(procedureSlug, {
+          zip: effectiveZip,
+          carrier_id: effectiveCarrier,
+        });
 
         // Track data source for banner display
         setDataSource(data._dataSource || 'api');
@@ -67,7 +82,7 @@ function HomePageContent() {
       setProviders([]);
       setProcedureName('');
     }
-  }, [procedureSlug, user]);
+  }, [procedureSlug, user, profile?.zipCode, preferences?.default_zip, preferences?.preferred_insurance_carriers]);
 
   const handleSearch = async (query: string, suggestion?: any) => {
     if (!query || !query.trim()) {
@@ -84,13 +99,14 @@ function HomePageContent() {
       const specialtySlug = suggestion.slug || suggestion.specialtyId || suggestion.specialty?.slug || suggestion.specialty?.id;
       if (suggestion.type === 'specialty' && specialtySlug) {
         // Include user zip if available
-        let zipParam = '';
-        try {
-          const storedZip = typeof window !== 'undefined' ? localStorage.getItem('userZipCode') : null;
-          if (storedZip?.trim()) {
-            zipParam = `?zip_code=${encodeURIComponent(storedZip.trim())}`;
-          }
-        } catch { /* ignore */ }
+        const effectiveZip = getEffectiveZip({
+          profileZip: profile?.zipCode,
+          preferenceZip: preferences?.default_zip,
+        });
+        const zipParam =
+          effectiveZip && !(profile?.zipCode || preferences?.default_zip)
+            ? `?zip_code=${encodeURIComponent(effectiveZip)}`
+            : '';
         router.push(`/specialties/${encodeURIComponent(specialtySlug)}${zipParam}`);
         return;
       }
@@ -117,13 +133,14 @@ function HomePageContent() {
       // Legacy specialty fallback (if not caught above) - still route to specialty page
       if (suggestion.specialty) {
         const slug = suggestion.specialty.slug || suggestion.specialty.id;
-        let zipParam = '';
-        try {
-          const storedZip = typeof window !== 'undefined' ? localStorage.getItem('userZipCode') : null;
-          if (storedZip?.trim()) {
-            zipParam = `?zip_code=${encodeURIComponent(storedZip.trim())}`;
-          }
-        } catch { /* ignore */ }
+        const effectiveZip = getEffectiveZip({
+          profileZip: profile?.zipCode,
+          preferenceZip: preferences?.default_zip,
+        });
+        const zipParam =
+          effectiveZip && !(profile?.zipCode || preferences?.default_zip)
+            ? `?zip_code=${encodeURIComponent(effectiveZip)}`
+            : '';
         router.push(`/specialties/${encodeURIComponent(slug)}${zipParam}`);
         setNoResultsMessage(null);
         return;

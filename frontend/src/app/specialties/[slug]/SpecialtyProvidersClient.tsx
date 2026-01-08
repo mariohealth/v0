@@ -3,9 +3,11 @@
 import { useMemo, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { ArrowLeft, Filter, Map } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 import { ProviderCard } from '@/components/mario-card';
 import { EmptyResults } from './EmptyResults';
-import { BackButton } from '@/components/navigation/BackButton';
 
 export interface SpecialtyProviderLocation {
   address?: string | null;
@@ -95,6 +97,7 @@ interface Props {
     offset?: number;
     limit?: number;
   };
+  zipFromProfile?: boolean;
 }
 
 function normalizeSearchParams(input: Props['searchParams']) {
@@ -123,7 +126,7 @@ function formatPrice(pricing: SpecialtyProviderPricing | null) {
   };
 }
 
-export default function SpecialtyProvidersClient({ data, searchParams }: Props) {
+export default function SpecialtyProvidersClient({ data, searchParams, zipFromProfile }: Props) {
   const router = useRouter();
   // Runtime guards to keep UX graceful if API shape drifts.
   const metadata = coerceMetadata(data.metadata);
@@ -151,7 +154,7 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
     const params = new URLSearchParams();
     params.set('offset', String(nextOffset));
     params.set('limit', String(limit));
-    if (zip) params.set('zip_code', zip);
+    if (zip && !zipFromProfile) params.set('zip_code', zip);
     if (radius) params.set('radius_miles', String(radius));
     return params.toString();
   };
@@ -169,77 +172,122 @@ export default function SpecialtyProvidersClient({ data, searchParams }: Props) 
     });
   };
 
+  const handleBack = () => {
+    router.push('/');
+  };
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
-      <header className="space-y-4">
-        <div className="flex items-center gap-4">
-          <BackButton />
-          <h1 className="text-2xl font-semibold">{specialty.name}</h1>
+    <div className="min-h-screen bg-[#F8FAFC] pb-20 md:pb-0">
+      {/* Sticky Header */}
+      <div className="sticky top-0 bg-white z-10 shadow-sm border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleBack}
+              className="p-2 hover:bg-gray-50 rounded-full transition-colors"
+            >
+              <ArrowLeft className="h-6 w-6 text-[#2E5077]" />
+            </button>
+            <div className="flex-1">
+              <h1 className="text-xl font-bold text-[#2E5077]">{specialty.name}</h1>
+              <p className="text-sm text-[#4DA1A9] font-medium">
+                {metadata.total_providers_found} providers nearby
+              </p>
+            </div>
+          </div>
         </div>
-        {rangeText && <p className="text-sm text-muted-foreground">{rangeText}</p>}
-        <p className="text-xs text-muted-foreground">
-          Pricing is shown at the facility (organization) level. Providers at the same location may share the same pricing.
-        </p>
+      </div>
+
+      {/* Filter & Sort Bar */}
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="flex items-center justify-between gap-3">
+          <Button
+            variant="outline"
+            className="flex-1 max-w-[160px] h-11 bg-white border-gray-100 text-[#2E5077] font-bold shadow-sm flex items-center gap-2 rounded-xl"
+            onClick={() => toast.info("Filters coming soon!")}
+          >
+            <Filter className="h-4 w-4 text-[#4DA1A9]" />
+            Filter & Sort
+          </Button>
+
+          <div className="flex-1" /> {/* Spacer */}
+
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-11 w-11 bg-white border-gray-100 text-[#2E5077] shadow-sm rounded-xl"
+            onClick={() => toast.info("Map view coming soon!")}
+          >
+            <Map className="h-5 w-5 text-[#4DA1A9]" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Results Section */}
+      <div className="max-w-4xl mx-auto px-4 pb-8">
+        {rangeText && <p className="text-sm text-muted-foreground mb-2">{rangeText}</p>}
         {hasPartialPricing && (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-4">
             Pricing available for {metadata.providers_with_pricing} of {metadata.total_providers_found} providers.
           </p>
         )}
-      </header>
 
-      {!hasResults ? (
-        <EmptyResults
-          specialtyName={specialty.name}
-          searchRadius={metadata.search_radius}
-        />
-      ) : (
-        <div className="space-y-4">
-          {providers.map((p) => {
-            const distance = formatDistance(p.location.distance_miles);
-            return (
-              <ProviderCard
-                key={p.provider_id}
-                name={p.provider_name}
-                specialty={specialty.name}
-                distance={distance}
-                inNetwork={false}
-                pricing={p.pricing}
-                savingsText={p.pricing ? undefined : 'Pricing unavailable'}
-                addressLine={p.location.address || undefined}
-                city={p.location.city || undefined}
-                state={p.location.state || undefined}
-                zip={p.location.zip_code || undefined}
-                linkHref={`/providers/${p.provider_id}`}
-                onBook={() => router.push(`/providers/${p.provider_id}`)}
-              />
-            );
-          })}
-        </div>
-      )}
+        {!hasResults ? (
+          <EmptyResults
+            specialtyName={specialty.name}
+            searchRadius={metadata.search_radius}
+          />
+        ) : (
+          <div className="space-y-4">
+            {providers.map((p) => {
+              const distance = formatDistance(p.location.distance_miles);
+              return (
+                <ProviderCard
+                  key={p.provider_id}
+                  name={p.provider_name}
+                  specialty={specialty.name}
+                  distance={distance}
+                  inNetwork={false}
+                  pricing={p.pricing}
+                  savingsText={p.pricing ? undefined : 'Pricing unavailable'}
+                  addressLine={p.location.address || undefined}
+                  city={p.location.city || undefined}
+                  state={p.location.state || undefined}
+                  zip={p.location.zip_code || undefined}
+                  linkHref={`/providers/${p.provider_id}`}
+                  onBook={() => router.push(`/providers/${p.provider_id}`)}
+                />
+              );
+            })}
+          </div>
+        )}
 
-      <div className="flex items-center justify-between pt-4">
-        <div className="text-sm text-muted-foreground">
-          Page size {limit}. Total {metadata.total_providers_found}.
-        </div>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            disabled={!hasPrev || isPending}
-            onClick={() => hasPrev && handlePageChange(Math.max(0, offset - limit))}
-            className={`px-3 py-2 rounded-md text-sm border ${hasPrev ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
+        <div className="flex items-center justify-between pt-4">
+          <div className="text-sm text-muted-foreground">
+            Page size {limit}. Total {metadata.total_providers_found}.
+          </div>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              disabled={!hasPrev || isPending}
+              onClick={() => hasPrev && handlePageChange(Math.max(0, offset - limit))}
+              className={`px-3 py-2 rounded-md text-sm border ${
+                hasPrev ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
               }`}
-          >
-            Previous
-          </button>
-          <button
-            type="button"
-            disabled={!hasNext || isPending}
-            onClick={() => hasNext && handlePageChange(nextOffset)}
-            className={`px-3 py-2 rounded-md text-sm border ${hasNext ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
+            >
+              Previous
+            </button>
+            <button
+              type="button"
+              disabled={!hasNext || isPending}
+              onClick={() => hasNext && handlePageChange(nextOffset)}
+              className={`px-3 py-2 rounded-md text-sm border ${
+                hasNext ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
               }`}
-          >
-            Next
-          </button>
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>
