@@ -1,4 +1,4 @@
-hospital_id,hospital_name,system_id,address,city,state,zip_code,latitude,longitude,phone,hospital_type,operational_status
+hospital_id,hospital_name,system_id,address,city,state,zip_code,latitude,longitude,phone,facility_type,operational_status
 nyc_002,Mount Sinai Hospital,SYS_MOUNTSINAI,1468 Madison Ave,New York,NY,10029,40.790311,-73.952097,+12122416500,Academic Medical Center,active
 nyc_003,NYU Langone Hospital,SYS_NYULANGONE,550 1st Ave,New York,NY,10016,40.742026,-73.974348,+16469297800,Academic Medical Center,active
 nyc_004,Memorial Sloan Kettering Cancer Center,SYS_MSK,1275 York Ave,New York,NY,10065,40.764054,-73.956026,+13477989213,Specialty Cancer Hospital,active
