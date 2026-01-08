@@ -38,7 +38,7 @@ function HomePageContent() {
       try {
         const effectiveZip = getEffectiveZip({
           profileZip: profile?.zipCode,
-          preferenceZip: preferences?.default_zip,
+          preferenceZip: profile?.zipCode ? undefined : preferences?.default_zip,
           urlZip: null,
         });
         const effectiveCarrier = getEffectiveCarrier({

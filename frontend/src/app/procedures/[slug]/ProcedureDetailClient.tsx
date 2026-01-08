@@ -111,7 +111,7 @@ export default function ProcedureDetailClient() {
       try {
         const effectiveZip = getEffectiveZip({
           profileZip: profile?.zipCode,
-          preferenceZip: preferences?.default_zip,
+          preferenceZip: profile?.zipCode ? undefined : preferences?.default_zip,
         });
         const effectiveCarrier = getEffectiveCarrier({
           preferredCarrierIds: preferences?.preferred_insurance_carriers || [],

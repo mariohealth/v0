@@ -40,20 +40,26 @@ export function getEffectiveZip(input?: {
   preferenceZip?: string | null;
   urlZip?: string | null;
 }): string | undefined {
-  const fromProfile = normalizeZip(input?.profileZip) || normalizeZip(input?.preferenceZip);
+  const fromProfile = normalizeZip(input?.profileZip);
   if (fromProfile) {
     persistZip(fromProfile);
     return fromProfile;
   }
 
-  const stored = normalizeZip(readStorage(ZIP_STORAGE_KEY));
-  if (stored) return stored;
+  const fromPreference = normalizeZip(input?.preferenceZip);
+  if (fromPreference) {
+    persistZip(fromPreference);
+    return fromPreference;
+  }
 
   const fromUrl = normalizeZip(input?.urlZip);
   if (fromUrl) {
     persistZip(fromUrl);
     return fromUrl;
   }
+
+  const stored = normalizeZip(readStorage(ZIP_STORAGE_KEY));
+  if (stored) return stored;
 
   return undefined;
 }
