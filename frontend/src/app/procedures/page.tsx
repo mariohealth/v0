@@ -1,17 +1,11 @@
 'use client';
 
-import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { MarioBrowseProcedures } from '@/components/mario-browse-procedures';
-
 import { GlobalNav } from '@/components/navigation/GlobalNav';
 
 export default function ProceduresPage() {
-  const { user, loading } = useAuth();
   const router = useRouter();
-
-
 
   const handleCategorySelect = (categoryId: string) => {
     // Navigate to procedures page with category filter

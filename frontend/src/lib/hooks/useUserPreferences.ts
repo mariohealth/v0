@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/lib/contexts/AuthContext';
 
 import { getApiBaseUrl } from '@/lib/api-base';
+import { getEffectiveCarrier, getEffectiveZip, persistCarrier, persistZip } from '@/lib/user-locale';
 
 
 export interface UserPreferences {
@@ -61,6 +62,19 @@ export function useUserPreferences(): UseUserPreferencesReturn {
 
       const data = await response.json();
       setPreferences(data.preferences);
+
+      // Persist defaults so other modules can read without refetching
+      const defaultZip = getEffectiveZip({ preferenceZip: data.preferences?.default_zip });
+      if (defaultZip) {
+        persistZip(defaultZip);
+      }
+
+      const preferredCarrier = getEffectiveCarrier({
+        preferredCarrierIds: data.preferences?.preferred_insurance_carriers || [],
+      });
+      if (preferredCarrier) {
+        persistCarrier(preferredCarrier);
+      }
     } catch (err) {
       console.error('[useUserPreferences] Error fetching:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch preferences');
