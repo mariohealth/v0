@@ -11,3 +11,44 @@ SYS_SUTTER,Sutter Health,Sacramento,CA,Integrated Health System,24,Northern Cali
 SYS_JOHNMUIR,John Muir Health,Walnut Creek,CA,Community Health System,2,East Bay
 SYS_KAISER_NCA,Kaiser Permanente Northern California,Oakland,CA,Integrated Healthcare,21,Northern California
 SYS_SFHEALTH,San Francisco Health Network,San Francisco,CA,Public Health System,2,San Francisco County
+SYS_UTSW,UT Southwestern Medical Center,Dallas,TX,Academic Health System,2,Dallas-Fort Worth
+SYS_BSW,Baylor Scott & White Health,Dallas,TX,Integrated Health System,50+,Texas statewide
+SYS_PARKLAND,Parkland Health,Dallas,TX,Public Health System,1,Dallas County
+SYS_MEDCITY,Medical City Healthcare (HCA),Dallas,TX,For-Profit Health System,16,Dallas-Fort Worth
+SYS_THR,Texas Health Resources,Arlington,TX,Integrated Health System,29,North Texas
+SYS_JPS,JPS Health Network,Fort Worth,TX,Public Health System,1 + 40 clinics,Tarrant County
+SYS_CHILDRENS_HEALTH,Children's Health,Dallas,TX,Pediatric Health System,2,North Texas
+SYS_COOKS,Cook Children's Health Care System,Fort Worth,TX,Pediatric Health System,2,Tarrant County and surrounding
+SYS_METHODIST_DALLAS,Methodist Health System (Dallas),Dallas,TX,Integrated Health System,12,Dallas-Fort Worth
+SYS_HMETHODIST,Houston Methodist,Houston,TX,Academic Health System,8,Greater Houston
+SYS_MEMORIAL_HERMANN,Memorial Hermann Health System,Houston,TX,Integrated Health System,17,Greater Houston
+SYS_MDANDERSON,MD Anderson Cancer Center,Houston,TX,Specialty Cancer System,1 main + satellites,Texas and national
+SYS_TXCHILDRENS,Texas Children's Hospital,Houston,TX,Pediatric Health System,3,Greater Houston
+SYS_STLUKES,Baylor St. Luke's Medical Center,Houston,TX,Academic Health System,1,Greater Houston
+SYS_HARRIS_HEALTH,Harris Health System,Houston,TX,Public Health System,2,Harris County
+SYS_EMORY,Emory Healthcare,Atlanta,GA,Academic Health System,11,Metro Atlanta
+SYS_GRADY,Grady Health System,Atlanta,GA,Public Health System,1,Fulton and DeKalb Counties
+SYS_NORTHSIDE,Northside Hospital,Atlanta,GA,Community Health System,5,Metro Atlanta
+SYS_WELLSTAR,WellStar Health System,Marietta,GA,Integrated Health System,11,Metro Atlanta and Northwest Georgia
+SYS_CHOA,Children's Healthcare of Atlanta,Atlanta,GA,Pediatric Health System,3,Metro Atlanta
+SYS_PIEDMONT,Piedmont Healthcare,Atlanta,GA,Integrated Health System,18,Georgia statewide
+SYS_MAYO_AZ,Mayo Clinic Arizona,Phoenix,AZ,Academic Health System,2,Phoenix Metro
+SYS_BANNER,Banner Health,Phoenix,AZ,Integrated Health System,33,Arizona and 5 other states
+SYS_DIGNITY_AZ,Dignity Health Arizona,Phoenix,AZ,Faith-Based Health System,5,Phoenix Metro
+SYS_PHOENIXCHILDRENS,Phoenix Children's Hospital,Phoenix,AZ,Pediatric Health System,1,Phoenix Metro
+SYS_ABRAZO,Abrazo Health,Phoenix,AZ,For-Profit Health System,6,Phoenix Metro
+SYS_NORTHWESTERN,Northwestern Medicine,Chicago,IL,Academic Health System,11,Chicago Metro
+SYS_RUSH,Rush University Medical Center,Chicago,IL,Academic Health System,3,Chicago Metro
+SYS_UCHICAGO,University of Chicago Medicine,Chicago,IL,Academic Health System,4,Chicago Metro
+SYS_ADVOCATE,Advocate Health (Illinois),Downers Grove,IL,Integrated Health System,27,Illinois and Wisconsin
+SYS_LOYOLA,Loyola Medicine,Maywood,IL,Academic Health System,3,Chicago Metro
+SYS_UCHEALTH,UCHealth,Aurora,CO,Academic Health System,13,Colorado
+SYS_DENVERHEALTH,Denver Health,Denver,CO,Public Health System,1,Denver Metro
+SYS_SCL,SCL Health (Intermountain),Broomfield,CO,Faith-Based Health System,8,Colorado and Montana
+SYS_CHILDRENSCO,Children's Hospital Colorado,Aurora,CO,Pediatric Health System,1,Colorado
+SYS_HCA_HEALTHONE,HCA HealthONE,Denver,CO,For-Profit Health System,7,Denver Metro
+SYS_TAMPAGEN,Tampa General Hospital,Tampa,FL,Academic Health System,1,Tampa Bay
+SYS_ADVENTHEALTH,AdventHealth,Altamonte Springs,FL,Faith-Based Health System,50+,Florida and 8 other states
+SYS_BAYCARE,BayCare Health System,Clearwater,FL,Integrated Health System,16,Tampa Bay
+SYS_HCA_WESTFL,HCA West Florida Division,Tampa,FL,For-Profit Health System,14,West Florida
+SYS_JHUALLCHILDREN,Johns Hopkins All Children's Hospital,St. Petersburg,FL,Pediatric Health System,1,Tampa Bay
