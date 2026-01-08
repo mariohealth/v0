@@ -190,7 +190,7 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
     () =>
       getEffectiveZip({
         profileZip: profile?.zipCode,
-        preferenceZip: preferences?.default_zip,
+        preferenceZip: profile?.zipCode ? undefined : preferences?.default_zip,
         urlZip: normalized.zip_code,
       }),
     [profile?.zipCode, preferences?.default_zip, normalized.zip_code]
@@ -204,7 +204,7 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
     [preferences?.preferred_insurance_carriers]
   );
 
-  const hasProfileZip = Boolean(profile?.zipCode || preferences?.default_zip);
+  const hasProfileZip = Boolean(profile?.zipCode);
   // Check if zip_code is missing or invalid
   const hasValidZip = isValidZip(effectiveZip);
 
