@@ -91,4 +91,4 @@ tpa_002,AdventHealth Tampa,SYS_ADVENTHEALTH,3100 E Fletcher Ave,Tampa,FL,33613,2
 tpa_003,Morton Plant Hospital,SYS_BAYCARE,300 Pinellas St,Clearwater,FL,33756,27.966111,-82.8,+17274627000,Acute Care Hospital,active
 tpa_004,St. Joseph's Hospital - Tampa,SYS_BAYCARE,3001 W Dr Martin Luther King Jr Blvd,Tampa,FL,33607,27.970278,-82.474722,+18138704000,Acute Care Hospital,active
 tpa_005,Johns Hopkins All Children's Hospital,SYS_JHUALLCHILDREN,501 6th Ave S,St. Petersburg,FL,33701,27.767222,-82.639167,+17278985000,Children's Hospital,active
-tpa_006,Memorial Hospital of Tampa,SYS_HCA_WESTFL,2901 Swann Ave,Tampa,FL,33609,27.934167,-82.497222,+18138738571,Acute Care Hospital,active
+tpa_006,HCA Florida South Tampa Hospital,SYS_HCA_WESTFL,2901 W Swann Ave,Tampa,FL,33609,27.934167,-82.497222,+18138738571,Acute Care Hospital,active
