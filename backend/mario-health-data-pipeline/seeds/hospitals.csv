@@ -2,7 +2,7 @@ hospital_id,hospital_name,system_id,address,city,state,zip_code,latitude,longitu
 nyc_002,Mount Sinai Hospital,SYS_MOUNTSINAI,1468 Madison Ave,New York,NY,10029,40.790311,-73.952097,+12122416500,Academic Medical Center,active
 nyc_003,NYU Langone Hospital,SYS_NYULANGONE,550 1st Ave,New York,NY,10016,40.742026,-73.974348,+16469297800,Academic Medical Center,active
 nyc_004,Memorial Sloan Kettering Cancer Center,SYS_MSK,1275 York Ave,New York,NY,10065,40.764054,-73.956026,+13477989213,Specialty Cancer Hospital,active
-nyc_005,Hospital for Special Surgery,SYS_HSS,535 E 70th St Main Hospital,New York,NY,10021,40.765048,-73.9529124,+12126061000,Specialty Orthopedic Hospital,active
+nyc_005,Hospital for Special Surgery,SYS_HSS,535 E 70th St,New York,NY,10021,40.765048,-73.9529124,+12126061000,Specialty Orthopedic Hospital,active
 nyc_006,Lenox Hill Hospital,SYS_NORTHWELL,100 E 77th St,New York,NY,10075,40.7737506,-73.9608241,+12124342000,Academic Medical Center,active
 nyc_007,Manhattan Eye Ear & Throat Hospital,SYS_NORTHWELL,210 E 64th St,New York,NY,10065,40.7640723,-73.9633151,+12128389200,Specialty Hospital,active
 nyc_008,North Shore University Hospital,SYS_NORTHWELL,300 Community Dr,Manhasset,NY,11030,40.7755044,-73.7012082,+15165620100,Academic Medical Center,active
