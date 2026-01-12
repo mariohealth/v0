@@ -53,18 +53,21 @@ dfw_019,Children's Medical Center Plano,SYS_CHILDRENS_HEALTH,7601 Preston Rd,Pla
 dfw_020,Methodist Dallas Medical Center,SYS_METHODIST_DALLAS,1441 N Beckley Ave,Dallas,TX,75203,32.760734,-96.825980,https://www.methodisthealthsystem.org/methodist-dallas-medical-center/?L=true,+12149478181,"",active
 dfw_021,Methodist Hospital Campbell,SYS_METHODIST_DALLAS,401 W Campbell Rd,Richardson,TX,75080,32.974770,-96.726898,https://www.methodisthealthsystem.org/locations/methodist-campus-for-continuing-care/,+14692041000,,active
 dfw_022,Methodist Charlton Medical Center,SYS_METHODIST_DALLAS,3500 W Wheatland Rd,Dallas,TX,75237,,,https://www.methodisthealthsystem.org/methodist-charlton-medical-center/?L=true,+12149477777,,active
-hou_001,Houston Methodist Hospital,SYS_HMETHODIST,6565 Fannin St,Houston,TX,77030,29.709722,-95.397222,,+17137903311,Academic Medical Center,active
-hou_002,Houston Methodist Willowbrook Hospital,SYS_HMETHODIST,18220 Tomball Pkwy,Houston,TX,77070,29.970833,-95.543889,,+12814778100,Community Hospital,active
-hou_003,Houston Methodist West Hospital,SYS_HMETHODIST,18500 Katy Fwy,Houston,TX,77094,29.7825,-95.718056,,+18329224000,Community Hospital,active
-hou_004,Memorial Hermann - Texas Medical Center,SYS_MEMORIAL_HERMANN,6411 Fannin St,Houston,TX,77030,29.709167,-95.3975,,+17137044000,Academic Medical Center,active
-hou_005,Memorial Hermann Memorial City Medical Center,SYS_MEMORIAL_HERMANN,921 Gessner Rd,Houston,TX,77024,29.776389,-95.554722,,+17132423000,Acute Care Hospital,active
-hou_006,MD Anderson Cancer Center,SYS_MDANDERSON,1515 Holcombe Blvd,Houston,TX,77030,29.707222,-95.396944,,+18776326789,Specialty Cancer Hospital,active
-hou_007,Baylor St. Luke's Medical Center,SYS_STLUKES,6720 Bertner Ave,Houston,TX,77030,29.709444,-95.399167,,+18327552000,Academic Medical Center,active
-hou_008,Texas Children's Hospital - Main Campus,SYS_TXCHILDRENS,6621 Fannin St,Houston,TX,77030,29.709722,-95.398333,,+18328241000,Children's Hospital,active
-hou_009,Ben Taub Hospital,SYS_HARRIS_HEALTH,1504 Taub Loop,Houston,TX,77030,29.711111,-95.391944,,+17138732000,Public Hospital,active
+hou_001,Houston Methodist Hospital,SYS_HMETHODIST,6565 Fannin St,Houston,TX,77030,29.709722,-95.397222,https://www.houstonmethodist.org/locations/texas-medical-center,+17137903311,Academic Medical Center,active
+hou_002,Houston Methodist Willowbrook Hospital,SYS_HMETHODIST,18220 Tomball Pkwy,Houston,TX,77070,29.970833,-95.543889,https://www.houstonmethodist.org/locations/willowbrook,+12814778100,Community Hospital,active
+hou_003,Houston Methodist West Hospital,SYS_HMETHODIST,18500 Katy Fwy,Houston,TX,77094,29.7825,-95.718056,https://www.houstonmethodist.org/locations/katy-west,+18329224000,Community Hospital,active
+hou_004,Memorial Hermann - Texas Medical Center,SYS_MEMORIAL_HERMANN,6411 Fannin St,Houston,TX,77030,29.709167,-95.3975,https://memorialhermann.org/locations/texas-medical-center,+17137044000,Academic Medical Center,active
+hou_005,Memorial Hermann Memorial City Medical Center,SYS_MEMORIAL_HERMANN,921 Gessner Rd,Houston,TX,77024,29.776389,-95.554722,https://memorialhermann.org/locations/memorial-city,+17132423000,Acute Care Hospital,active
+hou_006,MD Anderson Cancer Center,SYS_MDANDERSON,1515 Holcombe Blvd,Houston,TX,77030,29.707222,-95.396944,https://www.mdanderson.org/,+18776326789,Specialty Cancer Hospital,active
+hou_007,Baylor St. Luke's Medical Center,SYS_STLUKES,1101 Bates Ave,Houston,TX,77030,29.709444,-95.399167,https://www.stlukeshealth.org/locations/baylor-st-lukes-medical-center,+18327552000,Academic Medical Center,active
+hou_008,Texas Children's Hospital - Main Campus,SYS_TXCHILDRENS,6621 Fannin St,Houston,TX,77030,29.709722,-95.398333,https://www.texaschildrens.org/locations/texas-childrens-hospital/west-tower,+18328241000,Children's Hospital,active
+hou_009,Ben Taub Hospital,SYS_HARRIS_HEALTH,1504 Taub Loop,Houston,TX,77030,29.711111,-95.391944,https://www.harrishealth.org/locations-hh/pages/ben-taub.aspx,+17138732000,Public Hospital,active
 hou_010,Lyndon B. Johnson Hospital,SYS_HARRIS_HEALTH,5656 Kelley St,Houston,TX,77026,29.793889,-95.325556,,+17135666400,Public Hospital,active
 hou_011,The Woman's Hospital of Texas,SYS_MEDCITY,7600 Fannin St,Houston,TX,77054,29.698056,-95.3975,,+17137901234,Specialty Hospital,active
 hou_012,Children's Memorial Hermann Hospital,SYS_MEMORIAL_HERMANN,6411 Fannin St,Houston,TX,77030,29.709167,-95.3975,,+17137045437,Children's Hospital,active
+hou_013,Houston Methodist Sugar Land Hospital,SYS_HMETHODIST,16655 Southwest Fwy,Sugar Land,TX,77479,,,https://www.houstonmethodist.org/locations/sugar-land,+12812747000,,active
+hou_014,Houston Methodist Cypress Hospital,SYS_HMETHODIST,24500 Northwest Fwy,Cypress,TX,77429,, ,https://www.houstonmethodist.org/locations/cypress/,+13466182000,,active
+hou_015,Houston Methodist The Woodlands Hospital,SYS_HMETHODIST,17201 I-45,Conroe,TX,77385,,,https://www.houstonmethodist.org/locations/the-woodlands,+19362702000,,active
 atl_001,Emory University Hospital,SYS_EMORY,1364 Clifton Rd NE,Atlanta,GA,30322,33.796111,-84.325278,,+14047124000,Academic Medical Center,active
 atl_002,Emory University Hospital Midtown,SYS_EMORY,550 Peachtree St NE,Atlanta,GA,30308,33.768889,-84.385833,,+14046864411,Community Hospital,active
 atl_003,Grady Memorial Hospital,SYS_GRADY,80 Jesse Hill Jr Dr SE,Atlanta,GA,30303,33.752778,-84.383611,,+14046164307,Public Hospital,active
