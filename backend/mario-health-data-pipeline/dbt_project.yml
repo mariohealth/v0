@@ -43,6 +43,9 @@ seeds:
     tin_metadata:
       +column_types:
         tin: STRING
+    hospital_npi:
+      +column_types:
+        npi_id: STRING
 
 # Documentation
 docs-paths: ["docs"]
