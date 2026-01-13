@@ -6,7 +6,7 @@
 
 WITH t0 AS (
 SELECT
-    CONCAT(org_id, '_', procedure_id, '_', carrier_id) AS id,
+    CONCAT(org_id, '_', procedure_id, '_carrier_', carrier_id) AS id,
     org_id,
     procedure_id,
     carrier_id,
