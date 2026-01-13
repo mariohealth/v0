@@ -34,7 +34,7 @@ GROUP BY
 
 t1 AS (
     SELECT
-        CONCAT(procedure_id, '_', hospital_id, '_', npi, '_', 'united_pp1_00') AS id,
+        CONCAT(procedure_id, '_', hospital_id, '_', npi, '_carrier_',carrier_id, '_plan_', carrier_plan_id) AS id,
         procedure_id,
         hospital_id AS org_id,
         npi AS provider_id,
