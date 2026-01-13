@@ -108,9 +108,11 @@ det_002,Corewell Health William Beaumont University Hospital,,3601 W 13 Mile Rd,
 mia_001,Jackson Memorial Hospital,,1611 NW 12th Ave,Miami,FL,33136,,,https://jacksonhealth.org/locations/jackson-memorial-hospital/,+13055851111,Academic Medical Center,active
 lax_001,Los Angeles General Medical Center,,1200 N State St,Los Angeles,CA,90033,,,https://dhs.lacounty.gov/lageneral/,+13232262622,,active
 lax_002,Olive View-UCLA Medical Center,,14445 Olive View Dr,Sylmar,CA,91342,,,https://dhs.lacounty.gov/oliveview/,+17472103000,,active
+lax_003,Children's Hospital Los Angeles,,4650 Sunset Blvd,Los Angeles,CA,90027,,,https://www.chla.org/,+13236602450,,active
 phl_001,St. Christopher's Hospital for Children,,160 E Erie Ave,Philadelphia,PA,19134,,,https://towerhealth.org/locations/st-christophers-hospital-children,+12154275000,Children's Hospital,active
 phl_002,Abington Hospital - Jefferson Health,,1200 Old York Rd,Abington,PA,19001,,,http://www.abingtonradiology.com/,+12154813926,,active
 phl_003,Temple University Hospital - Main Campus,,3401 N Broad St,Philadelphia,PA,19140,,,https://www.templehealth.org/locations/temple-university-hospital,+18008367536,,active
+phl_004,Thomas Jefferson University Hospital,,111 S 11th St,Philadelphia,PA,19107,,,https://www.jeffersonhealth.org/locations/thomas-jefferson-university-hospital,+12159556000,,active
 chs_001,MUSC Health University Medical Center,,171 Ashley Ave,Charleston,SC,29425,,,https://www.getcare.muschealth.org/locations/sc/charleston/musc-health-university-medical-centerdep-fac139,+18437921414,Academic Medical Center,active
 mdt_001,Penn State Health Milton S. Hershey Medical Center,,500 University Dr,Hershey,PA,17033,,,https://www.pennstatehealth.org/locations/milton-s-hershey-medical-center,+18002431455,,active
 sea_001,Virginia Mason Medical Center,,1100 9th Ave,Seattle,WA,98101,,,https://www.vmfh.org/our-hospitals/virginia-mason-medical-center.html,+12066241144,,active
@@ -120,4 +122,10 @@ jac_001,Henry Ford Jackson Hospital,,205 N East Ave,Jackson,MI,49201,,,https://w
 rdu_001,WakeMed Raleigh Campus,,3000 New Bern Ave,Raleigh,NC,27610,,,https://www.wakemed.org/,+19193508000,,active
 sna_001,CHOC Hospital - Orange,,1201 W La Veta Ave,Orange,CA,92868,,,https://choc.org/locations/choc-hospital-main-campus-orange,+17142032181,,active
 sna_002,Providence St. Joseph Hospital Orange,,1100 W Stewart Dr,Orange,CA,92868,,,https://www.providence.org/locations/socal/st-joseph-hospital-orange,+17147718000,,active
-,,,,,,,,,,,,
+pen_001,Guthrie Robert Packer Hospital,,1 Guthrie Sq,Sayre,PA,18840,,,https://www.guthrie.org/locations/guthrie-robert-packer-hospital,+15708886666,,active
+pen_002,UPMC Cole,,1001 E 2nd St,Coudersport,PA,16915,,,https://www.upmc.com/locations/hospitals/cole,+18142749300,,active
+slc_001,University of Utah Hospital,,50 Medical Dr N,Salt Lake City,UT,84132,,,https://healthcare.utah.edu/hospital,+18015812121,,active
+san_001,Hillcrest Medical Center at UC San Diego Health,,200 W Arbor Dr,San Diego,CA,92103,,,https://healthlocations.ucsd.edu/san-diego/200-w.-arbor-drive/7000-02002,+18586577000,,active
+pib_001,Hattiesburg Clinic,,415 S 28th Ave,Hattiesburg,MS,39401,,,http://www.hattiesburgclinic.com/,+16012646000,,active
+chi_001,Rush University Medical Center,,1620 W Harrison St,Chicago,IL,60612,,,https://www.rush.edu,+13129425000,,active
+fnt_001,Hurley Medical Center,,1 Hurley Plaza,Flint,MI,48503,,,https://www.hurleymc.com/,+18102629000,,active
