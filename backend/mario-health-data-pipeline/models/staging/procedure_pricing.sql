@@ -76,9 +76,14 @@ SELECT
         ", ",
         t_npi.provider_credential_text
         ) AS provider_name,
+    t_carr.name AS carrier_name,
 FROM
     t1
 JOIN
-      {{ source('mario-mrf-data', 'npidata_pfile_20050523-20250907') }} AS t_npi
-    ON
-        t1.provider_id = t_npi.npi
+    {{ source('mario-mrf-data', 'npidata_pfile_20050523-20250907') }} AS t_npi
+ON
+    t1.provider_id = t_npi.npi
+LEFT JOIN
+    {{ ref('insurance_carriers') }} AS t_carr
+ON
+    t1.carrier_id = t_carr.id

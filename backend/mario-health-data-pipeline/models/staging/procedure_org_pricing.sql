@@ -10,6 +10,7 @@ SELECT
     org_id,
     procedure_id,
     carrier_id,
+    carrier_name,
     carrier_plan_id,
     COUNT(DISTINCT provider_id) AS count_provider,
     MIN(professional_rate_min) AS min_professional_rate,
@@ -27,7 +28,7 @@ SELECT
 FROM
     {{ ref('procedure_pricing') }}
 GROUP BY
-    1,2,3,4,5
+    1,2,3,4,5,6
 )
 
 SELECT
@@ -35,6 +36,8 @@ SELECT
     t0.org_id,
     t0.procedure_id,
     t0.carrier_id,
+    t0.carrier_name,
+    t0.carrier_plan_id,
     t0.count_provider,
     t0.min_professional_rate,
     t0.max_professional_rate,
@@ -57,16 +60,12 @@ SELECT
     t_hosp.latitude,
     t_hosp.longitude,
     t_hosp.phone,
-    t_carr.name AS carrier_name,
+
 FROM
     t0
 LEFT JOIN
         {{ ref('hospitals') }} AS t_hosp
   ON
       t0.org_id = t_hosp.hospital_id
-LEFT JOIN
-    {{ ref('insurance_carriers') }} AS t_carr
-ON
-    t0.carrier_id = t_carr.id
 WHERE
     t_hosp.operational_status = 'active'
