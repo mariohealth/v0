@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS procedure_org_pricing (
     org_id TEXT,
     carrier_id TEXT,
     carrier_name TEXT,
+    carrier_plan_id TEXT,
     count_provider NUMERIC,
 
     min_professional_rate NUMERIC,

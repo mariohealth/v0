@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS procedure_pricing (
     provider_location_id TEXT,
     carrier_id TEXT,
     carrier_name TEXT,
+    carrier_plan_id TEXT,
     price NUMERIC,
     professional_rate_min NUMERIC,
     institutional_rate_min NUMERIC,
