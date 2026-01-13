@@ -31,7 +31,7 @@ sf_011,Zuckerberg San Francisco General Hospital,SYS_SFHEALTH,1001 Potrero Ave,S
 sf_012,"California Pacific Medical Center, Davies Campus",SYS_SUTTER,601 Duboce Ave,San Francisco,CA,94114,37.768783,-122.434591,,+14156006000,Community Hospital,active
 sf_013,"California Pacific Medical Center, Van Ness Campus",SYS_SUTTER,1101 Van Ness Ave,San Francisco,CA,94109,37.786286,-122.421884,,+14156006000,Community Hospital,active
 sf_014,UCSF Health Stanyan Hospital,SYS_UCSF,450 Stanyan St,San Francisco,CA,94117,37.774092,-122.453707,,+14156681000,Community Hospital,active
-sfo_015,San Mateo Medical Center,,222 W 39th Ave,San Mateo,CA,94403,,,http://www.sanmateomedicalcenter.org/,+16505732222,,active
+sfo_015,San Mateo Medical Center,,222 W 39th Ave,San Mateo,CA,94403,37.531127,-122.299072,http://www.sanmateomedicalcenter.org/,+16505732222,,active
 dfw_001,UT Southwestern Medical Center - Clements University Hospital,SYS_UTSW,6201 Harry Hines Blvd,Dallas,TX,75390,32.812839,-96.840881,,+12146334700,Academic Medical Center,active
 dfw_002,UT Southwestern Medical Center - Zale Lipshy Pavilion,SYS_UTSW,5151 Harry Hines Blvd,Dallas,TX,75390,32.8105,-96.8402,https://www.utswmed.org/,+12146334700,Academic Medical Center,active
 dfw_003,Baylor University Medical Center,SYS_BSW,3500 Gaston Ave,Dallas,TX,75246,32.789889,-96.776944,,+12148200111,Academic Medical Center,active
@@ -53,7 +53,7 @@ dfw_018,Texas Health Harris Methodist Hospital Southwest Fort Worth,SYS_THR,6100
 dfw_019,Children's Medical Center Plano,SYS_CHILDRENS_HEALTH,7601 Preston Rd,Plano,TX,75024,33.078845,-96.800974,,+14693037000,Children's Hospital,active
 dfw_020,Methodist Dallas Medical Center,SYS_METHODIST_DALLAS,1441 N Beckley Ave,Dallas,TX,75203,32.760734,-96.825980,https://www.methodisthealthsystem.org/methodist-dallas-medical-center/?L=true,+12149478181,"",active
 dfw_021,Methodist Hospital Campbell,SYS_METHODIST_DALLAS,401 W Campbell Rd,Richardson,TX,75080,32.974770,-96.726898,https://www.methodisthealthsystem.org/locations/methodist-campus-for-continuing-care/,+14692041000,,active
-dfw_022,Methodist Charlton Medical Center,SYS_METHODIST_DALLAS,3500 W Wheatland Rd,Dallas,TX,75237,,,https://www.methodisthealthsystem.org/methodist-charlton-medical-center/?L=true,+12149477777,,active
+dfw_022,Methodist Charlton Medical Center,SYS_METHODIST_DALLAS,3500 W Wheatland Rd,Dallas,TX,75237,32.647060,-96.876330,https://www.methodisthealthsystem.org/methodist-charlton-medical-center/?L=true,+12149477777,,active
 hou_001,Houston Methodist Hospital,SYS_HMETHODIST,6565 Fannin St,Houston,TX,77030,29.709722,-95.397222,https://www.houstonmethodist.org/locations/texas-medical-center,+17137903311,Academic Medical Center,active
 hou_002,Houston Methodist Willowbrook Hospital,SYS_HMETHODIST,18220 Tomball Pkwy,Houston,TX,77070,29.970833,-95.543889,https://www.houstonmethodist.org/locations/willowbrook,+12814778100,Community Hospital,active
 hou_003,Houston Methodist West Hospital,SYS_HMETHODIST,18500 Katy Fwy,Houston,TX,77094,29.7825,-95.718056,https://www.houstonmethodist.org/locations/katy-west,+18329224000,Community Hospital,active
@@ -66,9 +66,9 @@ hou_009,Ben Taub Hospital,SYS_HARRIS_HEALTH,1504 Taub Loop,Houston,TX,77030,29.7
 hou_010,Lyndon B. Johnson Hospital,SYS_HARRIS_HEALTH,5656 Kelley St,Houston,TX,77026,29.793889,-95.325556,,+17135666400,Public Hospital,active
 hou_011,The Woman's Hospital of Texas,SYS_MEDCITY,7600 Fannin St,Houston,TX,77054,29.698056,-95.3975,,+17137901234,Specialty Hospital,active
 hou_012,Children's Memorial Hermann Hospital,SYS_MEMORIAL_HERMANN,6411 Fannin St,Houston,TX,77030,29.709167,-95.3975,,+17137045437,Children's Hospital,active
-hou_013,Houston Methodist Sugar Land Hospital,SYS_HMETHODIST,16655 Southwest Fwy,Sugar Land,TX,77479,,,https://www.houstonmethodist.org/locations/sugar-land,+12812747000,,active
-hou_014,Houston Methodist Cypress Hospital,SYS_HMETHODIST,24500 Northwest Fwy,Cypress,TX,77429,, ,https://www.houstonmethodist.org/locations/cypress/,+13466182000,,active
-hou_015,Houston Methodist The Woodlands Hospital,SYS_HMETHODIST,17201 I-45,Conroe,TX,77385,,,https://www.houstonmethodist.org/locations/the-woodlands,+19362702000,,active
+hou_013,Houston Methodist Sugar Land Hospital,SYS_HMETHODIST,16655 Southwest Fwy,Sugar Land,TX,77479,29.588635,-95.631004,https://www.houstonmethodist.org/locations/sugar-land,+12812747000,,active
+hou_014,Houston Methodist Cypress Hospital,SYS_HMETHODIST,24500 Northwest Fwy,Cypress,TX,77429,29.961944,-95.680590,https://www.houstonmethodist.org/locations/cypress/,+13466182000,,active
+hou_015,Houston Methodist The Woodlands Hospital,SYS_HMETHODIST,17201 I-45,Conroe,TX,77385,30.205035,-95.451846,https://www.houstonmethodist.org/locations/the-woodlands,+19362702000,,active
 atl_001,Emory University Hospital,SYS_EMORY,1364 Clifton Rd NE,Atlanta,GA,30322,33.796111,-84.325278,,+14047124000,Academic Medical Center,active
 atl_002,Emory University Hospital Midtown,SYS_EMORY,550 Peachtree St NE,Atlanta,GA,30308,33.768889,-84.385833,,+14046864411,Community Hospital,active
 atl_003,Grady Memorial Hospital,SYS_GRADY,80 Jesse Hill Jr Dr SE,Atlanta,GA,30303,33.752778,-84.383611,,+14046164307,Public Hospital,active
@@ -97,35 +97,35 @@ den_004,Swedish Medical Center,SYS_HCA_HEALTHONE,501 E Hampden Ave,Englewood,CO,
 den_005,Children's Hospital Colorado,SYS_CHILDRENSCO,13123 E 16th Ave,Aurora,CO,80045,39.7425,-104.836944,,+17207771234,Children's Hospital,active
 tpa_001,Tampa General Hospital,SYS_TAMPAGEN,1 Tampa General Cir,Tampa,FL,33606,27.940556,-82.458333,,+18138444000,Academic Medical Center,active
 tpa_002,AdventHealth Tampa,SYS_ADVENTHEALTH,3100 E Fletcher Ave,Tampa,FL,33613,28.061667,-82.439167,,+18139712000,Acute Care Hospital,active
-tpa_003,Morton Plant Hospital,SYS_BAYCARE,300 Pinellas St,Clearwater,FL,33756,27.966111,-82.8,,+17274627000,Acute Care Hospital,active
+tpa_003,Morton Plant Hospital,SYS_BAYCARE,300 Pinellas St,Clearwater,FL,33756,27.952054,-82.801584,,+17274627000,Acute Care Hospital,active
 tpa_004,St. Joseph's Hospital - Tampa,SYS_BAYCARE,3001 W Dr Martin Luther King Jr Blvd,Tampa,FL,33607,27.970278,-82.474722,,+18138704000,Acute Care Hospital,active
 tpa_005,Johns Hopkins All Children's Hospital,SYS_JHUALLCHILDREN,501 6th Ave S,St. Petersburg,FL,33701,27.767222,-82.639167,,+17278985000,Children's Hospital,active
 tpa_006,HCA Florida South Tampa Hospital,SYS_HCA_WESTFL,2901 W Swann Ave,Tampa,FL,33609,27.934167,-82.497222,,+18138738571,Acute Care Hospital,active
-bal_001,The Johns Hopkins Hospital,,1800 Orleans St,Baltimore,MD,21287,,,https://www.hopkinsmedicine.org/the_johns_hopkins_hospital,+14109555000,Academic Medical Center,active
-ann_001,University of Michigan Hospital,,1500 E Medical Center Dr,Ann Arbor,MI,48109,,,http://www.uofmhealth.org/,+17349364000,Academic Medical Center,active
-det_001,Henry Ford Hospital,,2799 W Grand Blvd,Detroit,MI,48202,,,https://www.henryford.com/locations/henry-ford-hospital,+13139162600,,active
-det_002,Corewell Health William Beaumont University Hospital,,3601 W 13 Mile Rd,Royal Oak,MI,48073,,,https://www.beaumont.org/locations/beaumont-hospital-royal-oak,+12488985000,,active
-mia_001,Jackson Memorial Hospital,,1611 NW 12th Ave,Miami,FL,33136,,,https://jacksonhealth.org/locations/jackson-memorial-hospital/,+13055851111,Academic Medical Center,active
-lax_001,Los Angeles General Medical Center,,1200 N State St,Los Angeles,CA,90033,,,https://dhs.lacounty.gov/lageneral/,+13232262622,,active
-lax_002,Olive View-UCLA Medical Center,,14445 Olive View Dr,Sylmar,CA,91342,,,https://dhs.lacounty.gov/oliveview/,+17472103000,,active
-lax_003,Children's Hospital Los Angeles,,4650 Sunset Blvd,Los Angeles,CA,90027,,,https://www.chla.org/,+13236602450,,active
-phl_001,St. Christopher's Hospital for Children,,160 E Erie Ave,Philadelphia,PA,19134,,,https://towerhealth.org/locations/st-christophers-hospital-children,+12154275000,Children's Hospital,active
-phl_002,Abington Hospital - Jefferson Health,,1200 Old York Rd,Abington,PA,19001,,,http://www.abingtonradiology.com/,+12154813926,,active
-phl_003,Temple University Hospital - Main Campus,,3401 N Broad St,Philadelphia,PA,19140,,,https://www.templehealth.org/locations/temple-university-hospital,+18008367536,,active
-phl_004,Thomas Jefferson University Hospital,,111 S 11th St,Philadelphia,PA,19107,,,https://www.jeffersonhealth.org/locations/thomas-jefferson-university-hospital,+12159556000,,active
-chs_001,MUSC Health University Medical Center,,171 Ashley Ave,Charleston,SC,29425,,,https://www.getcare.muschealth.org/locations/sc/charleston/musc-health-university-medical-centerdep-fac139,+18437921414,Academic Medical Center,active
-mdt_001,Penn State Health Milton S. Hershey Medical Center,,500 University Dr,Hershey,PA,17033,,,https://www.pennstatehealth.org/locations/milton-s-hershey-medical-center,+18002431455,,active
-sea_001,Virginia Mason Medical Center,,1100 9th Ave,Seattle,WA,98101,,,https://www.vmfh.org/our-hospitals/virginia-mason-medical-center.html,+12066241144,,active
-sea_002,MultiCare Tacoma General Hospital,,315 M.L.K. Jr Way,Tacoma,WA,98405,,,https://www.multicare.org/location/tacoma-general-hospital,+12534031000,,active
-dan_001,Geisinger Medical Center,,100 N Academy Ave,Danville,PA,17822,,,https://www.geisinger.org/patient-care/find-a-location/geisinger-medical-center,+15702716211,,active
-jac_001,Henry Ford Jackson Hospital,,205 N East Ave,Jackson,MI,49201,,,https://www.henryford.com/locations/jackson-hospital,+15172054800,,active
-rdu_001,WakeMed Raleigh Campus,,3000 New Bern Ave,Raleigh,NC,27610,,,https://www.wakemed.org/,+19193508000,,active
-sna_001,CHOC Hospital - Orange,,1201 W La Veta Ave,Orange,CA,92868,,,https://choc.org/locations/choc-hospital-main-campus-orange,+17142032181,,active
-sna_002,Providence St. Joseph Hospital Orange,,1100 W Stewart Dr,Orange,CA,92868,,,https://www.providence.org/locations/socal/st-joseph-hospital-orange,+17147718000,,active
-pen_001,Guthrie Robert Packer Hospital,,1 Guthrie Sq,Sayre,PA,18840,,,https://www.guthrie.org/locations/guthrie-robert-packer-hospital,+15708886666,,active
-pen_002,UPMC Cole,,1001 E 2nd St,Coudersport,PA,16915,,,https://www.upmc.com/locations/hospitals/cole,+18142749300,,active
-slc_001,University of Utah Hospital,,50 Medical Dr N,Salt Lake City,UT,84132,,,https://healthcare.utah.edu/hospital,+18015812121,,active
-san_001,Hillcrest Medical Center at UC San Diego Health,,200 W Arbor Dr,San Diego,CA,92103,,,https://healthlocations.ucsd.edu/san-diego/200-w.-arbor-drive/7000-02002,+18586577000,,active
-pib_001,Hattiesburg Clinic,,415 S 28th Ave,Hattiesburg,MS,39401,,,http://www.hattiesburgclinic.com/,+16012646000,,active
-chi_001,Rush University Medical Center,,1620 W Harrison St,Chicago,IL,60612,,,https://www.rush.edu,+13129425000,,active
-fnt_001,Hurley Medical Center,,1 Hurley Plaza,Flint,MI,48503,,,https://www.hurleymc.com/,+18102629000,,active
+bal_001,The Johns Hopkins Hospital,,1800 Orleans St,Baltimore,MD,21287,39.2964392,-76.5923927,https://www.hopkinsmedicine.org/the_johns_hopkins_hospital,+14109555000,Academic Medical Center,active
+ann_001,University of Michigan Hospital,,1500 E Medical Center Dr,Ann Arbor,MI,48109,42.2821095,-83.7273205,http://www.uofmhealth.org/,+17349364000,Academic Medical Center,active
+det_001,Henry Ford Hospital,,2799 W Grand Blvd,Detroit,MI,48202,42.3678522,-83.0855196,https://www.henryford.com/locations/henry-ford-hospital,+13139162600,,active
+det_002,Corewell Health William Beaumont University Hospital,,3601 W 13 Mile Rd,Royal Oak,MI,48073,42.5138736,-83.1928803,https://www.beaumont.org/locations/beaumont-hospital-royal-oak,+12488985000,,active
+mia_001,Jackson Memorial Hospital,,1611 NW 12th Ave,Miami,FL,33136,25.7916705,-80.2126015,https://jacksonhealth.org/locations/jackson-memorial-hospital/,+13055851111,Academic Medical Center,active
+lax_001,Los Angeles General Medical Center,,1200 N State St,Los Angeles,CA,90033,34.0581804,-118.2097969,https://dhs.lacounty.gov/lageneral/,+13232262622,,active
+lax_002,Olive View-UCLA Medical Center,,14445 Olive View Dr,Sylmar,CA,91342,34.3265664,-118.4487311,https://dhs.lacounty.gov/oliveview/,+17472103000,,active
+lax_003,Children's Hospital Los Angeles,,4650 Sunset Blvd,Los Angeles,CA,90027,34.0976912,-118.2900801,https://www.chla.org/,+13236602450,,active
+phl_001,St. Christopher's Hospital for Children,,160 E Erie Ave,Philadelphia,PA,19134,40.0062787,-75.1256327,https://towerhealth.org/locations/st-christophers-hospital-children,+12154275000,Children's Hospital,active
+phl_002,Abington Hospital - Jefferson Health,,1200 Old York Rd,Abington,PA,19001,40.1196538,-75.120194,http://www.abingtonradiology.com/,+12154813926,,active
+phl_003,Temple University Hospital - Main Campus,,3401 N Broad St,Philadelphia,PA,19140,40.0053079,-75.1508235,https://www.templehealth.org/locations/temple-university-hospital,+18008367536,,active
+phl_004,Thomas Jefferson University Hospital,,111 S 11th St,Philadelphia,PA,19107,39.9492771,-75.1580307,https://www.jeffersonhealth.org/locations/thomas-jefferson-university-hospital,+12159556000,,active
+chs_001,MUSC Health University Medical Center,,171 Ashley Ave,Charleston,SC,29425,32.785583,-79.9481581,https://www.getcare.muschealth.org/locations/sc/charleston/musc-health-university-medical-centerdep-fac139,+18437921414,Academic Medical Center,active
+mdt_001,Penn State Health Milton S. Hershey Medical Center,,500 University Dr,Hershey,PA,17033,40.273179,-76.675745,https://www.pennstatehealth.org/locations/milton-s-hershey-medical-center,+18002431455,,active
+sea_001,Virginia Mason Medical Center,,1100 9th Ave,Seattle,WA,98101,47.6101681,-122.3278853,https://www.vmfh.org/our-hospitals/virginia-mason-medical-center.html,+12066241144,,active
+sea_002,MultiCare Tacoma General Hospital,,315 M.L.K. Jr Way,Tacoma,WA,98405,47.247871,-122.472793,https://www.multicare.org/location/tacoma-general-hospital,+12534031000,,active
+dan_001,Geisinger Medical Center,,100 N Academy Ave,Danville,PA,17822,40.9682437,-76.604154,https://www.geisinger.org/patient-care/find-a-location/geisinger-medical-center,+15702716211,,active
+jac_001,Henry Ford Jackson Hospital,,205 N East Ave,Jackson,MI,49201,42.2512962,-84.3938707,https://www.henryford.com/locations/jackson-hospital,+15172054800,,active
+rdu_001,WakeMed Raleigh Campus,,3000 New Bern Ave,Raleigh,NC,27610,35.784464,-78.590762,https://www.wakemed.org/,+19193508000,,active
+sna_001,CHOC Hospital - Orange,,1201 W La Veta Ave,Orange,CA,92868,33.7809052,-117.8660899,https://choc.org/locations/choc-hospital-main-campus-orange,+17142032181,,active
+sna_002,Providence St. Joseph Hospital Orange,,1100 W Stewart Dr,Orange,CA,92868,33.782129,-117.8640246,https://www.providence.org/locations/socal/st-joseph-hospital-orange,+17147718000,,active
+pen_001,Guthrie Robert Packer Hospital,,1 Guthrie Sq,Sayre,PA,18840,41.9805889,-76.5208075,https://www.guthrie.org/locations/guthrie-robert-packer-hospital,+15708886666,,active
+pen_002,UPMC Cole,,1001 E 2nd St,Coudersport,PA,16915,41.771286,-77.980875,https://www.upmc.com/locations/hospitals/cole,+18142749300,,active
+slc_001,University of Utah Hospital,,50 Medical Dr N,Salt Lake City,UT,84132,40.7715715,-111.8365802,https://healthcare.utah.edu/hospital,+18015812121,,active
+san_001,Hillcrest Medical Center at UC San Diego Health,,200 W Arbor Dr,San Diego,CA,92103,32.7553116,-117.1655247,https://healthlocations.ucsd.edu/san-diego/200-w.-arbor-drive/7000-02002,+18586577000,,active
+pib_001,Hattiesburg Clinic,,415 S 28th Ave,Hattiesburg,MS,39401,31.3190623,-89.3319001,http://www.hattiesburgclinic.com/,+16012646000,,active
+chi_001,Rush University Medical Center,,1620 W Harrison St,Chicago,IL,60612,41.8740924,-87.6678779,https://www.rush.edu,+13129425000,,active
+fnt_001,Hurley Medical Center,,1 Hurley Plaza,Flint,MI,48503,43.021362,-83.704308,https://www.hurleymc.com/,+18102629000,,active
