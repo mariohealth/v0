@@ -279,12 +279,19 @@ export async function searchProcedures(
         selectedCarrierId: options?.carrier_id || undefined,
     });
 
+    const effectiveRadius =
+        radius_miles !== undefined && radius_miles !== null
+            ? radius_miles
+            : effectiveZip
+                ? 60
+                : undefined;
+
     if (effectiveZip) {
         params.append('location', effectiveZip);
     }
 
-    if (radius_miles) {
-        params.append('radius_miles', radius_miles.toString());
+    if (effectiveRadius !== undefined) {
+        params.append('radius_miles', effectiveRadius.toString());
     }
 
     if (effectiveCarrier) {
@@ -474,6 +481,7 @@ export async function getProcedureProviders(
     options?: {
         zip?: string | null;
         carrier_id?: string | null;
+        radius_miles?: number | null;
     }
 ): Promise<ProcedureProvidersResponse> {
     // === Restored core logic from b6d802c (last known-good) ===
@@ -481,12 +489,20 @@ export async function getProcedureProviders(
     const base = `${getApiBaseUrl()}/procedures/${procedureSlug}/providers`;
     const effectiveZip = getEffectiveZip({ profileZip: options?.zip || undefined });
     const effectiveCarrier = getEffectiveCarrier({ selectedCarrierId: options?.carrier_id || undefined });
+    const effectiveRadius =
+        options?.radius_miles !== undefined && options?.radius_miles !== null
+            ? options.radius_miles
+            : effectiveZip
+                ? 60
+                : undefined;
     const url = new URL(base);
     if (effectiveZip) url.searchParams.set('zip_code', effectiveZip);
+    if (effectiveRadius !== undefined) url.searchParams.set('radius_miles', String(effectiveRadius));
     if (effectiveCarrier) url.searchParams.set('carrier_id', effectiveCarrier);
     logSearchContext('getProcedureProviders', {
         zip: effectiveZip,
         carrier: effectiveCarrier,
+        note: effectiveRadius !== undefined ? `radius=${effectiveRadius}` : undefined,
     });
 
     const res = await fetch(url.toString(), {
@@ -552,6 +568,7 @@ export async function getProcedureOrgs(
     options?: {
         zip?: string | null;
         carrier_id?: string | null;
+        radius_miles?: number | null;
     }
 ): Promise<ProcedureOrgsResponse> {
     if (process.env.NODE_ENV === 'development') {
@@ -562,12 +579,20 @@ export async function getProcedureOrgs(
         const base = `${getApiBaseUrl()}/procedures/${procedureSlug}/orgs`;
         const effectiveZip = getEffectiveZip({ profileZip: options?.zip || undefined });
         const effectiveCarrier = getEffectiveCarrier({ selectedCarrierId: options?.carrier_id || undefined });
+        const effectiveRadius =
+            options?.radius_miles !== undefined && options?.radius_miles !== null
+                ? options.radius_miles
+                : effectiveZip
+                    ? 60
+                    : undefined;
         const url = new URL(base);
         if (effectiveZip) url.searchParams.set('zip_code', effectiveZip);
+        if (effectiveRadius !== undefined) url.searchParams.set('radius_miles', String(effectiveRadius));
         if (effectiveCarrier) url.searchParams.set('carrier_id', effectiveCarrier);
         logSearchContext('getProcedureOrgs', {
             zip: effectiveZip,
             carrier: effectiveCarrier,
+            note: effectiveRadius !== undefined ? `radius=${effectiveRadius}` : undefined,
         });
 
         const res = await fetch(url.toString(), { method: "GET" });
