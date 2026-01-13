@@ -46,6 +46,13 @@ seeds:
     hospital_npi:
       +column_types:
         npi_id: STRING
+    insurance_carriers:
+      +column_types:
+        id: STRING
+    insurance_plans:
+      +column_types:
+        id: STRING
+        carrier_id: STRING
 
 # Documentation
 docs-paths: ["docs"]
