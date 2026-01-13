@@ -102,6 +102,7 @@ tpa_004,St. Joseph's Hospital - Tampa,SYS_BAYCARE,3001 W Dr Martin Luther King J
 tpa_005,Johns Hopkins All Children's Hospital,SYS_JHUALLCHILDREN,501 6th Ave S,St. Petersburg,FL,33701,27.767222,-82.639167,,+17278985000,Children's Hospital,active
 tpa_006,HCA Florida South Tampa Hospital,SYS_HCA_WESTFL,2901 W Swann Ave,Tampa,FL,33609,27.934167,-82.497222,,+18138738571,Acute Care Hospital,active
 bal_001,The Johns Hopkins Hospital,,1800 Orleans St,Baltimore,MD,21287,39.2964392,-76.5923927,https://www.hopkinsmedicine.org/the_johns_hopkins_hospital,+14109555000,Academic Medical Center,active
+bal_002,Sinai Hospital of Balitmore,,2401 W Belvedere Ave,Baltimore,MD,21215,,,https://doctors.lifebridgehealth.org/location/sinai-hospital-schoeneman-building-2nd-floor,+14106019000,,active
 ann_001,University of Michigan Hospital,,1500 E Medical Center Dr,Ann Arbor,MI,48109,42.2821095,-83.7273205,http://www.uofmhealth.org/,+17349364000,Academic Medical Center,active
 det_001,Henry Ford Hospital,,2799 W Grand Blvd,Detroit,MI,48202,42.3678522,-83.0855196,https://www.henryford.com/locations/henry-ford-hospital,+13139162600,,active
 det_002,Corewell Health William Beaumont University Hospital,,3601 W 13 Mile Rd,Royal Oak,MI,48073,42.5138736,-83.1928803,https://www.beaumont.org/locations/beaumont-hospital-royal-oak,+12488985000,,active
@@ -124,6 +125,7 @@ sna_001,CHOC Hospital - Orange,,1201 W La Veta Ave,Orange,CA,92868,33.7809052,-1
 sna_002,Providence St. Joseph Hospital Orange,,1100 W Stewart Dr,Orange,CA,92868,33.782129,-117.8640246,https://www.providence.org/locations/socal/st-joseph-hospital-orange,+17147718000,,active
 pen_001,Guthrie Robert Packer Hospital,,1 Guthrie Sq,Sayre,PA,18840,41.9805889,-76.5208075,https://www.guthrie.org/locations/guthrie-robert-packer-hospital,+15708886666,,active
 pen_002,UPMC Cole,,1001 E 2nd St,Coudersport,PA,16915,41.771286,-77.980875,https://www.upmc.com/locations/hospitals/cole,+18142749300,,active
+pen_003,Lancaster General Hospital,,555 N Duke St,Lancaster,PA,17602,,,https://www.pennmedicine.org/locations/lancaster-general-hospital,+17175445511,,active
 slc_001,University of Utah Hospital,,50 Medical Dr N,Salt Lake City,UT,84132,40.7715715,-111.8365802,https://healthcare.utah.edu/hospital,+18015812121,,active
 san_001,Hillcrest Medical Center at UC San Diego Health,,200 W Arbor Dr,San Diego,CA,92103,32.7553116,-117.1655247,https://healthlocations.ucsd.edu/san-diego/200-w.-arbor-drive/7000-02002,+18586577000,,active
 pib_001,Hattiesburg Clinic,,415 S 28th Ave,Hattiesburg,MS,39401,31.3190623,-89.3319001,http://www.hattiesburgclinic.com/,+16012646000,,active
