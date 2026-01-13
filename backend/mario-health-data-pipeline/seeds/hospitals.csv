@@ -31,8 +31,9 @@ sf_011,Zuckerberg San Francisco General Hospital,SYS_SFHEALTH,1001 Potrero Ave,S
 sf_012,"California Pacific Medical Center, Davies Campus",SYS_SUTTER,601 Duboce Ave,San Francisco,CA,94114,37.768783,-122.434591,,+14156006000,Community Hospital,active
 sf_013,"California Pacific Medical Center, Van Ness Campus",SYS_SUTTER,1101 Van Ness Ave,San Francisco,CA,94109,37.786286,-122.421884,,+14156006000,Community Hospital,active
 sf_014,UCSF Health Stanyan Hospital,SYS_UCSF,450 Stanyan St,San Francisco,CA,94117,37.774092,-122.453707,,+14156681000,Community Hospital,active
+sfo_015,San Mateo Medical Center,,222 W 39th Ave,San Mateo,CA,94403,,,http://www.sanmateomedicalcenter.org/,+16505732222,,active
 dfw_001,UT Southwestern Medical Center - Clements University Hospital,SYS_UTSW,6201 Harry Hines Blvd,Dallas,TX,75390,32.812839,-96.840881,,+12146334700,Academic Medical Center,active
-dfw_002,UT Southwestern Medical Center - Zale Lipshy Pavilion,SYS_UTSW,5151 Harry Hines Blvd,Dallas,TX,75390,32.8105,-96.8402,,+12146334700,Academic Medical Center,active
+dfw_002,UT Southwestern Medical Center - Zale Lipshy Pavilion,SYS_UTSW,5151 Harry Hines Blvd,Dallas,TX,75390,32.8105,-96.8402,https://www.utswmed.org/,+12146334700,Academic Medical Center,active
 dfw_003,Baylor University Medical Center,SYS_BSW,3500 Gaston Ave,Dallas,TX,75246,32.789889,-96.776944,,+12148200111,Academic Medical Center,active
 dfw_004,Parkland Memorial Hospital,SYS_PARKLAND,5200 Harry Hines Blvd,Dallas,TX,75235,32.811389,-96.839167,,+12145908000,Public Hospital,active
 dfw_005,Medical City Dallas Hospital,SYS_MEDCITY,7777 Forest Ln,Dallas,TX,75230,32.906944,-96.784722,,+19725667000,Acute Care Hospital,active
@@ -100,3 +101,23 @@ tpa_003,Morton Plant Hospital,SYS_BAYCARE,300 Pinellas St,Clearwater,FL,33756,27
 tpa_004,St. Joseph's Hospital - Tampa,SYS_BAYCARE,3001 W Dr Martin Luther King Jr Blvd,Tampa,FL,33607,27.970278,-82.474722,,+18138704000,Acute Care Hospital,active
 tpa_005,Johns Hopkins All Children's Hospital,SYS_JHUALLCHILDREN,501 6th Ave S,St. Petersburg,FL,33701,27.767222,-82.639167,,+17278985000,Children's Hospital,active
 tpa_006,HCA Florida South Tampa Hospital,SYS_HCA_WESTFL,2901 W Swann Ave,Tampa,FL,33609,27.934167,-82.497222,,+18138738571,Acute Care Hospital,active
+bal_001,The Johns Hopkins Hospital,,1800 Orleans St,Baltimore,MD,21287,,,https://www.hopkinsmedicine.org/the_johns_hopkins_hospital,+14109555000,Academic Medical Center,active
+ann_001,University of Michigan Hospital,,1500 E Medical Center Dr,Ann Arbor,MI,48109,,,http://www.uofmhealth.org/,+17349364000,Academic Medical Center,active
+det_001,Henry Ford Hospital,,2799 W Grand Blvd,Detroit,MI,48202,,,https://www.henryford.com/locations/henry-ford-hospital,+13139162600,,active
+det_002,Corewell Health William Beaumont University Hospital,,3601 W 13 Mile Rd,Royal Oak,MI,48073,,,https://www.beaumont.org/locations/beaumont-hospital-royal-oak,+12488985000,,active
+mia_001,Jackson Memorial Hospital,,1611 NW 12th Ave,Miami,FL,33136,,,https://jacksonhealth.org/locations/jackson-memorial-hospital/,+13055851111,Academic Medical Center,active
+lax_001,Los Angeles General Medical Center,,1200 N State St,Los Angeles,CA,90033,,,https://dhs.lacounty.gov/lageneral/,+13232262622,,active
+lax_002,Olive View-UCLA Medical Center,,14445 Olive View Dr,Sylmar,CA,91342,,,https://dhs.lacounty.gov/oliveview/,+17472103000,,active
+phl_001,St. Christopher's Hospital for Children,,160 E Erie Ave,Philadelphia,PA,19134,,,https://towerhealth.org/locations/st-christophers-hospital-children,+12154275000,Children's Hospital,active
+phl_002,Abington Hospital - Jefferson Health,,1200 Old York Rd,Abington,PA,19001,,,http://www.abingtonradiology.com/,+12154813926,,active
+phl_003,Temple University Hospital - Main Campus,,3401 N Broad St,Philadelphia,PA,19140,,,https://www.templehealth.org/locations/temple-university-hospital,+18008367536,,active
+chs_001,MUSC Health University Medical Center,,171 Ashley Ave,Charleston,SC,29425,,,https://www.getcare.muschealth.org/locations/sc/charleston/musc-health-university-medical-centerdep-fac139,+18437921414,Academic Medical Center,active
+mdt_001,Penn State Health Milton S. Hershey Medical Center,,500 University Dr,Hershey,PA,17033,,,https://www.pennstatehealth.org/locations/milton-s-hershey-medical-center,+18002431455,,active
+sea_001,Virginia Mason Medical Center,,1100 9th Ave,Seattle,WA,98101,,,https://www.vmfh.org/our-hospitals/virginia-mason-medical-center.html,+12066241144,,active
+sea_002,MultiCare Tacoma General Hospital,,315 M.L.K. Jr Way,Tacoma,WA,98405,,,https://www.multicare.org/location/tacoma-general-hospital,+12534031000,,active
+dan_001,Geisinger Medical Center,,100 N Academy Ave,Danville,PA,17822,,,https://www.geisinger.org/patient-care/find-a-location/geisinger-medical-center,+15702716211,,active
+jac_001,Henry Ford Jackson Hospital,,205 N East Ave,Jackson,MI,49201,,,https://www.henryford.com/locations/jackson-hospital,+15172054800,,active
+rdu_001,WakeMed Raleigh Campus,,3000 New Bern Ave,Raleigh,NC,27610,,,https://www.wakemed.org/,+19193508000,,active
+sna_001,CHOC Hospital - Orange,,1201 W La Veta Ave,Orange,CA,92868,,,https://choc.org/locations/choc-hospital-main-campus-orange,+17142032181,,active
+sna_002,Providence St. Joseph Hospital Orange,,1100 W Stewart Dr,Orange,CA,92868,,,https://www.providence.org/locations/socal/st-joseph-hospital-orange,+17147718000,,active
+,,,,,,,,,,,,
