@@ -30,7 +30,9 @@ t1 AS (
     prices.negotiated_rate AS negotiated_rate,
     prices.negotiated_type AS negotiated_type,
     prices.service_code AS service_code,
-    prices.billing_code_modifier[SAFE_OFFSET(0)] AS billing_code_modifier, -- billing code modifiers can be [TC], [26] or []
+    prices.billing_code_modifier[SAFE_OFFSET(0)] AS billing_code_modifier, -- we only care about billing code
+--    modifiers [TC], [26] or []. Much more rarely, they can also be [G0],[95],[GT],[GQ],[58],[27],[QW] at UHC
+
   FROM t0
   , UNNEST(provider_references) AS provider_group_id
   , UNNEST(negotiated_prices) AS prices
