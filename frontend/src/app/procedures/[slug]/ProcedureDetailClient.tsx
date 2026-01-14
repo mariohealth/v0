@@ -1,8 +1,8 @@
 "use client";
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState, FormEvent } from 'react';
 import { getProcedureOrgs, type Org } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Filter, Map } from 'lucide-react';
@@ -10,6 +10,10 @@ import { toast } from 'sonner';
 import { isFeatureEnabled } from '@/lib/flags';
 import { OrgCard } from '@/components/OrgCard';
 import { BackButton } from '@/components/navigation/BackButton';
+import { useUserPreferences } from '@/lib/hooks/useUserPreferences';
+import { getEffectiveCarrier, getEffectiveZip } from '@/lib/user-locale';
+import { MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 // Grouping interface
 interface OrgGroup {
@@ -77,7 +81,9 @@ function mapOrgsToGroups(items: Org[]): OrgGroup[] {
 export default function ProcedureDetailClient() {
   const params = useParams();
   const router = useRouter();
-  const { user, loading: authLoading } = useAuth();
+  const searchParamsHook = useSearchParams();
+  const { user, loading: authLoading, profile } = useAuth();
+  const { preferences } = useUserPreferences();
   const [procedureName, setProcedureName] = useState<string>('');
   const [groupedOrgs, setGroupedOrgs] = useState<OrgGroup[]>([]);
   const [avgPrice, setAvgPrice] = useState<number>(0);
@@ -85,6 +91,7 @@ export default function ProcedureDetailClient() {
   const [error, setError] = useState<string | null>(null);
 
   const [slug, setSlug] = useState<string | null>(null);
+  const [manualZip, setManualZip] = useState<string | null>(null);
 
   useEffect(() => {
     const paramSlug = params.slug as string;
@@ -98,20 +105,60 @@ export default function ProcedureDetailClient() {
     }
   }, [params.slug]);
 
-  useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/login');
-    }
-  }, [user, authLoading, router]);
+  const urlZip = searchParamsHook?.get('zip_code') || undefined;
+  const urlRadius = searchParamsHook?.get('radius_miles') || undefined;
 
+  const radiusFromUrl = useMemo(() => {
+    const n = urlRadius ? Number(urlRadius) : NaN;
+    return Number.isFinite(n) ? n : undefined;
+  }, [urlRadius]);
+
+  const effectiveZip = useMemo(
+    () =>
+      getEffectiveZip({
+        profileZip: profile?.zipCode,
+        preferenceZip: profile?.zipCode ? undefined : preferences?.default_zip,
+        urlZip: manualZip || urlZip,
+      }),
+    [profile?.zipCode, preferences?.default_zip, manualZip, urlZip]
+  );
+
+  const effectiveCarrier = useMemo(
+    () =>
+      getEffectiveCarrier({
+        preferredCarrierIds: preferences?.preferred_insurance_carriers || [],
+      }),
+    [preferences?.preferred_insurance_carriers]
+  );
+
+  const hasValidZip = useMemo(() => {
+    if (!effectiveZip) return false;
+    return /^\d{5}(-\d{4})?$/.test(effectiveZip);
+  }, [effectiveZip]);
+
+  const effectiveRadius = useMemo(() => {
+    if (radiusFromUrl !== undefined) return radiusFromUrl;
+    if (hasValidZip) return 60;
+    return undefined;
+  }, [radiusFromUrl, hasValidZip]);
+
+  // Fetch procedure data regardless of auth status (public teaser)
   useEffect(() => {
     const fetchProcedureOrgs = async () => {
       if (!slug) return;
+      if (!hasValidZip) {
+        setLoading(false);
+        return;
+      }
 
       setLoading(true);
       setError(null);
       try {
-        const data = await getProcedureOrgs(slug);
+        const data = await getProcedureOrgs(slug, {
+          zip: effectiveZip,
+          carrier_id: effectiveCarrier,
+          radius_miles: effectiveRadius,
+        });
         setProcedureName(data.procedure_name);
 
         const groups = mapOrgsToGroups(data.orgs);
@@ -136,7 +183,78 @@ export default function ProcedureDetailClient() {
     if (slug) {
       fetchProcedureOrgs();
     }
-  }, [slug]);
+  }, [slug, profile?.zipCode, preferences?.default_zip, preferences?.preferred_insurance_carriers, hasValidZip, effectiveZip, effectiveRadius]);
+
+  const handleZipSubmit = (zip: string) => {
+    const trimmed = zip.trim();
+    if (!/^\d{5}(-\d{4})?$/.test(trimmed)) return;
+    setManualZip(trimmed);
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('userZipCode', trimmed);
+      }
+    } catch {
+      // ignore storage errors
+    }
+  };
+
+  const ZipPrompt = () => {
+    const [zipInput, setZipInput] = useState('');
+    const [errorText, setErrorText] = useState('');
+
+    const onSubmit = (e: FormEvent) => {
+      e.preventDefault();
+      const cleaned = zipInput.trim();
+      if (!/^\d{5}(-\d{4})?$/.test(cleaned)) {
+        setErrorText('Please enter a valid 5-digit ZIP code');
+        return;
+      }
+      setErrorText('');
+      handleZipSubmit(cleaned);
+    };
+
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center px-4">
+        <div className="max-w-sm w-full text-center space-y-4">
+          <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+            <MapPin className="h-6 w-6 text-primary" />
+          </div>
+          <h1 className="text-xl font-semibold text-foreground">
+            Enter your ZIP code
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            We need your location to find nearby facilities.
+          </p>
+          <form onSubmit={onSubmit} className="space-y-3">
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="\d{5}"
+              maxLength={5}
+              placeholder="e.g. 10001"
+              value={zipInput}
+              onChange={(e) => {
+                setZipInput(e.target.value.replace(/\D/g, '').slice(0, 5));
+                setErrorText('');
+              }}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 text-center text-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+              autoFocus
+            />
+            {errorText && <p className="text-sm text-red-500">{errorText}</p>}
+            <button
+              type="submit"
+              className="w-full px-4 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+            >
+              Find Facilities
+            </button>
+          </form>
+          <Link href="/" className="text-sm text-primary underline">
+            Go back home
+          </Link>
+        </div>
+      </main>
+    );
+  };
 
   if (authLoading || loading) {
     return (
@@ -146,9 +264,14 @@ export default function ProcedureDetailClient() {
     );
   }
 
-  if (!user) {
-    return null;
+  if (!hasValidZip) {
+    return <ZipPrompt />;
   }
+
+  // Teaser mode when logged out: show limited results (Rule 1 acceptable)
+  // TODO: Rule 2 - only fetch slice from API, not full list
+  const isLoggedOut = !user;
+  const displayOrgs = isLoggedOut ? groupedOrgs.slice(0, 3) : groupedOrgs;
 
   // Removed local handleBack, using shared BackButton instead
 
@@ -187,7 +310,10 @@ export default function ProcedureDetailClient() {
             <div className="flex-1">
               <h1 className="text-xl font-bold text-[#2E5077]">{procedureName || slug}</h1>
               <p className="text-sm text-[#4DA1A9] font-medium">
-                {groupedOrgs.length} options nearby
+                {isLoggedOut && groupedOrgs.length > 3
+                  ? `Showing 3 of ${groupedOrgs.length} options`
+                  : `${groupedOrgs.length} options nearby`
+                }
               </p>
             </div>
           </div>
@@ -233,36 +359,58 @@ export default function ProcedureDetailClient() {
             <p className="text-muted-foreground font-medium">No facilities found for this procedure.</p>
           </div>
         ) : (
-          <div className="space-y-4">
-            {groupedOrgs.map((group, index) => {
-              const price = typeof group.min_price === 'number' ? group.min_price : 0;
-              const originalPrice = avgPrice > price ? avgPrice : undefined;
-              const savingsPercentage = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : undefined;
-              const mpsScore = avgPrice > 0 ? calculateMPS(price, avgPrice) : undefined;
+          <>
+            <div className="space-y-4">
+              {displayOrgs.map((group, index) => {
+                const price = typeof group.min_price === 'number' ? group.min_price : 0;
+                const originalPrice = avgPrice > price ? avgPrice : undefined;
+                const savingsPercentage = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : undefined;
+                const mpsScore = avgPrice > 0 ? calculateMPS(price, avgPrice) : undefined;
 
-              // Simulate "Mario's Pick" for the first result or if MPS is high
-              const isMariosPick = index === 0 && (mpsScore || 0) > 80;
+                // Simulate "Mario's Pick" for the first result or if MPS is high
+                const isMariosPick = index === 0 && (mpsScore || 0) > 80;
 
-              return (
-                <OrgCard
-                  key={group.org_id}
-                  orgName={group.org_name}
-                  procedureName={procedureName}
-                  price={price}
-                  originalPrice={originalPrice}
-                  savingsPercentage={savingsPercentage}
-                  distance={group.distance_miles?.toFixed(1)}
-                  inNetwork={group.in_network}
-                  mpsScore={mpsScore}
-                  address={[group.address, group.city, group.state].filter(Boolean).join(', ')}
-                  mariosPick={isMariosPick}
-                  onClick={() => handleOrgClick(group)}
-                  onBook={handleBookClick}
-                  onCall={() => handleCallClick(group.org_name)}
-                />
-              );
-            })}
-          </div>
+                return (
+                  <OrgCard
+                    key={group.org_id}
+                    orgName={group.org_name}
+                    procedureName={procedureName}
+                    price={price}
+                    originalPrice={originalPrice}
+                    savingsPercentage={savingsPercentage}
+                    distance={group.distance_miles?.toFixed(1)}
+                    inNetwork={group.in_network}
+                    mpsScore={mpsScore}
+                    address={[group.address, group.city, group.state].filter(Boolean).join(', ')}
+                    mariosPick={isMariosPick}
+                    onClick={() => handleOrgClick(group)}
+                    onBook={handleBookClick}
+                    onCall={() => handleCallClick(group.org_name)}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Login CTA for logged-out users (teaser gate) */}
+            {isLoggedOut && groupedOrgs.length > 3 && (
+              <div className="mt-6 bg-gradient-to-br from-[#2E5077] to-[#4DA1A9] rounded-3xl shadow-lg p-8 text-center text-white">
+                <h3 className="text-2xl font-bold mb-2">See {groupedOrgs.length - 3} More Options</h3>
+                <p className="text-white/90 mb-6">
+                  Sign in to compare all facilities and find the best price for your procedure.
+                </p>
+                <Button
+                  size="lg"
+                  className="bg-white text-[#2E5077] hover:bg-gray-100 font-bold px-8 py-6 text-lg rounded-xl"
+                  onClick={() => {
+                    const returnUrl = encodeURIComponent(window.location.pathname);
+                    router.push(`/login?returnUrl=${returnUrl}`);
+                  }}
+                >
+                  Sign In to See All Options
+                </Button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

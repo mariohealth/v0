@@ -8,8 +8,11 @@ import { MapPin } from 'lucide-react';
 import SpecialtyProvidersClient, {
   SpecialtyProvidersResponse,
 } from './SpecialtyProvidersClient';
+import { useAuth } from '@/lib/contexts/AuthContext';
+import { useUserPreferences } from '@/lib/hooks/useUserPreferences';
+import { getEffectiveCarrier, getEffectiveZip, persistZip } from '@/lib/user-locale';
 import { getApiBaseUrl } from '@/lib/api-base';
-import { BackButton } from '@/components/navigation/BackButton';
+import { logSearchContext } from '@/lib/dev-assertions/search-context-log';
 
 type SearchParamsRecord = {
   zip_code?: string;
@@ -87,7 +90,9 @@ function ZipPrompt({ onSubmit }: ZipPromptProps) {
             Find Providers
           </button>
         </form>
-        <BackButton label="Go back" className="mx-auto" />
+        <Link href="/" className="text-sm text-primary underline">
+          Go back home
+        </Link>
       </div>
     </main>
   );
@@ -107,7 +112,8 @@ function buildQueryParams(params: string) {
 async function fetchSpecialtyProviders(
   slug: string,
   searchParams: URLSearchParams,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  options?: { carrier_id?: string | null }
 ): Promise<SpecialtyProvidersResponse> {
   const base = getApiBaseUrl();
   const path = `/api/v1/specialties/${slug}/providers`;
@@ -127,6 +133,15 @@ async function fetchSpecialtyProviders(
   if (radius) url.searchParams.set('radius_miles', String(radius));
   url.searchParams.set('offset', String(offset));
   url.searchParams.set('limit', String(limit));
+  if (options?.carrier_id) {
+    url.searchParams.set('carrier_id', options.carrier_id);
+  }
+
+  logSearchContext('fetchSpecialtyProviders', {
+    zip: zip || null,
+    carrier: options?.carrier_id || null,
+    note: 'specialty page request',
+  });
 
   const res = await fetch(url.toString(), {
     cache: 'no-store',
@@ -154,6 +169,8 @@ const SLUG_ALIAS: Record<string, string> = {
 };
 
 export default function SpecialtyProvidersPageClient({ slug }: Props) {
+  const { profile } = useAuth();
+  const { preferences } = useUserPreferences();
   const router = useRouter();
   const searchParamsHook = useSearchParams();
   const queryKey = searchParamsHook?.toString() ?? '';
@@ -169,11 +186,31 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
     [queryKey]
   );
 
+  const effectiveZip = useMemo(
+    () =>
+      getEffectiveZip({
+        profileZip: profile?.zipCode,
+        preferenceZip: profile?.zipCode ? undefined : preferences?.default_zip,
+        urlZip: normalized.zip_code,
+      }),
+    [profile?.zipCode, preferences?.default_zip, normalized.zip_code]
+  );
+
+  const effectiveCarrier = useMemo(
+    () =>
+      getEffectiveCarrier({
+        preferredCarrierIds: preferences?.preferred_insurance_carriers || [],
+      }),
+    [preferences?.preferred_insurance_carriers]
+  );
+
+  const hasProfileZip = Boolean(profile?.zipCode);
   // Check if zip_code is missing or invalid
-  const hasValidZip = isValidZip(normalized.zip_code);
+  const hasValidZip = isValidZip(effectiveZip);
 
   // Handler when user submits ZIP from prompt
   const handleZipSubmit = (zip: string) => {
+    persistZip(zip);
     const params = new URLSearchParams(searchParamsHook?.toString() ?? '');
     params.set('zip_code', zip);
     router.replace(`/specialties/${encodeURIComponent(slug)}?${params.toString()}`);
@@ -191,7 +228,21 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
     async function load() {
       try {
         setState({ data: null, error: null, loading: true });
-        const result = await fetchSpecialtyProviders(slug, searchParams, controller.signal);
+
+        const paramsForRequest = new URLSearchParams(searchParamsHook?.toString() ?? '');
+        if (effectiveZip) {
+          paramsForRequest.set('zip_code', effectiveZip);
+        }
+        if (normalized.radius_miles) {
+          paramsForRequest.set('radius_miles', String(normalized.radius_miles));
+        }
+
+        const result = await fetchSpecialtyProviders(
+          slug,
+          paramsForRequest,
+          controller.signal,
+          { carrier_id: effectiveCarrier }
+        );
         setState({ data: result, error: null, loading: false });
       } catch (err) {
         if (controller.signal.aborted) return;
@@ -221,7 +272,7 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
 
     load();
     return () => controller.abort();
-  }, [slug, searchParams, hasValidZip]);
+  }, [slug, searchParams, hasValidZip, effectiveZip, effectiveCarrier, normalized.radius_miles]);
 
   // Show ZIP prompt if missing or invalid
   if (!hasValidZip) {
@@ -246,7 +297,9 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
         <div className="max-w-lg text-center space-y-3">
           <h1 className="text-xl font-semibold text-foreground">Unable to load specialty providers</h1>
           <p className="text-sm text-muted-foreground">{state.error || 'Failed to load providers'}</p>
-          <BackButton label="Go back" className="mx-auto" />
+          <Link href="/" className="text-primary text-sm underline">
+            Go back home
+          </Link>
         </div>
       </main>
     );
@@ -257,11 +310,12 @@ export default function SpecialtyProvidersPageClient({ slug }: Props) {
       data={state.data}
       params={{ slug }}
       searchParams={{
-        zip_code: normalized.zip_code,
+        zip_code: effectiveZip,
         radius_miles: normalized.radius_miles,
         offset: normalized.offset,
         limit: normalized.limit,
       }}
+      zipFromProfile={hasProfileZip}
     />
   );
 }
