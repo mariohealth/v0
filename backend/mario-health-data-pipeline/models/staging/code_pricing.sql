@@ -13,7 +13,9 @@ WITH t_prof AS (
         billing_code,
         billing_code_type,
         billing_code_type_version,
-        professional_rate,
+        professional_rate AS rate_professional,
+        NULL AS rate_technical,
+        NULL AS rate_global,
         '1' AS carrier_id,
         '2' AS carrier_plan_id,
     FROM
@@ -26,7 +28,9 @@ WITH t_prof AS (
         billing_code,
         billing_code_type,
         billing_code_type_version,
-        professional_rate,
+        rate_professional,
+        rate_technical,
+        rate_global,
         '2' AS carrier_id,
         '1' AS carrier_plan_id,
     FROM
@@ -65,9 +69,14 @@ SELECT
     COALESCE(t_prof.billing_code_type_version, t_inst.billing_code_type_version) AS billing_code_type_version,
     t_prof.npi,
     t_prof.healthcare_provider_taxonomy_code,
-    t_prof.professional_rate,
+    t_prof.rate_professional,
+    t_prof.rate_technical,
+    t_prof.rate_global,
     t_inst.institutional_rate,
-    COALESCE(t_prof.professional_rate, 0) + COALESCE(t_inst.institutional_rate, 0) AS total_rate,
+    COALESCE(
+        t_prof.rate_global,
+        COALESCE(t_prof.rate_professional, 0) + COALESCE(t_inst.institutional_rate, 0)
+        ) AS total_rate,
     COALESCE(t_prof.carrier_id, t_inst.carrier_id) AS carrier_id,
     COALESCE(t_prof.carrier_plan_id, t_inst.carrier_plan_id) AS carrier_plan_id,
 FROM
