@@ -9,23 +9,7 @@ export default function ProfilePage() {
   const { user, loading, logout } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
 
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return null; // Will redirect
-  }
 
   const handleNavigateToHome = () => router.push('/home');
   const handleNavigateToHealthHub = () => router.push('/home'); // Updated: health-hub → /home

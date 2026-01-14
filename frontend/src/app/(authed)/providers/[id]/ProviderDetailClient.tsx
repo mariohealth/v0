@@ -37,11 +37,11 @@ function ProviderDetailContent() {
     const [showBookingChat, setShowBookingChat] = useState(false);
     const [activeTab, setActiveTab] = useState('overview');
     const [isSaved, setIsSaved] = useState(false);
-    
+
     // Get provider ID from params, but for static export fallback, 
     // read from URL pathname when placeholder is detected
     const [providerId, setProviderId] = useState<string | null>(null);
-    
+
     useEffect(() => {
         const paramId = params.id as string;
         if (paramId && paramId !== 'placeholder') {
@@ -101,27 +101,11 @@ function ProviderDetailContent() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    if (authLoading || loading) {
+
+    if (loading) {
         return (
             <main className="flex min-h-screen flex-col items-center justify-center">
                 <p className="text-gray-600">Loading...</p>
-            </main>
-        );
-    }
-
-    if (!user) {
-        return (
-            <main className="flex min-h-screen flex-col items-center justify-center">
-                <div className="w-full max-w-md space-y-4 text-center">
-                    <h1 className="text-3xl font-bold">Provider Details</h1>
-                    <p className="text-gray-600">Please log in to view provider details.</p>
-                    <Link
-                        href="/login"
-                        className="inline-block rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    >
-                        Go to Login
-                    </Link>
-                </div>
             </main>
         );
     }
@@ -233,7 +217,7 @@ function ProviderDetailContent() {
     return (
         <>
             <div className="min-h-screen bg-[#F9FAFB] pb-32 md:pb-8">
-                <div 
+                <div
                     className="bg-white sticky top-0 md:top-16 z-20"
                     style={{
                         borderBottom: '1px solid #E5E7EB',

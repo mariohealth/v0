@@ -22,7 +22,7 @@ export function BottomNav() {
 
     const navItems = [
         { href: '/home', label: 'Home', icon: Home },
-        { href: '/health-hub', label: 'Hub', icon: Home },
+        { href: '/health-hub', label: 'Hub', icon: Sparkles },
         { href: '/rewards', label: 'Rewards', icon: Gift },
         { href: '/profile', label: 'Profile', icon: User },
     ];

@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { procedureCategories } from '@/lib/data/mario-procedures-data';
 import ProcedureDetailClient from './ProcedureDetailClient';
 
@@ -19,7 +21,23 @@ export async function generateStaticParams() {
 
 export const dynamicParams = true;
 
+function ProcedurePageFallback() {
+    return (
+        <div className="flex min-h-screen flex-col items-center justify-center px-4 py-16">
+            <div className="space-y-4 max-w-xl w-full">
+                <div className="h-6 w-44 bg-gray-200 animate-pulse rounded" />
+                <div className="h-4 w-3/4 bg-gray-200 animate-pulse rounded" />
+                <div className="h-72 bg-gray-200 animate-pulse rounded" />
+            </div>
+        </div>
+    );
+}
+
 export default function ProcedureDetailPage() {
-    return <ProcedureDetailClient />;
+    return (
+        <Suspense fallback={<ProcedurePageFallback />}>
+            <ProcedureDetailClient />
+        </Suspense>
+    );
 }
 

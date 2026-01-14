@@ -16,11 +16,6 @@ function RewardsContent() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [confettiKey, setConfettiKey] = useState(0);
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
 
   // Handle deep links to activity section
   useEffect(() => {
@@ -36,17 +31,6 @@ function RewardsContent() {
     }
   }, [searchParams]);
 
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return null; // Will redirect
-  }
 
   const handleBack = () => router.push('/home');
 

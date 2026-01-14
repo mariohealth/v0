@@ -25,23 +25,7 @@ export default function ConciergePage() {
     const router = useRouter();
     const [requests, setRequests] = useState<ConciergeRequest[]>([]);
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/login');
-        }
-    }, [user, loading, router]);
 
-    if (loading) {
-        return (
-            <main className="flex min-h-screen flex-col items-center justify-center">
-                <p className="text-gray-600">Loading...</p>
-            </main>
-        );
-    }
-
-    if (!user) {
-        return null;
-    }
 
     const handleBack = () => router.push('/home');
 
