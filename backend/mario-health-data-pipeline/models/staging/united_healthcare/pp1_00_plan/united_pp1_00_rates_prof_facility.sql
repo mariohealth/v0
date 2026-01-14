@@ -14,7 +14,9 @@ WITH t0 AS (
         rates.billing_code,
         rates.billing_code_type,
         rates.billing_code_type_version,
-        rates.negotiated_rate AS professional_rate,
+        rates.negotiated_rate_professional AS rate_professional,
+        rates.negotiated_rate_technical AS rate_technical,
+        rates.negotiated_rate_global AS rate_global,
     FROM
         {{ ref('united_pp1_00_prov_ref_hospital') }} AS prov_ref
     JOIN -- this is how we had the actual prices
@@ -42,7 +44,9 @@ SELECT
     billing_code,
     billing_code_type,
     billing_code_type_version,
-    MAX(professional_rate) AS professional_rate, -- to cover for worst case scenario
+    MAX(rate_professional) AS rate_professional, -- to cover for worst case scenario
+    MAX(rate_technical) AS rate_technical, -- to cover for worst case scenario
+    MAX(rate_global) AS rate_global, -- to cover for worst case scenario
 FROM
     t0
 GROUP BY
