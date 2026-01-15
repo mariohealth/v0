@@ -3,7 +3,7 @@ name: Playwright Tests
 on:
   push:
     branches:
-      - '**'
+      - main
   pull_request:
     branches:
       - '**'
@@ -36,6 +36,8 @@ jobs:
       - name: Run Playwright Tests
         run: |
           npm run dev &
+          PID=$!
+          trap "kill $PID" EXIT
           npx wait-on http://localhost:3000 --timeout 60000
           npm run test:e2e
         env:

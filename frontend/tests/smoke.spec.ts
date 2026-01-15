@@ -29,8 +29,13 @@ test.beforeEach(async ({ page }, testInfo) => {
     });
 
     page.on('response', response => {
-        if (response.url().includes('/search') && response.status() >= 400) {
-            errors.push(`Search API Failed: ${response.url()} status ${response.status()}`);
+        try {
+            const url = new URL(response.url());
+            if (url.pathname.endsWith('/search') && response.status() >= 400) {
+                errors.push(`Search API Failed: ${response.url()} status ${response.status()}`);
+            }
+        } catch (e) {
+            // Ignore invalid URLs
         }
     });
 });
