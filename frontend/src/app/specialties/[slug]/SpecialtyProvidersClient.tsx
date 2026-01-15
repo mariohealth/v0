@@ -1,15 +1,17 @@
 'use client';
 
 import { useMemo, useTransition } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Filter, Map } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { ProviderCard } from '@/components/mario-card';
+import { ProviderResultCard } from '@/components/ProviderResultCard';
 import { EmptyResults } from './EmptyResults';
 
 export interface SpecialtyProviderLocation {
+  facility_name?: string | null;
+  organization_name?: string | null;
+  practice_name?: string | null;
   address?: string | null;
   city?: string | null;
   state?: string | null;
@@ -26,6 +28,10 @@ export interface SpecialtyProviderPricing {
 export interface SpecialtyProviderItem {
   provider_id: string;
   provider_name: string;
+  facility_name?: string | null;
+  organization_name?: string | null;
+  practice_name?: string | null;
+  org_name?: string | null;
   location: SpecialtyProviderLocation;
   pricing: SpecialtyProviderPricing | null;
 }
@@ -118,12 +124,29 @@ function formatDistance(distance?: number | null) {
   return `${distance.toFixed(1)} mi`;
 }
 
-function formatPrice(pricing: SpecialtyProviderPricing | null) {
-  if (!pricing) return { price: 'Pricing unavailable', compared: '—' };
-  return {
-    price: `$${Number(pricing.avg_price).toFixed(0)}`,
-    compared: `Range $${Number(pricing.min_price).toFixed(0)}–${Number(pricing.max_price).toFixed(0)}`,
-  };
+function buildFacilityLabel(provider: SpecialtyProviderItem) {
+  const nameCandidates = [
+    provider.facility_name,
+    provider.organization_name,
+    provider.practice_name,
+    provider.org_name,
+    provider.location?.facility_name,
+    provider.location?.organization_name,
+    provider.location?.practice_name,
+  ]
+    .map(name => name?.trim())
+    .filter(Boolean) as string[];
+
+  if (nameCandidates.length > 0) return nameCandidates[0] as string;
+
+  const address = provider.location?.address?.trim();
+  if (address) return address;
+
+  const cityState = [provider.location?.city, provider.location?.state].filter(Boolean).join(', ');
+  if (cityState) return cityState;
+
+  if (provider.location?.zip_code) return provider.location.zip_code;
+  return 'Location unavailable';
 }
 
 export default function SpecialtyProvidersClient({ data, searchParams, zipFromProfile }: Props) {
@@ -240,22 +263,22 @@ export default function SpecialtyProvidersClient({ data, searchParams, zipFromPr
         ) : (
           <div className="space-y-4">
             {providers.map((p) => {
-              const distance = formatDistance(p.location.distance_miles);
+              const distance = formatDistance(p.location?.distance_miles);
+              const facilityLabel = buildFacilityLabel(p);
+              const handleNavigate = () => router.push(`/providers/${p.provider_id}`);
               return (
-                <ProviderCard
+                <ProviderResultCard
                   key={p.provider_id}
                   name={p.provider_name}
-                  specialty={specialty.name}
+                  facility={facilityLabel}
+                  address={p.location?.address || undefined}
+                  city={p.location?.city || undefined}
+                  state={p.location?.state || undefined}
+                  zip={p.location?.zip_code || undefined}
                   distance={distance}
-                  inNetwork={false}
-                  pricing={p.pricing}
-                  savingsText={p.pricing ? undefined : 'Pricing unavailable'}
-                  addressLine={p.location.address || undefined}
-                  city={p.location.city || undefined}
-                  state={p.location.state || undefined}
-                  zip={p.location.zip_code || undefined}
-                  linkHref={`/providers/${p.provider_id}`}
-                  onBook={() => router.push(`/providers/${p.provider_id}`)}
+                  onClick={handleNavigate}
+                  onPrimary={handleNavigate}
+                  onSecondary={handleNavigate}
                 />
               );
             })}
