@@ -8,9 +8,18 @@ CREATE TABLE IF NOT EXISTS code_pricing_facility_agg (
     billing_code_type_version TEXT,
     count_rows INTEGER,
     count_distinct_npi INTEGER,
+
     min_professional_rate NUMERIC,
     avg_professional_rate NUMERIC,
     max_professional_rate NUMERIC,
+
+    min_technical_rate NUMERIC,
+    avg_technical_rate NUMERIC,
+    max_technical_rate NUMERIC,
+
+    min_global_rate NUMERIC,
+    avg_global_rate NUMERIC,
+    max_global_rate NUMERIC,
 
     min_institutional_rate NUMERIC,
     avg_institutional_rate NUMERIC,
