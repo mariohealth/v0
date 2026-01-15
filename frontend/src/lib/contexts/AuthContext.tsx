@@ -37,8 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const refreshProfile = useCallback(async (currentUser?: User | null) => {
-    const activeUser = currentUser || user;
-    if (!activeUser) {
+    if (!currentUser) {
       setProfile(null);
       return;
     }
@@ -53,27 +52,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       setProfile({
-        uid: activeUser.uid,
-        email: activeUser.email,
-        displayName: activeUser.displayName,
+        uid: currentUser.uid,
+        email: currentUser.email,
+        displayName: currentUser.displayName,
         zipCode: effectiveZip || undefined,
         profileComplete: !!effectiveZip,
-        avatarUrl: activeUser.photoURL || undefined
+        avatarUrl: currentUser.photoURL || undefined
       });
     } catch (error) {
       console.error('Error fetching profile:', error);
     }
-  }, [user]);
+  }, []); // ✅ No dependencies needed - currentUser is always passed as parameter
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser);
-      if (firebaseUser) {
-        await refreshProfile(firebaseUser);
-      } else {
-        setProfile(null);
+      try {
+        if (firebaseUser) {
+          await refreshProfile(firebaseUser);
+        } else {
+          setProfile(null);
+        }
+      } catch (error) {
+        console.error('Error in auth state change handler:', error);
+        setProfile(null); // Clear profile on error to prevent stale state
+      } finally {
+        setLoading(false); // Always clear loading state
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
