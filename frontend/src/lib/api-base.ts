@@ -2,17 +2,25 @@
  * UNIVERSAL API ACCESS HELPER
  * 
  * FRONTEND API ACCESS RULE:
- * 1. Absolute Cloud Run / gateway URLs are FORBIDDEN in client-side code.
- * 2. Every API call MUST go through this helper (getApiBaseUrl).
- * 3. Relative paths (like /api/v1) are used in production to leverage Firebase Hosting CORS proxy.
- * 4. Local development uses Next.js rewrites to proxy /api to the absolute gateway URL.
+ * 1. Every API call MUST go through this helper (getApiBaseUrl).
+ * 2. In production, Firebase Hosting rewrites handle API routing (no CORS issues).
+ * 3. In local dev, you can point to:
+ *    - Local backend: http://localhost:8000/api/v1 (default)
+ *    - Deployed backend: Set NEXT_PUBLIC_API_BASE_URL in .env.local
  * 
- * If you add a gateway URL directly to client-side code, it may cause CORS errors in production.
+ * See DEV_GUIDE.md for details on switching between local and deployed backend.
  */
 
 /**
- * Returns the universal API base URL based on the current environment.
- * In the browser, this typically returns a relative path like '/api/v1'.
+ * Returns the API base URL based on the current environment.
+ * 
+ * Behavior:
+ * - SSR (server-side): Always returns absolute URL
+ * - Browser: Uses NEXT_PUBLIC_API_BASE_URL if set, otherwise defaults to localhost:8000
+ * 
+ * To use deployed backend in local dev:
+ * Set in .env.local:
+ *   NEXT_PUBLIC_API_BASE_URL=https://mario-health-api-ei5wbr4h5a-uc.a.run.app/api/v1
  */
 export function getApiBaseUrl(): string {
     const isBrowser = typeof window !== 'undefined';
@@ -28,11 +36,11 @@ export function getApiBaseUrl(): string {
         return normalize(envBase);
     }
 
-    // BROWSER — prefer absolute env (needed for static export on Firebase)
+    // BROWSER — prefer NEXT_PUBLIC_API_BASE_URL if set (allows pointing to deployed backend)
     if (process.env.NEXT_PUBLIC_API_BASE_URL) {
         return normalize(process.env.NEXT_PUBLIC_API_BASE_URL);
     }
 
-    // Local dev fallback: hit local API directly
+    // Local dev fallback: hit local backend
     return normalize('http://localhost:8000/api/v1');
 }
