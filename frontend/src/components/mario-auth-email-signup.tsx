@@ -14,7 +14,9 @@ interface EmailSignUpProps {
 export function MarioAuthEmailSignUp({
   onSignUp,
   onBackToSignIn,
-  isDesktop = false
+  isDesktop = false,
+  error,
+  onDismissError
 }: EmailSignUpProps) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -225,8 +227,8 @@ export function MarioAuthEmailSignUp({
             onSubmit={handleSubmit}
             onBackToSignIn={onBackToSignIn}
             setFocusedField={setFocusedField}
-            error={props.error}
-            onDismissError={props.onDismissError}
+            error={error}
+            onDismissError={onDismissError}
           />
         </div>
       </div>
@@ -268,8 +270,8 @@ export function MarioAuthEmailSignUp({
         onBackToSignIn={onBackToSignIn}
         setFocusedField={setFocusedField}
         showLogo
-        error={props.error}
-        onDismissError={props.onDismissError}
+        error={error}
+        onDismissError={onDismissError}
       />
     </div>
   );
