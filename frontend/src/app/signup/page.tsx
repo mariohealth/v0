@@ -1,16 +1,24 @@
 'use client';
 
-import { useAuth } from '@/lib/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
 import { MarioAuthEmailSignUp } from '@/components/mario-auth-email-signup';
+import { MarioAuthGetStarted } from '@/components/mario-auth-get-started';
+import { useAuth } from '@/lib/contexts/AuthContext';
+import { auth } from '@/lib/firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
 
-export default function SignupPage() {
-  const { user, loading: authLoading } = useAuth();
+type SignupView = 'get-started' | 'email';
+
+function SignupContent() {
+  const { user, loading: authLoading, login } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get('returnUrl') || '/home';
+  
   const [isDesktop, setIsDesktop] = useState(false);
+  const [view, setView] = useState<SignupView>('get-started');
+  const [signupError, setSignupError] = useState<string | null>(null);
 
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 1024);
@@ -21,24 +29,31 @@ export default function SignupPage() {
 
   useEffect(() => {
     if (!authLoading && user) {
-      router.push('/profile-setup');
+      router.push(`/profile-setup?returnUrl=${encodeURIComponent(returnUrl)}`);
     }
-  }, [user, authLoading, router]);
+  }, [user, authLoading, router, returnUrl]);
 
-  const handleSignUp = async (fullName: string, email: string, password: string) => {
+  const handleGoogleSignUp = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Update the display name in Firebase
-      await updateProfile(userCredential.user, {
-        displayName: fullName
-      });
-      // Redirect will happen via useEffect
-    } catch (error: any) {
-      console.error('Signup error:', error);
-      // In a real app, we'd pass this error back to the component
-      alert(error.message || 'Failed to create account');
+      await login();
+    } catch (error) {
+      console.error('Google signup failed:', error);
     }
   };
+
+  const handleSignUp = async (fullName: string, email: string, password: string) => {
+    setSignupError(null);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(userCredential.user, { displayName: fullName });
+      // Redirect handled by auth state change
+    } catch (error: any) {
+      console.error('Signup error:', error);
+      setSignupError(error.message || 'Failed to create account');
+    }
+  };
+
+  const handleBackToLogin = () => router.push(`/login?returnUrl=${encodeURIComponent(returnUrl)}`);
 
   if (authLoading) {
     return (
@@ -52,11 +67,36 @@ export default function SignupPage() {
     return null; // Will redirect
   }
 
+  if (view === 'get-started') {
+    return (
+      <MarioAuthGetStarted
+        isDesktop={isDesktop}
+        onGoogleSignUp={handleGoogleSignUp}
+        onEmailSignUp={() => setView('email')}
+        onSignInClick={handleBackToLogin}
+      />
+    );
+  }
+
   return (
     <MarioAuthEmailSignUp
       isDesktop={isDesktop}
       onSignUp={handleSignUp}
-      onBackToSignIn={() => router.push('/login')}
+      onBackToSignIn={handleBackToLogin}
+      error={signupError || undefined}
+      onDismissError={() => setSignupError(null)}
     />
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-[#FDFCFA]">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#2E5077] border-t-transparent" />
+      </div>
+    }>
+      <SignupContent />
+    </Suspense>
   );
 }

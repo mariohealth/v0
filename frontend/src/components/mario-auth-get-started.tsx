@@ -28,9 +28,14 @@ export function MarioAuthGetStarted({
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   const [loading, setLoading] = useState<string | null>(null);
 
-  const handleProviderClick = async (provider: string, callback?: () => void) => {
+  const handleProviderClick = async (provider: string, callback?: () => void | Promise<void>) => {
     setLoading(provider);
-    callback?.();
+    try {
+      await callback?.();
+    } catch (error) {
+      console.error(`Error during ${provider} signup:`, error);
+      setLoading(null);
+    }
   };
 
   // Desktop variant with marketing panel

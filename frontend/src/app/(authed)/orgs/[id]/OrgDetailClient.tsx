@@ -18,21 +18,21 @@ export default function OrgDetailClient() {
   const router = useRouter();
   const { profile } = useAuth();
   const { preferences } = useUserPreferences();
-  
-  // Extract org_id from URL path: /orgs/[id]
-  const orgId = pathname?.split('/').filter(Boolean).pop() || '';
-  
-  // Extract procedure context from query params
-  const procedureSlug = searchParams?.get('procedure') || '';
-  const procedureNameFromParam = searchParams?.get('procedureName');
-  
+
   const [orgData, setOrgData] = useState<Org | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isAboutExpanded, setIsAboutExpanded] = useState(false);
-  
+
+  // Extract org_id from URL path: /orgs/[id]
+  const orgId = pathname?.split('/').filter(Boolean).pop() || '';
+
+  // Extract procedure context from query params
+  const procedureSlug = searchParams?.get('procedure') || '';
+  const procedureNameFromParam = searchParams?.get('procedureName');
+
   // Humanize procedure name
-  const procedureName = procedureNameFromParam || 
+  const procedureName = procedureNameFromParam ||
     (procedureSlug ? procedureSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : '');
 
   // Handle back navigation
@@ -43,7 +43,7 @@ export default function OrgDetailClient() {
       router.back();
     }
   };
-  
+
   useEffect(() => {
     // Validate required parameters
     if (!orgId || orgId === 'placeholder') {
@@ -51,13 +51,13 @@ export default function OrgDetailClient() {
       setLoading(false);
       return;
     }
-    
+
     if (!procedureSlug) {
       setError('Procedure information is required. Please navigate from a procedure search.');
       setLoading(false);
       return;
     }
-    
+
     async function fetchOrg() {
       try {
         setLoading(true);
@@ -82,10 +82,10 @@ export default function OrgDetailClient() {
         setLoading(false);
       }
     }
-    
+
     fetchOrg();
   }, [orgId, procedureSlug, profile?.zipCode, preferences?.default_zip, preferences?.preferred_insurance_carriers]);
-  
+
   // Loading state
   if (loading) {
     return (
@@ -101,21 +101,21 @@ export default function OrgDetailClient() {
       </div>
     );
   }
-  
+
   // Error state
   if (error || !orgData) {
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="container mx-auto px-4 py-8 max-w-4xl">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={handleBack}
             className="mb-6"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to results
           </Button>
-          
+
           <Card>
             <CardContent className="p-8 text-center space-y-4">
               <h2 className="text-xl font-semibold text-red-600">
@@ -133,7 +133,7 @@ export default function OrgDetailClient() {
       </div>
     );
   }
-  
+
   const hasAboutData = orgData.address || orgData.phone;
   const showPricing = orgData.min_price !== undefined && orgData.max_price !== undefined;
 
@@ -142,15 +142,15 @@ export default function OrgDetailClient() {
       <div className="container mx-auto px-4 py-8 max-w-4xl space-y-6">
         {/* 1. Header */}
         <div className="space-y-4">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={handleBack}
             className="-ml-4 text-gray-600"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to results
           </Button>
-          
+
           <div className="space-y-1">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{orgData.org_name}</h1>
             <div className="flex flex-wrap items-center gap-x-4 text-sm text-gray-500">
@@ -170,7 +170,7 @@ export default function OrgDetailClient() {
             <h2 className="text-lg font-semibold text-gray-900">About this procedure</h2>
             <div className="space-y-3">
               <p className="text-gray-600 text-sm leading-relaxed">
-                This diagnostic procedure provides detailed imaging or analysis of specific anatomical structures or 
+                This diagnostic procedure provides detailed imaging or analysis of specific anatomical structures or
                 physiological functions. It is a standardized medical test used to collect clinical data for evaluation.
               </p>
               <p className="text-[10px] text-gray-400 italic">
@@ -183,7 +183,7 @@ export default function OrgDetailClient() {
         {/* 3. About This Imaging Center (Collapsed by default) */}
         {hasAboutData && (
           <Card>
-            <button 
+            <button
               onClick={() => setIsAboutExpanded(!isAboutExpanded)}
               className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors rounded-lg"
             >

@@ -38,9 +38,27 @@ export function getApiBaseUrl(): string {
 
     // BROWSER — prefer NEXT_PUBLIC_API_BASE_URL if set (allows pointing to deployed backend)
     if (process.env.NEXT_PUBLIC_API_BASE_URL) {
-        return normalize(process.env.NEXT_PUBLIC_API_BASE_URL);
+        const url = normalize(process.env.NEXT_PUBLIC_API_BASE_URL);
+        // Dev-only: Log which API we're using (only log once)
+        if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
+            const logKey = '__api_base_logged';
+            if (!(window as any)[logKey]) {
+                console.log(`[API Config] Using configured backend: ${url}`);
+                (window as any)[logKey] = true;
+            }
+        }
+        return url;
     }
 
     // Local dev fallback: hit local backend
-    return normalize('http://localhost:8000/api/v1');
+    const url = normalize('http://localhost:8000/api/v1');
+    // Dev-only: Log which API we're using (only log once)
+    if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
+        const logKey = '__api_base_logged';
+        if (!(window as any)[logKey]) {
+            console.log(`[API Config] Using local backend (default): ${url}`);
+            (window as any)[logKey] = true;
+        }
+    }
+    return url;
 }
