@@ -69,7 +69,7 @@ SELECT
     COALESCE(t_prof.billing_code_type_version, t_inst.billing_code_type_version) AS billing_code_type_version,
     t_prof.npi,
     t_prof.healthcare_provider_taxonomy_code,
-    t_prof.rate_professional, -- this is from billing code modifier 26 from the professional billing class
+    t_prof.rate_professional, -- this is from the professional billing class with billing code modifier 26
     t_prof.rate_technical, -- this is also from the professional billing class, billing code modifier TC
     t_prof.rate_global, -- this is also from the professional billing class, combines both 26 and TC billing code modifier
     t_inst.institutional_rate, -- this is from the institutional billing class, no billing code modifier
