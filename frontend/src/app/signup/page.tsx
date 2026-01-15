@@ -5,16 +5,20 @@ import { MarioAuthGetStarted } from '@/components/mario-auth-get-started';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { auth } from '@/lib/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
 
 type SignupView = 'get-started' | 'email';
 
-export default function SignupPage() {
+function SignupContent() {
   const { user, loading: authLoading, login } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get('returnUrl') || '/home';
+  
   const [isDesktop, setIsDesktop] = useState(false);
   const [view, setView] = useState<SignupView>('get-started');
+  const [signupError, setSignupError] = useState<string | null>(null);
 
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 1024);
@@ -25,9 +29,9 @@ export default function SignupPage() {
 
   useEffect(() => {
     if (!authLoading && user) {
-      router.push('/profile-setup');
+      router.push(`/profile-setup?returnUrl=${encodeURIComponent(returnUrl)}`);
     }
-  }, [user, authLoading, router]);
+  }, [user, authLoading, router, returnUrl]);
 
   const handleGoogleSignUp = async () => {
     try {
@@ -38,17 +42,18 @@ export default function SignupPage() {
   };
 
   const handleSignUp = async (fullName: string, email: string, password: string) => {
+    setSignupError(null);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: fullName });
       // Redirect handled by auth state change
     } catch (error: any) {
       console.error('Signup error:', error);
-      alert(error.message || 'Failed to create account');
+      setSignupError(error.message || 'Failed to create account');
     }
   };
 
-  const handleBackToLogin = () => router.push('/login');
+  const handleBackToLogin = () => router.push(`/login?returnUrl=${encodeURIComponent(returnUrl)}`);
 
   if (authLoading) {
     return (
@@ -78,6 +83,20 @@ export default function SignupPage() {
       isDesktop={isDesktop}
       onSignUp={handleSignUp}
       onBackToSignIn={handleBackToLogin}
+      error={signupError || undefined}
+      onDismissError={() => setSignupError(null)}
     />
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-[#FDFCFA]">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#2E5077] border-t-transparent" />
+      </div>
+    }>
+      <SignupContent />
+    </Suspense>
   );
 }

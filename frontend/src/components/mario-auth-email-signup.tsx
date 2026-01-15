@@ -1,12 +1,14 @@
 'use client'
 import React, { useState } from 'react';
 import { MarioLogoLockup } from './mario-logo-lockup';
-import { Eye, EyeOff, Check, X } from 'lucide-react';
+import { Eye, EyeOff, Check, X, AlertCircle } from 'lucide-react';
 
 interface EmailSignUpProps {
   onSignUp?: (fullName: string, email: string, password: string) => void;
   onBackToSignIn?: () => void;
   isDesktop?: boolean;
+  error?: string;
+  onDismissError?: () => void;
 }
 
 export function MarioAuthEmailSignUp({
@@ -223,6 +225,8 @@ export function MarioAuthEmailSignUp({
             onSubmit={handleSubmit}
             onBackToSignIn={onBackToSignIn}
             setFocusedField={setFocusedField}
+            error={props.error}
+            onDismissError={props.onDismissError}
           />
         </div>
       </div>
@@ -264,7 +268,63 @@ export function MarioAuthEmailSignUp({
         onBackToSignIn={onBackToSignIn}
         setFocusedField={setFocusedField}
         showLogo
+        error={props.error}
+        onDismissError={props.onDismissError}
       />
+    </div>
+  );
+}
+
+// Error Banner Component
+function ErrorBanner({ message, onDismiss }: { message: string; onDismiss: () => void }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  React.useEffect(() => {
+    setTimeout(() => setIsVisible(true), 50);
+  }, []);
+
+  return (
+    <div
+      style={{
+        backgroundColor: '#FDEDED',
+        border: '1px solid #F5C6CB',
+        borderRadius: '8px',
+        padding: '12px 16px',
+        marginBottom: '16px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(-10px)',
+        transition: 'all 300ms ease-out'
+      }}
+    >
+      <AlertCircle size={20} color="#B00020" />
+      <span
+        style={{
+          fontFamily: 'Inter, sans-serif',
+          fontSize: '14px',
+          fontWeight: 500,
+          color: '#B00020',
+          flex: 1
+        }}
+      >
+        ⚠️ {message}
+      </span>
+      <button
+        onClick={onDismiss}
+        style={{
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: '4px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <X size={16} color="#B00020" />
+      </button>
     </div>
   );
 }
@@ -298,6 +358,8 @@ interface SignUpCardProps {
   onBackToSignIn?: () => void;
   setFocusedField: (field: string | null) => void;
   showLogo?: boolean;
+  error?: string;
+  onDismissError?: () => void;
 }
 
 function SignUpCard(props: SignUpCardProps) {
@@ -346,6 +408,11 @@ function SignUpCard(props: SignUpCardProps) {
       >
         Use your email to get started.
       </p>
+
+      {/* Error Banner */}
+      {props.error && (
+        <ErrorBanner message={props.error} onDismiss={props.onDismissError || (() => {})} />
+      )}
 
       <form onSubmit={props.onSubmit}>
         {/* Full Name */}
