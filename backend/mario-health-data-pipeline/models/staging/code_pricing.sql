@@ -13,9 +13,9 @@ WITH t_prof AS (
         billing_code,
         billing_code_type,
         billing_code_type_version,
-        professional_rate AS rate_professional,
-        NULL AS rate_technical,
-        NULL AS rate_global,
+        rate_professional,
+        rate_technical,
+        rate_global,
         '1' AS carrier_id,
         '2' AS carrier_plan_id,
     FROM
