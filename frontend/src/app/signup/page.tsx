@@ -1,16 +1,20 @@
 'use client';
 
+import { MarioAuthEmailSignUp } from '@/components/mario-auth-email-signup';
+import { MarioAuthGetStarted } from '@/components/mario-auth-get-started';
 import { useAuth } from '@/lib/contexts/AuthContext';
+import { auth } from '@/lib/firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
-import { MarioAuthEmailSignUp } from '@/components/mario-auth-email-signup';
+
+type SignupView = 'get-started' | 'email';
 
 export default function SignupPage() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, login } = useAuth();
   const router = useRouter();
   const [isDesktop, setIsDesktop] = useState(false);
+  const [view, setView] = useState<SignupView>('get-started');
 
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 1024);
@@ -25,20 +29,26 @@ export default function SignupPage() {
     }
   }, [user, authLoading, router]);
 
+  const handleGoogleSignUp = async () => {
+    try {
+      await login();
+    } catch (error) {
+      console.error('Google signup failed:', error);
+    }
+  };
+
   const handleSignUp = async (fullName: string, email: string, password: string) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Update the display name in Firebase
-      await updateProfile(userCredential.user, {
-        displayName: fullName
-      });
-      // Redirect will happen via useEffect
+      await updateProfile(userCredential.user, { displayName: fullName });
+      // Redirect handled by auth state change
     } catch (error: any) {
       console.error('Signup error:', error);
-      // In a real app, we'd pass this error back to the component
       alert(error.message || 'Failed to create account');
     }
   };
+
+  const handleBackToLogin = () => router.push('/login');
 
   if (authLoading) {
     return (
@@ -52,11 +62,22 @@ export default function SignupPage() {
     return null; // Will redirect
   }
 
+  if (view === 'get-started') {
+    return (
+      <MarioAuthGetStarted
+        isDesktop={isDesktop}
+        onGoogleSignUp={handleGoogleSignUp}
+        onEmailSignUp={() => setView('email')}
+        onSignInClick={handleBackToLogin}
+      />
+    );
+  }
+
   return (
     <MarioAuthEmailSignUp
       isDesktop={isDesktop}
       onSignUp={handleSignUp}
-      onBackToSignIn={() => router.push('/login')}
+      onBackToSignIn={handleBackToLogin}
     />
   );
 }
