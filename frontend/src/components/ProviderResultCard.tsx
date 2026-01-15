@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 interface ProviderResultCardProps {
   name: string;
   facility?: string | null;
+  specialtyLabel?: string;
   city?: string | null;
   state?: string | null;
   address?: string | null;
@@ -32,13 +33,14 @@ function buildLocationLine(city?: string | null, state?: string | null, zip?: st
 export function ProviderResultCard({
   name,
   facility,
+  specialtyLabel = 'Specialist',
   city,
   state,
   address,
   zip,
   distance,
   onPrimary,
-  primaryLabel = 'Book Appointment',
+  primaryLabel = 'View profile',
   onSecondary,
   secondaryLabel = 'View profile',
   onClick,
@@ -69,7 +71,7 @@ export function ProviderResultCard({
             variant="secondary"
             className="bg-[#E9F6F5] text-[#2E5077] hover:bg-[#E9F6F5] border-0 text-[10px] font-bold h-6 px-2"
           >
-            Specialist
+            {specialtyLabel}
           </Badge>
         </>
       }

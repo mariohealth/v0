@@ -271,6 +271,7 @@ export default function SpecialtyProvidersClient({ data, searchParams, zipFromPr
                   key={p.provider_id}
                   name={p.provider_name}
                   facility={facilityLabel}
+                  specialtyLabel={specialty.name}
                   address={p.location?.address || undefined}
                   city={p.location?.city || undefined}
                   state={p.location?.state || undefined}
@@ -278,7 +279,6 @@ export default function SpecialtyProvidersClient({ data, searchParams, zipFromPr
                   distance={distance}
                   onClick={handleNavigate}
                   onPrimary={handleNavigate}
-                  onSecondary={handleNavigate}
                 />
               );
             })}
