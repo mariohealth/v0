@@ -11,9 +11,19 @@ CREATE TABLE IF NOT EXISTS procedure_org_pricing (
     min_professional_rate NUMERIC,
     max_professional_rate NUMERIC,
     avg_professional_rate NUMERIC,
+
+    min_technical_rate NUMERIC,
+    max_technical_rate NUMERIC,
+    avg_technical_rate NUMERIC,
+
+    min_global_rate NUMERIC,
+    max_global_rate NUMERIC,
+    avg_global_rate NUMERIC,
+
     min_institutional_rate NUMERIC,
     max_institutional_rate NUMERIC,
     avg_institutional_rate NUMERIC,
+
     min_total_rate NUMERIC,
     max_total_rate NUMERIC,
     avg_total_rate NUMERIC,
@@ -21,6 +31,7 @@ CREATE TABLE IF NOT EXISTS procedure_org_pricing (
     min_price NUMERIC,
     max_price NUMERIC,
     avg_price NUMERIC,
+
     org_name TEXT,
     org_type TEXT,
     address TEXT,
