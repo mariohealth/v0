@@ -13,19 +13,19 @@ SELECT
     carrier_name,
     carrier_plan_id,
     COUNT(DISTINCT provider_id) AS count_provider,
-    -- this is from billing code modifier 26 from the professional billing class
+    -- see the code_pricing model for an explanation of why so many rates
     MIN(professional_rate_min) AS min_professional_rate,
     MAX(professional_rate_min) AS max_professional_rate,
     ROUND(AVG(professional_rate_min)) AS avg_professional_rate,
-    -- this is also from the professional billing class, billing code modifier TC
+
     MIN(technical_rate_min) AS min_technical_rate,
     MAX(technical_rate_min) AS max_technical_rate,
     ROUND(AVG(technical_rate_min)) AS avg_technical_rate,
-    -- this is also from the professional billing class, combines both 26 and TC billing code modifier
+
     MIN(global_rate_min) AS min_global_rate,
     MAX(global_rate_min) AS max_global_rate,
     ROUND(AVG(global_rate_min)) AS avg_global_rate,
-    -- this is from the institutional billing class, no billing code modifier
+
     MIN(institutional_rate_min) AS min_institutional_rate,
     MAX(institutional_rate_min) AS max_institutional_rate,
     ROUND(AVG(institutional_rate_min)) AS avg_institutional_rate,
@@ -33,7 +33,7 @@ SELECT
     MIN(total_rate_min) AS min_total_rate,
     MAX(total_rate_min) AS max_total_rate,
     ROUND(AVG(total_rate_min)) AS avg_total_rate,
-    -- this is just a copy from above but using our old naming convention, should delete in the futur
+    -- this is just a copy from above but using our old naming convention, should delete in the future
     MIN(total_rate_min) AS min_price,
     MAX(total_rate_min) AS max_price,
     ROUND(AVG(total_rate_min)) AS avg_price,
