@@ -25,6 +25,10 @@
         "destination": "/procedures/placeholder.html"
       },
       {
+        "source": "/orgs/**",
+        "destination": "/orgs/placeholder.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

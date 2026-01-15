@@ -20,7 +20,7 @@ export default function OrgDetailClient() {
   const { preferences } = useUserPreferences();
   
   // Extract org_id from URL path: /orgs/[id]
-  const orgId = pathname?.split('/').pop() || '';
+  const orgId = pathname?.split('/').filter(Boolean).pop() || '';
   
   // Extract procedure context from query params
   const procedureSlug = searchParams?.get('procedure') || '';
