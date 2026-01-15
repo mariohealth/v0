@@ -13,7 +13,9 @@ WITH t0 AS (
         rates.npi,
         rates.carrier_id,
         rates.carrier_plan_id,
-        ROUND(MIN(professional_rate), 0) AS professional_rate_min,
+        ROUND(MIN(rate_professional), 0) AS professional_rate_min,
+        ROUND(MIN(rate_technical), 0) AS technical_rate_min,
+        ROUND(MIN(rate_global), 0) AS global_rate_min,
         ROUND(MIN(institutional_rate), 0) AS institutional_rate_min,
         ROUND(MIN(total_rate), 0) AS total_rate_min,
     FROM
@@ -42,6 +44,8 @@ t1 AS (
         carrier_id,
         carrier_plan_id,
         {{ round_price('professional_rate_min') }} AS professional_rate_min,
+        {{ round_price('technical_rate_min') }} AS technical_rate_min,
+        {{ round_price('global_rate_min') }} AS global_rate_min,
         {{ round_price('institutional_rate_min') }} AS institutional_rate_min,
         {{ round_price('total_rate_min') }} AS total_rate_min,
         {{ round_price('total_rate_min') }} AS price, -- this is left here to not brake the back end but will have to be
@@ -60,6 +64,8 @@ SELECT
     t1.carrier_id,
     t1.carrier_plan_id,
     t1.professional_rate_min,
+    t1.technical_rate_min,
+    t1.global_rate_min,
     t1.institutional_rate_min,
     t1.total_rate_min,
     t1.price,
