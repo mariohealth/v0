@@ -78,6 +78,9 @@ app.middleware("http")(RequestLoggingMiddleware(app))
 # Required origins for frontend access
 REQUIRED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:3001",  # Alternative local dev port
+    "http://127.0.0.1:3000",  # IPv4 localhost
+    "http://127.0.0.1:3001",  # IPv4 localhost (alt port)
     "https://mario-mrf-data.web.app",
     "https://mario-health-frontend.vercel.app",
     "https://mario-health-clean.vercel.app",
@@ -92,7 +95,7 @@ FIREBASE_HOSTING_ORIGINS = []
 # Get additional origins from environment variable
 ALLOWED_ORIGINS_STR = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://127.0.0.1:3000,https://mario.health,https://www.mario.health,https://mario-health-ifzy.vercel.app,https://mario-mrf-data.web.app",
+    "https://mario.health,https://www.mario.health,https://mario-health-ifzy.vercel.app,https://mario-mrf-data.web.app",
 )
 
 # Strip whitespace from each origin to prevent CORS issues
