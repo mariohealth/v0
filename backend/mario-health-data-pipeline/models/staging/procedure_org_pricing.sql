@@ -51,18 +51,31 @@ SELECT
     t0.carrier_name,
     t0.carrier_plan_id,
     t0.count_provider,
+
     t0.min_professional_rate,
     t0.max_professional_rate,
     t0.avg_professional_rate,
+
+    t0.min_technical_rate,
+    t0.max_technical_rate,
+    t0.avg_technical_rate,
+
+    t0.min_global_rate,
+    t0.max_global_rate,
+    t0.avg_global_rate,
+
     t0.min_institutional_rate,
     t0.max_institutional_rate,
     t0.avg_institutional_rate,
+
     t0.min_total_rate,
     t0.max_total_rate,
     t0.avg_total_rate,
+
     t0.min_price,
     t0.max_price,
     t0.avg_price,
+
     t_hosp.hospital_name AS org_name,
     t_hosp.hospital_type AS org_type,
     t_hosp.address,
