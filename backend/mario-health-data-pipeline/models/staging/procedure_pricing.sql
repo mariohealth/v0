@@ -13,7 +13,7 @@ WITH t0 AS (
         rates.npi,
         rates.carrier_id,
         rates.carrier_plan_id,
-        ROUND(MIN(rate_professional), 0) AS professional_rate_min,
+        ROUND(MIN(rate_professional), 0) AS professional_rate_min, -- see the code_pricing model for an explanation of why so many rates
         ROUND(MIN(rate_technical), 0) AS technical_rate_min,
         ROUND(MIN(rate_global), 0) AS global_rate_min,
         ROUND(MIN(institutional_rate), 0) AS institutional_rate_min,
