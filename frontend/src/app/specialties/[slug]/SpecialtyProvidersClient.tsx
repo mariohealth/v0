@@ -99,17 +99,19 @@ interface Props {
   };
   searchParams: {
     zip_code?: string;
-    radius_miles?: number;
-    offset?: number;
-    limit?: number;
+    radius_miles?: number | string;
+    offset?: number | string;
+    limit?: number | string;
   };
   zipFromProfile?: boolean;
 }
 
 function normalizeSearchParams(input: Props['searchParams']) {
   // Ensure consistent numeric values; defaults applied only when absent.
-  const toNumber = (value: number | undefined, fallback: number) =>
-    typeof value === 'number' && Number.isFinite(value) ? value : fallback;
+  const toNumber = (value: number | string | undefined, fallback: number) => {
+    const parsed = typeof value === 'string' ? Number(value) : value;
+    return typeof parsed === 'number' && Number.isFinite(parsed) ? parsed : fallback;
+  };
 
   return {
     zip: input.zip_code,
