@@ -89,3 +89,26 @@ This generates a static export in `frontend/out/` for Firebase Hosting.
 | `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | Firebase project ID | (required) |
 
 See `.env.local.example` for a complete template.
+
+---
+
+## ⚠️ Important: CI/Production Deployment
+
+**DO NOT set `NEXT_PUBLIC_API_BASE_URL` in production or CI environments.**
+
+- Firebase Hosting uses rewrites to route API calls (configured in `firebase.json`)
+- Setting this variable in production will bypass Firebase rewrites and may cause CORS issues
+- Only use `NEXT_PUBLIC_API_BASE_URL` in **local development** (via `.env.local`)
+
+**Safe practices:**
+- ✅ Use `.env.local` for local dev (gitignored)
+- ❌ Do NOT add to `.env.production` or CI secrets
+- ❌ Do NOT hardcode in `next.config.mjs`
+
+When building for production:
+```bash
+# Correct: No NEXT_PUBLIC_API_BASE_URL set
+NODE_ENV=production npm run build
+```
+
+The frontend will use relative paths, and Firebase Hosting will proxy them to the backend.
