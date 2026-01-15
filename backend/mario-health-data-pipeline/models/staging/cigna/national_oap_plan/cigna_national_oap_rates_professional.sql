@@ -77,8 +77,36 @@ t3 AS (
         negotiated_rate_global,
     FROM t2
     PIVOT(SUM(negotiated_rate) AS negotiated_rate FOR billing_code_modifier IN ('professional', 'technical', 'global'))
+),
+
+-- Standalone professional rates and standalone technical rates are missing in ~ 67% of rows. Moreover you can
+-- sometimes see the professional rate greater than the global rate... Don't try to do any arithmetics and here's an
+--example why from ChatGPT:
+-- “Under one contract, CPT 70542 is globally priced at 675.72”
+-- “Under another contract, CPT 70542 professional is priced at 751.00”
+--TiC does not encode exclusivity.
+t4 AS (
+    SELECT
+        provider_group_id,
+        billing_code,
+        billing_code_type,
+        billing_code_type_version,
+        additional_information,
+        billing_class,
+        negotiated_type,
+        service_code,
+        negotiated_rate_professional,
+        negotiated_rate_technical,
+        COALESCE(
+            negotiated_rate_global,
+            negotiated_rate_professional + negotiated_rate_technical
+        ) AS negotiated_rate_global,
+    FROM
+        t3
 )
--- There can be two rows per billing code per provider group. We take the max of the two.
+
+-- There can be two rows per billing code per provider group because of the different service code arrays. We take
+--the max of the two.
 
 SELECT
     provider_group_id,
@@ -94,7 +122,7 @@ SELECT
 --    ARRAY_AGG(ARRAY_TO_STRING(service_code)) AS service_code_array, -- this for QA and spot checking, but it doesn't
 --work it's an array of INT not an array of STRING
 FROM
-    t3
+    t4
 GROUP BY
     provider_group_id,
     billing_code,
