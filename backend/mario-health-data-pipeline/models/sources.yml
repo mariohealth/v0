@@ -46,8 +46,18 @@ sources:
       - name: rxn_rel_raw
         description: |
           Relationships that link drug names (detailed in Section 12.7 of the technical documentation). Same source as rxn_conso_raw
-          
 
+  - name: raw_drug_prices
+    description:
+    database: mario-mrf-data
+    schema: raw_drug_prices
+    tables:
+      - name: costplusdrugs
+        description: |
+          Pricing data from Mark Cuban's Cost Plus Drugs
+      - name: goodrx_20240209.csv
+        description: |
+          Pricing data from GoodRX.com
 
 
 #   Example of industry standard below:
