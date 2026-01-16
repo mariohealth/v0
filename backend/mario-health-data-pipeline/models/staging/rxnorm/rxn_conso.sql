@@ -16,7 +16,7 @@ SELECT
     code, -- "Most useful" source asserted identifier (if the source vocabulary has more than one identifier), or a
 --    RxNorm-generated source entry identifier (if the source vocabulary has none.)
     str, -- String
---    suppress, -- removing because it's always 'N'
+    suppress, -- removing because it's always 'N'
 --    content_view_flag, -- removing because it's always '4096'
 FROM
     {{ source('mario-mrf-data', 'rxn_conso_raw') }}
