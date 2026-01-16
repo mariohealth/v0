@@ -12,4 +12,4 @@ SELECT
   'goodrx' AS source_id,
   `link` AS product_url,
 
-FROM {{ source('raw_prices', 'goodrx') }}
+FROM {{ source('raw_drug_prices', 'goodrx') }}

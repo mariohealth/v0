@@ -55,7 +55,7 @@ sources:
       - name: costplusdrugs
         description: |
           Pricing data from Mark Cuban's Cost Plus Drugs
-      - name: goodrx.csv
+      - name: goodrx
         description: |
           Pricing data from GoodRX.com
 
