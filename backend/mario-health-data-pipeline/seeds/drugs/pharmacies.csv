@@ -1,0 +1,6 @@
+pharmacy_id,pharmacy_name,pharmacy_type,accepts_insurance,delivery_only,national,notes
+cpd,Cost Plus Drugs,mail_order,false,true,true,Single national mail-order pharmacy
+cvs,CVS Pharmacy,retail,true,false,true,National retail chain
+walgreens,Walgreens,retail,true,false,true,National retail chain
+walmart,Walmart Pharmacy,retail,true,false,true,National retail chain
+kroger,Kroger Pharmacy,retail,true,false,false,Regional grocery pharmacy
