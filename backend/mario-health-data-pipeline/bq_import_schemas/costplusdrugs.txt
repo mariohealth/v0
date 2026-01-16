@@ -1,0 +1,6 @@
+Medication Name:STRING,
+Medication Form:STRING,
+Retail Price:STRING,
+Our Price:STRING,
+Savings:STRING,
+URL:STRING
