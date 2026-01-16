@@ -48,7 +48,7 @@ sources:
           Relationships that link drug names (detailed in Section 12.7 of the technical documentation). Same source as rxn_conso_raw
 
   - name: raw_drug_prices
-    description:
+    description: Files containing drug prices
     database: mario-mrf-data
     schema: raw_drug_prices
     tables:
