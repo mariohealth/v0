@@ -44,6 +44,5 @@ SELECT
   price,
   quantity,
   product_url,
-  last_updated
 FROM matched
 WHERE rxnorm_cui IS NOT NULL
