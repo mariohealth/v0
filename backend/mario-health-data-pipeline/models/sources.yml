@@ -40,6 +40,9 @@ sources:
       - name: uhc_apple_provider_reference
         description: |
           This table is built from one of the first few rows of the United file just above
+      - name: rxn_conso_raw
+        description: |
+          Drug and ingredient names and codes downloaded from https://www.nlm.nih.gov/research/umls/rxnorm/docs/prescribe.html
           
 
 
