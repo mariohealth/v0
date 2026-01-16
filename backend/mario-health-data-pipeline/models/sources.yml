@@ -43,6 +43,9 @@ sources:
       - name: rxn_conso_raw
         description: |
           Drug and ingredient names and codes downloaded from https://www.nlm.nih.gov/research/umls/rxnorm/docs/prescribe.html
+      - name: rxn_rel_raw
+        description: |
+          Relationships that link drug names (detailed in Section 12.7 of the technical documentation). Same source as rxn_conso_raw
           
 
 
