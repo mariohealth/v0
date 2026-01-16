@@ -1,0 +1,4 @@
+source_id,source_name,source_type,description
+goodrx,GoodRx,aggregator,Discount price aggregator for retail pharmacies
+costplus,Cost Plus Drugs,pharmacy,Direct-to-consumer mail-order pharmacy with cost-plus pricing
+manual,Manual Entry,internal,Manually entered or corrected pricing data
