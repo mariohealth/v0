@@ -1,0 +1,4 @@
+pharmacy_location_id,pharmacy_id,store_code,city,state,zip
+cvs_0001,cvs,0001,San Francisco,CA,94103
+walgreens_1023,walgreens,1023,Austin,TX,78701
+walmart_5512,walmart,5512,Columbus,OH,43215
