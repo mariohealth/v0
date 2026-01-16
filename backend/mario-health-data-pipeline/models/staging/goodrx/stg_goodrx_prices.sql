@@ -38,6 +38,5 @@ SELECT
   pharmacy_id,
   source_id,
   product_url,
-  raw_pharmacy_name,
 FROM matched_pharmacies
-WHERE pharmacy_id IS NULL
+WHERE pharmacy_id IS NOT NULL
