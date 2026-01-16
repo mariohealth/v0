@@ -1,4 +1,4 @@
-{{ config(materialized='view') }}
+{{ config(materialized='table') }}
 
 SELECT
   LOWER(TRIM(`Medication Name`)) AS raw_drug_name,
