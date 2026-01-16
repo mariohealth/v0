@@ -5,7 +5,7 @@ SELECT
   str AS drug_name,
   tty,
   sab
-FROM {{ ref('rxnconso') }}
+FROM {{ ref('rxn_conso') }}
 WHERE sab = 'RXNORM'
   AND suppress = 'N'
   AND tty IN ('IN', 'SCD', 'SBD')
