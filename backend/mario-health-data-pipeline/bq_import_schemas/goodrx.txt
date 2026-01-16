@@ -1,0 +1,7 @@
+Link:STRING,
+Primary Name:STRING,
+Secondary Name:STRING,
+Prescription:STRING,
+Dosage:STRING,
+Pharmacy:STRING,
+Price:STRING
