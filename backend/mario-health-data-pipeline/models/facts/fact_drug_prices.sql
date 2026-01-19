@@ -12,7 +12,7 @@ WITH t_costplus AS (
     JOIN {{ ref('stg_costplus_prices') }} AS cpd_p
     ON cpd_p.product_url = cpd_match.product_url -- can join only on URL for Cost Plus because they are unique, unlike
 --    for our GoodRX data
-    AND cpd_match.needs_review IS TRUE
+    AND cpd_match.needs_review IS FALSE
 ),
 
 t_goodrx AS (
@@ -28,6 +28,7 @@ t_goodrx AS (
     ON grx_match.product_url = grx_p.product_url -- The URLs aren't unique in our GoodRX data so we can't join just on them:
     AND grx_match.raw_drug_name = grx_p.raw_drug_name
     AND grx_match.drug_form = grx_p.drug_form
+    AND grx_match.needs_review IS FALSE
 ),
 
 prices AS (
