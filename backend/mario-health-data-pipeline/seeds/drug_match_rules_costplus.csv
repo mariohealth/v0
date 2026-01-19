@@ -1,0 +1,2 @@
+product_url,is_generic,cpd_generic_name,cpd_brand_name,cpd_dosage_quantity,cpd_form,rxnorm_cui,rxnorm_name,match_score,ingredient_score,strength_score,form_score,needs_review,alternative_matches
+https://www.costplusdrugs.com/medications/dexamethasone-1_5mg-6-day-dose-pack-21-dexpak/,True,dexamethasone,dexpak,1_5mg 6 day dose pack 21,10-day dose pack,197580,dexamethasone 1.5 MG Oral Tablet,97.2,100.0,100.0,22.2,False,

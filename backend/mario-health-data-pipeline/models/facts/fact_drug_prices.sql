@@ -1,39 +1,40 @@
 {{ config(materialized='table') }}
 
-WITH prices AS (
-
-  SELECT
-    raw_drug_name,
-    drug_form,
-    price,
-    quantity,
-    pharmacy_id,
-    source_id,
-    product_url,
-  FROM {{ ref('stg_costplus_prices') }}
-
-  UNION ALL
-
-  SELECT
-    raw_drug_name,
-    drug_form,
-    price,
-    quantity,
-    pharmacy_id,
-    source_id,
-    product_url,
-  FROM {{ ref('stg_goodrx_prices') }}
+WITH t_costplus AS (
+    SELECT
+        raw_drug_name,
+        drug_form,
+        price,
+        quantity,
+        pharmacy_id,
+        source_id,
+        product_url,
+    FROM {{ ref('stg_costplus_prices') }}
+    JOIN
 
 ),
 
-matched AS (
+t_goodrx AS (
+    SELECT
+        raw_drug_name,
+        drug_form,
+        price,
+        quantity,
+        pharmacy_id,
+        source_id,
+        product_url,
+    FROM {{ ref('stg_goodrx_prices') }}
+    JOIN
 
-  SELECT
-    p.*,
-    m.rxnorm_cui
-  FROM prices p
-  LEFT JOIN {{ ref('drug_match_rules') }} m
-    ON p.raw_drug_name = m.raw_drug_name
+)
+
+prices AS (
+
+
+
+  UNION ALL
+
+
 
 )
 
