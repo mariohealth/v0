@@ -1,4 +1,2 @@
-raw_drug_name,rxnorm_cui,confidence,notes
-atorvastatin 20 mg tablet,860975,high,Exact generic match
-lipitor 20 mg tablet,198211,high,Brand match
-metformin er 500 mg,860090,medium,Normalized ER form
+product_url,raw_drug_name,drug_form,rxnorm_cui
+https://www.goodrx.com/clobetex,clobetex 0.05%/5mg (1 kit),0.05%/5mg,00000

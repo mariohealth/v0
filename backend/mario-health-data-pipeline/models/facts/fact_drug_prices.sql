@@ -24,7 +24,9 @@ t_goodrx AS (
         grx_p.product_url,
     FROM {{ ref('drug_match_rules_goodrx') }} AS grx_match
     JOIN {{ ref('stg_goodrx_prices') }} AS grx_p
-    ON grx_match.product_url = grx_p.product_url
+    ON grx_match.product_url = grx_p.product_url -- The URLs aren't unique in our GoodRX data so we can't join just on them:
+    AND grx_match.raw_drug_name = grx_p.raw_drug_name
+    AND grx_match.drug_form = grx_p.drug_form
 ),
 
 prices AS (
