@@ -7,7 +7,7 @@ SELECT
 
   CAST(REGEXP_REPLACE(`Price`, r'[^0-9.]', '') AS NUMERIC) AS price,
 
-  NULL AS quantity, -- assumed later (30-day default)
+  TRIM(REPLACE(SPLIT(`Prescription`, '(')[SAFE_OFFSET(1)], ')','')) AS quantity,
   LOWER(TRIM(`Pharmacy`)) AS raw_pharmacy_name,
 
   'goodrx' AS source_id,
