@@ -1,5 +1,4 @@
 product_url,raw_drug_name,drug_form,rxnorm_cui,rxnorm_name,match_score,ingredient_score,strength_score,form_score,needs_review,alternative_matches
-https://www.goodrx.com/clobetex,clobetex 0.05%/5mg (1 kit),0.05%/5mg,00000,
 https://www.goodrx.com/aftera,,,1598658,levonorgestrel 1.5 MG Oral Tablet [Aftera],55.1,0.0,50.0,100,False,
 https://www.goodrx.com/dulera,,120 doses of 200mcg/5mcg,1660938,60 ACTUAT formoterol fumarate 0.005 MG/ACTUAT / mometasone furoate 0.2 MG/ACTUAT Metered Dose Inhaler [Dulera],92.8,66.7,100.0,100,False,
 https://www.goodrx.com/prempro,,28 tablets of 0.625mg/5mg,,,0.0,0.0,0.0,0,True,NO MATCH FOUND
