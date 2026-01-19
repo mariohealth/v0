@@ -55,12 +55,16 @@ seeds:
         carrier_id: STRING
     drug_match_rules_costplus:
       +column_types:
+        rxnorm_cui: STRING
         match_score: NUMERIC
         ingredient_score: NUMERIC
         strength_score: NUMERIC
         form_score: NUMERIC
         is_generic: BOOLEAN
         needs_review: BOOLEAN
+    drug_match_rules_goodrx:
+      +column_types:
+        rxnorm_cui: STRING
 
 # Documentation
 docs-paths: ["docs"]
