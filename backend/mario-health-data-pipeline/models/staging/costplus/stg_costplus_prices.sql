@@ -7,7 +7,7 @@ SELECT
 
   CAST(REGEXP_REPLACE(`Our Price`, r'[^0-9.]', '') AS NUMERIC) AS price,
 
-  NULL AS quantity,  -- not provided by Cost Plus
+  CAST(NULL AS STRING) AS quantity,  -- not provided by Cost Plus
   'cpd' AS pharmacy_id,
   'costplus' AS source_id,
 
