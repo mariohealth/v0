@@ -131,7 +131,7 @@ class BundleService:
         )
 
     def calculate_bundle_estimate(
-        self, slug: str, hospital_id: str, carrier_plan_id: str
+        self, slug: str, facility_org_id: str, carrier_plan_id: str
     ) -> Optional[BundleEstimateResponse]:
         """
         Calculate price estimate for a bundle.
@@ -141,10 +141,11 @@ class BundleService:
         if not bundle_detail:
             raise HTTPException(status_code=404, detail="Bundle not found")
 
-        # 2. Check Hospital Existence (Defensive)
-        h_res = self.supabase.table("hospitals").select("name, city, state").eq("id", hospital_id).single().execute()
+        # 2. Check Hospital/Org Existence (Defensive)
+        # facility_org_id currently corresponds to org_id from procedure_org_pricing.
+        h_res = self.supabase.table("hospitals").select("name, city, state").eq("id", facility_org_id).single().execute()
         if not h_res.data:
-            raise HTTPException(status_code=400, detail="Unknown hospital_id")
+            raise HTTPException(status_code=400, detail="Unknown facility_org_id")
         
         # 3. Fetch Pricing
         all_code_refs = []
@@ -159,7 +160,7 @@ class BundleService:
             # Query specific fields to reduce payload
             pricing_result = self.supabase.table("code_pricing_facility_agg") \
                 .select("billing_code, billing_code_type, min_professional_rate, avg_professional_rate, max_professional_rate, min_institutional_rate, avg_institutional_rate, max_institutional_rate") \
-                .eq("hospital_id", hospital_id) \
+                .eq("hospital_id", facility_org_id) \
                 .eq("carrier_plan_id", carrier_plan_id) \
                 .in_("billing_code", unique_codes) \
                 .execute()
@@ -419,7 +420,7 @@ class BundleService:
 
         # Hospital Info Construction (already fetched)
         hospital_info = HospitalInfo(
-            id=hospital_id,
+            id=facility_org_id,
             name=h_res.data["name"],
             city=h_res.data.get("city"),
             state=h_res.data.get("state")
@@ -441,6 +442,7 @@ class BundleService:
                 professional_total=RateRange(min=prof_total["min"], expected=prof_total["avg"], max=prof_total["max"]),
                 institutional_total=RateRange(min=inst_total["min"], expected=inst_total["avg"], max=inst_total["max"]),
                 breakdown_by_phase=total_by_phase,
+                # TODO: Future: split facility vs professional subtotals when backend pricing supports distinct buckets.
                 breakdown_by_group=group_estimates,
                 surprise_charges=surprise_charges,
                 codes_without_pricing=codes_without_pricing

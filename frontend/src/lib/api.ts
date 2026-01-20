@@ -842,13 +842,17 @@ export interface BundleEstimateResponse {
 
 export async function getBundleEstimate(
     bundleSlug: string,
-    hospitalId: string,
+    facilityOrgId: string,
     carrierPlanId: string
 ): Promise<BundleEstimateResponse> {
-    const url = `${getApiBaseUrl()}/bundles/${bundleSlug}/estimate?hospital_id=${hospitalId}&carrier_plan_id=${carrierPlanId}`;
+    const query = new URLSearchParams({
+        facility_org_id: facilityOrgId,
+        carrier_plan_id: carrierPlanId,
+    });
+    const url = `${getApiBaseUrl()}/bundles/${bundleSlug}/estimate?${query.toString()}`;
 
     if (process.env.NODE_ENV === 'development') {
-        console.log('[API] Fetching bundle estimate:', { bundleSlug, hospitalId, carrierPlanId, url });
+        console.log('[API] Fetching bundle estimate:', { bundleSlug, facilityOrgId, carrierPlanId, url });
     }
 
     try {

@@ -39,7 +39,7 @@ def get_bundle_detail(
 @router.get("/{slug}/estimate", response_model=BundleEstimateResponse)
 def get_bundle_estimate(
     slug: str,
-    hospital_id: str = Query(..., description="Hospital identifier"),
+    facility_org_id: str = Query(..., description="Organization identifier (currently maps to org_id)"),
     carrier_plan_id: str = Query(..., description="Insurance plan identifier"),
     supabase: Client = Depends(get_supabase)
 ):
@@ -47,7 +47,7 @@ def get_bundle_estimate(
     Calculate price estimate for a bundle.
     """
     service = BundleService(supabase)
-    estimate = service.calculate_bundle_estimate(slug, hospital_id, carrier_plan_id)
+    estimate = service.calculate_bundle_estimate(slug, facility_org_id, carrier_plan_id)
     if not estimate:
         raise HTTPException(status_code=501, detail="Estimate calculation not yet implemented")
     return estimate
