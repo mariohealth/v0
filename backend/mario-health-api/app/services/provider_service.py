@@ -69,11 +69,21 @@ class ProviderService:
                 )
                 if lookup.data:
                     provider_id = lookup.data["provider_id"]
-                # If no data, provider_id stays as NPI and will 404 below
+                else:
+                    # NPI not found in database - return 404 immediately
+                    raise HTTPException(
+                        status_code=404, 
+                        detail=f"Provider with NPI '{provider_id}' not found"
+                    )
+            except HTTPException:
+                raise
             except Exception as e:
-                # If NPI lookup fails, continue with original ID
-                # The RPC call below will return 404 if invalid
-                print(f"Warning: NPI lookup failed for {provider_id}: {e}")
+                # Unexpected error during NPI lookup
+                print(f"Error during NPI lookup for {provider_id}: {e}")
+                raise HTTPException(
+                    status_code=500,
+                    detail=f"Error resolving NPI: {str(e)}"
+                )
 
         # Get provider basic info and stats
         provider_result = self.supabase.rpc(
