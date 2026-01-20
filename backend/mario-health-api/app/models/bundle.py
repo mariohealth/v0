@@ -89,9 +89,9 @@ class HospitalInfo(BaseModel):
 
 class InsuranceInfo(BaseModel):
     carrier_id: str
-    carrier_name: str
+    carrier_name: str | None
     plan_id: str
-    plan_name: str
+    plan_name: str | None
 
 class CodeWithoutPricing(BaseModel):
     code_id: str

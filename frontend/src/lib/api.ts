@@ -794,10 +794,79 @@ export async function getProcedureBySlug(procedureSlug: string): Promise<SearchR
     }
 }
 
+
 /**
- * Get mock procedure data from local JSON files
- * Falls back to a default structure if no mock file exists
+ * Bundle Estimate Types and API
  */
+
+export interface RateRange {
+    min: number;
+    expected: number;
+    max: number;
+}
+
+export interface GroupEstimate {
+    group_id: string;
+    group_name: string;
+    selection_type: string;
+    subtotal: RateRange;
+}
+
+export interface BundleEstimateResponse {
+    bundle: {
+        id: string;
+        name: string;
+        slug: string;
+    };
+    hospital: {
+        id: string;
+        name: string;
+    };
+    insurance: {
+        carrier_name: string | null;
+        plan_name: string | null;
+    };
+    estimate: {
+        total: RateRange;
+        professional_total: RateRange;
+        institutional_total: RateRange;
+        breakdown_by_group: GroupEstimate[];
+        warnings: string[];
+    };
+    metadata: {
+        codes_with_pricing: number;
+        codes_without_pricing: number;
+        pricing_coverage_percent: number;
+    };
+}
+
+export async function getBundleEstimate(
+    bundleSlug: string,
+    hospitalId: string,
+    carrierPlanId: string
+): Promise<BundleEstimateResponse> {
+    const url = `${getApiBaseUrl()}/bundles/${bundleSlug}/estimate?hospital_id=${hospitalId}&carrier_plan_id=${carrierPlanId}`;
+
+    if (process.env.NODE_ENV === 'development') {
+        console.log('[API] Fetching bundle estimate:', { bundleSlug, hospitalId, carrierPlanId, url });
+    }
+
+    try {
+        const response = await fetchSmartAuth(url, { method: 'GET' });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Estimate API failed: ${response.status} ${errorText}`);
+        }
+
+        const data = await response.json();
+        return data as BundleEstimateResponse;
+    } catch (error) {
+        console.error('[API] Error fetching bundle estimate:', error);
+        throw error;
+    }
+}
+
 async function getMockProcedureData(procedureSlug: string): Promise<SearchResult | null> {
     // Import mock data for known procedures
     const mockDataMap: Record<string, SearchResult> = {

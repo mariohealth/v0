@@ -31,7 +31,7 @@ class BundleService:
         """
         List all available bundles.
         """
-        result = self.supabase.table("bundles").select("*").eq("is_active", "true").execute()
+        result = self.supabase.table("bundles").select("*").eq("is_active", True).execute()
         
         bundles = []
         for b in result.data:
@@ -90,13 +90,16 @@ class BundleService:
                 if not code_def:
                     continue
                     
+                freq = item.get("frequency")
+                weight = FREQUENCY_WEIGHTS.get(freq, 0.0) if freq else 0.0
+                
                 codes_map[gid].append(CodeSummary(
                     id=code_def["id"],
                     code=code_def["code"],
                     code_type=code_def["code_type"],
                     name=code_def["name"],
-                    frequency=item.get("frequency"),
-                    frequency_weight=FREQUENCY_WEIGHTS.get(item.get("frequency"), 1.0), # Default to 1.0 if missing
+                    frequency=freq,
+                    frequency_weight=weight,
                     is_default=item.get("is_default", False),
                     display_order=item.get("display_order", 0),
                     why_billed=item.get("why_billed")
@@ -237,6 +240,7 @@ class BundleService:
                 # Store calculation data
                 calc_data = {
                     "w": weight,
+                    "f": code.frequency,
                     "prof": {"min": p_min, "avg": p_avg, "max": p_max},
                     "inst": {"min": i_min, "avg": i_avg, "max": i_max},
                     "total": {"min": c_total_min, "avg": c_total_avg, "max": c_total_max}
@@ -278,18 +282,18 @@ class BundleService:
             if group_codes_calc_data:
                 
                 def calc_logic(items, mode):
-                    # items: list of dicts with min/avg/max and w
+                    # items: list of dicts with min/avg/max, w, f
                     # mode: selection_type
                     
                     _min, _exp, _max = Decimal(0), Decimal(0), Decimal(0)
                     
                     if mode == "ALL":
-                        # min = sum(code.min * weight)
+                        # min = sum(code.min where freq='always')
                         # expected = sum(code.expected * weight)
-                        # max = sum(code.max * weight)
-                        _min = sum([x["min"] * x["w"] for x in items], Decimal(0))
+                        # max = sum(code.max) (unweighted)
+                        _min = sum([x["min"] for x in items if x["f"] == "always"], Decimal(0))
                         _exp = sum([x["avg"] * x["w"] for x in items], Decimal(0))
-                        _max = sum([x["max"] * x["w"] for x in items], Decimal(0))
+                        _max = sum([x["max"] for x in items], Decimal(0))
                         
                     elif mode == "ONE":
                         # min = min(code.min)
@@ -332,13 +336,14 @@ class BundleService:
                     return _min, _exp, _max
 
                 # Extract components
-                total_items = [{"min": x["total"]["min"], "avg": x["total"]["avg"], "max": x["total"]["max"], "w": x["w"]} for x in group_codes_calc_data]
-                prof_items = [{"min": x["prof"]["min"], "avg": x["prof"]["avg"], "max": x["prof"]["max"], "w": x["w"]} for x in group_codes_calc_data]
-                inst_items = [{"min": x["inst"]["min"], "avg": x["inst"]["avg"], "max": x["inst"]["max"], "w": x["w"]} for x in group_codes_calc_data]
+                total_items = [{"min": x["total"]["min"], "avg": x["total"]["avg"], "max": x["total"]["max"], "w": x["w"], "f": x["f"]} for x in group_codes_calc_data]
+                prof_items = [{"min": x["prof"]["min"], "avg": x["prof"]["avg"], "max": x["prof"]["max"], "w": x["w"], "f": x["f"]} for x in group_codes_calc_data]
+                inst_items = [{"min": x["inst"]["min"], "avg": x["inst"]["avg"], "max": x["inst"]["max"], "w": x["w"], "f": x["f"]} for x in group_codes_calc_data]
                 
                 g_min, g_exp, g_max = calc_logic(total_items, group.selection_type)
                 g_prof_min, g_prof_exp, g_prof_max = calc_logic(prof_items, group.selection_type)
                 g_inst_min, g_inst_exp, g_inst_max = calc_logic(inst_items, group.selection_type)
+
 
             # Accumulate Grand Totals
             grand_total["min"] += g_min
@@ -376,19 +381,41 @@ class BundleService:
         # 5. Insurance Info (Optional/Minimal)
         i_info = InsuranceInfo(
             carrier_id="unknown",
-            carrier_name="Unknown Carrier",
+            carrier_name=None,
             plan_id=carrier_plan_id,
-            plan_name="Unknown Plan"
+            plan_name=None
         )
+        
+        warning_msg = None
         try:
              i_res = self.supabase.table("insurance_plans").select("name, carrier_id, insurance_carriers(name)").eq("id", carrier_plan_id).single().execute()
              if i_res.data:
-                i_info.plan_name = i_res.data.get("name", "Unknown Plan")
+                i_info.plan_name = i_res.data.get("name")
                 i_info.carrier_id = i_res.data.get("carrier_id", "unknown")
                 if i_res.data.get("insurance_carriers"):
-                    i_info.carrier_name = i_res.data["insurance_carriers"].get("name", "Unknown Carrier")
+                    i_info.carrier_name = i_res.data["insurance_carriers"].get("name")
+             else:
+                 warning_msg = "Insurance plan lookup failed; returning estimates for carrier_plan_id only."
         except:
-            pass # Fail gracefully
+            warning_msg = "Insurance plan lookup failed; returning estimates for carrier_plan_id only."
+
+        # Collect checks for warnings
+        warnings = []
+        if warning_msg:
+            warnings.append(warning_msg)
+            
+        if codes_without_pricing:
+            warnings.append(f"{len(codes_without_pricing)} codes do not have negotiated rates")
+            
+        # Check for unknown frequencies
+        codes_with_unknown_freq = 0
+        for group in bundle_detail.groups:
+            for c in group.codes:
+                if not c.frequency or c.frequency_weight == 0.0:
+                    codes_with_unknown_freq += 1
+        
+        if codes_with_unknown_freq > 0:
+            warnings.append(f"{codes_with_unknown_freq} codes have unknown frequency")
 
         # Hospital Info Construction (already fetched)
         hospital_info = HospitalInfo(
@@ -423,7 +450,7 @@ class BundleService:
                 codes_without_pricing=len(codes_without_pricing),
                 pricing_coverage_percent=round(coverage_pct, 1)
             ),
-            warnings=[f"{len(codes_without_pricing)} codes do not have negotiated rates"] if codes_without_pricing else []
+            warnings=warnings
         )
 
     def get_bundle_hospitals(

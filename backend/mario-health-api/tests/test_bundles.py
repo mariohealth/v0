@@ -40,7 +40,7 @@ class MockQuery:
                 self._call_count += 1
                 return result
             except IndexError:
-                return self._return_value
+                raise AssertionError("Unexpected extra Supabase query call")
         return self._return_value
 
 class MockSupabase:
@@ -101,12 +101,12 @@ def test_calc_logic_all(service, mock_supabase):
     
     res = service.calculate_bundle_estimate("s", "h", "cp")
     
-    # c1: min=100*1, avg=200*1, max=300*1
-    # c2: min=50*0.5=25, avg=60*0.5=30, max=70*0.5=35
-    # Total: min=125, avg=230, max=335
-    assert res.estimate.total.min == Decimal(125)
+    # c1: min=100 (always), avg=200*1, max=300
+    # c2: min=ignored (sometimes), avg=60*0.5=30, max=70
+    # Total: min=100, avg=230, max=370
+    assert res.estimate.total.min == Decimal(100)
     assert res.estimate.total.expected == Decimal(230)
-    assert res.estimate.total.max == Decimal(335)
+    assert res.estimate.total.max == Decimal(370)
 
 def test_calc_logic_one(service, mock_supabase):
     # ONE: min=min(min), exp=w_avg(exp), max=max(max)
