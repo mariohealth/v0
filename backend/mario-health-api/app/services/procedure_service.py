@@ -172,18 +172,28 @@ class ProcedureService:
     async def get_procedure_orgs(self, slug: str) -> ProcedureOrgsResponse:
         """Fetch all orgs offering a specific procedure with pricing."""
 
-        # First get the procedure to verify it exists
-        proc_result = self.supabase.rpc(
-            "get_procedure_detail", {"procedure_slug_input": slug}
-        ).execute()
-
-        if not proc_result.data or len(proc_result.data) == 0:
-            raise HTTPException(status_code=404, detail=f"Procedure '{slug}' not found")
-
-        proc = proc_result.data[0]
-        procedure_id = proc["id"]
-        procedure_name = proc["name"]
-        procedure_slug = proc["slug"]
+        # Get procedure info directly from table (faster than RPC)
+        try:
+            proc_result = (
+                self.supabase.table("procedure")
+                .select("id, name, slug")
+                .eq("slug", slug)
+                .maybe_single()
+                .execute()
+            )
+            
+            if not proc_result.data:
+                raise HTTPException(status_code=404, detail=f"Procedure '{slug}' not found")
+            
+            proc = proc_result.data
+            procedure_id = proc["id"]
+            procedure_name = proc["name"]
+            procedure_slug = proc["slug"]
+        except HTTPException:
+            raise
+        except Exception as e:
+            print(f"Error fetching procedure {slug}: {e}")
+            raise HTTPException(status_code=500, detail=f"Error fetching procedure: {str(e)}")
 
         # Get orgs offering this procedure
         # Query procedure_org_pricing table

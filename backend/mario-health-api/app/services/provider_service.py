@@ -59,15 +59,21 @@ class ProviderService:
         # Helper: Check if input looks like an NPI (10 digits)
         if provider_id.isdigit() and len(provider_id) == 10:
              # Try to resolve NPI to UUID
-            lookup = (
-                self.supabase.table("provider")
-                .select("provider_id")
-                .eq("npi", provider_id)
-                .maybe_single()
-                .execute()
-            )
-            if lookup.data:
-                provider_id = lookup.data["provider_id"]
+            try:
+                lookup = (
+                    self.supabase.table("provider")
+                    .select("provider_id")
+                    .eq("npi", provider_id)
+                    .maybe_single()
+                    .execute()
+                )
+                if lookup.data:
+                    provider_id = lookup.data["provider_id"]
+                # If no data, provider_id stays as NPI and will 404 below
+            except Exception as e:
+                # If NPI lookup fails, continue with original ID
+                # The RPC call below will return 404 if invalid
+                print(f"Warning: NPI lookup failed for {provider_id}: {e}")
 
         # Get provider basic info and stats
         provider_result = self.supabase.rpc(
