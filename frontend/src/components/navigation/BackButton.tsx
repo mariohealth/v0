@@ -10,6 +10,7 @@ interface BackButtonProps {
     variant?: 'default' | 'outline' | 'ghost';
     fallbackPath?: string;
     label?: string;
+    forcePath?: string; // When set, bypasses smart navigation and goes directly to this path
 }
 
 /**
@@ -23,11 +24,18 @@ export function BackButton({
     className,
     variant = 'ghost',
     fallbackPath = '/home',
-    label
+    label,
+    forcePath
 }: BackButtonProps) {
     const router = useRouter();
 
     const handleBack = () => {
+        // If forcePath is set, use it directly (for results pages that should always go to /home)
+        if (forcePath) {
+            router.push(forcePath);
+            return;
+        }
+
         try {
             const prevPath = sessionStorage.getItem(MARIO_PREV_PATH_KEY);
             const hits = parseInt(sessionStorage.getItem(MARIO_HITS_KEY) || '0', 10);
