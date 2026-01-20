@@ -24,6 +24,7 @@ from app.api.v1.endpoints import (
     bookings,
     insurance,
     specialties,
+    bundles,
 )
 import os
 from pathlib import Path
@@ -181,6 +182,7 @@ app.include_router(whoami.router, prefix="/api/v1")  # Debug endpoint for authen
 app.include_router(bookings.router, prefix="/api/v1")
 app.include_router(insurance.router, prefix="/api/v1")
 app.include_router(specialties.router, prefix="/api/v1")
+app.include_router(bundles.router, prefix="/api/v1")
 
 
 # Alias routes for compatibility
