@@ -30,7 +30,7 @@ export default function OrgDetailClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isAboutExpanded, setIsAboutExpanded] = useState(false);
-  const [estimate, setEstimate] = useState<BundleEstimateResponse | null>(null);
+  const [estimate, setEstimate] = useState<BundleEstimateResponse | null | undefined>(undefined);
 
   // Extract org_id from URL path: /orgs/[id]
   const orgId = pathname?.split('/').filter(Boolean).pop() || '';
@@ -113,6 +113,7 @@ export default function OrgDetailClient() {
 
     async function fetchEst() {
       try {
+        setEstimate(undefined);
         // Pass orgData.org_id as hospitalId, and carrierPlanId
         const res = await getBundleEstimate(bundleSlug, orgData!.org_id, carrierPlanId!);
         setEstimate(res);
@@ -229,6 +230,26 @@ export default function OrgDetailClient() {
                 >
                   Select Insurance
                 </Button>
+              </CardContent>
+            </Card>
+          ) : estimate === undefined ? (
+            /* Loading State for Estimate */
+            <Card className="bg-white border rounded-lg shadow-sm overflow-hidden mb-6">
+              <div className="p-6 border-b border-gray-100 flex items-start justify-between">
+                <div>
+                  <Skeleton className="h-6 w-48 mb-2" />
+                  <Skeleton className="h-4 w-32" />
+                </div>
+                <div className="text-right">
+                  <Skeleton className="h-8 w-24 mb-1" />
+                  <Skeleton className="h-3 w-16 ml-auto" />
+                </div>
+              </div>
+              <CardContent className="p-0">
+                <div className="p-4">
+                  <Skeleton className="h-10 w-full mb-2" />
+                  <Skeleton className="h-20 w-full" />
+                </div>
               </CardContent>
             </Card>
           ) : estimate ? (

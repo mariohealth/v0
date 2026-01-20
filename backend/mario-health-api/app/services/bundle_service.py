@@ -91,7 +91,7 @@ class BundleService:
                     continue
                     
                 freq = item.get("frequency")
-                weight = FREQUENCY_WEIGHTS.get(freq, 0.0) if freq else 0.0
+                weight = FREQUENCY_WEIGHTS.get(freq, 0.5) if freq else 0.5
                 
                 codes_map[gid].append(CodeSummary(
                     id=code_def["id"],
@@ -397,7 +397,9 @@ class BundleService:
                     i_info.carrier_name = i_res.data["insurance_carriers"].get("name")
              else:
                  warning_msg = "Insurance plan lookup failed; returning estimates for carrier_plan_id only."
-        except:
+        except Exception as e:
+            import logging
+            logging.getLogger(__name__).warning(f"Insurance lookup failed: {e}")
             warning_msg = "Insurance plan lookup failed; returning estimates for carrier_plan_id only."
 
         # Collect checks for warnings
