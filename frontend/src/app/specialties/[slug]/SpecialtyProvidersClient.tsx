@@ -261,7 +261,10 @@ export default function SpecialtyProvidersClient({ data, searchParams, zipFromPr
             {providers.map((p) => {
               const distance = formatDistance(p.location?.distance_miles);
               const facilityLabel = buildFacilityLabel(p);
-              const handleNavigate = () => router.push(`/providers/${p.provider_id}`);
+              const handleNavigate = () => {
+                const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+                router.push(`/providers/${p.provider_id}?returnUrl=${returnUrl}`);
+              };
               return (
                 <ProviderResultCard
                   key={p.provider_id}

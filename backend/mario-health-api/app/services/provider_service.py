@@ -56,6 +56,19 @@ class ProviderService:
     async def get_provider_detail(self, provider_id: str) -> ProviderDetail:
         """Fetch detailed provider information with all procedures."""
 
+        # Helper: Check if input looks like an NPI (10 digits)
+        if provider_id.isdigit() and len(provider_id) == 10:
+             # Try to resolve NPI to UUID
+            lookup = (
+                self.supabase.table("provider")
+                .select("provider_id")
+                .eq("npi", provider_id)
+                .maybe_single()
+                .execute()
+            )
+            if lookup.data:
+                provider_id = lookup.data["provider_id"]
+
         # Get provider basic info and stats
         provider_result = self.supabase.rpc(
             "get_provider_detail", {"provider_id_input": provider_id}

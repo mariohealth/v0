@@ -598,6 +598,17 @@ export async function getProcedureOrgs(
         const res = await fetch(url.toString(), { method: "GET" });
 
         if (!res.ok) {
+            // Handle 404s gracefully (e.g. no orgs found for this procedure)
+            if (res.status === 404) {
+                console.warn('[API] Procedure orgs not found (404), returning empty list');
+                return {
+                    procedure_id: procedureSlug,
+                    procedure_name: procedureSlug,
+                    procedure_slug: procedureSlug,
+                    orgs: [],
+                    total_count: 0
+                } as ProcedureOrgsResponse;
+            }
             throw new Error(`Orgs API failed: ${res.status} ${res.statusText}`);
         }
 
