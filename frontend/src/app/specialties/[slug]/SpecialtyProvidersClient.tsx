@@ -2,10 +2,11 @@
 
 import { useMemo, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Filter, Map } from 'lucide-react';
+import { Filter, Map } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { ProviderResultCard } from '@/components/ProviderResultCard';
+import { BackButton } from '@/components/navigation/BackButton';
 import { EmptyResults } from './EmptyResults';
 
 export interface SpecialtyProviderLocation {
@@ -197,9 +198,7 @@ export default function SpecialtyProvidersClient({ data, searchParams, zipFromPr
     });
   };
 
-  const handleBack = () => {
-    router.push('/');
-  };
+
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-20 md:pb-0">
@@ -207,12 +206,7 @@ export default function SpecialtyProvidersClient({ data, searchParams, zipFromPr
       <div className="sticky top-0 bg-white z-10 shadow-sm border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
-            <button
-              onClick={handleBack}
-              className="p-2 hover:bg-gray-50 rounded-full transition-colors"
-            >
-              <ArrowLeft className="h-6 w-6 text-[#2E5077]" />
-            </button>
+            <BackButton />
             <div className="flex-1">
               <h1 className="text-xl font-bold text-[#2E5077]">{specialty.name}</h1>
               <p className="text-sm text-[#4DA1A9] font-medium">
@@ -296,9 +290,8 @@ export default function SpecialtyProvidersClient({ data, searchParams, zipFromPr
               type="button"
               disabled={!hasPrev || isPending}
               onClick={() => hasPrev && handlePageChange(Math.max(0, offset - limit))}
-              className={`px-3 py-2 rounded-md text-sm border ${
-                hasPrev ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
-              }`}
+              className={`px-3 py-2 rounded-md text-sm border ${hasPrev ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
+                }`}
             >
               Previous
             </button>
@@ -306,9 +299,8 @@ export default function SpecialtyProvidersClient({ data, searchParams, zipFromPr
               type="button"
               disabled={!hasNext || isPending}
               onClick={() => hasNext && handlePageChange(nextOffset)}
-              className={`px-3 py-2 rounded-md text-sm border ${
-                hasNext ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
-              }`}
+              className={`px-3 py-2 rounded-md text-sm border ${hasNext ? 'text-foreground' : 'text-muted-foreground cursor-not-allowed opacity-60'
+                }`}
             >
               Next
             </button>
