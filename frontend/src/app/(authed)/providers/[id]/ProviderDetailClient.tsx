@@ -163,32 +163,7 @@ function ProviderDetailContent() {
             </main>
         );
     }
-                            ← Back to Procedures
-                        </button >
-                    </div >
-                </div >
-            </main >
-        );
-}
 
-const returnUrl = searchParams.get('returnUrl');
-
-const handleBack = () => {
-    if (returnUrl) {
-        router.push(decodeURIComponent(returnUrl));
-        return;
-    }
-
-    if (procedureSlug) {
-        router.push(`/procedures/${encodeURIComponent(procedureSlug)}`);
-    } else {
-        if (window.history.length > 1) {
-            router.back();
-        } else {
-            router.push('/home');
-        }
-    }
-};
 
 const hospitalLocations: Record<string, {
     address: string;
