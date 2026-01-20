@@ -74,7 +74,7 @@ function MarioSmartSearchInner({
   useEffect(() => {
     // When route changes (procedure param changes, path changes), clear the search
     const procedureParam = searchParams.get('procedure');
-    
+
     // Clear suggestions and reset state when navigating to a procedure
     if (procedureParam) {
       setAutocompleteSuggestions([]);
@@ -151,13 +151,13 @@ function MarioSmartSearchInner({
         // 1. Fetch procedures from API (with mock fallback for procedures only)
         try {
           const procedureResults = await searchProcedures(query);
-          
+
           // Check if this request is still the latest one
           if (requestIdRef.current !== currentRequestId) {
             console.log(`[SmartSearch] Stale request ${currentRequestId} discarded (current: ${requestIdRef.current})`);
             return;
           }
-          
+
           console.log(`[SmartSearch] Procedure search result:`, procedureResults);
 
           // Handle both array (direct results) and object (full response) patterns
@@ -198,13 +198,13 @@ function MarioSmartSearchInner({
         // 2. Fetch doctors from API (Placeholder)
         try {
           const doctorResults = await searchDoctors(query);
-          
+
           // Check if this request is still the latest one
           if (requestIdRef.current !== currentRequestId) {
             console.log(`[SmartSearch] Stale request ${currentRequestId} discarded after doctors`);
             return;
           }
-          
+
           if (Array.isArray(doctorResults) && doctorResults.length > 0) {
             console.log(`[SmartSearch] Doctor results:`, doctorResults.length);
             doctorResults.forEach((doc) => {
@@ -407,7 +407,7 @@ function MarioSmartSearchInner({
     }
     // Invalidate any in-flight requests
     requestIdRef.current++;
-    
+
     setQuery(suggestion.primaryText);
     setAutocompleteSuggestions([]);
     setShowAutocomplete(false);
@@ -432,7 +432,7 @@ function MarioSmartSearchInner({
       clearTimeout(debounceRef.current);
     }
     requestIdRef.current++;
-    
+
     setAutocompleteSuggestions([]);
     setShowAutocomplete(false);
     setSelectedIndex(-1);
@@ -448,7 +448,7 @@ function MarioSmartSearchInner({
     }
     // Increment request ID to invalidate any in-flight requests
     requestIdRef.current++;
-    
+
     setQuery('');
     setAutocompleteSuggestions([]);
     setShowAutocomplete(false);
@@ -492,6 +492,7 @@ function MarioSmartSearchInner({
           style={{
             color: '#1A1A1A'
           }}
+          data-testid="global-search-input"
         />
 
         {/* Loading or Clear Button */}

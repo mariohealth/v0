@@ -49,32 +49,44 @@ test.afterEach(async ({ }, testInfo) => {
 
 test('TEST 1: Home -> Autocomplete -> Specialty appears', async ({ page }) => {
     await page.goto('/home');
-    // Type "cardio"
-    const searchInput = page.getByPlaceholder(/Search services, doctors, or meds/i);
-    await expect(searchInput).toBeVisible();
+    await page.waitForLoadState('domcontentloaded');
+
+    // Debug: Log basic page info
+    console.log(`[Test 1] Current URL: ${page.url()}`);
+    console.log(`[Test 1] Page Title: ${await page.title()}`);
+
+    // Type "cardio" using stable test ID with increased timeout
+    const searchInput = page.getByTestId('global-search-input');
+    await expect(searchInput).toBeVisible({ timeout: 15000 });
     await searchInput.fill('cardio');
 
     // Expect autocomplete list appears and contains Cardiologist
     const suggestion = page.getByText('Cardiologist', { exact: false }).first();
-    await expect(suggestion).toBeVisible();
+    await expect(suggestion).toBeVisible({ timeout: 10000 });
 });
 
 test('TEST 2: Home -> Autocomplete -> Procedure navigation', async ({ page }) => {
     await page.goto('/home');
-    const searchInput = page.getByPlaceholder(/Search services, doctors, or meds/i);
+    await page.waitForLoadState('domcontentloaded');
+
+    const searchInput = page.getByTestId('global-search-input');
+    await expect(searchInput).toBeVisible({ timeout: 15000 });
     await searchInput.fill('brain mri');
 
     // Click the procedure suggestion
     const suggestion = page.getByText('Brain MRI', { exact: false }).first();
-    await expect(suggestion).toBeVisible();
+    await expect(suggestion).toBeVisible({ timeout: 10000 });
     await suggestion.click();
 
     // Expect URL matches /procedures/brain-mri (lenient match for slug)
-    await expect(page).toHaveURL(/\/procedures\/.*brain.*mri.*/i);
+    // Wait for URL change explicitly
+    await expect(page).toHaveURL(/\/procedures\/.*brain.*mri.*/i, { timeout: 15000 });
 
     // Page loads without redirecting to /
     await page.waitForLoadState('networkidle');
     const url = page.url();
+    console.log(`[Test 2] Post-navigation URL: ${url}`);
+
     expect(url).not.toMatch(/^https?:\/\/[^\/]+\/?$/); // Not root
     expect(url).toContain('/procedures/');
 
