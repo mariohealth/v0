@@ -306,7 +306,7 @@ export default function ProcedureDetailClient() {
       <div className="sticky top-0 bg-white z-10 shadow-sm border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
-            <BackButton />
+            <BackButton forcePath="/home" />
             <div className="flex-1">
               <h1 className="text-xl font-bold text-[#2E5077]">{procedureName || slug}</h1>
               <p className="text-sm text-[#4DA1A9] font-medium">
