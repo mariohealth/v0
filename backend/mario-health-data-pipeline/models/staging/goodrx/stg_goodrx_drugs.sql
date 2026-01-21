@@ -8,7 +8,7 @@ SELECT DISTINCT
   LOWER(`Prescription`) AS drug_full_name ,
   LOWER(`Dosage`) AS dosage,
 FROM
-  raw_drug_prices.goodrx
+  {{ source('raw_drug_prices', 'goodrx') }}
 )
 
 SELECT
