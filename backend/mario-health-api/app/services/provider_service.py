@@ -58,31 +58,54 @@ class ProviderService:
 
         # Helper: Check if input looks like an NPI (10 digits)
         if provider_id.isdigit() and len(provider_id) == 10:
-             # Try to resolve NPI to UUID
+            original_npi = provider_id
+            print(f"Resolving NPI: {original_npi}")
+
+            # Try to resolve NPI to UUID
             try:
                 lookup = (
                     self.supabase.table("provider")
                     .select("provider_id")
-                    .eq("npi", provider_id)
+                    .eq("npi", original_npi)
                     .maybe_single()
                     .execute()
                 )
                 if lookup.data:
                     provider_id = lookup.data["provider_id"]
+                    print(f"Resolved NPI {original_npi} -> UUID {provider_id}")
                 else:
                     # NPI not found in database - return 404 immediately
+                    print(f"NPI {original_npi} not found (empty result)")
                     raise HTTPException(
-                        status_code=404, 
-                        detail=f"Provider with NPI '{provider_id}' not found"
+                        status_code=404,
+                        detail=f"Provider with NPI '{original_npi}' not found",
                     )
             except HTTPException:
                 raise
             except Exception as e:
+                # Inspect exception for 204 "Missing response"
+                # Postgrest client can raise exception on 204 even with maybe_single()
+                
+                # specific check for postgrest-py exceptions which often have 'code' attr
+                code = getattr(e, "code", None)
+                
+                # Check string representation as fallback
+                error_str = str(e)
+                
+                if (code and str(code) == "204") or ("204" in error_str and "Missing response" in error_str):
+                    print(
+                        f"Caught expected 204 error for NPI '{original_npi}', treating as 404"
+                    )
+                    raise HTTPException(
+                        status_code=404,
+                        detail=f"Provider with NPI '{original_npi}' not found",
+                    )
+
                 # Unexpected error during NPI lookup
-                print(f"Error during NPI lookup for {provider_id}: {e}")
+                print(f"Error during NPI lookup for {original_npi}: {e}")
+                print(f"Exception type: {type(e)}, details: {repr(e)}")
                 raise HTTPException(
-                    status_code=500,
-                    detail=f"Error resolving NPI: {str(e)}"
+                    status_code=500, detail=f"Error resolving NPI: {str(e)}"
                 )
 
         # Get provider basic info and stats
