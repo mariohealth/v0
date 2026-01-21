@@ -23,6 +23,42 @@ fi
 
 SUPABASE_URL=${SUPABASE_URL:-"https://anvremdouphhucqrxgoq.supabase.co"}
 
+# Step 0: Verify Secrets & Config
+echo ""
+echo "🔐 Step 0: Verifying Security Configuration..."
+# Fetch key to verify role (requires Secret Manager Access)
+KEY_PAYLOAD=$(gcloud secrets versions access latest --secret="supabase-service-role-key" 2>/dev/null)
+if [ $? -ne 0 ]; then
+    echo "⚠️ Warning: Could not access secret 'supabase-service-role-key' for verification. Continuing (deploy might fail if key is wrong)..."
+else
+    # Robust Python one-liner to decode JWT payload (standard lib only)
+    ROLE=$(python3 -c "
+import sys, json, base64
+try:
+    token = '$KEY_PAYLOAD'
+    if not token or '.' not in token:
+        print('invalid_token')
+        sys.exit(0)
+    payload = token.split('.')[1]
+    # Fix padding for base64 decoding
+    payload += '=' * ((4 - len(payload) % 4) % 4)
+    data = base64.urlsafe_b64decode(payload)
+    print(json.loads(data).get('role', 'unknown'))
+except Exception as e:
+    print(f'error_{e}')
+")
+    if [ "$ROLE" != "service_role" ]; then
+        echo "❌ FATAL: Secret 'supabase-service-role-key' has role '$ROLE'. Expected 'service_role'."
+        echo "   Please update the secret with the correct Service Role API Key."
+        exit 1
+    fi
+    echo "✅ Secret verified: 'supabase-service-role-key' has role 'service_role'"
+fi
+
+# Set ENVIRONMENT default to production if not set (was defaulting to staging unintentionally in past)
+ENVIRONMENT=${ENVIRONMENT:-"production"}
+
+
 # Step 1: Build Docker image
 echo ""
 echo "📦 Step 1: Building Docker image..."

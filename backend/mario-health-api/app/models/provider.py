@@ -61,6 +61,9 @@ class ProviderDetail(BaseModel):
 
     # All procedures offered by this provider
     procedures: List[ProviderProcedurePricing] = []
+    
+    # Data Quality Flag
+    data_completeness: str = "full"  # "full" (RPC) or "basic" (fallback)
 
     class ConfigDict:
         json_schema_extra = {

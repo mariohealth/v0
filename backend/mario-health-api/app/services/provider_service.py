@@ -94,7 +94,7 @@ class ProviderService:
                 
                 if raw_provider.data:
                     p = raw_provider.data
-                    print(f"[provider_service] Found provider {provider_id} in raw table")
+                    print(f"[provider_service] WARN: Provider {provider_id} found via fallback (missing joined data). Returning basic profile.")
                     # Construct ProviderDetail from raw data
                     # Note: We miss address, stats, etc.
                     full_name = f"{p.get('first_name', '')} {p.get('last_name', '')}".strip()
@@ -110,12 +110,14 @@ class ProviderService:
                         state=None,
                         zip_code=None,
                         total_procedures=0,
-                        procedures=[]
+                        procedures=[],
+                        data_completeness="basic"
                     )
             except Exception as fallback_error:
-                print(f"[provider_service] Fallback table lookup failed: {fallback_error}")
+                print(f"[provider_service] ERROR: Fallback table lookup failed: {fallback_error}")
 
             # If fallback also failed, raise 404
+            print(f"[provider_service] Provider {provider_id} not found in RPC or raw table. Returning 404.")
             raise HTTPException(
                 status_code=404, detail=f"Provider '{provider_id}' not found"
             )
