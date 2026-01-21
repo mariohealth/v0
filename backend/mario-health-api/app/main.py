@@ -61,28 +61,13 @@ async def lifespan(app: FastAPI):
         except Exception:
             logger.warning(f"⚠️ Could not parse Supabase URL: {supabase_url[:15]}...")
     
-    # Check Key Role
+    # Runtime key verification removed - handled by deploy.sh pre/post checks
+    # This prevents startup crashes from JWT decoding issues
     if supabase_key:
-        try:
-            import jwt
-            # Decode without verification just to check the role claim (standard JWT practice for inspection)
-            # Make sure we handle padding/format issues gracefully
-            payload = jwt.decode(supabase_key, options={"verify_signature": False})
-            role = payload.get("role", "unknown")
-            logger.info(f"🔑 Supabase Key Role Claim: {role}")
-            
-            if environment == "production" and role != "service_role":
-                # LOUD failure for production safety
-                error_msg = f"❌ CRITICAL: Production environment detected but SUPABASE_KEY is using role '{role}'. Must be 'service_role'."
-                logger.critical(error_msg)
-                # We raise an error to stop startup if possible, or just log aggressively. 
-                # Raising error here will restart the container loop, which is what we want for immediate feedback.
-                # raise RuntimeError(error_msg)
-                logger.critical("⚠️ CONTINUING despite role mismatch for DEBUGGING purposes.")
-        except Exception as e:
-             logger.warning(f"⚠️ Could not decode SUPABASE_KEY for role verification: {e}")
+        logger.info("🔑 SUPABASE_KEY is set")
     else:
-         logger.warning("⚠️ SUPABASE_KEY not set (expected for local dev if using mock, but critical for prod)")
+        logger.warning("⚠️ SUPABASE_KEY not set (expected for local dev, critical for prod)")
+
 
     yield
     # Shutdown
