@@ -228,14 +228,18 @@ function MarioSmartSearchInner({
           const ttlMs = 24 * 60 * 60 * 1000; // 24h
           const cacheKey = 'specialties_cache_v2'; // bump to invalidate old empty cache
 
-          if (!specialtiesCacheRef.current) {
+          if (!specialtiesCacheRef.current || specialtiesCacheRef.current.length === 0) {
             // try localStorage first
             try {
               const cached = localStorage.getItem(cacheKey);
               if (cached) {
                 const parsed = JSON.parse(cached);
-                if (parsed?.ts && now - parsed.ts < ttlMs && Array.isArray(parsed.specialties)) {
+                // Self-healing: if cache exists but is empty, treat as invalid
+                if (parsed?.ts && now - parsed.ts < ttlMs && Array.isArray(parsed.specialties) && parsed.specialties.length > 0) {
                   specialtiesCacheRef.current = parsed.specialties;
+                } else if (Array.isArray(parsed.specialties) && parsed.specialties.length === 0) {
+                  // Invalid cache (empty array) - remove it and proceed to fetch
+                  localStorage.removeItem(cacheKey);
                 }
               }
             } catch {
@@ -243,16 +247,21 @@ function MarioSmartSearchInner({
             }
           }
 
-          if (!specialtiesCacheRef.current) {
+          if (!specialtiesCacheRef.current || specialtiesCacheRef.current.length === 0) {
             const apiResult = await getSpecialties();
             const fetched = apiResult?.specialties;
-            if (Array.isArray(fetched)) {
+            if (Array.isArray(fetched) && fetched.length > 0) {
               specialtiesCacheRef.current = fetched;
-              // Only cache when fetch succeeded (including a legitimate empty array)
+              // Only cache when fetch succeeded with non-empty results
               try {
                 localStorage.setItem(cacheKey, JSON.stringify({ ts: now, specialties: fetched }));
               } catch {
                 // ignore storage errors
+              }
+            } else if (Array.isArray(fetched) && fetched.length === 0) {
+              // Sanity check: fetch succeeded but returned empty array - don't cache it
+              if (typeof window !== 'undefined' && localStorage.getItem('DEBUG_SEARCH') === '1') {
+                console.log('[DEBUG_SEARCH] Fetch returned empty specialties array - not caching');
               }
             }
           }
