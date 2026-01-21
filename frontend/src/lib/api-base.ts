@@ -24,8 +24,21 @@
  */
 export function getApiBaseUrl(): string {
     const isBrowser = typeof window !== 'undefined';
+    const isProduction = process.env.NODE_ENV === 'production';
 
     const normalize = (val: string) => (val.endsWith('/') ? val.slice(0, -1) : val);
+
+    /**
+     * Defensive normalization: Ensure /api/v1 suffix is present
+     * Prevents 404s if env var is misconfigured without /api/v1
+     */
+    const ensureApiV1Suffix = (url: string): string => {
+        const normalized = normalize(url);
+        if (!normalized.endsWith('/api/v1')) {
+            return `${normalized}/api/v1`;
+        }
+        return normalized;
+    };
 
     // SERVER (SSR) — must return ABSOLUTE URL to avoid "Failed to parse URL"
     if (!isBrowser) {
@@ -33,13 +46,12 @@ export function getApiBaseUrl(): string {
             process.env.API_BASE_URL ||
             process.env.NEXT_PUBLIC_API_BASE_URL ||
             'http://localhost:8000/api/v1';
-        return normalize(envBase);
+        return ensureApiV1Suffix(envBase);
     }
 
-    // BROWSER — prefer NEXT_PUBLIC_API_BASE_URL if set (allows pointing to deployed backend)
+    // BROWSER — prefer NEXT_PUBLIC_API_BASE_URL if set
     if (process.env.NEXT_PUBLIC_API_BASE_URL) {
-        const url = normalize(process.env.NEXT_PUBLIC_API_BASE_URL);
-        // Dev-only: Log which API we're using (only log once)
+        const url = ensureApiV1Suffix(process.env.NEXT_PUBLIC_API_BASE_URL);
         if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
             const logKey = '__api_base_logged';
             if (!(window as any)[logKey]) {
@@ -50,9 +62,14 @@ export function getApiBaseUrl(): string {
         return url;
     }
 
+    // PRODUCTION BROWSER: Use relative path so Firebase Hosting rewrites can proxy to Cloud Run
+    if (isProduction) {
+        const url = '/api/v1';
+        return url;
+    }
+
     // Local dev fallback: hit local backend
     const url = normalize('http://localhost:8000/api/v1');
-    // Dev-only: Log which API we're using (only log once)
     if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
         const logKey = '__api_base_logged';
         if (!(window as any)[logKey]) {
