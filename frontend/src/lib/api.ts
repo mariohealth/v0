@@ -495,7 +495,7 @@ export async function getProcedureProviders(
             : effectiveZip
                 ? 60
                 : undefined;
-    const url = new URL(base);
+    const url = new URL(base, typeof window !== 'undefined' ? window.location.origin : undefined);
     if (effectiveZip) url.searchParams.set('zip_code', effectiveZip);
     if (effectiveRadius !== undefined) url.searchParams.set('radius_miles', String(effectiveRadius));
     if (effectiveCarrier) url.searchParams.set('carrier_id', effectiveCarrier);
@@ -585,7 +585,7 @@ export async function getProcedureOrgs(
                 : effectiveZip
                     ? 60
                     : undefined;
-        const url = new URL(base);
+        const url = new URL(base, typeof window !== 'undefined' ? window.location.origin : undefined);
         if (effectiveZip) url.searchParams.set('zip_code', effectiveZip);
         if (effectiveRadius !== undefined) url.searchParams.set('radius_miles', String(effectiveRadius));
         if (effectiveCarrier) url.searchParams.set('carrier_id', effectiveCarrier);
