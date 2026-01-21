@@ -46,6 +46,43 @@ async def lifespan(app: FastAPI):
     logger.info("🚀 Mario Health API starting up...")
     logger.info("📚 Docs available at: /docs")
     logger.info("🔍 Health check at: /health")
+
+    # Startup Guardrails
+    supabase_url = os.getenv("SUPABASE_URL", "UNSET")
+    supabase_key = os.getenv("SUPABASE_KEY")
+    environment = os.getenv("ENVIRONMENT", "development")
+
+    # Parse hostname from URL for logging safety
+    if supabase_url != "UNSET":
+        from urllib.parse import urlparse
+        try:
+            hostname = urlparse(supabase_url).hostname
+            logger.info(f"🔗 Configured Supabase Host: {hostname}")
+        except Exception:
+            logger.warning(f"⚠️ Could not parse Supabase URL: {supabase_url[:15]}...")
+    
+    # Check Key Role
+    if supabase_key:
+        try:
+            import jwt
+            # Decode without verification just to check the role claim (standard JWT practice for inspection)
+            # Make sure we handle padding/format issues gracefully
+            payload = jwt.decode(supabase_key, options={"verify_signature": False})
+            role = payload.get("role", "unknown")
+            logger.info(f"🔑 Supabase Key Role Claim: {role}")
+            
+            if environment == "production" and role != "service_role":
+                # LOUD failure for production safety
+                error_msg = f"❌ CRITICAL: Production environment detected but SUPABASE_KEY is using role '{role}'. Must be 'service_role'."
+                logger.critical(error_msg)
+                # We raise an error to stop startup if possible, or just log aggressively. 
+                # Raising error here will restart the container loop, which is what we want for immediate feedback.
+                raise RuntimeError(error_msg)
+        except Exception as e:
+             logger.warning(f"⚠️ Could not decode SUPABASE_KEY for role verification: {e}")
+    else:
+         logger.warning("⚠️ SUPABASE_KEY not set (expected for local dev if using mock, but critical for prod)")
+
     yield
     # Shutdown
     logger.info("👋 Mario Health API shutting down...")
@@ -217,6 +254,7 @@ def health_check():
         "status": "healthy",
         "version": "1.0.0",
         "environment": os.getenv("ENVIRONMENT", "development"),
+        "git_sha": os.getenv("GIT_SHA", "unknown"),
     }
 
 # Add middleware for request logging

@@ -77,7 +77,17 @@ class ProviderService:
                 "get_provider_detail", {"provider_id_input": provider_id}
             ).execute()
         except Exception as e:
-            print(f"[provider_service] RPC get_provider_detail failed: {e}")
+            # Check for critical errors that should NOT trigger fallback
+            error_str = str(e).lower()
+            if "auth" in error_str or "connection" in error_str or "503" in error_str:
+                print(f"[provider_service] CRITICAL RPC Error: {e}")
+                raise HTTPException(
+                    status_code=503,
+                    detail="Service unavailable due to upstream error"
+                )
+            
+            # For other errors (potentially logic/missing data), log and attempt fallback
+            print(f"[provider_service] RPC get_provider_detail failed (non-critical): {e}")
             provider_result = None
 
         if not provider_result or not provider_result.data or len(provider_result.data) == 0:

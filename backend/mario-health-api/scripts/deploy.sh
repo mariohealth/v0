@@ -55,9 +55,16 @@ except Exception as e:
     echo "✅ Secret verified: 'supabase-service-role-key' has role 'service_role'"
 fi
 
-# Set ENVIRONMENT default to production if not set (was defaulting to staging unintentionally in past)
+# Set ENVIRONMENT default to production and enforce it.
+# We default to "production" to prevent accidental staging misconfigurations.
+# If you genuinely need staging, explicitly set ENVIRONMENT=staging when running deploy.sh.
 ENVIRONMENT=${ENVIRONMENT:-"production"}
+echo "🌍 Environment: ${ENVIRONMENT}"
 
+
+# Capture GIT SHA for traceability
+GIT_SHA=$(git rev-parse --short HEAD)
+echo "📍 Git SHA: ${GIT_SHA}"
 
 # Step 1: Build Docker image
 echo ""
@@ -76,7 +83,7 @@ echo ""
 echo "🚢 Step 2: Deploying to Cloud Run..."
 gcloud run deploy ${SERVICE_NAME} \
   --image ${IMAGE_NAME} \
-  --update-env-vars SUPABASE_URL="${SUPABASE_URL}" \
+  --update-env-vars SUPABASE_URL="${SUPABASE_URL},GIT_SHA=${GIT_SHA}" \
   --update-secrets=SUPABASE_KEY=supabase-service-role-key:latest \
   --region ${REGION} \
   --platform managed \
@@ -85,6 +92,55 @@ gcloud run deploy ${SERVICE_NAME} \
   --memory 512Mi \
   --cpu 1 \
   --timeout 60
+
+if [ $? -ne 0 ]; then
+    echo "❌ Cloud Run deployment failed"
+    exit 1
+fi
+
+echo ""
+echo "✅ Deployment successful!"
+
+# Step 3: Post-Deploy Verification
+echo ""
+echo "🛡️ Step 3: Post-Deploy Guardrails..."
+# Verify the deployed service is actually using the correct secret
+DEPLOYED_SECRET=$(gcloud run services describe ${SERVICE_NAME} --region ${REGION} --format="value(spec.template.spec.containers[0].env[0].valueFrom.secretKeyRef.name)" 2>/dev/null)
+
+# Note: The 'env' list order isn't guaranteed, so a simple index check is risky.
+# Better to dump JSON and parse.
+echo "   Verifying deployed secret binding..."
+SECRET_CHECK=$(gcloud run services describe ${SERVICE_NAME} --region ${REGION} --format=json | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    # navigate to containers
+    containers = data['spec']['template']['spec']['containers']
+    found = False
+    for c in containers:
+        for env in c.get('env', []):
+            if env.get('name') == 'SUPABASE_KEY':
+                secret_name = env.get('valueFrom', {}).get('secretKeyRef', {}).get('name')
+                if secret_name == 'supabase-service-role-key':
+                    found = True
+                    print('OK')
+                else:
+                    print(f'FAIL_WRONG_SECRET_{secret_name}')
+                break
+    if not found:
+        # If we didn't find the env var at all
+        pass 
+except Exception as e:
+    print(f'ERROR_{e}')
+")
+
+if [[ "$SECRET_CHECK" == *"OK"* ]]; then
+    echo "✅ Post-deploy check passed: SUPABASE_KEY is bound to 'supabase-service-role-key'"
+else
+    echo "❌ POST-DEPLOY FATAL: SUPABASE_KEY is NOT bound to correct secret. (Result: $SECRET_CHECK)"
+    echo "   Immediate remediation required!"
+    exit 1
+fi
 
 if [ $? -ne 0 ]; then
     echo "❌ Cloud Run deployment failed"

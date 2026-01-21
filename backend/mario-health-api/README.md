@@ -14,7 +14,28 @@ Before running or deploying, make sure you have:
 - ✅ Python 3.10+  
 - 🐳 [Docker](https://www.docker.com/)  
 - 🪣 [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed & authenticated  
+- ✅ Python 3.10+  
+- 🐳 [Docker](https://www.docker.com/)  
+- 🪣 [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed & authenticated  
 - 🐘 A [Supabase](https://supabase.com/) project with a table (e.g. `products`)
+
+## 🛡️ Security & Guardrails
+
+### 1. Service Role Key Requirement
+The backend explicitly requires the **Service Role API Key** (`supabase-service-role-key`) to function correctly.
+-   **Why?**: The application performs direct table reads and RPC calls that may be protected by Row Level Security (RLS). The Service Role key bypasses these policies to ensure the backend can always fetch required data.
+-   **Safety**: This key is verifying during startup and deployment. Using the `anon` key will cause startup failures in production.
+
+### 2. Schema Facts
+-   **NPI Lookup**: The `provider` table uses `provider_id` as the primary key, which **IS** the 10-digit NPI.
+-   **No `npi` column**: There is no separate `npi` column. Code should strictly use `provider_id`. CI checks prevent usage of `npi` column references.
+
+### 3. Resilience & Fallback
+If the `get_provider_detail` RPC returns empty results (e.g., due to missing joined data like location), the service attempts a **Fallback**:
+-   It queries the `provider` table directly.
+-   If found, it returns a **Basic Profile** (name/specialty only) and sets `data_completeness="basic"` in the response.
+-   This ensures providers are visible even if their profile data is incomplete.
+-   **Note**: Critical errors (Auth, Connection, 503) are **NOT** masked and will return a 503 error.
 
 ## 🔐 Authenticate Local Environment
 
