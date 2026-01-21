@@ -12,27 +12,37 @@ class ProviderService:
         """Fetch detailed provider information with all procedures."""
 
         # Get provider basic info and stats
-        provider_result = (
-            self.supabase.table("provider")
-            .select(
-                "provider_id",
-                "name_prefix",
-                "first_name",
-                "middle_name",
-                "last_name",
-                "name_suffix",
-                "credential",
-                "specialty_id",
-                "license_number",
-                "license_state_code",
-                "specialty_name",
+        try:
+            provider_result = (
+                self.supabase.table("provider")
+                .select(
+                    "provider_id",
+                    "name_prefix",
+                    "first_name",
+                    "middle_name",
+                    "last_name",
+                    "name_suffix",
+                    "credential",
+                    "specialty_id",
+                    "license_number",
+                    "license_state_code",
+                    "specialty_name",
+                )
+                .eq("provider_id", provider_id)
+                .single()
+                .execute()
             )
-            .eq("provider_id", provider_id)
-            .single()
-            .execute()
-        )
+        except Exception as e:
+            # Handle Supabase 204 "Missing response" as 404
+            error_str = str(e)
+            code = getattr(e, "code", None)
+            if (code and str(code) == "204") or ("204" in error_str and "Missing response" in error_str):
+                 raise HTTPException(
+                    status_code=404, detail=f"Provider '{provider_id}' not found"
+                )
+            raise
 
-        if not provider_result.data or len(provider_result.data) == 0:
+        if not provider_result.data:
             raise HTTPException(
                 status_code=404, detail=f"Provider '{provider_id}' not found"
             )
@@ -58,8 +68,8 @@ class ProviderService:
 
         # Helper: Check if input looks like an NPI (10 digits)
         if provider_id.isdigit() and len(provider_id) == 10:
-            original_npi = provider_id
-            print(f"Resolving NPI: {original_npi}")
+            original_npi = str(provider_id)
+            print(f"[provider_service] Resolving NPI: {original_npi}")
 
             # Try to resolve NPI to UUID
             try:
@@ -72,10 +82,10 @@ class ProviderService:
                 )
                 if lookup.data:
                     provider_id = lookup.data["provider_id"]
-                    print(f"Resolved NPI {original_npi} -> UUID {provider_id}")
+                    print(f"[provider_service] Resolved NPI {original_npi} -> UUID {provider_id}")
                 else:
                     # NPI not found in database - return 404 immediately
-                    print(f"NPI {original_npi} not found (empty result)")
+                    print(f"[provider_service] NPI {original_npi} not found (empty result)")
                     raise HTTPException(
                         status_code=404,
                         detail=f"Provider with NPI '{original_npi}' not found",
@@ -94,7 +104,7 @@ class ProviderService:
                 
                 if (code and str(code) == "204") or ("204" in error_str and "Missing response" in error_str):
                     print(
-                        f"Caught expected 204 error for NPI '{original_npi}', treating as 404"
+                        f"[provider_service] Caught expected 204 error for NPI '{original_npi}', treating as 404"
                     )
                     raise HTTPException(
                         status_code=404,
@@ -102,10 +112,11 @@ class ProviderService:
                     )
 
                 # Unexpected error during NPI lookup
-                print(f"Error during NPI lookup for {original_npi}: {e}")
-                print(f"Exception type: {type(e)}, details: {repr(e)}")
+                print(f"[provider_service] Error during NPI lookup for {original_npi}: {e}")
+                print(f"[provider_service] Exception type: {type(e)}, details: {repr(e)}")
+                # Return generic error to client
                 raise HTTPException(
-                    status_code=500, detail=f"Error resolving NPI: {str(e)}"
+                    status_code=500, detail="Error resolving NPI"
                 )
 
         # Get provider basic info and stats
