@@ -83,7 +83,7 @@ echo ""
 echo "🚢 Step 2: Deploying to Cloud Run..."
 gcloud run deploy ${SERVICE_NAME} \
   --image ${IMAGE_NAME} \
-  --update-env-vars "SUPABASE_URL=${SUPABASE_URL},ENVIRONMENT=${ENVIRONMENT},GIT_SHA=${GIT_SHA}" \
+  --set-env-vars "SUPABASE_URL=${SUPABASE_URL},ENVIRONMENT=${ENVIRONMENT},GIT_SHA=${GIT_SHA}" \
   --update-secrets=SUPABASE_KEY=supabase-service-role-key:latest \
   --region ${REGION} \
   --platform managed \
