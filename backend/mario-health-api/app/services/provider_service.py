@@ -68,67 +68,58 @@ class ProviderService:
 
         # Helper: Check if input looks like an NPI (10 digits)
         if provider_id.isdigit() and len(provider_id) == 10:
-            original_npi = str(provider_id)
-            print(f"[provider_service] Resolving NPI: {original_npi}")
+            print(f"[provider_service] Using NPI {provider_id} as provider_id directly (no resolution needed)")
 
-            # Try to resolve NPI to UUID
+
+        # Get provider basic info and stats
+        try:
+            provider_result = self.supabase.rpc(
+                "get_provider_detail", {"provider_id_input": provider_id}
+            ).execute()
+        except Exception as e:
+            print(f"[provider_service] RPC get_provider_detail failed: {e}")
+            provider_result = None
+
+        if not provider_result or not provider_result.data or len(provider_result.data) == 0:
+            print(f"[provider_service] Provider {provider_id} not found via RPC, trying fallback to table")
+            # Fallback: Try to get raw provider data
             try:
-                lookup = (
+                raw_provider = (
                     self.supabase.table("provider")
-                    .select("provider_id")
-                    .eq("npi", original_npi)
+                    .select("*")
+                    .eq("provider_id", provider_id)
                     .maybe_single()
                     .execute()
                 )
-                if lookup.data:
-                    provider_id = lookup.data["provider_id"]
-                    print(f"[provider_service] Resolved NPI {original_npi} -> UUID {provider_id}")
-                else:
-                    # NPI not found in database - return 404 immediately
-                    print(f"[provider_service] NPI {original_npi} not found (empty result)")
-                    raise HTTPException(
-                        status_code=404,
-                        detail=f"Provider with NPI '{original_npi}' not found",
-                    )
-            except HTTPException:
-                raise
-            except Exception as e:
-                # Inspect exception for 204 "Missing response"
-                # Postgrest client can raise exception on 204 even with maybe_single()
                 
-                # specific check for postgrest-py exceptions which often have 'code' attr
-                code = getattr(e, "code", None)
-                
-                # Check string representation as fallback
-                error_str = str(e)
-                
-                if (code and str(code) == "204") or ("204" in error_str and "Missing response" in error_str):
-                    print(
-                        f"[provider_service] Caught expected 204 error for NPI '{original_npi}', treating as 404"
+                if raw_provider.data:
+                    p = raw_provider.data
+                    print(f"[provider_service] Found provider {provider_id} in raw table")
+                    # Construct ProviderDetail from raw data
+                    # Note: We miss address, stats, etc.
+                    full_name = f"{p.get('first_name', '')} {p.get('last_name', '')}".strip()
+                    return ProviderDetail(
+                        provider_id=p["provider_id"],
+                        provider_name=full_name,
+                        first_name=p.get("first_name"),
+                        last_name=p.get("last_name"),
+                        specialty_name=p.get("specialty_name"),
+                        phone=None,
+                        address=None,
+                        city=None,
+                        state=None,
+                        zip_code=None,
+                        total_procedures=0,
+                        procedures=[]
                     )
-                    raise HTTPException(
-                        status_code=404,
-                        detail=f"Provider with NPI '{original_npi}' not found",
-                    )
+            except Exception as fallback_error:
+                print(f"[provider_service] Fallback table lookup failed: {fallback_error}")
 
-                # Unexpected error during NPI lookup
-                print(f"[provider_service] Error during NPI lookup for {original_npi}: {e}")
-                print(f"[provider_service] Exception type: {type(e)}, details: {repr(e)}")
-                # Return generic error to client
-                raise HTTPException(
-                    status_code=500, detail="Error resolving NPI"
-                )
-
-        # Get provider basic info and stats
-        provider_result = self.supabase.rpc(
-            "get_provider_detail", {"provider_id_input": provider_id}
-        ).execute()
-
-        if not provider_result.data or len(provider_result.data) == 0:
+            # If fallback also failed, raise 404
             raise HTTPException(
                 status_code=404, detail=f"Provider '{provider_id}' not found"
             )
-
+            
         provider = provider_result.data[0]
 
         # Get all procedures offered by this provider

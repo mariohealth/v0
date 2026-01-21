@@ -5,7 +5,9 @@
 
 set -e  # Exit on error
 
-echo "🚀 Mario Health API - Deploying to Google Cloud Run"
+# Ensure we are in the project root (where Dockerfile is)
+cd "$(dirname "$0")/.."
+
 echo "=================================================="
 
 # Configuration
@@ -38,8 +40,8 @@ echo ""
 echo "🚢 Step 2: Deploying to Cloud Run..."
 gcloud run deploy ${SERVICE_NAME} \
   --image ${IMAGE_NAME} \
-  --update-env-vars SUPABASE_URL="${SUPABASE_URL}",ENVIRONMENT="staging" \
-  --update-secrets=SUPABASE_KEY=supabase-default-secret-key:latest \
+  --update-env-vars SUPABASE_URL="${SUPABASE_URL}" \
+  --update-secrets=SUPABASE_KEY=supabase-service-role-key:latest \
   --region ${REGION} \
   --platform managed \
   --allow-unauthenticated \
