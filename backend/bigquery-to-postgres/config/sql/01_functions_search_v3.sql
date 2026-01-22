@@ -60,14 +60,21 @@ BEGIN
         FROM procedure WHERE similarity(COALESCE(common_name, ''), search_query) > 0.3
     ),
     candidates_dedup AS (
+        -- Dedup by ID, keeping the highest score for that ID
         SELECT DISTINCT ON (id) id, score_base
         FROM candidates_union
         ORDER BY id, score_base DESC
+    ),
+    top_candidates AS (
+        -- Now sort by score to get true top N matches
+        SELECT id, score_base
+        FROM candidates_dedup
+        ORDER BY score_base DESC
         LIMIT 200
     ),
     final_candidates AS (
         SELECT c.id, p.name, p.slug, p.common_name, p.family_id, c.score_base as match_score
-        FROM candidates_dedup c
+        FROM top_candidates c
         JOIN procedure p ON c.id = p.id
     ),
     procedure_pricing_agg AS (
@@ -111,3 +118,4 @@ $function$;
 CREATE INDEX IF NOT EXISTS idx_procedure_name_trgm ON procedure USING gin (name gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_procedure_common_name_trgm ON procedure USING gin (common_name gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_procedure_search_vector ON procedure USING gin (search_vector);
+CREATE INDEX IF NOT EXISTS idx_procedure_pricing_procedure_id ON procedure_pricing (procedure_id);
