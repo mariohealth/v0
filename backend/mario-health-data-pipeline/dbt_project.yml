@@ -65,7 +65,7 @@ seeds:
     drug_match_rules_goodrx:
       +column_types:
         rxnorm_cui: STRING
-    hospital_general_information:
+    cms_hospitals_raw:
       +column_types:
         Facility ID: STRING
         Facility Name: STRING
