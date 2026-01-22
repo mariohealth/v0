@@ -11,6 +11,15 @@ sources:
         description: |
          Bla bla
 
+  - name: cms_public_data
+    description: Public CMS data mostly downloaded from https://data.cms.gov
+    database: mario-mrf-data
+    schema: cms_public_data
+
+    tables:
+      - name: provider_of_services
+        description: bla
+
   - name: mario-mrf-data
     description: files that I manually uploaded into Big Query
     database: mario-mrf-data
