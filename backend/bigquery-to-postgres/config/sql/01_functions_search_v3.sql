@@ -67,9 +67,10 @@ BEGIN
     ),
     top_candidates AS (
         -- Now sort by score to get true top N matches
+        -- Use id as tie-breaker for deterministic ordering
         SELECT id, score_base
         FROM candidates_dedup
-        ORDER BY score_base DESC
+        ORDER BY score_base DESC, id ASC
         LIMIT 200
     ),
     final_candidates AS (
