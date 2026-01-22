@@ -65,6 +65,46 @@ seeds:
     drug_match_rules_goodrx:
       +column_types:
         rxnorm_cui: STRING
+    hospital_general_information:
+      +column_types:
+        Facility ID: STRING
+        Facility Name: STRING
+        Address: STRING
+        City Town: STRING
+        State: STRING
+        ZIP Code: STRING
+        County/Parish: STRING
+        Telephone Number: STRING
+        Hospital Type: STRING
+        Hospital Ownership: STRING
+        Emergency Services: STRING
+        Meets criteria for birthing friendly designation: STRING
+        Hospital overall rating: STRING
+        Hospital overall rating footnote: STRING
+        MORT Group Measure Count: STRING
+        Count of Facility MORT Measures: STRING
+        Count of MORT Measures Better: STRING
+        Count of MORT Measures No Different: STRING
+        Count of MORT Measures Worse: STRING
+        MORT Group Footnote: STRING
+        Safety Group Measure Count: STRING
+        Count of Facility Safety Measures: STRING
+        Count of Safety Measures Better: STRING
+        Count of Safety Measures No Different: STRING
+        Count of Safety Measures Worse: STRING
+        Safety Group Footnote: STRING
+        READM Group Measure Count: STRING
+        Count of Facility READM Measures: STRING
+        Count of READM Measures Better: STRING
+        Count of READM Measures No Different: STRING
+        Count of READM Measures Worse: STRING
+        READM Group Footnote: STRING
+        Pt Exp Group Measure Count: STRING
+        Count of Facility Pt Exp Measures: STRING
+        Pt Exp Group Footnote: STRING
+        TE Group Measure Count: STRING
+        Count of Facility TE Measures: STRING
+        TE Group Footnote: STRING
 
 # Documentation
 docs-paths: ["docs"]
