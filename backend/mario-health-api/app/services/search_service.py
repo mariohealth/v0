@@ -1,3 +1,4 @@
+import os
 from fastapi import HTTPException
 from supabase import Client
 from decimal import Decimal
@@ -33,7 +34,8 @@ class SearchService:
                 rpc_params["radius_miles"] = radius_miles
 
             # Call the database function
-            result = self.supabase.rpc("search_procedures_v2", rpc_params).execute()
+            rpc_name = os.getenv("SEARCH_RPC_NAME", "search_procedures_v2")
+            result = self.supabase.rpc(rpc_name, rpc_params).execute()
 
             # Transform results
             results = [
