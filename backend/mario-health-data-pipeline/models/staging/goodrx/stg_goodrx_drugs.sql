@@ -13,13 +13,11 @@ FROM
 
 SELECT
   url_param,
-  drug_full_name,
-  primary_name,
-  secondary_name,
-  CASE WHEN primary_name LIKE '%generic%' THEN 'false'
-    WHEN secondary_name LIKE '%generic%' THEN 'true'
-    WHEN primary_name NOT LIKE '%generic%' AND secondary_name NOT LIKE '%generic%' THEN 'false'
-    ELSE 'unknown' END AS is_generic,
+  CASE WHEN primary_name LIKE '%generic %' THEN NULL ELSE primary_name END AS primary_name, -- we extract the brand somewhere else
+  CASE WHEN secondary_name LIKE '%generic %' THEN NULL ELSE secondary_name END AS secondary_name,
+  CASE WHEN primary_name LIKE '%generic %' THEN TRIM(REPLACE(primary_name, 'generic ', ''))
+    WHEN secondary_name LIKE '%generic %' THEN TRIM(REPLACE(secondary_name, 'generic ', ''))
+    ELSE NULL END AS brand, -- we extract the brand here
   TRIM(SPLIT(drug_full_name, '(')[SAFE_OFFSET(0)]) AS drug_name,
   TRIM(REPLACE(SPLIT(drug_full_name, '(')[SAFE_OFFSET(1)], ')','')) AS quantity,
   dosage,
