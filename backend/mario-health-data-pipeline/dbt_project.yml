@@ -70,10 +70,10 @@ seeds:
         Facility ID: STRING
         Facility Name: STRING
         Address: STRING
-        City Town: STRING
+        City or Town: STRING
         State: STRING
         ZIP Code: STRING
-        County/Parish: STRING
+        County or Parish: STRING
         Telephone Number: STRING
         Hospital Type: STRING
         Hospital Ownership: STRING
