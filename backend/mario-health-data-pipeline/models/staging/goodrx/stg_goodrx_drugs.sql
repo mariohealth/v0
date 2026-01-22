@@ -18,7 +18,7 @@ SELECT
   CASE WHEN primary_name LIKE '%generic %' THEN TRIM(REPLACE(primary_name, 'generic ', ''))
     WHEN secondary_name LIKE '%generic %' THEN TRIM(REPLACE(secondary_name, 'generic ', ''))
     ELSE NULL END AS brand, -- we extract the brand here
-  TRIM(SPLIT(drug_full_name, '(')[SAFE_OFFSET(0)]) AS drug_name,
+  TRIM(REPLACE(SPLIT(drug_full_name, '(')[SAFE_OFFSET(0)], dosage, '')) AS drug_name,
   TRIM(REPLACE(SPLIT(drug_full_name, '(')[SAFE_OFFSET(1)], ')','')) AS quantity,
   dosage,
  FROM
