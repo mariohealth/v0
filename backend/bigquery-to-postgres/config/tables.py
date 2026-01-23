@@ -123,6 +123,42 @@ TABLES = {
         'incremental_column': None,
     },
 
+    'drugs' : {
+        'bigquery_table': 'dim_drugs',
+        'postgres_table': 'drugs',
+        'primary_key': 'rxnorm_cui',
+        'required_columns': ['drug_name', 'drug_type'],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
+    'drug_prices' : {
+        'bigquery_table': 'fact_drug_prices',
+        'postgres_table': 'drug_prices',
+        'primary_key': 'rxcui_scd',
+        'required_columns': [
+            'pharmacy_id',
+            'source_id',
+            'price',
+            'quantity',
+            'product_url'],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
+    'drug_price_sources' : {
+        'bigquery_table': 'dim_drug_price_sources',
+        'postgres_table': 'drug_price_sources',
+        'primary_key': 'source_id',
+        'required_columns': [
+            'source_name',
+            'source_type',
+            'description'
+        ],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
     'hospital_aliases' : {
         'bigquery_table': 'hospital_aliases',
         'postgres_table': 'hospital_aliases',
@@ -196,6 +232,23 @@ TABLES = {
                          'display_name',
                          'definition'
                          ],
+        'sync_mode': 'full_refresh',
+        'incremental_column': None,
+    },
+
+    'pharmacies': {
+        'bigquery_table': 'dim_pharmacies',
+        'postgres_table': 'pharmacies',
+        'primary_key': 'pharmacy_id',
+        'required_columns': [
+            'pharmacy_name',
+            'pharmacy_type',
+            'accepts_insurance',
+            'delivery_only',
+            'national',
+            'region',
+            'notes'
+        ],
         'sync_mode': 'full_refresh',
         'incremental_column': None,
     },
