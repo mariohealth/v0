@@ -53,15 +53,16 @@ seeds:
       +column_types:
         id: STRING
         carrier_id: STRING
-    drug_match_rules_costplus:
+    drug_match_rules_costplus_sbd:
       +column_types:
-        rxnorm_cui: STRING
-        match_score: NUMERIC
-        ingredient_score: NUMERIC
-        strength_score: NUMERIC
-        form_score: NUMERIC
-        is_generic: BOOLEAN
-        needs_review: BOOLEAN
+        product_url: STRING
+        rxcui_sbd: STRING
+        similarity_sbd: STRING
+    drug_match_rules_costplus_scd:
+      +column_types:
+        product_url: STRING
+        rxcui_scd: STRING
+        similarity_scd: STRING
     drug_match_rules_goodrx:
       +column_types:
         url_param: STRING
