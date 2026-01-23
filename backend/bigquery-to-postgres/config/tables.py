@@ -135,8 +135,8 @@ TABLES = {
     'drug_prices' : {
         'bigquery_table': 'fact_drug_prices',
         'postgres_table': 'drug_prices',
-        'primary_key': 'rxcui_scd',
         'required_columns': [
+            'rxcui_scd',
             'pharmacy_id',
             'source_id',
             'price',

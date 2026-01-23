@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS drug_prices CASCADE;
 CREATE TABLE IF NOT EXISTS drug_prices (
-    rxcui_scd TEXT PRIMARY KEY,
+    rxcui_scd TEXT,
     pharmacy_id TEXT,
     source_id TEXT,
     price TEXT,
