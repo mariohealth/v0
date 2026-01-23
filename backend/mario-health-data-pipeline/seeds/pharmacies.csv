@@ -1,28 +1,28 @@
-pharmacy_id,pharmacy_name,pharmacy_type,accepts_insurance,delivery_only,national,notes
-cpd,Cost Plus Drugs,mail_order,false,true,true,Single national mail-order pharmacy
-cvs,CVS Pharmacy,retail,true,false,true,National retail chain
-walgreens,Walgreens,retail,true,false,true,National retail chain
-walmart,Walmart Pharmacy,retail,true,false,true,National retail chain
-kroger,Kroger Pharmacy,retail,true,false,false,Regional grocery pharmacy
-costco,Costco,,,,,
-target,Target,,,,,
-albertsons,Albertsons (Sav-On),,,,,
-bartell,Bartell Drug Co,,,,,
-dillons,Dillons Pharmacy,,,,,
-fred_meyer,Fred Meyer Pharmacy,,,,,
-haggen,Haggen,,,,,
-harris_teeter,Harris Teeter,,,,,
-hy_vee,Hy-Vee,,,,,
-navarro,Navarro Discount Pharmacy,,,,,
-nob_hill,Nob Hill,,,,,
-pavilions,Pavilions Pharmacy,,,,,
-pdf,Prescription Drug Foundation,,,,,
-price_chopper,Price Chopper,,,,,
-publix,Publix,,,,,
-qfc,QFC,,,,,
-raleys,Raley's,,,,,
-ralphs,Ralphs,,,,,
-rite_aid,Rite Aid,,,,,
-safeway,Safeway,,,,,
-sams,Sams Club,,,,,
-vons,Vons Pharmacy,,,,,
+pharmacy_id,pharmacy_name,pharmacy_type,accepts_insurance,delivery_only,national,region,notes
+cpd,Cost Plus Drugs,mail_order,false,true,true,,Single national mail-order pharmacy
+cvs,CVS Pharmacy,retail,true,false,true,,National retail chain
+walgreens,Walgreens,retail,true,false,true,,National retail chain
+walmart,Walmart Pharmacy,retail,true,false,true,,National retail chain
+kroger,Kroger Pharmacy,retail,true,false,false,"Midwest, South, West",Regional grocery pharmacy
+costco,Costco,warehouse,true,false,true,,Warehouse club pharmacy
+target,Target,retail,true,false,true,,National retail chain
+albertsons,Albertsons (Sav-On),grocery,true,false,false,"West, Southwest, Midwest",Regional grocery pharmacy
+bartell,Bartell Drug Co,retail,true,false,false,Pacific Northwest,Regional chain
+dillons,Dillons Pharmacy,grocery,true,false,false,"Kansas, Missouri",Regional grocery pharmacy (Kroger subsidiary)
+fred_meyer,Fred Meyer Pharmacy,grocery,true,false,false,Pacific Northwest,Regional grocery pharmacy (Kroger subsidiary)
+haggen,Haggen,grocery,true,false,false,Pacific Northwest,Regional grocery pharmacy
+harris_teeter,Harris Teeter,grocery,true,false,false,Southeast,Regional grocery pharmacy (Kroger subsidiary)
+hy_vee,Hy-Vee,grocery,true,false,false,Midwest,Regional grocery pharmacy
+navarro,Navarro Discount Pharmacy,retail,true,false,false,South Florida,Regional chain
+nob_hill,Nob Hill,grocery,true,false,false,California,Regional grocery pharmacy
+pavilions,Pavilions Pharmacy,grocery,true,false,false,Southern California,Regional grocery pharmacy (Albertsons subsidiary)
+pdf,Prescription Drug Foundation,,,,,,
+price_chopper,Price Chopper,grocery,true,false,false,Northeast,Regional grocery pharmacy
+publix,Publix,grocery,true,false,false,Southeast,Regional grocery pharmacy
+qfc,QFC,grocery,true,false,false,Pacific Northwest,Regional grocery pharmacy (Kroger subsidiary)
+raleys,Raley's,grocery,true,false,false,"Northern California, Nevada",Regional grocery pharmacy
+ralphs,Ralphs,grocery,true,false,false,Southern California,Regional grocery pharmacy (Kroger subsidiary)
+rite_aid,Rite Aid,retail,true,false,true,,National retail chain
+safeway,Safeway,grocery,true,false,false,"West, Mid-Atlantic",Regional grocery pharmacy
+sams,Sams Club,warehouse,true,false,true,,Warehouse club pharmacy
+vons,Vons Pharmacy,grocery,true,false,false,"Southern California, Nevada",Regional grocery pharmacy (Albertsons subsidiary)
