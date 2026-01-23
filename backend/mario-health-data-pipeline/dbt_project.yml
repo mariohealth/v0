@@ -64,7 +64,27 @@ seeds:
         needs_review: BOOLEAN
     drug_match_rules_goodrx:
       +column_types:
-        rxnorm_cui: STRING
+        url_param: STRING
+        primary_name: STRING
+        secondary_name: STRING
+        brand: STRING
+        drug_name: STRING
+        dosage: STRING
+        normalized: STRING
+        normalized_json: STRING
+        match_strategy: STRING
+        canonical_text: STRING
+        canonical_with_brand: STRING
+        goodrx_index: STRING
+        best_scd_rxcui: STRING
+        best_scd_str: STRING
+        best_scd_similarity: FLOAT64
+        best_scd_tier: STRING
+        best_sbd_rxcui: STRING
+        best_sbd_str: STRING
+        best_sbd_similarity: FLOAT64
+        best_sbd_tier: STRING
+        needs_review: STRING
     cms_hospitals_raw:
       +column_types:
         Facility ID: STRING
