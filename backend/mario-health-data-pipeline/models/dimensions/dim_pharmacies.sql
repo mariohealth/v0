@@ -7,5 +7,6 @@ SELECT
   accepts_insurance,
   delivery_only,
   national,
+  region,
   notes
 FROM {{ ref('pharmacies') }}
