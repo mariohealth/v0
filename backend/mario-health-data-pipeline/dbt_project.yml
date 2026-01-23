@@ -57,12 +57,12 @@ seeds:
       +column_types:
         product_url: STRING
         rxcui_sbd: STRING
-        similarity_sbd: STRING
+        similarity_sbd: FLOAT64
     drug_match_rules_costplus_scd:
       +column_types:
         product_url: STRING
         rxcui_scd: STRING
-        similarity_scd: STRING
+        similarity_scd: FLOAT64
     drug_match_rules_goodrx:
       +column_types:
         url_param: STRING
