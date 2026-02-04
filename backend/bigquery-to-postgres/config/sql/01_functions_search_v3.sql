@@ -45,18 +45,18 @@ BEGIN
     RETURN QUERY
     WITH candidates_union AS (
         -- 1. Exact Name Match
-        SELECT id, CAST(1.0 AS NUMERIC) as score_base FROM procedure WHERE LOWER(name) = LOWER(search_query)
+        SELECT id, 1.0::numeric as score_base FROM procedure WHERE LOWER(name) = LOWER(search_query)
         UNION ALL
         -- 2. Full Text Search
-        SELECT id, CAST(0.5 + (ts_rank(search_vector, search_tsquery) * 0.4) AS NUMERIC) as score_base 
+        SELECT id, (0.5 + (ts_rank(search_vector, search_tsquery) * 0.4))::numeric as score_base 
         FROM procedure WHERE search_vector @@ search_tsquery
         UNION ALL
         -- 3. Fuzzy Name Match
-        SELECT id, CAST(similarity(name, search_query) * 0.4 AS NUMERIC) as score_base 
+        SELECT id, (similarity(name, search_query) * 0.4)::numeric as score_base 
         FROM procedure WHERE similarity(name, search_query) > 0.3
         UNION ALL
         -- 4. Fuzzy Common Name Match
-        SELECT id, CAST(similarity(COALESCE(common_name, ''), search_query) * 0.4 AS NUMERIC) as score_base 
+        SELECT id, (similarity(COALESCE(common_name, ''), search_query) * 0.4)::numeric as score_base 
         FROM procedure WHERE similarity(COALESCE(common_name, ''), search_query) > 0.3
     ),
     candidates_dedup AS (
@@ -88,11 +88,18 @@ BEGIN
             (ARRAY_AGG(pl.provider_name ORDER BY 
                 CASE WHEN search_location IS NOT NULL THEN ST_Distance(search_location, pl.location) ELSE 0 END ASC
             ))[1] as nearest_prov,
-            (ARRAY_AGG(
-                CASE WHEN search_location IS NOT NULL THEN ST_Distance(search_location, pl.location) * 0.000621371 ELSE 0 END
-                ORDER BY 
-                CASE WHEN search_location IS NOT NULL THEN ST_Distance(search_location, pl.location) ELSE 0 END ASC
-            ))[1] as nearest_dist
+            (
+                (ARRAY_AGG(
+                    CASE WHEN search_location IS NOT NULL
+                        THEN (ST_Distance(search_location, pl.location) * 0.000621371)
+                        ELSE 0
+                    END
+                    ORDER BY CASE WHEN search_location IS NOT NULL
+                        THEN ST_Distance(search_location, pl.location)
+                        ELSE 0
+                    END ASC
+                ))[1]
+            )::numeric as nearest_dist
         FROM procedure_pricing pp
         JOIN final_candidates fc ON pp.procedure_id = fc.id
         JOIN provider_location pl ON pp.provider_location_id = pl.id
@@ -105,7 +112,7 @@ BEGIN
     SELECT
         fc.id, fc.name, fc.slug, pf.name, pf.slug, pc.name, pc.slug,
         ppa.min_price, ppa.avg_price, ppa.max_price, ppa.prov_count,
-        ppa.nearest_prov, CAST(ppa.nearest_dist AS NUMERIC),
+        ppa.nearest_prov, ppa.nearest_dist,
         CAST(fc.match_score AS NUMERIC)
     FROM final_candidates fc
     JOIN procedure_pricing_agg ppa ON fc.id = ppa.procedure_id
@@ -129,3 +136,6 @@ CREATE INDEX IF NOT EXISTS idx_procedure_pricing_procedure_id ON procedure_prici
 -- 2) Ensure nearest_provider is never blank (should return 0 rows)
 -- SELECT * FROM search_procedures_v3('brain mri', NULL, 25)
 -- WHERE trim(coalesce(nearest_provider, '')) = '';
+-- 3) Verify return types (nearest_distance_miles, match_score)
+-- SELECT pg_typeof(nearest_distance_miles), pg_typeof(match_score)
+-- FROM search_procedures_v3('brain mri', NULL, 25) LIMIT 1;
