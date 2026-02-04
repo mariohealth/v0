@@ -1,0 +1,53 @@
+market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,notes
+CO-ALAMOSA,San Luis Valley,Alamosa,San Luis Valley Health,CO,Rural Hub,High valley isolated by Sangre de Cristo Mountains serving south-central Colorado with limited mountain pass access
+CO-ASPEN,Roaring Fork Valley,Aspen,Aspen Valley Hospital,CO,Regional,Ski resort market with year-round healthcare infrastructure serving seasonal population despite mountain isolation
+CO-BOULDER,Boulder County,Boulder,UCHealth Boulder; Boulder Community Health,CO,Suburban,Separate from Denver by 30+ miles with distinct university town culture and independent healthcare anchors
+CO-COSPRINGS,Greater Colorado Springs,Colorado Springs,UCHealth Memorial; Centura Health Penrose-St. Francis,CO,Core Metro,70 miles south of Denver via I-25 creating separate market with military presence and distinct anchors
+CO-DENVER,Denver Metro,Denver,UCHealth University of Colorado Hospital; HCA HealthONE; SCL Health,CO,Core Metro,Front Range core with academic medical center and RTD light rail limited to metro area
+CO-DURANGO,Southwest Colorado,Durango,Mercy Regional Medical Center,CO,Regional,Four Corners hub serving southwestern mountains separate from Grand Junction and Albuquerque by terrain
+CO-FORTCOLLINS,Northern Colorado,Fort Collins,UCHealth Medical Center of the Rockies; Banner Health,CO,Regional,60+ miles north of Denver via I-25 serving Larimer County with independent anchors separate from metro
+CO-GLENWOOD,I-70 Mountain Corridor,Glenwood Springs,Valley View Hospital,CO,Regional,I-70 corridor serving ski resort communities between Denver and Grand Junction with winter access challenges
+CO-GRANDJUNCTION,Western Slope,Grand Junction,St. Mary's Medical Center; Community Hospital,CO,Regional,Separated from Front Range by Rocky Mountains serving western Colorado with 2-4 hour Eisenhower Tunnel barrier
+CO-GREELEY,Weld County,Greeley,Banner Health North Colorado Medical Center,CO,Regional,I-25 corridor north of Denver serving agricultural region potentially separate from Fort Collins
+CO-PUEBLO,South Central Colorado,Pueblo,Parkview Medical Center,CO,Regional,I-25 corridor south of Colorado Springs serving steel city economy separate from both Springs and Denver
+CO-VAIL,Eagle County,Vail,Vail Health,CO,Regional,I-70 ski resort corridor with year-round healthcare infrastructure serving Summit and Eagle counties
+ID-BOISE,Greater Boise,Boise,St. Luke's Health System; Saint Alphonsus Health System,ID,Core Metro,State capital with dual anchor system managing Treasure Valley sprawl as single market
+ID-COEURDALENE,North Idaho,Coeur d'Alene,Kootenai Health,ID,Regional,Northern Idaho hub potentially integrating with Spokane WA or remaining separate market
+ID-IDAHOFALLS,Eastern Idaho,Idaho Falls,Eastern Idaho Regional Medical Center,ID,Regional,I-15 corridor hub serving eastern agricultural region and Yellowstone gateway separate from Pocatello
+ID-LEWISTON,North Central Idaho,Lewiston,St. Joseph Regional Medical Center,ID,Regional,Snake River valley isolated by mountains from both Boise and Spokane serving Clearwater region
+ID-POCATELLO,Southeast Idaho,Pocatello,Portneuf Medical Center,ID,Regional,I-15 corridor south of Idaho Falls serving Bannock County with university presence
+ID-TWINFALLS,South Central Idaho,Twin Falls,St. Luke's Magic Valley Medical Center,ID,Regional,I-84 corridor hub serving south-central agricultural region between Boise and Pocatello
+MT-BILLINGS,Eastern Montana,Billings,Billings Clinic,MT,Regional,State's largest city serving vast eastern plains catchment 340 miles from Missoula across Continental Divide
+MT-BOZEMAN,Gallatin Valley,Bozeman,Bozeman Health Deaconess Hospital,MT,Regional,Southwest hub with university and ski resort economy separate from all other Montana cities
+MT-BUTTE,Mining City,Butte,St. James Healthcare,MT,Regional,Historic mining city isolated from all other Montana metros by mountain terrain and distance
+MT-GREATFALLS,North Central Montana,Great Falls,Benefis Health System,MT,Regional,Missouri River hub serving north-central plains separate from both Billings and Missoula
+MT-HELENA,Montana Capital,Helena,St. Peter's Health,MT,Regional,State capital isolated by mountains from all major cities serving west-central region
+MT-KALISPELL,Northwest Montana,Kalispell,Kalispell Regional Healthcare,MT,Regional,Glacier National Park gateway serving Flathead Valley isolated from Missoula by mountains
+MT-MISSOULA,Western Montana,Missoula,Providence St. Patrick Hospital; Community Medical Center,MT,Regional,Western hub 340 miles from Billings across Continental Divide serving I-90 corridor
+NM-ALBUQUERQUE,Greater Albuquerque,Albuquerque,University of New Mexico Health; Presbyterian Healthcare Services,NM,Core Metro,State's largest metro with academic medical center managing sprawl as single market
+NM-CLOVIS,Eastern New Mexico,Clovis,Plains Regional Medical Center,NM,Regional,Texas border hub serving eastern plains separate from Albuquerque by 200+ miles
+NM-FARMINGTON,Four Corners,Farmington,San Juan Regional Medical Center,NM,Regional,Northwest corner serving Navajo Nation region isolated from Albuquerque by 180+ miles
+NM-GALLUP,West Central New Mexico,Gallup,Rehoboth McKinley Christian Health Care Services,NM,Regional,I-40 corridor Arizona border hub serving Native American population separate from both Albuquerque and Farmington
+NM-LASCRUCES,Southern New Mexico,Las Cruces,Memorial Medical Center; MountainView Regional Medical Center,NM,Regional,Southern border hub with El Paso TX integration potential serving Mesilla Valley
+NM-LOSALAMOS,Pajarito Plateau,Los Alamos,Los Alamos Medical Center,NM,Regional,Isolated mountain town with national lab economy requiring independent healthcare despite small size
+NM-ROSWELL,Southeast New Mexico,Roswell,Eastern New Mexico Medical Center,NM,Regional,Pecos Valley hub serving southeast plains isolated from Albuquerque by 200+ miles
+NM-SANTAFE,Santa Fe County,Santa Fe,Christus St. Vincent Regional Medical Center,NM,Regional,State capital 60 miles from Albuquerque potentially separate market with distinct tourist economy
+NV-CARSONCITY,Nevada Capital,Carson City,Carson Tahoe Health,NV,Regional,State capital 30 miles from Reno potentially integrated or separate serving Lake Tahoe area
+NV-ELKO,Northeast Nevada,Elko,Northeastern Nevada Regional Hospital,NV,Rural Hub,Mining economy hub 300+ miles from Reno serving vast northeast basin and range territory
+NV-LASVEGAS,Southern Nevada,Las Vegas,University Medical Center of Southern Nevada; Valley Health System,NV,Core Metro,Desert metro 450 miles from Reno closer to Phoenix and LA with zero integration to northern Nevada
+NV-RENO,Northern Nevada,Reno,Renown Health,NV,Core Metro,Northern hub 450 miles from Las Vegas closer to Sacramento serving mountain region with zero integration to southern Nevada
+UT-CEDARCITY,Iron County,Cedar City,Cedar City Hospital,UT,Regional,I-15 corridor between St. George and Salt Lake serving southern Utah gateway separate from both
+UT-LOGAN,Cache Valley,Logan,Logan Regional Hospital; Intermountain Healthcare,UT,Regional,Northern valley separated from Wasatch Front by Logan Canyon avalanche zone creating distinct market
+UT-MOAB,Southeast Utah,Moab,Moab Regional Hospital,UT,Regional,Red rock tourism hub isolated by Wasatch Range from Salt Lake serving southeastern desert region
+UT-OGDEN,Weber County,Ogden,McKay-Dee Hospital; Intermountain Healthcare,UT,Regional,40 miles north of Salt Lake potentially integrated via FrontRunner or separate with distinct identity
+UT-PARKCITY,Summit County,Park City,Intermountain Park City Hospital,UT,Regional,Ski resort separated from Salt Lake by Wasatch Range mountain barrier despite proximity
+UT-PRICE,Carbon County,Price,Castleview Hospital,UT,Regional,East of Wasatch Range serving coal mining region isolated from Wasatch Front by mountain barrier
+UT-PROVO,Utah Valley,Provo,Utah Valley Hospital; Intermountain Healthcare,UT,Regional,45 miles south of Salt Lake potentially integrated via FrontRunner or separate with distinct university identity
+UT-SALTLAKE,Salt Lake Valley,Salt Lake City,Intermountain Healthcare; University of Utah Health,UT,Core Metro,Wasatch Front core with academic medical center and UTA transit serving valley floor
+UT-STGEORGE,Southwest Utah,St. George,Intermountain St. George Regional Hospital; Dixie Regional Medical Center,UT,Regional,300+ miles from Salt Lake near Arizona border with desert climate separate from mountain north
+WY-CASPER,Central Wyoming,Casper,Wyoming Medical Center,WY,Regional,Oil hub serving central plains 280 miles from Jackson and 180 miles from Cheyenne across frontier
+WY-CHEYENNE,Southeast Wyoming,Cheyenne,Cheyenne Regional Medical Center,WY,Regional,State capital near Colorado border potentially integrating with Denver metro or remaining separate
+WY-GILLETTE,Northeast Wyoming,Gillette,Campbell County Health,WY,Regional,Coal economy hub serving Powder River Basin isolated from Casper by 130+ miles
+WY-JACKSON,Teton County,Jackson,St. John's Health,WY,Regional,Ski resort and Grand Teton gateway with year-round healthcare infrastructure isolated by mountains from all Wyoming cities
+WY-LARAMIE,Albany County,Laramie,Ivinson Memorial Hospital,WY,Regional,I-80 corridor university town between Cheyenne and Rawlins potentially separate from both
+WY-ROCKSPRINGS,Southwest Wyoming,Rock Springs,Memorial Hospital of Sweetwater County,WY,Regional,I-80 corridor mining hub serving southwest corner isolated from Casper and Jackson by distance
