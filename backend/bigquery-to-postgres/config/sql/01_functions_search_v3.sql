@@ -97,8 +97,9 @@ BEGIN
         JOIN final_candidates fc ON pp.procedure_id = fc.id
         JOIN provider_location pl ON pp.provider_location_id = pl.id
         WHERE 
-             search_location IS NULL 
-             OR ST_DWithin(search_location, pl.location, radius_meters)
+             (search_location IS NULL 
+             OR ST_DWithin(search_location, pl.location, radius_meters))
+             AND trim(coalesce(pl.provider_name, '')) <> ''
         GROUP BY pp.procedure_id
     )
     SELECT
@@ -120,3 +121,11 @@ CREATE INDEX IF NOT EXISTS idx_procedure_name_trgm ON procedure USING gin (name 
 CREATE INDEX IF NOT EXISTS idx_procedure_common_name_trgm ON procedure USING gin (common_name gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_procedure_search_vector ON procedure USING gin (search_vector);
 CREATE INDEX IF NOT EXISTS idx_procedure_pricing_procedure_id ON procedure_pricing (procedure_id);
+
+-- Verification queries (Supabase SQL Editor)
+-- 1) Count blank provider names in v3 results for "brain mri"
+-- SELECT COUNT(*) FROM search_procedures_v3('brain mri', NULL, 25)
+-- WHERE trim(coalesce(nearest_provider, '')) = '';
+-- 2) Ensure nearest_provider is never blank (should return 0 rows)
+-- SELECT * FROM search_procedures_v3('brain mri', NULL, 25)
+-- WHERE trim(coalesce(nearest_provider, '')) = '';
