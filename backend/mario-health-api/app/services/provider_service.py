@@ -347,7 +347,7 @@ class ProviderService:
 
         location_result = (
             self.supabase.table("provider_location")
-            .select("id, provider_id, org_id, org_name, city, state, zip_code")
+            .select("provider_id, org_name, city, state, zip_code")
             .in_("provider_id", provider_ids)
             .execute()
         )
@@ -368,8 +368,6 @@ class ProviderService:
                     last_name=provider.get("last_name"),
                     credential=provider.get("credential"),
                     specialty_name=provider.get("specialty_name"),
-                    provider_location_id=loc.get("id"),
-                    org_id=loc.get("org_id"),
                     org_name=loc.get("org_name"),
                     city=loc.get("city"),
                     state=loc.get("state"),

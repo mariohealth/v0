@@ -26,8 +26,6 @@ class DoctorSearchResult(BaseModel):
     last_name: str | None = None
     credential: str | None = None
     specialty_name: str | None = None
-    provider_location_id: str | None = None
-    org_id: str | None = None
     org_name: str | None = None
     city: str | None = None
     state: str | None = None
