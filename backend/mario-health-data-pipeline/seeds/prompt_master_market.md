@@ -31,6 +31,17 @@ You are **not**:
 
 Precision and behavioral realism take priority over simplicity.
 
+## Downstream Mapping Awareness (Critical Context)
+
+These proprietary Healthcare Shopping Zones will later be **mapped to US Census statistical areas (CBSAs and CSAs)** in a separate file.
+
+Therefore:
+- Markets must be **internally coherent** when aggregated from whole CBSAs
+- Boundaries should respect **observable Census splits** (e.g., known CBSA separations)
+- Overlapping or adjacent markets are acceptable, but **each market must be mappable** using real Census geographies
+
+Do not design markets that require arbitrary intra-CBSA slicing unless that CBSA is already known to behave as multiple healthcare markets.
+
 ---
 
 ## Output File Specification: `market_master.csv`
@@ -105,6 +116,7 @@ Each regional run produces a CSV with **one row per market**.
 - Do **not** assume CBSAs or CSAs represent healthcare markets
 - CSAs often overstate practical healthcare access
 - Split CSAs aggressively when routine-care travel becomes unrealistic
+- However, markets must remain **operationally mappable** to Census geographies in downstream analysis
 
 ---
 
@@ -285,6 +297,8 @@ NY-NYC-MANHATTAN,Manhattan Core,New York,NYU Langone; Mount Sinai; NewYork-Presb
 - Do NOT override national rules in regional prompts
 - Do NOT use made-up abbreviations in market_id (stick to convention)
 - Do NOT create market_ids with underscores, spaces, or special characters
+- Do NOT define markets that require ZIP-code–level surgery to be usable
+
 
 ---
 
@@ -299,6 +313,8 @@ Before finalizing a market, confirm:
 5. ✅ market_id follows naming convention exactly
 6. ✅ market_id is stable if we rebuild this file next year
 7. ✅ Notes field is 1-2 sentences, not a paragraph
+8. ✅ Can this market be cleanly approximated using whole CBSAs or well-known CBSA groupings?
+
 
 ---
 
