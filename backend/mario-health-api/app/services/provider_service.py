@@ -315,8 +315,16 @@ class ProviderService:
         if len(tokens) < 2:
             return []
 
-        first_token = tokens[0]
-        last_token = tokens[1]
+        def escape_ilike_token(token: str) -> str:
+            # Escape wildcard characters for PostgREST ilike filters to avoid unintended matches.
+            return (
+                token.replace("\\", "\\\\")
+                .replace("%", "\\%")
+                .replace("_", "\\_")
+            )
+
+        first_token = escape_ilike_token(tokens[0])
+        last_token = escape_ilike_token(tokens[1])
 
         provider_result = (
             self.supabase.table("provider")
@@ -345,6 +353,7 @@ class ProviderService:
             if p.get("provider_id")
         }
 
+        # Intentional: only providers with locations are returned for org/city disambiguation.
         location_result = (
             self.supabase.table("provider_location")
             .select("provider_id, org_name, city, state, zip_code")
