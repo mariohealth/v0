@@ -1,0 +1,31 @@
+market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,notes
+DC-METRO-CORE,DC Metro Core,Washington,MedStar Health; George Washington University Hospital; Children's National Hospital,DC/MD/VA,Core Metro,WMATA Metro collapses DC proper with Arlington/Alexandria and Bethesda medical district via Red Line access
+DE-DOVER,Central Delaware,Dover,Bayhealth,DE,Regional,Mid-state hub serving central Delaware between Wilmington and beach communities
+DE-REHOBOTH,Southern Delaware,Rehoboth Beach,Beebe Healthcare,DE,Regional,Coastal market serving southern Delaware beach communities and Sussex County
+DE-WILMINGTON,Greater Wilmington,Wilmington,ChristianaCare,DE,Regional,Northern Delaware hub integrated with Philadelphia I-95 corridor not Baltimore
+MD-ANNAPOLIS,Anne Arundel County,Annapolis,University of Maryland Medical System; Luminis Health,MD,Suburban,Capital and Bay Bridge corridor market separate from both DC and Baltimore
+MD-BALTIMORE,Greater Baltimore,Baltimore,Johns Hopkins Medicine; University of Maryland Medical Center,MD,Core Metro,Independent anchor 45+ min from DC with no transit and dominant academic medical centers
+MD-CUMBERLAND,Western Maryland,Cumberland,Western Maryland Health System,MD,Regional,I-68 corridor hub serving western Maryland and WV eastern panhandle with Appalachian isolation
+MD-EASTON,Upper Eastern Shore,Easton,University of Maryland Shore Medical Center,MD,Regional,Bay Bridge friction from mainland MD creates separate market for upper Delmarva Peninsula
+MD-FREDERICK,Frederick County,Frederick,Frederick Health,MD,Regional,Western corridor hub 60+ min from both DC and Baltimore with independent anchor
+MD-HAGERSTOWN,Washington County,Hagerstown,Meritus Health,MD,Regional,Western Maryland hub serving I-81 corridor separate from Baltimore and DC by distance
+MD-SALISBURY,Lower Eastern Shore,Salisbury,TidalHealth Peninsula Regional,MD,Regional,Bay Bridge creates hard split from mainland MD serving Delmarva Peninsula including Eastern Shore VA
+MD-SILVER-SPRING,Montgomery County,Silver Spring,Adventist HealthCare; Holy Cross Health,MD,Suburban,Inner-ring suburbs with WMATA access but distinct from DC core and separate from Frederick
+MD-WALDORF,Southern Maryland,Waldorf,University of Maryland Charles Regional Medical Center,MD,Suburban,Limited Potomac crossings and distance from DC create independent routine care market
+VA-ARLINGTON,Arlington-Alexandria,Arlington,Virginia Hospital Center; Inova Alexandria Hospital,VA,Suburban,Northern Virginia core with WMATA integration to DC but distinct suburban identity
+VA-BLACKSBURG,New River Valley,Blacksburg,Carilion New River Valley Medical Center,VA,Regional,Southwest Virginia hub serving Virginia Tech area isolated from Roanoke by mountains
+VA-CHARLOTTESVILLE,Central Virginia,Charlottesville,UVA Health,VA,Regional,Academic medical center serving central Virginia independent from Richmond and DC
+VA-HAMPTON-ROADS,Hampton Roads,Norfolk,Sentara Healthcare; Riverside Health System,VA,Core Metro,Polycentric market with tunnel friction but systems operate regionally across Peninsula and Southside
+VA-HARRISONBURG,Shenandoah Valley,Harrisonburg,Sentara RMH Medical Center,VA,Regional,Central valley market serving I-81 corridor between Winchester and Roanoke
+VA-LOUDOUN,Loudoun County,Leesburg,Inova Loudoun Hospital,VA,Suburban,Outer suburbs 60+ min from DC core with rapid growth and independent routine care
+VA-LYNCHBURG,Greater Lynchburg,Lynchburg,Centra Health,VA,Regional,Central Virginia hub between Charlottesville and Roanoke with independent anchor
+VA-PRINCE-WILLIAM,Prince William County,Manassas,Novant Health UVA Health System,VA,Suburban,Outer I-95 corridor suburbs separate from DC core by distance and beltway congestion
+VA-RICHMOND,Greater Richmond,Richmond,VCU Health System; Bon Secours,VA,Core Metro,Independent anchor 60+ min from DC via I-95 congestion and 60+ min from Hampton Roads
+VA-ROANOKE,Roanoke Valley,Roanoke,Carilion Clinic,VA,Regional,Southwest Virginia anchor serving Blue Ridge and Appalachian region with vast rural catchment
+VA-WINCHESTER,Northern Shenandoah Valley,Winchester,Valley Health System,VA,Regional,I-81 corridor hub closer to Hagerstown MD than DC serving northern valley
+WV-BECKLEY,Southern West Virginia,Beckley,Raleigh General Hospital,WV,Regional,Southern coalfields hub isolated from Charleston by terrain serving vast Appalachian catchment
+WV-CHARLESTON,Greater Charleston,Charleston,Charleston Area Medical Center,WV,Regional,State capital and largest city with dominant anchor serving central WV valleys
+WV-HUNTINGTON,Tri-State Region,Huntington,Cabell Huntington Hospital; St. Mary's Medical Center,WV/KY/OH,Regional,Ohio River valley hub 50+ min from Charleston with Kentucky and Ohio border catchment
+WV-MARTINSBURG,Eastern Panhandle,Martinsburg,Berkeley Medical Center,WV,Regional,Closer to Hagerstown MD and Winchester VA than WV core with I-81 corridor access
+WV-MORGANTOWN,Northern West Virginia,Morgantown,West Virginia University Hospitals,WV,Regional,Academic center serving northern WV closer to Pittsburgh than Charleston with Appalachian isolation
+WV-PARKERSBURG,Mid-Ohio Valley,Parkersburg,Camden Clark Medical Center,WV,Regional,Ohio River valley hub isolated from Charleston by terrain serving northwest WV
