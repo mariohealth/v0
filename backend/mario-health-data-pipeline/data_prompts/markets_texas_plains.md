@@ -8,9 +8,11 @@
 
 ## Geographic Scope
 
-**States:** TX, OK, KS, NE, AR, LA
+**States:** TX, OK, KS, MO, IA, NE, SD, ND, AR, LA
 
-**Expected Output:** Approximately 60-80 Healthcare Shopping Zones for this region.
+**Expected Output:** Approximately 80-100 Healthcare Shopping Zones for this region.
+
+**CRITICAL ADDITION:** This region now includes Missouri (Kansas City, St. Louis major metros), Iowa (Des Moines), and the Dakotas (Sioux Falls, Fargo, Bismarck). These were inadvertently omitted from the original scope.
 
 ---
 
@@ -24,6 +26,9 @@
 - **I-10 corridor** (Houston to San Antonio to El Paso): Connects distinct markets, does NOT integrate them
 - **I-45** (Dallas to Houston): 4-hour drive, separate markets
 - **I-30** (Dallas to Little Rock via Texarkana): Connects DFW to Arkansas
+- **I-70 corridor** (Kansas City to St. Louis): Connects two distinct Missouri metros, does NOT integrate them
+- **I-435 (Kansas City)**: Ring road creates friction between Kansas and Missouri sides
+- **I-270 (St. Louis)**: Ring road, moderate congestion
 
 ### Extreme Sprawl Characteristics
 This region has some of the most sprawling metros in the United States:
@@ -170,6 +175,32 @@ The Houston MSA (7.5M people) has no zoning and maximum sprawl. Expected splits:
 
 ### Other Major Metro Considerations
 
+**Kansas City (KS/MO):**
+- Metro straddles state border
+- Likely single integrated market despite Missouri River
+- University of Kansas Health System, Saint Luke's, Truman Medical Center anchors
+- Suburban sprawl may warrant 2 markets: KC Core vs Outer suburbs
+
+**St. Louis (MO/IL):**
+- Metro straddles Mississippi River (Illinois side not in this region)
+- Missouri side likely single market
+- BJC HealthCare, Mercy, SSM Health anchors
+- Sprawling but manageable as single market
+
+**Des Moines:**
+- Likely single market
+- MercyOne, UnityPoint Health dominant
+
+**Sioux Falls (SD):**
+- Likely single market
+- Sanford Health, Avera Health dominant
+- Serves vast rural catchment
+
+**Fargo-Moorhead (ND/MN):**
+- Straddles Red River (Minnesota side not in this region)
+- Likely single integrated market
+- Sanford Health, Essentia Health anchors
+
 **Oklahoma City:**
 - Sprawling (620+ sq mi) but lower population (1.4M)
 - May warrant 2 markets: OKC Core vs Suburban (Norman, Edmond)
@@ -244,6 +275,38 @@ The Houston MSA (7.5M people) has no zoning and maximum sprawl. Expected splits:
 - Stormont Vail Health (Topeka)
 - Wesley Healthcare (Wichita)
 - Ascension Via Christi (Wichita)
+
+### Missouri
+- **Kansas City Area:**
+  - University of Kansas Health System (serves both KS and MO)
+  - Saint Luke's Health System
+  - Truman Medical Centers (safety net)
+  - Research Medical Center
+- **St. Louis Area:**
+  - BJC HealthCare (including Barnes-Jewish, Washington University)
+  - Mercy (largest Catholic system in US)
+  - SSM Health
+  - St. Louis University Hospital
+- **Other Missouri:**
+  - CoxHealth (Springfield)
+  - Mercy Springfield
+  - University of Missouri Health (Columbia)
+
+### Iowa
+- MercyOne (Des Moines, statewide)
+- UnityPoint Health (Des Moines, statewide)
+- University of Iowa Hospitals & Clinics (Iowa City) — academic center
+- Broadlawns Medical Center (Des Moines safety net)
+
+### South Dakota
+- Sanford Health (Sioux Falls, regional dominance)
+- Avera Health (Sioux Falls, regional system)
+- Monument Health (Rapid City, western SD)
+
+### North Dakota
+- Sanford Health (Fargo, statewide presence)
+- Essentia Health (Fargo)
+- Sanford Health Bismarck
 
 ### Nebraska
 - Nebraska Medicine / UNMC (Omaha) — academic medical center
@@ -333,6 +396,39 @@ The Houston MSA (7.5M people) has no zoning and maximum sprawl. Expected splits:
 - **Monroe** — Northeast Louisiana hub
 - **Alexandria** — Central Louisiana hub
 
+### Missouri
+- **Kansas City** — Straddles KS/MO border (largest metro in region)
+- **St. Louis** — Straddles MO/IL border, Missouri side
+- **Springfield** — Southwest Missouri hub
+- **Columbia** — Central Missouri, University of Missouri
+- **Jefferson City** — State capital
+- **Joplin** — Southwest corner, separate from Springfield
+- **Cape Girardeau** — Southeast Missouri, Mississippi River
+- **St. Joseph** — Northwest Missouri, separate from Kansas City
+
+### Iowa
+- **Des Moines** — State capital and largest city
+- **Iowa City** — University of Iowa, academic medical center
+- **Cedar Rapids** — Eastern Iowa hub
+- **Davenport-Quad Cities** — Mississippi River (straddles IA/IL border)
+- **Sioux City** — Northwest corner
+- **Waterloo-Cedar Falls** — Northeast Iowa
+- **Dubuque** — Northeast corner, Mississippi River
+
+### South Dakota
+- **Sioux Falls** — State's largest city, eastern hub
+- **Rapid City** — Western South Dakota, Black Hills
+- **Aberdeen** — Northeast hub
+- **Brookings** — Eastern corridor
+- **Pierre** — State capital, isolated
+
+### North Dakota
+- **Fargo-Moorhead** — Straddles ND/MN border, Red River
+- **Bismarck** — State capital, central hub
+- **Grand Forks** — Northeast corner
+- **Minot** — North-central hub
+- **Williston** — Northwest, Bakken oil region
+
 ---
 
 ## State Border Effects
@@ -349,17 +445,39 @@ The Houston MSA (7.5M people) has no zoning and maximum sprawl. Expected splits:
 - Hard split, minimal integration
 - Exception: Beaumont TX may have some Sabine River crossing to Lake Charles LA
 
-**Texas ↔ New Mexico:**
-- El Paso integrates slightly with Las Cruces NM (not in this region)
-- Otherwise, hard split
-
 **Kansas ↔ Missouri:**
-- Kansas City metro straddles border (Missouri side not in this region)
+- Kansas City metro straddles border, INTEGRATED market
 - University of Kansas Health System serves both states
+- This is one of the few true cross-border integrated markets in the region
+
+**Missouri ↔ Iowa:**
+- Hard split, minimal integration
+
+**Missouri ↔ Arkansas:**
+- Hard split, minimal integration
+
+**Missouri ↔ Illinois:**
+- St. Louis metro straddles Mississippi River (Illinois side not in this region)
+- Integrated market but only Missouri side covered here
 
 **Nebraska ↔ Iowa:**
-- Omaha-Council Bluffs metro straddles border (Iowa side not in this region)
-- Integrated market across Missouri River
+- Omaha-Council Bluffs metro straddles Missouri River, INTEGRATED market
+- One of few true cross-border integrated markets
+
+**Iowa ↔ Illinois:**
+- Quad Cities straddles Mississippi River (Illinois side not in this region)
+- Integrated market but only Iowa side covered here
+
+**South Dakota ↔ North Dakota:**
+- Hard split, minimal integration
+
+**South Dakota ↔ Iowa:**
+- Sioux City IA may have slight integration with southeast SD
+- Otherwise hard split
+
+**North Dakota ↔ Minnesota:**
+- Fargo-Moorhead straddles Red River, INTEGRATED market
+- Minnesota side not in this region
 
 **Arkansas ↔ Louisiana:**
 - Hard split, minimal integration
@@ -424,12 +542,18 @@ Before finalizing, confirm:
 2. ✅ Dallas and Fort Worth are separate markets (not integrated)
 3. ✅ Houston metro has been split into at least 4 markets
 4. ✅ Austin and San Antonio are separate markets (not integrated by I-35)
-5. ✅ Transit does NOT collapse any markets (car-dependent region)
-6. ✅ Texas has 30-40 markets reflecting state's size and diversity
-7. ✅ West Texas distance barriers properly reflected (El Paso, Amarillo, Midland-Odessa all separate)
-8. ✅ Louisiana has proper coverage (New Orleans, Baton Rouge, Shreveport, Lafayette, etc.)
-9. ✅ State borders are respected unless compelling integration exists
-10. ✅ market_id follows national naming convention (STATE-CITY-QUALIFIER)
+5. ✅ Kansas City (KS/MO) is treated as integrated cross-border market
+6. ✅ St. Louis (MO) is included with Missouri side coverage
+7. ✅ Des Moines (IA) and Iowa markets are included
+8. ✅ Sioux Falls (SD) and South Dakota markets are included
+9. ✅ Fargo (ND) and North Dakota markets are included
+10. ✅ Transit does NOT collapse any markets (car-dependent region)
+11. ✅ Texas has 30-40 markets reflecting state's size and diversity
+12. ✅ West Texas distance barriers properly reflected (El Paso, Amarillo, Midland-Odessa all separate)
+13. ✅ Louisiana has proper coverage (New Orleans, Baton Rouge, Shreveport, Lafayette, etc.)
+14. ✅ Missouri has proper coverage (Kansas City, St. Louis, Springfield, Columbia, etc.)
+15. ✅ State borders are respected unless compelling integration exists (KC, Omaha-Council Bluffs, Fargo-Moorhead)
+16. ✅ market_id follows national naming convention (STATE-CITY-QUALIFIER)
 
 ---
 
