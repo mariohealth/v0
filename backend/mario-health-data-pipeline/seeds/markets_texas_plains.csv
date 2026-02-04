@@ -1,0 +1,68 @@
+market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,notes
+AR-FAYETTEVILLE,Northwest Arkansas,Fayetteville,Mercy Health; Washington Regional Medical Center,AR,Regional,Ozark Mountains hub serving Springdale and Bentonville with Walmart headquarters economy separate from Little Rock
+AR-FORTSMITH,Western Arkansas,Fort Smith,Mercy Health Fort Smith,AR,Regional,Oklahoma border market serving Arkansas River valley isolated from both Little Rock and Fayetteville
+AR-JONESBORO,Northeast Arkansas,Jonesboro,St. Bernards Healthcare,AR,Regional,Delta region hub serving northeastern agricultural counties separate from Little Rock and Memphis
+AR-LITTLEROCK,Greater Little Rock,Little Rock,UAMS Medical Center; Baptist Health,AR,Core Metro,State capital with academic medical center anchor serving central Arkansas corridor
+AR-PINEBLUFF,Southeast Arkansas,Pine Bluff,Jefferson Regional Medical Center,AR,Regional,Arkansas River valley hub south of Little Rock serving delta agricultural region
+KS-DODGECITY,Southwest Kansas,Dodge City,Western Plains Medical Complex,KS,Regional,Western hub 200+ miles from Wichita serving vast high plains agricultural region
+KS-GARDENCITY,Far Southwest Kansas,Garden City,St. Catherine Hospital,KS,Rural Hub,Western Kansas isolated 280+ miles from Wichita serving meatpacking and agricultural economy
+KS-HAYS,North Central Kansas,Hays,HaysMed,KS,Regional,Central plains hub 270+ miles from Wichita serving I-70 corridor and western counties
+KS-LAWRENCE,Douglas County,Lawrence,LMH Health,KS,Regional,University of Kansas market potentially integrating with Kansas City metro or remaining separate
+KS-SALINA,Central Kansas,Salina,Salina Regional Health Center,KS,Regional,I-70 and I-135 crossroads hub serving central plains between Wichita and Hays
+KS-TOPEKA,Kansas Capital,Topeka,Stormont Vail Health,KS,Regional,State capital 60 miles west of Kansas City serving Shawnee County separate from both KC and Wichita
+KS-WICHITA,South Central Kansas,Wichita,Wesley Healthcare; Ascension Via Christi,KS,Core Metro,State's largest city with dual anchor system managing sprawl as single market
+LA-ALEXANDRIA,Central Louisiana,Alexandria,Rapides Regional Medical Center,LA,Regional,Geographic center hub serving vast rural catchment between Shreveport and Baton Rouge
+LA-BATONROUGE,Louisiana Capital,Baton Rouge,Our Lady of the Lake Regional Medical Center,LA,Core Metro,State capital 80 miles from New Orleans with petrochemical economy and LSU presence
+LA-HOUMA,Bayou Region,Houma,Terrebonne General Medical Center,LA,Regional,Gulf Coast bayou market serving oil service industry separate from New Orleans
+LA-LAFAYETTE,Acadiana,Lafayette,Lafayette General Health,LA,Regional,Cajun heartland hub serving oil and agriculture economy with distinct cultural identity
+LA-LAKECHARLES,Southwest Louisiana,Lake Charles,Lake Charles Memorial Health System,LA,Regional,Texas border and Gulf Coast hub with refinery economy separate from Lafayette and Beaumont TX
+LA-MONROE,Northeast Louisiana,Monroe,St. Francis Medical Center,LA,Regional,Northeast hub serving I-20 corridor and Mississippi River valley isolated from Shreveport
+LA-NEWORLEANS,Greater New Orleans,New Orleans,Ochsner Health System; LCMC Health,LA,Core Metro,Unique market with Ochsner dominance serving metro and Gulf Coast tourism economy
+LA-SHREVEPORT,Northwest Louisiana,Shreveport,LSU Health Shreveport; Willis-Knighton Health System,LA,Regional,Texas and Arkansas border hub serving I-20 corridor with oil economy and academic center
+NE-GRANDISLAND,Central Nebraska,Grand Island,CHI Health St. Francis,NE,Regional,Central plains hub serving I-80 corridor between Omaha and western counties
+NE-LINCOLN,Nebraska Capital,Lincoln,Bryan Health,NE,Regional,State capital and university city 60 miles from Omaha managing as separate market despite proximity
+NE-NORTHPLATTE,West Central Nebraska,North Platte,Great Plains Health,NE,Regional,I-80 corridor hub 200+ miles from Lincoln serving western agricultural and ranching region
+NE-OMAHA,Greater Omaha,Omaha,Nebraska Medicine; CHI Health,NE,Core Metro,Academic medical center anchor with cross-border integration to Council Bluffs IA via Missouri River bridges
+NE-SCOTTSBLUFF,Western Panhandle,Scottsbluff,Regional West Medical Center,NE,Rural Hub,Western Nebraska isolated 400+ miles from Omaha serving Wyoming and Colorado border ranching region
+OK-ARDMORE,South Central Oklahoma,Ardmore,Mercy Hospital Ardmore,OK,Regional,Texas border hub serving I-35 corridor between Oklahoma City and Dallas metro separate from both
+OK-ENID,Northwest Oklahoma,Enid,Integra Health,OK,Regional,North-central plains hub serving Cherokee Outlet agricultural region separate from Oklahoma City
+OK-LAWTON,Southwest Oklahoma,Lawton,Comanche County Memorial Hospital,OK,Regional,Fort Sill military market serving southwestern Oklahoma isolated from Oklahoma City by distance
+OK-OKC,Oklahoma City Core,Oklahoma City,OU Health; Integra Health,OK,Core Metro,State capital with academic medical center and massive land area creating potential for suburban split
+OK-STILLWATER,North Central Oklahoma,Stillwater,Stillwater Medical Center,OK,Regional,Oklahoma State University market serving north-central counties separate from both OKC and Tulsa
+OK-TULSA,Greater Tulsa,Tulsa,Saint Francis Health System; Hillcrest HealthCare System,OK,Core Metro,Northeastern anchor with Arkansas River valley and oil economy managing sprawl as single market
+TX-ABILENE,West Central Texas,Abilene,Hendrick Health System,TX,Regional,West-central hub between DFW and West Texas serving I-20 corridor separate from both
+TX-AMARILLO,Texas Panhandle,Amarillo,BSA Health System; Northwest Texas Healthcare System,TX,Regional,Panhandle isolated 350+ miles from DFW and closer to Denver than Dallas serving high plains
+TX-AUSTIN,Greater Austin,Austin,Ascension Seton; St. David's HealthCare; Dell Medical School,TX,Core Metro,State capital with university academic center 80 miles from San Antonio managing I-35 growth as single market
+TX-BEAUMONT,Southeast Texas,Beaumont,Christus Health Southeast Texas; Baptist Hospitals of Southeast Texas,TX,Regional,Gulf Coast petrochemical corridor between Houston and Louisiana serving Port Arthur and Orange
+TX-BROWNSVILLE,Lower Rio Grande Valley,Brownsville,Valley Regional Medical Center,TX,Regional,Southern tip border market serving Cameron County separate from McAllen despite Valley identity
+TX-COLLEGESTATION,Brazos Valley,College Station,Baylor Scott & White Health,TX,Regional,Texas A&M University market serving Bryan and Brazos County separate from Houston despite system overlap
+TX-CORPUSCHRISTI,Coastal Bend,Corpus Christi,Christus Spohn Health System; Driscoll Children's Hospital,TX,Regional,Gulf Coast hub serving barrier islands and oil economy separate from both San Antonio and Valley
+TX-DFW-ARLINGTON,Mid-Cities,Arlington,Texas Health Resources,TX,Suburban,Between Dallas and Fort Worth creating distinct market with Rangers and Cowboys stadiums economy
+TX-DFW-DALLAS,Dallas Core,Dallas,UT Southwestern Medical Center; Baylor University Medical Center; Parkland Health,TX,Core Metro,Downtown and uptown academic medical center concentration with DART limited suburban reach
+TX-DFW-EAST,East Dallas Metro,Garland,Baylor Scott & White; Texas Health Resources,TX,Suburban,Mesquite and Garland serving eastern suburbs separate from downtown by I-635 and Trinity River friction
+TX-DFW-FORTWORTH,Fort Worth Core,Fort Worth,Texas Health Resources; JPS Health Network,TX,Core Metro,Separate from Dallas with 30+ miles distance and distinct healthcare culture despite TRE commuter rail
+TX-DFW-IRVING,DFW Airport Corridor,Irving,Baylor Scott & White,TX,Suburban,Airport and Las Colinas business district creating separate market from both Dallas and Fort Worth cores
+TX-DFW-NORTH,North Dallas Metro,Plano,Medical City Healthcare; Texas Health Presbyterian,TX,Suburban,Richardson Plano Frisco corridor 40+ miles from downtown serving Collin County sprawl
+TX-DFW-TARRANT,Tarrant County Suburbs,Grapevine,Texas Health Resources,TX,Suburban,Northern Tarrant suburbs including Southlake and Keller separate from Fort Worth core by I-820 friction
+TX-ELPASO,Far West Texas,El Paso,The Hospitals of Providence; Las Palmas Medical Center; Texas Tech UHSC El Paso,TX,Core Metro,Border city 550+ miles from other Texas metros closer to Phoenix and Albuquerque than Dallas
+TX-GALVESTON,Galveston Bay,Galveston,UTMB Health,TX,Regional,Island geography with causeway access creating separate market from Houston despite academic medical center integration
+TX-HOUSTON-CORE,Houston Core,Houston,Texas Medical Center; Memorial Hermann; Houston Methodist,TX,Core Metro,Inner I-610 loop with world's largest medical complex anchor but suburban sprawl requires splits
+TX-HOUSTON-EAST,East Houston Metro,Baytown,Houston Methodist Baytown; Christus Health,TX,Suburban,Petrochemical corridor with bayou barriers creating east-west friction separate from Medical Center
+TX-HOUSTON-NORTH,North Houston Metro,The Woodlands,Houston Methodist The Woodlands; Memorial Hermann,TX,Suburban,45+ miles from Medical Center with independent suburban anchor serving Montgomery County sprawl
+TX-HOUSTON-SOUTH,South Houston Metro,Pearland,Memorial Hermann Southeast; HCA Houston Healthcare,TX,Suburban,League City Clear Lake and Pearland serving southern sprawl beyond Beltway 8 separate from core
+TX-HOUSTON-SUGAR,Southwest Houston Metro,Sugar Land,Memorial Hermann Southwest; Houston Methodist Sugar Land,TX,Suburban,Fort Bend County serving southwest suburbs with independent hospital systems beyond Beltway 8
+TX-HOUSTON-WEST,West Houston Metro,Katy,Memorial Hermann Katy; Houston Methodist West,TX,Suburban,I-10 corridor sprawl extending 50+ miles from downtown with no-zoning creating maximum distance
+TX-KILLEEN,Central Texas,Killeen,Baylor Scott & White Health,TX,Regional,Fort Hood military market serving Bell County separate from both Austin and Temple despite I-35 corridor
+TX-LAREDO,Border Texas,Laredo,Laredo Medical Center; Doctors Hospital of Laredo,TX,Regional,Border city isolated from San Antonio by 150+ miles serving Webb County and cross-border economy
+TX-LONGVIEW,East Texas,Longview,Christus Good Shepherd Health System,TX,Regional,East Texas oil region hub serving I-20 corridor between DFW and Shreveport separate from both
+TX-LUBBOCK,South Plains,Lubbock,Covenant Health,TX,Regional,South Plains hub 300+ miles from DFW serving high plains agricultural and Texas Tech University market
+TX-MCALLEN,Rio Grande Valley,McAllen,DHR Health; Rio Grande Regional Hospital,TX,Regional,Valley hub serving Hidalgo County border market separate from Corpus Christi and Brownsville
+TX-MIDLAND,Permian Basin,Midland,Midland Memorial Hospital; Medical Center Health System Odessa,TX,Regional,Oil hub 300+ miles from all other metros serving Permian Basin boom-bust economy
+TX-SANANGELO,Concho Valley,San Angelo,Shannon Medical Center,TX,Regional,West-central hub separate from all major metros serving ranching and oil service economy
+TX-SANANTONIO,Greater San Antonio,San Antonio,University Health System; Methodist Healthcare; Baptist Health System,TX,Core Metro,I-35 corridor anchor 80 miles from Austin with military presence managing sprawl as single market
+TX-TEMPLE,Central Texas Corridor,Temple,Baylor Scott & White Health,TX,Regional,I-35 hub between DFW Austin and San Antonio with flagship Baylor hospital separate from all three metros
+TX-TEXARKANA,Ark-Tex Border,Texarkana,Christus St. Michael Health System,TX/AR,Regional,Straddles Texas Arkansas border creating unique integrated market serving I-30 corridor
+TX-TYLER,Northeast Texas,Tyler,UT Health Tyler; Christus Trinity Mother Frances,TX,Regional,East Texas hub serving rose capital and oil region separate from DFW despite I-20 corridor
+TX-VICTORIA,Coastal Plains,Victoria,DeTar Healthcare System,TX,Regional,Between Corpus Christi and Houston serving coastal plains and Gulf Coast access separate from both
+TX-WACO,Heart of Texas,Waco,Baylor Scott & White Hillcrest Medical Center,TX,Regional,I-35 corridor between DFW and Austin serving McLennan County separate from both despite highway proximity
+TX-WICHITAFALLS,North Central Texas,Wichita Falls,United Regional Health Care System,TX,Regional,Oklahoma border hub serving Red River valley separate from DFW despite I-44 corridor
