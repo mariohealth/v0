@@ -65,6 +65,41 @@ test('TEST 1: Home -> Autocomplete -> Specialty appears', async ({ page }) => {
     await expect(suggestion).toBeVisible({ timeout: 10000 });
 });
 
+test.skip('TEST 1B: Home -> Autocomplete -> Doctor suggestions render', async ({ page }) => {
+    // TODO(Enable Playwright): re-enable when auth routing is stable and
+    // Playwright smoke tests are re-enabled repo-wide.
+    await page.route('**/api/v1/doctors/search**', async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify([
+                {
+                    provider_id: '1234567890',
+                    first_name: 'Jane',
+                    last_name: 'Smith',
+                    credential: 'MD',
+                    specialty_name: 'Dermatology',
+                    org_name: 'Memorial Hospital',
+                    city: 'Austin',
+                    state: 'TX',
+                    zip_code: '78701'
+                }
+            ])
+        });
+    });
+
+    await page.goto('/home');
+    await page.waitForLoadState('domcontentloaded');
+
+    const searchInput = page.getByTestId('global-search-input');
+    await expect(searchInput).toBeVisible({ timeout: 15000 });
+    await searchInput.fill('jane smith');
+
+    await expect(page.getByText('Jane Smith, MD', { exact: false })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('Dermatology', { exact: false })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('Memorial Hospital • Austin, TX • 78701', { exact: false })).toBeVisible({ timeout: 10000 });
+});
+
 test('TEST 2: Home -> Autocomplete -> Procedure navigation', async ({ page }) => {
     await page.goto('/home');
     await page.waitForLoadState('domcontentloaded');

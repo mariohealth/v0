@@ -40,6 +40,7 @@ from app.models.billing_code import (
 # Provider models
 from app.models.provider import (
     Provider,
+    DoctorSearchResult,
     ProviderProcedurePricing,
     ProviderDetail,
     ProviderProcedureDetail,
@@ -94,6 +95,7 @@ __all__ = [
     "BillingCodeDetail",
     # Provider
     "Provider",
+    "DoctorSearchResult",
     "ProviderProcedurePricing",
     "ProviderDetail",
     "ProviderProcedureDetail",
