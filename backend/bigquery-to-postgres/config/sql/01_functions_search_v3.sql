@@ -84,15 +84,15 @@ BEGIN
             MIN(pp.price) as min_price,
             AVG(pp.price) as avg_price,
             MAX(pp.price) as max_price,
-            COUNT(DISTINCT pl.provider_name) as prov_count,
-            (ARRAY_AGG(pl.provider_name ORDER BY 
+            COUNT(DISTINCT btrim(pl.provider_name)) as prov_count,
+            (ARRAY_AGG(btrim(pl.provider_name) ORDER BY 
                 CASE WHEN search_location IS NOT NULL THEN ST_Distance(search_location, pl.location) ELSE 0 END ASC
             ))[1] as nearest_prov,
             (
                 (ARRAY_AGG(
                     CASE WHEN search_location IS NOT NULL
                         THEN (ST_Distance(search_location, pl.location) * 0.000621371)
-                        ELSE 0
+                        ELSE NULL
                     END
                     ORDER BY CASE WHEN search_location IS NOT NULL
                         THEN ST_Distance(search_location, pl.location)
@@ -106,7 +106,7 @@ BEGIN
         WHERE 
              (search_location IS NULL 
              OR ST_DWithin(search_location, pl.location, radius_meters))
-             AND trim(coalesce(pl.provider_name, '')) <> ''
+             AND btrim(coalesce(pl.provider_name, '')) <> ''
         GROUP BY pp.procedure_id
     )
     SELECT
@@ -139,3 +139,12 @@ CREATE INDEX IF NOT EXISTS idx_procedure_pricing_procedure_id ON procedure_prici
 -- 3) Verify return types (nearest_distance_miles, match_score)
 -- SELECT pg_typeof(nearest_distance_miles), pg_typeof(match_score)
 -- FROM search_procedures_v3('brain mri', NULL, 25) LIMIT 1;
+-- 4) Ensure no whitespace-only nearest_provider
+-- SELECT COUNT(*) FROM search_procedures_v3('brain mri', NULL, 25)
+-- WHERE btrim(coalesce(nearest_provider, '')) = '';
+-- 5) Verify nearest_distance_miles is NULL when no zip
+-- SELECT COUNT(*) FROM search_procedures_v3('brain mri', NULL, 25)
+-- WHERE nearest_distance_miles IS NOT NULL;
+-- 6) Verify nearest_distance_miles is numeric when zip provided
+-- SELECT pg_typeof(nearest_distance_miles)
+-- FROM search_procedures_v3('brain mri', '10001', 25) LIMIT 1;
