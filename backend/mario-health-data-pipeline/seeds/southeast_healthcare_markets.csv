@@ -1,0 +1,67 @@
+market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,notes
+AL-BIRMINGHAM,Greater Birmingham,Birmingham,UAB Health System; Brookwood Baptist Health,AL,Core Metro,State's dominant academic medical center with sprawling metro but manageable within 45-min rule
+AL-DOTHAN,Wiregrass Region,Dothan,Southeast Health,AL,Regional,Southeast Alabama hub serving tri-state Wiregrass area with Alabama/Georgia/Florida borders
+AL-HUNTSVILLE,North Alabama,Huntsville,Huntsville Hospital Health System,AL,Regional,North Alabama anchor with research/tech economy and Tennessee River valley catchment
+AL-MOBILE,Mobile Bay,Mobile,USA Health; Infirmary Health,AL,Regional,Gulf Coast anchor serving coastal Alabama and Mississippi border with port city economy
+AL-MONTGOMERY,Central Alabama,Montgomery,Baptist Health; Jackson Hospital,AL,Regional,State capital serving central Alabama corridor between Birmingham and Dothan
+AL-TUSCALOOSA,West Alabama,Tuscaloosa,DCH Health System,AL,Regional,Separate from Birmingham despite proximity due to 60+ min travel and University of Alabama presence
+FL-DAYTONA,Greater Daytona Beach,Daytona Beach,AdventHealth Daytona Beach,FL,Regional,I-95 corridor hub between Jacksonville and Orlando with distinct coastal market
+FL-FORTMYERS,Southwest Florida,Fort Myers,Lee Health,FL,Regional,Gulf Coast anchor serving Cape Coral and barrier islands separate from both Naples and Sarasota
+FL-FTLAUDERDALE,Broward County,Fort Lauderdale,Memorial Healthcare System; Broward Health,FL,Core Metro,I-95 corridor creates 60+ min from Miami with distinct county-level dominant systems
+FL-GAINESVILLE,North Central Florida,Gainesville,UF Health,FL,Regional,Academic medical center serving vast north-central catchment between Jacksonville and Ocala
+FL-JACKSONVILLE,Greater Jacksonville,Jacksonville,Baptist Health; UF Health Jacksonville; Mayo Clinic Florida,FL,Core Metro,Northeast Florida anchor with multiple competing systems and St. Johns River geography
+FL-KEYS,Florida Keys,Key West,Lower Keys Medical Center,FL,Regional,Overseas Highway isolation creates 3+ hour travel from Miami with single-road access vulnerability
+FL-LAKELAND,Polk County,Lakeland,Lakeland Regional Health; BayCare,FL,Regional,I-4 corridor hub between Tampa and Orlando serving central ridge communities
+FL-MELBOURNE,Space Coast,Melbourne,Health First,FL,Regional,Atlantic coast market south of Daytona serving Brevard County with Cape Canaveral economy
+FL-MIAMI,Miami-Dade,Miami,Jackson Health System; Baptist Health South Florida; University of Miami Health,FL,Core Metro,Dense urban core with safety net anchor and academic center separate from Broward by I-95 congestion
+FL-NAPLES,Collier County,Naples,NCH Healthcare System,FL,Regional,Wealthy Gulf Coast market separate from Fort Myers with distinct demographics and systems
+FL-OCALA,Marion County,Ocala,HCA Florida Ocala Hospital,FL,Regional,North-central hub between Gainesville and Orlando serving horse country and retiree communities
+FL-ORLANDO,Greater Orlando,Orlando,AdventHealth Orlando; Orlando Health,FL,Core Metro,Central Florida anchor with I-4 sprawl creating large but manageable single market despite congestion
+FL-PANAMA-CITY,Bay County,Panama City,HCA Florida Gulf Coast Hospital; Ascension Sacred Heart,FL,Regional,Panhandle central hub isolated from both Pensacola and Tallahassee by linear coastal distance
+FL-PENSACOLA,Northwest Florida,Pensacola,Baptist Health Care; Ascension Sacred Heart,FL,Regional,Western Panhandle anchor serving Alabama border region with Gulf Coast military presence
+FL-SARASOTA,Sarasota-Manatee,Sarasota,Sarasota Memorial Health Care System,FL,Regional,Gulf Coast market between Tampa and Fort Myers with wealthy demographics separate from both
+FL-STAUGUSTINE,St. Johns County,St. Augustine,Flagler Health+,FL,Regional,North of Daytona serving coastal communities between Jacksonville and Daytona with tourism economy
+FL-STPETE,Pinellas County,St. Petersburg,Bayfront Health St. Petersburg; BayCare,FL,Core Metro,Bay bridges create friction from Tampa despite proximity with distinct peninsula geography
+FL-TALLAHASSEE,Florida Capital,Tallahassee,Tallahassee Memorial HealthCare,FL,Regional,State capital separate from both Panhandle coast and Peninsula Florida by Big Bend isolation
+FL-TAMPA,Greater Tampa,Tampa,Tampa General Hospital; AdventHealth Tampa,FL,Core Metro,East Hillsborough anchor with I-275 corridor creating bay bridge friction to Pinellas County
+FL-VEROBEACH,Treasure Coast,Vero Beach,Cleveland Clinic Indian River Hospital,FL,Regional,Atlantic coast between Melbourne and West Palm Beach serving barrier islands and mainland
+FL-WESTPALM,Palm Beach County,West Palm Beach,Cleveland Clinic Florida; Jupiter Medical Center; Tenet Florida,FL,Core Metro,Tri-county area northern anchor 60+ min from Broward via I-95 with distinct wealthy demographics
+GA-ALBANY,Southwest Georgia,Albany,Phoebe Putney Health System,GA,Regional,Southwest hub serving vast rural agricultural region isolated from both Macon and Columbus
+GA-ATLANTA-CORE,Atlanta Core,Atlanta,Emory Healthcare; Grady Health System; Piedmont Healthcare,GA,Core Metro,Downtown and midtown concentration with MARTA limited access not extending to suburban hospital clusters
+GA-ATLANTA-EAST,East Atlanta,Lawrenceville,Gwinnett Medical Center; Emory Healthcare,GA,Suburban,I-285 perimeter creates 60-90+ min friction from opposite metro sides serving Gwinnett County sprawl
+GA-ATLANTA-NORTH,North Atlanta,Alpharetta,Northside Hospital; Wellstar Health System,GA,Suburban,I-285 beltway bottleneck isolates north suburbs including Roswell and Sandy Springs from core
+GA-ATLANTA-SOUTH,South Atlanta,Jonesboro,Piedmont Healthcare; Wellstar Health System,GA,Suburban,Clayton and Henry counties south of I-285 with separate routine care from downtown despite system overlap
+GA-ATLANTA-WEST,West Atlanta,Marietta,Wellstar Health System,GA,Suburban,Cobb and Douglas counties west of I-285 with independent suburban anchors from downtown
+GA-AUGUSTA,CSRA,Augusta,Augusta University Health; AU Health System,GA,Regional,Georgia/South Carolina border hub serving Central Savannah River Area with academic medical center
+GA-COLUMBUS,Chattahoochee Valley,Columbus,Piedmont Columbus Regional; St. Francis Hospital,GA,Regional,Western border with Alabama serving Fort Benning military catchment and Phenix City AL integration
+GA-GAINESVILLE,Hall County,Gainesville,Northeast Georgia Health System,GA,Regional,North Georgia mountains hub separate from Atlanta by 60+ min despite I-985 corridor
+GA-MACON,Central Georgia,Macon,Atrium Health Navicent,GA,Regional,I-75 corridor hub serving central Georgia between Atlanta and South Georgia isolated from both
+GA-SAVANNAH,Coastal Georgia,Savannah,St. Joseph's/Candler; Memorial Health,GA,Regional,Atlantic coast anchor serving Lowcountry region with port city economy and barrier islands
+MS-GULFPORT,Mississippi Gulf Coast,Gulfport,Memorial Hospital at Gulfport; Singing River Health System,MS,Regional,Gulf Coast hub serving Biloxi and coastal casinos separate from Jackson and Mobile
+MS-HATTIESBURG,South Mississippi,Hattiesburg,Forrest General Hospital,MS,Regional,South-central hub serving I-59 corridor between Jackson and Gulf Coast with university presence
+MS-JACKSON,Greater Jackson,Jackson,University of Mississippi Medical Center,MS,Regional,State capital and largest city with academic medical center serving central Mississippi
+MS-MERIDIAN,East Mississippi,Meridian,Rush Health Systems,MS,Regional,I-20/I-59 crossroads hub serving east-central Mississippi between Jackson and Alabama border
+MS-TUPELO,Northeast Mississippi,Tupelo,North Mississippi Medical Center,MS,Regional,Northeast hub serving Appalachian foothills region with dominant regional system
+NC-ASHEVILLE,Western North Carolina,Asheville,Mission Health; AdventHealth Hendersonville,NC,Regional,Mountain hub serving Blue Ridge region isolated from Tennessee by Smoky Mountains terrain
+NC-BOONE,High Country,Boone,Appalachian Regional Healthcare,NC,Regional,Mountain communities hub serving northwestern NC with ski resort economy and Appalachian isolation
+NC-CHAPEL-HILL,Chapel Hill-Carrboro,Chapel Hill,UNC Health,NC,Regional,Academic medical center serving Orange County distinct from both Durham and Raleigh despite Triangle branding
+NC-CHARLOTTE,Greater Charlotte,Charlotte,Atrium Health; Novant Health,NC,Core Metro,Sprawling metro with Atrium dominance but manageable as single market given system integration
+NC-DURHAM,Greater Durham,Durham,Duke University Health System,NC,Core Metro,Academic medical center anchor with Research Triangle identity separate from Raleigh by distance
+NC-FAYETTEVILLE,Cumberland County,Fayetteville,Cape Fear Valley Health,NC,Regional,Fort Bragg military market serving I-95 corridor between Raleigh and South Carolina border
+NC-GREENSBORO,Triad Central,Greensboro,Cone Health,NC,Regional,Piedmont Triad anchor competing with Winston-Salem despite proximity creating dual-anchor market
+NC-GREENVILLE,Eastern North Carolina,Greenville,Vidant Health,NC,Regional,Pitt County hub serving eastern agricultural region with academic medical center and vast rural catchment
+NC-RALEIGH,Greater Raleigh,Raleigh,WakeMed Health & Hospitals; UNC Rex Healthcare,NC,Core Metro,Wake County anchor separate from Durham and Chapel Hill despite Triangle economic integration
+NC-WILMINGTON,Coastal North Carolina,Wilmington,Novant Health New Hanover Regional Medical Center,NC,Regional,Atlantic coast anchor serving Cape Fear region and beach communities isolated from Raleigh
+NC-WINSTON-SALEM,Triad West,Winston-Salem,Atrium Health Wake Forest Baptist,NC,Regional,Academic medical center competing with Greensboro in Piedmont Triad despite 30-min proximity
+SC-CHARLESTON,Lowcountry,Charleston,Medical University of South Carolina,SC,Regional,Peninsula geography and harbor create friction with state's only Level 1 trauma center anchor
+SC-COLUMBIA,Midlands,Columbia,Prisma Health,SC,Regional,State capital serving central I-26/I-77 corridor between Charleston and Charlotte with academic presence
+SC-FLORENCE,Pee Dee,Florence,McLeod Health,SC,Regional,I-95 corridor hub serving northeastern SC agricultural region between Columbia and North Carolina border
+SC-GREENVILLE,Upstate,Greenville,Prisma Health,SC,Regional,I-85 corridor anchor serving northwestern SC between Charlotte and Atlanta with BMW manufacturing economy
+SC-HILTON-HEAD,Southern Lowcountry,Hilton Head Island,Hilton Head Regional Healthcare,SC,Regional,Barrier island resort market serving Beaufort County separate from Charleston and Savannah
+SC-MYRTLE-BEACH,Grand Strand,Myrtle Beach,Tidelands Health; Grand Strand Medical Center,SC,Regional,Atlantic coast tourism hub serving northern coastal region separate from Charleston and Florence
+TN-CHATTANOOGA,Greater Chattanooga,Chattanooga,Erlanger Health System,TN,Regional,Tennessee River valley hub serving tri-state corner with Georgia and Alabama mountain borders
+TN-CLARKSVILLE,Montgomery County,Clarksville,Tennova Healthcare,TN,Regional,Northwest Tennessee hub serving Fort Campbell military market 45+ min from Nashville
+TN-JOHNSON-CITY,Tri-Cities,Johnson City,Ballad Health,TN,Regional,Northeast corner serving Kingsport and Bristol with Appalachian isolation from Knoxville and Virginia border
+TN-KNOXVILLE,East Tennessee,Knoxville,University of Tennessee Medical Center; Covenant Health,TN,Regional,Tennessee River valley anchor serving Smoky Mountains gateway with academic center
+TN-MEMPHIS,Greater Memphis,Memphis,Regional One Health; Methodist Le Bonheur Healthcare,TN,Core Metro,Mississippi River creates split from Arkansas with safety net anchor and FedEx hub economy
+TN-NASHVILLE,Middle Tennessee,Nashville,Vanderbilt University Medical Center; HCA Healthcare,TN,Core Metro,State capital and HCA headquarters with academic anchor managing sprawl as single market
