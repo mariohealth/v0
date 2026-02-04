@@ -30,6 +30,21 @@ Healthcare price transparency platform.
 - `/shared` - Shared types & contracts
 - `/.github/workflows` - CI/CD & coordination agent
 
+## 🌿 Branch Hygiene
+- Never open PRs from long-lived scratch branches.
+- Always branch from `main` per feature: `feat/*`, `fix/*`.
+- If you cherry-pick into another PR, delete or reset the original scratch branch.
+
+### Branch freshness helper
+Run the helper to see how far your branch diverged from `main` and whether it includes cherry-picked patches:
+```bash
+bash scripts/git/branch_health.sh
+```
+Optional base ref:
+```bash
+bash scripts/git/branch_health.sh origin/main
+```
+
 ## 🚀 Quick Start
 
 ### Frontend Setup
