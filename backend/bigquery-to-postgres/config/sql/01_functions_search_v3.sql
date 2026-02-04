@@ -92,7 +92,7 @@ BEGIN
                 (ARRAY_AGG(
                     CASE WHEN search_location IS NOT NULL
                         THEN (ST_Distance(search_location, pl.location) * 0.000621371)
-                        ELSE 0
+                        ELSE NULL
                     END
                     ORDER BY CASE WHEN search_location IS NOT NULL
                         THEN ST_Distance(search_location, pl.location)
