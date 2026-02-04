@@ -11,6 +11,7 @@ on:
 jobs:
   test:
     name: Run Playwright Tests
+    if: ${{ env.RUN_PLAYWRIGHT == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
