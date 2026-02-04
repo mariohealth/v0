@@ -19,6 +19,21 @@ class Provider(BaseModel):
     specialty_name: str
 
 
+class DoctorSearchResult(BaseModel):
+    """Doctor search result with organization/location disambiguation."""
+    provider_id: str
+    first_name: str | None = None
+    last_name: str | None = None
+    credential: str | None = None
+    specialty_name: str | None = None
+    provider_location_id: str | None = None
+    org_id: str | None = None
+    org_name: str | None = None
+    city: str | None = None
+    state: str | None = None
+    zip_code: str | None = None
+
+
 class ProviderProcedurePricing(BaseModel):
     """Procedure pricing offered by a provider."""
 

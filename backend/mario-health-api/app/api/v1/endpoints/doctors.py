@@ -13,7 +13,7 @@ router = APIRouter(prefix="/doctors", tags=["doctors"])
 async def search_doctors(
     request: Request,
     q: str = Query(..., description="Provider name query (first + last)"),
-    limit: int = Query(8, ge=1, le=50, description="Maximum number of results"),
+    limit: int = Query(8, ge=1, le=10, description="Maximum number of results"),
     supabase: Client = Depends(get_supabase),
 ):
     """Search providers by name and return location-disambiguated results."""

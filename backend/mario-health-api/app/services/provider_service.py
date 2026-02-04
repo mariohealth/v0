@@ -5,8 +5,10 @@ from app.models import (
     ProviderDetail,
     ProviderProcedurePricing,
     ProviderProcedureDetail,
+    DoctorSearchResult,
 )
 from decimal import Decimal
+from typing import List
 
 
 class ProviderService:
@@ -306,3 +308,82 @@ class ProviderService:
                 status_code=500,
                 detail=f"Failed to fetch provider-procedure detail: {str(e)}",
             )
+
+    async def search_doctors(self, query: str, limit: int = 8) -> List[DoctorSearchResult]:
+        """Search providers by first + last name (or last + first) with location disambiguation."""
+        tokens = [token for token in query.replace(",", " ").split() if token]
+        if len(tokens) < 2:
+            return []
+
+        first_token = tokens[0]
+        last_token = tokens[1]
+
+        provider_result = (
+            self.supabase.table("provider")
+            .select("provider_id, first_name, last_name, credential, specialty_name")
+            .or_(
+                f"and(first_name.ilike.{first_token}%,last_name.ilike.{last_token}%),"
+                f"and(first_name.ilike.{last_token}%,last_name.ilike.{first_token}%)"
+            )
+            .order("last_name")
+            .order("first_name")
+            .limit(limit)
+            .execute()
+        )
+
+        provider_rows = provider_result.data or []
+        if not provider_rows:
+            return []
+
+        provider_ids = [p.get("provider_id") for p in provider_rows if p.get("provider_id")]
+        if not provider_ids:
+            return []
+
+        provider_map = {
+            p["provider_id"]: p
+            for p in provider_rows
+            if p.get("provider_id")
+        }
+
+        location_result = (
+            self.supabase.table("provider_location")
+            .select("id, provider_id, org_id, org_name, city, state, zip_code")
+            .in_("provider_id", provider_ids)
+            .execute()
+        )
+
+        locations = location_result.data or []
+        results: List[DoctorSearchResult] = []
+
+        for loc in locations:
+            provider_id = loc.get("provider_id")
+            if not provider_id or provider_id not in provider_map:
+                continue
+
+            provider = provider_map[provider_id]
+            results.append(
+                DoctorSearchResult(
+                    provider_id=provider_id,
+                    first_name=provider.get("first_name"),
+                    last_name=provider.get("last_name"),
+                    credential=provider.get("credential"),
+                    specialty_name=provider.get("specialty_name"),
+                    provider_location_id=loc.get("id"),
+                    org_id=loc.get("org_id"),
+                    org_name=loc.get("org_name"),
+                    city=loc.get("city"),
+                    state=loc.get("state"),
+                    zip_code=loc.get("zip_code"),
+                )
+            )
+
+        results.sort(
+            key=lambda item: (
+                (item.last_name or "").lower(),
+                (item.first_name or "").lower(),
+                (item.org_name or "").lower(),
+                (item.city or "").lower(),
+            )
+        )
+
+        return results[:limit]
