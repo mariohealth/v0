@@ -45,18 +45,18 @@ BEGIN
     RETURN QUERY
     WITH candidates_union AS (
         -- 1. Exact Name Match
-        SELECT id, 1.0 as score_base FROM procedure WHERE LOWER(name) = LOWER(search_query)
+        SELECT id, CAST(1.0 AS NUMERIC) as score_base FROM procedure WHERE LOWER(name) = LOWER(search_query)
         UNION ALL
         -- 2. Full Text Search
-        SELECT id, 0.5 + (ts_rank(search_vector, search_tsquery) * 0.4) as score_base 
+        SELECT id, CAST(0.5 + (ts_rank(search_vector, search_tsquery) * 0.4) AS NUMERIC) as score_base 
         FROM procedure WHERE search_vector @@ search_tsquery
         UNION ALL
         -- 3. Fuzzy Name Match
-        SELECT id, similarity(name, search_query) * 0.4 as score_base 
+        SELECT id, CAST(similarity(name, search_query) * 0.4 AS NUMERIC) as score_base 
         FROM procedure WHERE similarity(name, search_query) > 0.3
         UNION ALL
         -- 4. Fuzzy Common Name Match
-        SELECT id, similarity(COALESCE(common_name, ''), search_query) * 0.4 as score_base 
+        SELECT id, CAST(similarity(COALESCE(common_name, ''), search_query) * 0.4 AS NUMERIC) as score_base 
         FROM procedure WHERE similarity(COALESCE(common_name, ''), search_query) > 0.3
     ),
     candidates_dedup AS (
@@ -104,7 +104,7 @@ BEGIN
     SELECT
         fc.id, fc.name, fc.slug, pf.name, pf.slug, pc.name, pc.slug,
         ppa.min_price, ppa.avg_price, ppa.max_price, ppa.prov_count,
-        ppa.nearest_prov, ppa.nearest_dist,
+        ppa.nearest_prov, CAST(ppa.nearest_dist AS NUMERIC),
         CAST(fc.match_score AS NUMERIC)
     FROM final_candidates fc
     JOIN procedure_pricing_agg ppa ON fc.id = ppa.procedure_id
