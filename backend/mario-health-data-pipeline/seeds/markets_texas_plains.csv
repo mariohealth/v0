@@ -4,6 +4,13 @@ AR-FORTSMITH,Western Arkansas,Fort Smith,Mercy Health Fort Smith,AR,Regional,Okl
 AR-JONESBORO,Northeast Arkansas,Jonesboro,St. Bernards Healthcare,AR,Regional,Delta region hub serving northeastern agricultural counties separate from Little Rock and Memphis
 AR-LITTLEROCK,Greater Little Rock,Little Rock,UAMS Medical Center; Baptist Health,AR,Core Metro,State capital with academic medical center anchor serving central Arkansas corridor
 AR-PINEBLUFF,Southeast Arkansas,Pine Bluff,Jefferson Regional Medical Center,AR,Regional,Arkansas River valley hub south of Little Rock serving delta agricultural region
+IA-CEDARRAPIDS,Eastern Iowa,Cedar Rapids,UnityPoint Health; Mercy Medical Center,IA,Regional,Eastern corridor hub serving Linn County separate from both Des Moines and Iowa City
+IA-DAVENPORT,Quad Cities,Davenport,Genesis Health System; UnityPoint Health,IA/IL,Regional,Mississippi River straddle with Illinois creating integrated cross-border market Iowa side
+IA-DESMOINES,Greater Des Moines,Des Moines,MercyOne; UnityPoint Health,IA,Core Metro,State capital with dual anchor system managing metro sprawl as single market
+IA-DUBUQUE,Northeast Iowa,Dubuque,UnityPoint Health Finley Hospital; Mercy Medical Center,IA,Regional,Mississippi River hub serving tri-state corner with Wisconsin and Illinois
+IA-IOWACITY,Iowa City,Iowa City,University of Iowa Hospitals & Clinics,IA,Regional,Academic medical center serving eastern Iowa with university presence separate from Cedar Rapids
+IA-SIOUXCITY,Northwest Iowa,Sioux City,UnityPoint Health St. Luke's; MercyOne Siouxland Medical Center,IA,Regional,Missouri River hub serving tri-state corner potentially integrating with southeast South Dakota
+IA-WATERLOO,Northeast Corridor,Waterloo,UnityPoint Health Allen Hospital; MercyOne Waterloo Medical Center,IA,Regional,Cedar Falls twin city market serving northeast agricultural region separate from Cedar Rapids
 KS-DODGECITY,Southwest Kansas,Dodge City,Western Plains Medical Complex,KS,Regional,Western hub 200+ miles from Wichita serving vast high plains agricultural region
 KS-GARDENCITY,Far Southwest Kansas,Garden City,St. Catherine Hospital,KS,Rural Hub,Western Kansas isolated 280+ miles from Wichita serving meatpacking and agricultural economy
 KS-HAYS,North Central Kansas,Hays,HaysMed,KS,Regional,Central plains hub 270+ miles from Wichita serving I-70 corridor and western counties
@@ -19,10 +26,23 @@ LA-LAKECHARLES,Southwest Louisiana,Lake Charles,Lake Charles Memorial Health Sys
 LA-MONROE,Northeast Louisiana,Monroe,St. Francis Medical Center,LA,Regional,Northeast hub serving I-20 corridor and Mississippi River valley isolated from Shreveport
 LA-NEWORLEANS,Greater New Orleans,New Orleans,Ochsner Health System; LCMC Health,LA,Core Metro,Unique market with Ochsner dominance serving metro and Gulf Coast tourism economy
 LA-SHREVEPORT,Northwest Louisiana,Shreveport,LSU Health Shreveport; Willis-Knighton Health System,LA,Regional,Texas and Arkansas border hub serving I-20 corridor with oil economy and academic center
+MO-CAPEGIRARDEAU,Southeast Missouri,Cape Girardeau,Saint Francis Healthcare System; SoutheastHEALTH,MO,Regional,Mississippi River hub serving southeast Missouri separate from St. Louis by 120+ miles
+MO-COLUMBIA,Central Missouri,Columbia,University of Missouri Health; Boone Hospital Center,MO,Regional,State university town with academic medical center serving I-70 corridor between KC and St. Louis
+MO-JEFFERSONCITY,Missouri Capital,Jefferson City,Capital Region Medical Center,MO,Regional,State capital on Missouri River separate from both Columbia and Kansas City by distance
+MO-JOPLIN,Southwest Missouri,Joplin,Freeman Health System; Mercy Hospital Joplin,MO,Regional,Southwest corner near Oklahoma and Kansas serving Ozarks separate from Springfield despite proximity
+MO-KANSASCITY,Kansas City Metro,Kansas City,Saint Luke's Health System; University of Kansas Health System; Truman Medical Centers,KS/MO,Core Metro,Integrated cross-border market straddling state line with I-435 ring road managing sprawl as single market
+MO-SPRINGFIELD,Southwest Missouri,Springfield,CoxHealth; Mercy Hospital Springfield,MO,Regional,Ozarks hub serving southwest corridor with dual anchor system separate from both Joplin and Columbia
+MO-STJOSEPH,Northwest Missouri,St. Joseph,Mosaic Life Care,MO,Regional,Missouri River hub north of Kansas City serving northwest counties separate from KC metro
+MO-STLOUIS,Greater St. Louis,St. Louis,BJC HealthCare; Mercy; SSM Health,MO,Core Metro,Missouri side of Mississippi River metro with Barnes-Jewish academic anchor and I-270 ring road sprawl
+ND-BISMARCK,North Dakota Capital,Bismarck,CHI St. Alexius Health; Sanford Health,ND,Regional,State capital serving central plains corridor isolated from Fargo by 200+ miles
+ND-FARGO,Fargo-Moorhead,Fargo,Sanford Health; Essentia Health,ND/MN,Regional,Red River straddle creating integrated cross-border market with Minnesota serving eastern North Dakota
+ND-GRANDFORKS,Northeast North Dakota,Grand Forks,Altru Health System,ND,Regional,Red River valley hub north of Fargo serving northeast region with University of North Dakota presence
+ND-MINOT,North Central North Dakota,Minot,Trinity Health,ND,Regional,North-central hub serving plains region with Air Force base economy isolated from both Bismarck and Fargo
+ND-WILLISTON,Northwest North Dakota,Williston,CHI St. Alexius Health,ND,Rural Hub,Bakken oil region hub serving northwest frontier with boom-bust economy 120+ miles from Minot
 NE-GRANDISLAND,Central Nebraska,Grand Island,CHI Health St. Francis,NE,Regional,Central plains hub serving I-80 corridor between Omaha and western counties
 NE-LINCOLN,Nebraska Capital,Lincoln,Bryan Health,NE,Regional,State capital and university city 60 miles from Omaha managing as separate market despite proximity
 NE-NORTHPLATTE,West Central Nebraska,North Platte,Great Plains Health,NE,Regional,I-80 corridor hub 200+ miles from Lincoln serving western agricultural and ranching region
-NE-OMAHA,Greater Omaha,Omaha,Nebraska Medicine; CHI Health,NE,Core Metro,Academic medical center anchor with cross-border integration to Council Bluffs IA via Missouri River bridges
+NE-OMAHA,Greater Omaha,Omaha,Nebraska Medicine; CHI Health,NE/IA,Core Metro,Academic medical center anchor with cross-border integration to Council Bluffs IA via Missouri River bridges
 NE-SCOTTSBLUFF,Western Panhandle,Scottsbluff,Regional West Medical Center,NE,Rural Hub,Western Nebraska isolated 400+ miles from Omaha serving Wyoming and Colorado border ranching region
 OK-ARDMORE,South Central Oklahoma,Ardmore,Mercy Hospital Ardmore,OK,Regional,Texas border hub serving I-35 corridor between Oklahoma City and Dallas metro separate from both
 OK-ENID,Northwest Oklahoma,Enid,Integra Health,OK,Regional,North-central plains hub serving Cherokee Outlet agricultural region separate from Oklahoma City
@@ -30,6 +50,11 @@ OK-LAWTON,Southwest Oklahoma,Lawton,Comanche County Memorial Hospital,OK,Regiona
 OK-OKC,Oklahoma City Core,Oklahoma City,OU Health; Integra Health,OK,Core Metro,State capital with academic medical center and massive land area creating potential for suburban split
 OK-STILLWATER,North Central Oklahoma,Stillwater,Stillwater Medical Center,OK,Regional,Oklahoma State University market serving north-central counties separate from both OKC and Tulsa
 OK-TULSA,Greater Tulsa,Tulsa,Saint Francis Health System; Hillcrest HealthCare System,OK,Core Metro,Northeastern anchor with Arkansas River valley and oil economy managing sprawl as single market
+SD-ABERDEEN,Northeast South Dakota,Aberdeen,Avera St. Luke's Hospital; Sanford Aberdeen Medical Center,SD,Regional,Northeast hub serving plains region between Sioux Falls and North Dakota border
+SD-BROOKINGS,East Central South Dakota,Brookings,Brookings Health System,SD,Regional,I-29 corridor university town between Sioux Falls and Watertown with South Dakota State presence
+SD-PIERRE,Central South Dakota,Pierre,Avera St. Mary's Hospital,SD,Rural Hub,State capital on Missouri River serving central frontier region isolated from both Sioux Falls and Rapid City
+SD-RAPIDCITY,Western South Dakota,Rapid City,Monument Health,SD,Regional,Black Hills hub serving western region 350+ miles from Sioux Falls with tourism and ranching economy
+SD-SIOUXFALLS,Greater Sioux Falls,Sioux Falls,Sanford Health; Avera Health,SD,Core Metro,State's largest city with dual anchor system serving eastern South Dakota and vast rural catchment
 TX-ABILENE,West Central Texas,Abilene,Hendrick Health System,TX,Regional,West-central hub between DFW and West Texas serving I-20 corridor separate from both
 TX-AMARILLO,Texas Panhandle,Amarillo,BSA Health System; Northwest Texas Healthcare System,TX,Regional,Panhandle isolated 350+ miles from DFW and closer to Denver than Dallas serving high plains
 TX-AUSTIN,Greater Austin,Austin,Ascension Seton; St. David's HealthCare; Dell Medical School,TX,Core Metro,State capital with university academic center 80 miles from San Antonio managing I-35 growth as single market
