@@ -55,11 +55,25 @@ function mapSearchResult(raw: any): SearchResult {
  * Mapper function to normalize backend doctor results.
  */
 function mapDoctorResult(raw: any): DoctorResult {
+    // Build full name from first/last name
+    const nameParts = [raw.first_name, raw.last_name].filter(Boolean);
+    if (raw.credential) {
+        nameParts.push(raw.credential);
+    }
+    const fullName = nameParts.join(' ') || 'Provider';
+
+    // Build location string for disambiguation
+    const locationParts = [];
+    if (raw.org_name) locationParts.push(raw.org_name);
+    if (raw.city && raw.state) locationParts.push(`${raw.city}, ${raw.state}`);
+    if (raw.zip_code) locationParts.push(raw.zip_code);
+    const locationString = locationParts.join(' • ');
+
     return {
         provider_id: raw.provider_id || raw.id,
-        provider_name: raw.provider_name || raw.name || 'Provider',
-        specialty: raw.specialty || 'Medical Professional',
-        hospital_name: raw.hospital_name || raw.facility,
+        provider_name: fullName,
+        specialty: raw.specialty_name || 'Medical Professional',
+        hospital_name: locationString || raw.org_name || 'Unknown Location',
         price: String(raw.price ?? raw.best_price ?? '0'),
         rating: raw.rating ?? 'N/A',
         distance_miles: raw.distance_miles ?? raw.distance,
@@ -442,13 +456,52 @@ export async function getSpecialties(): Promise<{ specialties: Specialty[] }> {
 
 
 /**
- * Placeholder for doctor search API
- * Currently returns empty results until backend is ready
+ * Search for doctors by name
  */
-export async function searchDoctors(query: string): Promise<DoctorResult[]> {
-    console.log('[API] Placeholder: Searching doctors for:', query);
-    // Real implementation will fetch from /api/v1/doctors?query=...
-    return [];
+export async function searchDoctors(query: string, limit: number = 8): Promise<DoctorResult[]> {
+    const params = new URLSearchParams({
+        q: query,
+        limit: limit.toString(),
+    });
+
+    const url = `${getApiBaseUrl()}/doctors/search?${params.toString()}`;
+
+    console.log('[API] Searching doctors:', { query, limit, url });
+
+    try {
+        const response = await fetchSmartAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
+            try {
+                const errorData = JSON.parse(errorText);
+                errorMessage = errorData.message || errorData.detail || errorMessage;
+            } catch {
+                errorMessage = errorText || errorMessage;
+            }
+            console.error('[API] Doctor search error:', {
+                status: response.status,
+                statusText: response.statusText,
+                error: errorMessage,
+            });
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+        console.log('[API] Doctor search success:', { query, resultsCount: data.length });
+
+        // Map API response to DoctorResult format
+        return data.map((item: any) => mapDoctorResult(item));
+    } catch (error) {
+        console.error('[API] Error searching doctors:', error);
+        if (error instanceof Error) {
+            throw error;
+        }
+        throw new Error('Failed to search doctors');
+    }
 }
 
 

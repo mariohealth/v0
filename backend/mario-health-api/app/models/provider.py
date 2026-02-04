@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 from typing import List
 from decimal import Decimal
 
+
 class Provider(BaseModel):
     provider_id: str
     name_prefix: str
@@ -16,6 +17,7 @@ class Provider(BaseModel):
     license_number: str | None = None
     license_state_code: str | None = None
     specialty_name: str
+
 
 class ProviderProcedurePricing(BaseModel):
     """Procedure pricing offered by a provider."""
@@ -61,7 +63,7 @@ class ProviderDetail(BaseModel):
 
     # All procedures offered by this provider
     procedures: List[ProviderProcedurePricing] = []
-    
+
     # Data Quality Flag
     data_completeness: str = "full"  # "full" (RPC) or "basic" (fallback)
 

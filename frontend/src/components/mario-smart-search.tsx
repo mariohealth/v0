@@ -195,30 +195,37 @@ function MarioSmartSearchInner({
           return;
         }
 
-        // 2. Fetch doctors from API (Placeholder)
-        try {
-          const doctorResults = await searchDoctors(query);
+        // 2. Fetch doctors from API - only for name-like queries
+        const isNameQuery = /^[a-zA-Z]+\s+[a-zA-Z]+/.test(query.trim());
+        if (isNameQuery) {
+          try {
+            const doctorResults = await searchDoctors(query, 6);
 
-          // Check if this request is still the latest one
-          if (requestIdRef.current !== currentRequestId) {
-            console.log(`[SmartSearch] Stale request ${currentRequestId} discarded after doctors`);
-            return;
-          }
+            // Check if this request is still the latest one
+            if (requestIdRef.current !== currentRequestId) {
+              console.log(`[SmartSearch] Stale request ${currentRequestId} discarded after doctors`);
+              return;
+            }
 
-          if (Array.isArray(doctorResults) && doctorResults.length > 0) {
-            console.log(`[SmartSearch] Doctor results:`, doctorResults.length);
-            doctorResults.forEach((doc) => {
-              suggestions.push({
-                id: doc.provider_id,
-                type: 'doctor',
-                primaryText: doc.provider_name,
-                secondaryText: doc.specialty,
-                doctor: { id: doc.provider_id, name: doc.provider_name, specialty: doc.specialty } as any
+            if (Array.isArray(doctorResults) && doctorResults.length > 0) {
+              console.log(`[SmartSearch] Doctor results:`, doctorResults.length);
+              doctorResults.forEach((doc) => {
+                suggestions.push({
+                  id: doc.provider_id,
+                  type: 'doctor',
+                  primaryText: doc.provider_name,
+                  secondaryText: doc.specialty,
+                  metadata: { 
+                    disambiguation: doc.hospital_name,
+                    provider_id: doc.provider_id
+                  },
+                  doctor: { id: doc.provider_id, name: doc.provider_name, specialty: doc.specialty } as any
+                });
               });
-            });
+            }
+          } catch (err) {
+            console.error('[SmartSearch] Doctor fetch failed:', err);
           }
-        } catch (err) {
-          console.error('[SmartSearch] Doctor fetch failed:', err);
         }
 
         // 3. Specialty suggestions (API-backed, cached)
@@ -533,82 +540,93 @@ function MarioSmartSearchInner({
             overflowY: 'auto'
           }}
         >
-          {/* Doctors Section */}
-          {autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 && (
-            <div className="p-3">
-              <div
-                className="px-2 py-1.5 mb-1"
-                style={{
-                  fontSize: '11px',
-                  fontWeight: '600',
-                  color: '#666666',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}
-              >
-                Doctors
-              </div>
-              <div className="space-y-0.5">
-                {autocompleteSuggestions.filter(s => s.type === 'doctor').map((result, index) => {
-                  const globalIndex = index;
-                  const isSelected = selectedIndex === globalIndex;
+            {/* Doctors Section */}
+            {autocompleteSuggestions.filter(s => s.type === 'doctor').length > 0 && (
+              <div className="p-3">
+                <div
+                  className="px-2 py-1.5 mb-1"
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    color: '#666666',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}
+                >
+                  Doctors
+                </div>
+                <div className="space-y-0.5">
+                  {autocompleteSuggestions.filter(s => s.type === 'doctor').map((result, index) => {
+                    const globalIndex = index;
+                    const isSelected = selectedIndex === globalIndex;
 
-                  return (
-                    <button
-                      key={result.id}
-                      onClick={() => handleAutocompleteSelect(result)}
-                      className={cn(
-                        "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg",
-                        "text-left transition-colors mario-transition",
-                        isSelected && "bg-[#2E5077] text-white",
-                        !isSelected && "hover:bg-gray-50"
-                      )}
-                    >
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-                        style={{
-                          backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.2)' : 'rgba(46, 80, 119, 0.1)'
-                        }}
+                    return (
+                      <button
+                        key={result.id}
+                        onClick={() => handleAutocompleteSelect(result)}
+                        className={cn(
+                          "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg",
+                          "text-left transition-colors mario-transition",
+                          isSelected && "bg-[#2E5077] text-white",
+                          !isSelected && "hover:bg-gray-50"
+                        )}
                       >
-                        <span className="text-base">👨‍⚕️</span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div
-                          className="font-medium truncate"
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
                           style={{
-                            fontSize: '14px',
-                            color: isSelected ? '#FFFFFF' : '#2E5077'
+                            backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.2)' : 'rgba(46, 80, 119, 0.1)'
                           }}
                         >
-                          {result.primaryText}
+                          <span className="text-base">👨‍⚕️</span>
                         </div>
-                        <div
-                          className="text-xs truncate"
-                          style={{
-                            color: isSelected ? 'rgba(255, 255, 255, 0.8)' : '#666666'
-                          }}
-                        >
-                          {result.secondaryText}
+                        <div className="flex-1 min-w-0">
+                          <div
+                            className="font-medium truncate"
+                            style={{
+                              fontSize: '14px',
+                              color: isSelected ? '#FFFFFF' : '#2E5077'
+                            }}
+                          >
+                            {result.primaryText}
+                          </div>
+                          <div
+                            className="text-xs truncate"
+                            style={{
+                              color: isSelected ? 'rgba(255, 255, 255, 0.8)' : '#666666'
+                            }}
+                          >
+                            {result.secondaryText}
+                          </div>
+                          {result.metadata?.disambiguation && (
+                            <div
+                              className="text-xs truncate"
+                              style={{
+                                color: isSelected ? 'rgba(255, 255, 255, 0.7)' : '#888888',
+                                fontStyle: 'italic'
+                              }}
+                            >
+                              {result.metadata.disambiguation}
+                            </div>
+                          )}
                         </div>
-                      </div>
-                      {result.metadata?.marioPick && (
-                        <div
-                          className="px-2 py-0.5 rounded-full flex-shrink-0"
-                          style={{
-                            backgroundColor: isSelected ? 'rgba(121, 215, 190, 0.3)' : 'rgba(121, 215, 190, 0.15)',
-                            fontSize: '10px',
-                            fontWeight: '600',
-                            color: isSelected ? '#FFFFFF' : '#2E5077'
-                          }}
-                        >
-                          Mario's Pick
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
+                        {result.metadata?.marioPick && (
+                          <div
+                            className="px-2 py-0.5 rounded-full flex-shrink-0"
+                            style={{
+                              backgroundColor: isSelected ? 'rgba(121, 215, 190, 0.3)' : 'rgba(121, 215, 190, 0.15)',
+                              fontSize: '10px',
+                              fontWeight: '600',
+                              color: isSelected ? '#FFFFFF' : '#2E5077'
+                            }}
+                          >
+                            Mario's Pick
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
           {/* Specialties Section */}
           {autocompleteSuggestions.filter(s => s.type === 'specialty').length > 0 && (

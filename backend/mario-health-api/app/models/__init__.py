@@ -19,7 +19,9 @@ from app.models.procedure import (
     ProcedureDetail,
     FamilyProceduresResponse,
     ProcedureProvider,
-    ProcedureProvidersResponse, ProcedureOrg, ProcedureOrgsResponse,
+    ProcedureProvidersResponse,
+    ProcedureOrg,
+    ProcedureOrgsResponse,
 )
 
 # Search models
@@ -55,7 +57,7 @@ from app.models.specialty import (
     SpecialtyProvidersMetadata,
     SpecialtyInfo,
     ProviderLocation,
-    ProviderPricing
+    ProviderPricing,
 )
 
 # User preferences models
@@ -95,7 +97,7 @@ __all__ = [
     "ProviderProcedurePricing",
     "ProviderDetail",
     "ProviderProcedureDetail",
-    #Specialty
+    # Specialty
     "NuccSpecialty",
     "NuccSpecialtiesResponse",
     "Specialty",
