@@ -57,10 +57,10 @@ function mapSearchResult(raw: any): SearchResult {
 function mapDoctorResult(raw: any): DoctorResult {
     // Build full name from first/last name
     const nameParts = [raw.first_name, raw.last_name].filter(Boolean);
+    let fullName = nameParts.join(' ') || 'Provider';
     if (raw.credential) {
-        nameParts.push(raw.credential);
+        fullName = `${fullName}, ${raw.credential}`;
     }
-    const fullName = nameParts.join(' ') || 'Provider';
 
     // Build location string for disambiguation
     const locationParts = [];
