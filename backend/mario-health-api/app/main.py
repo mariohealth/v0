@@ -27,6 +27,7 @@ from app.api.v1.endpoints import (
     specialties,
     bundles,
 )
+from app.api.v1 import medications
 import os
 from pathlib import Path
 from app.middleware.logging import RequestLoggingMiddleware
@@ -208,6 +209,7 @@ app.include_router(bookings.router, prefix="/api/v1")
 app.include_router(insurance.router, prefix="/api/v1")
 app.include_router(specialties.router, prefix="/api/v1")
 app.include_router(bundles.router, prefix="/api/v1")
+app.include_router(medications.router, prefix="/api/v1")
 
 
 # Alias routes for compatibility
