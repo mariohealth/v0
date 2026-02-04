@@ -11,7 +11,8 @@ import { searchMedications } from '@/lib/data/mario-medication-data';
 import {
   safeSearchProcedures as searchProcedures,
   getSpecialties,
-  searchDoctors
+  searchDoctors,
+  type DoctorSearchResult
 } from '@/lib/api';
 
 interface SearchResult {
@@ -209,17 +210,31 @@ function MarioSmartSearchInner({
 
             if (Array.isArray(doctorResults) && doctorResults.length > 0) {
               console.log(`[SmartSearch] Doctor results:`, doctorResults.length);
-              doctorResults.forEach((doc) => {
+              doctorResults.forEach((doc: DoctorSearchResult) => {
+                const disambiguationParts: string[] = [];
+                if (doc.org_name) {
+                  disambiguationParts.push(doc.org_name);
+                }
+                if (doc.city && doc.state) {
+                  disambiguationParts.push(`${doc.city}, ${doc.state}`);
+                } else if (doc.city || doc.state) {
+                  disambiguationParts.push([doc.city, doc.state].filter(Boolean).join(', '));
+                }
+                if (doc.zip_code) {
+                  disambiguationParts.push(doc.zip_code);
+                }
+
+                const disambiguationLine = disambiguationParts.join(' • ');
                 suggestions.push({
                   id: doc.provider_id,
                   type: 'doctor',
-                  primaryText: doc.provider_name,
-                  secondaryText: doc.specialty,
+                  primaryText: doc.formatted_name,
+                  secondaryText: doc.specialty_name || undefined,
                   metadata: { 
-                    disambiguation: doc.hospital_name,
+                    disambiguation: disambiguationLine || undefined,
                     provider_id: doc.provider_id
                   },
-                  doctor: { id: doc.provider_id, name: doc.provider_name, specialty: doc.specialty } as any
+                  doctor: { id: doc.provider_id, name: doc.formatted_name, specialty: doc.specialty_name || undefined } as any
                 });
               });
             }

@@ -105,6 +105,19 @@ export interface DoctorResult {
     type?: 'doctor';
 }
 
+export interface DoctorSearchResult {
+    provider_id: string;
+    first_name: string | null;
+    last_name: string | null;
+    credential: string | null;
+    specialty_name: string | null;
+    org_name: string | null;
+    city: string | null;
+    state: string | null;
+    zip_code: string | null;
+    formatted_name: string;
+}
+
 export interface SpecialtyResult {
     specialty_id: string;
     specialty_name: string;
@@ -458,7 +471,7 @@ export async function getSpecialties(): Promise<{ specialties: Specialty[] }> {
 /**
  * Search for doctors by name
  */
-export async function searchDoctors(query: string, limit: number = 8): Promise<DoctorResult[]> {
+export async function searchDoctors(query: string, limit: number = 8): Promise<DoctorSearchResult[]> {
     const params = new URLSearchParams({
         q: query,
         limit: limit.toString(),
@@ -493,8 +506,27 @@ export async function searchDoctors(query: string, limit: number = 8): Promise<D
         const data = await response.json();
         console.log('[API] Doctor search success:', { query, resultsCount: data.length });
 
-        // Map API response to DoctorResult format
-        return data.map((item: any) => mapDoctorResult(item));
+        return (data || []).map((item: any) => {
+            const firstName = item.first_name ?? null;
+            const lastName = item.last_name ?? null;
+            const credential = item.credential ?? null;
+            const nameParts = [firstName, lastName].filter(Boolean);
+            const baseName = nameParts.join(' ') || 'Provider';
+            const formattedName = credential ? `${baseName}, ${credential}` : baseName;
+
+            return {
+                provider_id: item.provider_id || item.id,
+                first_name: firstName,
+                last_name: lastName,
+                credential: credential,
+                specialty_name: item.specialty_name ?? null,
+                org_name: item.org_name ?? null,
+                city: item.city ?? null,
+                state: item.state ?? null,
+                zip_code: item.zip_code ?? null,
+                formatted_name: formattedName,
+            } as DoctorSearchResult;
+        });
     } catch (error) {
         console.error('[API] Error searching doctors:', error);
         if (error instanceof Error) {
