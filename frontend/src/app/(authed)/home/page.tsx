@@ -118,8 +118,10 @@ function HomePageContent() {
       }
 
       // Doctor/Provider - navigate to provider detail page
-      if (suggestion.doctor?.id) {
-        router.push(`/providers/${suggestion.doctor.id}`);
+      if (suggestion.doctor?.id || suggestion.metadata?.provider_id) {
+        const providerId = suggestion.doctor?.id || suggestion.metadata?.provider_id;
+        const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+        router.push(`/providers/${providerId}?returnUrl=${returnUrl}`);
         return;
       }
 

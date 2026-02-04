@@ -1,6 +1,11 @@
 from fastapi import HTTPException
 from supabase import Client
-from app.models import Provider, ProviderDetail, ProviderProcedurePricing, ProviderProcedureDetail
+from app.models import (
+    Provider,
+    ProviderDetail,
+    ProviderProcedurePricing,
+    ProviderProcedureDetail,
+)
 from decimal import Decimal
 
 
@@ -36,8 +41,10 @@ class ProviderService:
             # Handle Supabase 204 "Missing response" as 404
             error_str = str(e)
             code = getattr(e, "code", None)
-            if (code and str(code) == "204") or ("204" in error_str and "Missing response" in error_str):
-                 raise HTTPException(
+            if (code and str(code) == "204") or (
+                "204" in error_str and "Missing response" in error_str
+            ):
+                raise HTTPException(
                     status_code=404, detail=f"Provider '{provider_id}' not found"
                 )
             raise
@@ -68,8 +75,9 @@ class ProviderService:
 
         # Helper: Check if input looks like an NPI (10 digits)
         if provider_id.isdigit() and len(provider_id) == 10:
-            print(f"[provider_service] Using NPI {provider_id} as provider_id directly (no resolution needed)")
-
+            print(
+                f"[provider_service] Using NPI {provider_id} as provider_id directly (no resolution needed)"
+            )
 
         # Get provider basic info and stats
         try:
@@ -82,16 +90,23 @@ class ProviderService:
             if "auth" in error_str or "connection" in error_str or "503" in error_str:
                 print(f"[provider_service] CRITICAL RPC Error: {e}")
                 raise HTTPException(
-                    status_code=503,
-                    detail="Service unavailable due to upstream error"
+                    status_code=503, detail="Service unavailable due to upstream error"
                 )
-            
+
             # For other errors (potentially logic/missing data), log and attempt fallback
-            print(f"[provider_service] RPC get_provider_detail failed (non-critical): {e}")
+            print(
+                f"[provider_service] RPC get_provider_detail failed (non-critical): {e}"
+            )
             provider_result = None
 
-        if not provider_result or not provider_result.data or len(provider_result.data) == 0:
-            print(f"[provider_service] Provider {provider_id} not found via RPC, trying fallback to table")
+        if (
+            not provider_result
+            or not provider_result.data
+            or len(provider_result.data) == 0
+        ):
+            print(
+                f"[provider_service] Provider {provider_id} not found via RPC, trying fallback to table"
+            )
             # Fallback: Try to get raw provider data
             try:
                 raw_provider = (
@@ -101,13 +116,17 @@ class ProviderService:
                     .maybe_single()
                     .execute()
                 )
-                
+
                 if raw_provider.data:
                     p = raw_provider.data
-                    print(f"[provider_service] WARN: Provider {provider_id} found via fallback (missing joined data). Returning basic profile.")
+                    print(
+                        f"[provider_service] WARN: Provider {provider_id} found via fallback (missing joined data). Returning basic profile."
+                    )
                     # Construct ProviderDetail from raw data
                     # Note: We miss address, stats, etc.
-                    full_name = f"{p.get('first_name', '')} {p.get('last_name', '')}".strip()
+                    full_name = (
+                        f"{p.get('first_name', '')} {p.get('last_name', '')}".strip()
+                    )
                     return ProviderDetail(
                         provider_id=p["provider_id"],
                         provider_name=full_name,
@@ -121,17 +140,21 @@ class ProviderService:
                         zip_code=None,
                         total_procedures=0,
                         procedures=[],
-                        data_completeness="basic"
+                        data_completeness="basic",
                     )
             except Exception as fallback_error:
-                print(f"[provider_service] ERROR: Fallback table lookup failed: {fallback_error}")
+                print(
+                    f"[provider_service] ERROR: Fallback table lookup failed: {fallback_error}"
+                )
 
             # If fallback also failed, raise 404
-            print(f"[provider_service] Provider {provider_id} not found in RPC or raw table. Returning 404.")
+            print(
+                f"[provider_service] Provider {provider_id} not found in RPC or raw table. Returning 404."
+            )
             raise HTTPException(
                 status_code=404, detail=f"Provider '{provider_id}' not found"
             )
-            
+
         provider = provider_result.data[0]
 
         # Get all procedures offered by this provider
@@ -217,13 +240,14 @@ class ProviderService:
                 self.supabase.table("procedure_pricing")
                 .select(
                     "provider_id, provider_name, price"
-
                     # removing all these columns as they do not yet exist in the procedure_pricing table
-                # , in_network, rating, reviews, address, city, state, zip_code, phone, website, hours, accreditation, staff, mario_points, facility_fee, professional_fee, supplies_fee
+                    # , in_network, rating, reviews, address, city, state, zip_code, phone, website, hours, accreditation, staff, mario_points, facility_fee, professional_fee, supplies_fee
                 )
                 .eq("procedure_id", procedure_id)
                 .eq("provider_id", provider_id)
-                .limit(1) # TODO a provider can work at multiple places for a given procedure so that query can
+                .limit(
+                    1
+                )  # TODO a provider can work at multiple places for a given procedure so that query can
                 # return multiple rows and the logic below doesn't handle that
                 .single()
                 .execute()

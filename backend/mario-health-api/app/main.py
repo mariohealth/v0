@@ -18,6 +18,7 @@ from app.api.v1.endpoints import (
     search,
     billing_codes,
     providers,
+    doctors,
     user_preferences,
     saved_searches,
     whoami,
@@ -199,6 +200,7 @@ app.include_router(procedures.router, prefix="/api/v1")
 app.include_router(search.router, prefix="/api/v1")
 app.include_router(billing_codes.router, prefix="/api/v1")
 app.include_router(providers.router, prefix="/api/v1")
+app.include_router(doctors.router, prefix="/api/v1")
 app.include_router(user_preferences.router, prefix="/api/v1/user")
 app.include_router(saved_searches.router, prefix="/api/v1/user")
 app.include_router(whoami.router, prefix="/api/v1")  # Debug endpoint for authentication
