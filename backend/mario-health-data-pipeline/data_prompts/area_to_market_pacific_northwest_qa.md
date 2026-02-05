@@ -47,7 +47,7 @@ Review the mapping against these authoritative inputs:
 | `master_market.md` | National framework (45-min rule, friction factors) |
 | `markets_pacific_northwest.md` | Regional geography (Cascades, Puget Sound, transit) |
 | `markets_pacific_northwest.csv` | Canonical market list (22 markets for WA/OR) |
-| `market_to_statistical_area_pacific_northwest.csv` | **The file under QA review** |
+| `market_to_area_pacific_northwest.csv` | **The file under QA review** |
 
 **Do not assume context beyond these materials.**
 
