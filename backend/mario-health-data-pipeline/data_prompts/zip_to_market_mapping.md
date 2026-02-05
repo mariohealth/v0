@@ -1,15 +1,163 @@
-# Execution Prompt: ZIP → Healthcare Shopping Zone Mapping
+# Execution Prompt: ZIP → Healthcare Shopping Zone Mapping (V2.0 - Production)
 
-## Purpose
-This prompt executes the **ZIP-first mapping strategy** by assigning patient and provider ZIP codes to proprietary **Healthcare Shopping Zones** for price comparison and shoppability analysis.
+## CRITICAL: Read This Section First
 
-This prompt is operational. It assumes that market design is complete and **must not redefine markets**.
+**⚠️ PRODUCTION DATA WARNING ⚠️**
+
+This prompt generates production data for healthcare price comparison. Errors directly impact patients' ability to find affordable care.
+
+**Before you begin ANY mapping work:**
+1. You MUST read the market definition file and list ALL valid market IDs
+2. You MUST use ONLY those exact market IDs (no variations, no synonyms, no logical equivalents)
+3. You MUST validate your first 10 ZIP mappings before continuing
+
+**If you skip these validation gates, you will produce broken data that cannot be used.**
 
 ---
 
-## Required References (You Must Use These)
+## Pre-Flight Checklist (MANDATORY - Complete Before Mapping)
 
-Before mapping, you must explicitly reference:
+### Step 0: Confirm You Have the Required Files
+
+You need EXACTLY these files to proceed:
+
+```
+Required files:
+  ✓ master_market.md (national framework)
+  ✓ markets_<region>.md (regional geography and barriers)
+  ✓ markets_<region>.csv (authoritative market definitions)
+  
+Where to find them:
+  - Files should be provided in the conversation or uploaded
+  - If missing: STOP and request the files
+  - Do NOT proceed without all three files
+```
+
+**ACTION REQUIRED:** Confirm you have these files by listing them now.
+
+---
+
+### Step 1: Load and Display Valid Market IDs (MANDATORY)
+
+**YOU MUST COMPLETE THIS STEP BEFORE MAPPING ANY ZIPS.**
+
+Read `markets_<region>.csv` and create a validated list of market IDs.
+
+**Required output format:**
+
+```
+=== VALID MARKET IDS FOR THIS REGION ===
+
+I have loaded markets_<region>.csv and found [N] markets:
+
+1. [MARKET_ID_1]
+2. [MARKET_ID_2]
+3. [MARKET_ID_3]
+...
+[N]. [MARKET_ID_N]
+
+I acknowledge that I will use ONLY these exact market_id values.
+I will NOT create, modify, or invent any market IDs.
+Any deviation from these exact IDs will produce broken data.
+
+=== END VALID MARKET IDS ===
+```
+
+**DO NOT PROCEED until you have displayed this list.**
+
+**Why this matters:** In the Pacific Northwest production run, an LLM used invented IDs like `WA-SEATTLE-CORE` (invalid) instead of `WA-SEATTLE-MAIN` (valid from file). This broke 259 out of 1,002 mappings (25.8%), making the data unusable. This validation gate prevents that failure mode.
+
+---
+
+### Step 2: Review Regional Barriers and Geography (MANDATORY)
+
+Read `markets_<region>.md` and summarize the key geographic barriers and mobility factors.
+
+**Required output format:**
+
+```
+=== REGIONAL MOBILITY FACTORS ===
+
+Key barriers in this region:
+- [Barrier type]: [Description]
+- [Barrier type]: [Description]
+
+Transit systems (if any):
+- [Transit system]: [Impact on healthcare access]
+
+Cross-border considerations:
+- [State border or market]: [Integration notes]
+
+Major markets requiring special attention:
+- [Market ID]: [Why it's complex]
+
+=== END REGIONAL FACTORS ===
+```
+
+This ensures you understand the region's unique characteristics before mapping.
+
+---
+
+### Step 3: Validation Checkpoint - Map 10 Sample ZIPs (MANDATORY)
+
+**Before mapping all ZIPs, you MUST complete this validation checkpoint.**
+
+Map 10 sample ZIPs from different parts of the region:
+- 2-3 from major urban cores
+- 2-3 from suburban areas
+- 2-3 from border/transition zones
+- 2-3 from rural areas
+
+**Present them in this format:**
+
+```
+=== SAMPLE ZIP VALIDATION (10 ZIPs) ===
+
+zip_code,market_id,relationship_type,mapping_rationale
+[ZIP1],[MARKET_ID from Step 1],primary,[Rationale]
+[ZIP2],[MARKET_ID from Step 1],primary,[Rationale]
+...
+
+VALIDATION QUESTIONS:
+1. Are all market_ids from my Step 1 list? [YES/NO]
+2. Do travel times align with regional barriers from Step 2? [YES/NO]
+3. Would a local resident find these assignments reasonable? [YES/NO]
+
+If all answers are YES, I will proceed with full mapping.
+If any answer is NO, I will revise before continuing.
+
+=== END SAMPLE VALIDATION ===
+```
+
+**DO NOT map all ZIPs until this checkpoint passes.**
+
+This catch-and-correct approach prevents completing 1,000 rows with systematic errors.
+
+---
+
+## Purpose and Scope
+
+This prompt executes the **ZIP-first mapping strategy** by assigning patient and provider ZIP codes to proprietary **Healthcare Shopping Zones** for price comparison and shoppability analysis.
+
+**What this prompt does:**
+- Assigns every residential ZIP in a region to one primary healthcare market
+- Optionally assigns secondary markets for specialty care or border ambiguity
+- Produces a CSV file mapping ZIPs to markets for price comparison queries
+
+**What this prompt does NOT do:**
+- ❌ Create new markets
+- ❌ Rename markets
+- ❌ Merge or split existing markets
+- ❌ Modify market boundaries
+- ❌ Change market definitions in any way
+
+**The markets are fixed. You only assign ZIPs to them.**
+
+---
+
+## Required References
+
+You must explicitly reference these files before mapping:
 
 1. **National Base Prompt – Healthcare Market Master (`master_market.md`)**  
    - Defines what a Healthcare Shopping Zone is
@@ -22,11 +170,10 @@ Before mapping, you must explicitly reference:
    - Explains regional mobility factors and friction patterns
 
 3. **Regional Market File (`markets_<region>.csv`)**  
-   - Authoritative list of valid `market_id` values for this region
-   - Market notes contain catchment area guidance
-   - **435 total markets across 8 regions covering 49 states + DC**
-
-You may not create, rename, merge, or split markets during mapping. Only assign ZIPs to existing markets.
+   - **THIS IS YOUR AUTHORITATIVE SOURCE FOR VALID MARKET IDs**
+   - Every market_id you use MUST appear in this file
+   - No variations, abbreviations, or logical equivalents allowed
+   - Character-for-character exact match required
 
 ---
 
@@ -54,12 +201,17 @@ You may not create, rename, merge, or split markets during mapping. Only assign 
 You are a **Health Economics and Geospatial Data Analyst** optimizing healthcare price comparison accuracy.
 
 Your responsibility is to determine which healthcare markets are **realistically shoppable** for residents of each ZIP code, based on:
-- Travel time and friction
+- Travel time and friction (45-minute rule for routine care)
 - Known hospital systems and referral patterns
 - Geographic barriers (water, mountains, congestion)
 - Regional mobility factors (transit, state borders)
 
-Your output enables patients to compare prices among providers they can actually reach for care.
+**Your output enables patients to compare prices among providers they can actually reach for care.**
+
+**You are NOT:**
+- A market designer (markets are already defined)
+- A strategy consultant (just execute the mapping)
+- An optimizer (behavioral realism beats elegance)
 
 ---
 
@@ -73,7 +225,8 @@ Each run of this prompt applies to **one region only**.
 - Cross-border ZIPs that integrate with regional markets (e.g., Southern Indiana ZIPs → KY-LOUISVILLE-METRO)
 
 **Market Scope:**
-- Only use market_ids from `markets_<region>.csv`
+- **ONLY use market_ids from `markets_<region>.csv`**
+- **Character-for-character exact match required**
 - Cross-region secondary mappings allowed when behaviorally justified (e.g., complex cases referred to academic centers in adjacent regions)
 
 **Exclude:**
@@ -92,7 +245,7 @@ zip_to_market_<region>.csv
 ```
 
 Examples:
-- `zip_to_market_mountainwest.csv`
+- `zip_to_market_pacific_northwest.csv`
 - `zip_to_market_southeast.csv`
 - `zip_to_market_northeast.csv`
 
@@ -101,21 +254,22 @@ Examples:
 | Column | Definition | Example |
 |--------|------------|---------|
 | zip_code | 5-digit ZIP code | 85001 |
-| market_id | Market identifier from regional CSV | AZ-PHOENIX-CENTRAL |
+| market_id | **EXACT** market identifier from regional CSV | WA-SEATTLE-MAIN |
 | relationship_type | primary / secondary / tertiary | primary |
-| mapping_rationale | ≤1 sentence justification | Downtown Phoenix residents use central medical district within 15-min drive |
+| mapping_rationale | ≤1 sentence justification | Downtown Seattle residents use UW Medicine and Swedish within 15-min drive |
 
-### Optional Columns (Recommended for Validation)
-
-| Column | Definition | Example |
-|--------|------------|---------|
-| estimated_travel_time | Approximate minutes to market hospitals | 15 |
-| primary_barrier | Key friction factor if any | None / I-10 congestion / Lake Washington / Mountain pass |
+**CRITICAL: The market_id column MUST contain only IDs from markets_<region>.csv. No exceptions.**
 
 ### Sorting Requirements
 - Primary sort: `zip_code` (ascending, 5-digit numeric)
 - Secondary sort: `relationship_type` (primary, then secondary, then tertiary)
 - Tertiary sort: `market_id` (alphabetical)
+
+### Header Row
+Required, exactly as shown:
+```
+zip_code,market_id,relationship_type,mapping_rationale
+```
 
 ---
 
@@ -138,23 +292,28 @@ Examples:
 
 **Examples of Valid Primary Assignments:**
 ```csv
-85001,AZ-PHOENIX-CENTRAL,primary,Downtown Phoenix ZIP within 15-min of central medical district
-85251,AZ-PHOENIX-EAST,primary,Scottsdale ZIP uses HonorHealth and Mayo Scottsdale in East Valley
-47130,KY-LOUISVILLE-METRO,primary,Jeffersonville IN ZIP crosses I-65 bridges to Louisville hospitals in 20-min
+98101,WA-SEATTLE-MAIN,primary,Downtown Seattle ZIP within 15-min of UW Medicine and Swedish
+98004,WA-SEATTLE-EASTSIDE,primary,Bellevue ZIP uses Overlake Medical Center within 10-min
+97201,OR-PORTLAND,primary,Downtown Portland ZIP uses OHSU and Legacy Health within 20-min
 ```
 
-**Invalid Primary Assignments:**
+**Examples of Invalid Primary Assignments:**
 ```csv
-# BAD: >60 min travel for routine care
+# WRONG: Using invented market ID not in markets file
+98101,WA-SEATTLE-CORE,primary,Downtown Seattle...
+# CORRECT: Using exact ID from markets file
+98101,WA-SEATTLE-MAIN,primary,Downtown Seattle residents use UW Medicine and Swedish within 15-min
+
+# WRONG: >60 min travel for routine care
 85920,AZ-PHOENIX-CENTRAL,primary,Flagstaff ZIP 140 miles from Phoenix
-# CORRECT VERSION:
+# CORRECT: Use local market
 85920,AZ-FLAGSTAFF,primary,Flagstaff ZIP uses local Flagstaff Medical Center
 85920,AZ-PHOENIX-CENTRAL,secondary,Complex cases referred to Phoenix academic centers
 
-# BAD: Ignoring documented barrier
-98110,WA-SEATTLE-CORE,primary,Bainbridge Island ZIP requires 35-min ferry
-# CORRECT VERSION:
-98110,WA-BAINBRIDGE,primary,Ferry-dependent island is separate market
+# WRONG: Ignoring documented barrier
+98110,WA-SEATTLE-MAIN,primary,Bainbridge Island ZIP requires 35-min ferry
+# CORRECT: Ferry barrier creates separate market
+98110,WA-BREMERTON,primary,Ferry-dependent island separate from Seattle mainland market
 ```
 
 ### Rule 2: Secondary Market Assignment
@@ -186,22 +345,7 @@ Examples:
 **Maximum Secondary Markets:**
 - Most ZIPs: 0-1 secondary markets
 - Border ZIPs: 1-2 secondary markets maximum
-- Avoid: 3+ secondary markets (suggests imprecision)
-
-**Examples:**
-```csv
-# Valid: Border ZIP with specialty referral
-85050,AZ-PHOENIX-NORTH,primary,Northern Phoenix ZIP closest to Deer Valley hospitals
-85050,AZ-PHOENIX-CENTRAL,secondary,Some residents access downtown academic centers for specialty
-
-# Valid: Cross-border referral
-40601,KY-LEXINGTON,primary,Lexington ZIP uses UK HealthCare locally
-40601,OH-CINCINNATI,secondary,Some cases referred to Cincinnati Children's 80 miles north
-
-# Valid: Transit-enabled alternative
-02138,MA-CAMBRIDGE,primary,Cambridge residents use local Cambridge Health Alliance
-02138,MA-BOSTON-LONGWOOD,secondary,Red Line enables access to Longwood medical area for specialty
-```
+- Avoid: 3+ secondary markets (suggests imprecision or over-mapping)
 
 ### Rule 3: Tertiary Market Assignment (Optional, Use Sparingly)
 
@@ -211,407 +355,90 @@ Examples:
 - 60+ minutes away, not routine access
 - Well-documented referral pattern exists
 
-**Recommendation:** Start mapping without tertiary. Add only if analytics require it.
-
-**If using tertiary:**
-```csv
-# Rare quaternary referral
-86001,AZ-FLAGSTAFF,primary,Flagstaff residents use local Flagstaff Medical Center
-86001,AZ-PHOENIX-CENTRAL,secondary,Specialty cases to Phoenix
-86001,AZ-TUCSON,tertiary,Rare complex cases to Banner UMC Tucson research programs
-```
-
-### Rule 4: Travel Friction Evaluation (ZIP-Level)
-
-**Evaluate friction using multiple factors, not just distance:**
-
-**Travel Time Estimation:**
-- Use typical weekday conditions (Google Maps 9am Tuesday or 2pm Wednesday)
-- Include parking time (5-10 minutes urban, 2-5 minutes suburban)
-- Include walk from parking to entrance (3-5 minutes large facilities)
-- **Target: <45 minutes door-to-door for primary market**
-
-**Known Congestion Patterns:**
-- I-10 Phoenix (chronic all-day)
-- I-95 Northeast corridor (severe)
-- I-285 Atlanta (extreme, 60-90 min to cross)
-- I-405 California (chronic)
-- Document in regional prompts, honor in ZIP mapping
-
-**Physical Barriers:**
-- **Water:** Rivers with limited bridges, bays, harbors
-  - Multiple bridges reduce friction (Louisville, Cincinnati)
-  - Single/limited crossings create friction (Chesapeake Bay Bridge, Tampa Bay)
-  - Ferries create hard barriers (Puget Sound, NYC)
-- **Mountains:** Passes with seasonal closures, elevation gains
-  - Cascades separate Western/Eastern WA
-  - Rockies separate Front Range from Western Slope CO
-  - Mogollon Rim separates Phoenix from Flagstaff
-- **Congestion bottlenecks:** Bridge/tunnel queues, toll plazas, merge points
-
-**State Borders:**
-- Create Medicaid program differences
-- Network design rarely crosses for routine care
-- **Exception:** Documented cross-border markets
-  - OH-CINCINNATI covers Northern Kentucky (41xxx ZIPs)
-  - KY-LOUISVILLE-METRO covers Southern Indiana (471xx ZIPs)
-  - OR-PORTLAND covers Vancouver WA (986xx ZIPs)
-  - MO-KANSASCITY covers Kansas side (661xx ZIPs)
-  - MO-STLOUIS covers Illinois Metro East (62xxx ZIPs)
-  - ND-FARGO covers Moorhead MN (565xx ZIPs)
-
-**Distance alone is insufficient.** Two ZIPs 20 miles apart may have very different market access:
-- 20 miles, flat highway, no barriers → Same market
-- 20 miles, mountain pass, or water crossing → Different markets
-
-### Rule 5: Transit Asymmetry Recognition
-
-**Transit CAN enable secondary market access when:**
-- High-frequency service (≤15 minute headways during medical appointment hours)
-- Direct or single-transfer access to hospital district
-- Stations within reasonable walk/bus of medical facilities
-- Actually used by residents for medical appointments (not just work commutes)
-
-**Examples where transit matters:**
-- MBTA Red Line: Cambridge/Somerville ZIPs → Boston Longwood medical area (secondary)
-- NYC Subway: Outer borough ZIPs → Manhattan hospital districts (secondary)
-- WMATA Metro: Arlington/Bethesda ZIPs → DC medical centers (may enable primary integration)
-- MAX Light Rail: Vancouver WA ZIPs → Portland hospitals (enables primary integration)
-
-**Transit does NOT enable integration when:**
-- Commuter rail with peak-direction bias (Metro-North, NJ Transit, LIRR)
-- Poor reverse-direction service
-- Requires multiple transfers
-- No stations near hospitals
-- Limited weekend/evening service (medical appointments happen off-peak)
-
-**One-direction transit justifies secondary, not primary:**
-```csv
-# Valid: Commuter can access Manhattan hospitals but not primary market
-10804,NY-WESTCHESTER,primary,New Rochelle residents use local Montefiore New Rochelle
-10804,NY-NYC-MANHATTAN,secondary,Metro-North enables some access to Manhattan academic centers
-```
-
-**Do NOT assume bidirectional equivalence.** Commuter rail designed for suburb→city may not support city→suburb medical access.
-
-### Rule 6: Market Boundary Behavior
-
-**ZIPs near market edges are expected to have less clear assignments:**
-
-**Boundary ZIP Patterns:**
-
-1. **Equidistant from Two Markets:**
-   - Assign primary based on slight advantage (closer, less friction)
-   - Assign secondary to the other market
-   - Document the boundary nature
-
-2. **Split Populations:**
-   - Large ZIP where northern residents use Market A, southern residents use Market B
-   - Assign primary to majority usage pattern
-   - Assign secondary to minority usage pattern
-   - Note population split in rationale
-
-3. **Transitional Zones:**
-   - ZIP transitioning from suburban to rural
-   - May use different markets for different service types
-   - Primary = routine care preference
-   - Secondary = specialty care pattern
-
-**Example Boundary ZIP:**
-```csv
-# Border ZIP between Phoenix markets
-85310,AZ-PHOENIX-WEST,primary,Majority of Buckeye ZIP uses West Valley hospitals
-85310,AZ-PHOENIX-CENTRAL,secondary,Eastern portion closer to downtown via I-10
-```
-
-**This is expected and realistic.** Do not force artificial clarity.
+**Recommendation:** Start mapping without tertiary. Add only if analytics specifically require it.
 
 ---
 
-## Regional Mapping Strategies
+## The 45-Minute Rule (Critical)
 
-### Mountain West (CO, UT, ID, MT, WY, NV, NM, AZ)
+**For PRIMARY market assignment:**
 
-**Phoenix Metro ZIP Strategy:**
-- **Downtown ZIPs (850xx central)** → AZ-PHOENIX-CENTRAL
-- **Scottsdale/Tempe/Mesa ZIPs (852xx, 85281-85299)** → AZ-PHOENIX-EAST
-- **Glendale/Peoria ZIPs (853xx)** → AZ-PHOENIX-WEST
-- **Anthem/Cave Creek ZIPs (850xx north of Loop 101)** → AZ-PHOENIX-NORTH
-- Review Loop 101/202 ring roads as market boundaries
-- I-10 congestion creates east-west friction
+Travel time must be **≤45 minutes door-to-door** under typical weekday conditions for routine care:
 
-**Mountain Barriers:**
-- ZIPs on opposite sides of passes are separate markets
-- Winter closures (Eisenhower Tunnel, Snoqualmie Pass) reinforce separation
-- Mogollon Rim (AZ): Phoenix ZIPs vs Flagstaff ZIPs completely separate
+**Include in your estimate:**
+- Driving time from ZIP centroid to hospital district (use Google Maps "typical traffic")
+- Parking time (5-10 min in urban areas, 2-5 min in suburban)
+- Walking from parking to entrance (3-5 min)
 
-**Extreme Distances:**
-- Montana/Wyoming frontier ZIPs may be 60+ min to nearest market (accepted)
-- Document long distance in rationale
-- Las Vegas ZIPs to NV-LASVEGAS (not Reno, 450 miles away)
+**Traffic conditions:**
+- Use "moderate weekday traffic" (Tuesday 10am or Wednesday 2pm)
+- NOT worst-case rush hour (8am Friday)
+- NOT best-case Sunday morning
 
-**Tucson Separate from Phoenix:**
-- All Tucson ZIPs (857xx) → AZ-TUCSON (primary)
-- AZ-PHOENIX-CENTRAL may be secondary for complex specialty
-
-### Southeast (NC, SC, GA, FL, AL, MS, TN, KY)
-
-**Atlanta Metro ZIP Strategy:**
-- I-285 perimeter is critical boundary
-- **Inside I-285** → Directional markets based on geography
-- **Outside I-285** → Suburban/outer markets
-- Gwinnett County ZIPs (300xx eastern) → GA-ATLANTA-EAST
-- Cobb County ZIPs (300xx western) → GA-ATLANTA-NORTH or WEST
-- Review crossing times carefully (60-90 min across metro)
-
-**Florida Linear Coasts:**
-- I-95 corridor ZIPs are sequential, NOT integrated
-- Each coastal segment is separate market
-- Jacksonville ZIPs (322xx) ≠ Daytona ZIPs (321xx) ≠ Melbourne ZIPs (329xx)
-- 60+ miles creates hard separation
-
-**Louisville Cross-Border:**
-- **Jefferson County KY ZIPs (402xx)** → KY-LOUISVILLE-METRO
-- **Southern Indiana ZIPs (471xx Jeffersonville/New Albany)** → KY-LOUISVILLE-METRO
-- Multiple I-64/I-65 bridges integrate
-- **Oldham County ZIPs (400xx eastern)** → KY-LOUISVILLE-EAST
-
-**Northern Kentucky CRITICAL:**
-- **Covington ZIPs (410xx)** → OH-CINCINNATI (Midwest region, NOT Southeast)
-- **Newport ZIPs (410xx)** → OH-CINCINNATI (Midwest region, NOT Southeast)
-- **Florence ZIPs (410xx)** → OH-CINCINNATI (Midwest region, NOT Southeast)
-- Do NOT assign these to KY-LOUISVILLE or KY-LEXINGTON
-
-**Car-Dependent:**
-- Transit (MARTA, Tri-Rail) has minimal impact
-- Do NOT assume transit enables integration
-
-### Northeast (PA, NJ, NY, CT, MA, RI, VT, NH, ME)
-
-**NYC Extreme Splits:**
-- **Manhattan ZIPs (100xx, 101xx)** → NY-NYC-MANHATTAN
-- **Brooklyn ZIPs (112xx)** → NY-NYC-BROOKLYN
-- **Queens ZIPs (11xxx)** → NY-NYC-QUEENS
-- **Bronx ZIPs (104xx)** → NY-NYC-BRONX
-- **Staten Island ZIPs (103xx)** → NY-NYC-STATENISLAND
-- East River crossings create 45+ min barriers
-
-**Long Island:**
-- Most Long Island ZIPs → NY-LONGISLAND markets (NOT Manhattan)
-- LIRR does NOT enable primary integration (requires transfer, peak-direction)
-- Manhattan may be secondary for some Long Island ZIPs (specialty)
-
-**Northern NJ:**
-- Northern NJ ZIPs (07xxx) → Appropriate NJ markets
-- NOT Manhattan despite proximity (bridges/tunnels create friction)
-- GW Bridge, Lincoln Tunnel add 30-45 min delay
-
-**Boston Transit:**
-- Red Line ZIPs in Cambridge → MA-CAMBRIDGE (primary)
-- Red Line enables MA-BOSTON-LONGWOOD as secondary
-- BUT: Most Boston area is car-dependent
-
-### Mid-Atlantic (MD, DC, DE, VA, WV)
-
-**WMATA Metro Limited:**
-- **DC ZIPs (200xx)** → DC-CORE or appropriate DC market
-- **Arlington ZIPs (222xx)** → VA-ARLINGTON (may integrate with DC)
-- **Bethesda ZIPs (208xx)** → MD-BETHESDA (may integrate with DC)
-- Metro ONLY integrates these core areas
-
-**Baltimore Independent:**
-- **Baltimore ZIPs (212xx)** → MD-BALTIMORE markets
-- NOT DC markets (45+ min, no transit, independent)
-- Completely separate healthcare market
-
-**Potomac River:**
-- Creates north-south friction despite bridges
-- Virginia ZIPs generally separate from Maryland ZIPs
-- Exception: Arlington/Alexandria integrated with DC via Metro
-
-**Chesapeake Bay:**
-- Bay Bridge bottleneck to Eastern Shore
-- **Eastern Shore MD ZIPs (216xx, 218xx)** → MD-EASTERNSHORE markets
-- NOT Baltimore or DC (90+ min via bridge queue)
-
-### Texas & Plains (TX, OK, KS, MO, IA, NE, SD, ND, AR, LA)
-
-**Dallas-Fort Worth:**
-- Dallas ZIPs (752xx) vs Fort Worth ZIPs (761xx)
-- Separate cores despite "DFW" branding
-- Mid-Cities ZIPs may be primary to one, secondary to other
-
-**Houston Directional Splits:**
-- **Medical Center ZIPs (770xx near TMC)** → TX-HOUSTON-MED
-- **Northern ZIPs (773xx)** → TX-HOUSTON-NORTH
-- **Eastern ZIPs (770xx Baytown area)** → TX-HOUSTON-EAST
-- Review proximity to systems for each ZIP
-
-**Cross-Border Markets:**
-- **Kansas City KS ZIPs (661xx)** → MO-KANSASCITY
-- **Metro East IL ZIPs (62xxx Belleville area)** → MO-STLOUIS
-- **Moorhead MN ZIPs (565xx)** → ND-FARGO
-
-**Vast Distances:**
-- Rural ZIPs may be 100-200 miles from market center
-- Accept longer distances for frontier areas
-- Document in rationale
-
-### California (CA)
-
-**SF Bay Area Fragmentation:**
-- **San Francisco ZIPs (941xx)** → CA-SF-CENTRAL
-- **Oakland ZIPs (946xx)** → CA-OAKLAND
-- **Peninsula ZIPs (940xx, 943xx)** → CA-PENINSULA markets
-- **South Bay ZIPs (95xxx)** → CA-SOUTHBAY markets
-- **East Bay ZIPs (945xx)** → CA-EASTBAY markets
-- Bay Bridge congestion separates SF from Oakland
-
-**LA Basin Fragmentation:**
-- 10-12 markets, careful ZIP-by-ZIP required
-- **Downtown ZIPs (900xx)** → CA-LA-CENTRAL
-- **Westside ZIPs (90xxx Santa Monica/Venice)** → CA-LA-WEST
-- **San Fernando Valley ZIPs (91xxx)** → CA-LA-VALLEY
-- **Orange County ZIPs (92xxx)** → CA-ORANGE markets
-- I-405/I-5/I-10 chronic congestion creates barriers
-
-**San Diego:**
-- **Central San Diego ZIPs (921xx)** → CA-SANDIEGO-CENTRAL
-- **North County ZIPs (920xx)** → CA-SANDIEGO-NORTH
-- Review I-5/I-15 travel times
-
-### Pacific Northwest (WA, OR)
-
-**Puget Sound Water Barriers:**
-- **Seattle ZIPs (981xx)** → WA-SEATTLE-CORE
-- **Bellevue/Eastside ZIPs (980xx)** → WA-BELLEVUE or WA-EASTSIDE
-- Lake Washington crossing (I-90/SR-520 bridges) creates friction
-- Evaluate if bridges enable integration or separate markets
-
-**Cascade Mountain Barrier:**
-- Western WA ZIPs completely separate from Eastern WA ZIPs
-- **Eastern WA ZIPs (99xxx)** → WA-SPOKANE, WA-TRICITIES, etc.
-- 3+ hour drives, winter closures create absolute separation
-
-**Ferry-Dependent:**
-- **Bainbridge Island ZIPs (98110)** → WA-BAINBRIDGE (separate)
-- **Bremerton ZIPs (983xx)** → WA-BREMERTON (separate)
-- 35-60 min ferry creates hard barrier
-
-**Portland-Vancouver:**
-- **Vancouver WA ZIPs (986xx)** → OR-PORTLAND
-- MAX light rail enables cross-border integration
-- I-5/I-205 bridges also connect
-
-### Midwest (IL, IN, OH, MI, WI, MN)
-
-**Chicago Splits:**
-- **Loop ZIPs (606xx)** → IL-CHICAGO-CORE
-- **North Side ZIPs (606xx)** → IL-CHICAGO-NORTH
-- **Suburban ZIPs (60xxx)** → Suburban markets
-- Review L train access for some ZIPs
-
-**OH-CINCINNATI Cross-Border:**
-- **Cincinnati OH ZIPs (45xxx)** → OH-CINCINNATI
-- **Northern KY ZIPs (410xx Covington/Newport)** → OH-CINCINNATI
-- **Southern Indiana ZIPs (470xx border)** → OH-CINCINNATI
-- I-75/I-71 bridges integrate
-
-**Detroit Sprawl:**
-- Wayne County ZIPs vs Oakland/Macomb County ZIPs
-- System competition creates market fragmentation
-- Review travel times across metro
-
-**Great Lakes:**
-- Water creates boundaries
-- Limited ferry systems (mostly recreational, not medical)
+**Exceptions:**
+- Rural ZIPs: Up to 60 minutes acceptable if no closer option exists
+- Ferry/barrier ZIPs: May exceed 45 min if barrier forces it (but should be separate market)
 
 ---
 
-## Heuristics You May Use
+## Geographic Barriers (Regional-Specific, But Universal Principles)
 
-**Evidence-Based Heuristics:**
+### Water Barriers
+- Ferries create HARD barriers (separate markets)
+- Limited bridge crossings create friction (may split or may integrate depending on alternatives)
+- Multiple bridge/tunnel options reduce friction (may integrate)
 
-1. **Dominant Hospital Systems:**
-   - Which systems have facilities in/near this ZIP?
-   - Which systems do residents recognize and use?
-   - System market share data if available
+### Mountain Barriers
+- Mountain passes (especially with seasonal closures) create HARD barriers
+- Separate markets on each side of major ranges (Cascades, Rockies, Appalachians, etc.)
 
-2. **Ambulance Service Areas:**
-   - Where do EMS units transport from this ZIP?
-   - Ambulance catchments align with routine care patterns
+### Congestion Corridors
+- Chronic congestion adds 10-20 min to theoretical travel time
+- May justify splitting large metros into multiple markets
 
-3. **Insurance Networks:**
-   - Which systems are in-network for major local employers?
-   - Network design reflects anticipated utilization
+### State Borders
+- Generally create HARD barriers due to Medicaid, licensing, network design
+- Exception: Documented cross-border integrated markets (Portland-Vancouver, Louisville-Jeffersonville, Cincinnati-Northern KY)
 
-4. **Referral Patterns:**
-   - Where do local PCPs refer patients?
-   - Which academic centers receive tertiary referrals?
-
-5. **Travel Behavior:**
-   - Common-sense local knowledge
-   - "Would a resident actually drive this route for routine care?"
-   - Consider rush hour, parking, total door-to-door time
-
-**Geographic Heuristics:**
-
-1. **Proximity with Barrier Check:**
-   - Nearest market geographically
-   - BUT verify no insurmountable barrier
-   - Water, mountains, congestion may make "near" market inaccessible
-
-2. **Interstate Corridors:**
-   - I-5, I-95, I-10, etc. connect markets but don't integrate them
-   - 60+ miles on interstate = separate markets
-
-3. **State Capitals:**
-   - Often regional healthcare hubs
-   - But verify actual system presence, not just political status
-
-**Avoid:**
-- Speculative "if residents were smart they would use..." mapping
-- Aspirational transit that doesn't exist or isn't used
-- Perfect geometric patterns (reality is messy)
+### Transit Systems
+- Reduces friction ONLY when:
+  - High frequency (≤15 min headways)
+  - Single-seat or one-transfer rides
+  - Stations near medical facilities
+  - Actually used for medical appointments (not just commuting)
+- Most regions: transit does NOT materially enable healthcare access
 
 ---
 
-## What NOT to Do
+## Market ID Validation (CRITICAL ENFORCEMENT)
 
-❌ **Do NOT redefine, rename, merge, or split markets**
-- Only use market_ids from `markets_<region>.csv`
-- If you think a market is missing, flag it but do NOT invent
+### How to Validate Every Market ID You Use
 
-❌ **Do NOT assign every ZIP to many markets**
-- Most ZIPs: 1 primary only
-- Some ZIPs: 1 primary + 1 secondary
-- Rare ZIPs: 1 primary + 2 secondary
-- Avoid: 1 primary + 3+ secondary (over-mapping)
+**Before using ANY market_id in a mapping:**
 
-❌ **Do NOT force ZIPs into statistically neat patterns**
-- Reality is messy
-- Border ZIPs have ambiguity
-- Don't round off the edges artificially
+1. **Check your Step 1 list** — Is this exact ID on the list?
+2. **Character match** — Does it match exactly (case-sensitive, hyphen-sensitive)?
+3. **No logical equivalents** — Don't use "similar" or "intuitive" alternatives
 
-❌ **Do NOT use CBSAs or counties as mapping proxies**
-- Map ZIPs directly to markets based on behavior
-- Don't look up "what CBSA is this ZIP in" first
-- CBSAs are too large and heterogeneous
+**Common Invalid Variations to Avoid:**
 
-❌ **Do NOT ignore documented barriers**
-- Regional prompts document water, mountains, congestion, state borders
-- Market CSV notes document specific catchments
-- Honor these explicitly
+| ❌ INVALID (Don't Use) | ✅ VALID (From File) | Why Invalid |
+|------------------------|----------------------|-------------|
+| WA-SEATTLE-CORE | WA-SEATTLE-MAIN | Different qualifier |
+| WA-SEATTLE | WA-SEATTLE-MAIN | Too generic |
+| WA-SEATTLE-DOWNTOWN | WA-SEATTLE-MAIN | Different descriptor |
+| WA-TACOMA | WA-SEATTLE-TACOMA | Missing parent metro |
+| WA-EVERETT | WA-SEATTLE-EVERETT | Missing parent metro |
+| SEATTLE-MAIN | WA-SEATTLE-MAIN | Missing state prefix |
+| wa-seattle-main | WA-SEATTLE-MAIN | Wrong case |
 
-❌ **Do NOT assume transit enables integration without evidence**
-- Check if transit actually serves hospitals
-- Check if residents actually use it for medical appointments
-- Most regions are car-dependent
+**If you're unsure whether an ID is valid:**
+1. STOP mapping
+2. Check your Step 1 list
+3. If not on the list → DO NOT USE IT
+4. If still unsure → Ask for clarification
 
-❌ **Do NOT assume proximity = integration**
-- 20 miles with mountain pass ≠ 20 miles on flat highway
-- Bay Bridge queue ≠ multiple bridge options
-- Check friction, not just distance
+**There are no "close enough" market IDs. Exact match or nothing.**
 
 ---
 
@@ -626,60 +453,206 @@ Before finalizing each ZIP mapping, confirm:
    - Is it <45 minutes door-to-door in typical traffic?
    - Are there hospital systems residents recognize?
 
-2. ✅ **Secondary markets reflect true specialty access**
+2. ✅ **Market ID is valid**
+   - Is it on your Step 1 validated list?
+   - Exact character match (case-sensitive)?
+   - No typos, no invented IDs?
+
+3. ✅ **Secondary markets reflect true specialty access**
    - Is there evidence of referral patterns?
    - Is it 45-60 minutes or accessible via transit?
    - Would a local provider agree with this assignment?
 
-3. ✅ **The mapping would make sense to a local patient**
+4. ✅ **The mapping would make sense to a local patient**
    - Does this match common-sense local behavior?
    - Would someone familiar with the area nod in agreement?
-
-4. ✅ **Market IDs exist in regional CSV**
-   - Every market_id is in `markets_<region>.csv`
-   - No typos, no invented markets
 
 5. ✅ **Travel friction is realistic**
    - Typical weekday conditions (not rush hour worst case, not Sunday ideal)
    - Includes parking and walking time
-   - Accounts for documented barriers
+   - Accounts for documented barriers from Step 2
 
-### Market-Level Validation
+### After Completing First 50 ZIPs (CHECKPOINT)
 
-After mapping all ZIPs, verify:
+**Stop and validate:**
+1. Run unique market IDs used → Compare to Step 1 list
+2. Any IDs not on Step 1 list? → STOP, fix them before continuing
+3. Spot-check 5-10 travel time estimates → Use Google Maps
+4. Any systematic errors? → Correct pattern before continuing
 
-1. ✅ **Every market has some ZIPs assigned**
-   - All 62/71/42/etc. markets in the region appear in mappings
-   - No orphaned markets with zero ZIPs
+**This prevents completing 1,000 rows with a systematic error.**
 
-2. ✅ **ZIP population coverage makes sense**
-   - Sum of ZIP populations approximates expected market population
-   - No markets with unexpectedly high/low populations
+### After Completing All ZIPs (FINAL CHECK)
 
-3. ✅ **Border ZIPs align with market notes**
-   - Market CSV notes document catchment areas
-   - ZIP assignments honor documented boundaries
+**Before considering the file complete:**
 
-### Regional Validation
+1. ✅ **Market ID integrity check**
+   - Extract unique market_ids from your output
+   - Compare to Step 1 validated list
+   - Zero mismatches allowed
 
-After completing region, verify:
+2. ✅ **Primary completeness check**
+   - Every ZIP has exactly one primary? (Not zero, not multiple)
+   - Count ZIPs vs count of primary assignments → Should match
 
-1. ✅ **Cross-border ZIPs properly assigned**
-   - OH-CINCINNATI includes Northern Kentucky ZIPs ✅
-   - KY-LOUISVILLE-METRO includes Southern Indiana ZIPs ✅
-   - OR-PORTLAND includes Vancouver WA ZIPs ✅
-   - No duplication across regions ✅
+3. ✅ **Market coverage check**
+   - Every market in Step 1 list appears in output?
+   - No orphaned markets with zero ZIPs?
 
-2. ✅ **Regional barriers honored**
-   - Water barriers (bays, rivers) reflected in assignments
-   - Mountain barriers (passes, ranges) create separations
-   - Congestion corridors create intra-metro splits
-   - State borders respected except documented cross-border markets
+4. ✅ **Regional barrier check**
+   - Cascade Mountains: No east-west crossings?
+   - Puget Sound ferries: Ferry ZIPs separate from Seattle?
+   - State borders: Honored except documented cross-border markets?
 
-3. ✅ **No systematic errors**
-   - Spot-check samples of ZIPs in each market
-   - Verify travel time estimates
-   - Check for patterns suggesting mis-assignment
+5. ✅ **Sorting check**
+   - Rows sorted by: zip_code (asc), then relationship_type, then market_id?
+
+**If any check fails → Fix before delivering file.**
+
+---
+
+## What NOT to Do (Common Failure Modes)
+
+❌ **Do NOT invent market IDs that "make sense"**
+- Even if your ID is logical, it breaks database joins
+- Use exact IDs from markets_<region>.csv only
+- Example failure: Using `WA-SEATTLE-CORE` instead of `WA-SEATTLE-MAIN`
+
+❌ **Do NOT create new markets to "solve" ambiguity**
+- Ambiguity is expected on borders
+- Just assign to nearest/least-friction existing market
+- Document ambiguity in rationale
+
+❌ **Do NOT use CBSA or county definitions as shortcuts**
+- CBSAs are too large and heterogeneous
+- Map ZIPs directly based on behavior, not Census geography
+
+❌ **Do NOT ignore documented barriers**
+- If markets_<region>.md says "ferry creates hard barrier," honor it
+- If markets_<region>.csv notes say "separated from X," don't merge them
+
+❌ **Do NOT assume transit enables integration without evidence**
+- Most commuter rail serves work trips, not medical trips
+- Check if transit actually goes to hospitals
+- Check if residents actually use it for medical appointments
+
+❌ **Do NOT over-map secondary markets**
+- Most ZIPs should have 0-1 secondary markets
+- 3+ secondary markets suggests you're guessing, not analyzing
+
+❌ **Do NOT complete all 1,000 rows before validating first 50**
+- Use checkpoints to catch systematic errors early
+- Validate samples before full generation
+
+---
+
+## Validation Script (Required After Completion)
+
+**After generating your CSV, you MUST run this validation script:**
+
+```python
+#!/usr/bin/env python3
+"""
+Validate ZIP-to-Market Mapping
+Required check before considering file production-ready
+"""
+
+import csv
+import sys
+from collections import defaultdict
+
+def validate_zip_mapping(zip_file, markets_file):
+    # Load valid markets
+    valid_markets = set()
+    with open(markets_file, 'r') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            valid_markets.add(row['market_id'])
+    
+    print(f"Loaded {len(valid_markets)} valid markets from {markets_file}")
+    print(f"Valid markets: {sorted(valid_markets)}\n")
+    
+    # Check 1: Market ID validity
+    print("[1/3] Checking market ID validity...")
+    invalid_refs = []
+    zip_markets_used = set()
+    
+    with open(zip_file, 'r') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            market_id = row['market_id']
+            zip_markets_used.add(market_id)
+            if market_id not in valid_markets:
+                invalid_refs.append((row['zip_code'], market_id))
+    
+    if invalid_refs:
+        print(f"  ❌ FAIL: {len(invalid_refs)} rows use invalid market_ids")
+        print(f"\n  Invalid market IDs found:")
+        invalid_ids = set(m for z, m in invalid_refs)
+        for mid in sorted(invalid_ids):
+            count = sum(1 for z, m in invalid_refs if m == mid)
+            print(f"    - '{mid}' used in {count} rows")
+        print(f"\n  Sample invalid references:")
+        for zip_code, market_id in invalid_refs[:10]:
+            print(f"    - ZIP {zip_code}: '{market_id}'")
+        return False
+    else:
+        print(f"  ✅ PASS: All market IDs are valid")
+    
+    # Check 2: Primary completeness
+    print("\n[2/3] Checking primary market completeness...")
+    zip_primaries = defaultdict(list)
+    all_zips = set()
+    
+    with open(zip_file, 'r') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            all_zips.add(row['zip_code'])
+            if row['relationship_type'] == 'primary':
+                zip_primaries[row['zip_code']].append(row['market_id'])
+    
+    missing = all_zips - set(zip_primaries.keys())
+    multiple = {z: m for z, m in zip_primaries.items() if len(m) > 1}
+    
+    if missing or multiple:
+        print(f"  ❌ FAIL:")
+        if missing:
+            print(f"    - {len(missing)} ZIPs missing primary market")
+            print(f"      Examples: {list(missing)[:5]}")
+        if multiple:
+            print(f"    - {len(multiple)} ZIPs with multiple primaries")
+            for z, markets in list(multiple.items())[:5]:
+                print(f"      ZIP {z}: {markets}")
+        return False
+    else:
+        print(f"  ✅ PASS: All {len(all_zips)} ZIPs have exactly one primary")
+    
+    # Check 3: Market coverage
+    print("\n[3/3] Checking market coverage...")
+    unused_markets = valid_markets - zip_markets_used
+    if unused_markets:
+        print(f"  ⚠️  WARNING: {len(unused_markets)} markets have no ZIPs assigned")
+        print(f"    Unused markets: {sorted(unused_markets)}")
+        print(f"    This may be OK for border/rural markets, but verify it's intentional")
+    else:
+        print(f"  ✅ PASS: All markets have at least one ZIP")
+    
+    # Summary
+    print("\n" + "="*60)
+    print("✅ VALIDATION PASSED - File ready for production")
+    print("="*60)
+    return True
+
+if __name__ == '__main__':
+    if len(sys.argv) != 3:
+        print("Usage: validate.py <zip_mapping.csv> <markets.csv>")
+        sys.exit(1)
+    
+    passed = validate_zip_mapping(sys.argv[1], sys.argv[2])
+    sys.exit(0 if passed else 1)
+```
+
+**Do NOT consider your CSV complete until this script passes.**
 
 ---
 
@@ -689,14 +662,14 @@ After completing region, verify:
 
 ```csv
 zip_code,market_id,relationship_type,mapping_rationale
-85001,AZ-PHOENIX-CENTRAL,primary,Downtown Phoenix ZIP within 15-min of central medical district
-85251,AZ-PHOENIX-EAST,primary,Scottsdale residents use HonorHealth and Mayo Clinic in East Valley
-85251,AZ-PHOENIX-CENTRAL,secondary,Some residents access Banner downtown for specialty care
+98101,WA-SEATTLE-MAIN,primary,Downtown Seattle ZIP uses UW Medicine and Swedish within 15-min
+98004,WA-SEATTLE-EASTSIDE,primary,Bellevue residents use Overlake Medical Center within 10-min
+98004,WA-SEATTLE-MAIN,secondary,Some residents access downtown Seattle hospitals via I-90 bridge in 20-min
 ```
 
 ### Sorting
 1. Primary: `zip_code` (ascending, 5-digit numeric)
-2. Secondary: `relationship_type` (primary, secondary, tertiary)
+2. Secondary: `relationship_type` (primary first, then secondary, then tertiary)
 3. Tertiary: `market_id` (alphabetical)
 
 ### Header Row
@@ -707,83 +680,46 @@ zip_code,market_id,relationship_type,mapping_rationale
 
 ---
 
-## Example Mappings
+## Execution Workflow (Step-by-Step)
 
-### Example 1: Core ZIP - Single Primary
-```csv
-zip_code,market_id,relationship_type,mapping_rationale
-85001,AZ-PHOENIX-CENTRAL,primary,Downtown Phoenix ZIP uses central medical district within 15-min
-```
+### Phase 1: Setup and Validation (MANDATORY)
 
-### Example 2: Suburban ZIP - Primary + Secondary
-```csv
-zip_code,market_id,relationship_type,mapping_rationale
-85251,AZ-PHOENIX-EAST,primary,Scottsdale residents primarily use HonorHealth Scottsdale and Mayo within 20-min
-85251,AZ-PHOENIX-CENTRAL,secondary,Some residents access downtown Banner facilities for specialty care via I-10
-```
+1. ✅ Confirm you have all required files
+2. ✅ Complete Step 1: Load and display valid market IDs
+3. ✅ Complete Step 2: Review regional barriers
+4. ✅ Complete Step 3: Map 10 sample ZIPs and validate
 
-### Example 3: Border ZIP - Equidistant
-```csv
-zip_code,market_id,relationship_type,mapping_rationale
-85050,AZ-PHOENIX-NORTH,primary,Northern Phoenix ZIP slightly closer to Deer Valley hospitals
-85050,AZ-PHOENIX-CENTRAL,secondary,Central medical district accessible via I-17 in 30-min
-```
+**Do not proceed to Phase 2 until Phase 1 is complete and validated.**
 
-### Example 4: Cross-Border ZIP
-```csv
-zip_code,market_id,relationship_type,mapping_rationale
-47130,KY-LOUISVILLE-METRO,primary,Jeffersonville IN residents cross I-65 bridges to Louisville hospitals in 20-min
-```
+### Phase 2: Initial Mapping (First 50 ZIPs)
 
-### Example 5: Rural ZIP with Distance
-```csv
-zip_code,market_id,relationship_type,mapping_rationale
-85920,AZ-FLAGSTAFF,primary,Northern Arizona rural ZIP uses Flagstaff Medical Center as closest facility
-85920,AZ-PHOENIX-CENTRAL,secondary,Complex specialty cases referred to Phoenix academic centers 140 miles south
-```
+5. Map 40 more ZIPs (total: 50 ZIPs mapped)
+6. Stop and validate:
+   - All market IDs on your Step 1 list?
+   - Travel times realistic per Step 2 barriers?
+   - Spot-check 5 ZIPs with Google Maps
 
-### Example 6: Transit-Enabled Secondary
-```csv
-zip_code,market_id,relationship_type,mapping_rationale
-02138,MA-CAMBRIDGE,primary,Cambridge residents use local Cambridge Health Alliance for routine care
-02138,MA-BOSTON-LONGWOOD,secondary,Red Line enables access to Longwood medical area for specialty care
-```
+**If validation fails, fix errors before continuing to Phase 3.**
 
-### Example 7: Ferry-Dependent Separate Market
-```csv
-zip_code,market_id,relationship_type,mapping_rationale
-98110,WA-BAINBRIDGE,primary,Bainbridge Island ZIP requires 35-min ferry making it separate market from Seattle
-```
+### Phase 3: Full Mapping (Remaining ZIPs)
 
----
+7. Map remaining ZIPs for the region
+8. Maintain consistency with patterns from Phase 2
+9. Document any edge cases or ambiguities in mapping_rationale
 
-## Execution Checklist
+### Phase 4: Final Validation (MANDATORY)
 
-### Before Starting
+10. Run validation script (market ID integrity)
+11. Check primary completeness (every ZIP has exactly one primary)
+12. Check market coverage (every market has some ZIPs)
+13. Verify regional barriers honored
+14. Sort output correctly
 
-- [ ] Load `master_market.md` (national framework)
-- [ ] Load `markets_<region>.md` (regional mobility factors)
-- [ ] Load `markets_<region>.csv` (valid market_ids)
-- [ ] Obtain ZIP code database for region's states
-- [ ] Review regional barrier documentation (water, mountains, congestion)
+### Phase 5: Delivery
 
-### During Mapping
-
-- [ ] Start with obvious core ZIPs (anchor cities, downtown areas)
-- [ ] Work outward from cores, checking travel times
-- [ ] Mark uncertain/border ZIPs for detailed review
-- [ ] Handle cross-border ZIPs per documented markets
-- [ ] Assign secondary markets only with evidence
-
-### After Mapping
-
-- [ ] Verify every ZIP has exactly one primary
-- [ ] Verify every market has some ZIPs
-- [ ] Spot-check travel time estimates
-- [ ] Verify cross-border assignments
-- [ ] Check regional barriers honored
-- [ ] Sort output correctly
-- [ ] Generate clean CSV file
+15. Output only the CSV file (no commentary)
+16. Confirm file passes validation script
+17. File is production-ready
 
 ---
 
@@ -791,16 +727,59 @@ zip_code,market_id,relationship_type,mapping_rationale
 
 Output **only** the completed `zip_to_market_<region>.csv` file.
 
+**But first:**
+- Complete the mandatory validation gates (Steps 1-3)
+- Display your validated market ID list
+- Map and validate 10 sample ZIPs
+- Wait for confirmation before proceeding with full mapping
+
 **Prioritize:**
-1. Realistic patient choice over geographic elegance
-2. Evidence-based assignments over assumptions
-3. Behavioral accuracy over statistical convenience
-4. Documented barriers over proximity alone
+1. **Exact market IDs from file** over intuitive alternatives
+2. Realistic patient choice over geographic elegance
+3. Evidence-based assignments over assumptions
+4. Behavioral accuracy over statistical convenience
+5. Documented barriers over proximity alone
 
 **Remember:**
 - This enables price comparison for actual care alternatives
-- Getting this wrong misleads patients about real options
+- Getting market IDs wrong breaks the entire system
+- Getting travel times wrong misleads patients about real options
 - Border ambiguity is expected and acceptable
-- Perfect clarity is less important than behavioral accuracy
+- **Validation gates are mandatory, not optional**
 
 The goal is to answer: **"Given this patient's ZIP code, which healthcare markets can they realistically access for routine and specialty care?"**
+
+---
+
+## Appendix: Lessons from Production Failures
+
+### Failure Case: Pacific Northwest (February 2026)
+
+**What happened:**
+- LLM invented market IDs like `WA-SEATTLE-CORE`, `WA-TACOMA`, `WA-EVERETT`
+- Actual market file had: `WA-SEATTLE-MAIN`, `WA-SEATTLE-TACOMA`, `WA-SEATTLE-EVERETT`
+- 259 out of 1,002 rows (25.8%) used invalid IDs
+- Data was completely unusable, required full regeneration
+
+**Why it happened:**
+1. No forcing function to display valid IDs upfront
+2. No validation checkpoint after first 10-50 ZIPs
+3. Examples in prompt used plausible but incorrect IDs
+4. LLM pattern-matched to examples instead of looking up actual file
+5. No automated validation script requirement
+
+**How V2.0 prevents this:**
+1. ✅ Mandatory Step 1: Display all valid market IDs before mapping
+2. ✅ Mandatory Step 3: Map and validate 10 samples before continuing
+3. ✅ Checkpoint after 50 ZIPs to catch systematic errors early
+4. ✅ Required validation script at end
+5. ✅ Examples use real market IDs from actual regions
+6. ✅ Explicit "do not invent IDs" warnings with real failure case
+
+**If you skip the validation gates, you will repeat this failure.**
+
+---
+
+**Prompt Version:** 2.0 (Production)  
+**Last Updated:** February 2026  
+**Changes from V1.0:** Added mandatory validation gates, explicit market ID enforcement, checkpoint-based workflow
