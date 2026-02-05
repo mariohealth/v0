@@ -1,1002 +1,854 @@
 zip_code,market_id,relationship_type,mapping_rationale
-98001,WA-SEATTLE-SOUTH,primary,Auburn ZIP uses MultiCare Auburn Medical Center within South King County network
-98002,WA-SEATTLE-SOUTH,primary,Federal Way ZIP serves south King County with St Francis Hospital locally
-98003,WA-SEATTLE-SOUTH,primary,Federal Way ZIP serves south King County with St Francis Hospital locally
-98004,WA-SEATTLE-EASTSIDE,primary,Bellevue ZIP uses Overlake Medical Center within 10-min drive
-98005,WA-SEATTLE-EASTSIDE,primary,Bellevue ZIP uses Overlake Medical Center within 10-min drive
-98006,WA-SEATTLE-EASTSIDE,primary,Bellevue ZIP uses Overlake Medical Center within 10-min drive
-98007,WA-SEATTLE-EASTSIDE,primary,Bellevue ZIP uses Overlake Medical Center within 10-min drive
-98008,WA-SEATTLE-EASTSIDE,primary,Bellevue ZIP uses Overlake Medical Center within 10-min drive
-98010,WA-SEATTLE-EASTSIDE,primary,Black Diamond ZIP in far southeast King County accesses Enumclaw Regional
-98011,WA-SEATTLE-NORTH,primary,Bothell ZIP straddles King-Snohomish border using Evergreen Health
-98012,WA-SEATTLE-NORTH,primary,Snohomish County ZIP north of Seattle uses EvergreenHealth Monroe
-98019,WA-SEATTLE-EASTSIDE,primary,Duvall ZIP in northeast King County uses Evergreen Health Kirkland
-98020,WA-SEATTLE-NORTH,primary,Edmonds ZIP uses Swedish Edmonds within Snohomish County network
-98021,WA-SEATTLE-NORTH,primary,Bothell ZIP uses Evergreen Health within 15-min
-98022,WA-SEATTLE-EASTSIDE,primary,Enumclaw ZIP in far southeast King County uses MultiCare Auburn
-98023,WA-SEATTLE-SOUTH,primary,Federal Way ZIP serves south King County with St Francis Hospital
-98024,WA-SEATTLE-EASTSIDE,primary,Fall City ZIP in Snoqualmie Valley uses Overlake or Swedish Issaquah
-98026,WA-SEATTLE-NORTH,primary,Edmonds ZIP uses Swedish Edmonds within 10-min
-98027,WA-SEATTLE-EASTSIDE,primary,Issaquah ZIP uses Swedish Issaquah within 10-min
-98028,WA-SEATTLE-EASTSIDE,primary,Kenmore ZIP north of Lake Washington uses Evergreen Health
-98029,WA-SEATTLE-EASTSIDE,primary,Issaquah ZIP uses Swedish Issaquah within 10-min
-98030,WA-SEATTLE-SOUTH,primary,Kent ZIP uses Valley Medical Center and MultiCare Covington
-98031,WA-SEATTLE-SOUTH,primary,Kent ZIP uses Valley Medical Center within 10-min
-98032,WA-SEATTLE-SOUTH,primary,Kent ZIP uses Valley Medical Center within 10-min
-98033,WA-SEATTLE-EASTSIDE,primary,Kirkland ZIP uses Evergreen Health Kirkland within 10-min
-98034,WA-SEATTLE-EASTSIDE,primary,Kirkland ZIP uses Evergreen Health Kirkland within 10-min
-98036,WA-SEATTLE-NORTH,primary,Lynnwood ZIP uses Swedish Edmonds and Providence Regional
-98037,WA-SEATTLE-NORTH,primary,Lynnwood ZIP uses Swedish Edmonds within Snohomish County
-98038,WA-SEATTLE-EASTSIDE,primary,Maple Valley ZIP in southeast King County uses MultiCare Covington
-98039,WA-SEATTLE-EASTSIDE,primary,Medina ZIP on Lake Washington uses Overlake Medical Center
-98040,WA-SEATTLE-EASTSIDE,primary,Mercer Island ZIP uses Swedish First Hill via I-90 bridge in 20-min
-98040,WA-SEATTLE-CORE,secondary,Mercer Island residents access downtown Seattle hospitals via I-90 in 15-20 min
-98041,WA-SEATTLE-NORTH,primary,Bothell ZIP straddles county line using Evergreen Health
-98042,WA-SEATTLE-SOUTH,primary,Kent ZIP in south King County uses Valley Medical Center
-98043,WA-SEATTLE-NORTH,primary,Mountlake Terrace ZIP uses Swedish Edmonds within Snohomish County
-98045,WA-SEATTLE-EASTSIDE,primary,North Bend ZIP in Snoqualmie Valley uses Swedish Issaquah 20-min west
-98046,WA-SEATTLE-EASTSIDE,primary,Lynnwood ZIP near county border uses Swedish Edmonds
-98047,WA-SEATTLE-CORE,primary,Pacific ZIP serves industrial SeaTac area near airport
-98050,WA-SEATTLE-EASTSIDE,primary,Preston ZIP in Snoqualmie foothills uses Swedish Issaquah
-98051,WA-SEATTLE-EASTSIDE,primary,Ravensdale ZIP in far southeast King County uses MultiCare Auburn
-98052,WA-SEATTLE-EASTSIDE,primary,Redmond ZIP uses Evergreen Health and Overlake within 15-min
-98053,WA-SEATTLE-EASTSIDE,primary,Redmond ZIP uses Evergreen Health Redmond within 10-min
-98055,WA-SEATTLE-SOUTH,primary,Renton ZIP uses Valley Medical Center within 15-min
-98056,WA-SEATTLE-SOUTH,primary,Renton ZIP uses Valley Medical Center within 10-min
-98057,WA-SEATTLE-SOUTH,primary,Renton ZIP uses Valley Medical Center within 10-min
-98058,WA-SEATTLE-SOUTH,primary,Renton ZIP uses Valley Medical Center within 10-min
-98059,WA-SEATTLE-SOUTH,primary,Renton ZIP uses Valley Medical Center within 10-min
-98065,WA-SEATTLE-EASTSIDE,primary,Snoqualmie ZIP uses Swedish Issaquah 15-min west
-98068,WA-SEATTLE-EASTSIDE,primary,Snoqualmie Pass ZIP uses Swedish Issaquah as closest facility
-98070,WA-KITSAP,primary,Vashon Island ZIP requires ferry making it separate from Seattle
-98072,WA-SEATTLE-EASTSIDE,primary,Woodinville ZIP uses Evergreen Health within 15-min
-98074,WA-SEATTLE-EASTSIDE,primary,Sammamish ZIP uses Swedish Issaquah within 15-min
-98075,WA-SEATTLE-EASTSIDE,primary,Sammamish ZIP uses Swedish Issaquah within 10-min
-98077,WA-SEATTLE-EASTSIDE,primary,Woodinville ZIP uses Evergreen Health within 15-min
-98082,WA-SEATTLE-SOUTH,primary,SeaTac ZIP near airport uses Valley Medical Center
-98087,WA-SEATTLE-NORTH,primary,Lynnwood ZIP uses Swedish Edmonds within Snohomish County
-98092,WA-SEATTLE-SOUTH,primary,Auburn ZIP uses MultiCare Auburn Medical Center
-98101,WA-SEATTLE-CORE,primary,Downtown Seattle ZIP uses multiple downtown hospitals within 10-min
-98102,WA-SEATTLE-CORE,primary,Capitol Hill ZIP uses Swedish First Hill and Virginia Mason within 10-min
-98103,WA-SEATTLE-CORE,primary,North Seattle ZIP uses Swedish Ballard within 15-min
-98104,WA-SEATTLE-CORE,primary,Downtown Seattle ZIP uses multiple downtown hospitals within 10-min
-98105,WA-SEATTLE-CORE,primary,University District ZIP uses UW Medical Center within 10-min
-98106,WA-SEATTLE-CORE,primary,West Seattle ZIP uses Swedish West Seattle within 15-min
-98107,WA-SEATTLE-CORE,primary,Ballard ZIP uses Swedish Ballard within 10-min
-98108,WA-SEATTLE-CORE,primary,Georgetown ZIP uses Harborview and VA Puget Sound within 15-min
-98109,WA-SEATTLE-CORE,primary,Queen Anne ZIP uses Swedish First Hill and Virginia Mason within 10-min
-98110,WA-KITSAP,primary,Bainbridge Island ZIP requires 35-min ferry making it separate market
-98112,WA-SEATTLE-CORE,primary,Capitol Hill ZIP uses Swedish First Hill within 5-min
-98113,WA-SEATTLE-CORE,primary,Downtown Seattle ZIP uses multiple hospitals within 10-min
-98115,WA-SEATTLE-CORE,primary,North Seattle ZIP uses Swedish Ballard within 15-min
-98116,WA-SEATTLE-CORE,primary,West Seattle ZIP uses Swedish West Seattle within 10-min
-98117,WA-SEATTLE-CORE,primary,Ballard ZIP uses Swedish Ballard within 10-min
-98118,WA-SEATTLE-CORE,primary,Southeast Seattle ZIP uses Swedish First Hill within 20-min
-98119,WA-SEATTLE-CORE,primary,Queen Anne ZIP uses Swedish First Hill within 10-min
-98121,WA-SEATTLE-CORE,primary,Belltown ZIP uses Swedish First Hill and Virginia Mason within 10-min
-98122,WA-SEATTLE-CORE,primary,Capitol Hill ZIP uses Swedish First Hill within 5-min
-98125,WA-SEATTLE-CORE,primary,North Seattle ZIP uses Swedish Ballard within 20-min
-98126,WA-SEATTLE-CORE,primary,West Seattle ZIP uses Swedish West Seattle within 15-min
-98133,WA-SEATTLE-NORTH,primary,North Seattle near county line uses Swedish Ballard and Edmonds
-98134,WA-SEATTLE-CORE,primary,Industrial Seattle ZIP uses downtown hospitals within 15-min
-98136,WA-SEATTLE-CORE,primary,West Seattle ZIP uses Swedish West Seattle within 10-min
-98144,WA-SEATTLE-CORE,primary,Central District ZIP uses Swedish First Hill within 15-min
-98146,WA-SEATTLE-CORE,primary,Burien ZIP uses Highline Medical Center within 15-min
-98148,WA-SEATTLE-CORE,primary,Burien ZIP near SeaTac uses Highline Medical Center
-98154,WA-SEATTLE-CORE,primary,Downtown Seattle ZIP uses multiple hospitals within 10-min
-98155,WA-SEATTLE-NORTH,primary,North Seattle near Shoreline uses Swedish Edmonds
-98164,WA-SEATTLE-CORE,primary,Downtown Seattle ZIP uses multiple hospitals within 10-min
-98166,WA-SEATTLE-CORE,primary,Burien ZIP uses Highline Medical Center within 15-min
-98168,WA-SEATTLE-CORE,primary,Tukwila ZIP uses Valley Medical Center within 15-min
-98177,WA-SEATTLE-NORTH,primary,North Seattle near Shoreline uses Swedish Edmonds
-98178,WA-SEATTLE-CORE,primary,Southeast Seattle ZIP uses Valley Medical Center within 20-min
-98188,WA-SEATTLE-CORE,primary,SeaTac area ZIP uses Highline Medical Center
-98198,WA-SEATTLE-SOUTH,primary,Des Moines ZIP uses Highline Medical Center within 15-min
-98199,WA-SEATTLE-CORE,primary,Magnolia ZIP uses Swedish Ballard within 15-min
-98201,WA-EVERETT,primary,Everett ZIP uses Providence Regional Medical Center within 10-min
-98203,WA-EVERETT,primary,Everett ZIP uses Providence Regional Medical Center within 10-min
-98204,WA-EVERETT,primary,Everett ZIP uses Providence Regional Medical Center within 10-min
-98205,WA-EVERETT,primary,Everett ZIP uses Providence Regional Medical Center within 10-min
-98206,WA-EVERETT,primary,Everett ZIP uses Providence Regional Medical Center within 10-min
-98207,WA-EVERETT,primary,Everett ZIP uses Providence Regional Medical Center within 10-min
-98208,WA-EVERETT,primary,Everett ZIP uses Providence Regional Medical Center within 10-min
-98213,WA-EVERETT,primary,Everett ZIP uses Providence Regional Medical Center within 10-min
-98220,WA-BELLINGHAM,primary,Acme ZIP in Whatcom County uses PeaceHealth St Joseph Bellingham
-98221,WA-SEATTLE-NORTH,primary,Anacortes ZIP uses Island Hospital locally in Skagit County
-98222,WA-BELLINGHAM,primary,Blaine ZIP near Canada border uses PeaceHealth St Joseph
-98223,WA-SEATTLE-NORTH,primary,Arlington ZIP uses Cascade Valley Hospital locally
-98225,WA-BELLINGHAM,primary,Bellingham ZIP uses PeaceHealth St Joseph Medical Center within 10-min
-98226,WA-BELLINGHAM,primary,Bellingham ZIP uses PeaceHealth St Joseph Medical Center within 10-min
-98227,WA-BELLINGHAM,primary,Bellingham ZIP uses PeaceHealth St Joseph Medical Center within 10-min
-98228,WA-BELLINGHAM,primary,Bellingham ZIP uses PeaceHealth St Joseph Medical Center within 10-min
-98229,WA-BELLINGHAM,primary,Bellingham ZIP uses PeaceHealth St Joseph Medical Center within 10-min
-98230,WA-BELLINGHAM,primary,Blaine ZIP near Canada border uses PeaceHealth St Joseph
-98231,WA-BELLINGHAM,primary,Blaine ZIP near Canada border uses PeaceHealth St Joseph
-98232,WA-SEATTLE-NORTH,primary,Camano Island ZIP in Island County uses Cascade Valley Hospital
-98233,WA-BELLINGHAM,primary,Concrete ZIP in Skagit Valley uses Cascade Valley Hospital
-98235,WA-BELLINGHAM,primary,Cultus Lake area uses PeaceHealth St Joseph Bellingham
-98236,WA-SEATTLE-NORTH,primary,Clinton ZIP on Whidbey Island requires ferry making it separate
-98237,WA-BELLINGHAM,primary,Bellingham area ZIP uses PeaceHealth St Joseph
-98238,WA-SEATTLE-NORTH,primary,Coupeville ZIP on Whidbey Island uses WhidbeyHealth locally
-98239,WA-SEATTLE-NORTH,primary,Coupeville ZIP on Whidbey Island uses WhidbeyHealth locally
-98240,WA-SEATTLE-NORTH,primary,Coupeville ZIP on Whidbey Island uses WhidbeyHealth locally
-98241,WA-BELLINGHAM,primary,Bellingham area ZIP uses PeaceHealth St Joseph
-98243,WA-BELLINGHAM,primary,Deming ZIP in Whatcom County uses PeaceHealth St Joseph
-98244,WA-BELLINGHAM,primary,Bellingham area ZIP uses PeaceHealth St Joseph
-98245,WA-SEATTLE-NORTH,primary,Eastsound ZIP on Orcas Island uses Island Hospital or PeaceHealth
-98247,WA-BELLINGHAM,primary,Everson ZIP in Whatcom County uses PeaceHealth St Joseph
-98248,WA-BELLINGHAM,primary,Ferndale ZIP uses PeaceHealth St Joseph within 15-min
-98249,WA-SEATTLE-NORTH,primary,Freeland ZIP on Whidbey Island uses WhidbeyHealth
-98250,WA-SEATTLE-NORTH,primary,Friday Harbor ZIP on San Juan Island uses PeaceHealth Island Hospital
-98251,WA-EVERETT,primary,Gold Bar ZIP in Snohomish foothills uses Providence Regional
-98252,WA-EVERETT,primary,Granite Falls ZIP uses Providence Regional via SR-92
-98253,WA-SEATTLE-NORTH,primary,Greenbank ZIP on Whidbey Island uses WhidbeyHealth
-98255,WA-BELLINGHAM,primary,Bellingham area ZIP uses PeaceHealth St Joseph
-98256,WA-EVERETT,primary,Index ZIP in Cascade foothills uses Providence Regional
-98257,WA-SEATTLE-NORTH,primary,La Conner ZIP uses Skagit Valley Hospital
-98258,WA-EVERETT,primary,Lake Stevens ZIP uses Providence Regional via US-2
-98260,WA-SEATTLE-NORTH,primary,Langley ZIP on Whidbey Island uses WhidbeyHealth
-98261,WA-BELLINGHAM,primary,Lummi Island ZIP requires ferry but uses PeaceHealth Bellingham
-98262,WA-BELLINGHAM,primary,Lynden ZIP in Whatcom County uses PeaceHealth St Joseph
-98263,WA-BELLINGHAM,primary,Maple Falls ZIP in Whatcom County uses PeaceHealth St Joseph
-98264,WA-BELLINGHAM,primary,Lynden ZIP in Whatcom County uses PeaceHealth St Joseph
-98266,WA-BELLINGHAM,primary,Maple Falls ZIP in Whatcom County uses PeaceHealth St Joseph
-98267,WA-BELLINGHAM,primary,Bellingham area ZIP uses PeaceHealth St Joseph
-98270,WA-EVERETT,primary,Marysville ZIP uses Providence Regional via I-5
-98271,WA-EVERETT,primary,Marysville ZIP uses Providence Regional within 20-min
-98272,WA-SEATTLE-NORTH,primary,Monroe ZIP uses EvergreenHealth Monroe within 10-min
-98273,WA-SEATTLE-NORTH,primary,Mount Vernon ZIP uses Skagit Valley Hospital within 10-min
-98274,WA-SEATTLE-NORTH,primary,Mount Vernon ZIP uses Skagit Valley Hospital within 10-min
-98275,WA-EVERETT,primary,Mukilteo ZIP uses Providence Regional within 20-min
-98276,WA-BELLINGHAM,primary,Lynden ZIP in Whatcom County uses PeaceHealth St Joseph
-98277,WA-SEATTLE-NORTH,primary,Oak Harbor ZIP on Whidbey Island uses Naval Hospital or WhidbeyHealth
-98278,WA-SEATTLE-NORTH,primary,Oak Harbor ZIP on Whidbey Island uses Naval Hospital or WhidbeyHealth
-98279,WA-BELLINGHAM,primary,Bellingham area ZIP uses PeaceHealth St Joseph
-98280,WA-SEATTLE-NORTH,primary,Orcas Island ZIP uses Island Hospital or PeaceHealth
-98281,WA-BELLINGHAM,primary,Point Roberts ZIP isolated by Canada uses PeaceHealth Bellingham
-98282,WA-SEATTLE-NORTH,primary,Camano Island ZIP uses Cascade Valley Hospital
-98283,WA-BELLINGHAM,primary,Rockport ZIP in Skagit Valley uses Cascade Valley Hospital
-98284,WA-SEATTLE-NORTH,primary,Sedro-Woolley ZIP uses Cascade Valley Hospital within 10-min
-98286,WA-SEATTLE-NORTH,primary,San Juan Islands ZIP uses Island Hospital
-98287,WA-BELLINGHAM,primary,Sumas ZIP at Canada border uses PeaceHealth St Joseph
-98288,WA-EVERETT,primary,Skykomish ZIP in Cascades uses Providence Regional as closest
-98290,WA-EVERETT,primary,Snohomish ZIP uses Providence Regional within 20-min
-98291,WA-EVERETT,primary,Snohomish ZIP uses Providence Regional within 20-min
-98292,WA-EVERETT,primary,Stanwood ZIP uses Providence Regional within 25-min
-98293,WA-BELLINGHAM,primary,Startup ZIP in Cascade foothills uses Providence Regional
-98294,WA-EVERETT,primary,Sultan ZIP uses Providence Regional via US-2
-98295,WA-SEATTLE-NORTH,primary,Whidbey Island Naval Air Station uses Naval Hospital
-98296,WA-EVERETT,primary,Snohomish ZIP uses Providence Regional within 20-min
-98297,WA-SEATTLE-NORTH,primary,Waldron Island ZIP uses Island Hospital or PeaceHealth
-98303,WA-TACOMA,primary,Anderson Island ZIP requires ferry but uses MultiCare Tacoma
-98304,WA-KITSAP,primary,Ashford ZIP near Mount Rainier uses MultiCare Auburn as closest
-98305,WA-KITSAP,primary,Beaver ZIP on Olympic Peninsula uses Harrison Medical Center
-98310,WA-KITSAP,primary,Bremerton ZIP uses Harrison Medical Center within 10-min
-98311,WA-KITSAP,primary,Bremerton ZIP uses Harrison Medical Center within 10-min
-98312,WA-KITSAP,primary,Bremerton ZIP uses Harrison Medical Center within 10-min
-98314,WA-KITSAP,primary,Bremerton ZIP uses Harrison Medical Center within 10-min
-98315,WA-KITSAP,primary,Silverdale ZIP uses Harrison Medical Center within 15-min
-98320,WA-OLYMPIA,primary,Brinnon ZIP on Hood Canal uses Mason General Hospital
-98321,WA-SEATTLE-SOUTH,primary,Buckley ZIP in foothills uses MultiCare Auburn
-98323,WA-SEATTLE-SOUTH,primary,Carbonado ZIP near Mount Rainier uses MultiCare Good Samaritan
-98325,WA-KITSAP,primary,Chimacum ZIP on Olympic Peninsula uses Jefferson Healthcare
-98326,WA-OLYMPIA,primary,Clallam Bay ZIP on Olympic coast uses Olympic Medical Center
-98327,WA-SEATTLE-SOUTH,primary,Dupont ZIP uses Madigan Army Medical Center
-98328,WA-SEATTLE-SOUTH,primary,Eatonville ZIP uses MultiCare Good Samaritan
-98329,WA-KITSAP,primary,Gig Harbor ZIP uses MultiCare Gig Harbor within 10-min
-98330,WA-KITSAP,primary,Elbe ZIP near Mount Rainier uses MultiCare Good Samaritan
-98331,WA-OLYMPIA,primary,Forks ZIP on Olympic coast uses Forks Community Hospital
-98332,WA-KITSAP,primary,Gig Harbor ZIP uses MultiCare Gig Harbor within 10-min
-98333,WA-OLYMPIA,primary,Fox Island ZIP uses MultiCare Tacoma via bridge
-98335,WA-KITSAP,primary,Gig Harbor ZIP uses MultiCare Gig Harbor within 10-min
-98336,WA-KITSAP,primary,Glenoma ZIP uses Morton General Hospital
-98337,WA-KITSAP,primary,Bremerton ZIP uses Harrison Medical Center within 10-min
-98338,WA-SEATTLE-SOUTH,primary,Graham ZIP uses MultiCare Good Samaritan
-98339,WA-KITSAP,primary,Port Hadlock ZIP on Olympic Peninsula uses Jefferson Healthcare
-98340,WA-KITSAP,primary,Hansville ZIP on Kitsap Peninsula uses Harrison Medical Center
-98342,WA-KITSAP,primary,Indianola ZIP on Kitsap Peninsula uses Harrison Medical Center
-98343,WA-KITSAP,primary,Joyce ZIP on Olympic Peninsula uses Olympic Medical Center
-98344,WA-KITSAP,primary,Kapowsin ZIP uses MultiCare Good Samaritan
-98345,WA-KITSAP,primary,Keyport ZIP uses Harrison Medical Center within 20-min
-98346,WA-KITSAP,primary,Kingston ZIP uses Harrison Medical Center within 20-min
-98349,WA-SEATTLE-SOUTH,primary,Lakebay ZIP on Key Peninsula uses MultiCare Gig Harbor
-98350,WA-OLYMPIA,primary,La Push ZIP on Olympic coast uses Forks Community Hospital
-98351,WA-SEATTLE-SOUTH,primary,Longmire ZIP in Mount Rainier uses MultiCare Auburn
-98352,WA-OLYMPIA,primary,Sumner ZIP uses MultiCare Good Samaritan within 15-min
-98353,WA-KITSAP,primary,Manchester ZIP on Kitsap Peninsula uses Harrison Medical Center
-98354,WA-SEATTLE-SOUTH,primary,Milton ZIP uses MultiCare Good Samaritan within 15-min
-98355,WA-OLYMPIA,primary,Mineral ZIP uses Morton General Hospital
-98356,WA-OLYMPIA,primary,Morton ZIP uses Morton General Hospital within 10-min
-98357,WA-OLYMPIA,primary,Neah Bay ZIP on Olympic Peninsula uses Forks Community Hospital
-98358,WA-KITSAP,primary,Nordland ZIP on Olympic Peninsula uses Jefferson Healthcare
-98359,WA-KITSAP,primary,Olalla ZIP on Kitsap Peninsula uses MultiCare Gig Harbor
-98360,WA-KITSAP,primary,Orting ZIP uses MultiCare Good Samaritan within 20-min
-98361,WA-OLYMPIA,primary,Packwood ZIP uses Morton General Hospital
-98362,WA-OLYMPIA,primary,Port Angeles ZIP uses Olympic Medical Center within 10-min
-98363,WA-OLYMPIA,primary,Port Angeles ZIP uses Olympic Medical Center within 10-min
-98364,WA-KITSAP,primary,Port Gamble ZIP on Kitsap Peninsula uses Harrison Medical Center
-98365,WA-KITSAP,primary,Port Ludlow ZIP on Olympic Peninsula uses Jefferson Healthcare
-98366,WA-KITSAP,primary,Port Orchard ZIP uses Harrison Medical Center within 15-min
-98367,WA-KITSAP,primary,Port Orchard ZIP uses Harrison Medical Center within 15-min
-98368,WA-KITSAP,primary,Port Townsend ZIP uses Jefferson Healthcare within 10-min
-98370,WA-KITSAP,primary,Poulsbo ZIP uses Harrison Medical Center within 15-min
-98371,WA-TACOMA,primary,Puyallup ZIP uses MultiCare Good Samaritan within 10-min
-98372,WA-TACOMA,primary,Puyallup ZIP uses MultiCare Good Samaritan within 10-min
-98373,WA-TACOMA,primary,Puyallup ZIP uses MultiCare Good Samaritan within 10-min
-98374,WA-TACOMA,primary,Puyallup ZIP uses MultiCare Good Samaritan within 10-min
-98375,WA-TACOMA,primary,Puyallup ZIP uses MultiCare Good Samaritan within 10-min
-98376,WA-KITSAP,primary,Port Hadlock ZIP on Olympic Peninsula uses Jefferson Healthcare
-98377,WA-OLYMPIA,primary,Randle ZIP uses Morton General Hospital
-98378,WA-KITSAP,primary,Retsil ZIP on Kitsap Peninsula uses Harrison Medical Center
-98380,WA-KITSAP,primary,Seabeck ZIP on Kitsap Peninsula uses Harrison Medical Center
-98381,WA-OLYMPIA,primary,Sekiu ZIP on Olympic Peninsula uses Forks Community Hospital
-98382,WA-OLYMPIA,primary,Sequim ZIP uses Olympic Medical Center within 20-min
-98383,WA-KITSAP,primary,Silverdale ZIP uses Harrison Medical Center within 10-min
-98384,WA-KITSAP,primary,South Colby ZIP on Kitsap Peninsula uses Harrison Medical Center
-98385,WA-SEATTLE-SOUTH,primary,South Prairie ZIP uses MultiCare Good Samaritan
-98386,WA-SEATTLE-SOUTH,primary,Spanaway ZIP uses Madigan Army Medical Center within 15-min
-98387,WA-SEATTLE-SOUTH,primary,Spanaway ZIP uses Madigan Army Medical Center within 15-min
-98388,WA-SEATTLE-SOUTH,primary,Steilacoom ZIP uses Madigan Army Medical Center within 10-min
-98389,WA-SEATTLE-SOUTH,primary,Sumner ZIP uses MultiCare Good Samaritan within 10-min
-98390,WA-SEATTLE-SOUTH,primary,Sumner ZIP uses MultiCare Good Samaritan within 10-min
-98391,WA-SEATTLE-SOUTH,primary,Bonney Lake ZIP uses MultiCare Good Samaritan within 20-min
-98392,WA-KITSAP,primary,Suquamish ZIP on Kitsap Peninsula uses Harrison Medical Center
-98393,WA-OLYMPIA,primary,Tracyton ZIP on Kitsap Peninsula uses Harrison Medical Center
-98394,WA-SEATTLE-SOUTH,primary,Vaughn ZIP on Key Peninsula uses MultiCare Gig Harbor
-98395,WA-KITSAP,primary,Wauna ZIP on Kitsap Peninsula uses Harrison Medical Center
-98396,WA-SEATTLE-SOUTH,primary,Wilkeson ZIP uses MultiCare Good Samaritan
-98401,WA-TACOMA,primary,Downtown Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98402,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98403,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98404,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98405,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98406,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98407,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98408,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98409,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98416,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98418,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98421,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98422,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 10-min
-98424,WA-TACOMA,primary,Fife ZIP uses MultiCare Auburn or Tacoma within 15-min
-98430,WA-SEATTLE-SOUTH,primary,Camp Murray ZIP uses Madigan Army Medical Center
-98433,WA-TACOMA,primary,Tacoma military ZIP uses Madigan Army Medical Center
-98438,WA-TACOMA,primary,Lakewood ZIP uses Madigan Army Medical Center within 15-min
-98439,WA-TACOMA,primary,Lakewood ZIP uses Madigan Army Medical Center within 10-min
-98444,WA-TACOMA,primary,Parkland ZIP uses MultiCare Tacoma General within 15-min
-98445,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 15-min
-98446,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 15-min
-98447,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 15-min
-98465,WA-TACOMA,primary,Tacoma ZIP uses MultiCare Tacoma General within 15-min
-98466,WA-TACOMA,primary,University Place ZIP uses MultiCare Tacoma General within 15-min
-98467,WA-TACOMA,primary,University Place ZIP uses MultiCare Tacoma General within 15-min
-98498,WA-SEATTLE-SOUTH,primary,Lakewood ZIP uses Madigan Army Medical Center within 15-min
-98499,WA-TACOMA,primary,Lakewood ZIP uses MultiCare Tacoma General within 20-min
-98501,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital within 10-min
-98502,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital within 10-min
-98503,WA-OLYMPIA,primary,Lacey ZIP uses Providence St Peter Hospital within 15-min
-98504,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital within 10-min
-98505,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital within 10-min
-98506,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital within 10-min
-98512,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital within 10-min
-98513,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital within 10-min
-98516,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital within 10-min
-98520,WA-OLYMPIA,primary,Aberdeen ZIP uses Grays Harbor Community Hospital within 10-min
-98522,WA-OLYMPIA,primary,Chehalis ZIP uses Providence Centralia Hospital within 15-min
-98524,WA-OLYMPIA,primary,Centralia ZIP uses Providence Centralia Hospital within 10-min
-98526,WA-OLYMPIA,primary,Copalis Beach ZIP uses Grays Harbor Community Hospital
-98527,WA-OLYMPIA,primary,Cosmopolis ZIP uses Grays Harbor Community Hospital
-98528,WA-OLYMPIA,primary,Curtis ZIP uses Providence Centralia Hospital
-98530,WA-OLYMPIA,primary,Elma ZIP uses Grays Harbor Community Hospital within 20-min
-98531,WA-OLYMPIA,primary,Ethel ZIP uses Providence Centralia Hospital
-98532,WA-OLYMPIA,primary,Galvin ZIP uses Providence Centralia Hospital
-98533,WA-OLYMPIA,primary,Grapeview ZIP uses Mason General Hospital
-98535,WA-OLYMPIA,primary,Grayland ZIP uses Grays Harbor Community Hospital
-98536,WA-OLYMPIA,primary,Hoodsport ZIP uses Mason General Hospital
-98537,WA-OLYMPIA,primary,Hoquiam ZIP uses Grays Harbor Community Hospital within 10-min
-98538,WA-OLYMPIA,primary,Humptulips ZIP uses Grays Harbor Community Hospital
-98539,WA-OLYMPIA,primary,Lilliwaup ZIP uses Mason General Hospital
-98540,WA-OLYMPIA,primary,McCleary ZIP uses Grays Harbor Community Hospital
-98541,WA-OLYMPIA,primary,Matlock ZIP uses Mason General Hospital
-98542,WA-OLYMPIA,primary,Moclips ZIP uses Grays Harbor Community Hospital
-98544,WA-OLYMPIA,primary,Mossyrock ZIP uses Providence Centralia Hospital
-98546,WA-OLYMPIA,primary,Napavine ZIP uses Providence Centralia Hospital
-98547,WA-OLYMPIA,primary,Neilton ZIP uses Grays Harbor Community Hospital
-98548,WA-OLYMPIA,primary,Oakville ZIP uses Providence Centralia Hospital
-98550,WA-OLYMPIA,primary,Montesano ZIP uses Grays Harbor Community Hospital within 15-min
-98552,WA-OLYMPIA,primary,Ocean Park ZIP uses Ocean Beach Hospital
-98555,WA-OLYMPIA,primary,Onalaska ZIP uses Providence Centralia Hospital
-98556,WA-OLYMPIA,primary,Pacific Beach ZIP uses Grays Harbor Community Hospital
-98557,WA-OLYMPIA,primary,Pe Ell ZIP uses Providence Centralia Hospital
-98558,WA-OLYMPIA,primary,Quinault ZIP uses Grays Harbor Community Hospital
-98559,WA-OLYMPIA,primary,Rainier ZIP uses Providence Centralia Hospital
-98560,WA-OLYMPIA,primary,Rochester ZIP uses Providence Centralia Hospital
-98561,WA-OLYMPIA,primary,Ryderwood ZIP uses Providence Centralia Hospital
-98562,WA-OLYMPIA,primary,Salkum ZIP uses Providence Centralia Hospital
-98563,WA-OLYMPIA,primary,Shelton ZIP uses Mason General Hospital within 10-min
-98564,WA-OLYMPIA,primary,Silver Creek ZIP uses Providence Centralia Hospital
-98565,WA-OLYMPIA,primary,South Bend ZIP uses Ocean Beach Hospital within 15-min
-98568,WA-OLYMPIA,primary,Taholah ZIP on Quinault reservation uses Grays Harbor Community Hospital
-98569,WA-OLYMPIA,primary,Tahuya ZIP uses Mason General Hospital
-98570,WA-OLYMPIA,primary,Tenino ZIP uses Providence Centralia Hospital
-98571,WA-OLYMPIA,primary,Toledo ZIP uses Providence Centralia Hospital
-98572,WA-OLYMPIA,primary,Tumwater ZIP uses Providence St Peter Hospital within 10-min
-98575,WA-OLYMPIA,primary,Vader ZIP uses Providence Centralia Hospital
-98576,WA-OLYMPIA,primary,Winlock ZIP uses Providence Centralia Hospital
-98577,WA-OLYMPIA,primary,Westport ZIP uses Grays Harbor Community Hospital
-98579,WA-OLYMPIA,primary,Yelm ZIP uses Providence St Peter Hospital within 20-min
-98580,WA-OLYMPIA,primary,Roy ZIP uses Madigan Army Medical Center
-98581,WA-OLYMPIA,primary,Cinebar ZIP uses Providence Centralia Hospital
-98582,WA-OLYMPIA,primary,East Olympia ZIP uses Providence St Peter Hospital
-98583,WA-OLYMPIA,primary,Lacey ZIP uses Providence St Peter Hospital within 15-min
-98584,WA-OLYMPIA,primary,Oakville ZIP uses Providence Centralia Hospital
-98585,WA-OLYMPIA,primary,South Bay ZIP uses Grays Harbor Community Hospital
-98586,WA-OLYMPIA,primary,Steamboat Island ZIP uses Providence St Peter Hospital
-98587,WA-OLYMPIA,primary,Union ZIP uses Mason General Hospital
-98588,WA-OLYMPIA,primary,Tokeland ZIP uses Grays Harbor Community Hospital
-98589,WA-OLYMPIA,primary,Tenino ZIP uses Providence Centralia Hospital
-98590,WA-OLYMPIA,primary,Tumwater ZIP uses Providence St Peter Hospital within 10-min
-98591,WA-OLYMPIA,primary,Vader ZIP uses Providence Centralia Hospital
-98592,WA-OLYMPIA,primary,Westport ZIP uses Grays Harbor Community Hospital
-98593,WA-OLYMPIA,primary,Yelm ZIP uses Providence St Peter Hospital within 20-min
-98595,WA-OLYMPIA,primary,Olympia ZIP uses Providence St Peter Hospital
-98596,WA-OLYMPIA,primary,Copalis Crossing ZIP uses Grays Harbor Community Hospital
-98597,WA-OLYMPIA,primary,Tumwater ZIP uses Providence St Peter Hospital
-98601,WA-PORTLAND,primary,Amboy WA ZIP near Vancouver uses PeaceHealth Southwest
-98602,WA-PORTLAND,primary,Ariel WA ZIP near Mount St Helens uses PeaceHealth Southwest
-98603,WA-PORTLAND,primary,Appleton WA ZIP in Klickitat County uses PeaceHealth Longview
-98604,WA-PORTLAND,primary,Battle Ground WA ZIP uses PeaceHealth Southwest within 25-min
-98605,WA-PORTLAND,primary,Bingen WA ZIP in Columbia Gorge uses PeaceHealth Longview
-98606,WA-PORTLAND,primary,Brush Prairie WA ZIP near Vancouver uses PeaceHealth Southwest
-98607,WA-PORTLAND,primary,Camas WA ZIP uses PeaceHealth Southwest within 20-min
-98609,WA-PORTLAND,primary,Carrolls WA ZIP uses PeaceHealth Longview
-98610,WA-PORTLAND,primary,Castle Rock WA ZIP uses PeaceHealth Longview within 20-min
-98611,WA-PORTLAND,primary,Cathlamet WA ZIP uses PeaceHealth Longview within 30-min
-98612,WA-PORTLAND,primary,Centerville WA ZIP in Klickitat County uses PeaceHealth Longview
-98613,WA-PORTLAND,primary,Chinook WA ZIP uses Ocean Beach Hospital
-98614,WA-PORTLAND,primary,Clatskanie OR ZIP uses PeaceHealth Longview
-98616,WA-PORTLAND,primary,Cougar WA ZIP near Mount St Helens uses PeaceHealth Southwest
-98617,WA-PORTLAND,primary,Dallesport WA ZIP in Columbia Gorge uses PeaceHealth Longview
-98619,WA-PORTLAND,primary,Glenwood WA ZIP in Klickitat County uses PeaceHealth Longview
-98620,WA-PORTLAND,primary,Goldendale WA ZIP uses Klickitat Valley Health within 10-min
-98621,WA-PORTLAND,primary,Grays River WA ZIP uses PeaceHealth Longview
-98622,WA-PORTLAND,primary,Heisson WA ZIP near Vancouver uses PeaceHealth Southwest
-98623,WA-PORTLAND,primary,Husum WA ZIP in Columbia Gorge uses PeaceHealth Longview
-98624,WA-PORTLAND,primary,Ilwaco WA ZIP uses Ocean Beach Hospital within 15-min
-98625,WA-PORTLAND,primary,Kalama WA ZIP uses PeaceHealth Longview within 20-min
-98626,WA-PORTLAND,primary,Kelso WA ZIP uses PeaceHealth St John Medical Center within 10-min
-98628,WA-PORTLAND,primary,Klickitat WA ZIP uses PeaceHealth Longview
-98629,WA-PORTLAND,primary,La Center WA ZIP uses PeaceHealth Southwest within 25-min
-98631,WA-PORTLAND,primary,Long Beach WA ZIP uses Ocean Beach Hospital within 10-min
-98632,WA-PORTLAND,primary,Longview WA ZIP uses PeaceHealth St John Medical Center within 10-min
-98635,WA-PORTLAND,primary,Lyle WA ZIP in Columbia Gorge uses PeaceHealth Longview
-98637,WA-PORTLAND,primary,Nahcotta WA ZIP uses Ocean Beach Hospital
-98638,WA-PORTLAND,primary,Naselle WA ZIP uses Ocean Beach Hospital
-98639,WA-PORTLAND,primary,North Bonneville WA ZIP uses PeaceHealth Southwest
-98640,WA-PORTLAND,primary,Ocean Park WA ZIP uses Ocean Beach Hospital within 15-min
-98641,WA-PORTLAND,primary,Oysterville WA ZIP uses Ocean Beach Hospital
-98642,WA-PORTLAND,primary,Ridgefield WA ZIP uses PeaceHealth Southwest within 20-min
-98643,WA-PORTLAND,primary,Rosburg WA ZIP uses Ocean Beach Hospital
-98644,WA-PORTLAND,primary,Seaview WA ZIP uses Ocean Beach Hospital
-98645,WA-PORTLAND,primary,Silverlake WA ZIP near Mount St Helens uses PeaceHealth Longview
-98647,WA-PORTLAND,primary,Skamokawa WA ZIP uses PeaceHealth Longview
-98648,WA-PORTLAND,primary,Stevenson WA ZIP in Columbia Gorge uses PeaceHealth Southwest
-98649,WA-PORTLAND,primary,Toutle WA ZIP uses PeaceHealth Longview
-98650,WA-PORTLAND,primary,Trout Lake WA ZIP in Columbia Gorge uses PeaceHealth Longview
-98651,WA-PORTLAND,primary,Underwood WA ZIP in Columbia Gorge uses PeaceHealth Longview
-98660,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98661,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98662,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98663,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98664,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98665,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98666,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98668,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98670,WA-PORTLAND,primary,Wahkiacus WA ZIP in Klickitat County uses PeaceHealth Longview
-98671,WA-PORTLAND,primary,Washougal WA ZIP uses PeaceHealth Southwest within 25-min
-98672,WA-PORTLAND,primary,White Salmon WA ZIP in Columbia Gorge uses PeaceHealth Longview
-98673,WA-PORTLAND,primary,Centerville WA ZIP in Klickitat County uses PeaceHealth Longview
-98674,WA-PORTLAND,primary,Woodland WA ZIP uses PeaceHealth Longview within 20-min
-98675,WA-PORTLAND,primary,Yacolt WA ZIP uses PeaceHealth Southwest within 30-min
-98682,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98683,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98684,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98685,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98686,WA-PORTLAND,primary,Vancouver WA ZIP uses PeaceHealth Southwest within 10-min
-98801,WA-WENATCHEE,primary,Wenatchee ZIP uses Confluence Health within 10-min
-98802,WA-WENATCHEE,primary,East Wenatchee ZIP uses Confluence Health within 10-min
-98807,WA-WENATCHEE,primary,Chelan ZIP uses Lake Chelan Community Hospital within 10-min
-98811,WA-WENATCHEE,primary,Entiat ZIP uses Confluence Health
-98812,WA-WENATCHEE,primary,Brewster ZIP uses Three Rivers Hospital within 15-min
-98813,WA-WENATCHEE,primary,Bridgeport ZIP uses Three Rivers Hospital
-98814,WA-WENATCHEE,primary,Carlton ZIP uses Three Rivers Hospital
-98815,WA-WENATCHEE,primary,Cashmere ZIP uses Confluence Health within 20-min
-98816,WA-WENATCHEE,primary,Chelan ZIP uses Lake Chelan Community Hospital within 10-min
-98817,WA-WENATCHEE,primary,Chelan Falls ZIP uses Lake Chelan Community Hospital
-98819,WA-WENATCHEE,primary,Omak ZIP uses Mid-Valley Hospital within 10-min
-98821,WA-WENATCHEE,primary,Cashmere ZIP uses Confluence Health within 20-min
-98822,WA-WENATCHEE,primary,Entiat ZIP uses Confluence Health
-98823,WA-WENATCHEE,primary,Ephrata ZIP uses Columbia Basin Hospital within 10-min
-98824,WA-WENATCHEE,primary,Leavenworth ZIP uses Cascade Medical Center within 10-min
-98826,WA-WENATCHEE,primary,Leavenworth ZIP uses Cascade Medical Center within 10-min
-98827,WA-WENATCHEE,primary,Loomis ZIP uses Three Rivers Hospital
-98828,WA-WENATCHEE,primary,Malaga ZIP uses Confluence Health
-98829,WA-WENATCHEE,primary,Okanogan ZIP uses Mid-Valley Hospital within 15-min
-98830,WA-WENATCHEE,primary,Mansfield ZIP uses Confluence Health
-98831,WA-WENATCHEE,primary,Manson ZIP uses Lake Chelan Community Hospital
-98832,WA-WENATCHEE,primary,Marlin ZIP uses Confluence Health
-98833,WA-WENATCHEE,primary,Mazama ZIP uses Three Rivers Hospital
-98834,WA-WENATCHEE,primary,Methow ZIP uses Three Rivers Hospital
-98836,WA-WENATCHEE,primary,Nespelem ZIP on Colville Reservation uses Coulee Medical Center
-98837,WA-WENATCHEE,primary,Moses Lake ZIP uses Samaritan Hospital within 10-min
-98840,WA-WENATCHEE,primary,Okanogan ZIP uses Mid-Valley Hospital within 10-min
-98841,WA-WENATCHEE,primary,Omak ZIP uses Mid-Valley Hospital within 10-min
-98843,WA-WENATCHEE,primary,Orondo ZIP uses Confluence Health
-98844,WA-WENATCHEE,primary,Oroville ZIP uses Mid-Valley Hospital within 20-min
-98845,WA-WENATCHEE,primary,Palisades ZIP uses Confluence Health
-98846,WA-WENATCHEE,primary,Pateros ZIP uses Three Rivers Hospital within 15-min
-98847,WA-WENATCHEE,primary,Peshastin ZIP uses Confluence Health
-98848,WA-WENATCHEE,primary,Quincy ZIP uses Quincy Valley Medical Center within 10-min
-98849,WA-WENATCHEE,primary,Rock Island ZIP uses Confluence Health
-98850,WA-WENATCHEE,primary,Soap Lake ZIP uses Quincy Valley Medical Center
-98851,WA-WENATCHEE,primary,Stehekin ZIP uses Lake Chelan Community Hospital via ferry
-98852,WA-WENATCHEE,primary,Stratford ZIP uses Moses Lake Samaritan Hospital
-98853,WA-WENATCHEE,primary,Tonasket ZIP uses North Valley Hospital within 10-min
-98855,WA-WENATCHEE,primary,Warden ZIP uses Quincy Valley Medical Center
-98856,WA-WENATCHEE,primary,Waterville ZIP uses Confluence Health
-98857,WA-WENATCHEE,primary,Winthrop ZIP uses Three Rivers Hospital within 20-min
-98858,WA-WENATCHEE,primary,Wauconda ZIP uses Mid-Valley Hospital
-99001,WA-SPOKANE,primary,Airway Heights ZIP uses Providence Sacred Heart within 20-min
-99003,WA-SPOKANE,primary,Chattaroy ZIP uses Providence Sacred Heart within 30-min
-99004,WA-SPOKANE,primary,Cheney ZIP uses Providence Sacred Heart within 25-min
-99005,WA-SPOKANE,primary,Colbert ZIP uses Providence Sacred Heart within 25-min
-99006,WA-SPOKANE,primary,Deer Park ZIP uses Providence Sacred Heart within 30-min
-99008,WA-SPOKANE,primary,Edwall ZIP uses Odessa Memorial Healthcare
-99009,WA-SPOKANE,primary,Elk ZIP uses Providence Sacred Heart
-99011,WA-SPOKANE,primary,Fairchild Air Force Base ZIP uses Providence Sacred Heart
-99012,WA-SPOKANE,primary,Fairfield ZIP uses Rockwood Clinic
-99013,WA-SPOKANE,primary,Ford ZIP uses Providence Sacred Heart
-99014,WA-SPOKANE,primary,Four Lakes ZIP uses Providence Sacred Heart
-99016,WA-SPOKANE,primary,Greenacres ZIP uses Providence Sacred Heart within 20-min
-99017,WA-SPOKANE,primary,Latah ZIP uses Providence Sacred Heart
-99018,WA-SPOKANE,primary,Liberty Lake ZIP uses Providence Sacred Heart within 20-min
-99019,WA-SPOKANE,primary,Medical Lake ZIP uses Providence Sacred Heart within 25-min
-99020,WA-SPOKANE,primary,Marshall ZIP uses Providence Sacred Heart
-99021,WA-SPOKANE,primary,Mead ZIP uses Providence Sacred Heart within 20-min
-99022,WA-SPOKANE,primary,Mica ZIP uses Providence Sacred Heart
-99023,WA-SPOKANE,primary,Newman Lake ZIP uses Providence Sacred Heart within 25-min
-99025,WA-SPOKANE,primary,Otis Orchards ZIP uses Providence Sacred Heart within 25-min
-99026,WA-SPOKANE,primary,Nine Mile Falls ZIP uses Providence Sacred Heart within 25-min
-99027,WA-SPOKANE,primary,Opportunity ZIP uses Providence Sacred Heart within 20-min
-99029,WA-SPOKANE,primary,Reardan ZIP uses Odessa Memorial Healthcare
-99030,WA-SPOKANE,primary,Rockford ZIP uses Rockwood Clinic
-99031,WA-SPOKANE,primary,Spangle ZIP uses Providence Sacred Heart
-99032,WA-SPOKANE,primary,Sprague ZIP uses Odessa Memorial Healthcare
-99033,WA-SPOKANE,primary,Tekoa ZIP uses Pullman Regional Hospital
-99034,WA-SPOKANE,primary,Tumtum ZIP uses Providence Sacred Heart
-99036,WA-SPOKANE,primary,Valleyford ZIP uses Providence Sacred Heart
-99037,WA-SPOKANE,primary,Veradale ZIP uses Providence Sacred Heart within 20-min
-99039,WA-SPOKANE,primary,Waverly ZIP uses Providence Sacred Heart
-99040,WA-SPOKANE,primary,Wellpinit ZIP uses Providence Sacred Heart
-99101,WA-SPOKANE,primary,Addy ZIP uses Providence Sacred Heart
-99103,WA-SPOKANE,primary,Chewelah ZIP uses Providence St Joseph's Hospital within 10-min
-99104,WA-SPOKANE,primary,Colville ZIP uses Providence Mount Carmel Hospital within 10-min
-99105,WA-SPOKANE,primary,Clayton ZIP uses Providence Sacred Heart
-99107,WA-SPOKANE,primary,Cusick ZIP uses Newport Hospital and Health Services
-99109,WA-SPOKANE,primary,Davenport ZIP uses Lincoln Hospital within 10-min
-99110,WA-SPOKANE,primary,Edmonds ZIP uses Providence Sacred Heart
-99111,WA-SPOKANE,primary,Elk ZIP uses Providence Sacred Heart
-99113,WA-SPOKANE,primary,Evans ZIP uses Providence Sacred Heart
-99114,WA-SPOKANE,primary,Farmington ZIP uses Pullman Regional Hospital
-99115,WA-SPOKANE,primary,Fruitland ZIP uses Providence Sacred Heart
-99116,WA-SPOKANE,primary,Garfield ZIP uses Pullman Regional Hospital
-99117,WA-SPOKANE,primary,Gifford ZIP uses Providence Sacred Heart
-99118,WA-SPOKANE,primary,Harrington ZIP uses Odessa Memorial Healthcare
-99119,WA-SPOKANE,primary,Hunters ZIP uses Providence Sacred Heart
-99121,WA-SPOKANE,primary,Inchelium ZIP on Colville Reservation uses Providence Sacred Heart
-99122,WA-SPOKANE,primary,Ione ZIP uses Newport Hospital and Health Services
-99123,WA-SPOKANE,primary,Kettle Falls ZIP uses Providence Mount Carmel Hospital within 20-min
-99124,WA-SPOKANE,primary,Keller ZIP uses Coulee Medical Center
-99125,WA-SPOKANE,primary,Lacrosse ZIP uses Pullman Regional Hospital
-99126,WA-SPOKANE,primary,Lamona ZIP uses Odessa Memorial Healthcare
-99128,WA-SPOKANE,primary,Loon Lake ZIP uses Providence Sacred Heart
-99129,WA-SPOKANE,primary,Malo ZIP uses Ferry County Memorial Hospital
-99130,WA-SPOKANE,primary,Marcus ZIP uses Ferry County Memorial Hospital within 15-min
-99131,WA-SPOKANE,primary,Metaline ZIP uses Newport Hospital and Health Services
-99133,WA-SPOKANE,primary,Metaline Falls ZIP uses Newport Hospital and Health Services within 10-min
-99134,WA-SPOKANE,primary,Newport ZIP uses Newport Hospital and Health Services within 10-min
-99135,WA-SPOKANE,primary,Nespelem ZIP on Colville Reservation uses Coulee Medical Center
-99136,WA-SPOKANE,primary,Northport ZIP uses Ferry County Memorial Hospital within 20-min
-99137,WA-SPOKANE,primary,Oakesdale ZIP uses Pullman Regional Hospital
-99138,WA-SPOKANE,primary,Odessa ZIP uses Odessa Memorial Healthcare within 10-min
-99139,WA-SPOKANE,primary,Orient ZIP uses Ferry County Memorial Hospital
-99140,WA-SPOKANE,primary,Palouse ZIP uses Pullman Regional Hospital within 15-min
-99141,WA-SPOKANE,primary,Elk ZIP uses Providence Sacred Heart
-99143,WA-SPOKANE,primary,Pullman ZIP uses Pullman Regional Hospital within 10-min
-99144,WA-SPOKANE,primary,Republic ZIP uses Ferry County Memorial Hospital within 10-min
-99146,WA-SPOKANE,primary,Ritzville ZIP uses East Adams Rural Hospital within 10-min
-99147,WA-SPOKANE,primary,Rosalia ZIP uses Pullman Regional Hospital
-99148,WA-SPOKANE,primary,Springdale ZIP uses Providence Sacred Heart
-99149,WA-SPOKANE,primary,St John ZIP uses Pullman Regional Hospital
-99150,WA-SPOKANE,primary,Thornton ZIP uses Providence Sacred Heart
-99151,WA-SPOKANE,primary,Usk ZIP uses Newport Hospital and Health Services
-99152,WA-SPOKANE,primary,Valley ZIP uses Providence Sacred Heart
-99153,WA-SPOKANE,primary,Wilbur ZIP uses Coulee Medical Center within 20-min
-99154,WA-WENATCHEE,primary,Wilson Creek ZIP uses Quincy Valley Medical Center
-99155,WA-SPOKANE,primary,Winona ZIP uses Providence Sacred Heart
-99156,WA-SPOKANE,primary,Rice ZIP uses Providence Sacred Heart
-99157,WA-SPOKANE,primary,Colville ZIP uses Providence Mount Carmel Hospital
-99158,WA-SPOKANE,primary,Loon Lake ZIP uses Providence Sacred Heart
-99159,WA-SPOKANE,primary,Odessa ZIP uses Odessa Memorial Healthcare
-99160,WA-SPOKANE,primary,Boyds ZIP uses Ferry County Memorial Hospital
-99161,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart
-99163,WA-SPOKANE,primary,Pullman ZIP uses Pullman Regional Hospital
-99164,WA-SPOKANE,primary,Pullman ZIP uses Pullman Regional Hospital
-99165,WA-SPOKANE,primary,Pullman ZIP uses Pullman Regional Hospital
-99166,WA-SPOKANE,primary,Colville ZIP uses Providence Mount Carmel Hospital
-99167,WA-SPOKANE,primary,Medical Lake ZIP uses Providence Sacred Heart
-99169,WA-SPOKANE,primary,Wellpinit ZIP uses Providence Sacred Heart
-99170,WA-SPOKANE,primary,Republic ZIP uses Ferry County Memorial Hospital
-99171,WA-SPOKANE,primary,Rosalia ZIP uses Pullman Regional Hospital
-99173,WA-SPOKANE,primary,Lind ZIP uses Odessa Memorial Healthcare
-99176,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart
-99179,WA-SPOKANE,primary,Kettle Falls ZIP uses Providence Mount Carmel Hospital
-99180,WA-SPOKANE,primary,Airway Heights ZIP uses Providence Sacred Heart
-99181,WA-SPOKANE,primary,Cheney ZIP uses Providence Sacred Heart
-99201,WA-SPOKANE,primary,Downtown Spokane ZIP uses Providence Sacred Heart within 10-min
-99202,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99203,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99204,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99205,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99206,WA-SPOKANE,primary,Spokane Valley ZIP uses MultiCare Valley Hospital within 10-min
-99207,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99208,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99209,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99210,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99211,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99212,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99213,WA-SPOKANE,primary,Spokane ZIP uses MultiCare Valley Hospital within 15-min
-99214,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99215,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99216,WA-SPOKANE,primary,Spokane Valley ZIP uses MultiCare Valley Hospital within 10-min
-99217,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99218,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99219,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99220,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99223,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99224,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99228,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99251,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99252,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99256,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99258,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99260,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99299,WA-SPOKANE,primary,Spokane ZIP uses Providence Sacred Heart within 10-min
-99301,WA-YAKIMA,primary,Pasco ZIP uses Lourdes Health within 10-min
-99302,WA-YAKIMA,primary,Pasco ZIP uses Lourdes Health within 10-min
-99320,WA-YAKIMA,primary,Benton City ZIP uses Lourdes Health within 20-min
-99321,WA-YAKIMA,primary,Beverly ZIP uses Quincy Valley Medical Center
-99322,WA-YAKIMA,primary,Bickleton ZIP uses Lourdes Health
-99323,WA-YAKIMA,primary,Burbank ZIP uses Kadlec Regional Medical Center
-99324,WA-YAKIMA,primary,College Place ZIP uses Walla Walla General Hospital within 15-min
-99326,WA-YAKIMA,primary,Connell ZIP uses Lourdes Medical Center within 20-min
-99328,WA-YAKIMA,primary,Dayton ZIP uses Columbia County Health System within 10-min
-99329,WA-YAKIMA,primary,Eltopia ZIP uses Lourdes Health
-99330,WA-YAKIMA,primary,Waitsburg ZIP uses Walla Walla General Hospital
-99333,WA-YAKIMA,primary,Kahlotus ZIP uses Lourdes Health
-99335,WA-YAKIMA,primary,Kennewick ZIP uses Kadlec Regional Medical Center within 10-min
-99336,WA-YAKIMA,primary,Kennewick ZIP uses Kadlec Regional Medical Center within 10-min
-99337,WA-YAKIMA,primary,Kennewick ZIP uses Kadlec Regional Medical Center within 10-min
-99338,WA-YAKIMA,primary,Kennewick ZIP uses Kadlec Regional Medical Center within 10-min
-99341,WA-YAKIMA,primary,Mattawa ZIP uses Lourdes Medical Center
-99343,WA-YAKIMA,primary,Mesa ZIP uses Lourdes Health
-99344,WA-YAKIMA,primary,Othello ZIP uses Othello Community Hospital within 10-min
-99345,WA-YAKIMA,primary,Paterson ZIP uses Lourdes Health
-99346,WA-YAKIMA,primary,Plymouth ZIP uses Lourdes Health
-99347,WA-YAKIMA,primary,Pomeroy ZIP uses Garfield County Public Hospital within 10-min
-99348,WA-YAKIMA,primary,Prescott ZIP uses Walla Walla General Hospital
-99349,WA-YAKIMA,primary,Prosser ZIP uses Prosser Memorial Hospital within 10-min
-99350,WA-YAKIMA,primary,Richland ZIP uses Kadlec Regional Medical Center within 10-min
-99351,WA-YAKIMA,primary,Richland ZIP uses Kadlec Regional Medical Center within 10-min
-99352,WA-YAKIMA,primary,Richland ZIP uses Kadlec Regional Medical Center within 10-min
-99353,WA-YAKIMA,primary,West Richland ZIP uses Kadlec Regional Medical Center within 15-min
-99354,WA-YAKIMA,primary,Richland ZIP uses Kadlec Regional Medical Center within 10-min
-99356,WA-YAKIMA,primary,Roosevelt ZIP uses Lourdes Health
-99357,WA-YAKIMA,primary,Royal City ZIP uses Othello Community Hospital
-99359,WA-YAKIMA,primary,Touchet ZIP uses Walla Walla General Hospital
-99360,WA-YAKIMA,primary,Walla Walla ZIP uses Walla Walla General Hospital within 10-min
-99361,WA-YAKIMA,primary,Walla Walla ZIP uses Walla Walla General Hospital within 10-min
-99362,WA-YAKIMA,primary,Walla Walla ZIP uses Walla Walla General Hospital within 10-min
-99363,WA-YAKIMA,primary,Wallula ZIP uses Kadlec Regional Medical Center
-99371,WA-YAKIMA,primary,Clarkston ZIP uses Tri-State Memorial Hospital within 10-min
-99401,WA-YAKIMA,primary,Anatone ZIP uses Walla Walla General Hospital
-99402,WA-SPOKANE,primary,Clarkston ZIP uses Tri-State Memorial Hospital
-97001,OR-PORTLAND,primary,Antelope OR ZIP uses Mid-Columbia Medical Center
-97002,OR-PORTLAND,primary,Aurora OR ZIP uses Legacy Meridian Park within 25-min
-97003,OR-PORTLAND,primary,Beaverton OR ZIP uses Providence St Vincent within 15-min
-97004,OR-PORTLAND,primary,Beaverton OR ZIP uses Providence St Vincent within 15-min
-97005,OR-PORTLAND,primary,Beaverton OR ZIP uses Providence St Vincent within 15-min
-97006,OR-PORTLAND,primary,Beaverton OR ZIP uses Providence St Vincent within 10-min
-97007,OR-PORTLAND,primary,Beaverton OR ZIP uses Providence St Vincent within 10-min
-97008,OR-PORTLAND,primary,Beaverton OR ZIP uses Providence St Vincent within 10-min
-97009,OR-PORTLAND,primary,Boring OR ZIP uses Legacy Mount Hood Medical Center
-97010,OR-PORTLAND,primary,Bridal Veil OR ZIP in Columbia Gorge uses Legacy Mount Hood
-97011,OR-PORTLAND,primary,Brightwood OR ZIP uses Legacy Mount Hood Medical Center
-97013,OR-PORTLAND,primary,Canby OR ZIP uses Legacy Meridian Park within 20-min
-97014,OR-PORTLAND,primary,Cascade Locks OR ZIP uses Mid-Columbia Medical Center
-97015,OR-PORTLAND,primary,Clackamas OR ZIP uses Kaiser Sunnyside within 15-min
-97016,OR-PORTLAND,primary,Clackamas OR ZIP uses Kaiser Sunnyside within 15-min
-97017,OR-PORTLAND,primary,Colton OR ZIP uses Legacy Meridian Park
-97018,OR-PORTLAND,primary,Columbia City OR ZIP uses Legacy Meridian Park
-97019,OR-PORTLAND,primary,Corbett OR ZIP in Columbia Gorge uses Legacy Mount Hood
-97020,OR-PORTLAND,primary,Donald OR ZIP uses Legacy Meridian Park
-97021,OR-PORTLAND,primary,Dufur OR ZIP uses Mid-Columbia Medical Center
-97022,OR-PORTLAND,primary,Eagle Creek OR ZIP uses Legacy Mount Hood Medical Center
-97023,OR-PORTLAND,primary,Estacada OR ZIP uses Legacy Mount Hood Medical Center within 20-min
-97024,OR-PORTLAND,primary,Fairview OR ZIP uses Legacy Mount Hood Medical Center within 15-min
-97026,OR-PORTLAND,primary,Glenwood OR ZIP uses Legacy Mount Hood Medical Center
-97027,OR-PORTLAND,primary,Gladstone OR ZIP uses Kaiser Sunnyside within 15-min
-97028,OR-PORTLAND,primary,Government Camp OR ZIP uses Legacy Mount Hood Medical Center
-97029,OR-PORTLAND,primary,Grass Valley OR ZIP uses Mid-Columbia Medical Center
-97030,OR-PORTLAND,primary,Gresham OR ZIP uses Legacy Mount Hood Medical Center within 10-min
-97031,OR-PORTLAND,primary,Hood River OR ZIP uses Providence Hood River Memorial Hospital within 10-min
-97032,OR-PORTLAND,primary,Hubbard OR ZIP uses Legacy Meridian Park
-97033,OR-PORTLAND,primary,Kent OR ZIP uses Mid-Columbia Medical Center
-97034,OR-PORTLAND,primary,Lake Oswego OR ZIP uses Providence St Vincent within 15-min
-97035,OR-PORTLAND,primary,Lake Oswego OR ZIP uses Providence St Vincent within 15-min
-97036,OR-PORTLAND,primary,Lake Oswego OR ZIP uses Providence St Vincent within 15-min
-97037,OR-PORTLAND,primary,Maupin OR ZIP uses Mid-Columbia Medical Center
-97038,OR-PORTLAND,primary,Molalla OR ZIP uses Legacy Meridian Park within 25-min
-97039,OR-PORTLAND,primary,Moro OR ZIP uses Mid-Columbia Medical Center
-97040,OR-PORTLAND,primary,Mosier OR ZIP uses Mid-Columbia Medical Center
-97041,OR-PORTLAND,primary,Odell OR ZIP uses Providence Hood River Memorial Hospital
-97042,OR-PORTLAND,primary,Mulino OR ZIP uses Legacy Meridian Park
-97045,OR-PORTLAND,primary,Oregon City OR ZIP uses Legacy Meridian Park within 15-min
-97048,OR-PORTLAND,primary,Parkdale OR ZIP uses Providence Hood River Memorial Hospital
-97049,OR-PORTLAND,primary,Rhododendron OR ZIP uses Legacy Mount Hood Medical Center
-97050,OR-PORTLAND,primary,Rufus OR ZIP uses Mid-Columbia Medical Center
-97051,OR-PORTLAND,primary,Saint Helens OR ZIP uses Columbia Memorial Hospital within 10-min
-97053,OR-PORTLAND,primary,Warren OR ZIP uses Columbia Memorial Hospital
-97054,OR-PORTLAND,primary,Scappoose OR ZIP uses Columbia Memorial Hospital within 15-min
-97055,OR-PORTLAND,primary,Sandy OR ZIP uses Legacy Mount Hood Medical Center within 10-min
-97056,OR-PORTLAND,primary,Scappoose OR ZIP uses Columbia Memorial Hospital within 15-min
-97057,OR-PORTLAND,primary,Shaniko OR ZIP uses Mid-Columbia Medical Center
-97058,OR-PORTLAND,primary,The Dalles OR ZIP uses Mid-Columbia Medical Center within 10-min
-97060,OR-PORTLAND,primary,Troutdale OR ZIP uses Legacy Mount Hood Medical Center within 15-min
-97062,OR-PORTLAND,primary,Tualatin OR ZIP uses Legacy Meridian Park within 15-min
-97063,OR-PORTLAND,primary,Tygh Valley OR ZIP uses Mid-Columbia Medical Center
-97064,OR-PORTLAND,primary,Vernonia OR ZIP uses Columbia Memorial Hospital within 25-min
-97065,OR-PORTLAND,primary,Wasco OR ZIP uses Mid-Columbia Medical Center
-97067,OR-PORTLAND,primary,Welches OR ZIP uses Legacy Mount Hood Medical Center
-97068,OR-PORTLAND,primary,West Linn OR ZIP uses Legacy Meridian Park within 15-min
-97070,OR-PORTLAND,primary,Wilsonville OR ZIP uses Legacy Meridian Park within 10-min
-97071,OR-PORTLAND,primary,Woodburn OR ZIP uses Salem Hospital within 20-min
-97080,OR-PORTLAND,primary,Gresham OR ZIP uses Legacy Mount Hood Medical Center within 10-min
-97086,OR-PORTLAND,primary,Happy Valley OR ZIP uses Kaiser Sunnyside within 15-min
-97089,OR-PORTLAND,primary,Damascus OR ZIP uses Legacy Mount Hood Medical Center
-97101,OR-PORTLAND,primary,Amity OR ZIP uses Salem Hospital
-97102,OR-PORTLAND,primary,Arch Cape OR ZIP uses Providence Seaside Hospital
-97103,OR-PORTLAND,primary,Astoria OR ZIP uses Columbia Memorial Hospital within 10-min
-97106,OR-PORTLAND,primary,Banks OR ZIP uses Providence St Vincent within 30-min
-97107,OR-PORTLAND,primary,Bay City OR ZIP uses Tillamook Regional Medical Center
-97108,OR-PORTLAND,primary,Beaver OR ZIP uses Tillamook Regional Medical Center
-97109,OR-PORTLAND,primary,Cannon Beach OR ZIP uses Providence Seaside Hospital within 15-min
-97110,OR-PORTLAND,primary,Cannon Beach OR ZIP uses Providence Seaside Hospital within 15-min
-97111,OR-PORTLAND,primary,Carlton OR ZIP uses Providence Newberg Medical Center
-97112,OR-PORTLAND,primary,Cloverdale OR ZIP uses Tillamook Regional Medical Center
-97113,OR-PORTLAND,primary,Cornelius OR ZIP uses Providence St Vincent within 20-min
-97114,OR-PORTLAND,primary,Dayton OR ZIP uses Salem Hospital
-97115,OR-PORTLAND,primary,Dundee OR ZIP uses Providence Newberg Medical Center
-97116,OR-PORTLAND,primary,Forest Grove OR ZIP uses Providence St Vincent within 20-min
-97117,OR-PORTLAND,primary,Gales Creek OR ZIP uses Providence St Vincent
-97118,OR-PORTLAND,primary,Garibaldi OR ZIP uses Tillamook Regional Medical Center within 10-min
-97119,OR-PORTLAND,primary,Gaston OR ZIP uses Providence St Vincent
-97121,OR-PORTLAND,primary,Hammond OR ZIP uses Columbia Memorial Hospital
-97122,OR-PORTLAND,primary,Hebo OR ZIP uses Tillamook Regional Medical Center
-97123,OR-PORTLAND,primary,Hillsboro OR ZIP uses Providence St Vincent within 15-min
-97124,OR-PORTLAND,primary,Hillsboro OR ZIP uses Providence St Vincent within 10-min
-97125,OR-PORTLAND,primary,Manning OR ZIP uses Providence St Vincent
-97127,OR-PORTLAND,primary,Lafayette OR ZIP uses Providence Newberg Medical Center
-97128,OR-PORTLAND,primary,McMinnville OR ZIP uses Willamette Valley Medical Center within 10-min
-97129,OR-PORTLAND,primary,McMinnville OR ZIP uses Willamette Valley Medical Center within 10-min
-97130,OR-PORTLAND,primary,Manzanita OR ZIP uses Providence Seaside Hospital
-97131,OR-PORTLAND,primary,Nehalem OR ZIP uses Tillamook Regional Medical Center
-97132,OR-PORTLAND,primary,Newberg OR ZIP uses Providence Newberg Medical Center within 10-min
-97133,OR-PORTLAND,primary,North Plains OR ZIP uses Providence St Vincent within 20-min
-97134,OR-PORTLAND,primary,Oceanside OR ZIP uses Tillamook Regional Medical Center
-97135,OR-PORTLAND,primary,Pacific City OR ZIP uses Tillamook Regional Medical Center
-97136,OR-PORTLAND,primary,Rockaway Beach OR ZIP uses Tillamook Regional Medical Center
-97137,OR-PORTLAND,primary,Saint Paul OR ZIP uses Salem Hospital
-97138,OR-PORTLAND,primary,Seaside OR ZIP uses Providence Seaside Hospital within 10-min
-97140,OR-PORTLAND,primary,Sherwood OR ZIP uses Legacy Meridian Park within 15-min
-97141,OR-PORTLAND,primary,Tillamook OR ZIP uses Tillamook Regional Medical Center within 10-min
-97143,OR-EUGENE,primary,Netarts OR ZIP uses Tillamook Regional Medical Center
-97144,OR-PORTLAND,primary,Timber OR ZIP uses Providence St Vincent
-97145,OR-PORTLAND,primary,Tolovana Park OR ZIP uses Providence Seaside Hospital
-97146,OR-PORTLAND,primary,Warrenton OR ZIP uses Columbia Memorial Hospital within 10-min
-97147,OR-PORTLAND,primary,Wheeler OR ZIP uses Tillamook Regional Medical Center
-97148,OR-PORTLAND,primary,Yamhill OR ZIP uses Willamette Valley Medical Center
-97149,OR-PORTLAND,primary,Neskowin OR ZIP uses Tillamook Regional Medical Center
-97201,OR-PORTLAND,primary,Downtown Portland ZIP uses OHSU and Legacy Good Samaritan within 10-min
-97202,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Portland within 15-min
-97203,OR-PORTLAND,primary,North Portland ZIP uses Legacy Emanuel within 15-min
-97204,OR-PORTLAND,primary,Downtown Portland ZIP uses OHSU and Legacy Good Samaritan within 10-min
-97205,OR-PORTLAND,primary,Northwest Portland ZIP uses Legacy Good Samaritan within 10-min
-97206,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Portland within 15-min
-97207,OR-PORTLAND,primary,Northwest Portland ZIP uses Legacy Good Samaritan within 10-min
-97208,OR-PORTLAND,primary,Downtown Portland ZIP uses OHSU and Legacy Good Samaritan within 10-min
-97209,OR-PORTLAND,primary,Northwest Portland ZIP uses Legacy Good Samaritan within 10-min
-97210,OR-PORTLAND,primary,Northwest Portland ZIP uses Legacy Good Samaritan within 10-min
-97211,OR-PORTLAND,primary,Northeast Portland ZIP uses Legacy Emanuel within 15-min
-97212,OR-PORTLAND,primary,Northeast Portland ZIP uses Legacy Emanuel within 10-min
-97213,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Portland within 15-min
-97214,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Portland within 10-min
-97215,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Portland within 10-min
-97216,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Portland within 15-min
-97217,OR-PORTLAND,primary,North Portland ZIP uses Legacy Emanuel within 15-min
-97218,OR-PORTLAND,primary,Northeast Portland ZIP uses Legacy Emanuel within 15-min
-97219,OR-PORTLAND,primary,Southwest Portland ZIP uses OHSU within 10-min
-97220,OR-PORTLAND,primary,East Portland ZIP uses Legacy Mount Hood Medical Center within 15-min
-97221,OR-PORTLAND,primary,Southwest Portland ZIP uses OHSU within 15-min
-97222,OR-PORTLAND,primary,Milwaukie OR ZIP uses Providence Milwaukie Hospital within 10-min
-97223,OR-PORTLAND,primary,Southwest Portland ZIP uses Providence St Vincent within 15-min
-97224,OR-PORTLAND,primary,West Linn OR ZIP uses Legacy Meridian Park within 15-min
-97225,OR-PORTLAND,primary,Beaverton OR ZIP uses Providence St Vincent within 10-min
-97227,OR-PORTLAND,primary,Northeast Portland ZIP uses Legacy Emanuel within 10-min
-97228,OR-PORTLAND,primary,Northeast Portland ZIP uses Legacy Emanuel within 10-min
-97229,OR-PORTLAND,primary,Northwest Portland ZIP uses Providence St Vincent within 15-min
-97230,OR-PORTLAND,primary,East Portland ZIP uses Legacy Mount Hood Medical Center within 15-min
-97231,OR-PORTLAND,primary,Northwest Portland ZIP uses Legacy Good Samaritan within 15-min
-97232,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Portland within 10-min
-97233,OR-PORTLAND,primary,East Portland ZIP uses Legacy Mount Hood Medical Center within 15-min
-97236,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Portland within 20-min
-97238,OR-PORTLAND,primary,Downtown Portland ZIP uses OHSU and Legacy Good Samaritan within 10-min
-97239,OR-PORTLAND,primary,Southwest Portland ZIP uses OHSU within 5-min
-97240,OR-PORTLAND,primary,Portland ZIP uses OHSU and Legacy Good Samaritan within 10-min
-97266,OR-PORTLAND,primary,Southeast Portland ZIP uses Providence Milwaukie Hospital within 20-min
-97267,OR-PORTLAND,primary,Milwaukie OR ZIP uses Providence Milwaukie Hospital within 10-min
-97268,OR-PORTLAND,primary,Milwaukie OR ZIP uses Providence Milwaukie Hospital within 10-min
-97269,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97280,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97281,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97282,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97283,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97286,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97290,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97291,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97292,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97293,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97294,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97296,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97298,OR-PORTLAND,primary,Portland ZIP uses OHSU within 10-min
-97301,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97302,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97303,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97304,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97305,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97306,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97308,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97309,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97310,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97311,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97312,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97314,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97317,OR-SALEM,primary,Salem OR ZIP uses Salem Hospital within 10-min
-97321,OR-EUGENE,primary,Albany OR ZIP uses Samaritan Albany General Hospital within 10-min
-97322,OR-EUGENE,primary,Albany OR ZIP uses Samaritan Albany General Hospital within 10-min
-97324,OR-EUGENE,primary,Alsea OR ZIP uses Samaritan Albany General Hospital
-97325,OR-SALEM,primary,Aumsville OR ZIP uses Salem Hospital within 20-min
-97326,OR-EUGENE,primary,Blodgett OR ZIP uses Samaritan Lincoln City Hospital
-97327,OR-SALEM,primary,Breitenbush OR ZIP uses Salem Hospital
-97329,OR-EUGENE,primary,Brownsville OR ZIP uses Samaritan Lebanon Community Hospital
-97330,OR-EUGENE,primary,Corvallis OR ZIP uses Samaritan Health Services within 10-min
-97331,OR-EUGENE,primary,Corvallis OR ZIP uses Samaritan Health Services within 10-min
-97333,OR-EUGENE,primary,Corvallis OR ZIP uses Samaritan Health Services within 10-min
-97335,OR-SALEM,primary,Crabtree OR ZIP uses Salem Hospital
-97336,OR-EUGENE,primary,Crawfordsville OR ZIP uses Samaritan Lebanon Community Hospital
-97338,OR-EUGENE,primary,Dallas OR ZIP uses Salem Hospital within 25-min
-97341,OR-EUGENE,primary,Depoe Bay OR ZIP uses Samaritan Lincoln City Hospital
-97342,OR-SALEM,primary,Detroit OR ZIP uses Salem Hospital
-97343,OR-SALEM,primary,Falls City OR ZIP uses Salem Hospital
-97344,OR-EUGENE,primary,Foster OR ZIP uses Samaritan Lebanon Community Hospital
-97345,OR-SALEM,primary,Gates OR ZIP uses Salem Hospital
-97346,OR-SALEM,primary,Grand Ronde OR ZIP uses Salem Hospital
-97347,OR-EUGENE,primary,Hebo OR ZIP uses Tillamook Regional Medical Center
-97348,OR-SALEM,primary,Idanha OR ZIP uses Salem Hospital
-97350,OR-SALEM,primary,Independence OR ZIP uses Salem Hospital within 20-min
-97351,OR-SALEM,primary,Jefferson OR ZIP uses Salem Hospital
-97352,OR-SALEM,primary,Keizer OR ZIP uses Salem Hospital within 10-min
-97355,OR-EUGENE,primary,Lebanon OR ZIP uses Samaritan Lebanon Community Hospital within 10-min
-97357,OR-SALEM,primary,Lyons OR ZIP uses Salem Hospital
-97358,OR-SALEM,primary,Mill City OR ZIP uses Salem Hospital
-97360,OR-SALEM,primary,Monmouth OR ZIP uses Salem Hospital within 15-min
-97361,OR-EUGENE,primary,Monroe OR ZIP uses Samaritan Albany General Hospital
-97362,OR-SALEM,primary,Mount Angel OR ZIP uses Salem Hospital within 20-min
-97364,OR-EUGENE,primary,Neotsu OR ZIP uses Samaritan Lincoln City Hospital
-97365,OR-EUGENE,primary,Newport OR ZIP uses Samaritan Pacific Communities Hospital within 10-min
-97366,OR-EUGENE,primary,Logsden OR ZIP uses Samaritan Lincoln City Hospital
-97367,OR-EUGENE,primary,Lincoln City OR ZIP uses Samaritan Lincoln City Hospital within 10-min
-97368,OR-EUGENE,primary,Otis OR ZIP uses Samaritan Lincoln City Hospital
-97369,OR-EUGENE,primary,Otter Rock OR ZIP uses Samaritan Pacific Communities Hospital
-97370,OR-EUGENE,primary,Philomath OR ZIP uses Samaritan Health Services within 15-min
-97371,OR-SALEM,primary,Rickreall OR ZIP uses Salem Hospital
-97373,OR-EUGENE,primary,Rose Lodge OR ZIP uses Samaritan Lincoln City Hospital
-97374,OR-SALEM,primary,Saint Benedict OR ZIP uses Salem Hospital
-97375,OR-SALEM,primary,Scio OR ZIP uses Salem Hospital
-97376,OR-EUGENE,primary,Seal Rock OR ZIP uses Samaritan Pacific Communities Hospital
-97377,OR-SALEM,primary,Scotts Mills OR ZIP uses Salem Hospital
-97378,OR-EUGENE,primary,Shedd OR ZIP uses Samaritan Albany General Hospital
-97380,OR-EUGENE,primary,Siletz OR ZIP uses Samaritan Lincoln City Hospital
-97381,OR-SALEM,primary,Silverton OR ZIP uses Salem Hospital within 20-min
-97382,OR-SALEM,primary,Stayton OR ZIP uses Salem Hospital within 20-min
-97383,OR-SALEM,primary,Sublimity OR ZIP uses Salem Hospital within 20-min
-97384,OR-EUGENE,primary,Sweet Home OR ZIP uses Samaritan Lebanon Community Hospital within 20-min
-97385,OR-SALEM,primary,Turner OR ZIP uses Salem Hospital
-97386,OR-EUGENE,primary,Tangent OR ZIP uses Samaritan Albany General Hospital
-97388,OR-SALEM,primary,Willamina OR ZIP uses Salem Hospital
-97389,OR-EUGENE,primary,Tidewater OR ZIP uses Samaritan Pacific Communities Hospital
-97390,OR-EUGENE,primary,Toledo OR ZIP uses Samaritan Lincoln City Hospital
-97391,OR-EUGENE,primary,South Beach OR ZIP uses Samaritan Pacific Communities Hospital
-97392,OR-SALEM,primary,Turner OR ZIP uses Salem Hospital
-97394,OR-EUGENE,primary,Waldport OR ZIP uses Samaritan Pacific Communities Hospital within 10-min
-97396,OR-EUGENE,primary,Yachats OR ZIP uses Samaritan Pacific Communities Hospital
-97401,OR-EUGENE,primary,Eugene OR ZIP uses PeaceHealth Sacred Heart Medical Center within 10-min
-97402,OR-EUGENE,primary,Eugene OR ZIP uses PeaceHealth Sacred Heart Medical Center within 10-min
-97403,OR-EUGENE,primary,Eugene OR ZIP uses PeaceHealth Sacred Heart Medical Center within 10-min
-97404,OR-EUGENE,primary,Eugene OR ZIP uses PeaceHealth Sacred Heart Medical Center within 10-min
-97405,OR-EUGENE,primary,Eugene OR ZIP uses PeaceHealth Sacred Heart Medical Center within 10-min
-97408,OR-EUGENE,primary,Eugene OR ZIP uses PeaceHealth Sacred Heart Medical Center within 10-min
-97409,OR-EUGENE,primary,Agness OR ZIP uses Curry General Hospital
-97410,OR-EUGENE,primary,Allegany OR ZIP uses Bay Area Hospital
-97411,OR-EUGENE,primary,Azalea OR ZIP uses Mercy Medical Center Roseburg
-97412,OR-EUGENE,primary,Bandon OR ZIP uses Southern Coos Hospital within 10-min
-97413,OR-EUGENE,primary,Blachly OR ZIP uses PeaceHealth Sacred Heart
-97414,OR-EUGENE,primary,Blue River OR ZIP uses McKenzie-Willamette Medical Center
-97415,OR-EUGENE,primary,Broadbent OR ZIP uses Bay Area Hospital
-97416,OR-EUGENE,primary,Brookings OR ZIP uses Curry General Hospital within 10-min
-97417,OR-EUGENE,primary,Camas Valley OR ZIP uses Mercy Medical Center Roseburg
-97419,OR-EUGENE,primary,Canyonville OR ZIP uses Mercy Medical Center Roseburg
-97420,OR-EUGENE,primary,Charleston OR ZIP uses Bay Area Hospital
-97423,OR-EUGENE,primary,Coos Bay OR ZIP uses Bay Area Hospital within 10-min
-97424,OR-EUGENE,primary,Coquille OR ZIP uses Coquille Valley Hospital within 10-min
-97426,OR-EUGENE,primary,Cottage Grove OR ZIP uses PeaceHealth Cottage Grove within 10-min
-97429,OR-EUGENE,primary,Culp Creek OR ZIP uses PeaceHealth Cottage Grove
-97430,OR-EUGENE,primary,Curtin OR ZIP uses Mercy Medical Center Roseburg
-97431,OR-EUGENE,primary,Days Creek OR ZIP uses Mercy Medical Center Roseburg
-97432,OR-EUGENE,primary,Deadwood OR ZIP uses PeaceHealth Sacred Heart
-97434,OR-EUGENE,primary,Dexter OR ZIP uses PeaceHealth Sacred Heart
-97435,OR-EUGENE,primary,Dillard OR ZIP uses Mercy Medical Center Roseburg
-97436,OR-EUGENE,primary,Drain OR ZIP uses Mercy Medical Center Roseburg
-97437,OR-EUGENE,primary,Elkton OR ZIP uses Mercy Medical Center Roseburg
-97438,OR-EUGENE,primary,Fall Creek OR ZIP uses PeaceHealth Sacred Heart
-97439,OR-EUGENE,primary,Florence OR ZIP uses PeaceHealth Peace Harbor Medical Center within 10-min
-97441,OR-EUGENE,primary,Gardiner OR ZIP uses Bay Area Hospital
-97442,OR-EUGENE,primary,Glendale OR ZIP uses Mercy Medical Center Roseburg
-97443,OR-EUGENE,primary,Glide OR ZIP uses Mercy Medical Center Roseburg
-97444,OR-EUGENE,primary,Gold Beach OR ZIP uses Curry General Hospital within 10-min
-97446,OR-EUGENE,primary,Harbor OR ZIP uses Curry General Hospital
-97447,OR-EUGENE,primary,Idleyld Park OR ZIP uses Mercy Medical Center Roseburg
-97448,OR-EUGENE,primary,Junction City OR ZIP uses PeaceHealth Sacred Heart within 20-min
-97449,OR-EUGENE,primary,Lakeside OR ZIP uses Bay Area Hospital
-97450,OR-EUGENE,primary,Langlois OR ZIP uses Curry General Hospital
-97451,OR-EUGENE,primary,Lorane OR ZIP uses PeaceHealth Sacred Heart
-97452,OR-EUGENE,primary,Lowell OR ZIP uses McKenzie-Willamette Medical Center
-97453,OR-EUGENE,primary,Mapleton OR ZIP uses PeaceHealth Peace Harbor
-97454,OR-EUGENE,primary,Marcola OR ZIP uses PeaceHealth Sacred Heart
-97455,OR-EUGENE,primary,Pleasant Hill OR ZIP uses PeaceHealth Sacred Heart
-97456,OR-EUGENE,primary,Myrtle Creek OR ZIP uses Mercy Medical Center Roseburg
-97457,OR-EUGENE,primary,Myrtle Point OR ZIP uses Coquille Valley Hospital within 15-min
-97458,OR-EUGENE,primary,North Bend OR ZIP uses Bay Area Hospital within 10-min
-97459,OR-EUGENE,primary,Noti OR ZIP uses PeaceHealth Sacred Heart
-97461,OR-EUGENE,primary,Oakland OR ZIP uses Mercy Medical Center Roseburg
-97462,OR-EUGENE,primary,Oakridge OR ZIP uses McKenzie-Willamette Medical Center within 20-min
-97463,OR-EUGENE,primary,Ophir OR ZIP uses Curry General Hospital
-97464,OR-EUGENE,primary,Port Orford OR ZIP uses Curry General Hospital within 20-min
-97465,OR-EUGENE,primary,Powers OR ZIP uses Coquille Valley Hospital
-97466,OR-EUGENE,primary,Reedsport OR ZIP uses Lower Umpqua Hospital within 10-min
-97467,OR-EUGENE,primary,Riddle OR ZIP uses Mercy Medical Center Roseburg
-97469,OR-EUGENE,primary,Roseburg OR ZIP uses Mercy Medical Center Roseburg within 10-min
-97470,OR-EUGENE,primary,Roseburg OR ZIP uses Mercy Medical Center Roseburg within 10-min
-97471,OR-EUGENE,primary,Roseburg OR ZIP uses Mercy Medical Center Roseburg within 10-min
-97473,OR-EUGENE,primary,Scottsburg OR ZIP uses Lower Umpqua Hospital
-97476,OR-EUGENE,primary,Sixes OR ZIP uses Curry General Hospital
-97477,OR-EUGENE,primary,Springfield OR ZIP uses McKenzie-Willamette Medical Center within 10-min
-97478,OR-EUGENE,primary,Springfield OR ZIP uses McKenzie-Willamette Medical Center within 10-min
-97479,OR-EUGENE,primary,Springfield OR ZIP uses McKenzie-Willamette Medical Center within 10-min
-97480,OR-EUGENE,primary,Sutherlin OR ZIP uses Mercy Medical Center Roseburg within 15-min
-97481,OR-EUGENE,primary,Swisshome OR ZIP uses PeaceHealth Peace Harbor
-97484,OR-EUGENE,primary,Tenmile OR ZIP uses Bay Area Hospital
-97486,OR-EUGENE,primary,Tiller OR ZIP uses Mercy Medical Center Roseburg
-97487,OR-EUGENE,primary,Umpqua OR ZIP uses Mercy Medical Center Roseburg
-97488,OR-EUGENE,primary,Veneta OR ZIP uses PeaceHealth Sacred Heart within 20-min
-97489,OR-EUGENE,primary,Vida OR ZIP uses McKenzie-Willamette Medical Center
-97490,OR-EUGENE,primary,Walton OR ZIP uses PeaceHealth Sacred Heart
-97491,OR-EUGENE,primary,Wedderburn OR ZIP uses Curry General Hospital
-97492,OR-EUGENE,primary,Westfir OR ZIP uses McKenzie-Willamette Medical Center
-97493,OR-EUGENE,primary,Westlake OR ZIP uses Bay Area Hospital
-97494,OR-EUGENE,primary,Wilbur OR ZIP uses Mercy Medical Center Roseburg
-97495,OR-EUGENE,primary,Winston OR ZIP uses Mercy Medical Center Roseburg
-97496,OR-EUGENE,primary,Yoncalla OR ZIP uses Mercy Medical Center Roseburg
-97497,OR-EUGENE,primary,Wolf Creek OR ZIP uses Asante Three Rivers Medical Center
-97498,OR-EUGENE,primary,Westfir OR ZIP uses McKenzie-Willamette Medical Center
-97499,OR-EUGENE,primary,Winchester OR ZIP uses Mercy Medical Center Roseburg
-97501,OR-MEDFORD,primary,Medford OR ZIP uses Asante Rogue Regional Medical Center within 10-min
-97502,OR-MEDFORD,primary,Central Point OR ZIP uses Asante Rogue Regional within 15-min
-97503,OR-MEDFORD,primary,White City OR ZIP uses Asante Rogue Regional within 15-min
-97504,OR-MEDFORD,primary,Medford OR ZIP uses Asante Rogue Regional Medical Center within 10-min
-97520,OR-MEDFORD,primary,Ashland OR ZIP uses Asante Ashland Community Hospital within 10-min
-97522,OR-MEDFORD,primary,Butte Falls OR ZIP uses Asante Rogue Regional
-97523,OR-MEDFORD,primary,Cave Junction OR ZIP uses Asante Three Rivers Medical Center
-97524,OR-MEDFORD,primary,Central Point OR ZIP uses Asante Rogue Regional within 10-min
-97525,OR-MEDFORD,primary,Eagle Point OR ZIP uses Asante Rogue Regional within 15-min
-97526,OR-MEDFORD,primary,Grants Pass OR ZIP uses Asante Three Rivers Medical Center within 10-min
-97527,OR-MEDFORD,primary,Grants Pass OR ZIP uses Asante Three Rivers Medical Center within 10-min
-97528,OR-MEDFORD,primary,Grants Pass OR ZIP uses Asante Three Rivers Medical Center within 10-min
-97530,OR-MEDFORD,primary,Jacksonville OR ZIP uses Asante Rogue Regional within 15-min
-97531,OR-MEDFORD,primary,Kerby OR ZIP uses Asante Three Rivers Medical Center
-97532,OR-MEDFORD,primary,Merlin OR ZIP uses Asante Three Rivers Medical Center
-97533,OR-MEDFORD,primary,Murphy OR ZIP uses Asante Three Rivers Medical Center
-97534,OR-MEDFORD,primary,O'Brien OR ZIP uses Asante Three Rivers Medical Center
-97535,OR-MEDFORD,primary,Phoenix OR ZIP uses Asante Rogue Regional within 15-min
-97536,OR-MEDFORD,primary,Prospect OR ZIP uses Asante Rogue Regional
-97537,OR-MEDFORD,primary,Rogue River OR ZIP uses Asante Rogue Regional within 15-min
-97538,OR-MEDFORD,primary,Selma OR ZIP uses Asante Three Rivers Medical Center
-97539,OR-MEDFORD,primary,Shady Cove OR ZIP uses Asante Rogue Regional
-97540,OR-MEDFORD,primary,Talent OR ZIP uses Asante Rogue Regional within 15-min
-97541,OR-MEDFORD,primary,Trail OR ZIP uses Asante Rogue Regional
-97543,OR-MEDFORD,primary,Wilderville OR ZIP uses Asante Three Rivers Medical Center
-97544,OR-MEDFORD,primary,Williams OR ZIP uses Asante Three Rivers Medical Center
-97601,OR-BEND,primary,Klamath Falls OR ZIP uses Sky Lakes Medical Center within 10-min
-97602,OR-BEND,primary,Klamath Falls OR ZIP uses Sky Lakes Medical Center within 10-min
-97603,OR-BEND,primary,Klamath Falls OR ZIP uses Sky Lakes Medical Center within 10-min
-97620,OR-BEND,primary,Adel OR ZIP uses Sky Lakes Medical Center
-97621,OR-BEND,primary,Beatty OR ZIP uses Sky Lakes Medical Center
-97622,OR-BEND,primary,Bly OR ZIP uses Sky Lakes Medical Center
-97623,OR-BEND,primary,Bonanza OR ZIP uses Sky Lakes Medical Center
-97624,OR-BEND,primary,Chiloquin OR ZIP uses Sky Lakes Medical Center
-97625,OR-BEND,primary,Dairy OR ZIP uses Sky Lakes Medical Center
-97626,OR-BEND,primary,Fort Klamath OR ZIP uses Sky Lakes Medical Center
-97627,OR-BEND,primary,Keno OR ZIP uses Sky Lakes Medical Center
-97630,OR-BEND,primary,Lakeview OR ZIP uses Lake District Hospital within 10-min
-97632,OR-BEND,primary,Malin OR ZIP uses Sky Lakes Medical Center
-97633,OR-BEND,primary,Merrill OR ZIP uses Sky Lakes Medical Center
-97634,OR-BEND,primary,Midland OR ZIP uses Sky Lakes Medical Center
-97635,OR-BEND,primary,New Pine Creek OR ZIP uses Lake District Hospital
-97636,OR-BEND,primary,Paisley OR ZIP uses Lake District Hospital
-97637,OR-BEND,primary,Plush OR ZIP uses Lake District Hospital
-97638,OR-BEND,primary,Silver Lake OR ZIP uses Lake District Hospital
-97639,OR-BEND,primary,Sprague River OR ZIP uses Sky Lakes Medical Center
-97640,OR-BEND,primary,Summer Lake OR ZIP uses Lake District Hospital
-97641,OR-BEND,primary,Christmas Valley OR ZIP uses St Charles Bend
-97701,OR-BEND,primary,Bend OR ZIP uses St Charles Bend within 10-min
-97702,OR-BEND,primary,Bend OR ZIP uses St Charles Bend within 10-min
-97703,OR-BEND,primary,Bend OR ZIP uses St Charles Bend within 10-min
-97707,OR-BEND,primary,Bend OR ZIP uses St Charles Bend within 10-min
-97708,OR-BEND,primary,Bend OR ZIP uses St Charles Bend within 10-min
-97709,OR-BEND,primary,Bend OR ZIP uses St Charles Bend within 10-min
-97711,OR-BEND,primary,Ashwood OR ZIP uses St Charles Bend
-97712,OR-BEND,primary,Brothers OR ZIP uses St Charles Bend
-97720,OR-BEND,primary,Burns OR ZIP uses Harney District Hospital within 10-min
-97721,OR-BEND,primary,Riley OR ZIP uses Harney District Hospital
-97722,OR-BEND,primary,Fields OR ZIP uses Harney District Hospital
-97730,OR-BEND,primary,Camp Sherman OR ZIP uses St Charles Bend
-97731,OR-BEND,primary,Chemult OR ZIP uses Sky Lakes Medical Center
-97732,OR-BEND,primary,Crane OR ZIP uses Harney District Hospital
-97733,OR-BEND,primary,Crescent OR ZIP uses Sky Lakes Medical Center
-97734,OR-BEND,primary,Crescent Lake OR ZIP uses Sky Lakes Medical Center
-97735,OR-BEND,primary,Diamond OR ZIP uses Harney District Hospital
-97736,OR-BEND,primary,Fort Rock OR ZIP uses St Charles Bend
-97737,OR-BEND,primary,Gilchrist OR ZIP uses St Charles Bend
-97738,OR-BEND,primary,Hines OR ZIP uses Harney District Hospital within 10-min
-97739,OR-BEND,primary,La Pine OR ZIP uses St Charles Bend within 20-min
-97741,OR-BEND,primary,Madras OR ZIP uses St Charles Madras within 10-min
-97750,OR-BEND,primary,Mitchell OR ZIP uses Pioneer Memorial Hospital
-97751,OR-BEND,primary,Paulina OR ZIP uses Pioneer Memorial Hospital
-97752,OR-BEND,primary,Post OR ZIP uses Pioneer Memorial Hospital
-97753,OR-BEND,primary,Powell Butte OR ZIP uses St Charles Bend
-97754,OR-BEND,primary,Princeton OR ZIP uses Harney District Hospital
-97756,OR-BEND,primary,Redmond OR ZIP uses St Charles Redmond within 10-min
-97758,OR-BEND,primary,Sisters OR ZIP uses St Charles Bend within 20-min
-97759,OR-BEND,primary,Terrebonne OR ZIP uses St Charles Redmond within 15-min
-97760,OR-BEND,primary,Warm Springs OR ZIP uses St Charles Madras
-97761,OR-BEND,primary,Westfall OR ZIP uses Harney District Hospital
+97001,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97002,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97003,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97004,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97005,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97006,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97007,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97008,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97009,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97010,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97013,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97014,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97015,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97017,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97019,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97022,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97023,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97024,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97027,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97028,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97030,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97031,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97034,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97035,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97042,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97045,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97049,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97050,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97051,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97055,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97056,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97060,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97062,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97063,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97067,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97068,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97070,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97071,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97076,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97077,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97078,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97080,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97086,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97089,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97113,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97116,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97117,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97119,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97123,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97124,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97125,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97132,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97133,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97140,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97144,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97201,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97202,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97203,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97204,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97205,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97206,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97207,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97208,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97209,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97210,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97211,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97212,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97213,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97214,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97215,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97216,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97217,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97218,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97219,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97220,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97221,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97222,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97223,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97224,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97225,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97227,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97228,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97229,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97230,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97231,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97232,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97233,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97236,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97238,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97239,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97240,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97242,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97251,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97253,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97254,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97256,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97266,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97267,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97268,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97269,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97280,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97281,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97282,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97283,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97286,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97290,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97291,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97292,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97293,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97294,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97296,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97298,OR-PORTLAND,primary,Portland metro with OHSU Legacy Providence Kaiser within 15-35 min includes Vancouver WA via MAX
+97301,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97302,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97303,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97304,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97305,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97306,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97307,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97308,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97309,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97310,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97311,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97312,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97314,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97317,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97321,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97322,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97324,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97325,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97326,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97327,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97329,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97330,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97330,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97331,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97333,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97335,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97338,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97339,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97341,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97342,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97345,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97346,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97347,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97348,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97350,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97351,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97352,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97355,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97358,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97360,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97361,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97362,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97364,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97366,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97368,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97369,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97370,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97371,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97374,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97375,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97376,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
+97377,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97378,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97380,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97381,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97383,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97384,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97385,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97386,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97388,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97389,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97390,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97391,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97392,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97401,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97402,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97403,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97404,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97405,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97406,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97408,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97409,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97410,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97411,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97412,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97413,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97414,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97416,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97419,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97420,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97424,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97426,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97430,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97431,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97434,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97437,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97438,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97439,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97440,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97441,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97442,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97443,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97444,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97446,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97447,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97448,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97449,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97450,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97451,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97452,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97453,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97454,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97455,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97456,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97457,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97458,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97459,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97461,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97462,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97463,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97464,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97465,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97466,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97467,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97469,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97470,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97471,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97473,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97474,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97475,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97476,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97477,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97478,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97479,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97480,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97481,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97482,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97484,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97486,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97487,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97488,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97489,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97490,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97492,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97493,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97495,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97496,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97497,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97498,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97499,OR-EUGENE,primary,Southern Willamette with PeaceHealth McKenzie 110 miles from Portland separate I-5 corridor market
+97501,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97502,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97503,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97504,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97520,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97522,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97523,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97524,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97525,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97526,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97527,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97530,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97531,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97532,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97534,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97535,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97536,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97537,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97538,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97539,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97540,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97541,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97543,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97544,OR-MEDFORD,primary,Southern Oregon with Asante Health near California border 70+ miles from Eugene separate market
+97701,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97702,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97703,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97707,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97708,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97709,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97711,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97712,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97720,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97730,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97731,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97732,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97733,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97734,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97735,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97736,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97737,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97738,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97739,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97740,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97741,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97750,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97751,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97752,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97753,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97754,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97756,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97758,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97759,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97760,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97761,OR-BEND,primary,High desert with St Charles Health separated from Willamette Valley by Cascade barrier
+97801,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97810,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97812,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97813,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97814,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97817,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97818,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97819,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97820,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97823,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97824,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97825,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97826,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97827,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97828,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97830,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97833,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97834,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97835,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97836,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97837,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97838,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97839,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97840,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97841,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97842,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97843,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97844,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97845,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97846,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97848,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97850,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97856,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97857,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97859,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97862,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97864,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97865,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97867,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97868,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97869,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97870,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97873,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97874,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97875,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97876,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97877,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97880,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97882,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97883,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97884,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97885,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+97886,OR-PENDLETON,primary,Eastern Oregon with CHI St Anthony serving Blue Mountains separated from Portland by Cascades
+98001,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98002,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98003,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98004,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98004,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98005,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98005,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98006,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98006,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98007,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98007,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98008,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98008,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98009,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98009,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98011,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98011,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98012,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98019,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98020,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98021,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98023,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98026,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98027,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98027,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98029,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98029,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98030,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98031,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98032,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98033,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98033,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98034,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98034,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98036,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98037,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98039,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98039,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98040,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98040,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98041,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98042,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98043,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98046,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98052,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98052,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98053,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98053,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98055,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98055,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98056,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98057,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98058,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98059,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98059,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98063,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98064,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98074,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98074,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98075,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98075,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98077,WA-SEATTLE-EASTSIDE,primary,Lake Washington east side with Overlake Evergreen Health via I-90 SR-520 bridges within 10-20 min
+98077,WA-SEATTLE-MAIN,secondary,Cross-lake access to downtown Seattle hospitals via I-90 SR-520 in 20-35 min with bridge congestion
+98087,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98092,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98093,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98101,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98102,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98103,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98104,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98105,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98106,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98107,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98108,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98109,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98112,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98115,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98116,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98117,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98118,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98119,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98121,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98122,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98125,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98126,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98128,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98133,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98134,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98136,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98144,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98146,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98148,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98154,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98158,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98164,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98166,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98168,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98174,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98177,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98178,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98188,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98195,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98198,WA-SEATTLE-SOUTHKING,primary,South King County with Valley Medical Center within 15-25 min serving suburban communities
+98199,WA-SEATTLE-MAIN,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason within 15-30 min
+98201,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98203,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98204,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98205,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98206,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98207,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98208,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98213,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98220,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98225,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98226,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98227,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98228,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98229,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98230,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98231,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98232,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98233,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98235,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98237,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98240,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98244,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98247,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98248,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98249,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98252,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98255,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98258,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98260,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98262,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98264,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98266,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98267,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98270,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98271,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98272,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98275,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98281,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98283,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98284,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98290,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98291,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98292,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98293,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98294,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98295,WA-BELLINGHAM,primary,Whatcom County Canadian border with PeaceHealth St Joseph 90 miles north of Seattle separate market
+98296,WA-SEATTLE-EVERETT,primary,Snohomish County with Providence Regional within 15-30 min and Sounder rail connection to Seattle
+98310,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98311,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98312,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98314,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98315,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98320,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98327,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98328,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98329,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98330,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98335,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98337,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98340,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98345,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98346,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98349,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98353,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98359,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98364,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98366,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98367,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98370,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98371,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98372,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98373,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98374,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98375,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98376,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98380,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98383,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98387,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98388,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98390,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98391,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98393,WA-BREMERTON,primary,Ferry-dependent Kitsap Peninsula with CHI Franciscan Harrison 60-min ferry crossing creates separate market
+98401,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98402,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98403,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98404,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98405,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98406,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98407,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98408,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98409,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98415,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98416,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98417,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98418,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98419,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98421,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98422,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98424,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98430,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98431,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98433,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98438,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98439,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98443,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98444,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98445,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98446,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98447,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98465,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98466,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98467,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98498,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98499,WA-SEATTLE-TACOMA,primary,Pierce County with MultiCare CHI Franciscan within 15-30 min and Sounder rail to Seattle
+98501,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98502,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98503,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98504,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98505,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98506,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98507,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98509,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98512,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98513,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98516,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98526,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98528,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98531,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98540,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98576,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98579,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98589,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98597,WA-OLYMPIA,primary,Thurston County state capital with Providence St Peter within 15-30 min separate from Seattle Tacoma
+98601,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98601,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98604,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98604,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98606,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98606,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98607,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98607,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98629,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98629,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98639,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98639,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98660,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98660,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98661,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98661,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98662,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98662,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98663,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98663,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98664,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98664,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98665,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98665,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98666,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98666,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98668,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98668,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98671,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98671,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98674,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98674,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98675,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98675,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98682,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98682,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98683,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98683,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98684,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98684,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98685,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98685,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98686,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98686,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98687,WA-VANCOUVER,primary,Southwest Washington with PeaceHealth Southwest Columbia River north bank may integrate with Portland
+98687,OR-PORTLAND,secondary,Cross-border access to Portland OHSU Legacy via MAX light rail and I-5 I-205 bridges in 20-40 min
+98801,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98802,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98807,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98811,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98812,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98813,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98815,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98816,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98817,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98821,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98822,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98823,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98824,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98826,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98827,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98828,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98831,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98833,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98834,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98836,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98837,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98840,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98841,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98843,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98844,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98845,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98846,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98847,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98848,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98849,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98850,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98851,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98852,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98853,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98855,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98856,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98857,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98858,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98859,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98860,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98862,WA-WENATCHEE,primary,North-central with Confluence Health serving Cascade east slope separated from Seattle and Spokane
+98901,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98902,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98903,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98904,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98907,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98908,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98909,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98920,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98921,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98922,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98923,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98925,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98926,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98929,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98930,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98932,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98933,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98934,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98935,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98936,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98937,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98938,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98939,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98942,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98943,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98944,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98946,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98947,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98948,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98950,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98951,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98952,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+98953,WA-YAKIMA,primary,Central valley with Yakima Memorial Virginia Mason Memorial separated from Seattle by Cascades
+99001,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99003,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99004,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99005,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99006,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99008,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99009,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99011,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99012,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99016,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99019,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99021,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99022,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99023,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99025,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99026,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99027,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99029,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99030,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99031,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99036,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99037,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99039,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99101,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99102,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99103,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99105,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99109,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99110,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99111,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99113,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99115,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99116,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99117,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99118,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99119,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99121,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99122,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99123,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99124,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99125,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99126,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99128,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99129,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99130,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99131,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99133,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99134,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99135,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99136,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99137,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99138,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99139,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99141,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99143,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99144,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99146,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99147,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99148,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99149,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99150,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99153,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99154,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99156,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99157,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99158,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99159,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99160,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99161,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99163,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99164,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99166,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99167,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99169,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99170,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99171,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99173,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99174,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99176,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99179,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99179,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
+99180,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99181,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99201,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99202,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99203,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99204,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99205,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99206,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99207,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99208,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99209,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99210,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99211,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99212,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99213,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99214,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99215,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99216,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99217,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99218,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99219,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99220,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99223,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99224,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99228,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99251,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99252,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99256,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99258,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99260,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
+99301,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99302,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99320,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99321,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99322,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99323,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99326,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99328,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99330,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99335,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99336,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99337,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99338,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99343,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99344,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99345,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99346,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99347,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99348,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99350,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99352,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99353,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99354,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99356,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
+99357,WA-TRICITIES,primary,Mid-Columbia with Kadlec Trios within 15-25 min serving nuclear site economy separate from Spokane
