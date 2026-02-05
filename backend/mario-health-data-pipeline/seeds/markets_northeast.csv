@@ -1,0 +1,63 @@
+market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,notes
+CT-BRIDGEPORT,Greater Bridgeport,Bridgeport,St. Vincent's Medical Center; Bridgeport Hospital,CT,Suburban,Fairfield County coastal market with independent anchors separate from NYC and New Haven
+CT-DANBURY,Greater Danbury,Danbury,Danbury Hospital; Nuvance Health,CT,Suburban,Western Connecticut hub serving I-84 corridor with congestion barriers to Hartford and NYC
+CT-HARTFORD,Greater Hartford,Hartford,Hartford HealthCare; Trinity Health,CT,Core Metro,Central Connecticut anchor independent from Boston and NYC with I-84/I-91 congestion
+CT-NEWHAVEN,Greater New Haven,New Haven,Yale New Haven Health System,CT,Core Metro,Academic medical center dominance with Metro-North commuter rail not collapsing NYC market
+CT-NORWALK,Coastal Fairfield County,Norwalk,Norwalk Hospital; Stamford Hospital,CT,Suburban,Southwest Connecticut split from NYC despite proximity due to I-95 congestion and independent systems
+CT-WATERBURY,Greater Waterbury,Waterbury,Waterbury Hospital; Saint Mary's Hospital,CT,Regional,Central Connecticut valley market separate from Hartford and New Haven
+MA-BOSTON-CORE,Greater Boston,Boston,Mass General Brigham; Tufts Medical Center; Boston Medical Center,MA,Core Metro,Dense urban anchor with Red Line transit to Longwood medical district and multiple academic centers
+MA-BOSTON-NORTH,North Shore Massachusetts,Salem,Mass General Brigham; Beth Israel Lahey Health,MA,Suburban,Route 1 and Tobin Bridge congestion creates 45+ min friction from Boston core despite system integration
+MA-BOSTON-SOUTH,South Shore Massachusetts,Brockton,Beth Israel Lahey Health; Steward Health Care,MA,Suburban,Limited transit and distance creates independent routine care despite tertiary referrals to Boston
+MA-SPRINGFIELD,Pioneer Valley,Springfield,Baystate Health,MA,Regional,Western Massachusetts anchor isolated from Boston and Hartford by 90+ min distance
+MA-WORCESTER,Greater Worcester,Worcester,UMass Memorial Health; Saint Vincent Hospital,MA,Regional,Central Massachusetts hub 45+ min from Boston with no transit and independent academic center
+ME-AUGUSTA,Central Maine,Augusta,MaineGeneral Medical Center,ME,Regional,Capital region serving mid-state with 45+ min to Portland
+ME-BANGOR,Northern Maine,Bangor,Northern Light Eastern Maine Medical Center,ME,Regional,Regional hub for northern and eastern Maine with vast rural catchment
+ME-LEWISTON,Lewiston-Auburn,Lewiston,Central Maine Medical Center,ME,Regional,Independent twin-city market though within potential Portland sphere
+ME-PORTLAND,Greater Portland,Portland,Maine Medical Center,ME,Core Metro,Southern Maine anchor with academic medical center and coastal population concentration
+NH-CONCORD,Greater Concord,Concord,Concord Hospital,NH,Regional,Capital region independent from Dartmouth-Hitchcock and Manchester
+NH-LEBANON,Upper Valley,Lebanon,Dartmouth-Hitchcock Medical Center,NH,Regional,Academic center serving NH/VT border with long-distance tertiary referrals
+NH-MANCHESTER,Greater Manchester,Manchester,Catholic Medical Center; Elliot Hospital,NH,Regional,Southern New Hampshire hub with balanced dual-anchor system
+NH-PORTSMOUTH,Seacoast New Hampshire,Portsmouth,Portsmouth Regional Hospital,NH,Regional,Coastal market serving NH seacoast and southern Maine border
+NJ-ATLANTICCITY,Atlantic City Region,Atlantic City,AtlantiCare Regional Medical Center,NJ,Regional,Southern New Jersey shore market isolated from Philadelphia by Garden State Parkway distance
+NJ-CAMDEN,South Jersey,Camden,Cooper University Health Care; Virtua Health,NJ,Suburban,Delaware River crossing friction creates split from Philadelphia core despite proximity
+NJ-HACKENSACK,Northern New Jersey,Hackensack,Hackensack Meridian Health; Valley Health System,NJ,Suburban,Bergen County anchor independent from NYC despite George Washington Bridge access
+NJ-JERSEY-CITY,Hudson County,Jersey City,RWJBarnabas Health; CarePoint Health,NJ,Suburban,Hudson River waterfront with tunnel/ferry access to Manhattan but independent routine care
+NJ-MORRISTOWN,North Central New Jersey,Morristown,Atlantic Health System,NJ,Suburban,Morris County hub with I-287 congestion separating from NYC and Hackensack
+NJ-NEWARK,Greater Newark,Newark,RWJBarnabas Health; University Hospital,NJ,Core Metro,Essex County anchor with NJ Transit access but independent from NYC healthcare patterns
+NJ-NEWBRUNSWICK,Central New Jersey,New Brunswick,RWJBarnabas Health; Robert Wood Johnson University Hospital,NJ,Regional,Middlesex County hub serving central corridor between NYC and Philadelphia spheres
+NJ-TOMS-RIVER,Ocean County,Toms River,RWJBarnabas Health; Hackensack Meridian Health,NJ,Suburban,Shore region with Garden State Parkway creating distance from both NYC and Philadelphia
+NJ-TRENTON,Greater Trenton,Trenton,Capital Health System,NJ,Regional,Capital region between Philadelphia and NYC with Delaware River friction and independent anchors
+NY-ALBANY,Capital District,Albany,Albany Medical Center; St. Peter's Health Partners,NY,Regional,Upstate hub serving northeastern New York with independent academic center
+NY-BINGHAMTON,Greater Binghamton,Binghamton,United Health Services,NY,Regional,Southern Tier hub 60+ min from Syracuse with Pennsylvania border catchment
+NY-BRONX,The Bronx,Bronx,Montefiore Health System,NY,Core Metro,Borough-level market with dominant single system and limited East River crossing alternatives
+NY-BROOKLYN,Brooklyn,Brooklyn,NYC Health + Hospitals; Maimonides Medical Center; NYU Langone Brooklyn,NY,Core Metro,Independent borough market with East River bottlenecks creating 45+ min to Manhattan
+NY-BUFFALO,Buffalo-Niagara,Buffalo,Kaleida Health; Catholic Health System,NY,Regional,Western New York anchor 60+ min from Rochester with balanced dual-system competition
+NY-ELMIRA,Southern Tier,Elmira,Arnot Ogden Medical Center,NY,Regional,Rural hub serving Pennsylvania border isolated from Binghamton and Syracuse
+NY-GLENS-FALLS,Adirondack Gateway,Glens Falls,Glens Falls Hospital,NY,Regional,Northern market isolated from Albany by Adirondack terrain barriers
+NY-HUDSON-VALLEY,Hudson Valley,Poughkeepsie,Vassar Brothers Medical Center; Health Quest,NY,Regional,Mid-Hudson region 60+ min from both Westchester and Albany with Tappan Zee congestion
+NY-ITHACA,Finger Lakes South,Ithaca,Cayuga Medical Center,NY,Regional,College town hub isolated from Syracuse and Binghamton by rural distance
+NY-KINGSTON,Ulster County,Kingston,HealthAlliance Hospital,NY,Regional,Mid-Hudson market separate from Poughkeepsie and Albany
+NY-LONGISLAND,Long Island,Mineola,Northwell Health,NY,Suburban,LIRR requires transfers to Manhattan and most routine care stays local despite system integration
+NY-NYC-MANHATTAN,Manhattan,New York,NYU Langone Health; Mount Sinai Health System; NewYork-Presbyterian,NY,Core Metro,Dense urban core with subway access to multiple academic medical centers and high provider substitutability
+NY-NYC-QUEENS,Queens,Queens,NYC Health + Hospitals; Northwell Health,NY,Core Metro,Borough-level market with limited East River crossings creating 45+ min friction to Manhattan
+NY-NYC-STATEN,Staten Island,Staten Island,Staten Island University Hospital; Richmond University Medical Center,NY,Core Metro,Island geography with Verrazano Bridge bottleneck despite free ferry creating separate routine care patterns
+NY-PLATTSBURGH,North Country,Plattsburgh,University of Vermont Health Network - Champlain Valley Physicians Hospital,NY,Regional,Adirondack-isolated northern market closer to Burlington VT than Albany
+NY-ROCHESTER,Greater Rochester,Rochester,University of Rochester Medical Center; Rochester Regional Health,NY,Regional,Western New York regional anchor 60+ min from Syracuse and Buffalo
+NY-SYRACUSE,Greater Syracuse,Syracuse,Upstate University Hospital; St. Joseph's Health,NY,Regional,Central New York hub 60+ min from Rochester and Albany with academic medical center
+NY-UTICA,Mohawk Valley,Utica,Mohawk Valley Health System,NY,Regional,Central corridor hub between Syracuse and Albany with independent anchors
+NY-WATERTOWN,Jefferson County,Watertown,Samaritan Medical Center,NY,Regional,Northern market isolated from Syracuse by distance serving Fort Drum military catchment
+NY-WESTCHESTER,Westchester County,White Plains,Montefiore Health System; NewYork-Presbyterian,NY,Suburban,Tappan Zee congestion and 60+ min travel to Manhattan creates independent routine care despite Metro-North
+PA-ALLENTOWN,Lehigh Valley,Allentown,Lehigh Valley Health Network,PA,Regional,Eastern Pennsylvania hub serving I-78 corridor independent from Philadelphia
+PA-ERIE,Greater Erie,Erie,UPMC Hamot; Saint Vincent Hospital,PA,Regional,Northwestern Pennsylvania isolated from Pittsburgh by 2+ hour distance with Lake Erie geography
+PA-HARRISBURG,Greater Harrisburg,Harrisburg,Penn State Health; UPMC; WellSpan Health,PA,Regional,Capital region hub with multi-system balance serving central Pennsylvania
+PA-LANCASTER,Lancaster County,Lancaster,Penn Medicine Lancaster General; WellSpan Health,PA,Regional,Independent market 60+ min from both Harrisburg and Philadelphia with strong local systems
+PA-PHILLY-CORE,Philadelphia Core,Philadelphia,Penn Medicine; Jefferson Health; Temple Health,PA,Core Metro,Dense urban anchor with academic medical centers and SEPTA transit serving Center City and University City
+PA-PHILLY-SUBURBS,Philadelphia Suburbs,King of Prussia,Main Line Health; Jefferson Health,PA,Suburban,Montgomery and Delaware County market with independent routine care despite tertiary referrals to city
+PA-PITTSBURGH,Greater Pittsburgh,Pittsburgh,UPMC; Allegheny Health Network,PA,Regional,Western Pennsylvania anchor with intense two-system competition and academic medical centers
+PA-READING,Greater Reading,Reading,Tower Health,PA,Regional,Independent market 60+ min from Philadelphia with I-76 congestion barriers
+PA-SCRANTON,Northeastern Pennsylvania,Scranton,Geisinger; Commonwealth Health,PA,Regional,Wyoming Valley hub serving Pennsylvania/New York border isolated from Wilkes-Barre and Allentown
+PA-WILLIAMSPORT,North Central Pennsylvania,Williamsport,UPMC Susquehanna,PA,Regional,Rural hub serving vast northern tier catchment between Harrisburg and Elmira NY
+PA-YORK,Greater York,York,WellSpan Health,PA,Regional,South-central market between Harrisburg and Baltimore with Maryland border catchment
+RI-PROVIDENCE,Greater Providence,Providence,Lifespan; Care New England,RI,Core Metro,State anchor independent from Boston despite I-95 proximity due to 60+ min congestion and Medicaid split
+VT-BURLINGTON,Greater Burlington,Burlington,University of Vermont Medical Center,VT,Regional,State's only tertiary care hub serving vast rural catchment with Green Mountains isolation
+VT-RUTLAND,Central Vermont,Rutland,Rutland Regional Medical Center,VT,Regional,Independent market serving central Vermont isolated from Burlington by Green Mountains terrain

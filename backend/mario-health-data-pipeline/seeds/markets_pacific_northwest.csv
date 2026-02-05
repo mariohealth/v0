@@ -1,0 +1,21 @@
+market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,notes
+OR-BEND,Central Oregon,Bend,St. Charles Health System,OR,Regional,High desert hub separated from Willamette Valley by Cascade Mountains serving resort economy
+OR-CORVALLIS,Mid-Willamette Valley,Corvallis,Samaritan Health Services,OR,Regional,Oregon State University town serving mid-valley between Salem and Eugene separate from both
+OR-EUGENE,Southern Willamette,Eugene,PeaceHealth Sacred Heart Medical Center; McKenzie-Willamette Medical Center,OR,Regional,University of Oregon hub 110 miles south of Portland serving southern I-5 corridor
+OR-MEDFORD,Southern Oregon,Medford,Asante Health System,OR,Regional,Rogue Valley hub near California border serving southern Oregon isolated from Eugene by 70+ miles
+OR-PENDLETON,Eastern Oregon,Pendleton,CHI St. Anthony Hospital,OR,Regional,Northeast Oregon hub serving Blue Mountains region separated from Portland by Cascades
+OR-PORTLAND,Portland Metro,Portland,OHSU; Legacy Health; Providence; Kaiser,OR/WA,Core Metro,Integrated cross-border market with Vancouver WA via MAX light rail and I-5 bridges serving Columbia River metros
+OR-SALEM,Capital Region,Salem,Salem Health,OR,Regional,State capital 50 miles south of Portland serving mid-Willamette Valley with distinct anchor separate from metro
+WA-BELLINGHAM,Whatcom County,Bellingham,PeaceHealth St. Joseph Medical Center,WA,Regional,Canadian border hub serving northwest corner 90 miles north of Seattle separate from metro
+WA-BREMERTON,Kitsap Peninsula,Bremerton,CHI Franciscan Harrison Medical Center,WA,Regional,Ferry-dependent peninsula separated from Seattle by 60-minute ferry crossing serving naval base economy
+WA-OLYMPIA,South Puget Sound,Olympia,Providence St. Peter Hospital; Capital Medical Center,WA,Regional,State capital 60 miles south of Seattle serving Thurston County separate from both Seattle and Tacoma
+WA-SEATTLE-EASTSIDE,Seattle Eastside,Bellevue,Overlake Medical Center; Evergreen Health,WA,Suburban,Lake Washington east side serving Bellevue Redmond Kirkland integrated with Seattle via I-90 SR-520 bridges
+WA-SEATTLE-EVERETT,Snohomish County,Everett,Providence Regional Medical Center,WA,Regional,30 miles north of Seattle serving Snohomish County with Sounder rail connection but distinct anchor system
+WA-SEATTLE-MAIN,Seattle Core,Seattle,UW Medicine; Swedish Medical Center; Virginia Mason; Harborview,WA,Core Metro,Puget Sound core with UW academic anchor and major systems serving King County central urban area
+WA-SEATTLE-SOUTHKING,South King County,Renton,Valley Medical Center,WA,Suburban,Renton Kent Federal Way serving southern suburbs separate from Seattle core with distinct community anchor
+WA-SEATTLE-TACOMA,Greater Tacoma,Tacoma,MultiCare Health System; CHI Franciscan,WA,Core Metro,Pierce County anchor 35 miles south of Seattle with distinct MultiCare system and Sounder rail connection
+WA-SPOKANE,Eastern Washington,Spokane,Providence Sacred Heart Medical Center; MultiCare Deaconess Hospital,WA,Core Metro,Eastern hub separated from Seattle by Cascade Mountains serving 550K metro and vast rural catchment
+WA-TRICITIES,Mid-Columbia,Richland,Kadlec Regional Medical Center; Trios Health,WA,Regional,Columbia River confluence serving Kennewick Richland Pasco with nuclear site economy separate from both Seattle and Spokane
+WA-WALLA,Southeast Washington,Walla Walla,Providence St. Mary Medical Center,WA,Regional,Southeast corner near Oregon border serving agricultural region separated from Tri-Cities by distance
+WA-WENATCHEE,North Central Washington,Wenatchee,Confluence Health,WA,Regional,North-central apple country hub serving Cascade east slope separated from both Seattle and Spokane
+WA-YAKIMA,Central Washington,Yakima,Yakima Valley Memorial Hospital; Virginia Mason Memorial,WA,Regional,Central valley hub separated from Seattle by Cascades serving agricultural region with Hispanic majority population
