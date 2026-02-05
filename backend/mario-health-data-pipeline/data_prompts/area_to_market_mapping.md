@@ -1,16 +1,241 @@
-# Execution Prompt: Stage-1 Mapping — Proprietary Markets → Statistical Areas
+# Execution Prompt: Stage-1 Mapping — Proprietary Markets → Statistical Areas (with Sub-County Granularity)
 
 ## Purpose
 
 This prompt executes **Stage-1 of the healthcare market mapping workflow**.
 
-Your task is to map **proprietary Healthcare Shopping Zones (markets)** to **named statistical areas** in a way that is behaviorally realistic, LLM-tractable, and suitable for later deterministic expansion to ZIP codes.
+Your task is to map **proprietary Healthcare Shopping Zones (markets)** to **named statistical areas** in a way that is behaviorally realistic, programmatically unambiguous, and suitable for deterministic expansion to ZIP codes.
 
-This prompt **does not enumerate ZIPs** and must not attempt ZIP-level reasoning. The output serves as conceptual input for a separate deterministic ZIP expansion process.
+**CRITICAL CHANGE FROM V1:** This version adds **sub-county ZIP-level granularity** when multiple markets share the same county. The many-to-one county mapping problem is solved by explicitly listing ZIP codes when statistical areas alone cannot distinguish markets.
 
 ---
 
-## CRITICAL CONCEPTUAL CLARIFICATION
+## THE MANY-TO-ONE MAPPING PROBLEM (Critical Understanding)
+
+### The Problem V1 Created
+
+**V1 Approach (BROKEN):**
+```csv
+WA-SEATTLE-MAIN,County,53033,King County WA,primary,Central Seattle urban core
+WA-SEATTLE-EASTSIDE,County,53033,King County WA,primary,Eastside portion across Lake Washington
+WA-SEATTLE-SOUTHKING,County,53033,King County WA,primary,South King County portion
+```
+
+**Why this breaks programmatic consumption:**
+```python
+zip_code = "98101"  # Downtown Seattle
+county = get_county(zip_code)  # Returns: 53033
+markets = get_markets_for_county(county)  # Returns: ["WA-SEATTLE-MAIN", "WA-SEATTLE-EASTSIDE", "WA-SEATTLE-SOUTHKING"]
+# ERROR: Cannot determine which market. Rationale field is human text, not structured data.
+```
+
+**The rationale field says "central urban core" vs "Eastside portion" but computers cannot parse prose to determine boundaries.**
+
+### The V2 Solution
+
+**When multiple markets share a county, explicitly list ZIP codes for each market:**
+
+```csv
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+WA-SEATTLE-MAIN,County,53033,"98101,98102,98103,98104,98105,98107,98109,98112,98115,98116,98117,98118,98119,98121,98122,98125,98126,98133,98134,98136,98144,98146,98154,98164,98174,98177,98178,98195,98199",King County WA,primary,Central Seattle urban core west of Lake Washington including downtown Capitol Hill Ballard University District Fremont Wallingford served by UW Medicine Swedish Virginia Mason Harborview
+WA-SEATTLE-EASTSIDE,County,53033,"98004,98005,98006,98007,98008,98011,98027,98029,98033,98034,98039,98040,98052,98053,98056,98059,98072,98074,98075,98077",King County WA,primary,Eastside across Lake Washington including Bellevue Redmond Kirkland Sammamish Issaquah Mercer Island connected via I-90 SR-520 bridges served by Overlake Evergreen Health
+WA-SEATTLE-SOUTHKING,County,53033,"98001,98002,98003,98023,98030,98031,98032,98042,98055,98057,98058,98063,98064,98065,98092,98188,98198",King County WA,primary,South King County including Renton Kent Auburn Federal Way SeaTac Tukwila Burien Des Moines served by Valley Medical Center
+```
+
+**Programmatic consumption now works:**
+```python
+zip_code = "98101"
+county = get_county(zip_code)  # Returns: 53033
+
+# Check if county has sub-county splits
+if has_zip_level_splits(county):
+    market = get_market_for_zip(zip_code)  # Returns: WA-SEATTLE-MAIN (98101 in that zip_list)
+else:
+    # Simple county lookup for markets without splits
+    market = get_market_for_county(county)
+```
+
+---
+
+## WHEN TO USE ZIP-LEVEL GRANULARITY
+
+### Rule: Use ZIP lists ONLY when multiple markets share the same statistical area
+
+**Decision tree:**
+
+```
+Does more than 1 market map to the same County/CBSA?
+│
+├─ NO → Use statistical area alone (County or CBSA), no zip_list needed
+│
+└─ YES → Must add zip_list for each market to distinguish them
+```
+
+**Examples of when ZIP lists are REQUIRED:**
+
+1. **King County WA (53033)** — 3 markets share it:
+   - WA-SEATTLE-MAIN → needs zip_list
+   - WA-SEATTLE-EASTSIDE → needs zip_list
+   - WA-SEATTLE-SOUTHKING → needs zip_list
+
+2. **Los Angeles County CA** — likely 5-8 markets share it:
+   - Each market needs explicit zip_list
+
+3. **Cook County IL (Chicago)** — likely 3-4 markets share it:
+   - Each market needs explicit zip_list
+
+**Examples of when ZIP lists are NOT needed:**
+
+1. **Pierce County WA (53053)** — Only 1 market (WA-SEATTLE-TACOMA):
+   - No zip_list needed, county alone is sufficient
+
+2. **Spokane County WA (53063)** — Only 1 market (WA-SPOKANE):
+   - No zip_list needed
+
+3. **Marion County OR (41047)** — Only 1 market (OR-SALEM):
+   - No zip_list needed
+
+**Summary: ~80% of markets will NOT need ZIP lists. Only polycentric metros with intra-county splits need them.**
+
+---
+
+## SCHEMA CHANGES FROM V1
+
+### New Required Column: `zip_list`
+
+**Column specifications:**
+
+| Column | Required? | Format | Purpose |
+|--------|-----------|--------|---------|
+| market_id | Always | String | Market identifier |
+| statistical_area_type | Always | CBSA/County | Type of statistical area |
+| statistical_area_id | Always | String | CBSA code or County FIPS |
+| **zip_list** | **Conditional** | **Comma-separated** | **ZIP codes when multiple markets share statistical area** |
+| statistical_area_name | Always | String | Human-readable name |
+| relationship_type | Always | primary/secondary | Routine vs specialty care |
+| mapping_rationale | Always | String | Behavioral justification |
+
+**zip_list rules:**
+
+1. **Leave EMPTY (blank cell)** when only 1 market uses this statistical area
+2. **Must POPULATE** when 2+ markets share the same statistical area
+3. **Format:** Comma-separated, no spaces: `98101,98102,98103`
+4. **Coverage:** List ALL ZIPs that belong to this market within this county
+5. **Completeness:** ZIPs in zip_list must cover the entire market's portion of the shared county
+6. **No overlap:** A ZIP should appear in only one market's zip_list for a given county
+
+### CSV Format Examples
+
+**Simple market (no zip_list needed):**
+```csv
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+OR-SALEM,CBSA,41420,,Salem OR,primary,Metropolitan area represents state capital market
+```
+
+**Complex county split (zip_list required):**
+```csv
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+WA-SEATTLE-MAIN,County,53033,"98101,98102,98103",King County WA,primary,Central Seattle urban core
+WA-SEATTLE-EASTSIDE,County,53033,"98004,98005,98006",King County WA,primary,Eastside across Lake Washington
+```
+
+---
+
+## HOW TO BUILD ZIP LISTS (Step-by-Step)
+
+### Step 1: Identify Counties That Need Splits (5 minutes)
+
+Review your market definitions and identify any counties where multiple markets exist:
+
+**Example questions:**
+- Do WA-SEATTLE-MAIN, WA-SEATTLE-EASTSIDE, WA-SEATTLE-SOUTHKING all map to King County? → YES → Needs splits
+- Does Pierce County only have WA-SEATTLE-TACOMA? → YES → No splits needed
+- Do multiple SF Bay Area markets share Alameda County? → YES → Needs splits
+
+### Step 2: Obtain ZIP Code Map for Each County Needing Splits (10 minutes per county)
+
+**Recommended tools:**
+- ZCTA Viewer: https://www.census.gov/geo/maps-data/data/zcta_rel_overview.html
+- ZIP Code Maps: https://www.unitedstateszipcodes.org/[state]/
+- Google: "[County Name] ZIP code map"
+
+**Look for:**
+- Natural boundaries (water, highways, mountains)
+- City names within ZIPs
+- Anchor hospital locations
+
+### Step 3: Draft ZIP Assignments Based on Behavioral Boundaries (30-60 minutes per county)
+
+**Use these behavioral rules:**
+
+1. **Anchor proximity:** ZIPs near the market's anchor hospital(s) belong to that market
+2. **Natural barriers:** 
+   - Lake Washington → separates Seattle-Main from Eastside
+   - Major highways → can separate neighborhoods
+   - Rivers, mountains → clear dividing lines
+3. **City boundaries:** ZIPs in Bellevue → Eastside market, ZIPs in Renton → SouthKing market
+4. **Commute patterns:** Where do residents typically go for routine care?
+
+**Example for King County:**
+
+**WA-SEATTLE-MAIN ZIPs:**
+- Downtown Seattle: 98101, 98104, 98121, 98154, 98164, 98174
+- Capitol Hill: 98102, 98112, 98122
+- University District: 98105, 98195
+- Ballard: 98107, 98117
+- Fremont/Wallingford: 98103, 98115
+- Queen Anne: 98109, 98119
+- West Seattle: 98116, 98126, 98136
+
+**WA-SEATTLE-EASTSIDE ZIPs:**
+- Bellevue: 98004, 98005, 98006, 98007, 98008
+- Redmond: 98052, 98053
+- Kirkland: 98033, 98034
+- Sammamish: 98074, 98075
+- Issaquah: 98027, 98029
+- Mercer Island: 98040
+
+**WA-SEATTLE-SOUTHKING ZIPs:**
+- Renton: 98055, 98057, 98058, 98059
+- Kent: 98030, 98031, 98032, 98042
+- Auburn: 98001, 98002, 98092
+- Federal Way: 98003, 98023, 98063
+- SeaTac: 98188, 98198
+- Tukwila: 98168
+
+### Step 4: Validate ZIP Assignments (15 minutes per county)
+
+**Check:**
+1. **Coverage:** Do all county ZIPs appear in exactly one market's list?
+2. **No gaps:** Are there ZIPs you missed?
+3. **No overlaps:** Does any ZIP appear in multiple markets' lists?
+4. **Behavioral sense:** Would a resident of each ZIP realistically use that market's anchor?
+
+**Validation questions:**
+- "Would a Bellevue resident (98004) drive to UW Medical Center in Seattle?" 
+  - If sometimes → Consider which market captures majority
+  - If rarely → Keep in Eastside market
+- "Would a Renton resident (98055) use Valley Medical or Swedish?" 
+  - If Valley Medical → SouthKing market
+  - If Swedish → Consider moving to Seattle-Main
+
+### Step 5: Document in CSV (10 minutes per county)
+
+Format as comma-separated list (no spaces):
+```csv
+WA-SEATTLE-MAIN,County,53033,"98101,98102,98103,98104,98105,98107,98109,98112,98115,98116,98117,98118,98119,98121,98122,98125,98126,98133,98134,98136,98144,98146,98154,98164,98174,98177,98178,98195,98199",King County WA,primary,Central Seattle urban core
+```
+
+**Total time per county split:** 1.5 - 2.5 hours
+
+**Metros needing this (estimated nationwide):**
+- ~15-25 large polycentric metros
+- ~3-5 hours per metro (1-3 counties needing splits)
+- **Total effort nationwide: 50-125 hours**
+
+---
+
+## CONCEPTUAL CLARIFICATION (Unchanged from V1)
 
 ### The Fundamental Mapping Direction
 
@@ -18,117 +243,40 @@ This prompt **does not enumerate ZIPs** and must not attempt ZIP-level reasoning
 
 The mapping is:
 ```
-One Market → Multiple Statistical Areas (CBSAs, Micropolitans, Counties)
+One Market → Multiple Statistical Areas (CBSAs, Counties, or County+ZIPs)
 ```
 
 **NOT:**
 ```
-Multiple Markets → One Statistical Area (WRONG)
+Multiple Markets → One Statistical Area with vague rationale text (WRONG — now FIXED with zip_list)
 ```
 
-### Why This Matters
+### Example: Seattle Metro (V2 Fixed Approach)
 
-When you have granular markets like:
-- `WA-SEATTLE-MAIN` (Seattle Core)
-- `WA-SEATTLE-EASTSIDE` (Bellevue/Eastside)
-- `WA-SEATTLE-TACOMA` (Tacoma)
-- `WA-SEATTLE-EVERETT` (Snohomish County)
-- `WA-SEATTLE-SOUTHKING` (South King County)
+**5 granular markets within King/Pierce/Snohomish counties:**
 
-**Each of these markets must map to DIFFERENT statistical areas.**
-
-**WRONG APPROACH (what you must NOT do):**
 ```csv
-WA-SEATTLE-MAIN,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
-WA-SEATTLE-EASTSIDE,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
-WA-SEATTLE-TACOMA,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
-WA-SEATTLE-EVERETT,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
-WA-SEATTLE-SOUTHKING,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+WA-SEATTLE-MAIN,County,53033,"98101,98102,98103,98104,98105,98107,98109,98112,98115,98116,98117,98118,98119,98121,98122,98125,98126,98133,98134,98136,98144,98146,98154,98164,98174,98177,98178,98195,98199",King County WA,primary,Central Seattle urban core west of Lake Washington
+WA-SEATTLE-EASTSIDE,County,53033,"98004,98005,98006,98007,98008,98011,98027,98029,98033,98034,98039,98040,98052,98053,98056,98059,98072,98074,98075,98077",King County WA,primary,Eastside across Lake Washington via I-90 SR-520 bridges
+WA-SEATTLE-SOUTHKING,County,53033,"98001,98002,98003,98023,98030,98031,98032,98042,98055,98057,98058,98063,98064,98065,98092,98188,98198",King County WA,primary,South King County with Valley Medical Center anchor
+WA-SEATTLE-TACOMA,County,53053,,Pierce County WA,primary,Tacoma with distinct MultiCare system (entire Pierce County)
+WA-SEATTLE-TACOMA,CBSA,45104,,Tacoma-Lakewood WA,primary,Tacoma metro division
+WA-SEATTLE-EVERETT,County,53061,,Snohomish County WA,primary,Everett with Providence Regional anchor (entire Snohomish County)
+WA-SEATTLE-EVERETT,CBSA,31020,,Everett WA,primary,Everett metro division
 ```
-↑ This makes the granular markets MEANINGLESS. All point to the same CBSA.
 
-**CORRECT APPROACH (what you must do):**
-```csv
-WA-SEATTLE-MAIN,County,53033,King County WA,primary,Central Seattle urban core
-WA-SEATTLE-EASTSIDE,County,53033,King County WA,primary,Eastside portion across Lake Washington
-WA-SEATTLE-TACOMA,County,53053,Pierce County WA,primary,Tacoma and Pierce County
-WA-SEATTLE-EVERETT,County,53061,Snohomish County WA,primary,Everett and Snohomish County
-WA-SEATTLE-SOUTHKING,County,53033,King County WA,primary,South King County portion
-```
-↑ Each market maps to distinct counties or portions, making the granularity meaningful.
+**Key observations:**
+- King County (53033) has 3 markets → each has explicit zip_list
+- Pierce County (53053) has 1 market → no zip_list needed (blank)
+- Snohomish County (53061) has 1 market → no zip_list needed (blank)
+- Tacoma and Everett also map to their CBSA divisions (additional coverage)
 
-**OR, if smaller CBSAs exist within the large metro:**
-```csv
-WA-SEATTLE-MAIN,CBSA,42644,Seattle-Bellevue-Everett WA,primary,Core Seattle market
-WA-SEATTLE-TACOMA,CBSA,45104,Tacoma WA,primary,Separate Tacoma market
-WA-OLYMPIA,CBSA,36500,Olympia-Lacey-Tumwater WA,primary,Separate state capital market
-```
-↑ Each market claims a distinct CBSA or division.
-
-### The Point of Granular Markets
-
-**Granular markets were created to reflect REAL behavioral differences:**
-- Different anchor hospital systems
-- Different routine-care travel patterns
-- Different catchment areas
-- Barriers (water, congestion, distance) that separate them
-
-**If all granular markets map to the same CBSA, the granularity is LOST.**
-
-You must use counties, county subdivisions, smaller CBSAs, or micropolitan areas to maintain the distinction.
+**This is now programmatically unambiguous.**
 
 ---
 
-## Conceptual Frame (You Must Accept This)
-
-**The Layered Mapping Architecture:**
-
-1. **Truth Layer:** Proprietary Healthcare Shopping Zones (435 markets)
-   - Already defined, validated, and stable
-   - Must NOT be redefined, renamed, merged, or split
-
-2. **Intermediate Layer (This Stage):** Statistical Areas (CBSAs, Micropolitans, Counties)
-   - Capture geographic and behavioral intent
-   - Named entities that enable conceptual reasoning
-   - LLM-friendly for reasoning about catchment areas
-   - **EACH MARKET CONSUMES DISTINCT STATISTICAL AREA(S)**
-
-3. **Operational Layer (Next Stage):** ZIP Codes
-   - Deterministic expansion from statistical areas
-   - Performed outside LLM using Census crosswalks
-   - Not part of this prompt
-
-**Your Goal at This Stage:**
-> "Which named statistical areas does this market serve for routine and specialty care?"
-
-**CRITICAL REFRAME:**
-You are NOT asking "which CBSA should I assign to this market?"
-
-You are asking "which statistical areas (counties, CBSAs, micropolitans) are part of this market's catchment area?"
-
-**NOT:**
-> "Which specific ZIP codes should map to this market?" (that comes later)
-
----
-
-## Why This Staged Approach?
-
-**Stage-1 (Statistical Areas) enables:**
-- Conceptual reasoning at the right level of abstraction
-- Use of named entities (cities, metros) that LLMs understand
-- Leveraging of regional geographic knowledge
-- Manageable scope per region
-- **Preservation of market granularity through distinct statistical area assignments**
-
-**Stage-2 (ZIP Expansion) enables:**
-- Deterministic, reproducible ZIP assignments
-- Use of official Census crosswalks (CBSA→ZIP, County→ZIP)
-- Efficient processing of 40,000+ ZIPs nationally
-- Clean separation of conceptual vs operational work
-
----
-
-## Required References
+## Required References (Unchanged from V1)
 
 You must conceptually reference:
 
@@ -149,8 +297,6 @@ You must conceptually reference:
 
 **You may not create, rename, merge, or split markets during this mapping process.**
 
-**CRITICAL: If redundant markets exist (e.g., WA-VANCOUVER when OR-PORTLAND already covers integrated market), you must flag this as an error in the markets CSV, not attempt to map both to the same areas.**
-
 ---
 
 ## Regional Context (Know Your Region)
@@ -159,464 +305,240 @@ You must conceptually reference:
 
 | Region | States | Markets | Key Mapping Considerations |
 |--------|--------|---------|---------------------------|
-| Mountain West | CO, UT, ID, MT, WY, NV, NM, AZ (8) | 62 | Mountains separate CBSAs, Phoenix CBSA splits 4 ways, extreme distances |
-| Southeast | NC, SC, GA, FL, AL, MS, TN, KY (8) | 71 | Car-dependent, Atlanta/Miami sprawl, Louisville cross-border, Northern KY to OH-CINCINNATI |
-| Northeast | PA, NJ, NY, CT, MA, RI, VT, NH, ME (9) | 62 | NYC CBSA splits 6+ ways, congestion barriers, limited transit impact |
-| Mid-Atlantic | MD, DC, DE, VA, WV (5) | 30 | DC-Baltimore CSA split, WMATA limited, Potomac/Chesapeake barriers |
-| Texas & Plains | TX, OK, KS, MO, IA, NE, SD, ND, AR, LA (10) | 92 | Vast distances, Dallas/Houston split, cross-border markets |
-| California | CA (1) | 42 | SF Bay 6+ CBSAs to 6-8 markets, LA Basin fragmentation, chronic congestion |
-| Pacific Northwest | WA, OR (2) | 21 | Puget Sound water barriers, Cascade absolute separation, ferry-dependent areas |
-| Midwest | IL, IN, OH, MI, WI, MN (6) | 55 | Chicago CBSA splits, OH-CINCINNATI cross-border, Great Lakes boundaries |
+| Mountain West | CO, UT, ID, MT, WY, NV, NM, AZ (8) | 62 | Phoenix CBSA likely needs Maricopa County ZIP splits (4 markets) |
+| Southeast | NC, SC, GA, FL, AL, MS, TN, KY (8) | 71 | Atlanta metro may need Fulton/Dekalb County ZIP splits, Miami-Dade splits |
+| Northeast | PA, NJ, NY, CT, MA, RI, VT, NH, ME (9) | 62 | NYC boroughs need ZIP splits, Philadelphia may need splits |
+| Mid-Atlantic | MD, DC, DE, VA, WV (5) | 30 | DC-Arlington may need ZIP splits if multiple markets in same county |
+| Texas & Plains | TX, OK, KS, MO, IA, NE, SD, ND, AR, LA (10) | 92 | Dallas County likely needs ZIP splits, Harris County (Houston) splits |
+| California | CA (1) | 42 | LA County needs ZIP splits (5-8 markets), Alameda/Santa Clara (SF Bay) splits |
+| Pacific Northwest | WA, OR (2) | 21 | King County needs ZIP splits (3 markets confirmed) |
+| Midwest | IL, IN, OH, MI, WI, MN (6) | 55 | Cook County (Chicago) likely needs ZIP splits |
+
+**Planning estimate:** ~15-20 counties nationwide will need ZIP-level splits across ~50-80 markets.
 
 ---
 
 ## Role Definition
 
-You are acting as a **Health Economics and Geospatial Data Analyst** performing **conceptual market coverage modeling**.
+You are a **Healthcare Market Geography Specialist** with expertise in:
+- US Census statistical areas (CBSAs, micropolitans, counties)
+- ZIP code geography and county-to-ZIP crosswalks
+- Healthcare utilization patterns and behavioral boundaries
+- Natural and infrastructure-based geographic barriers
+- Regional health system footprints
 
-Your expertise includes:
-- Understanding CBSA definitions and their behavioral limitations
-- Recognizing when large CBSAs must be split across multiple markets using counties or smaller statistical areas
-- Knowing when counties better represent healthcare catchments
-- Applying the 45-minute rule and travel friction logic
-- Prioritizing behavioral realism over Census formalism
-- **Ensuring each granular market receives distinct statistical area assignments**
-
----
-
-## Scope of a Single Run
-
-Each run applies to **one region only** (e.g., Mountain West, Southeast).
-
-**Statistical Area Scope:**
-- All CBSAs with centroid or significant geography within region's states
-- Micropolitan areas within region's states
-- Counties within region's states
-- Cross-region statistical areas only if behaviorally justified (e.g., border markets)
-
-**Market Scope:**
-- Only use market_ids from `markets_<region>.csv`
-- **Every market in the CSV must appear in the output**
-- Cross-region market references allowed when documented (e.g., secondary referral to adjacent region's academic center)
-- **If markets appear redundant, flag as data quality issue rather than mapping both to identical areas**
+**Your objective:** Map each market to statistical areas (with ZIP-level granularity when needed for sub-county splits) that accurately represent where residents seek routine and specialty care.
 
 ---
 
-## Mapping Target Definition (Critical)
+## Mapping Rules (Updated for V2)
 
-### Understanding the Hierarchy of Statistical Areas
+### Rule 1: Preserve Market Granularity Through Distinct Assignments
 
-**Option 1: Use CBSAs and Micropolitans (Preferred when they preserve granularity)**
+**Each market MUST have distinct coverage.** Options for achieving this:
 
-If each market in a region has its own distinct CBSA or micropolitan:
+**A) Different statistical areas (preferred when possible):**
 ```csv
-OR-SALEM,CBSA,41420,Salem OR,primary
-OR-EUGENE,CBSA,21660,Eugene-Springfield OR,primary
-OR-CORVALLIS,CBSA,18700,Corvallis OR,primary
+WA-SEATTLE-TACOMA,County,53053,,Pierce County WA,primary,Entire Pierce County
+WA-SEATTLE-EVERETT,County,53061,,Snohomish County WA,primary,Entire Snohomish County
 ```
-↑ Each market gets its own CBSA. Granularity preserved.
+✅ Different counties → programmatically distinct
 
-**Option 2: Use Counties (Required when large CBSA spans multiple markets)**
-
-When a large CBSA (e.g., Seattle-Tacoma-Bellevue) contains multiple granular markets:
+**B) Same statistical area + different ZIP lists (required when A not possible):**
 ```csv
-WA-SEATTLE-MAIN,County,53033,King County WA,primary,Central Seattle portion
-WA-SEATTLE-TACOMA,County,53053,Pierce County WA,primary,Tacoma portion
-WA-SEATTLE-EVERETT,County,53061,Snohomish County WA,primary,Everett portion
+WA-SEATTLE-MAIN,County,53033,"98101,98102,98103",King County WA,primary,Central Seattle
+WA-SEATTLE-EASTSIDE,County,53033,"98004,98005,98006",King County WA,primary,Eastside
 ```
-↑ Counties split the CBSA to preserve market granularity.
+✅ Same county BUT different ZIPs → programmatically distinct
 
-**Option 3: Hybrid Approach (Use both when appropriate)**
-
-Some markets use their own CBSA, others share a large CBSA and need county splits:
+**C) WRONG APPROACH (no longer acceptable):**
 ```csv
-OR-PORTLAND,CBSA,38900,Portland-Vancouver-Hillsboro OR-WA,primary
-WA-SEATTLE-MAIN,County,53033,King County WA,primary
-WA-OLYMPIA,CBSA,36500,Olympia-Lacey-Tumwater WA,primary
+WA-SEATTLE-MAIN,County,53033,,King County WA,primary,Central Seattle portion
+WA-SEATTLE-EASTSIDE,County,53033,,King County WA,primary,Eastside portion
 ```
+❌ Same county, no ZIP lists → programmatically ambiguous
 
-### CRITICAL RULE: Large CBSAs That Span Multiple Markets
+### Rule 2: Use ZIP Lists Only When Necessary
 
-**When a single CBSA contains multiple proprietary markets, you MUST use finer-grained statistical areas (counties) to preserve market distinctions.**
+**Do NOT use ZIP lists if only one market uses a statistical area.**
 
-**Example: Seattle-Tacoma-Bellevue CBSA (42660) contains 5 markets**
-
-**WRONG (destroys granularity):**
+**Example - Pierce County has only WA-SEATTLE-TACOMA:**
 ```csv
-WA-SEATTLE-MAIN,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
-WA-SEATTLE-EASTSIDE,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
-WA-SEATTLE-TACOMA,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
-WA-SEATTLE-EVERETT,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
-WA-SEATTLE-SOUTHKING,CBSA,42660,Seattle-Tacoma-Bellevue WA,primary
+WA-SEATTLE-TACOMA,County,53053,,Pierce County WA,primary,Entire Pierce County served by MultiCare
 ```
-↑ All markets map to same CBSA. Distinction lost.
+✅ Correct - zip_list is blank because only 1 market uses this county
 
-**CORRECT (preserves granularity using counties):**
+**WRONG:**
 ```csv
-WA-SEATTLE-MAIN,County,53033,King County WA,primary,Central Seattle urban core
-WA-SEATTLE-EASTSIDE,County,53033,King County WA,primary,Eastside Bellevue Redmond Kirkland
-WA-SEATTLE-SOUTHKING,County,53033,King County WA,primary,Renton Kent Federal Way south suburbs
-WA-SEATTLE-TACOMA,County,53053,Pierce County WA,primary,Tacoma and Pierce County
-WA-SEATTLE-EVERETT,County,53061,Snohomish County WA,primary,Everett and Snohomish County
+WA-SEATTLE-TACOMA,County,53053,"98001,98002,98003,98004,98005...[all Pierce County ZIPs]",Pierce County WA,primary,Entire Pierce County
 ```
-↑ Each market maps to distinct counties or documented portions. Granularity preserved.
+❌ Unnecessary - zip_list not needed when no ambiguity exists
 
-**Note on overlapping counties:**
-- If multiple markets share a county (e.g., three Seattle markets all in King County), the rationale MUST specify which geographic portion
-- Downstream ZIP expansion will use spatial analysis to split the county appropriately
-- The goal here is conceptual clarity, not pixel-perfect boundaries
+### Rule 3: Prefer CBSAs Over Counties When Possible
 
-### Metropolitan vs Micropolitan Statistical Areas
+**If a CBSA/micropolitan area exists and fully represents the market, use it:**
 
-**Metropolitan Statistical Areas:**
-- Urban areas with 50,000+ population
-- Example: Portland-Vancouver-Hillsboro, OR-WA Metro (CBSA 38900)
-- Example: Eugene-Springfield, OR Metro (CBSA 21660)
-
-**Micropolitan Statistical Areas:**
-- Urban areas with 10,000-50,000 population
-- Example: Bend, OR Micro (CBSA 13460)
-- Example: Corvallis, OR Micro (CBSA 18700)
-
-**Why CBSAs are preferred:**
-- Anchor-city based (aligns with hospital referral behavior)
-- Named entities (LLM can reason about them conceptually)
-- Official Census definitions with stable codes
-- Cover most US population
-- Later expansion to ZIPs is deterministic via Census crosswalks
-
-**Each CBSA must be identified by:**
-- **statistical_area_type:** `CBSA`
-- **statistical_area_id:** 5-digit CBSA code (e.g., `38900`)
-- **statistical_area_name:** Official Census name (e.g., `Portland-Vancouver-Hillsboro, OR-WA`)
-
-### County Usage Rules (Strict)
-
-**You MUST use counties when:**
-1. **A large CBSA spans multiple proprietary markets** (e.g., Seattle-Tacoma-Bellevue CBSA contains 5 distinct markets)
-2. **No CBSA or micropolitan covers a rural market** (e.g., remote counties in Wyoming or Eastern Oregon)
-
-**You MAY use counties when:**
-3. **A market serves both a CBSA and surrounding non-CBSA areas** (list both the CBSA and the county remainder)
-
-**You must NOT use counties when:**
-- A distinct CBSA or micropolitan adequately represents the entire market
-- Using a county would be redundant with an existing CBSA mapping
-
-**When using county mappings:**
-- **statistical_area_type:** `County`
-- **statistical_area_id:** 5-digit FIPS code (e.g., `53033` for King County, WA)
-- **statistical_area_name:** `[County Name] County, [State]` (e.g., `King County, WA`)
-
-**County rationale must specify:**
-- Why county is used instead of CBSA
-- Which portion of the county if it's shared across multiple markets
-- Whether it's the entire county or specific geographic areas
-
----
-
-## Redundant Market Detection (Critical Quality Control)
-
-**BEFORE you begin mapping, check for redundant markets in the CSV.**
-
-### What Makes Markets Redundant?
-
-Two markets are redundant if:
-1. **They serve the same geographic area** (same CBSA, same counties, same population)
-2. **They have the same anchor systems**
-3. **No behavioral distinction exists** (no barrier, no travel friction, no distinct referral pattern)
-
-**Example from Pacific Northwest:**
-- `OR-PORTLAND` (Portland Metro, cross-border with Vancouver WA via MAX light rail)
-- `WA-VANCOUVER` (Southwest Washington, "redundant if integrated via MAX")
-
-**Problem:** The markets CSV notes indicate these may be redundant. You cannot map both to the same statistical areas without destroying the distinction.
-
-### What To Do When You Find Redundancy
-
-**DO NOT attempt to map redundant markets to different statistical areas just to preserve them.**
-
-**Instead:**
-1. **Flag the redundancy clearly in your output**
-2. **Recommend removing the redundant market from the markets CSV**
-3. **Map only the primary market** (e.g., OR-PORTLAND for the integrated Portland-Vancouver market)
-4. **Document which market should be removed and why**
-
-**Example output:**
+```csv
+OR-SALEM,CBSA,41420,,Salem OR,primary,Metropolitan area represents state capital market
 ```
+
+**Use counties as secondary coverage or when CBSA is too broad:**
+
+```csv
+OR-SALEM,CBSA,41420,,Salem OR,primary,Metropolitan core of state capital market
+OR-SALEM,County,41047,,Marion County OR,primary,County coverage beyond metro boundary
+```
+
+### Rule 4: When Splitting Large CBSAs, Use Counties + ZIP Lists
+
+**Large CBSAs (Seattle-Tacoma-Bellevue CBSA 42660, LA metro, Chicago) must be decomposed:**
+
+```csv
+# DO NOT map all 5 markets to CBSA 42660
+# Instead, use constituent counties with ZIP lists where needed:
+
+WA-SEATTLE-MAIN,County,53033,"98101,98102...",King County WA,primary,Central Seattle
+WA-SEATTLE-EASTSIDE,County,53033,"98004,98005...",King County WA,primary,Eastside
+WA-SEATTLE-SOUTHKING,County,53033,"98001,98023...",King County WA,primary,South King County
+WA-SEATTLE-TACOMA,County,53053,,Pierce County WA,primary,Tacoma (entire Pierce)
+WA-SEATTLE-EVERETT,County,53061,,Snohomish County WA,primary,Everett (entire Snohomish)
+```
+
+### Rule 5: ZIP List Completeness and Non-Overlap
+
+**When using ZIP lists for a shared county:**
+
+1. **Completeness:** All county ZIPs must appear in exactly one market's zip_list
+2. **No gaps:** Don't leave ZIPs unassigned
+3. **No overlaps:** A ZIP cannot appear in multiple markets' lists for the same county
+4. **Format:** Comma-separated, no spaces, sorted numerically
+
+**Validation:**
+```python
+# All ZIPs in King County must appear in exactly one of these three lists:
+seattle_main_zips = set([98101, 98102, 98103, ...])
+seattle_eastside_zips = set([98004, 98005, 98006, ...])
+seattle_southking_zips = set([98001, 98023, 98030, ...])
+
+# Check coverage
+all_king_county_zips = get_zips_for_county(53033)
+assigned_zips = seattle_main_zips | seattle_eastside_zips | seattle_southking_zips
+
+assert assigned_zips == all_king_county_zips  # Complete coverage
+assert len(seattle_main_zips & seattle_eastside_zips) == 0  # No overlap
+assert len(seattle_eastside_zips & seattle_southking_zips) == 0  # No overlap
+assert len(seattle_main_zips & seattle_southking_zips) == 0  # No overlap
+```
+
+### Rule 6: Secondary Relationships (Unchanged)
+
+**Secondary = specialty/tertiary care only, NOT routine care**
+
+```csv
+OR-MEDFORD,CBSA,32780,,Medford OR,primary,Rogue Valley routine care anchor
+OR-MEDFORD,CBSA,38900,,"Portland-Vancouver, OR-WA",secondary,Complex tertiary cases to OHSU 270 miles north
+```
+
+**Evidence required for secondary:**
+- Long distance (typically >60 miles)
+- Academic medical center referral pattern
+- Documented in regional prompts
+- Clearly specialty-only (not routine care)
+
+### Rule 7: Cross-Border CBSAs
+
+**When a CBSA spans state lines AND markets integrate:**
+
+```csv
+OR-PORTLAND,CBSA,38900,,"Portland-Vancouver-Hillsboro, OR-WA",primary,Integrated cross-border market via MAX light rail
+```
+
+**When state lines create separate markets despite CBSA:**
+```csv
+# Use counties to split:
+OR-PORTLAND,County,41051,,Multnomah County OR,primary,Oregon side of Portland metro
+WA-VANCOUVER,County,53011,,Clark County WA,primary,Washington side if treating as separate market
+```
+
+### Rule 8: Flag Redundant Markets
+
+**If two markets map to identical areas (even with ZIP lists), flag as data quality issue:**
+
+```csv
 # DATA QUALITY ISSUE: Redundant Markets Detected
-
-## Issue
-- OR-PORTLAND and WA-VANCOUVER appear to cover the same geographic area
-- Both map to CBSA 38900 (Portland-Vancouver-Hillsboro, OR-WA)
-- Markets CSV notes indicate WA-VANCOUVER is "redundant if integrated via MAX"
-- No distinct statistical areas can be assigned to WA-VANCOUVER
-
-## Recommendation
-- Remove WA-VANCOUVER from markets CSV
-- OR-PORTLAND adequately covers the integrated cross-border market
-- If future analysis determines Vancouver WA should be separate, re-add with distinct catchment definition
-
-## Mapping
-- Only OR-PORTLAND is mapped below
-- WA-VANCOUVER is excluded due to redundancy
+# OR-PORTLAND and WA-VANCOUVER both map to CBSA 38900
+# Recommendation: Delete WA-VANCOUVER if MAX integration confirmed
+# Only OR-PORTLAND mapped below
 ```
 
 ---
 
-## The "One Market, Multiple Statistical Areas" Pattern
+## Output Format Specification
 
-### Pattern 1: Market Serves One Distinct CBSA
-**Simplest case. Use when market = CBSA.**
-
-```csv
-OR-SALEM,CBSA,41420,Salem OR,primary,Metropolitan area represents entire state capital market
-```
-
-### Pattern 2: Market Serves CBSA Plus Surrounding Counties
-**Use when market extends beyond CBSA boundaries.**
+### CSV Header (V2 Format with zip_list column)
 
 ```csv
-AZ-FLAGSTAFF,CBSA,22380,Flagstaff AZ,primary,Micropolitan area is core of market
-AZ-FLAGSTAFF,County,04005,Coconino County AZ,primary,Remainder of county outside Flagstaff micro served by same facilities
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
 ```
 
-### Pattern 3: Large CBSA Split Across Multiple Markets Using Counties
-**Use when a single CBSA contains multiple granular markets.**
+### Field Specifications
 
-**The CBSA itself is NOT listed. Only the counties that split it.**
+| Field | Type | Rules | Example |
+|-------|------|-------|---------|
+| market_id | String | Must match markets CSV exactly | WA-SEATTLE-MAIN |
+| statistical_area_type | Enum | CBSA or County only | County |
+| statistical_area_id | String | CBSA code (5-digit) or County FIPS (5-digit) | 53033 |
+| **zip_list** | **String** | **Comma-separated ZIPs, blank if not needed** | **98101,98102,98103** |
+| statistical_area_name | String | Human-readable name | King County WA |
+| relationship_type | Enum | primary or secondary | primary |
+| mapping_rationale | String | Behavioral justification 1-2 sentences | Central Seattle urban core west of Lake Washington |
+
+### Example Output (Complete Market Mapping)
 
 ```csv
-WA-SEATTLE-MAIN,County,53033,King County WA,primary,Central Seattle urban core portion of King County
-WA-SEATTLE-EASTSIDE,County,53033,King County WA,primary,Eastside Bellevue Redmond Kirkland portion of King County
-WA-SEATTLE-SOUTHKING,County,53033,King County WA,primary,Renton Kent Federal Way southern portion of King County
-WA-SEATTLE-TACOMA,County,53053,Pierce County WA,primary,Tacoma and Pierce County separate from King County
-WA-SEATTLE-EVERETT,County,53061,Snohomish County WA,primary,Everett and Snohomish County separate from King and Pierce
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+OR-BEND,CBSA,13460,,Bend OR,primary,Micropolitan area represents core Central Oregon market anchored by St. Charles Health System
+OR-BEND,County,41017,,Deschutes County OR,primary,County coverage includes areas beyond Bend micro served by St. Charles facilities
+OR-PORTLAND,CBSA,38900,,"Portland-Vancouver-Hillsboro, OR-WA",primary,Cross-border metropolitan area integrated by MAX light rail and I-5 I-205 bridges
+OR-SALEM,CBSA,41420,,Salem OR,primary,Metropolitan area represents state capital market 50 miles south of Portland anchored by Salem Health
+OR-SALEM,County,41047,,Marion County OR,primary,County coverage beyond metro served by Salem Health facilities
+WA-SEATTLE-EASTSIDE,County,53033,"98004,98005,98006,98007,98008,98011,98027,98029,98033,98034,98039,98040,98052,98053,98056,98059,98072,98074,98075,98077",King County WA,primary,Eastside portion of King County across Lake Washington including Bellevue Redmond Kirkland served by Overlake and Evergreen Health via I-90 SR-520 bridges
+WA-SEATTLE-EVERETT,CBSA,31020,,Everett WA,primary,Metropolitan division represents Snohomish County market 30 miles north anchored by Providence Regional
+WA-SEATTLE-EVERETT,County,53061,,Snohomish County WA,primary,County coverage ensures all of Snohomish County served by Providence Regional facilities
+WA-SEATTLE-MAIN,County,53033,"98101,98102,98103,98104,98105,98107,98109,98112,98115,98116,98117,98118,98119,98121,98122,98125,98126,98133,98134,98136,98144,98146,98154,98164,98174,98177,98178,98195,98199",King County WA,primary,Central Seattle urban core portion of King County with UW Medicine Swedish Virginia Mason Harborview anchors serving dense Puget Sound center west of Lake Washington
+WA-SEATTLE-SOUTHKING,County,53033,"98001,98002,98003,98023,98030,98031,98032,98042,98055,98057,98058,98063,98064,98065,98092,98188,98198",King County WA,primary,South King County portion including Renton Kent Federal Way Auburn served by Valley Medical Center anchor separate from Seattle core
+WA-SEATTLE-TACOMA,CBSA,45104,,Tacoma-Lakewood WA,primary,Metropolitan division represents Pierce County market 35 miles south of Seattle anchored by MultiCare and CHI Franciscan
+WA-SEATTLE-TACOMA,County,53053,,Pierce County WA,primary,County coverage ensures all of Pierce County served by Tacoma anchor systems
+WA-SPOKANE,CBSA,44060,,"Spokane-Spokane Valley, WA",primary,Eastern Washington metropolitan hub separated from Seattle by Cascade Mountains
+WA-SPOKANE,County,53063,,Spokane County WA,primary,County coverage ensures eastern Washington areas served by Spokane anchors
+WA-SPOKANE,County,16055,,Kootenai County ID,secondary,Some cross-border referral from Coeur d Alene ID 30 miles east for specialty services
 ```
 
-**Note:** Multiple markets share King County (53033). The rationale specifies which portion. Downstream spatial analysis will handle ZIP-level splits.
-
-### Pattern 4: Market with Secondary Referral Relationships
-**Use when a market refers complex cases to another market's academic center.**
-
-```csv
-OR-BEND,CBSA,13460,Bend OR,primary,Micropolitan area represents core Central Oregon market
-OR-BEND,CBSA,38900,Portland-Vancouver-Hillsboro OR-WA,secondary,Complex tertiary cases referred to OHSU 160 miles west across Cascades
-OR-BEND,CBSA,44060,Spokane-Spokane Valley WA,secondary,Some complex cases referred to Providence Sacred Heart 400 miles northeast
-```
-
-**Secondary relationships:**
-- Document when residents travel >45 minutes for specialty/tertiary care
-- Only include if supported by referral patterns
-- Do not invent these; use regional prompt guidance
-
-### Pattern 5: Rural County Without CBSA Coverage
-**Use only when no CBSA or micropolitan exists.**
-
-```csv
-WY-SHERIDAN,County,56033,Sheridan County WY,primary,No CBSA covers Sheridan; county represents distinct healthcare catchment with local hospital
-```
+**Observations:**
+- King County (53033) rows have zip_list populated (3 markets share it)
+- Pierce County (53053) row has blank zip_list (only 1 market)
+- Snohomish County (53061) row has blank zip_list (only 1 market)
+- OR markets have blank zip_list (no shared counties in this sample)
 
 ---
 
-## Output File Specification
+## Self-Validation Checklist (Updated for V2)
 
-### Required Columns
+### Before Submitting Output
 
-| Column | Definition |
-|--------|------------|
-| market_id | Stable market identifier from markets CSV (e.g., OR-PORTLAND, WA-SEATTLE-MAIN) |
-| statistical_area_type | `CBSA` or `County` |
-| statistical_area_id | 5-digit CBSA code or 5-digit county FIPS |
-| statistical_area_name | Official Census name |
-| relationship_type | `primary` or `secondary` |
-| mapping_rationale | 1-2 sentences explaining why this statistical area is assigned to this market |
-
-### File Naming Convention
-
-`market_to_statistical_area_<region>.csv`
-
-Examples:
-- `market_to_statistical_area_pacific_northwest.csv`
-- `market_to_statistical_area_mountain_west.csv`
-
-### Sorting
-
-**Sort by market_id alphabetically, then by relationship_type (primary before secondary).**
-
----
-
-## What You Must NOT Do
-
-❌ **Do NOT map multiple granular markets to the same CBSA without county-level distinctions**
-- If WA-SEATTLE-MAIN, WA-SEATTLE-EASTSIDE, WA-SEATTLE-TACOMA all map to CBSA 42660, the granularity is lost
-- Use counties to preserve distinctions
-
-❌ **Do NOT invent statistical area names**
-- Use official Census CBSA names
-- Use official county names with format: `[County] County, [ST]`
-- Do NOT create nicknames or informal labels
-
-❌ **Do NOT map redundant markets to different areas just to preserve them**
-- If two markets serve the same geography, flag the redundancy
-- Recommend removing the redundant market
-- Do not force-fit artificial distinctions
-
-❌ **Do NOT use counties as default when distinct CBSAs exist**
-- CBSAs and micropolitans are preferred when they adequately represent the market
-- Counties are for CBSA splits or rural areas without CBSA coverage
-- Must justify county usage in rationale
-
-❌ **Do NOT ignore market notes in the CSV**
-- Market notes document catchment areas, barriers, and distinctions
-- If notes say "ferry-dependent", "separated by Cascades", "distinct anchor system", honor those distinctions in statistical area assignments
-- Regional prompts provide critical context
-
-❌ **Do NOT leave markets unmapped**
-- Every market in markets CSV must appear in output
-- If a market appears impossible to map distinctly, flag as data quality issue
-
----
-
-## Quality Control Checklist
-
-### Per-Market Validation
-
-Before finalizing each market's mappings, confirm:
-
-1. ✅ **Primary areas truly reflect routine-care behavior**
-   - Would residents of these statistical areas use this market for PCP visits?
-   - Are the anchor hospitals for this market located in these areas?
-   - Does this align with the ~45-minute travel threshold?
-
-2. ✅ **This market has DISTINCT statistical area assignments from other markets**
-   - If another market in this region maps to the same CBSA, have I used counties to split them?
-   - If multiple markets share a county, have I specified which portion in the rationale?
-   - Is the distinction behaviorally meaningful?
-
-3. ✅ **Secondary areas represent realistic spillover**
-   - Is there evidence of specialty referral from these areas?
-   - Is it 45-60 minutes or accessible via transit?
-   - Is this a documented referral pattern in regional prompts?
-
-4. ✅ **County usage is clearly justified**
-   - Is the county used because a large CBSA spans multiple markets?
-   - OR is there genuinely no CBSA or micropolitan covering this area?
-   - Does the rationale explain why county is necessary?
-
-5. ✅ **All IDs and names are valid and real**
-   - CBSA codes match official Census definitions
-   - County FIPS codes are correct (5 digits)
-   - Names match official Census naming conventions
-
-6. ✅ **Rationale is specific and behavioral**
-   - Does it explain which portion of a statistical area (if shared)?
-   - Does it reference barriers, anchors, or travel patterns?
-   - Is it 1-2 sentences, not a paragraph?
-
-### Regional Validation
-
-After mapping all markets, verify:
-
-1. ✅ **Every market in markets CSV has at least one primary statistical area**
-   - No orphaned markets
-   - Every market_id from CSV appears in output
-
-2. ✅ **Large CBSAs are split using counties when they contain multiple markets**
-   - Seattle-Tacoma-Bellevue CBSA → 5 markets use counties
-   - Phoenix CBSA → 4 markets use counties or smaller CBSAs
-   - NYC CBSA → 6+ markets use counties or boroughs
-   - Each market has distinct county assignments
-
-3. ✅ **No two markets map to identical statistical areas without clear distinction**
-   - If two markets both map to "King County, WA", the rationale specifies different portions
-   - If two markets both map to the same CBSA, one should be flagged as redundant
-   - Geographic or behavioral distinction is clear
-
-4. ✅ **Cross-border CBSAs properly documented**
-   - OR-PORTLAND includes Portland-Vancouver CBSA spanning OR/WA
-   - Louisville KY-IN CBSA properly assigned
-   - Cincinnati OH-KY-IN CBSA properly assigned
-   - State borders respected unless CBSA explicitly crosses
-
-5. ✅ **Regional barriers reflected in mappings**
-   - Cascade Mountains: Eastern and Western markets use different statistical areas
-   - Puget Sound ferries: Ferry-dependent areas use separate counties or CBSAs
-   - Water barriers: Markets on opposite sides use different statistical areas
-
-6. ✅ **Redundant markets flagged**
-   - If OR-PORTLAND and WA-VANCOUVER both map to CBSA 38900, flag redundancy
-   - Recommend which market to keep
-   - Do not force artificial distinctions
-
-7. ✅ **Statistical area coverage is reasonable**
-   - Most population centers are covered
-   - No major CBSAs accidentally omitted
-   - County fallbacks are justified
-   - Rural areas without CBSAs use counties appropriately
-
----
-
-## Example Mappings (Corrected)
-
-### Example 1: Simple Market with One Distinct CBSA
-```csv
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-OR-SALEM,CBSA,41420,Salem OR,primary,Metropolitan area represents entire state capital market 50 miles south of Portland with Salem Health anchor
-```
-
-### Example 2: Market Serving CBSA Plus Surrounding Rural Counties
-```csv
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-OR-BEND,CBSA,13460,Bend OR,primary,Micropolitan area represents core Central Oregon market anchored by St. Charles Health System
-OR-BEND,County,41017,Deschutes County OR,primary,Remainder of county outside Bend micro served by same St. Charles facilities
-```
-
-### Example 3: Large CBSA Split Across Multiple Markets Using Counties (CORRECTED)
-**This is the critical pattern for preserving granularity.**
-
-```csv
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-WA-SEATTLE-MAIN,County,53033,King County WA,primary,Central Seattle urban core with UW Medicine Swedish Virginia Mason Harborview anchors
-WA-SEATTLE-EASTSIDE,County,53033,King County WA,primary,Eastside Bellevue Redmond Kirkland across Lake Washington via I-90 SR-520 bridges
-WA-SEATTLE-SOUTHKING,County,53033,King County WA,primary,South King County including Renton Kent Federal Way with Valley Medical Center anchor
-WA-SEATTLE-TACOMA,County,53053,Pierce County WA,primary,Tacoma and Pierce County 35 miles south with distinct MultiCare and CHI Franciscan systems
-WA-SEATTLE-EVERETT,County,53061,Snohomish County WA,primary,Everett and Snohomish County 30 miles north with Providence Regional anchor
-```
-
-**Note:** No direct CBSA 42660 mapping appears. The large CBSA is decomposed into constituent counties to preserve market granularity.
-
-### Example 4: Cross-Border Integrated Market
-```csv
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-OR-PORTLAND,CBSA,38900,"Portland-Vancouver-Hillsboro, OR-WA",primary,Cross-border metropolitan area integrated by MAX light rail and I-5 I-205 bridges serving both Portland OR and Vancouver WA
-```
-
-### Example 5: Market with Secondary Referral (Specialty Care)
-```csv
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-OR-MEDFORD,CBSA,32780,Medford OR,primary,Metropolitan area represents southern Oregon Rogue Valley market anchored by Asante Health System
-OR-MEDFORD,CBSA,38900,"Portland-Vancouver-Hillsboro, OR-WA",secondary,Complex tertiary cases referred to OHSU in Portland 270 miles north
-```
-
-### Example 6: Ferry-Dependent Peninsula (Separate Due to Water Barrier)
-```csv
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-WA-BREMERTON,CBSA,14740,"Bremerton-Silverdale-Port Orchard, WA",primary,Ferry-dependent Kitsap Peninsula metropolitan area separated from Seattle by 60-minute Puget Sound ferry crossing
-```
-
-### Example 7: Rural County Without CBSA Coverage
-```csv
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-WA-SANJUAN,County,53055,San Juan County WA,primary,Island county accessible only by ferry with local critical access hospital serving resident population
-```
-
-### Example 8: Eastern Market Separated by Mountain Barrier
-```csv
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-WA-SPOKANE,CBSA,44060,"Spokane-Spokane Valley, WA",primary,Eastern Washington metropolitan hub separated from Seattle by Cascade Mountains serving 550K metro and vast rural catchment
-WA-SPOKANE,County,16055,Kootenai County ID,secondary,Some cross-border referral from Coeur d Alene ID 30 miles east
-```
+- [ ] Every market from CSV has at least one primary statistical area
+- [ ] **Any county/CBSA used by 2+ markets has zip_list populated for each market**
+- [ ] **zip_list is blank (empty) for statistical areas used by only 1 market**
+- [ ] ZIP lists are comma-separated with no spaces
+- [ ] ZIP lists have no overlaps within same county
+- [ ] ZIP lists provide complete coverage of shared counties
+- [ ] Large CBSAs are split using counties (not all markets pointing to same CBSA)
+- [ ] Cross-border CBSAs properly assigned
+- [ ] County usage is justified in each rationale
+- [ ] All CBSA codes and county FIPS codes are correct
+- [ ] Redundant markets are flagged (if any)
+- [ ] Output sorted by market_id alphabetically
+- [ ] Secondary relationships have clear specialty-only justification
 
 ---
 
@@ -629,44 +551,112 @@ WA-SPOKANE,County,16055,Kootenai County ID,secondary,Some cross-border referral 
 - [ ] Load `markets_<region>.csv` (valid market_ids and notes on catchment areas)
 - [ ] Obtain Census CBSA definitions for region's states
 - [ ] Obtain county FIPS codes for region's states
+- [ ] **Obtain county-to-ZIP crosswalk files for counties that will need splits**
 - [ ] Review which large CBSAs must be split across multiple markets
+- [ ] Identify counties where multiple markets will share the same county
 - [ ] Identify any potentially redundant markets before mapping
 
 ### During Mapping
 
 - [ ] Map each market to appropriate statistical areas (CBSAs preferred, counties when needed)
-- [ ] When multiple markets share a large CBSA, use counties to split them
-- [ ] Ensure each market has DISTINCT statistical area assignments
+- [ ] When multiple markets share a county, **build ZIP lists for each market**
+- [ ] Ensure ZIP lists have complete coverage and no overlaps
+- [ ] Use blank zip_list when statistical area is unique to one market
+- [ ] Ensure each market has DISTINCT coverage (via different stat areas OR different ZIP lists)
 - [ ] Use micropolitan CBSAs where they exist
-- [ ] Use county fallback when CBSA is too broad OR no CBSA exists
 - [ ] Assign secondary relationships only with evidence from regional prompts
 - [ ] Document cross-border CBSAs properly
 - [ ] Flag redundant markets rather than forcing artificial distinctions
-- [ ] Specify which portion of shared counties in rationale
+
+### During ZIP List Building (for shared counties)
+
+- [ ] Obtain ZIP code map for county
+- [ ] Identify natural boundaries (water, highways, city limits)
+- [ ] Assign ZIPs based on anchor proximity and behavioral patterns
+- [ ] Verify complete coverage (all county ZIPs assigned)
+- [ ] Verify no overlaps (each ZIP in exactly one market)
+- [ ] Format as comma-separated (no spaces)
+- [ ] Document behavioral justification in rationale
 
 ### After Mapping
 
 - [ ] Verify every market from CSV has at least one primary statistical area
-- [ ] Verify large CBSAs are split using counties across multiple markets
-- [ ] Verify no two markets have identical statistical area assignments without clear distinction
+- [ ] **Verify counties with multiple markets have zip_list for each market**
+- [ ] **Verify counties with single market have blank zip_list**
+- [ ] Verify ZIP lists are complete and non-overlapping
+- [ ] Verify no two markets have identical coverage without clear distinction
 - [ ] Verify cross-border CBSAs properly assigned
 - [ ] Verify county usage is justified in each rationale
 - [ ] Verify all CBSA codes and county FIPS codes are correct
 - [ ] Verify redundant markets are flagged (if any)
 - [ ] Sort output by market_id alphabetically
-- [ ] Generate clean CSV file
+- [ ] Generate clean CSV file with proper zip_list column
+
+---
+
+## Example Mappings (V2 with ZIP Lists)
+
+### Example 1: Simple Market (No ZIP List Needed)
+```csv
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+OR-SALEM,CBSA,41420,,Salem OR,primary,Metropolitan area represents entire state capital market 50 miles south of Portland with Salem Health anchor
+OR-SALEM,County,41047,,Marion County OR,primary,County coverage beyond metro boundary served by Salem Health
+```
+**Note:** Marion County only used by OR-SALEM → zip_list is blank
+
+### Example 2: County Split with ZIP Lists (King County)
+```csv
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+WA-SEATTLE-MAIN,County,53033,"98101,98102,98103,98104,98105,98107,98109,98112,98115,98116,98117,98118,98119,98121,98122,98125,98126,98133,98134,98136,98144,98146,98154,98164,98174,98177,98178,98195,98199",King County WA,primary,Central Seattle urban core west of Lake Washington including downtown Capitol Hill Ballard University District served by UW Medicine Swedish Virginia Mason
+WA-SEATTLE-EASTSIDE,County,53033,"98004,98005,98006,98007,98008,98011,98027,98029,98033,98034,98039,98040,98052,98053,98056,98059,98072,98074,98075,98077",King County WA,primary,Eastside across Lake Washington including Bellevue Redmond Kirkland Sammamish Issaquah Mercer Island via I-90 SR-520 bridges served by Overlake Evergreen Health
+WA-SEATTLE-SOUTHKING,County,53033,"98001,98002,98003,98023,98030,98031,98032,98042,98055,98057,98058,98063,98064,98065,98092,98188,98198",King County WA,primary,South King County including Renton Kent Auburn Federal Way SeaTac Tukwila Burien served by Valley Medical Center
+```
+**Note:** King County shared by 3 markets → each has explicit zip_list
+
+### Example 3: Mix of Unique and Shared Counties
+```csv
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+WA-SEATTLE-TACOMA,CBSA,45104,,Tacoma-Lakewood WA,primary,Metropolitan division represents Pierce County market
+WA-SEATTLE-TACOMA,County,53053,,Pierce County WA,primary,Entire Pierce County served by MultiCare and CHI Franciscan
+WA-SEATTLE-EVERETT,CBSA,31020,,Everett WA,primary,Metropolitan division represents Snohomish County market
+WA-SEATTLE-EVERETT,County,53061,,Snohomish County WA,primary,Entire Snohomish County served by Providence Regional
+```
+**Note:** Pierce and Snohomish counties each used by only 1 market → zip_list blank
+
+### Example 4: Cross-Border Market (No Split Needed)
+```csv
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+OR-PORTLAND,CBSA,38900,,"Portland-Vancouver-Hillsboro, OR-WA",primary,Cross-border metropolitan area integrated by MAX light rail and I-5 I-205 bridges serving both Portland OR and Vancouver WA as single market
+```
+**Note:** CBSA 38900 only used by OR-PORTLAND → zip_list blank
+
+### Example 5: Secondary Referral
+```csv
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+OR-MEDFORD,CBSA,32780,,Medford OR,primary,Metropolitan area represents Rogue Valley routine care market
+OR-MEDFORD,CBSA,38900,,"Portland-Vancouver-Hillsboro, OR-WA",secondary,Complex tertiary cases referred to OHSU in Portland 270 miles north
+```
+**Note:** Secondary relationships don't need zip_list (they represent spillover, not primary coverage)
 
 ---
 
 ## Final Instruction
 
-Output **only** the completed `market_to_statistical_area_<region>.csv` file.
+Output **only** the completed `market_to_statistical_area_<region>.csv` file in V2 format.
 
 **Format:**
 ```
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
 [rows sorted by market_id alphabetically]
 ```
+
+**Critical V2 Requirements:**
+
+1. **Include zip_list column** (even if blank for most rows)
+2. **Populate zip_list** when 2+ markets share same county/CBSA
+3. **Leave zip_list blank** when only 1 market uses the statistical area
+4. **Ensure ZIP lists are complete and non-overlapping** within shared counties
+5. **Format ZIP lists** as comma-separated without spaces
 
 **If redundant markets detected, include a comment block at the top:**
 ```
@@ -676,31 +666,41 @@ market_id,statistical_area_type,statistical_area_id,statistical_area_name,relati
 # [Only non-redundant markets mapped below]
 ```
 
-**This file will be used as the sole conceptual input to deterministic ZIP expansion.** The downstream process will:
-1. Take each statistical area-to-market mapping
-2. Look up all ZIPs in that CBSA or county (Census crosswalk)
-3. Assign those ZIPs to the mapped market(s)
-4. Handle shared counties using spatial analysis based on rationale notes
+**Downstream consumption will work as follows:**
+```python
+# For each row in mapping CSV:
+if row['zip_list']:  # Not blank
+    # Use ZIP-level assignment
+    for zip in row['zip_list'].split(','):
+        assign_zip_to_market(zip, row['market_id'])
+else:  # zip_list is blank
+    # Use statistical area assignment
+    zips = get_zips_for_statistical_area(row['statistical_area_id'])
+    for zip in zips:
+        assign_zip_to_market(zip, row['market_id'])
+```
 
 **Your responsibility at this stage:**
-- Identify which statistical areas each market serves (conceptually)
-- Ensure each market has DISTINCT statistical area assignments
-- Use counties to split large CBSAs across multiple granular markets
-- Flag redundant markets rather than mapping both to identical areas
+- Identify which statistical areas each market serves
+- **When multiple markets share a statistical area, explicitly list ZIPs for each**
+- Ensure each market has DISTINCT coverage (different areas OR different ZIPs)
+- Build complete, non-overlapping ZIP lists for shared counties
+- Use blank zip_list when no ambiguity exists
 - Provide clear behavioral rationale for each assignment
-- Enable clean deterministic expansion later
+- Flag redundant markets rather than forcing distinctions
 
 **NOT your responsibility at this stage:**
-- Enumerate specific ZIP codes
-- Determine exactly where within a county the split occurs
-- Perform spatial analysis or distance calculations
+- Verify ZIP code existence (use best available data)
+- Perform complex spatial analysis within ZIPs
+- Determine sub-ZIP granularity
 - Resolve data quality issues in the markets CSV (flag them instead)
 
 **Prioritize:**
-1. **Preservation of market granularity** (each market gets distinct statistical areas)
-2. Behavioral realism (does this statistical area truly serve this market?)
-3. Use of official Census entities (CBSAs preferred, counties when CBSA is too broad)
-4. Clear rationale for each assignment (enables validation and ZIP expansion)
-5. Flagging data quality issues (redundant markets, impossible mappings)
+1. **Programmatic unambiguity** (each market has distinct coverage via areas OR ZIPs)
+2. **Preservation of market granularity** (no many-to-one stat area without ZIP lists)
+3. Behavioral realism (does this coverage truly serve this market?)
+4. Use of official Census entities (CBSAs preferred, counties when needed)
+5. Clear rationale for each assignment
+6. Flagging data quality issues (redundant markets, impossible mappings)
 
-The goal is to answer: **"Which named statistical areas (CBSAs, micropolitans, counties) are part of each healthcare market's catchment area, such that each market has DISTINCT coverage?"**
+The goal is to answer: **"Which named statistical areas (and specific ZIPs when needed) are part of each healthcare market's catchment area, such that each market has programmatically unambiguous coverage?"**
