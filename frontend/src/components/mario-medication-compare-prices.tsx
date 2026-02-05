@@ -167,6 +167,33 @@ export function MarioMedicationComparePrices({
     quantityCacheRef.current[cacheKey] = new Set(quantities);
   };
 
+  const logMetforminComboWarning = (rows: Array<{ product_url?: string | null }>) => {
+    if (!medication.name.toLowerCase().includes('metformin')) return;
+    const comboIngredients = [
+      'alogliptin',
+      'canagliflozin',
+      'dapagliflozin',
+      'empagliflozin',
+      'sitagliptin',
+      'linagliptin',
+      'saxagliptin',
+      'glyburide',
+      'glipizide',
+      'pioglitazone',
+    ];
+    const offendingUrl = rows
+      .map((row) => row.product_url)
+      .find((url) =>
+        url ? comboIngredients.some((ingredient) => url.toLowerCase().includes(ingredient)) : false
+      );
+    if (offendingUrl) {
+      console.warn('[MedicationComparePrices] Metformin mapping may be combo drug.', {
+        rxcui_scd: medication.rxcui_scd,
+        product_url: offendingUrl,
+      });
+    }
+  };
+
   useEffect(() => {
     let isActive = true;
 
@@ -210,6 +237,10 @@ export function MarioMedicationComparePrices({
 
         if (!shouldRequestQuantity && rows.length) {
           updateQuantityCache(medication.rxcui_scd, rows);
+        }
+
+        if (rows.length) {
+          logMetforminComboWarning(rows);
         }
 
         if (!rows.length) {
