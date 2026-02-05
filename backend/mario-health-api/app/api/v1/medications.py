@@ -1,9 +1,12 @@
+import logging
 from fastapi import APIRouter, Query, Depends, HTTPException
 from supabase import Client
 from postgrest.exceptions import APIError
 
 from app.core.dependencies import get_supabase
 from app.models import MedicationPriceRow
+
+logger = logging.getLogger(__name__)
 
 
 router = APIRouter(prefix="/medications", tags=["medications"])
@@ -35,6 +38,9 @@ async def get_medication_prices(
     rows = result.data or []
     normalized: list[MedicationPriceRow] = []
 
+    # Guardrail: Check if product URLs match the medication name
+    _validate_product_urls(supabase, rxcui_scd, rows)
+
     for row in rows:
         price_value = row.get("price")
         if price_value is None:
@@ -65,3 +71,76 @@ async def get_medication_prices(
 
     normalized.sort(key=lambda item: item.price)
     return normalized
+
+
+def _validate_product_urls(supabase: Client, rxcui_scd: str, rows: list[dict]) -> None:
+    """
+    Guardrail: Check if product URLs contain the medication name.
+    Logs warnings for mismatches but doesn't block the response.
+    """
+    if not rows:
+        return
+
+    # Get the drug name from the drugs table
+    try:
+        drug_result = supabase.table("drugs").select("drug_name").eq("rxnorm_cui", rxcui_scd).execute()
+        if not drug_result.data:
+            logger.warning(f"No drug name found for rxcui_scd: {rxcui_scd}")
+            return
+        
+        drug_name = drug_result.data[0]["drug_name"]
+        if not drug_name:
+            return
+
+        # Extract key medication terms from drug name (remove common words)
+        drug_terms = _extract_medication_terms(drug_name.lower())
+        
+        # Check each product URL
+        for row in rows:
+            product_url = row.get("product_url")
+            if not product_url:
+                continue
+                
+            url_lower = product_url.lower()
+            
+            # Check if any medication term appears in the URL
+            if not any(term in url_lower for term in drug_terms if len(term) >= 4):
+                logger.warning(
+                    f"Product URL mismatch detected - rxcui_scd: {rxcui_scd}, "
+                    f"drug_name: '{drug_name}', product_url: '{product_url}'"
+                )
+                break  # Only log once per request
+                
+    except Exception as e:
+        logger.error(f"Error validating product URLs for rxcui_scd {rxcui_scd}: {e}")
+
+
+def _extract_medication_terms(drug_name: str) -> list[str]:
+    """
+    Extract meaningful medication terms from drug name.
+    Filters out common words and dosage information.
+    """
+    # Common words to ignore
+    ignore_words = {
+        "mg", "mcg", "ml", "tablet", "capsule", "oral", "injection", "solution",
+        "suspension", "cream", "gel", "ointment", "patch", "inhaler", "pen",
+        "extended", "release", "delayed", "immediate", "hydrochloride", "hcl",
+        "sodium", "potassium", "calcium", "sulfate", "citrate", "acetate",
+        "maleate", "tartrate", "fumarate", "succinate", "phosphate", "chloride"
+    }
+    
+    # Split on common separators and filter
+    import re
+    words = re.split(r'[\s\-_/]+', drug_name.lower())
+    
+    # Keep words that are meaningful medication names
+    meaningful_terms = []
+    for word in words:
+        # Remove dosage numbers and units
+        clean_word = re.sub(r'\d+(\.\d+)?', '', word).strip()
+        if (len(clean_word) >= 4 and 
+            clean_word not in ignore_words and 
+            not clean_word.isdigit()):
+            meaningful_terms.append(clean_word)
+    
+    return meaningful_terms
