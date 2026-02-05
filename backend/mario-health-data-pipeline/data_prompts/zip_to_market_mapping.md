@@ -6,6 +6,16 @@
 
 This prompt generates production data for healthcare price comparison. Errors directly impact patients' ability to find affordable care.
 
+**Most common failure mode:** Assigning multiple primary markets to the same ZIP code.
+
+**HARD RULE: Each ZIP = ONE primary market ONLY.**
+
+If a ZIP could belong to two markets, you must:
+1. Choose the stronger local anchor as primary
+2. Assign the other as secondary (not as a second primary)
+
+Violating this rule breaks the price comparison system entirely.
+
 **Before you begin ANY mapping work:**
 1. You MUST read the market definition file and list ALL valid market IDs
 2. You MUST use ONLY those exact market IDs (no variations, no synonyms, no logical equivalents)
@@ -132,6 +142,38 @@ If any answer is NO, I will revise before continuing.
 **DO NOT map all ZIPs until this checkpoint passes.**
 
 This catch-and-correct approach prevents completing 1,000 rows with systematic errors.
+
+---
+
+### Step 4: Duplicate Primary Market Prevention (CRITICAL)
+
+**CRITICAL RULE: Each ZIP can have ONLY ONE primary market.**
+
+When mapping ZIPs, you must track which ZIPs you've already assigned primary markets to.
+
+**Common error patterns that cause duplicate primaries:**
+1. **Border ambiguity:** A ZIP could belong to Market A or Market B
+   - ❌ WRONG: Assign it as primary to both
+   - ✅ CORRECT: Pick the stronger local anchor as primary, use secondary for the other
+   
+2. **Rural ZIPs between cities:** A ZIP is equidistant from two anchors
+   - ❌ WRONG: List both as primary "because it's unclear"
+   - ✅ CORRECT: Use driving time, congestion, or local utilization to pick ONE primary
+   
+3. **Copy-paste errors:** Accidentally duplicating rows with different market_ids
+   - ❌ WRONG: ZIP 97330 → OR-CORVALLIS (primary), then ZIP 97330 → OR-SALEM (primary)
+   - ✅ CORRECT: ZIP 97330 → OR-CORVALLIS (primary), ZIP 97330 → OR-SALEM (secondary)
+
+**Real-world example from Pacific Northwest:**
+- ZIP 97330 (Corvallis) was assigned BOTH OR-CORVALLIS (primary) AND OR-SALEM (primary)
+- Correct assignment: OR-CORVALLIS (primary, local anchor), OR-SALEM (secondary, 40mi referral option)
+
+**Before completing your mapping, run this mental checklist for every ZIP:**
+- [ ] Does this ZIP already have a primary market assigned?
+- [ ] If yes, am I about to create a duplicate primary? (STOP if yes)
+- [ ] If border ambiguity exists, did I choose ONE strongest primary and use secondary for others?
+
+**System impact:** Multiple primaries break price comparison queries. The application cannot determine which market to use for baseline pricing. Even ONE ZIP with duplicate primaries = 100% failure for that ZIP's users.
 
 ---
 
@@ -276,6 +318,24 @@ zip_code,market_id,relationship_type,mapping_rationale
 ## Core Mapping Rules (Mandatory)
 
 ### Rule 1: Primary Market Assignment
+
+**CRITICAL: One Primary Per ZIP (Hard Rule)**
+
+Every ZIP must have EXACTLY ONE primary market. Not zero. Not two. ONE.
+
+**When a ZIP could reasonably belong to multiple markets:**
+1. Identify the PRIMARY local anchor (closest hospital, most utilization, strongest system)
+2. Assign that as primary
+3. Assign competing options as secondary (if genuinely within reach)
+4. Document your decision logic in mapping_rationale
+
+**Decision framework for ambiguous ZIPs:**
+- Which hospital would a resident use for routine PCP visit or urgent care?
+- Which system has the local ER they'd go to at 2am?
+- If you asked 10 residents "where's your hospital?", what would most say?
+- That's your primary. Everything else is secondary.
+
+**Remember:** Secondary markets are OPTIONAL. Primary markets are MANDATORY and SINGULAR.
 
 **Each ZIP must have exactly one primary market**, defined as:
 
@@ -627,6 +687,18 @@ def validate_zip_mapping(zip_file, markets_file):
     else:
         print(f"  ✅ PASS: All {len(all_zips)} ZIPs have exactly one primary")
     
+    # Check 2b: Display any duplicate primaries for immediate fix
+    if multiple:
+        print(f"\n  🔍 DUPLICATE PRIMARY DETAILS:")
+        print(f"  These ZIPs have multiple primary markets assigned:")
+        print(f"  You must fix these by choosing ONE primary and converting others to secondary.\n")
+        for z, markets in multiple.items():
+            print(f"    ZIP {z}:")
+            for m in markets:
+                print(f"      - Currently primary: {m}")
+            print(f"      → ACTION: Pick the strongest local anchor as primary")
+            print(f"      → Convert the other(s) to relationship_type: secondary\n")    
+        
     # Check 3: Market coverage
     print("\n[3/3] Checking market coverage...")
     unused_markets = valid_markets - zip_markets_used
