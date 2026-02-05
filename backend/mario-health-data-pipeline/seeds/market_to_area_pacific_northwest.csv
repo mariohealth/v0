@@ -1,42 +1,38 @@
-market_id,statistical_area_type,statistical_area_id,statistical_area_name,relationship_type,mapping_rationale
-OR-BEND,CBSA,13460,Bend OR,primary,Micropolitan area represents core Central Oregon high desert market anchored by St. Charles Health System
-OR-BEND,County,41017,Deschutes County OR,primary,County coverage includes Bend micro and surrounding high desert areas served by St. Charles facilities
-OR-CORVALLIS,CBSA,18700,Corvallis OR,primary,Micropolitan area represents mid-Willamette Valley market anchored by Samaritan Health serving Oregon State University community
-OR-CORVALLIS,County,41003,Benton County OR,primary,County coverage ensures rural areas around Corvallis micro served by Samaritan Health
-OR-EUGENE,CBSA,21660,Eugene-Springfield OR,primary,Metropolitan area represents southern Willamette Valley market 110 miles south of Portland anchored by PeaceHealth and McKenzie-Willamette
-OR-EUGENE,County,41039,Lane County OR,primary,County coverage ensures rural areas beyond metro served by Eugene anchors
-OR-MEDFORD,CBSA,32780,Medford OR,primary,Metropolitan area represents Rogue Valley market near California border anchored by Asante Health System
-OR-MEDFORD,County,41029,Jackson County OR,primary,County coverage ensures rural southern Oregon areas served by Asante facilities
-OR-MEDFORD,CBSA,38900,"Portland-Vancouver-Hillsboro, OR-WA",secondary,Complex tertiary cases referred to OHSU in Portland 270 miles north for academic medical center services
-OR-PENDLETON,CBSA,38460,Pendleton-Hermiston OR,primary,Micropolitan area represents northeast Oregon hub anchored by CHI St. Anthony Hospital
-OR-PENDLETON,County,41059,Umatilla County OR,primary,County coverage ensures Blue Mountains region served by Pendleton anchor
-OR-PORTLAND,CBSA,38900,"Portland-Vancouver-Hillsboro, OR-WA",primary,Cross-border metropolitan area integrated by MAX light rail and I-5 I-205 bridges serving both Portland OR and Vancouver WA as single market
-OR-SALEM,CBSA,41420,Salem OR,primary,Metropolitan area represents state capital market 50 miles south of Portland anchored by Salem Health
-OR-SALEM,County,41047,Marion County OR,primary,County coverage beyond metro served by Salem Health facilities
-WA-BELLINGHAM,CBSA,13380,Bellingham WA,primary,Metropolitan area represents Whatcom County Canadian border market 90 miles north of Seattle anchored by PeaceHealth St. Joseph
-WA-BELLINGHAM,County,53073,Whatcom County WA,primary,County coverage ensures northwest corner served by Bellingham anchor
-WA-BREMERTON,CBSA,14740,"Bremerton-Silverdale-Port Orchard, WA",primary,Ferry-dependent Kitsap Peninsula metropolitan area separated from Seattle by 60-minute Puget Sound ferry crossing anchored by CHI Franciscan Harrison
-WA-BREMERTON,County,53035,Kitsap County WA,primary,County coverage ensures entire peninsula served by Bremerton naval base economy anchors
-WA-OLYMPIA,CBSA,36500,"Olympia-Lacey-Tumwater, WA",primary,Metropolitan area represents state capital 60 miles south of Seattle anchored by Providence St. Peter and Capital Medical Center
-WA-OLYMPIA,County,53067,Thurston County WA,primary,County coverage ensures south Puget Sound areas served by Olympia anchors
-WA-SEATTLE-EASTSIDE,County,53033,King County WA,primary,Eastside portion of King County across Lake Washington including Bellevue Redmond Kirkland served by Overlake and Evergreen Health integrated with Seattle via I-90 SR-520 bridges
-WA-SEATTLE-EVERETT,CBSA,31020,Everett WA,primary,Metropolitan division represents Snohomish County market 30 miles north anchored by Providence Regional with Sounder rail connection to Seattle
-WA-SEATTLE-EVERETT,County,53061,Snohomish County WA,primary,County coverage ensures all of Snohomish County served by Providence Regional facilities
-WA-SEATTLE-MAIN,County,53033,King County WA,primary,Central Seattle urban core portion of King County with UW Medicine Swedish Virginia Mason Harborview anchors serving dense Puget Sound center
-WA-SEATTLE-SOUTHKING,County,53033,King County WA,primary,South King County portion including Renton Kent Federal Way served by Valley Medical Center anchor separate from Seattle core
-WA-SEATTLE-TACOMA,CBSA,45104,Tacoma-Lakewood WA,primary,Metropolitan division represents Pierce County market 35 miles south of Seattle anchored by MultiCare and CHI Franciscan with Sounder rail connection
-WA-SEATTLE-TACOMA,County,53053,Pierce County WA,primary,County coverage ensures all of Pierce County served by Tacoma anchor systems
-WA-SPOKANE,CBSA,44060,"Spokane-Spokane Valley, WA",primary,Eastern Washington metropolitan hub separated from Seattle by Cascade Mountains anchored by Providence Sacred Heart and MultiCare Deaconess serving 550K metro
-WA-SPOKANE,County,53063,Spokane County WA,primary,County coverage ensures eastern Washington areas served by Spokane anchors
-WA-SPOKANE,County,16055,Kootenai County ID,secondary,Some cross-border referral from Coeur d Alene ID 30 miles east for specialty services
-WA-TRICITIES,CBSA,28420,Kennewick-Richland WA,primary,Metropolitan area represents Mid-Columbia confluence serving Kennewick Richland Pasco nuclear site economy anchored by Kadlec and Trios Health
-WA-TRICITIES,County,53005,Benton County WA,primary,County coverage ensures eastern Washington areas served by Tri-Cities anchors
-WA-TRICITIES,County,53021,Franklin County WA,primary,County coverage ensures Columbia River basin areas served by Tri-Cities anchors
-WA-VANCOUVER,CBSA,38900,"Portland-Vancouver-Hillsboro, OR-WA",primary,Southwest Washington market on Columbia River north bank if treating as separate from Portland despite MAX light rail integration
-WA-VANCOUVER,County,53011,Clark County WA,primary,County coverage for Vancouver WA area if market remains distinct from OR-PORTLAND
-WA-WALLA,CBSA,47460,Walla Walla WA,primary,Micropolitan area represents southeast Washington corner near Oregon border anchored by Providence St. Mary serving agricultural region
-WA-WALLA,County,53071,Walla Walla County WA,primary,County coverage ensures southeast corner served by Walla Walla anchor
-WA-WENATCHEE,CBSA,48300,Wenatchee WA,primary,Metropolitan area represents north-central apple country hub on Cascade east slope anchored by Confluence Health
-WA-WENATCHEE,County,53007,Chelan County WA,primary,County coverage ensures north-central Washington areas served by Wenatchee anchor
-WA-YAKIMA,CBSA,49420,Yakima WA,primary,Metropolitan area represents central valley hub separated from Seattle by Cascades anchored by Yakima Valley Memorial and Virginia Mason Memorial
-WA-YAKIMA,County,53077,Yakima County WA,primary,County coverage ensures central agricultural region with Hispanic majority population served by Yakima anchors
+market_id,statistical_area_type,statistical_area_id,zip_list,statistical_area_name,relationship_type,mapping_rationale
+OR-BEND,CBSA,13460,,Bend OR,primary,Metropolitan area represents entire Central Oregon high desert market separated from Willamette Valley by Cascade Mountains served by St. Charles Health System
+OR-BEND,County,41017,,Deschutes County OR,primary,County coverage represents core Central Oregon market including Bend and resort communities
+OR-CORVALLIS,CBSA,18700,,Corvallis OR,primary,Metropolitan area represents Mid-Willamette Valley market centered on Oregon State University separate from Salem 40 miles north and Eugene 50 miles south
+OR-CORVALLIS,County,41003,,Benton County OR,primary,County represents Corvallis market served by Samaritan Health Services
+OR-EUGENE,CBSA,21660,,"Eugene-Springfield, OR",primary,Metropolitan area represents Southern Willamette market 110 miles south of Portland served by PeaceHealth Sacred Heart and McKenzie-Willamette
+OR-EUGENE,County,41039,,Lane County OR,primary,County extends Eugene market coverage to coastal range and valley areas beyond metro boundary
+OR-MEDFORD,CBSA,32780,,Medford OR,primary,Metropolitan area represents Rogue Valley market near California border serving southern Oregon isolated from Eugene by 70+ miles
+OR-MEDFORD,County,41029,,Jackson County OR,primary,County coverage represents southern Oregon market served by Asante Health System
+OR-MEDFORD,CBSA,38900,,"Portland-Vancouver-Hillsboro, OR-WA",secondary,Complex tertiary cases referred to OHSU in Portland 270 miles north
+OR-PENDLETON,County,41059,,Umatilla County OR,primary,County represents Eastern Oregon market serving Blue Mountains region separated from Portland by Cascade Mountains served by CHI St. Anthony Hospital
+OR-PORTLAND,CBSA,38900,,"Portland-Vancouver-Hillsboro, OR-WA",primary,Cross-border metropolitan area integrated by MAX light rail and I-5 I-205 bridges serving Portland OR and Vancouver WA as single market with OHSU Legacy Health Providence Kaiser anchors
+OR-SALEM,CBSA,41420,,Salem OR,primary,Metropolitan area represents state capital market 50 miles south of Portland with Salem Health anchor separate from metro
+OR-SALEM,County,41047,,Marion County OR,primary,County coverage beyond metro boundary represents mid-Willamette Valley market
+WA-BELLINGHAM,CBSA,13380,,Bellingham WA,primary,Metropolitan area represents Whatcom County Canadian border hub 90 miles north of Seattle served by PeaceHealth St. Joseph Medical Center
+WA-BELLINGHAM,County,53073,,Whatcom County WA,primary,County represents northwest corner market separate from Seattle metro
+WA-BREMERTON,CBSA,14740,,"Bremerton-Silverdale-Port Orchard, WA",primary,Metropolitan area represents ferry-dependent Kitsap Peninsula separated from Seattle by 60-minute Puget Sound ferry crossing
+WA-BREMERTON,County,53035,,Kitsap County WA,primary,County represents entire peninsula market served by CHI Franciscan Harrison Medical Center and naval base economy
+WA-OLYMPIA,CBSA,36500,,"Olympia-Lacey-Tumwater, WA",primary,Metropolitan area represents state capital 60 miles south of Seattle served by Providence St. Peter Hospital and Capital Medical Center
+WA-OLYMPIA,County,53067,,Thurston County WA,primary,County represents South Puget Sound market separate from both Seattle and Tacoma
+WA-SEATTLE-EASTSIDE,County,53033,"98004,98005,98006,98007,98008,98011,98027,98029,98033,98034,98039,98040,98052,98053,98056,98059,98072,98074,98075,98077",King County WA,primary,Eastside across Lake Washington including Bellevue Redmond Kirkland Sammamish Issaquah Mercer Island connected via I-90 SR-520 bridges served by Overlake Medical Center and Evergreen Health
+WA-SEATTLE-EVERETT,CBSA,42644,,Snohomish County WA,primary,Metropolitan division represents Snohomish County market 30 miles north of Seattle with Sounder rail connection but distinct Providence Regional Medical Center anchor
+WA-SEATTLE-EVERETT,County,53061,,Snohomish County WA,primary,Entire Snohomish County served by Providence Regional Medical Center separate from Seattle core despite commuter rail connectivity
+WA-SEATTLE-MAIN,County,53033,"98101,98102,98103,98104,98105,98107,98109,98112,98115,98116,98117,98118,98119,98121,98122,98125,98126,98133,98134,98136,98144,98146,98154,98164,98174,98177,98178,98195,98199",King County WA,primary,Central Seattle urban core west of Lake Washington including downtown Capitol Hill Ballard University District Fremont Wallingford Green Lake Magnolia Queen Anne served by UW Medicine Swedish Medical Center Virginia Mason Harborview
+WA-SEATTLE-SOUTHKING,County,53033,"98001,98002,98003,98023,98030,98031,98032,98042,98055,98057,98058,98063,98064,98065,98092,98188,98198",King County WA,primary,South King County including Renton Kent Auburn Federal Way SeaTac Tukwila Burien Des Moines south of Seattle core served by Valley Medical Center as distinct community anchor
+WA-SEATTLE-TACOMA,CBSA,45104,,"Tacoma-Lakewood, WA",primary,Metropolitan division represents Pierce County market 35 miles south of Seattle with Sounder rail connection but distinct MultiCare Health System and CHI Franciscan anchors
+WA-SEATTLE-TACOMA,County,53053,,Pierce County WA,primary,Entire Pierce County served by MultiCare and CHI Franciscan separate from Seattle despite transit connectivity
+WA-SPOKANE,CBSA,44060,,"Spokane-Spokane Valley, WA",primary,Metropolitan area represents Eastern Washington hub separated from Seattle by Cascade Mountains serving 550K metro with Providence Sacred Heart and MultiCare Deaconess
+WA-SPOKANE,County,53063,,Spokane County WA,primary,County represents Eastern hub with vast rural catchment across Eastern Washington and Northern Idaho
+WA-TRICITIES,CBSA,28420,,"Kennewick-Richland, WA",primary,Metropolitan area represents Mid-Columbia confluence serving Kennewick Richland Pasco with nuclear site economy separate from Seattle and Spokane
+WA-TRICITIES,County,53005,,Benton County WA,primary,County represents western portion of Tri-Cities market including Richland and Kennewick served by Kadlec Regional Medical Center
+WA-TRICITIES,County,53021,,Franklin County WA,primary,County represents Pasco portion of Tri-Cities market served by Trios Health
+WA-WALLA,County,53071,,Walla Walla County WA,primary,County represents Southeast Washington agricultural region near Oregon border separated from Tri-Cities by distance served by Providence St. Mary Medical Center
+WA-WENATCHEE,CBSA,48300,,Wenatchee WA,primary,Metropolitan area represents North Central Washington apple country hub serving Cascade east slope separated from both Seattle and Spokane
+WA-WENATCHEE,County,53007,,Chelan County WA,primary,County represents northern portion of North Central Washington market
+WA-WENATCHEE,County,53017,,Douglas County WA,primary,County represents southern portion of North Central Washington market served by Confluence Health
+WA-YAKIMA,CBSA,49420,,Yakima WA,primary,Metropolitan area represents Central Washington valley hub separated from Seattle by Cascade Mountains serving agricultural region with Hispanic majority population
+WA-YAKIMA,County,53077,,Yakima County WA,primary,County represents Central valley market served by Yakima Valley Memorial Hospital and Virginia Mason Memorial
