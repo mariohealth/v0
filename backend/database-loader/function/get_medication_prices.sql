@@ -42,8 +42,9 @@ AS $$
     WHERE dp.rxcui_scd = rxcui_scd_input
       AND (
         quantity_input IS NULL
-        OR dp.quantity = quantity_input
         OR dp.quantity IS NULL
+        OR NULLIF(REGEXP_REPLACE(dp.quantity, '[^0-9.]', '', 'g'), '')::NUMERIC
+          = NULLIF(REGEXP_REPLACE(quantity_input, '[^0-9.]', '', 'g'), '')::NUMERIC
       )
       AND TRIM(dp.price) ~ '^[0-9]+(\.[0-9]+)?$'
     ORDER BY TRIM(dp.price)::NUMERIC ASC;
