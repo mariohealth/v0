@@ -1,559 +1,806 @@
-# Mapping Prompt: Census Statistical Areas → Healthcare Shopping Zones
+# Execution Prompt: ZIP → Healthcare Shopping Zone Mapping
 
 ## Purpose
-This prompt defines the **standardized methodology** for creating the census-to-market mapping file:
+This prompt executes the **ZIP-first mapping strategy** by assigning patient and provider ZIP codes to proprietary **Healthcare Shopping Zones** for price comparison and shoppability analysis.
 
-> **Mapping US Census statistical areas (CBSAs and CSAs) to proprietary Healthcare Shopping Zones** defined in regional `markets_<region>.csv` files.
-
-This mapping operationalizes the conceptual markets for analytics, network adequacy, leakage analysis, and employer-based reporting.
+This prompt is operational. It assumes that market design is complete and **must not redefine markets**.
 
 ---
 
-## How This Prompt Relates to Other Prompts
+## Required References (You Must Use These)
 
-### Required References
-You must explicitly reference:
+Before mapping, you must explicitly reference:
 
 1. **National Base Prompt – Healthcare Market Master (`master_market.md`)**  
-   - Governs market philosophy, scale, and realism
-   - Defines 45-minute rule and behavioral principles
-2. **Regional Market Prompt (`markets_<region>.md`)**  
-   - Provides region-specific geography, transit, and anchor context
-   - Documents regional mobility factors
-3. **Regional Market Output (`markets_<region>.csv`)**  
+   - Defines what a Healthcare Shopping Zone is
+   - Governs travel-friction logic and the 45-minute rule
+   - Establishes behavioral realism principles
+
+2. **Regional Market Prompt (`markets_<region>_UPDATED.md`)**  
+   - Provides region-specific geography, transit, and barriers
+   - Documents congestion corridors, water barriers, mountain passes
+   - Explains regional mobility factors and friction patterns
+
+3. **Regional Market File (`markets_<region>_COMPLETE.csv`)**  
    - Authoritative list of valid `market_id` values for this region
-   - **Do not invent new markets during mapping**
+   - Market notes contain catchment area guidance
+   - **435 total markets across 8 regions covering 49 states + DC**
+
+You may not create, rename, merge, or split markets during mapping. Only assign ZIPs to existing markets.
 
 ---
 
-## Prompt Architecture Decision (Important)
+## Regional Context (Know Your Region)
 
-### ✅ Use **ONE mapping prompt per region**
+### Available Regions and Market Counts
 
-**Rationale:**
-- Mapping logic is highly region-specific (transit, congestion, borders)
-- Regional market files already exist (`markets_<region>.csv`)
-- Prevents cross-region logic bleed
-- Easier QA and revision control
+| Region | States | Markets | Key Characteristics |
+|--------|--------|---------|---------------------|
+| Mountain West | CO, UT, ID, MT, WY, NV, NM, AZ (8) | 62 | Mountains, extreme distances, Phoenix sprawl, desert heat |
+| Southeast | NC, SC, GA, FL, AL, MS, TN, KY (8) | 71 | Car-dependent, extreme sprawl (Atlanta, Miami), linear FL coasts |
+| Northeast | PA, NJ, NY, CT, MA, RI, VT, NH, ME (9) | 62 | Congestion, NYC splits, water barriers, limited transit impact |
+| Mid-Atlantic | MD, DC, DE, VA, WV (5) | 30 | WMATA limited, Baltimore separate, Potomac/Chesapeake barriers |
+| Texas & Plains | TX, OK, KS, MO, IA, NE, SD, ND, AR, LA (10) | 92 | Vast distances, Dallas/Houston sprawl, cross-border markets |
+| California | CA (1) | 42 | SF Bay fragmentation, LA Basin 10+ markets, chronic congestion |
+| Pacific Northwest | WA, OR (2) | 21 | Puget Sound water, Cascade barrier, ferry-dependent areas |
+| Midwest | IL, IN, OH, MI, WI, MN (6) | 55 | Chicago splits, Great Lakes, OH-CINCINNATI cross-border |
 
-Each mapping prompt should only map Census areas that **geographically intersect** that region.
-
-**Regional Files:**
-1. Mountain West (8 states: CO, UT, ID, MT, WY, NV, NM, AZ) - 62 markets
-2. Southeast (8 states: NC, SC, GA, FL, AL, MS, TN, KY) - 71 markets
-3. Northeast (9 states: PA, NJ, NY, CT, MA, RI, VT, NH, ME) - 62 markets
-4. Mid-Atlantic (5 states: MD, DC, DE, VA, WV) - 30 markets
-5. Texas & Plains (10 states: TX, OK, KS, MO, IA, NE, SD, ND, AR, LA) - 92 markets
-6. California (1 state: CA) - 42 markets
-7. Pacific Northwest (2 states: WA, OR) - 21 markets
-8. Midwest (6 states: IL, IN, OH, MI, WI, MN) - 55 markets
-
-**Total:** 435 markets covering 49 states + DC (excluding AK, HI)
+**Total: 435 markets covering ~330M people (99%+ of US population excluding AK, HI)**
 
 ---
 
 ## Role Definition
 
-You are a **Health Economics and Geospatial Data Analyst** responsible for translating **statistical geographies** into **behavioral healthcare markets**.
+You are a **Health Economics and Geospatial Data Analyst** optimizing healthcare price comparison accuracy.
 
-You understand:
-- CBSA and CSA definitions and limitations
-- Patient flow and referral behavior
-- Travel-time friction and modal asymmetry
-- When overlaps are meaningful vs misleading
-- Cross-border healthcare utilization patterns
+Your responsibility is to determine which healthcare markets are **realistically shoppable** for residents of each ZIP code, based on:
+- Travel time and friction
+- Known hospital systems and referral patterns
+- Geographic barriers (water, mountains, congestion)
+- Regional mobility factors (transit, state borders)
 
-Your job is not to simplify – it is to **accurately represent reality**.
+Your output enables patients to compare prices among providers they can actually reach for care.
 
 ---
 
-## Input Files (Per Region)
+## Scope of a Single Run
 
-You will be given:
-- `markets_<region>.csv` (market master for the region)
-- A list of CBSAs and CSAs that fall within or touch the region
-- US Census CBSA/CSA definitions and geographic boundaries
+Each run of this prompt applies to **one region only**.
+
+**ZIP Scope:**
+- All residential ZIPs within the region's states
+- Provider ZIPs where healthcare facilities exist
+- Cross-border ZIPs that integrate with regional markets (e.g., Southern Indiana ZIPs → KY-LOUISVILLE-METRO)
+
+**Market Scope:**
+- Only use market_ids from `markets_<region>_COMPLETE.csv`
+- Cross-region secondary mappings allowed when behaviorally justified (e.g., complex cases referred to academic centers in adjacent regions)
+
+**Exclude:**
+- PO Box-only ZIPs (no residential population)
+- Military-exclusive ZIPs unless serving civilian population
+- ZIPs in Alaska and Hawaii (not covered by framework)
 
 ---
 
 ## Output File Specification
 
-### File name
+### File Name
 
 ```text
-census_to_market_<region>.csv
+zip_to_market_<region>.csv
 ```
+
+Examples:
+- `zip_to_market_mountainwest.csv`
+- `zip_to_market_southeast.csv`
+- `zip_to_market_northeast.csv`
 
 ### Required Columns
 
 | Column | Definition | Example |
 |--------|------------|---------|
-| census_id | 5-digit CBSA code or 3-digit CSA code | 38060 |
-| census_name | Official Census name | Phoenix-Mesa-Chandler, AZ |
-| census_type | CBSA or CSA | CBSA |
-| market_id | Market ID from `markets_<region>.csv` | AZ-PHOENIX-EAST |
+| zip_code | 5-digit ZIP code | 85001 |
+| market_id | Market identifier from regional CSV | AZ-PHOENIX-CENTRAL |
 | relationship_type | primary / secondary / tertiary | primary |
-| mapping_rationale | ≤1 sentence justification | Mesa residents primarily use East Valley hospitals within 20-min drive |
+| mapping_rationale | ≤1 sentence justification | Downtown Phoenix residents use central medical district within 15-min drive |
 
-### Additional Validation Columns (Optional)
+### Optional Columns (Recommended for Validation)
 
 | Column | Definition | Example |
 |--------|------------|---------|
-| population_estimate | CBSA/CSA population (if available) | 4,948,203 |
-| primary_counties | Major counties in CBSA | Maricopa County |
+| estimated_travel_time | Approximate minutes to market hospitals | 15 |
+| primary_barrier | Key friction factor if any | None / I-10 congestion / Lake Washington / Mountain pass |
+
+### Sorting Requirements
+- Primary sort: `zip_code` (ascending, 5-digit numeric)
+- Secondary sort: `relationship_type` (primary, then secondary, then tertiary)
+- Tertiary sort: `market_id` (alphabetical)
 
 ---
 
 ## Core Mapping Rules (Mandatory)
 
-### 1. Many-to-Many Mapping Is Allowed and Expected
+### Rule 1: Primary Market Assignment
 
-- A single CBSA **may map to multiple markets** (e.g., large sprawling metros)
-- A market will typically receive multiple CBSAs
-- This is not an error – it reflects real healthcare behavior
+**Each ZIP must have exactly one primary market**, defined as:
 
-**Example:**
+**Criteria:**
+- The market residents **most commonly use** for routine care (PCP, imaging, labs, common procedures)
+- Satisfies the **~45-minute routine-care travel threshold** door-to-door
+- Minimizes travel friction under normal weekday conditions (not rush hour extremes, not ideal off-peak)
+- Aligns with dominant hospital system presence in the area
+
+**If no market clearly dominates:**
+- Select the **least-friction option** (shortest realistic travel time)
+- Document the ambiguity in mapping_rationale
+- Consider if ZIP is truly on a boundary (may justify secondary mapping)
+
+**Examples of Valid Primary Assignments:**
 ```csv
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-CENTRAL,primary,Downtown Phoenix residents use central medical district
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-EAST,primary,Mesa and Tempe residents use East Valley hospitals
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-WEST,primary,Glendale residents use West Valley hospitals
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-NORTH,primary,Northern suburbs use North Valley hospitals
+85001,AZ-PHOENIX-CENTRAL,primary,Downtown Phoenix ZIP within 15-min of central medical district
+85251,AZ-PHOENIX-EAST,primary,Scottsdale ZIP uses HonorHealth and Mayo Scottsdale in East Valley
+47130,KY-LOUISVILLE-METRO,primary,Jeffersonville IN ZIP crosses I-65 bridges to Louisville hospitals in 20-min
 ```
 
-### 2. Primary vs Secondary vs Tertiary
-
-Use the following definitions strictly:
-
-- **Primary**: Where most residents seek routine care (PCP, imaging, labs, common procedures)
-  - Must be within ~45 minutes door-to-door
-  - Majority of routine visits go here
-  - Usually 1-3 primary markets per CBSA
-
-- **Secondary**: Common spillover for specialty care or alternative routine access
-  - May be 45-60 minutes away
-  - Used for specialists, second opinions, certain procedures
-  - Strong referral relationships exist
-  - Usually 0-3 secondary markets per CBSA
-
-- **Tertiary**: Selective use for advanced/quaternary services only
-  - Typically academic medical centers
-  - Used for complex cases, rare conditions, clinical trials
-  - May be 60+ minutes away
-  - Usually 0-2 tertiary markets per CBSA
-
-**Mapping Requirements:**
-- Each CBSA should have **at least one primary** market
-- Large CBSAs may have **multiple primary** markets (split by geography)
-- Secondary and tertiary are optional based on actual referral patterns
-
-**Example of Mixed Mapping:**
+**Invalid Primary Assignments:**
 ```csv
-17140,Cincinnati OH-KY-IN,CBSA,OH-CINCINNATI,primary,Core market serving Cincinnati metro and Northern Kentucky
-17140,Cincinnati OH-KY-IN,CBSA,KY-LEXINGTON,secondary,Some Northern KY residents use UK HealthCare for specialty
-17140,Cincinnati OH-KY-IN,CBSA,OH-COLUMBUS,tertiary,Complex cases referred to OSU Wexner for quaternary care
+# BAD: >60 min travel for routine care
+85920,AZ-PHOENIX-CENTRAL,primary,Flagstaff ZIP 140 miles from Phoenix
+# CORRECT VERSION:
+85920,AZ-FLAGSTAFF,primary,Flagstaff ZIP uses local Flagstaff Medical Center
+85920,AZ-PHOENIX-CENTRAL,secondary,Complex cases referred to Phoenix academic centers
+
+# BAD: Ignoring documented barrier
+98110,WA-SEATTLE-CORE,primary,Bainbridge Island ZIP requires 35-min ferry
+# CORRECT VERSION:
+98110,WA-BAINBRIDGE,primary,Ferry-dependent island is separate market
 ```
 
-### 3. Respect the 45-Minute Rule
+### Rule 2: Secondary Market Assignment
 
-If routine travel between a CBSA and a market:
-- Exceeds ~45 minutes in moderate weekday traffic
-- Requires multiple bridge/tunnel crossings with congestion
-- Requires multiple transit transfers
+**ZIPs may map to secondary markets when:**
 
-Then that market **cannot** be primary (may be secondary or tertiary).
+**Valid Secondary Scenarios:**
 
-**Clock the Journey Realistically:**
-- Include parking time (5-10 minutes in urban areas)
-- Include walking from parking (3-5 minutes)
-- Use Google Maps "typical traffic" for 9am Tuesday or 2pm Wednesday
-- Account for regional congestion patterns documented in regional prompts
+1. **Specialty Care Spillover:**
+   - Primary market lacks certain specialists
+   - Residents commonly referred to secondary market for specific services
+   - 45-60 minute travel acceptable for specialty (not routine) care
 
-### 4. Transit Asymmetry Matters
+2. **Alternative Access via Transit:**
+   - Primary market is local, but transit enables alternative
+   - One-direction transit to major medical center
+   - Used by subset of residents (e.g., those near transit stations)
 
-- One-directional transit (e.g., suburb → core via commuter rail) may justify secondary mapping
-- Reverse or off-peak difficulty limits routine-care relevance
-- Limited station coverage near hospitals reduces practical utility
+3. **Border ZIP Serving Two Markets:**
+   - ZIP equidistant from two markets
+   - Some residents use one, some use the other
+   - Primary = majority preference, Secondary = significant minority
 
-**Do not assume bidirectional equivalence.**
+4. **Academic Medical Center Referral:**
+   - Primary market handles routine care
+   - Complex/specialty cases referred to academic center
+   - Well-established referral relationship
 
-**Example:**
-- Metro-North (NYC): Commuters can access Manhattan hospitals via subway transfer → Secondary
-- MARC (Baltimore-DC): Peak-direction only, poor reverse → Does NOT enable primary access
+**Maximum Secondary Markets:**
+- Most ZIPs: 0-1 secondary markets
+- Border ZIPs: 1-2 secondary markets maximum
+- Avoid: 3+ secondary markets (suggests imprecision)
 
-### 5. CSA Handling Rules
-
-**CRITICAL:** CSAs are often too large to represent healthcare markets.
-
-- CSAs should **not** be used as the primary unit of analysis
-- Map at the **CBSA level** whenever possible
-- Use CSAs only when:
-  - A smaller CBSA needs context about its larger metro connection
-  - Documentation purposes (noting which CSA a CBSA belongs to)
-  - Legacy reporting requires CSA aggregation
-
-**Most mappings should occur at the CBSA level.**
-
-**Example of CSA Usage:**
+**Examples:**
 ```csv
-# Map the individual CBSAs, not the CSA
-31080,Los Angeles-Long Beach-Anaheim CA,CBSA,CA-LA-CENTRAL,primary,Downtown and central LA
-31100,Santa Ana-Anaheim-Irvine CA,CBSA,CA-LA-ORANGE,primary,Orange County distinct market
-40140,Riverside-San Bernardino-Ontario CA,CBSA,CA-INLANDEMPIRE-WEST,primary,Inland Empire separate from LA
-# CSA would be too large: Los Angeles-Long Beach CSA includes all of above + more
+# Valid: Border ZIP with specialty referral
+85050,AZ-PHOENIX-NORTH,primary,Northern Phoenix ZIP closest to Deer Valley hospitals
+85050,AZ-PHOENIX-CENTRAL,secondary,Some residents access downtown academic centers for specialty
+
+# Valid: Cross-border referral
+40601,KY-LEXINGTON,primary,Lexington ZIP uses UK HealthCare locally
+40601,OH-CINCINNATI,secondary,Some cases referred to Cincinnati Children's 80 miles north
+
+# Valid: Transit-enabled alternative
+02138,MA-CAMBRIDGE,primary,Cambridge residents use local Cambridge Health Alliance
+02138,MA-BOSTON-LONGWOOD,secondary,Red Line enables access to Longwood medical area for specialty
 ```
+
+### Rule 3: Tertiary Market Assignment (Optional, Use Sparingly)
+
+**Tertiary markets should rarely be assigned.** Use only when:
+- Academic medical center serves as quaternary referral destination
+- Used for rare/complex conditions, clinical trials, specialized procedures
+- 60+ minutes away, not routine access
+- Well-documented referral pattern exists
+
+**Recommendation:** Start mapping without tertiary. Add only if analytics require it.
+
+**If using tertiary:**
+```csv
+# Rare quaternary referral
+86001,AZ-FLAGSTAFF,primary,Flagstaff residents use local Flagstaff Medical Center
+86001,AZ-PHOENIX-CENTRAL,secondary,Specialty cases to Phoenix
+86001,AZ-TUCSON,tertiary,Rare complex cases to Banner UMC Tucson research programs
+```
+
+### Rule 4: Travel Friction Evaluation (ZIP-Level)
+
+**Evaluate friction using multiple factors, not just distance:**
+
+**Travel Time Estimation:**
+- Use typical weekday conditions (Google Maps 9am Tuesday or 2pm Wednesday)
+- Include parking time (5-10 minutes urban, 2-5 minutes suburban)
+- Include walk from parking to entrance (3-5 minutes large facilities)
+- **Target: <45 minutes door-to-door for primary market**
+
+**Known Congestion Patterns:**
+- I-10 Phoenix (chronic all-day)
+- I-95 Northeast corridor (severe)
+- I-285 Atlanta (extreme, 60-90 min to cross)
+- I-405 California (chronic)
+- Document in regional prompts, honor in ZIP mapping
+
+**Physical Barriers:**
+- **Water:** Rivers with limited bridges, bays, harbors
+  - Multiple bridges reduce friction (Louisville, Cincinnati)
+  - Single/limited crossings create friction (Chesapeake Bay Bridge, Tampa Bay)
+  - Ferries create hard barriers (Puget Sound, NYC)
+- **Mountains:** Passes with seasonal closures, elevation gains
+  - Cascades separate Western/Eastern WA
+  - Rockies separate Front Range from Western Slope CO
+  - Mogollon Rim separates Phoenix from Flagstaff
+- **Congestion bottlenecks:** Bridge/tunnel queues, toll plazas, merge points
+
+**State Borders:**
+- Create Medicaid program differences
+- Network design rarely crosses for routine care
+- **Exception:** Documented cross-border markets
+  - OH-CINCINNATI covers Northern Kentucky (41xxx ZIPs)
+  - KY-LOUISVILLE-METRO covers Southern Indiana (471xx ZIPs)
+  - OR-PORTLAND covers Vancouver WA (986xx ZIPs)
+  - MO-KANSASCITY covers Kansas side (661xx ZIPs)
+  - MO-STLOUIS covers Illinois Metro East (62xxx ZIPs)
+  - ND-FARGO covers Moorhead MN (565xx ZIPs)
+
+**Distance alone is insufficient.** Two ZIPs 20 miles apart may have very different market access:
+- 20 miles, flat highway, no barriers → Same market
+- 20 miles, mountain pass, or water crossing → Different markets
+
+### Rule 5: Transit Asymmetry Recognition
+
+**Transit CAN enable secondary market access when:**
+- High-frequency service (≤15 minute headways during medical appointment hours)
+- Direct or single-transfer access to hospital district
+- Stations within reasonable walk/bus of medical facilities
+- Actually used by residents for medical appointments (not just work commutes)
+
+**Examples where transit matters:**
+- MBTA Red Line: Cambridge/Somerville ZIPs → Boston Longwood medical area (secondary)
+- NYC Subway: Outer borough ZIPs → Manhattan hospital districts (secondary)
+- WMATA Metro: Arlington/Bethesda ZIPs → DC medical centers (may enable primary integration)
+- MAX Light Rail: Vancouver WA ZIPs → Portland hospitals (enables primary integration)
+
+**Transit does NOT enable integration when:**
+- Commuter rail with peak-direction bias (Metro-North, NJ Transit, LIRR)
+- Poor reverse-direction service
+- Requires multiple transfers
+- No stations near hospitals
+- Limited weekend/evening service (medical appointments happen off-peak)
+
+**One-direction transit justifies secondary, not primary:**
+```csv
+# Valid: Commuter can access Manhattan hospitals but not primary market
+10804,NY-WESTCHESTER,primary,New Rochelle residents use local Montefiore New Rochelle
+10804,NY-NYC-MANHATTAN,secondary,Metro-North enables some access to Manhattan academic centers
+```
+
+**Do NOT assume bidirectional equivalence.** Commuter rail designed for suburb→city may not support city→suburb medical access.
+
+### Rule 6: Market Boundary Behavior
+
+**ZIPs near market edges are expected to have less clear assignments:**
+
+**Boundary ZIP Patterns:**
+
+1. **Equidistant from Two Markets:**
+   - Assign primary based on slight advantage (closer, less friction)
+   - Assign secondary to the other market
+   - Document the boundary nature
+
+2. **Split Populations:**
+   - Large ZIP where northern residents use Market A, southern residents use Market B
+   - Assign primary to majority usage pattern
+   - Assign secondary to minority usage pattern
+   - Note population split in rationale
+
+3. **Transitional Zones:**
+   - ZIP transitioning from suburban to rural
+   - May use different markets for different service types
+   - Primary = routine care preference
+   - Secondary = specialty care pattern
+
+**Example Boundary ZIP:**
+```csv
+# Border ZIP between Phoenix markets
+85310,AZ-PHOENIX-WEST,primary,Majority of Buckeye ZIP uses West Valley hospitals
+85310,AZ-PHOENIX-CENTRAL,secondary,Eastern portion closer to downtown via I-10
+```
+
+**This is expected and realistic.** Do not force artificial clarity.
 
 ---
 
-## Special Mapping Scenarios
-
-### Scenario 1: Large Sprawling CBSAs
-
-**When a CBSA spans multiple healthcare markets:**
-- Create **multiple primary mappings** to different markets
-- Use geographic qualifiers in rationale
-- Ensure complete coverage (all areas assigned)
-
-**Example: Phoenix CBSA**
-```csv
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-CENTRAL,primary,Downtown and central Phoenix residents
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-EAST,primary,Mesa Tempe Scottsdale Chandler Gilbert residents
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-WEST,primary,Glendale Peoria Surprise Goodyear residents
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-NORTH,primary,Anthem Cave Creek northern suburbs
-```
-
-### Scenario 2: Cross-Border CBSAs
-
-**When a CBSA spans state lines:**
-- Map to the market that actually serves residents
-- Reference cross-border market notes in regional CSV
-- State borders may create hard splits for Medicaid/licensing
-
-**Example: Cincinnati CBSA**
-```csv
-17140,Cincinnati OH-KY-IN,CBSA,OH-CINCINNATI,primary,Integrated metro serving both Ohio and Northern Kentucky sides
-# Note: OH-CINCINNATI market explicitly covers Northern KY (per Midwest region)
-# Southern/Central KY (Louisville, Lexington) NOT covered by Cincinnati
-```
-
-### Scenario 3: Small CBSAs Near Large Markets
-
-**When a small CBSA is near but not part of large metro:**
-- Primary = local market if residents stay local for routine care
-- Secondary = large metro if strong referral/specialty patterns
-- Do NOT assume proximity = integration
-
-**Example: Prescott, AZ**
-```csv
-39140,Prescott Valley-Prescott AZ,CBSA,AZ-PRESCOTT,primary,Prescott residents use local Yavapai Regional Medical Center
-39140,Prescott Valley-Prescott AZ,CBSA,AZ-PHOENIX-CENTRAL,secondary,Complex cases referred to Phoenix academic centers
-39140,Prescott Valley-Prescott AZ,CBSA,AZ-FLAGSTAFF,tertiary,Some residents use Flagstaff for specialty care
-```
-
-### Scenario 4: Rural CBSAs with Limited Access
-
-**When a CBSA has minimal local healthcare infrastructure:**
-- Primary = nearest regional hub within reasonable distance
-- May have 60+ minute primary access (frontier reality)
-- Document distance in rationale
-
-**Example: Eastern Montana**
-```csv
-# Rural CBSA with limited infrastructure
-[census_id],[census_name],CBSA,MT-BILLINGS,primary,Eastern Montana hub serves 100+ mile catchment as closest tertiary center
-```
-
-### Scenario 5: Micropolitan Areas
-
-**When Census includes Micropolitan Statistical Areas:**
-- Apply same logic as CBSAs
-- These are smaller markets but still need mapping
-- Often map to regional hub markets
-
----
-
-## Mapping Heuristics (Use Consistently)
-
-You may rely on:
-
-### Evidence of Healthcare Behavior
-- **Dominant hospital systems** used by residents (via market share data if available)
-- **Known referral flows** (where local providers send patients)
-- **Insurance network structures** (which systems are in-network for local employers)
-- **Ambulance service areas** (where EMS transports patients)
-
-### Geographic Factors
-- **Distance and travel time** under typical conditions
-- **Natural barriers** (water, mountains, deserts)
-- **Man-made barriers** (limited bridge/tunnel crossings, toll roads)
-- **State borders** (Medicaid, licensing, network design)
-
-### System Behavior
-- **Hospital system service areas** (where systems market and build facilities)
-- **Academic medical center catchments** (tertiary/quaternary referral areas)
-- **Historical patterns** (established relationships over decades)
-
-### Regional Documentation
-- **Regional prompt mobility factors** (congestion, transit, terrain)
-- **Market notes** in regional CSV (document specific catchments)
-- **Cross-border market designations** (explicitly documented integrations)
-
-**Avoid:**
-- Speculative or aspirational mappings
-- Assuming proximity = integration
-- Ignoring documented barriers
-- Creating mappings based on "should" vs "do"
-
----
-
-## Quality Validation Rules
-
-### Before Finalizing Mappings
-
-**CBSA-Level Validation:**
-1. ✅ Does every CBSA have at least one primary market?
-2. ✅ Are multiple primary markets justified by size/sprawl?
-3. ✅ Are secondary/tertiary markets based on real referral patterns?
-4. ✅ Does the 45-minute rule hold for primary markets?
-5. ✅ Are cross-border CBSAs properly mapped?
-
-**Market-Level Validation:**
-1. ✅ Does every market in the regional CSV appear in at least one mapping?
-2. ✅ Are market populations reasonable given CBSA populations?
-3. ✅ Do market catchments align with market notes in regional CSV?
-
-**Regional Validation:**
-1. ✅ Do mappings respect regional mobility factors (congestion, transit, terrain)?
-2. ✅ Are water barriers (bays, rivers) properly reflected?
-3. ✅ Are mountain barriers (passes, elevation) properly reflected?
-4. ✅ Are state borders respected (except documented cross-border markets)?
-
-**Cross-Regional Validation:**
-1. ✅ Do cross-border CBSAs only map to markets in appropriate regions?
-2. ✅ Are mappings consistent with documented cross-border markets (e.g., OH-CINCINNATI covers Northern KY)?
-3. ✅ No duplicate mappings across regions for same CBSA?
-
----
-
-## Special Considerations by Region
+## Regional Mapping Strategies
 
 ### Mountain West (CO, UT, ID, MT, WY, NV, NM, AZ)
-- **Mountains create hard barriers:** Passes close in winter, 2-4 hour drives
-- **Extreme distances:** 100-200+ miles between hubs is normal
-- **Phoenix sprawl:** Single CBSA maps to 4 markets (Central, East, North, West)
-- **Tucson separate:** Despite same state, 120 miles from Phoenix = separate
-- **Frontier reality:** Some CBSAs have 60+ min primary access (accepted for specialty)
+
+**Phoenix Metro ZIP Strategy:**
+- **Downtown ZIPs (850xx central)** → AZ-PHOENIX-CENTRAL
+- **Scottsdale/Tempe/Mesa ZIPs (852xx, 85281-85299)** → AZ-PHOENIX-EAST
+- **Glendale/Peoria ZIPs (853xx)** → AZ-PHOENIX-WEST
+- **Anthem/Cave Creek ZIPs (850xx north of Loop 101)** → AZ-PHOENIX-NORTH
+- Review Loop 101/202 ring roads as market boundaries
+- I-10 congestion creates east-west friction
+
+**Mountain Barriers:**
+- ZIPs on opposite sides of passes are separate markets
+- Winter closures (Eisenhower Tunnel, Snoqualmie Pass) reinforce separation
+- Mogollon Rim (AZ): Phoenix ZIPs vs Flagstaff ZIPs completely separate
+
+**Extreme Distances:**
+- Montana/Wyoming frontier ZIPs may be 60+ min to nearest market (accepted)
+- Document long distance in rationale
+- Las Vegas ZIPs to NV-LASVEGAS (not Reno, 450 miles away)
+
+**Tucson Separate from Phoenix:**
+- All Tucson ZIPs (857xx) → AZ-TUCSON (primary)
+- AZ-PHOENIX-CENTRAL may be secondary for complex specialty
 
 ### Southeast (NC, SC, GA, FL, AL, MS, TN, KY)
-- **Car-dependent:** Transit does NOT reduce friction (except minimal MARTA, Metrorail)
-- **Extreme sprawl:** Atlanta, Miami, Tampa have severe intra-metro friction
-- **Linear coasts:** Florida I-95 and Gulf Coast are not integrated despite proximity
-- **Louisville:** Spans into Indiana via bridges (integrated cross-border)
-- **Northern Kentucky:** OH-CINCINNATI covers Covington/Newport (do NOT duplicate in Southeast)
+
+**Atlanta Metro ZIP Strategy:**
+- I-285 perimeter is critical boundary
+- **Inside I-285** → Directional markets based on geography
+- **Outside I-285** → Suburban/outer markets
+- Gwinnett County ZIPs (300xx eastern) → GA-ATLANTA-EAST
+- Cobb County ZIPs (300xx western) → GA-ATLANTA-NORTH or WEST
+- Review crossing times carefully (60-90 min across metro)
+
+**Florida Linear Coasts:**
+- I-95 corridor ZIPs are sequential, NOT integrated
+- Each coastal segment is separate market
+- Jacksonville ZIPs (322xx) ≠ Daytona ZIPs (321xx) ≠ Melbourne ZIPs (329xx)
+- 60+ miles creates hard separation
+
+**Louisville Cross-Border:**
+- **Jefferson County KY ZIPs (402xx)** → KY-LOUISVILLE-METRO
+- **Southern Indiana ZIPs (471xx Jeffersonville/New Albany)** → KY-LOUISVILLE-METRO
+- Multiple I-64/I-65 bridges integrate
+- **Oldham County ZIPs (400xx eastern)** → KY-LOUISVILLE-EAST
+
+**Northern Kentucky CRITICAL:**
+- **Covington ZIPs (410xx)** → OH-CINCINNATI (Midwest region, NOT Southeast)
+- **Newport ZIPs (410xx)** → OH-CINCINNATI (Midwest region, NOT Southeast)
+- **Florence ZIPs (410xx)** → OH-CINCINNATI (Midwest region, NOT Southeast)
+- Do NOT assign these to KY-LOUISVILLE or KY-LEXINGTON
+
+**Car-Dependent:**
+- Transit (MARTA, Tri-Rail) has minimal impact
+- Do NOT assume transit enables integration
 
 ### Northeast (PA, NJ, NY, CT, MA, RI, VT, NH, ME)
-- **Congestion dominates:** I-95 corridor, NYC bridges, Boston tunnels
-- **NYC splits required:** Manhattan, Brooklyn, Queens, Bronx, NJ, Westchester, Long Island
-- **Transit matters:** Red Line (Boston), NYC Subway can reduce friction WHERE stations exist
-- **Commuter rail:** Metro-North, NJ Transit, LIRR are peak-direction (not medical access)
-- **Water barriers:** East River, Hudson River, Long Island Sound create hard splits
+
+**NYC Extreme Splits:**
+- **Manhattan ZIPs (100xx, 101xx)** → NY-NYC-MANHATTAN
+- **Brooklyn ZIPs (112xx)** → NY-NYC-BROOKLYN
+- **Queens ZIPs (11xxx)** → NY-NYC-QUEENS
+- **Bronx ZIPs (104xx)** → NY-NYC-BRONX
+- **Staten Island ZIPs (103xx)** → NY-NYC-STATENISLAND
+- East River crossings create 45+ min barriers
+
+**Long Island:**
+- Most Long Island ZIPs → NY-LONGISLAND markets (NOT Manhattan)
+- LIRR does NOT enable primary integration (requires transfer, peak-direction)
+- Manhattan may be secondary for some Long Island ZIPs (specialty)
+
+**Northern NJ:**
+- Northern NJ ZIPs (07xxx) → Appropriate NJ markets
+- NOT Manhattan despite proximity (bridges/tunnels create friction)
+- GW Bridge, Lincoln Tunnel add 30-45 min delay
+
+**Boston Transit:**
+- Red Line ZIPs in Cambridge → MA-CAMBRIDGE (primary)
+- Red Line enables MA-BOSTON-LONGWOOD as secondary
+- BUT: Most Boston area is car-dependent
 
 ### Mid-Atlantic (MD, DC, DE, VA, WV)
-- **WMATA Metro:** Reduces friction DC ↔ Arlington/Alexandria ↔ Bethesda (LIMITED area)
-- **Baltimore separate:** 45+ min from DC, no transit, completely independent
-- **Potomac River:** Multiple bridges but still creates friction
-- **Chesapeake Bay:** Bay Bridge is bottleneck to Eastern Shore MD
-- **Appalachian terrain:** Western MD, WV mountains create isolation
+
+**WMATA Metro Limited:**
+- **DC ZIPs (200xx)** → DC-CORE or appropriate DC market
+- **Arlington ZIPs (222xx)** → VA-ARLINGTON (may integrate with DC)
+- **Bethesda ZIPs (208xx)** → MD-BETHESDA (may integrate with DC)
+- Metro ONLY integrates these core areas
+
+**Baltimore Independent:**
+- **Baltimore ZIPs (212xx)** → MD-BALTIMORE markets
+- NOT DC markets (45+ min, no transit, independent)
+- Completely separate healthcare market
+
+**Potomac River:**
+- Creates north-south friction despite bridges
+- Virginia ZIPs generally separate from Maryland ZIPs
+- Exception: Arlington/Alexandria integrated with DC via Metro
+
+**Chesapeake Bay:**
+- Bay Bridge bottleneck to Eastern Shore
+- **Eastern Shore MD ZIPs (216xx, 218xx)** → MD-EASTERNSHORE markets
+- NOT Baltimore or DC (90+ min via bridge queue)
 
 ### Texas & Plains (TX, OK, KS, MO, IA, NE, SD, ND, AR, LA)
-- **Vast distances:** 100-200+ miles between regional hubs
-- **Dallas-Fort Worth:** Polycentric metro requires splits
-- **Houston sprawl:** Directional splits (North, South, East, West, Medical Center)
-- **Cross-border markets:** MO-STLOUIS (MO/IL), MO-KANSASCITY (KS/MO), ND-FARGO (ND/MN)
-- **Oil/energy economy:** Boom-bust affects healthcare infrastructure
+
+**Dallas-Fort Worth:**
+- Dallas ZIPs (752xx) vs Fort Worth ZIPs (761xx)
+- Separate cores despite "DFW" branding
+- Mid-Cities ZIPs may be primary to one, secondary to other
+
+**Houston Directional Splits:**
+- **Medical Center ZIPs (770xx near TMC)** → TX-HOUSTON-MED
+- **Northern ZIPs (773xx)** → TX-HOUSTON-NORTH
+- **Eastern ZIPs (770xx Baytown area)** → TX-HOUSTON-EAST
+- Review proximity to systems for each ZIP
+
+**Cross-Border Markets:**
+- **Kansas City KS ZIPs (661xx)** → MO-KANSASCITY
+- **Metro East IL ZIPs (62xxx Belleville area)** → MO-STLOUIS
+- **Moorhead MN ZIPs (565xx)** → ND-FARGO
+
+**Vast Distances:**
+- Rural ZIPs may be 100-200 miles from market center
+- Accept longer distances for frontier areas
+- Document in rationale
 
 ### California (CA)
-- **SF Bay Area:** 6-8 markets (SF, Oakland, Peninsula, South Bay, East Bay, North Bay)
-- **LA Basin:** 10-12 markets (extreme fragmentation by basin/valley)
-- **I-405, I-5, I-10:** Chronic congestion creates intra-metro barriers
-- **San Diego:** 2-3 markets despite being "single" metro
-- **Central Valley:** Linear development, separate markets every 40-60 miles
+
+**SF Bay Area Fragmentation:**
+- **San Francisco ZIPs (941xx)** → CA-SF-CENTRAL
+- **Oakland ZIPs (946xx)** → CA-OAKLAND
+- **Peninsula ZIPs (940xx, 943xx)** → CA-PENINSULA markets
+- **South Bay ZIPs (95xxx)** → CA-SOUTHBAY markets
+- **East Bay ZIPs (945xx)** → CA-EASTBAY markets
+- Bay Bridge congestion separates SF from Oakland
+
+**LA Basin Fragmentation:**
+- 10-12 markets, careful ZIP-by-ZIP required
+- **Downtown ZIPs (900xx)** → CA-LA-CENTRAL
+- **Westside ZIPs (90xxx Santa Monica/Venice)** → CA-LA-WEST
+- **San Fernando Valley ZIPs (91xxx)** → CA-LA-VALLEY
+- **Orange County ZIPs (92xxx)** → CA-ORANGE markets
+- I-405/I-5/I-10 chronic congestion creates barriers
+
+**San Diego:**
+- **Central San Diego ZIPs (921xx)** → CA-SANDIEGO-CENTRAL
+- **North County ZIPs (920xx)** → CA-SANDIEGO-NORTH
+- Review I-5/I-15 travel times
 
 ### Pacific Northwest (WA, OR)
-- **Puget Sound water barriers:** Seattle, Eastside (Bellevue), Tacoma may be separate
-- **Cascade Mountains:** Absolute east-west barrier (3+ hour drives, winter closures)
-- **Portland-Vancouver:** OR-PORTLAND integrates with Vancouver WA via MAX light rail
-- **Ferry-dependent:** Bremerton, Bainbridge, Whidbey Island are separate markets
-- **Eastern WA/OR:** Separate from Western WA/OR (Spokane, Tri-Cities independent)
+
+**Puget Sound Water Barriers:**
+- **Seattle ZIPs (981xx)** → WA-SEATTLE-CORE
+- **Bellevue/Eastside ZIPs (980xx)** → WA-BELLEVUE or WA-EASTSIDE
+- Lake Washington crossing (I-90/SR-520 bridges) creates friction
+- Evaluate if bridges enable integration or separate markets
+
+**Cascade Mountain Barrier:**
+- Western WA ZIPs completely separate from Eastern WA ZIPs
+- **Eastern WA ZIPs (99xxx)** → WA-SPOKANE, WA-TRICITIES, etc.
+- 3+ hour drives, winter closures create absolute separation
+
+**Ferry-Dependent:**
+- **Bainbridge Island ZIPs (98110)** → WA-BAINBRIDGE (separate)
+- **Bremerton ZIPs (983xx)** → WA-BREMERTON (separate)
+- 35-60 min ferry creates hard barrier
+
+**Portland-Vancouver:**
+- **Vancouver WA ZIPs (986xx)** → OR-PORTLAND
+- MAX light rail enables cross-border integration
+- I-5/I-205 bridges also connect
 
 ### Midwest (IL, IN, OH, MI, WI, MN)
-- **Chicago splits:** City + suburban rings (6-10 markets for metro)
-- **Great Lakes:** Water creates barriers (lake effect, limited crossings)
-- **OH-CINCINNATI:** Covers Northern Kentucky (Covington, Newport) - cross-border
-- **Detroit:** Multiple markets due to sprawl and system competition
-- **Minneapolis:** Currently single market but may warrant split review
+
+**Chicago Splits:**
+- **Loop ZIPs (606xx)** → IL-CHICAGO-CORE
+- **North Side ZIPs (606xx)** → IL-CHICAGO-NORTH
+- **Suburban ZIPs (60xxx)** → Suburban markets
+- Review L train access for some ZIPs
+
+**OH-CINCINNATI Cross-Border:**
+- **Cincinnati OH ZIPs (45xxx)** → OH-CINCINNATI
+- **Northern KY ZIPs (410xx Covington/Newport)** → OH-CINCINNATI
+- **Southern Indiana ZIPs (470xx border)** → OH-CINCINNATI
+- I-75/I-71 bridges integrate
+
+**Detroit Sprawl:**
+- Wayne County ZIPs vs Oakland/Macomb County ZIPs
+- System competition creates market fragmentation
+- Review travel times across metro
+
+**Great Lakes:**
+- Water creates boundaries
+- Limited ferry systems (mostly recreational, not medical)
+
+---
+
+## Heuristics You May Use
+
+**Evidence-Based Heuristics:**
+
+1. **Dominant Hospital Systems:**
+   - Which systems have facilities in/near this ZIP?
+   - Which systems do residents recognize and use?
+   - System market share data if available
+
+2. **Ambulance Service Areas:**
+   - Where do EMS units transport from this ZIP?
+   - Ambulance catchments align with routine care patterns
+
+3. **Insurance Networks:**
+   - Which systems are in-network for major local employers?
+   - Network design reflects anticipated utilization
+
+4. **Referral Patterns:**
+   - Where do local PCPs refer patients?
+   - Which academic centers receive tertiary referrals?
+
+5. **Travel Behavior:**
+   - Common-sense local knowledge
+   - "Would a resident actually drive this route for routine care?"
+   - Consider rush hour, parking, total door-to-door time
+
+**Geographic Heuristics:**
+
+1. **Proximity with Barrier Check:**
+   - Nearest market geographically
+   - BUT verify no insurmountable barrier
+   - Water, mountains, congestion may make "near" market inaccessible
+
+2. **Interstate Corridors:**
+   - I-5, I-95, I-10, etc. connect markets but don't integrate them
+   - 60+ miles on interstate = separate markets
+
+3. **State Capitals:**
+   - Often regional healthcare hubs
+   - But verify actual system presence, not just political status
+
+**Avoid:**
+- Speculative "if residents were smart they would use..." mapping
+- Aspirational transit that doesn't exist or isn't used
+- Perfect geometric patterns (reality is messy)
 
 ---
 
 ## What NOT to Do
 
-❌ **Do NOT create new market_ids**
-- Only use market_ids from `markets_<region>.csv`
+❌ **Do NOT redefine, rename, merge, or split markets**
+- Only use market_ids from `markets_<region>_COMPLETE.csv`
 - If you think a market is missing, flag it but do NOT invent
 
-❌ **Do NOT force CBSAs into single markets if behavior is split**
-- Large sprawling metros SHOULD map to multiple primary markets
-- Phoenix, LA, NYC, Chicago, Atlanta, Dallas, Houston all split
+❌ **Do NOT assign every ZIP to many markets**
+- Most ZIPs: 1 primary only
+- Some ZIPs: 1 primary + 1 secondary
+- Rare ZIPs: 1 primary + 2 secondary
+- Avoid: 1 primary + 3+ secondary (over-mapping)
 
-❌ **Do NOT assume CSA = market**
-- CSAs are statistical constructs, often too large
-- Map at CBSA level
+❌ **Do NOT force ZIPs into statistically neat patterns**
+- Reality is messy
+- Border ZIPs have ambiguity
+- Don't round off the edges artificially
 
-❌ **Do NOT write verbose explanations**
-- Rationale should be ≤1 sentence (concise, factual)
-
-❌ **Do NOT assume proximity = integration**
-- Check 45-minute rule, barriers, state borders
-- Nearby does NOT mean same market
+❌ **Do NOT use CBSAs or counties as mapping proxies**
+- Map ZIPs directly to markets based on behavior
+- Don't look up "what CBSA is this ZIP in" first
+- CBSAs are too large and heterogeneous
 
 ❌ **Do NOT ignore documented barriers**
-- Regional prompts document congestion, water, mountains, state borders
+- Regional prompts document water, mountains, congestion, state borders
 - Market CSV notes document specific catchments
-- Honor documented cross-border markets (OH-CINCINNATI, OR-PORTLAND, etc.)
+- Honor these explicitly
+
+❌ **Do NOT assume transit enables integration without evidence**
+- Check if transit actually serves hospitals
+- Check if residents actually use it for medical appointments
+- Most regions are car-dependent
+
+❌ **Do NOT assume proximity = integration**
+- 20 miles with mountain pass ≠ 20 miles on flat highway
+- Bay Bridge queue ≠ multiple bridge options
+- Check friction, not just distance
 
 ---
 
-## Self-Validation Checklist (Per CBSA)
+## Quality Control Checklist
 
-Before finalizing each mapping:
+### Per-ZIP Validation
 
-**Routine Care Test:**
-1. ✅ Would residents actually drive to this market for PCP visits?
-2. ✅ Is the journey <45 minutes door-to-door in typical traffic?
-3. ✅ Are there hospital systems in this market that residents recognize/use?
+Before finalizing each ZIP mapping, confirm:
 
-**Behavioral Realism Test:**
-1. ✅ Does this mapping align with known referral patterns?
-2. ✅ Would a local provider agree with this assignment?
-3. ✅ Does this match insurance network structures?
+1. ✅ **Primary market is realistic for routine care**
+   - Would residents actually drive there for PCP visits?
+   - Is it <45 minutes door-to-door in typical traffic?
+   - Are there hospital systems residents recognize?
 
-**Regional Context Test:**
-1. ✅ Does this honor mobility factors in regional prompt?
-2. ✅ Does this align with market notes in regional CSV?
-3. ✅ Are barriers (water, mountains, borders) respected?
+2. ✅ **Secondary markets reflect true specialty access**
+   - Is there evidence of referral patterns?
+   - Is it 45-60 minutes or accessible via transit?
+   - Would a local provider agree with this assignment?
 
-**Completeness Test:**
-1. ✅ Is this CBSA fully covered by primary market(s)?
-2. ✅ Are secondary/tertiary justified or just speculative?
-3. ✅ If multiple primary markets, is the split geographically logical?
+3. ✅ **The mapping would make sense to a local patient**
+   - Does this match common-sense local behavior?
+   - Would someone familiar with the area nod in agreement?
+
+4. ✅ **Market IDs exist in regional CSV**
+   - Every market_id is in `markets_<region>_COMPLETE.csv`
+   - No typos, no invented markets
+
+5. ✅ **Travel friction is realistic**
+   - Typical weekday conditions (not rush hour worst case, not Sunday ideal)
+   - Includes parking and walking time
+   - Accounts for documented barriers
+
+### Market-Level Validation
+
+After mapping all ZIPs, verify:
+
+1. ✅ **Every market has some ZIPs assigned**
+   - All 62/71/42/etc. markets in the region appear in mappings
+   - No orphaned markets with zero ZIPs
+
+2. ✅ **ZIP population coverage makes sense**
+   - Sum of ZIP populations approximates expected market population
+   - No markets with unexpectedly high/low populations
+
+3. ✅ **Border ZIPs align with market notes**
+   - Market CSV notes document catchment areas
+   - ZIP assignments honor documented boundaries
+
+### Regional Validation
+
+After completing region, verify:
+
+1. ✅ **Cross-border ZIPs properly assigned**
+   - OH-CINCINNATI includes Northern Kentucky ZIPs ✅
+   - KY-LOUISVILLE-METRO includes Southern Indiana ZIPs ✅
+   - OR-PORTLAND includes Vancouver WA ZIPs ✅
+   - No duplication across regions ✅
+
+2. ✅ **Regional barriers honored**
+   - Water barriers (bays, rivers) reflected in assignments
+   - Mountain barriers (passes, ranges) create separations
+   - Congestion corridors create intra-metro splits
+   - State borders respected except documented cross-border markets
+
+3. ✅ **No systematic errors**
+   - Spot-check samples of ZIPs in each market
+   - Verify travel time estimates
+   - Check for patterns suggesting mis-assignment
 
 ---
 
 ## Output Format
 
 ### CSV Structure
+
 ```csv
-census_id,census_name,census_type,market_id,relationship_type,mapping_rationale
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-CENTRAL,primary,Downtown Phoenix residents use central medical district within 30-min
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-EAST,primary,Mesa Tempe Scottsdale residents use East Valley hospitals within 30-min
+zip_code,market_id,relationship_type,mapping_rationale
+85001,AZ-PHOENIX-CENTRAL,primary,Downtown Phoenix ZIP within 15-min of central medical district
+85251,AZ-PHOENIX-EAST,primary,Scottsdale residents use HonorHealth and Mayo Clinic in East Valley
+85251,AZ-PHOENIX-CENTRAL,secondary,Some residents access Banner downtown for specialty care
 ```
 
 ### Sorting
-- Sort by `census_id` (ascending)
-- Within same `census_id`, sort by `relationship_type` (primary, secondary, tertiary)
-- Within same relationship type, sort by `market_id` (alphabetical)
+1. Primary: `zip_code` (ascending, 5-digit numeric)
+2. Secondary: `relationship_type` (primary, secondary, tertiary)
+3. Tertiary: `market_id` (alphabetical)
 
-### File Naming
+### Header Row
+Required, exactly as shown:
 ```
-census_to_market_mountainwest.csv
-census_to_market_southeast.csv
-census_to_market_northeast.csv
-census_to_market_midatlantic.csv
-census_to_market_texasplains.csv
-census_to_market_california.csv
-census_to_market_pacificnorthwest.csv
-census_to_market_midwest.csv
+zip_code,market_id,relationship_type,mapping_rationale
 ```
 
 ---
 
 ## Example Mappings
 
-### Example 1: Large Sprawling CBSA (Phoenix)
+### Example 1: Core ZIP - Single Primary
 ```csv
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-CENTRAL,primary,Downtown and central Phoenix residents use central medical district
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-EAST,primary,Mesa Tempe Scottsdale residents use East Valley hospitals 30-45 min from downtown
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-WEST,primary,Glendale Peoria Surprise residents use West Valley hospitals 30-45 min from downtown
-38060,Phoenix-Mesa-Chandler AZ,CBSA,AZ-PHOENIX-NORTH,primary,Anthem Cave Creek residents use North Valley hospitals 30-40 min from downtown
+zip_code,market_id,relationship_type,mapping_rationale
+85001,AZ-PHOENIX-CENTRAL,primary,Downtown Phoenix ZIP uses central medical district within 15-min
 ```
 
-### Example 2: Cross-Border CBSA (Cincinnati)
+### Example 2: Suburban ZIP - Primary + Secondary
 ```csv
-17140,Cincinnati OH-KY-IN,CBSA,OH-CINCINNATI,primary,Integrated metro serving both Ohio and Northern Kentucky via I-75 bridges
-17140,Cincinnati OH-KY-IN,CBSA,KY-LEXINGTON,secondary,Some Northern KY residents use UK HealthCare for specialty care 80 miles south
+zip_code,market_id,relationship_type,mapping_rationale
+85251,AZ-PHOENIX-EAST,primary,Scottsdale residents primarily use HonorHealth Scottsdale and Mayo within 20-min
+85251,AZ-PHOENIX-CENTRAL,secondary,Some residents access downtown Banner facilities for specialty care via I-10
 ```
 
-### Example 3: Regional Hub with Tertiary (Louisville)
+### Example 3: Border ZIP - Equidistant
 ```csv
-31140,Louisville/Jefferson County KY-IN,CBSA,KY-LOUISVILLE-METRO,primary,Core Louisville and southern Indiana residents use Norton Baptist UofL systems
-31140,Louisville/Jefferson County KY-IN,CBSA,KY-LOUISVILLE-EAST,primary,Oldham County eastern suburbs use Brownsboro corridor hospitals
-31140,Louisville/Jefferson County KY-IN,CBSA,TN-NASHVILLE,secondary,Some complex cases referred to Vanderbilt 180 miles south
+zip_code,market_id,relationship_type,mapping_rationale
+85050,AZ-PHOENIX-NORTH,primary,Northern Phoenix ZIP slightly closer to Deer Valley hospitals
+85050,AZ-PHOENIX-CENTRAL,secondary,Central medical district accessible via I-17 in 30-min
 ```
 
-### Example 4: Small CBSA Near Large Metro (Prescott)
+### Example 4: Cross-Border ZIP
 ```csv
-39140,Prescott Valley-Prescott AZ,CBSA,AZ-PRESCOTT,primary,Residents use Yavapai Regional Medical Center 100 miles from Phoenix
-39140,Prescott Valley-Prescott AZ,CBSA,AZ-PHOENIX-CENTRAL,secondary,Complex specialty cases referred to Phoenix academic centers
+zip_code,market_id,relationship_type,mapping_rationale
+47130,KY-LOUISVILLE-METRO,primary,Jeffersonville IN residents cross I-65 bridges to Louisville hospitals in 20-min
 ```
 
-### Example 5: Separate Despite Proximity (Tucson)
+### Example 5: Rural ZIP with Distance
 ```csv
-46060,Tucson AZ,CBSA,AZ-TUCSON,primary,Residents use Banner UMC Tucson and TMC Healthcare locally
-46060,Tucson AZ,CBSA,AZ-PHOENIX-CENTRAL,secondary,Complex tertiary cases referred to Phoenix Mayo Clinic 120 miles north
-# Note: Despite being in same state, 120 miles and 2 hours creates separate primary markets
+zip_code,market_id,relationship_type,mapping_rationale
+85920,AZ-FLAGSTAFF,primary,Northern Arizona rural ZIP uses Flagstaff Medical Center as closest facility
+85920,AZ-PHOENIX-CENTRAL,secondary,Complex specialty cases referred to Phoenix academic centers 140 miles south
+```
+
+### Example 6: Transit-Enabled Secondary
+```csv
+zip_code,market_id,relationship_type,mapping_rationale
+02138,MA-CAMBRIDGE,primary,Cambridge residents use local Cambridge Health Alliance for routine care
+02138,MA-BOSTON-LONGWOOD,secondary,Red Line enables access to Longwood medical area for specialty care
+```
+
+### Example 7: Ferry-Dependent Separate Market
+```csv
+zip_code,market_id,relationship_type,mapping_rationale
+98110,WA-BAINBRIDGE,primary,Bainbridge Island ZIP requires 35-min ferry making it separate market from Seattle
 ```
 
 ---
 
-## Execution Instructions
+## Execution Checklist
 
-For each region:
+### Before Starting
 
-1. **Load regional context:**
-   - Read `master_market.md` (national framework)
-   - Read `markets_<region>.md` (regional mobility factors)
-   - Read `markets_<region>.csv` (valid market_ids)
+- [ ] Load `master_market.md` (national framework)
+- [ ] Load `markets_<region>_UPDATED.md` (regional mobility factors)
+- [ ] Load `markets_<region>_COMPLETE.csv` (valid market_ids)
+- [ ] Obtain ZIP code database for region's states
+- [ ] Review regional barrier documentation (water, mountains, congestion)
 
-2. **Obtain Census data:**
-   - List all CBSAs that geographically intersect the region
-   - Note CSAs for context but map primarily at CBSA level
+### During Mapping
 
-3. **Create mappings:**
-   - For each CBSA, determine primary market(s)
-   - Add secondary markets where referral patterns justify
-   - Add tertiary markets only for documented academic referral centers
-   - Write concise rationale (≤1 sentence)
+- [ ] Start with obvious core ZIPs (anchor cities, downtown areas)
+- [ ] Work outward from cores, checking travel times
+- [ ] Mark uncertain/border ZIPs for detailed review
+- [ ] Handle cross-border ZIPs per documented markets
+- [ ] Assign secondary markets only with evidence
 
-4. **Validate:**
-   - Check every CBSA has at least one primary
-   - Check every market appears in at least one mapping
-   - Check 45-minute rule for primary mappings
-   - Check regional mobility factors honored
+### After Mapping
 
-5. **Output:**
-   - CSV with required columns
-   - Sorted by census_id, then relationship_type, then market_id
-   - File named `census_to_market_<region>.csv`
+- [ ] Verify every ZIP has exactly one primary
+- [ ] Verify every market has some ZIPs
+- [ ] Spot-check travel time estimates
+- [ ] Verify cross-border assignments
+- [ ] Check regional barriers honored
+- [ ] Sort output correctly
+- [ ] Generate clean CSV file
 
 ---
 
 ## Final Instruction
 
-**Accuracy and interpretability matter more than elegance.**
+Output **only** the completed `zip_to_market_<region>.csv` file.
 
-These mappings will be used for:
-- Network adequacy analysis (checking provider coverage)
-- Market sizing (calculating market populations)
-- Leakage analysis (identifying care seeking outside market)
-- Employer reporting (assigning employees to markets)
+**Prioritize:**
+1. Realistic patient choice over geographic elegance
+2. Evidence-based assignments over assumptions
+3. Behavioral accuracy over statistical convenience
+4. Documented barriers over proximity alone
 
-**Getting this wrong has real consequences.** Be thorough, be precise, honor the documented barriers and mobility factors, and represent actual healthcare behavior.
+**Remember:**
+- This enables price comparison for actual care alternatives
+- Getting this wrong misleads patients about real options
+- Border ambiguity is expected and acceptable
+- Perfect clarity is less important than behavioral accuracy
+
+The goal is to answer: **"Given this patient's ZIP code, which healthcare markets can they realistically access for routine and specialty care?"**
