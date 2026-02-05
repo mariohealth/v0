@@ -8,9 +8,11 @@
 
 ## Geographic Scope
 
-**States:** CO, UT, ID, MT, WY, NV, NM
+**States:** CO, UT, ID, MT, WY, NV, NM, AZ (8 states, ~25M people)
 
-**Expected Output:** Approximately 35-50 Healthcare Shopping Zones for this region.
+**Expected Output:** Approximately 51-68 Healthcare Shopping Zones for this region.
+
+**CRITICAL UPDATE:** Arizona has been added to this region. The Phoenix metro (5M people) and Tucson metro (1M people) require 6-10 markets. Arizona geographically and climatically belongs with the Mountain West/Desert Southwest.
 
 ---
 
@@ -25,6 +27,7 @@
 - **Sierra Nevada (NV/CA border):** Isolates western Nevada from California
 - **Sangre de Cristo Mountains (CO/NM):** Separate Front Range from San Luis Valley
 - **Continental Divide:** Runs through CO, MT, NM creating fundamental east-west split
+- **Mogollon Rim (AZ):** Separates Phoenix lowlands from northern Arizona highlands
 
 **Mountain Passes and Winter Closures:**
 - **I-70 through Colorado Rockies:** Frequent closures, 2-4 hour delays common
@@ -39,6 +42,30 @@
 - **High altitude reduces willingness to drive:** 10,000+ ft passes create fatigue, weather risk
 - **Winter driving:** 6-8 months of snow/ice in mountain corridors
 - **Residents normalize long drives on flat terrain but avoid mountain crossings**
+
+### Desert Heat and Sprawl (Arizona-Specific)
+**CRITICAL:** Arizona presents unique mobility challenges distinct from mountain states.
+
+**Phoenix Metro Sprawl:**
+- **500+ square miles of development:** Phoenix is one of the most sprawling metros in US
+- **East-west span:** 60+ miles from Goodyear to Scottsdale
+- **North-south span:** 40+ miles from Anthem to Chandler
+- **Urban heat island:** Summer temps 110-120°F reduce willingness for long drives
+- **I-10 congestion:** Chronic congestion through central Phoenix corridor
+- **Loop 101/Loop 202:** Ring roads with moderate congestion
+
+**Terrain Barriers in Arizona:**
+- **Mogollon Rim:** Dramatic 2,000-foot escarpment separating northern Arizona from Phoenix
+- **Mountains surrounding Phoenix:** South Mountain, Camelback, McDowell Mountains create neighborhood barriers
+- **Desert expanses:** Vast empty spaces between population centers
+- **I-17 to Flagstaff:** 140-mile mountain climb with steep grades and winter closures
+
+**Distance Between Arizona Cities:**
+- **Phoenix to Tucson:** 120 miles (2 hours via I-10)
+- **Phoenix to Flagstaff:** 140 miles (2.5 hours via I-17, mountain climb)
+- **Phoenix to Yuma:** 180 miles (2.5 hours via desert)
+- **Tucson to Yuma:** 240 miles (3.5 hours)
+- **These are completely separate healthcare markets**
 
 ### Extreme Distances in Frontier States
 **Montana, Wyoming, Nevada, Idaho, New Mexico** have some of the lowest population densities in the continental US.
@@ -67,6 +94,12 @@
 - May provide SOME friction reduction within Wasatch Front but does NOT collapse all markets
 - Mountain barriers to Park City, eastern Utah remain absolute
 
+**Valley Metro (Phoenix):**
+- Light rail serves limited central Phoenix corridor (east-west on Washington/Jefferson)
+- Does NOT extend to major suburban areas (Scottsdale, Tempe, Mesa, Glendale, Chandler)
+- Does NOT materially reduce friction for healthcare access
+- Phoenix remains car-dependent
+
 **All other metros:** Zero meaningful transit for healthcare purposes
 
 ### Air Travel as Specialty Care Alternative
@@ -76,14 +109,16 @@
 - Gunnison/Crested Butte (CO) → Denver (direct flights vs 4+ hour mountain drive)
 - Jackson Hole (WY) → Salt Lake City (direct flights vs 5 hour mountain drive)
 - Kalispell (MT) → Seattle or Denver (regional medical flights)
+- Flagstaff (AZ) → Phoenix (some residents fly vs 2.5 hour mountain drive)
 
 **However:** This does NOT integrate markets for routine care. Air travel is for tertiary/quaternary care only.
 
 ### Weather and Seasonal Access
 - **Winter:** 6-8 months of snow in mountain areas, 4-5 months in Front Range
 - **Spring runoff:** Road closures, flooding in valleys
-- **Wildfire season:** Summer smoke and evacuations affect access
+- **Wildfire season:** Summer smoke and evacuations affect access (especially Arizona, New Mexico)
 - **Altitude sickness:** Reduces willingness to travel to high-elevation areas
+- **Extreme heat (Arizona):** 110-120°F summers reduce willingness for long drives, increase medical emergencies
 
 ### Ski Resort Economies
 Unique healthcare challenges:
@@ -94,6 +129,39 @@ Unique healthcare challenges:
 ---
 
 ## Known Polycentric and Split Metros
+
+### Phoenix Metro — MUST SPLIT INTO MULTIPLE MARKETS
+
+**CRITICAL NEW ADDITION:** Phoenix is the 5th largest US metro (5M people) and requires 4-5 market splits.
+
+The Phoenix metro spans 500+ square miles and experiences extreme heat and sprawl. Expected splits:
+
+**Required Markets (Minimum 4-5):**
+1. **Phoenix Central** — Banner Health, Mayo Clinic Arizona, HonorHealth (Downtown Phoenix, Central Corridor medical district)
+2. **Phoenix East Valley** — Banner Health, HonorHealth (Tempe, Mesa, Scottsdale, Chandler, Gilbert)
+   - Scottsdale has distinct healthcare identity (Mayo Clinic Scottsdale, HonorHealth Scottsdale)
+   - 30-45 min from downtown Phoenix via I-10/Loop 101
+3. **Phoenix West Valley** — Banner Health, Abrazo Health, Dignity Health (Glendale, Peoria, Surprise, Goodyear)
+   - 30-45 min from downtown Phoenix via I-10
+   - Rapid growth corridor
+4. **Phoenix North** — HonorHealth, Banner Health (Cave Creek, Anthem, Deer Valley)
+   - 30-40 min from downtown Phoenix via I-17
+   - Optional: May be integrated with Central if traffic manageable
+5. **Phoenix South** — Dignity Health, Banner Health (South Phoenix, Ahwatukee)
+   - May be integrated with Central or East Valley depending on hospital access patterns
+
+**Reasoning:**
+- 60+ mile east-west span (Goodyear to Scottsdale)
+- I-10 chronic congestion through central corridor
+- Loop 101/202 ring roads create distinct suburban zones
+- Summer heat reduces willingness for long drives
+- Each subregion has developed independent hospital infrastructure
+- Scottsdale (East Valley) has particularly distinct healthcare identity
+
+**Critical Decision:**
+- Minimum: 4 markets (Central, East, West, North/South combined)
+- Maximum: 5 markets if North or South warrant separate recognition
+- Do NOT consolidate to fewer than 4 markets — Phoenix sprawl demands this split
 
 ### Denver Front Range — Must Split Into Multiple Markets
 
@@ -132,6 +200,19 @@ The Salt Lake City metro (1.2M people) has unique transit considerations.
 - Logan (Cache Valley, separate by Logan Canyon)
 - St. George (separate, 300+ miles from SLC)
 
+### Tucson — Independent Arizona Market
+
+**Expected Markets: 1-2**
+- **Tucson Metro** — Banner UMC Tucson, TMC Healthcare, Northwest Medical Center (1M population)
+- **Possible split:** Tucson Core vs Northwest/Oro Valley if metro sprawl warrants
+
+**Reasoning:**
+- 120 miles from Phoenix (completely separate market)
+- 2-hour drive via I-10 through desert
+- Distinct healthcare systems (Banner UMC Tucson is academic anchor)
+- Different climate zone (higher elevation, cooler than Phoenix)
+- University of Arizona medical school presence
+
 ### Las Vegas vs Reno — Completely Separate
 
 **Nevada has TWO distinct metros 450 miles apart:**
@@ -164,6 +245,16 @@ The Salt Lake City metro (1.2M people) has unique transit considerations.
 
 ## Major Anchor Systems to Consider
 
+### Arizona (NEW)
+- **Banner Health** — Largest system in Arizona, multiple Phoenix campuses, Tucson flagship (Banner UMC)
+- **HonorHealth** — Scottsdale-based, serves northern/eastern Phoenix metro (formerly Scottsdale Healthcare)
+- **Mayo Clinic Arizona** — Scottsdale and Phoenix, specialty/tertiary care reputation
+- **Dignity Health** — Western valley presence (St. Joseph's Phoenix)
+- **Valleywise Health** — Safety net, Maricopa County hospital (formerly Maricopa Medical Center)
+- **TMC Healthcare** — Tucson-based, competes with Banner in southern Arizona
+- **Northern Arizona Healthcare** — Flagstaff Medical Center, serves northern Arizona
+- **Yuma Regional Medical Center** — Southwest Arizona anchor
+
 ### Colorado
 - **UCHealth** (University of Colorado) — Denver, Boulder, Fort Collins, Colorado Springs
 - **Intermountain Healthcare** — Western Colorado (owns former St. Mary's in Grand Junction)
@@ -192,59 +283,48 @@ The Salt Lake City metro (1.2M people) has unique transit considerations.
 - **Kalispell Regional Healthcare** (northwestern Montana)
 
 ### Wyoming
+- **Banner Health** (Cheyenne, Torrington)
 - **Wyoming Medical Center** (Casper)
 - **Cheyenne Regional Medical Center**
-- **Saint John's Health** (Jackson)
+- **St. John's Medical Center** (Jackson)
 
 ### Nevada
-- **Renown Health** (Reno)
-- **University Medical Center of Southern Nevada** (Las Vegas)
+- **University Medical Center of Southern Nevada** (Las Vegas, safety net)
 - **Valley Health System** (Las Vegas)
-- **Dignity Health** (Las Vegas)
+- **Renown Health** (Reno)
+- **Carson Tahoe Health** (Carson City)
 
 ### New Mexico
-- **University of New Mexico Health** (Albuquerque) — academic center
+- **University of New Mexico Health** (Albuquerque, academic medical center)
 - **Presbyterian Healthcare Services** (Albuquerque, statewide)
 - **Lovelace Health System** (Albuquerque)
-- **Christus St. Vincent Regional Medical Center** (Santa Fe)
+- **Memorial Medical Center** (Las Cruces)
 
 ---
 
 ## Rural and Frontier Markets
 
 ### Colorado
-**Front Range:**
-- **Denver Metro Core**
-- **Boulder** 
-- **Fort Collins** (Northern Colorado)
-- **Colorado Springs**
-- **Pueblo** (Southern I-25 corridor, separate from Colorado Springs)
-
-**Western Slope:**
-- **Grand Junction** (Western Colorado hub, separated from Denver by Rockies)
-- **Durango** (Southwest corner, closest to New Mexico)
-- **Glenwood Springs** (I-70 corridor, ski resort area)
-- **Vail/Eagle County** (I-70 corridor, ski resorts)
-- **Aspen/Pitkin County** (Ski resort, mountain isolation)
-
-**San Luis Valley:**
-- **Alamosa** (High valley isolated by Sangre de Cristo Mountains)
+- **Grand Junction** (Western Slope, separated from Denver by Rockies)
+- **Durango** (Southwest corner, Four Corners)
+- **Pueblo** (I-25 corridor south of Colorado Springs)
+- **Alamosa** (San Luis Valley, mountain-isolated)
+- **Glenwood Springs** (I-70 corridor, ski resort gateway)
+- **Montrose** (Western Slope)
+- **Sterling** (Northeast plains)
+- **Aspen** (Central Rockies, ski resort economy)
+- **Vail** (I-70 corridor, ski resort)
 
 ### Utah
-**Wasatch Front:**
-- **Salt Lake City** (core)
-- **Ogden** (potentially separate or integrated)
-- **Provo** (potentially separate or integrated)
-- **Logan** (Cache Valley, separate by Logan Canyon)
-
-**Other Utah:**
-- **St. George** (Southwest corner, 300+ miles from SLC, Arizona border)
-- **Cedar City** (Southwest, between SLC and St. George)
-- **Price** (Carbon County, east of Wasatch Range)
-- **Moab** (Southeast, tourism economy, mountain isolation)
+- **St. George** (Southwest Utah, 300+ miles from Salt Lake, near Arizona border)
+- **Logan** (Cache Valley, north of Salt Lake)
+- **Cedar City** (Southern Utah)
+- **Price** (Eastern Utah coal country)
+- **Moab** (Southeast, tourism economy)
+- **Park City** (Ski resort east of Salt Lake, mountain barrier)
 
 ### Idaho
-- **Boise** (State's largest metro)
+- **Boise** (State capital and largest metro)
 - **Idaho Falls** (Eastern Idaho hub)
 - **Pocatello** (Southeast Idaho, I-15 corridor)
 - **Twin Falls** (South-central hub)
@@ -285,6 +365,17 @@ The Salt Lake City metro (1.2M people) has unique transit considerations.
 - **Gallup** (West, I-40 corridor, Arizona border)
 - **Los Alamos** (North-central, isolated mountain town)
 
+### Arizona (NEW)
+- **Phoenix** (5M metro, requires 4-5 market splits — see above)
+- **Tucson** (1M metro, may require 1-2 markets)
+- **Flagstaff** (Northern Arizona, 140 miles from Phoenix, mountain barrier)
+- **Yuma** (Southwest border, Colorado River valley, 180 miles from Phoenix)
+- **Prescott** (Central Arizona mountains, between Phoenix and Flagstaff)
+- **Lake Havasu City** (Colorado River, western Arizona)
+- **Bullhead City / Kingman** (Northwest Arizona, near Nevada border)
+- **Sierra Vista** (Southeast, near Mexico border, separate from Tucson)
+- **Payson** (Mogollon Rim, between Phoenix and Flagstaff)
+
 ---
 
 ## State Border Effects
@@ -295,6 +386,22 @@ The Salt Lake City metro (1.2M people) has unique transit considerations.
 - Exception: Small border towns may have cross-state integration
 
 **Specific Considerations:**
+
+**Arizona ↔ Nevada:**
+- Las Vegas note already references "closer to Phoenix" but markets remain separate
+- Hard split, 250+ miles between Las Vegas and Phoenix
+
+**Arizona ↔ New Mexico:**
+- Gallup (NM) and Flagstaff (AZ) are 150+ miles apart
+- Hard split
+
+**Arizona ↔ California:**
+- Yuma (AZ) is 180 miles from San Diego
+- Hard split despite Imperial Valley (CA) proximity
+
+**Arizona ↔ Utah:**
+- Flagstaff (AZ) and St. George (UT) are ~120 miles apart
+- Hard split, mountain terrain between
 
 **Colorado ↔ New Mexico:**
 - Hard split except possibly Durango (CO) integrating slightly with Farmington (NM)
@@ -320,13 +427,16 @@ This region has the lowest population densities in the continental US:
 - **Wyoming:** 6 people per sq mi (lowest in US)
 - **Montana:** 7 people per sq mi
 - **Nevada:** Most population concentrated in 2 cities, vast empty spaces elsewhere
-- **Idaho, Utah, New Mexico, Colorado:** Majority of land area is frontier or rural
+- **Idaho, Utah, New Mexico, Colorado, Arizona:** Majority of land area is frontier or rural
 
 **Implication:** Regional hubs serve catchments of 100-200+ miles. This is accepted for specialty care but NOT routine care.
 
 ### Native American Tribal Health
 Large tribal lands exist throughout region:
 - **Navajo Nation** (AZ/NM/UT): Largest reservation, own healthcare system (IHS)
+- **White Mountain Apache** (AZ)
+- **Tohono O'odham Nation** (AZ)
+- **Hopi Reservation** (AZ)
 - **Wind River Reservation** (WY)
 - **Fort Peck, Crow, Northern Cheyenne Reservations** (MT)
 - Many others
@@ -338,6 +448,8 @@ Large tribal lands exist throughout region:
 - **Warren Air Force Base** (Cheyenne WY)
 - **Nellis Air Force Base** (Las Vegas)
 - **Kirtland Air Force Base** (Albuquerque)
+- **Luke Air Force Base** (Phoenix)
+- **Davis-Monthan Air Force Base** (Tucson)
 - **Mountain Home Air Force Base** (Idaho)
 
 **Do NOT count military hospitals as anchors for civilian markets.**
@@ -359,8 +471,18 @@ Boom-bust cycles affect healthcare:
 - **Oil/Gas:** Casper WY, Farmington NM
 - **Hard rock mining:** Butte MT, Elko NV
 - **Uranium:** Moab area UT/CO
+- **Copper:** Arizona (major industry)
 
 Markets remain defined by permanent infrastructure, not temporary workers.
+
+### Retirement Communities (Arizona-Specific)
+Arizona has significant retirement populations:
+- **Sun City** (Phoenix northwest)
+- **Sun City West** (Phoenix northwest)
+- **Green Valley** (Tucson south)
+- **Prescott area** (Central Arizona)
+
+These areas have higher healthcare utilization and specialized geriatric services.
 
 ---
 
@@ -375,7 +497,7 @@ market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,note
 
 **Sort alphabetically by market_id before output.**
 
-**Expected row count: 35-50 markets** for this 7-state region.
+**Expected row count: 51-68 markets** for this 8-state region (adding 6-10 Arizona markets to previous 45-58).
 
 ---
 
@@ -383,20 +505,39 @@ market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,note
 
 Before finalizing, confirm:
 
-1. ✅ Denver Front Range has been split into at least 3 markets (Denver, Boulder, Fort Collins, Colorado Springs)
-2. ✅ Salt Lake City / Wasatch Front has been evaluated for split (FrontRunner may or may not integrate)
-3. ✅ Las Vegas and Reno are separate markets (450 miles apart, zero integration)
-4. ✅ Mountain barriers properly reflected (Western Slope CO, Park City UT, etc.)
-5. ✅ Transit does NOT collapse markets except possibly Wasatch Front UTA
-6. ✅ Frontier states (MT, WY) have appropriate regional hub count (not over-consolidated)
-7. ✅ Distance barriers respected (200-400+ miles between hubs is common)
-8. ✅ Ski resort markets recognized as legitimate (Vail, Aspen, Jackson, Park City)
-9. ✅ State borders are respected unless compelling integration exists
-10. ✅ market_id follows national naming convention (STATE-CITY-QUALIFIER)
+1. ✅ Phoenix metro has been split into at least 4 markets (Central, East Valley, West Valley, North/South)
+2. ✅ Tucson is a separate market from Phoenix (120 miles, 2-hour drive)
+3. ✅ Flagstaff is a separate market from Phoenix (140 miles, mountain barrier)
+4. ✅ Denver Front Range has been split into at least 3 markets (Denver, Boulder, Fort Collins, Colorado Springs)
+5. ✅ Salt Lake City / Wasatch Front has been evaluated for split (FrontRunner may or may not integrate)
+6. ✅ Las Vegas and Reno are separate markets (450 miles apart, zero integration)
+7. ✅ Mountain barriers properly reflected (Western Slope CO, Park City UT, Mogollon Rim AZ)
+8. ✅ Transit does NOT collapse markets (Valley Metro in Phoenix, RTD in Denver, UTA except possibly Wasatch Front)
+9. ✅ Frontier states (MT, WY) have appropriate regional hub count (not over-consolidated)
+10. ✅ Distance barriers respected (200-400+ miles between hubs is common)
+11. ✅ Ski resort markets recognized as legitimate (Vail, Aspen, Jackson, Park City)
+12. ✅ State borders are respected unless compelling integration exists
+13. ✅ market_id follows national naming convention (STATE-CITY-QUALIFIER)
+14. ✅ Arizona markets use AZ- prefix, not NV- or NM- or other states
 
 ---
 
 ## Critical Notes for This Region
+
+### Arizona Desert Sprawl Requires Splits
+Phoenix (5M metro) is too large and sprawling to be a single market:
+- 60+ mile east-west span from Goodyear to Scottsdale
+- 500+ square miles of development
+- I-10 congestion through central corridor
+- Summer heat reduces willingness for long drives
+- **Minimum: 4 markets required for Phoenix**
+
+### Phoenix vs Tucson vs Flagstaff: All Separate
+Despite being in same state:
+- Phoenix to Tucson: 120 miles, 2 hours, desert drive
+- Phoenix to Flagstaff: 140 miles, 2.5 hours, mountain climb
+- Tucson to Flagstaff: 250+ miles, 4+ hours
+- **All three are completely independent healthcare markets**
 
 ### Mountains Are Hard Barriers
 Unlike flat terrain where 100 miles = 90 minutes, mountain crossings are:
@@ -410,12 +551,13 @@ Unlike flat terrain where 100 miles = 90 minutes, mountain crossings are:
 Residents normalize long drives for specialty care:
 - Billings to Denver = 540 miles for tertiary care
 - Elko NV to Salt Lake City = 230 miles for specialty care
+- Flagstaff to Phoenix = 140 miles for specialty care
 
 **However:** This does NOT integrate routine care markets. The 45-minute rule still applies.
 
 ### Frontier Hub-and-Spoke Model
 This region operates on hub-and-spoke:
-- Regional hubs (Billings, Boise, Albuquerque) serve 100-200 mile catchments
+- Regional hubs (Phoenix, Billings, Boise, Albuquerque, Tucson, Flagstaff) serve 100-200 mile catchments
 - Residents drive long distances for specialty care
 - BUT still seek routine care locally when possible
 
@@ -434,8 +576,13 @@ Las Vegas (2.2M metro) is:
 - Tourism economy vs Reno's casino/outdoors economy
 - **Zero integration with rest of Nevada**
 
+### Arizona Seasonal Factors
+- **Summer heat:** 110-120°F reduces willingness for long drives
+- **Snowbird season:** Winter population spikes in Phoenix, Tucson, Yuma
+- **Wildfire season:** Affects northern Arizona (Flagstaff area)
+
 ---
 
 ## Final Instruction
 
-Apply the 45-minute rule rigorously. Mountains and distance create profound isolation in this region. Err on the side of recognizing regional hubs as distinct markets rather than consolidating based on specialty care referral patterns.
+Apply the 45-minute rule rigorously. Mountains, desert heat, and distance create profound isolation in this region. **Phoenix metro sprawl demands 4-5 market splits** — do not consolidate. Tucson, Flagstaff, and Phoenix are completely separate markets. Err on the side of recognizing regional hubs as distinct markets rather than consolidating based on specialty care referral patterns.
