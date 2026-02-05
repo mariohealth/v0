@@ -40,7 +40,11 @@ AS $$
     JOIN pharmacies p ON p.pharmacy_id = dp.pharmacy_id
     JOIN drug_price_sources s ON s.source_id = dp.source_id
     WHERE dp.rxcui_scd = rxcui_scd_input
-      AND (quantity_input IS NULL OR dp.quantity = quantity_input)
+      AND (
+        quantity_input IS NULL
+        OR dp.quantity = quantity_input
+        OR dp.quantity IS NULL
+      )
       AND TRIM(dp.price) ~ '^[0-9]+(\.[0-9]+)?$'
     ORDER BY TRIM(dp.price)::NUMERIC ASC;
 $$;

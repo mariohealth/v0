@@ -37,7 +37,7 @@ export const medicationDatabase: { drugs: MedicationData[] } = {
   "drugs": [
     {
       "id": "metformin-500",
-      "rxcui_scd": "860975",
+      "rxcui_scd": "1368385",
       "name": "Metformin 500 mg",
       "genericFor": "Glucophage",
       "category": "Type 2 Diabetes",
