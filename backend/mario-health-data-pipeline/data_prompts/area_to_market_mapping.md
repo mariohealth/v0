@@ -60,12 +60,12 @@ You must conceptually reference:
    - Defines universal principles (45-minute rule, travel friction, patient behavior)
    - Governs what makes a healthcare market behaviorally realistic
 
-2. **Regional Market Prompt (`markets_<region>_UPDATED.md`)**
+2. **Regional Market Prompt (`markets_<region>.md`)**
    - Defines region-specific geography, transit, and known market splits
    - Documents congestion corridors, water barriers, mountain passes
    - Explains regional mobility factors
 
-3. **Regional Market File (`markets_<region>_COMPLETE.csv`)**
+3. **Regional Market File (`markets_<region>.csv`)**
    - Authoritative list of valid `market_id` values for this region
    - Market notes contain catchment area guidance
    - **Total: 435 markets across 8 regions covering 49 states + DC**
@@ -115,7 +115,7 @@ Each run applies to **one region only** (e.g., Mountain West, Southeast).
 - Cross-region statistical areas only if behaviorally justified (e.g., border markets)
 
 **Market Scope:**
-- Only use market_ids from `markets_<region>_COMPLETE.csv`
+- Only use market_ids from `markets_<region>.csv`
 - Cross-region market references allowed when documented (e.g., secondary referral to adjacent region's academic center)
 
 ---
@@ -585,7 +585,7 @@ OH-CINCINNATI,CBSA,17140,Cincinnati OH-KY-IN,primary,Metro includes Northern Ken
 - The deterministic expansion will handle ZIP-level precision
 
 ❌ **Do NOT redefine, rename, merge, or split markets**
-- Only use market_ids from `markets_<region>_COMPLETE.csv`
+- Only use market_ids from `markets_<region>.csv`
 - Markets are already defined and validated
 - Your job is to map them to statistical areas, not redesign them
 
@@ -725,8 +725,8 @@ KY-LEXINGTON,CBSA,17140,Cincinnati OH-KY-IN,secondary,Some complex cases referre
 ### Before Starting
 
 - [ ] Load `master_market.md` (national framework)
-- [ ] Load `markets_<region>_UPDATED.md` (regional mobility factors, documented splits)
-- [ ] Load `markets_<region>_COMPLETE.csv` (valid market_ids and notes)
+- [ ] Load `markets_<region>.md` (regional mobility factors, documented splits)
+- [ ] Load `markets_<region>.csv` (valid market_ids and notes)
 - [ ] Obtain Census CBSA definitions for region's states
 - [ ] Review which CBSAs are documented to split across markets
 
