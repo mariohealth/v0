@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
@@ -52,6 +52,7 @@ export function MarioMedicationComparePrices({
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isUsingMockData, setIsUsingMockData] = useState(false);
+  const quantityCacheRef = useRef<Record<string, Set<string>>>({});
 
   const mockPharmacyData: PharmacyComparison[] = useMemo(() => (
     medication.name.includes('Atorvastatin') ? [
@@ -150,6 +151,22 @@ export function MarioMedicationComparePrices({
     return match ? match[0] : selectedQuantity;
   }, [selectedQuantity]);
 
+  const normalizeQuantity = (value: string | null | undefined): string | null => {
+    if (!value) return null;
+    const match = String(value).match(/\d+(\.\d+)?/);
+    return match ? match[0] : null;
+  };
+
+  const updateQuantityCache = (rxcui: string, rows: Array<{ quantity?: string | null }>) => {
+    const cacheKey = rxcui.trim();
+    if (!cacheKey) return;
+    const quantities = rows
+      .map((row) => normalizeQuantity(row.quantity ?? null))
+      .filter((value): value is string => Boolean(value));
+    if (!quantities.length) return;
+    quantityCacheRef.current[cacheKey] = new Set(quantities);
+  };
+
   useEffect(() => {
     let isActive = true;
 
@@ -169,8 +186,31 @@ export function MarioMedicationComparePrices({
       setIsLoading(true);
 
       try {
-        const rows = await getMedicationPrices(medication.rxcui_scd, quantityValue);
+        const normalizedRequested = normalizeQuantity(quantityValue);
+        const cache = quantityCacheRef.current[medication.rxcui_scd] ?? new Set<string>();
+        const shouldRequestQuantity = Boolean(normalizedRequested && cache.has(normalizedRequested));
+
+        const fetchRows = (withQuantity: boolean) =>
+          getMedicationPrices(
+            medication.rxcui_scd,
+            withQuantity ? quantityValue : undefined
+          );
+
+        let rows = await fetchRows(shouldRequestQuantity);
         if (!isActive) return;
+
+        if (shouldRequestQuantity && !rows.length && normalizedRequested) {
+          console.warn(
+            '[MedicationComparePrices] Quantity request returned 0 rows, retrying without quantity.',
+            { rxcui_scd: medication.rxcui_scd, quantity: quantityValue }
+          );
+          rows = await fetchRows(false);
+          if (!isActive) return;
+        }
+
+        if (!shouldRequestQuantity && rows.length) {
+          updateQuantityCache(medication.rxcui_scd, rows);
+        }
 
         if (!rows.length) {
           console.warn(
