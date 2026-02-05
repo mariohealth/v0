@@ -15,7 +15,7 @@ You are conducting a comprehensive Quality Assurance review of all Healthcare Sh
 
 Healthcare Shopping Zones have been defined for multiple US regions using a master national framework plus regional-specific prompts. Each region was processed separately, creating potential gaps at regional boundaries or missed markets within regions.
 
-**Master Framework:** `prompt_master_market.md` defines the national ruleset including:
+**Master Framework:** `master_market.md` defines the national ruleset including:
 - 45-minute rule for routine care
 - market_id naming conventions
 - Transit and congestion considerations
@@ -33,28 +33,28 @@ Healthcare Shopping Zones have been defined for multiple US regions using a mast
 
 ### Regional CSV Files
 The following regional CSVs should be available for review:
-1. **northeast_healthcare_markets.csv** - PA, NJ, NY, CT, MA, RI, VT, NH, ME (9 states, ~61 markets expected)
-2. **midatlantic_healthcare_markets.csv** - MD, DC, DE, VA, WV (5 states, ~29 markets expected)
-3. **southeast_healthcare_markets.csv** - NC, SC, GA, FL, AL, MS, TN (7 states, ~65 markets expected)
-4. **texas_plains_UPDATED_healthcare_markets.csv** - TX, OK, KS, MO, IA, NE, SD, ND, AR, LA (10 states, ~91 markets expected)
-5. **mountainwest_healthcare_markets.csv** - CO, UT, ID, MT, WY, NV, NM (7 states, ~51 markets expected)
-6. **california_healthcare_markets.csv** - CA (1 state, ~41 markets expected)
-7. **pacificnorthwest_healthcare_markets.csv** - WA, OR (2 states, ~20 markets expected)
-8. **midwest_healthcare_markets.csv** - IL, IN, OH, MI, WI, MN (6 states, ~55 markets expected)
+1. **markets_northeast.csv** - PA, NJ, NY, CT, MA, RI, VT, NH, ME (9 states, ~61 markets expected)
+2. **markets_midatlantic.csv** - MD, DC, DE, VA, WV (5 states, ~29 markets expected)
+3. **markets_southeast.csv** - NC, SC, GA, FL, AL, MS, TN (7 states, ~65 markets expected)
+4. **markets_texas_plains.csv** - TX, OK, KS, MO, IA, NE, SD, ND, AR, LA (10 states, ~91 markets expected)
+5. **markets_mountainwest.csv** - CO, UT, ID, MT, WY, NV, NM (7 states, ~51 markets expected)
+6. **markets_california.csv** - CA (1 state, ~41 markets expected)
+7. **markets_pacificnorthwest.csv** - WA, OR (2 states, ~20 markets expected)
+8. **markets_midwest.csv** - IL, IN, OH, MI, WI, MN (6 states, ~55 markets expected)
 
 ### Regional Prompt Files
 The corresponding regional prompts that should be referenced:
-1. `prompt_northeast_healthcare_markets.md`
-2. `prompt_mid_atlantic_healthcare_markets_improved.md`
-3. `prompt_southeast_healthcare_markets_improved.md`
-4. `prompt_texas_plains_healthcare_markets_UPDATED.md`
-5. `prompt_mountain_west_healthcare_markets_improved.md`
-6. `prompt_california_healthcare_markets_improved.md`
-7. `prompt_pacific_northwest_healthcare_markets_improved.md`
-8. `prompt_midwest_healthcare_markets_improved.md`
+1. `markets_northeast.md`
+2. `markets_midatlantic.md`
+3. `markets_southeast.md`
+4. `markets_texas_plains.md`
+5. `markets_mountainwest.md`
+6. `markets_california.md`
+7. `markets_pacificnorthwest.md`
+8. `markets_midwest.md`
 
 ### Master Framework
-- `prompt_master_market.md` - National ruleset
+- `master_market.md` - National ruleset
 
 ---
 
