@@ -37,7 +37,7 @@ export const medicationDatabase: { drugs: MedicationData[] } = {
   "drugs": [
     {
       "id": "metformin-500",
-      "rxcui_scd": "197580",
+      "rxcui_scd": "860975",
       "name": "Metformin 500 mg",
       "genericFor": "Glucophage",
       "category": "Type 2 Diabetes",
@@ -74,7 +74,7 @@ export const medicationDatabase: { drugs: MedicationData[] } = {
     },
     {
       "id": "atorvastatin-20",
-      "rxcui_scd": "896236",
+      "rxcui_scd": "617312",
       "name": "Atorvastatin 20 mg",
       "genericFor": "Lipitor",
       "category": "High Cholesterol",

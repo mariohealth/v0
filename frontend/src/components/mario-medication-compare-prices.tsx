@@ -51,6 +51,7 @@ export function MarioMedicationComparePrices({
   const [zipModalOpen, setZipModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUsingMockData, setIsUsingMockData] = useState(false);
 
   const mockPharmacyData: PharmacyComparison[] = useMemo(() => (
     medication.name.includes('Atorvastatin') ? [
@@ -153,9 +154,15 @@ export function MarioMedicationComparePrices({
     let isActive = true;
 
     const fetchPrices = async () => {
+      setIsUsingMockData(false);
+
       if (!medication.rxcui_scd) {
-        console.warn('[MedicationComparePrices] Missing rxcui_scd, using mock data.');
+        console.warn(
+          '[MedicationComparePrices] Missing rxcui_scd, using mock data.',
+          { rxcui_scd: medication.rxcui_scd, quantity: quantityValue }
+        );
         setPharmacyData(mockPharmacyData);
+        setIsUsingMockData(true);
         return;
       }
 
@@ -166,16 +173,25 @@ export function MarioMedicationComparePrices({
         if (!isActive) return;
 
         if (!rows.length) {
-          console.warn('[MedicationComparePrices] Empty API response, using mock data.');
+          console.warn(
+            '[MedicationComparePrices] Empty API response, using mock data.',
+            { rxcui_scd: medication.rxcui_scd, quantity: quantityValue }
+          );
           setPharmacyData(mockPharmacyData);
+          setIsUsingMockData(true);
           return;
         }
 
         setPharmacyData(transformMedicationComparePrices(rows));
+        setIsUsingMockData(false);
       } catch (error) {
         if (!isActive) return;
-        console.warn('[MedicationComparePrices] Failed to load API prices, using mock data.', error);
+        console.warn(
+          '[MedicationComparePrices] Failed to load API prices, using mock data.',
+          { rxcui_scd: medication.rxcui_scd, quantity: quantityValue, error }
+        );
         setPharmacyData(mockPharmacyData);
+        setIsUsingMockData(true);
       } finally {
         if (isActive) {
           setIsLoading(false);
@@ -302,6 +318,27 @@ export function MarioMedicationComparePrices({
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-4">
+        {/* Limited Data Banner */}
+        {isUsingMockData && (
+          <div 
+            className="p-3 rounded-lg border"
+            style={{
+              backgroundColor: '#FEF3C7',
+              borderColor: '#F59E0B',
+              color: '#92400E'
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <span style={{ fontSize: '14px', fontWeight: '600' }}>
+                ⚠️ Limited Data
+              </span>
+              <span style={{ fontSize: '13px' }}>
+                Showing sample prices. Real-time pricing temporarily unavailable for this medication.
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Filter Row */}
         <Card 
           className="p-4"
