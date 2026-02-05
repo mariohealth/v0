@@ -1,641 +1,1064 @@
-# QA Prompt: Validating ZIP → Healthcare Market Mapping (Pacific Northwest)
+# QA Prompt: Validating ZIP → Healthcare Market Mapping (V2.0 - Production)
+
+## CRITICAL: This QA Caught a 25.8% Data Integrity Failure
+
+**Context:** In February 2026, this QA process caught that 259 out of 1,002 ZIP mappings (25.8%) used invalid market IDs, making the data completely unusable. The file had to be fully regenerated.
+
+**This prompt has been updated to:**
+1. Catch market ID integrity failures FIRST (before any other analysis)
+2. Use automated validation for 100% coverage (not just sampling)
+3. Fail fast when critical errors are found (don't continue QA on broken data)
+4. Provide actionable fix recommendations (not just flag issues)
+
+---
 
 ## Purpose
-This prompt validates the **completed ZIP-to-market mapping file** for the **Pacific Northwest region (Washington and Oregon)**.
+
+This prompt validates the **completed ZIP-to-market mapping file** for a specific region.
 
 **Goal:** Verify mappings are **behaviorally realistic, internally consistent, and defensible for healthcare price comparison**.
 
-**Constraint:** This is QA only. Do NOT modify market definitions or rewrite mappings. Flag issues; don't fix them.
+**Constraint:** This is QA only. Do NOT modify market definitions or rewrite mappings. Flag issues clearly with specific recommended fixes.
 
 ---
 
-## Execution Strategy: Smart Sampling, Not Exhaustive Review
+## QA Philosophy: Fail Fast on Critical Issues
 
-**CRITICAL:** You cannot feasibly review every ZIP individually. Use stratified sampling to maximize issue detection:
+**Priority order for QA:**
+1. **Data Integrity (P0)** — Broken data kills the system → Check FIRST
+2. **Geographic Accuracy (P1)** — Wrong markets mislead patients → Check SECOND  
+3. **Behavioral Realism (P2)** — Refinement issues → Check THIRD
+4. **Documentation Quality (P3)** — Nice-to-haves → Check LAST
 
-### Mandatory Sample Categories (Review ALL of these)
+**If P0 checks fail → STOP QA and block launch immediately.**
+- No point checking travel times if market IDs don't exist in the database
+- No point sampling ZIPs if 25% of the data is structurally broken
 
-1. **Boundary ZIPs** (30-50 samples)
-   - ZIPs on market edges (likely to have ambiguous assignments)
-   - Cross-border ZIPs (WA/OR state line, especially Portland-Vancouver)
-   - Ferry-dependent ZIPs (Bainbridge, Vashon, Whidbey, San Juan Islands)
-   - Lake Washington crossings (Seattle ↔ Eastside via I-90/SR-520)
-
-2. **Barrier-Crossing ZIPs** (20-30 samples)
-   - Cascade Mountain proximity (should NOT cross east-west)
-   - Puget Sound water barriers (verify ferry ZIPs are separate markets)
-   - Columbia River crossings (Portland-Vancouver integration)
-   - Tacoma Narrows Bridge (Kitsap Peninsula ↔ Tacoma)
-
-3. **Transit-Adjacent ZIPs** (15-20 samples)
-   - ZIPs near Sounder stations (Seattle-Tacoma-Everett corridor)
-   - Link Light Rail coverage area (Seattle core, SeaTac, future Tacoma)
-   - MAX Light Rail (Portland metro, including Vancouver WA)
-   - Verify transit is NOT creating unrealistic integration
-
-4. **High-Population Core ZIPs** (10-15 samples)
-   - Downtown Seattle (981xx)
-   - Downtown Portland (972xx)
-   - Downtown Tacoma (984xx)
-   - Downtown Spokane (992xx)
-   - Should have clear, unambiguous primary markets
-
-5. **Rural/Remote ZIPs** (15-20 samples)
-   - Eastern WA (Spokane sphere)
-   - Eastern OR (Pendleton, La Grande, Ontario)
-   - Olympic Peninsula (ferry-isolated)
-   - Central OR High Desert (Bend, Burns)
-   - Verify realistic travel times (may exceed 45 min for specialty)
-
-6. **Randomly Selected ZIPs** (20-30 samples)
-   - Spread across all markets
-   - Detect systematic issues not caught by targeted sampling
-
-**Total Sample: ~120-150 ZIPs out of ~2,500 (5-6% coverage)**
-
-### Systematic Checks (Automated/Quick Review)
-
-1. **Market ID Validity** (100% coverage)
-   - Every market_id exists in markets_pacific_northwest.csv
-   - Run this as a data integrity check first
-
-2. **Primary Market Completeness** (100% coverage)
-   - Every ZIP has exactly one primary market
-   - No ZIPs with zero or multiple primaries
-
-3. **Excessive Secondary Mapping** (Flag review)
-   - Any ZIP with 3+ secondary markets
-   - Any ZIP with tertiary markets
-   - Review these for over-mapping
+**This is production data. Critical failures require complete regeneration, not patches.**
 
 ---
 
-## Files You Must Reference
+## Required Files (You Must Have All Four)
 
-Before starting QA, load and cross-reference:
+Before starting QA, confirm you have:
 
-1. **National Base Prompt** (`master_market.md`)
-   - 45-minute rule for routine care
-   - Travel friction principles
-   - Behavioral realism framework
+1. ✅ **`master_market.md`** — National framework (45-minute rule, barriers, behavioral principles)
+2. ✅ **`markets_<region>.md`** — Regional geography, transit, and mobility factors
+3. ✅ **`markets_<region>.csv`** — Authoritative list of valid market_ids (your source of truth)
+4. ✅ **`zip_to_market_<region>.csv`** — The file under review
 
-2. **Regional Market Prompt** (`markets_pacific_northwest.md`)
-   - Puget Sound water barriers (ferries, bridges, Lake Washington)
-   - Cascade Mountain barrier (absolute east-west split)
-   - Transit limitations (Sounder, Link, MAX)
-   - Anchor systems by market
-
-3. **Regional Market File** (`markets_pacific_northwest.csv`)
-   - Authoritative list of valid market_ids
-   - Expected market catchment areas
-   - Number of markets (should be 18-25 for this region)
-
-4. **ZIP Mapping File** (`zip_to_market_pacific_northwest.csv`)
-   - File under review
-   - Should cover all WA and OR residential ZIPs
+**If any file is missing → Request it before starting QA.**
 
 ---
 
-## Role Definition
+## Phase 1: Automated Data Integrity Checks (100% Coverage, MANDATORY)
 
-You are a **Health Economics and Geospatial QA Auditor** with expertise in:
-- Pacific Northwest geography and transportation infrastructure
-- Healthcare utilization behavior and referral patterns
-- Hospital system market dominance
-- Statistical sampling and quality assurance methodology
+**Run these checks on EVERY row before any manual sampling.**
 
-**Your mission:** Identify high-risk mappings that could mislead patients about realistic care options.
+These checks are automated, fast, and catch systematic failures that manual sampling might miss.
 
-**Your output:** Actionable findings report that helps decide: "Can we launch with this, or must we fix it first?"
+### Check 1.1: Market ID Validity (CRITICAL - P0)
 
----
+**What:** Every market_id in the ZIP file must exist in markets_<region>.csv
 
-## Regional Context: Pacific Northwest-Specific QA Focus Areas
+**Why:** Invalid market IDs cause database JOIN failures, making data unusable
 
-### 1. Puget Sound Water Barriers (HIGH PRIORITY)
+**How:**
+```python
+# Load valid market IDs from authoritative source
+valid_markets = set(row['market_id'] from markets_<region>.csv)
 
-**What to check:**
-- **Ferry-dependent ZIPs** (Bainbridge 98110, Vashon 98070, Whidbey Island 982xx, San Juan Islands 982xx)
-  - Should be SEPARATE markets from Seattle core
-  - 35-60 minute ferry times create hard barriers
-  - Flag any ferry ZIP mapped to Seattle core as primary (wrong)
+# Check every ZIP mapping
+invalid_refs = []
+for row in zip_file:
+    if row['market_id'] not in valid_markets:
+        invalid_refs.append((row['zip_code'], row['market_id']))
 
-- **Lake Washington crossings** (I-90, SR-520 floating bridges)
-  - Seattle ↔ Eastside integration is debatable
-  - If mapped together: rationale should mention bridges + transit
-  - If separated: both approaches valid, check consistency
+# Report
+if invalid_refs:
+    FAIL: Report all invalid IDs with counts
+else:
+    PASS
+```
 
-**Red flags:**
-- Bainbridge Island (98110) mapped to WA-SEATTLE-CORE as primary (should be WA-KITSAP or separate)
-- Vashon Island (98070) mapped to WA-SEATTLE-CORE (requires ferry, separate market)
-- Mercer Island (98040) unclear on whether it integrates with Seattle or Eastside
+**Pass Criteria:** Zero invalid market_id references (100% pass rate required)
 
-### 2. Cascade Mountain Barrier (ABSOLUTE RULE)
+**If this check fails:**
+- ❌ **BLOCK LAUNCH IMMEDIATELY**
+- Calculate % of rows affected
+- List all invalid market IDs with usage counts
+- **STOP ALL OTHER QA** — This is a complete regeneration scenario
+- Provide market ID translation table for fixing
 
-**What to check:**
-- **No ZIP should have primary markets on BOTH sides of Cascades**
-- Eastern WA ZIPs (Spokane, Wenatchee, Yakima, Tri-Cities) must be separate from Western WA
-- Eastern OR ZIPs (Bend, Pendleton, Ontario) must be separate from Western OR
-- Snoqualmie Pass, Stevens Pass, White Pass create absolute barriers
+**Output Format:**
+```
+CHECK 1.1: Market ID Validity
+Status: [PASS / FAIL]
+Invalid references: [N] rows ([X]% of total)
 
-**Red flags:**
-- Any Spokane-area ZIP with Seattle as secondary (280 miles + mountain pass = no)
-- Any Eastern OR ZIP with Portland as secondary (150+ miles + mountains = no)
-- Cascade foothills ZIPs assigned to wrong side (check carefully)
+Invalid market IDs found:
+  - 'WA-SEATTLE-CORE': Used in 87 rows (should be 'WA-SEATTLE-MAIN')
+  - 'WA-SEATTLE-SOUTH': Used in 52 rows (should be 'WA-SEATTLE-SOUTHKING')
+  - 'WA-TACOMA': Used in 43 rows (should be 'WA-SEATTLE-TACOMA')
+  ...
 
-### 3. Seattle Metro Fragmentation (KNOWN COMPLEXITY)
-
-**What to check:**
-- **Seattle Core vs Eastside split** (Lake Washington barrier)
-  - Seattle core: 981xx, 982xx ZIPs west of lake
-  - Eastside: Bellevue, Redmond, Kirkland (980xx, 980xx) east of lake
-  - Decision on integration: both valid if justified
-
-- **Tacoma separation** (35 miles south of Seattle)
-  - Tacoma ZIPs should be WA-TACOMA, NOT WA-SEATTLE-CORE
-  - Verify 984xx, 983xx ZIPs mapped to Tacoma market
-
-- **Everett separation** (30+ miles north of Seattle)
-  - Everett ZIPs should be WA-EVERETT, NOT WA-SEATTLE-CORE
-  - Verify 982xx (Snohomish County) mapped appropriately
-
-- **Sounder commuter rail** (Seattle-Tacoma-Everett corridor)
-  - May provide SOME friction reduction
-  - Should NOT automatically integrate markets
-  - Check if rationales over-rely on Sounder for routine care
-
-**Red flags:**
-- Tacoma ZIPs mapped to Seattle as primary (too far)
-- Everett ZIPs mapped to Seattle as primary (too far)
-- South King County ZIPs unclear on Seattle vs Tacoma boundary
-
-### 4. Portland-Vancouver WA Cross-Border Integration (KEY DECISION)
-
-**What to check:**
-- **Vancouver WA ZIPs** (986xx)
-  - Should they integrate with Portland OR or be separate?
-  - MAX Light Rail crosses Columbia River
-  - I-5 and I-205 bridges connect metros
-  - BUT: State line creates Medicaid/insurance friction
-
-- **Integration indicators** (if mapped together):
-  - Vancouver ZIPs have Portland market as primary
-  - Rationale mentions MAX, bridges, or economic integration
-
-- **Separation indicators** (if split):
-  - Vancouver ZIPs have WA-VANCOUVER or WA-PORTLAND market
-  - Rationale mentions state line, insurance networks, licensing
-
-**Either approach valid, check for:**
-- Consistency across all Vancouver WA ZIPs
-- Clear rationale for the chosen approach
-
-### 5. Eastern WA/OR Independence (RURAL MARKETS)
-
-**What to check:**
-- **Each Eastern city is own market** despite low population
-  - Spokane (WA-SPOKANE)
-  - Wenatchee (WA-WENATCHEE)
-  - Yakima (WA-YAKIMA)
-  - Tri-Cities (WA-TRICITIES or similar)
-  - Bend (OR-BEND)
-  - Pendleton, La Grande (OR-PENDLETON, OR-LAGRANDE)
-
-- **Long travel times acceptable** for specialty (60-90 min)
-- **NOT acceptable** for routine care (45 min limit)
-
-**Red flags:**
-- Eastern ZIPs with >60 min primary market travel time
-- Arbitrary consolidation of distant rural areas
-- Missing secondary markets for specialty referrals (some long-distance referrals expected)
+ACTION REQUIRED: Complete file regeneration using correct market IDs from markets_<region>.csv
+```
 
 ---
 
-## QA Dimensions: Structured Evaluation Framework
+### Check 1.2: Primary Market Completeness (CRITICAL - P0)
 
-### Dimension 1: Primary Market Validity ⭐ (HIGHEST PRIORITY)
+**What:** Every ZIP must have exactly one (not zero, not multiple) primary market
 
-**Question:** Would a local resident use this market for routine care (PCP, imaging, labs)?
+**Why:** Primary market drives price comparison queries; missing/multiple primaries break the system
+
+**How:**
+```python
+# Count primaries per ZIP
+zip_primaries = defaultdict(list)
+for row in zip_file where relationship_type == 'primary':
+    zip_primaries[row['zip_code']].append(row['market_id'])
+
+# Check for issues
+all_zips = unique zip_codes in file
+missing_primary = all_zips - zip_primaries.keys()
+multiple_primary = {z: markets for z, markets in zip_primaries if len(markets) > 1}
+
+# Report
+if missing_primary or multiple_primary:
+    FAIL: Report affected ZIPs
+else:
+    PASS
+```
+
+**Pass Criteria:** Every ZIP has exactly one primary market (100% pass rate required)
+
+**If this check fails:**
+- ❌ **BLOCK LAUNCH** — Data integrity violation
+- List all ZIPs with missing primaries
+- List all ZIPs with multiple primaries
+- **STOP OTHER QA** — Must fix before continuing
+
+**Output Format:**
+```
+CHECK 1.2: Primary Market Completeness
+Status: [PASS / FAIL]
+
+ZIPs with zero primaries: [N]
+  - [ZIP1], [ZIP2], [ZIP3] ...
+  
+ZIPs with multiple primaries: [N]
+  - ZIP [ZIP]: ['MARKET-A', 'MARKET-B']
+  - ZIP [ZIP]: ['MARKET-C', 'MARKET-D']
+
+ACTION REQUIRED: Assign exactly one primary market to each ZIP
+```
+
+---
+
+### Check 1.3: Required Columns Present (CRITICAL - P0)
+
+**What:** Verify all required columns exist with correct names
+
+**Required columns:**
+- `zip_code` (5-digit string)
+- `market_id` (string, must match markets file)
+- `relationship_type` (must be: primary, secondary, or tertiary)
+- `mapping_rationale` (non-empty string)
+
+**Pass Criteria:** All required columns present and properly named
+
+**Output Format:**
+```
+CHECK 1.3: Required Columns
+Status: [PASS / FAIL]
+
+Missing columns: [List]
+Incorrect column names: [List with corrections]
+Invalid relationship_type values: [Count and examples]
+```
+
+---
+
+### Check 1.4: Data Format Validation (HIGH - P1)
+
+**What:** Check for formatting issues that break parsing
+
+**Validations:**
+- ZIP codes are 5-digit strings (not 4-digit, not 6-digit)
+- No duplicate rows (same zip_code + market_id + relationship_type)
+- No empty required fields
+- Properly formatted CSV (commas, quotes handled correctly)
+
+**Pass Criteria:** Zero formatting errors
+
+**Output Format:**
+```
+CHECK 1.4: Data Format Validation
+Status: [PASS / FAIL]
+
+Invalid ZIP codes: [Count and examples]
+Duplicate rows: [Count and examples]
+Empty required fields: [Count and examples]
+CSV formatting errors: [Description]
+```
+
+---
+
+### Check 1.5: Market Coverage Completeness (MEDIUM - P1)
+
+**What:** Verify every market in markets_<region>.csv has at least one ZIP assigned
+
+**Why:** If a market has zero ZIPs, either:
+- The market definition is wrong (should be removed from markets file), OR
+- The mapping is incomplete (ZIPs should be assigned to it)
+
+**Pass Criteria:** All markets have at least one ZIP, OR documented reason for zero ZIPs
+
+**Output Format:**
+```
+CHECK 1.5: Market Coverage Completeness
+Status: [PASS / FAIL with warnings]
+
+Markets with zero ZIPs assigned: [N]
+  - [MARKET-ID]: [Expected catchment area from markets.csv notes]
+  - [MARKET-ID]: [Expected catchment area]
+
+ASSESSMENT: [Are these legitimately empty, or is mapping incomplete?]
+```
+
+---
+
+### Check 1.6: Excessive Secondary Mapping (MEDIUM - P1)
+
+**What:** Flag ZIPs with 3+ total markets (primary + secondaries)
+
+**Why:** 3+ markets suggests over-mapping, imprecision, or lack of clear primary
+
+**Threshold:**
+- 0-2 total markets per ZIP: Normal
+- 3 total markets: Review recommended
+- 4+ total markets: Flag as over-mapping
+
+**Pass Criteria:** <5% of ZIPs have 3+ markets, <1% have 4+ markets
+
+**Output Format:**
+```
+CHECK 1.6: Excessive Secondary Mapping
+Status: [PASS / WARNING / FAIL]
+
+ZIPs with 3 markets: [N] ([X]%)
+ZIPs with 4+ markets: [N] ([X]%)
+
+Top over-mapped ZIPs:
+  - ZIP [ZIP]: [N] markets - [List markets]
+  - ZIP [ZIP]: [N] markets - [List markets]
+
+PATTERN: [Is this systematic or isolated cases?]
+```
+
+---
+
+## DECISION GATE: Continue or Stop?
+
+**After completing Phase 1 automated checks:**
+
+### ❌ STOP QA if:
+- Check 1.1 (Market ID Validity) failed
+- Check 1.2 (Primary Completeness) failed
+- Check 1.3 (Required Columns) failed
+
+**Rationale:** These are data integrity failures. Manual QA on broken data is pointless. File requires complete regeneration.
+
+### ⚠️ Continue with caution if:
+- Check 1.4 (Data Format) had minor issues (e.g., 1-2 bad ZIP codes)
+- Check 1.5 (Market Coverage) has 1-2 empty markets with valid reasons
+- Check 1.6 (Over-mapping) affects <10% of ZIPs
+
+### ✅ Proceed to Phase 2 if:
+- All Phase 1 checks passed
+- Ready for manual sampling and behavioral validation
+
+---
+
+## Phase 2: Strategic Manual Sampling (Smart Sampling, ~120-150 ZIPs)
+
+**Only proceed to Phase 2 if Phase 1 passed.**
+
+### Sampling Strategy: Maximize Issue Detection
+
+You cannot review every ZIP individually. Use stratified sampling to catch different types of errors.
+
+**Sample Categories:**
+
+#### Category A: Boundary ZIPs (30-50 samples)
+**What:** ZIPs on market edges, likely to have ambiguous assignments
+**Examples:** 
+- Cross-border ZIPs (state lines, county lines)
+- ZIPs equidistant from two markets
+- Edge of metro areas (urban-suburban transition)
+
+**Focus:** Is the primary market choice defensible? Are secondaries appropriate?
+
+#### Category B: Barrier-Crossing ZIPs (20-30 samples)
+**What:** ZIPs near geographic barriers that should NOT be crossed
+**Region-Specific (Pacific Northwest):**
+- Cascade Mountain proximity (must NOT cross east-west)
+- Puget Sound water barriers (ferries, Lake Washington)
+- Columbia River crossings (Portland-Vancouver integration)
+- Tacoma Narrows Bridge (Kitsap Peninsula)
+
+**Focus:** Are documented barriers honored? No invalid barrier crossings?
+
+#### Category C: Transit-Adjacent ZIPs (15-20 samples)
+**What:** ZIPs near rail/transit stations
+**Region-Specific (Pacific Northwest):**
+- Sounder stations (Seattle-Tacoma-Everett corridor)
+- Link Light Rail coverage (Seattle, SeaTac)
+- MAX Light Rail (Portland metro, Vancouver WA)
+
+**Focus:** Is transit impact realistic? Not over-weighted? Actually serves hospitals?
+
+#### Category D: Core Urban ZIPs (10-15 samples)
+**What:** High-population downtown areas with clear dominant markets
+**Examples:**
+- Downtown Seattle (981xx)
+- Downtown Portland (972xx)
+- Downtown Spokane (992xx)
+- Downtown Tacoma (984xx)
+
+**Focus:** Clear, unambiguous primary markets? No unexpected assignments?
+
+#### Category E: Rural/Remote ZIPs (15-20 samples)
+**What:** Low-density areas with longer travel times
+**Region-Specific (Pacific Northwest):**
+- Eastern WA (Spokane sphere, Tri-Cities, Wenatchee, Yakima)
+- Eastern OR (Pendleton, La Grande, Bend)
+- Olympic Peninsula (ferry-isolated)
+- Central OR High Desert
+
+**Focus:** Realistic travel times (may exceed 45 min)? Appropriate secondary markets for specialty referrals?
+
+#### Category F: Random Sample (20-30 samples)
+**What:** ZIPs selected randomly across all markets
+**Purpose:** Detect systematic issues not caught by targeted sampling
+
+**Selection:** Use random number generator to select ZIPs from each market
+
+---
+
+### Manual Review Dimensions (For Each Sampled ZIP)
+
+#### Dimension 1: Primary Market Validity ⭐ (HIGHEST PRIORITY)
+
+**Question:** Would a local resident actually use this market for routine care?
 
 **How to evaluate:**
-1. Estimate door-to-door travel time under typical weekday traffic
-2. Include parking (5-10 min urban, 2-5 min suburban)
-3. Include walking to entrance (3-5 min)
-4. Check for barriers (water, mountains, congestion)
+1. Estimate door-to-door travel time:
+   - Google Maps "typical traffic" (Tuesday 10am or Wednesday 2pm)
+   - Add parking time (5-10 min urban, 2-5 min suburban)
+   - Add walking to entrance (3-5 min)
+2. Check for barriers:
+   - Water crossings (ferries, bridges)
+   - Mountain passes (seasonal closures)
+   - Chronic congestion corridors
+3. Verify dominant hospital system in area
 
 **Pass criteria:**
-- Travel time ≤45 minutes for suburban/urban ZIPs
-- Travel time ≤60 minutes for rural ZIPs (more tolerance)
+- Travel time ≤45 min for urban/suburban ZIPs
+- Travel time ≤60 min for rural ZIPs (with documented reason)
 - No geographic barriers blocking access
-- Dominant hospital system in area
+- Aligns with known hospital system dominance
 
 **Flag if:**
 - Travel time >45 min for routine care (urban/suburban)
-- Ferry or mountain pass required
+- Ferry or mountain pass required (should be separate market)
 - "Aspirational" assignment (patient wouldn't actually go there)
+- Ignores documented barriers from regional prompt
 
-**Example flags:**
-- Bad: Bainbridge Island → Seattle Core (requires ferry)
-- Bad: Spokane → Seattle (280 miles + mountain pass)
-- Good: Bellevue → Eastside (Overlake Medical, 10 min)
+**Severity:** HIGH (primary market errors directly mislead patients)
 
 ---
 
-### Dimension 2: Secondary Market Discipline ⭐ (HIGH PRIORITY)
+#### Dimension 2: Secondary Market Discipline (MEDIUM PRIORITY)
 
-**Question:** Is there clear justification for secondary markets, or is this over-mapping?
+**Question:** Are secondary markets justified by actual referral patterns or transit?
 
 **Valid reasons for secondary:**
-1. **Specialty spillover** (primary lacks specialists, 45-60 min to secondary)
-2. **Transit-enabled alternative** (light rail/commuter rail to major academic center)
-3. **Border ZIP equidistant** (some residents use A, some use B)
-4. **Academic referral** (complex cases go to academic center 60+ min away)
+- Specialty care spillover (primary lacks specialists)
+- Alternative transit access (one-seat ride to major medical center)
+- Border ZIP serving two markets (equidistant)
+- Academic medical center referral (complex cases)
+
+**Invalid reasons for secondary:**
+- "Just in case" mapping (no evidence)
+- Arbitrary geographic proximity
+- Commuter rail that doesn't serve hospitals
+- >60 min travel with no referral relationship
+
+**Pass criteria:**
+- 0-1 secondary markets per ZIP (most common)
+- 2 secondary markets (acceptable for border ZIPs)
+- Clear rationale in mapping_rationale field
 
 **Flag if:**
-- **More than 2 secondary markets** (almost always over-mapped)
-- **Secondary duplicates primary** (same health system, similar distance)
-- **No clear use case** (rationale says "some residents" without specifics)
-- **Tertiary markets present** (rarely justified, needs strong rationale)
+- 3+ secondary markets (over-mapping)
+- Secondary market farther than 60 min
+- Transit doesn't actually serve hospitals
+- No evidence of referral pattern
 
-**Example flags:**
-- Bad: Suburban ZIP has 4 secondary markets "for choice"
-- Bad: Secondary is same distance as primary with same system
-- Good: Bellevue → Seattle as secondary (Lake Washington crossed for specialty via bridges)
+**Severity:** MEDIUM (over-mapping clutters results but doesn't break system)
 
 ---
 
-### Dimension 3: Over-Mapping Detection ⭐ (MEDIUM-HIGH PRIORITY)
+#### Dimension 3: Geographic Barrier Compliance (HIGH PRIORITY)
 
-**Pattern to detect:** "Boundary anxiety" — mapper gave too many options to avoid hard choices
+**Question:** Are documented regional barriers honored in assignments?
 
-**Indicators:**
-- ZIP has 3+ total markets (primary + secondary)
-- Multiple secondary markets with similar characteristics
-- Rationale uses vague language ("residents may prefer...")
-- Border ZIPs have "one of everything" rather than clear assignment
+**Region-Specific (Pacific Northwest):**
 
-**Impact:** Dilutes price comparison value (if everything is "shoppable", nothing is meaningful)
+**ABSOLUTE BARRIERS (Never Cross):**
+- ✅ Cascade Mountains (no east-west crossings for routine care)
+- ✅ Ferry-dependent islands (separate markets from mainland)
+- ✅ State borders (except documented cross-border markets)
 
-**How to flag:**
-- Count markets per ZIP
-- Flag ZIPs with 4+ total markets for review
-- Check if pattern is systematic (entire subregion over-mapped)
+**FRICTION BARRIERS (May Split Markets):**
+- ⚠️ Lake Washington (Seattle ↔ Eastside decision)
+- ⚠️ Puget Sound limited crossings (Tacoma Narrows Bridge)
+- ⚠️ Columbia River (Portland ↔ Vancouver WA integration decision)
 
----
-
-### Dimension 4: Under-Mapping Detection ⭐ (MEDIUM PRIORITY)
-
-**Pattern to detect:** Missing legitimate secondary markets, especially for specialty care
-
-**Indicators:**
-- Border ZIP only has primary (no secondary despite being equidistant)
-- Transit-connected ZIP missing academic center as secondary
-- Rural ZIP missing distant specialty referral center
-
-**Impact:** Limits patient awareness of legitimate alternatives
-
-**How to flag:**
-- Identify ZIPs on known market boundaries with only primary
-- Check if transit-adjacent ZIPs are missing obvious secondary markets
-- Verify rural ZIPs have specialty referral secondaries (if appropriate)
-
-**Example flags:**
-- Potential under-map: Mercer Island (98040) only has primary, but sits between Seattle and Eastside
-- Potential under-map: Rural ZIP 90+ min from anchor with no secondary for specialty
-
----
-
-### Dimension 5: Transit Asymmetry Errors ⭐ (MEDIUM PRIORITY)
-
-**Problem:** Assuming transit that serves peak-direction work commutes also serves reverse-direction healthcare trips
-
-**Pacific Northwest transit patterns:**
-- **Sounder** (Seattle-Tacoma-Everett): Peak direction toward Seattle, limited reverse
-- **Link Light Rail** (Seattle): Better bidirectional but limited coverage
-- **MAX** (Portland): Good coverage, crosses to Vancouver WA
-
-**How to evaluate:**
-1. Check if rationale mentions transit
-2. Verify transit actually serves hospitals (not just CBD)
-3. Check frequency (≥15 min) and directionality
-4. Confirm transit is used for medical trips, not just work
+**Pass criteria:**
+- Zero Cascade Mountain crossings for primary markets
+- Ferry ZIPs separate from mainland markets
+- State borders honored (except OR-PORTLAND includes Vancouver WA)
+- Lake Washington decision (integrate or split) applied consistently
 
 **Flag if:**
-- Rationale assumes transit enables integration without checking hospital access
-- Reverse-direction transit assumed equivalent to peak direction
-- Ferry described as "transit" (ferries are hard barriers due to schedules)
+- Eastern WA ZIP assigned to Seattle market (Cascade violation)
+- Ferry-dependent ZIP assigned to mainland market (barrier violation)
+- State border crossed without documented integration
+- Inconsistent Lake Washington treatment
 
-**Example flags:**
-- Bad: "Sounder enables Tacoma-Seattle integration" (mostly peak-direction commuters)
-- Good: "Link Light Rail connects to UW Medical Center" (actually serves hospital)
-
----
-
-### Dimension 6: Market ID Integrity ⭐ (CRITICAL — AUTO-CHECK)
-
-**Automated check:** Every market_id in the ZIP mapping file must exist in markets_pacific_northwest.csv
-
-**How to check:**
-1. Extract unique market_ids from ZIP mapping file
-2. Compare against markets_pacific_northwest.csv
-3. Flag any that don't match
-
-**Hard failures:**
-- Invalid market_id (typo, deprecated, fabricated)
-- Market_id from different region
-- Empty market_id field
-
-**This should be checked 100% programmatically before manual review**
+**Severity:** HIGH (barrier violations create unrealistic assignments)
 
 ---
 
-### Dimension 7: Narrative Consistency ⭐ (LOW-MEDIUM PRIORITY)
+#### Dimension 4: Transit Realism (MEDIUM PRIORITY)
 
-**Question:** Are rationales specific, consistent, and locally informed?
+**Question:** If transit is cited as rationale, does it actually enable healthcare access?
+
+**Transit reality check:**
+- Does transit route actually go to/near hospitals?
+- Are headways ≤15 minutes (high frequency)?
+- Is it single-seat or one-transfer?
+- Do residents actually use it for medical appointments (not just commuting)?
+
+**Region-Specific (Pacific Northwest):**
+
+**Sounder (Seattle commuter rail):**
+- Serves work commutes (Seattle ↔ Tacoma ↔ Everett)
+- Some stations near hospitals
+- Should NOT automatically integrate markets
+
+**Link Light Rail (Seattle):**
+- Serves Seattle core, SeaTac, expanding to Tacoma
+- Some coverage of medical areas
+- May justify SOME secondary assignments
+
+**MAX Light Rail (Portland):**
+- Extensive Portland metro coverage
+- Crosses to Vancouver WA
+- Strong case for Portland-Vancouver integration
+
+**Pass criteria:**
+- Transit cited only when it materially reduces friction
+- Rationale explains specific route/connection
+- Not over-relied upon (most care is car-based)
+
+**Flag if:**
+- Sounder cited as reason to merge Seattle-Tacoma-Everett (too far)
+- Commuter rail assumed to serve medical trips (usually doesn't)
+- Transit creates unrealistic long-distance integration
+
+**Severity:** MEDIUM (mis-use of transit creates marginal assignments)
+
+---
+
+#### Dimension 5: Rationale Quality (LOW PRIORITY)
+
+**Question:** Is the mapping_rationale clear, specific, and locally grounded?
 
 **Good rationale characteristics:**
-- Names specific hospitals or health systems
-- Mentions specific travel time or distance
-- References specific barriers (ferry, bridge, pass)
-- Differentiates between primary/secondary clearly
+- Mentions specific hospital systems
+- Includes approximate travel time
+- Notes relevant barriers or transit
+- 1-2 sentences (concise)
 
-**Bad rationale characteristics:**
-- Generic template language ("residents use hospitals within the market")
-- No specifics ("some residents access care")
-- Inconsistent across similar ZIPs
-- Contradicts relationship_type (says "specialty" but marked primary)
+**Examples of good rationales:**
+```
+"Bellevue ZIP uses Overlake Medical Center within 10-min drive"
+"Ferry-dependent island requires 35-min crossing, separate from Seattle"
+"Red Line enables access to Longwood medical area for specialty care"
+```
 
-**How to evaluate:**
-- Spot-check rationales in each sample category
-- Look for template patterns suggesting auto-generation
-- Check consistency within market (similar ZIPs should have similar language)
+**Examples of weak rationales:**
+```
+"Close to market" (vague, no specifics)
+"Serves area" (tautological)
+"Primary market" (states the obvious)
+```
 
-**Flag only egregious cases** — this is lowest priority dimension
+**Pass criteria:**
+- Rationale is specific and locally grounded
+- Mentions relevant systems, times, or barriers
+- Concise (≤2 sentences)
+
+**Flag if:**
+- Generic/vague rationale
+- Missing key context (e.g., ferry time, barrier)
+- Overly verbose (>3 sentences)
+
+**Severity:** LOW (doesn't affect correctness, just documentation quality)
 
 ---
 
-## Systematic Checks (Run These First)
+## Phase 3: Pattern-Level Analysis
 
-Before manual sampling, run these automated integrity checks:
+**After completing manual sampling, look for systematic patterns.**
 
-### Check 1: Market ID Validity (CRITICAL)
-```
-For each unique market_id in zip_to_market_pacific_northwest.csv:
-  - Verify it exists in markets_pacific_northwest.csv
-  - Flag any mismatches as CRITICAL ERROR
-```
+### Pattern Analysis Questions:
 
-### Check 2: Primary Market Completeness (CRITICAL)
-```
-For each zip_code:
-  - Count relationship_type = 'primary'
-  - Flag if count ≠ 1 (missing primary or multiple primaries)
-```
+#### 3.1 Geographic Patterns
 
-### Check 3: Excessive Secondary Mapping (FLAG FOR REVIEW)
-```
-For each zip_code:
-  - Count total markets (all relationship_types)
-  - Flag if count ≥ 4 for manual review
-  - Flag if any tertiary markets exist
-```
+**Puget Sound Water Barriers:**
+- Are ferry-dependent ZIPs consistently separate from Seattle?
+- Is Lake Washington treatment consistent (integrate or split)?
+- Are limited bridge crossings (Tacoma Narrows) handled correctly?
 
-### Check 4: Coverage Completeness (SPOT CHECK)
-```
-- Verify major cities have ZIPs mapped:
-  - Seattle: 981xx, 982xx
-  - Portland: 972xx
-  - Tacoma: 984xx
-  - Spokane: 992xx
-  - Eugene: 974xx
-  - Salem: 973xx
-```
+**Cascade Mountain Barrier:**
+- Zero east-west crossings for primary markets?
+- Eastern WA/OR independent from Western WA/OR?
+- Mountain pass ZIPs assigned to correct side?
+
+**Portland-Vancouver Integration:**
+- Was integration or separation chosen?
+- Is it applied consistently across all Vancouver WA ZIPs (986xx)?
+- Is MAX light rail rationale valid if integrated?
+
+#### 3.2 Market-Specific Patterns
+
+**Seattle Metro:**
+- How was Seattle Core vs Eastside split handled?
+- Is Tacoma (35 mi south) kept separate from Seattle?
+- Is Everett (30 mi north) kept separate from Seattle?
+- Is South King County defined consistently?
+
+**Eastern WA/OR:**
+- Are rural markets properly independent (Spokane, Wenatchee, Yakima, Tri-Cities)?
+- Do they have appropriate specialty referral secondaries?
+- Are travel times realistic for low-density areas?
+
+#### 3.3 Methodology Observations
+
+**Strengths:**
+- What was done particularly well?
+- Which types of ZIPs have consistently good assignments?
+- Are rationales generally high quality?
+
+**Weaknesses:**
+- What systematic risks or recurring errors exist?
+- Which types of ZIPs have problematic assignments?
+- Are there conceptual misunderstandings of regional geography?
 
 ---
 
 ## Required QA Output Format
 
-Produce a **QA Findings Report** with the following structure:
+### STRUCTURE: Executive Summary → Systematic Checks → Manual Findings → Recommendations
 
 ---
 
-## QA FINDINGS REPORT: Pacific Northwest ZIP-to-Market Mapping
+## QA FINDINGS REPORT: [Region] ZIP-to-Market Mapping
 
 **Date:** [Date]  
-**Region:** Pacific Northwest (WA, OR)  
-**File Reviewed:** zip_to_market_pacific_northwest.csv  
-**Sample Size:** [X ZIPs manually reviewed] + [systematic checks]
+**Region:** [Region name] ([State codes])  
+**File Reviewed:** `zip_to_market_<region>.csv`  
+**Total ZIPs in File:** [N]  
+**Manual Sample Size:** [N ZIPs reviewed]
 
 ---
 
-### EXECUTIVE SUMMARY
+## EXECUTIVE SUMMARY
 
-**Overall Confidence Level:** [HIGH / MEDIUM / LOW]
+**Overall Assessment:** [HIGH CONFIDENCE / MEDIUM CONFIDENCE / LOW CONFIDENCE / CRITICAL FAILURE]
 
 **Launch Recommendation:**
 - ✅ **APPROVE FOR LAUNCH** — Mappings are defensible with minor issues
-- ⚠️ **CONDITIONAL APPROVAL** — Launch with documented limitations, fix flagged issues in v1.1
-- ❌ **BLOCK LAUNCH** — Critical errors require immediate correction
+- ⚠️ **CONDITIONAL APPROVAL** — Launch with documented limitations, fix in v1.1
+- ❌ **BLOCK LAUNCH** — Critical errors require immediate correction before any launch
 
-**Key Findings:**
-- [1-2 sentence summary of most critical issues]
-- [1-2 sentence summary of overall quality]
+**Key Findings (2-3 sentences):**
+- [Most critical finding]
+- [Second most critical finding]
+- [Overall quality assessment]
 
-**Required Actions Before Launch:** [Number of critical fixes needed]
+**Required Actions Before Launch:** [Number and severity of fixes needed]
 
----
-
-### SECTION 1: SYSTEMATIC CHECK RESULTS
-
-#### 1.1 Market ID Validity
-- **Status:** [PASS / FAIL]
-- **Invalid market_ids found:** [Count]
-- **Details:** [List any invalid IDs]
-
-#### 1.2 Primary Market Completeness
-- **Status:** [PASS / FAIL]
-- **ZIPs with missing primary:** [Count]
-- **ZIPs with multiple primaries:** [Count]
-- **Details:** [List problem ZIPs]
-
-#### 1.3 Excessive Secondary Mapping
-- **ZIPs with 4+ markets:** [Count]
-- **ZIPs with tertiary markets:** [Count]
-- **Pattern:** [Systematic issue or isolated cases?]
-
-#### 1.4 Major City Coverage
-- **Status:** [PASS / FAIL]
-- **Missing coverage:** [Any major cities without ZIPs mapped?]
+**Confidence Level Rationale:**
+[1-2 sentences explaining why you have high/medium/low confidence in the mappings]
 
 ---
 
-### SECTION 2: MANUAL SAMPLE REVIEW FINDINGS
+## SECTION 1: AUTOMATED DATA INTEGRITY CHECKS (Phase 1)
 
-**Sample breakdown:**
-- Boundary ZIPs: [X reviewed]
-- Barrier-crossing ZIPs: [X reviewed]
-- Transit-adjacent ZIPs: [X reviewed]
-- Core urban ZIPs: [X reviewed]
-- Rural/remote ZIPs: [X reviewed]
-- Random sample: [X reviewed]
-- **Total:** [X ZIPs reviewed]
+**Purpose:** 100% coverage automated validation catches systematic failures
 
 ---
 
-#### 2.1 HIGH-SEVERITY ISSUES (Must Fix Before Launch)
+### CHECK 1.1: Market ID Validity ⚠️ CRITICAL
 
-| ZIP Code | Issue Type | Description | Recommended Fix |
-|----------|-----------|-------------|-----------------|
-| [ZIP] | Invalid Primary | [Specific problem] | [Specific fix] |
-| [ZIP] | Barrier Violation | [Specific problem] | [Specific fix] |
+**Status:** [✅ PASS / ❌ FAIL]
 
-**Total high-severity issues:** [Count]
+**Invalid market_id references:** [N] rows ([X]% of total)
 
----
+**If FAIL, detail:**
+```
+Invalid market IDs found:
+  - '[INVALID-ID]': Used in [N] rows (should be '[VALID-ID]')
+  - '[INVALID-ID]': Used in [N] rows (should be '[VALID-ID]')
+  
+Sample invalid references:
+  - ZIP [ZIP]: '[INVALID-ID]'
+  - ZIP [ZIP]: '[INVALID-ID]'
+  
+Market ID translation table:
+| Invalid ID Used | Valid ID from markets.csv | Action Required |
+|-----------------|---------------------------|-----------------|
+| [INVALID]       | [VALID]                   | Find/replace    |
+| [INVALID]       | [VALID]                   | Find/replace    |
+```
 
-#### 2.2 MEDIUM-SEVERITY ISSUES (Should Fix, Launch-Blocking if Pattern)
+**If PASS:**
+```
+✅ All [N] rows use valid market IDs from markets_<region>.csv
+✅ Character-for-character exact matches confirmed
+```
 
-| ZIP Code | Issue Type | Description | Recommended Fix |
-|----------|-----------|-------------|-----------------|
-| [ZIP] | Over-Mapped | [Specific problem] | [Specific fix] |
-| [ZIP] | Missing Secondary | [Specific problem] | [Specific fix] |
+**Impact if FAIL:**
+- ❌ Database JOINs will fail for affected rows
+- ❌ Price queries will return errors/nulls
+- ❌ Product non-functional for [X]% of region population
 
-**Total medium-severity issues:** [Count]
-
----
-
-#### 2.3 LOW-SEVERITY ISSUES (Nice to Fix, Not Launch-Blocking)
-
-| ZIP Code | Issue Type | Description | Recommended Fix |
-|----------|-----------|-------------|-----------------|
-| [ZIP] | Rationale Clarity | [Specific problem] | [Specific fix] |
-
-**Total low-severity issues:** [Count]
-
----
-
-### SECTION 3: PATTERN-LEVEL OBSERVATIONS
-
-#### 3.1 Geographic Patterns
-
-**Puget Sound Water Barriers:**
-- [How well were ferries/Lake Washington handled?]
-- [Any systematic issues?]
-
-**Cascade Mountain Barrier:**
-- [Any east-west crossings?]
-- [Rural cascade foothills ZIPs handled correctly?]
-
-**Portland-Vancouver Integration:**
-- [Which approach was taken? Integration vs separation?]
-- [Was it applied consistently?]
-
-#### 3.2 Market-Specific Patterns
-
-**Seattle Metro:**
-- [Seattle core vs Eastside split handled how?]
-- [Tacoma separation maintained?]
-- [Everett separation maintained?]
-
-**Eastern WA/OR:**
-- [Are rural markets properly independent?]
-- [Specialty referral secondaries present?]
-
-#### 3.3 Methodology Observations
-
-**Strengths:**
-- [Top 3 things done well]
-
-**Weaknesses:**
-- [Top 3 systematic risks or recurring errors]
+**Action Required if FAIL:**
+- ❌ BLOCK LAUNCH immediately
+- Complete file regeneration using correct market IDs
+- Do NOT attempt to patch—systematic error requires rebuild
 
 ---
 
-### SECTION 4: STATISTICAL SUMMARY
+### CHECK 1.2: Primary Market Completeness ⚠️ CRITICAL
 
-**Sample Quality Metrics:**
-- **Primary market validity pass rate:** [X%] (target: ≥95%)
-- **Secondary market discipline pass rate:** [X%] (target: ≥90%)
-- **Over-mapping rate:** [X%] (target: ≤5%)
-- **Under-mapping rate:** [X%] (target: ≤10%)
-- **Transit error rate:** [X%] (target: ≤3%)
+**Status:** [✅ PASS / ❌ FAIL]
 
-**Projection to full dataset:**
-- Estimated high-severity issues in full dataset: [Projection]
-- Estimated medium-severity issues in full dataset: [Projection]
+**ZIPs with zero primaries:** [N]  
+**ZIPs with multiple primaries:** [N]
 
----
+**If FAIL, detail:**
+```
+ZIPs with zero primaries: [N]
+  - [ZIP], [ZIP], [ZIP] ... (list first 10)
+  
+ZIPs with multiple primaries: [N]
+  - ZIP [ZIP]: ['MARKET-A', 'MARKET-B']
+  - ZIP [ZIP]: ['MARKET-C', 'MARKET-D']
+  ... (list first 10)
+```
 
-### SECTION 5: RECOMMENDATIONS
+**If PASS:**
+```
+✅ All [N] ZIPs have exactly one primary market
+✅ Zero ZIPs with missing primaries
+✅ Zero ZIPs with multiple primaries
+```
 
-#### Immediate Actions (Before Launch)
-1. [Action 1]
-2. [Action 2]
-3. [Action 3]
+**Impact if FAIL:**
+- ❌ System cannot determine primary market for queries
+- ❌ Affected ZIPs return no results or ambiguous results
 
-#### Post-Launch Improvements (v1.1)
-1. [Improvement 1]
-2. [Improvement 2]
-3. [Improvement 3]
-
-#### Monitoring & Validation
-- [How to monitor real-world usage]
-- [How to collect user feedback on mappings]
-- [How to prioritize fixes based on user behavior]
-
----
-
-### APPENDIX: DETAILED FLAGGED ZIPs
-
-[Include full table of all flagged ZIPs with complete details]
+**Action Required if FAIL:**
+- ❌ BLOCK LAUNCH
+- Assign exactly one primary to each affected ZIP
+- Review mapping methodology for systematic error
 
 ---
 
-## What You Must NOT Do
+### CHECK 1.3: Required Columns Present
 
-❌ **Do NOT silently correct mappings** — Flag issues, don't fix them  
-❌ **Do NOT redefine markets** — Markets are fixed, only validate ZIP assignments  
-❌ **Do NOT optimize for coverage** — Optimize for behavioral realism  
-❌ **Do NOT collapse ambiguity prematurely** — Surface uncertainty, don't hide it  
-❌ **Do NOT review every ZIP** — Use smart sampling, not exhaustive review  
-❌ **Do NOT focus only on errors** — Also document what's working well
+**Status:** [✅ PASS / ❌ FAIL]
+
+**Missing columns:** [List or "None"]  
+**Incorrect names:** [List with corrections or "None"]  
+**Invalid relationship_type values:** [Count and examples or "None"]
+
+**If PASS:**
+```
+✅ All required columns present: zip_code, market_id, relationship_type, mapping_rationale
+✅ All relationship_type values valid (primary/secondary/tertiary)
+✅ No empty required fields
+```
 
 ---
 
-## Success Criteria: When to Approve vs Block Launch
+### CHECK 1.4: Data Format Validation
+
+**Status:** [✅ PASS / ⚠️ WARNING / ❌ FAIL]
+
+**Invalid ZIP codes:** [Count and examples]  
+**Duplicate rows:** [Count and examples]  
+**Empty required fields:** [Count and examples]  
+**CSV formatting errors:** [Description]
+
+---
+
+### CHECK 1.5: Market Coverage Completeness
+
+**Status:** [✅ PASS / ⚠️ WARNING / ❌ FAIL]
+
+**Markets with zero ZIPs assigned:** [N]
+
+**If any, detail:**
+```
+Unused markets: [N]
+  - [MARKET-ID]: Expected catchment [description from markets.csv]
+  - [MARKET-ID]: Expected catchment [description]
+  
+Assessment: [Are these legitimately empty or is mapping incomplete?]
+```
+
+---
+
+### CHECK 1.6: Excessive Secondary Mapping
+
+**Status:** [✅ PASS / ⚠️ WARNING / ❌ FAIL]
+
+**ZIPs with 3 markets:** [N] ([X]%)  
+**ZIPs with 4+ markets:** [N] ([X]%)
+
+**If flagged, detail:**
+```
+Top over-mapped ZIPs:
+  - ZIP [ZIP]: [N] markets - [List]
+  - ZIP [ZIP]: [N] markets - [List]
+  
+Pattern: [Systematic across border regions OR isolated cases?]
+```
+
+---
+
+## DECISION GATE RESULT
+
+**Based on Phase 1 automated checks:**
+
+[✅ PROCEED TO PHASE 2 / ⚠️ CONTINUE WITH CAUTION / ❌ STOP QA]
+
+**Rationale:**
+[1-2 sentences explaining why continuing or stopping]
+
+---
+
+## SECTION 2: MANUAL SAMPLE REVIEW FINDINGS (Phase 2)
+
+**Sample Distribution:**
+- Boundary ZIPs: [N] reviewed
+- Barrier-crossing ZIPs: [N] reviewed
+- Transit-adjacent ZIPs: [N] reviewed
+- Core urban ZIPs: [N] reviewed
+- Rural/remote ZIPs: [N] reviewed
+- Random sample: [N] reviewed
+- **Total:** [N] ZIPs reviewed ([X]% of total)
+
+---
+
+### 2.1 HIGH-SEVERITY ISSUES (Must Fix Before Launch)
+
+**Definition:** Issues that directly mislead patients about care access
+
+| ZIP | Market ID | Issue Type | Description | Recommended Fix |
+|-----|-----------|------------|-------------|-----------------|
+| [ZIP] | [MKT] | Invalid Primary | [Specific problem] | [Specific fix] |
+| [ZIP] | [MKT] | Barrier Violation | [Specific problem] | [Specific fix] |
+| [ZIP] | [MKT] | Travel Time >60min | [Specific problem] | [Specific fix] |
+
+**Total high-severity issues:** [N] ([X]% of sample)
+
+**Extrapolated to full dataset:** Estimated [N] high-severity issues total
+
+**Impact:** [Description of how these errors would affect patients]
+
+---
+
+### 2.2 MEDIUM-SEVERITY ISSUES (Should Fix, May Be Launch-Blocking if Systematic)
+
+**Definition:** Issues that reduce quality but don't break core functionality
+
+| ZIP | Market ID | Issue Type | Description | Recommended Fix |
+|-----|-----------|------------|-------------|-----------------|
+| [ZIP] | [MKT] | Over-Mapped | [Specific problem] | [Specific fix] |
+| [ZIP] | [MKT] | Weak Secondary | [Specific problem] | [Specific fix] |
+| [ZIP] | [MKT] | Transit Over-Relied | [Specific problem] | [Specific fix] |
+
+**Total medium-severity issues:** [N] ([X]% of sample)
+
+**Pattern Analysis:** [Systematic across region OR isolated to specific areas?]
+
+---
+
+### 2.3 LOW-SEVERITY ISSUES (Nice to Fix, Not Launch-Blocking)
+
+**Definition:** Documentation quality, not correctness
+
+| ZIP | Market ID | Issue Type | Description | Recommended Fix |
+|-----|-----------|------------|-------------|-----------------|
+| [ZIP] | [MKT] | Weak Rationale | [Specific problem] | [Specific fix] |
+| [ZIP] | [MKT] | Missing Context | [Specific problem] | [Specific fix] |
+
+**Total low-severity issues:** [N] ([X]% of sample)
+
+---
+
+## SECTION 3: PATTERN-LEVEL OBSERVATIONS (Phase 3)
+
+### 3.1 Geographic Patterns
+
+**[Region-Specific Barrier 1] (e.g., Cascade Mountains):**
+- Compliance: [Excellent / Good / Poor]
+- Observations: [How well were barriers honored?]
+- Issues found: [Count and description]
+
+**[Region-Specific Barrier 2] (e.g., Puget Sound Water):**
+- Compliance: [Excellent / Good / Poor]
+- Observations: [Ferry handling, bridge crossings, etc.]
+- Issues found: [Count and description]
+
+**[Region-Specific Decision] (e.g., Portland-Vancouver):**
+- Approach taken: [Integration / Separation]
+- Consistency: [Applied consistently across all relevant ZIPs?]
+- Rationale quality: [Strong / Adequate / Weak]
+
+### 3.2 Market-Specific Patterns
+
+**[Major Market 1] (e.g., Seattle Metro):**
+- How handled: [Core vs Eastside split, Tacoma separation, etc.]
+- Quality: [High / Medium / Low]
+- Issues: [Description]
+
+**[Major Market 2] (e.g., Eastern WA):**
+- Independence maintained: [Yes / No / Partial]
+- Rural travel times: [Realistic / Optimistic]
+- Specialty referrals: [Appropriate / Missing / Over-mapped]
+
+### 3.3 Methodology Observations
+
+**Strengths (Top 3):**
+1. [What was done particularly well?]
+2. [What types of ZIPs have consistently good assignments?]
+3. [Other strengths]
+
+**Weaknesses (Top 3):**
+1. [What systematic risks exist?]
+2. [What recurring errors were found?]
+3. [Other weaknesses]
+
+**Overall Methodology Assessment:**
+[2-3 sentences on whether the mapper understood regional geography, followed rules, applied good judgment]
+
+---
+
+## SECTION 4: STATISTICAL SUMMARY
+
+### Sample Quality Metrics
+
+**Primary market validity pass rate:** [X]% (target: ≥95%)  
+**Secondary market discipline pass rate:** [X]% (target: ≥90%)  
+**Geographic barrier compliance:** [X]% (target: ≥98%)  
+**Transit realism pass rate:** [X]% (target: ≥95%)  
+**Over-mapping rate:** [X]% of ZIPs with 3+ markets (target: ≤5%)
+
+### Projections to Full Dataset
+
+**Based on sample findings:**
+- **Estimated high-severity issues in full dataset:** [N] (calculation method)
+- **Estimated medium-severity issues in full dataset:** [N] (calculation method)
+- **Confidence interval:** [Range] at 95% confidence
+
+**Methodology for projection:**
+[Explain how you extrapolated from sample to full dataset]
+
+---
+
+## SECTION 5: RECOMMENDATIONS
+
+### Immediate Actions (Before Launch)
+
+**If approved for launch:**
+1. [Fix all high-severity issues - specific count and areas]
+2. [Fix systematic medium-severity patterns - specific areas]
+3. [Document any known limitations]
+
+**If conditionally approved:**
+1. [Fix most critical high-severity issues]
+2. [Document remaining issues for v1.1]
+3. [Set up monitoring to validate assumptions]
+
+**If blocked:**
+1. [Complete file regeneration with specific focus areas]
+2. [Re-run Phase 1 automated checks before manual QA]
+3. [Pay special attention to: specific geographic areas]
+
+### Post-Launch Improvements (v1.1)
+
+1. [Medium-severity issues to address in next version]
+2. [Rationale quality improvements]
+3. [Additional secondary markets to consider based on user feedback]
+
+### Monitoring & Validation
+
+**How to validate assumptions in production:**
+- [User behavior tracking - which markets do they actually query?]
+- [Error rate monitoring - null results or failed lookups?]
+- [User feedback - complaints about unrealistic markets?]
+
+**Metrics to track:**
+- [Specific metrics based on findings]
+
+**How to prioritize fixes:**
+- [Framework for deciding what to fix first based on usage data]
+
+---
+
+## SECTION 6: LAUNCH DECISION FRAMEWORK
 
 ### ✅ APPROVE FOR LAUNCH IF:
-- Market ID integrity: 100% pass
-- Primary market completeness: 100% pass
-- High-severity issues: ≤5 issues OR clear pattern with batch fix
-- Medium-severity issues: ≤20 issues OR non-systematic
-- Sample pass rates: ≥90% on key dimensions
-- **Overall:** Defensible mappings, minor issues can be fixed post-launch
 
-### ⚠️ CONDITIONAL APPROVAL IF:
-- Market ID integrity: 100% pass (non-negotiable)
-- Primary market completeness: 100% pass (non-negotiable)
-- High-severity issues: 6-15 issues with fixes identified
-- Medium-severity issues: 21-50 issues, some patterns but manageable
-- Sample pass rates: 80-89% on key dimensions
-- **Overall:** Launchable with documented limitations, fix in v1.1
+**Data Integrity:**
+- ✅ Market ID validity: 100% pass
+- ✅ Primary completeness: 100% pass
+- ✅ Required columns: All present
 
-### ❌ BLOCK LAUNCH IF:
-- Market ID integrity: ANY failures (critical system error)
-- Primary market completeness: ANY failures (data integrity error)
-- High-severity issues: >15 issues OR fundamental methodology flaw
-- Medium-severity issues: >50 issues OR systematic pattern indicating flawed approach
-- Sample pass rates: <80% on key dimensions
-- **Overall:** Not defensible to external stakeholders, would mislead patients
+**Quality Metrics:**
+- ✅ High-severity issues: ≤5 issues OR clear pattern with batch fix identified
+- ✅ Medium-severity issues: ≤20 issues AND non-systematic
+- ✅ Sample pass rates: ≥90% on key dimensions
+
+**Overall:** Mappings are defensible, minor issues can be fixed post-launch or in v1.1
 
 ---
 
-## Final Instruction
+### ⚠️ CONDITIONAL APPROVAL IF:
 
-**Your goal:** Provide a confidence-calibrated recommendation on whether this mapping file is ready for production use in a healthcare price comparison product.
+**Data Integrity:**
+- ✅ Market ID validity: 100% pass (non-negotiable)
+- ✅ Primary completeness: 100% pass (non-negotiable)
+- ⚠️ Minor format issues: <1% of rows affected
 
-**Standard:** "Would I be comfortable explaining this mapping to a local resident, physician, or health plan administrator?"
+**Quality Metrics:**
+- ⚠️ High-severity issues: 6-15 issues with fixes identified
+- ⚠️ Medium-severity issues: 21-50 issues, some patterns but manageable
+- ⚠️ Sample pass rates: 80-89% on key dimensions
 
-**Approach:** Be thorough but pragmatic. Perfect is the enemy of good, but "good enough" must still be defensible.
+**Conditions for launch:**
+1. Document known limitations clearly
+2. Fix most critical high-severity issues before launch
+3. Commit to v1.1 fix schedule for remaining issues
+4. Set up monitoring to validate assumptions
 
-If a mapping would make a local resident say "That doesn't make sense," flag it.
+---
+
+### ❌ BLOCK LAUNCH IF:
+
+**Data Integrity:**
+- ❌ Market ID validity: ANY failures (makes data unusable)
+- ❌ Primary completeness: ANY failures (breaks system queries)
+- ❌ Required columns: Missing or incorrect
+
+**Quality Metrics:**
+- ❌ High-severity issues: >15 issues OR fundamental methodology flaw
+- ❌ Medium-severity issues: >50 issues OR systematic pattern indicating flawed approach
+- ❌ Sample pass rates: <80% on key dimensions
+
+**Why blocked:**
+- Not defensible to patients, providers, or health plans
+- Would mislead users about realistic care options
+- Requires complete regeneration, not patches
+
+---
+
+## APPENDIX A: DETAILED FLAGGED ZIPS
+
+[Complete table of all flagged ZIPs with full details, organized by severity]
+
+| Severity | ZIP | Market ID | Issue | Description | Fix |
+|----------|-----|-----------|-------|-------------|-----|
+| HIGH | [ZIP] | [MKT] | [Type] | [Detail] | [Action] |
+| HIGH | [ZIP] | [MKT] | [Type] | [Detail] | [Action] |
+| MEDIUM | [ZIP] | [MKT] | [Type] | [Detail] | [Action] |
+| ... | ... | ... | ... | ... | ... |
+
+---
+
+## APPENDIX B: VALIDATION SCRIPT OUTPUT
+
+[Paste full output of automated validation script for documentation]
+
+```
+[Script output showing all automated check results]
+```
+
+---
+
+## APPENDIX C: SAMPLE ZIPS REVIEWED
+
+[List of all manually reviewed ZIPs for audit trail]
+
+**Boundary ZIPs ([N]):**
+[ZIP], [ZIP], [ZIP] ...
+
+**Barrier-crossing ZIPs ([N]):**
+[ZIP], [ZIP], [ZIP] ...
+
+**Transit-adjacent ZIPs ([N]):**
+[ZIP], [ZIP], [ZIP] ...
+
+**Core urban ZIPs ([N]):**
+[ZIP], [ZIP], [ZIP] ...
+
+**Rural/remote ZIPs ([N]):**
+[ZIP], [ZIP], [ZIP] ...
+
+**Random sample ([N]):**
+[ZIP], [ZIP], [ZIP] ...
+
+---
+
+## QA CERTIFICATION
+
+**Reviewed by:** [Name/Role]  
+**Date completed:** [Date]  
+**Hours invested:** [Hours]  
+**Confidence in assessment:** [High / Medium / Low]  
+**Recommendation:** [APPROVE / CONDITIONAL / BLOCK]
+
+**QA Checklist:**
+- [ ] Phase 1 automated checks completed (100% coverage)
+- [ ] Phase 2 manual sampling completed (~120-150 ZIPs)
+- [ ] Phase 3 pattern analysis completed
+- [ ] Launch decision framework applied
+- [ ] Recommendations are specific and actionable
+- [ ] Validation script output documented
+
+---
+
+**Report Version:** 2.0 (Production)  
+**Template Last Updated:** February 2026  
+**Changes from V1.0:** Fail-fast on data integrity, automated checks first, clear decision gates, actionable recommendations
