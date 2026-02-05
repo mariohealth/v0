@@ -1,4 +1,14 @@
 market_id,market_name,anchor_city,anchor_systems,primary_states,market_type,notes
+AZ-FLAGSTAFF,Northern Arizona,Flagstaff,Northern Arizona Healthcare Flagstaff Medical Center,AZ,Regional,Mountain hub 140 miles north of Phoenix separated by I-17 climb and Mogollon Rim escarpment serving northern Arizona and Grand Canyon gateway
+AZ-LAKEHAVASU,Colorado River Corridor,Lake Havasu City,Havasu Regional Medical Center,AZ,Regional,Western Arizona river resort community 200+ miles from Phoenix serving Colorado River valley near California and Nevada borders
+AZ-PHOENIX-CENTRAL,Phoenix Central,Phoenix,Banner Health; Mayo Clinic Arizona; HonorHealth Osborn,AZ,Core Metro,Downtown and central corridor medical district with academic centers accessible via limited Valley Metro light rail
+AZ-PHOENIX-EAST,East Valley,Tempe,Banner Health; HonorHealth Scottsdale; Mayo Clinic Scottsdale,AZ,Suburban,Tempe-Mesa-Scottsdale-Chandler-Gilbert corridor 30-45 min from downtown via I-10 and Loop 101 with distinct Scottsdale healthcare identity
+AZ-PHOENIX-NORTH,North Valley,Anthem,HonorHealth Deer Valley; Banner Health Thunderbird,AZ,Suburban,Cave Creek-Anthem-Deer Valley growth corridor 30-40 min from downtown via I-17 serving northern suburbs
+AZ-PHOENIX-WEST,West Valley,Glendale,Banner Health Boswell; Abrazo Health; Dignity Health,AZ,Suburban,Glendale-Peoria-Surprise-Goodyear growth corridor 30-45 min from downtown via I-10 and Loop 101 with rapid development
+AZ-PRESCOTT,Central Mountains,Prescott,Yavapai Regional Medical Center,AZ,Regional,Central Arizona mountain community 100 miles north of Phoenix with cooler climate separate from both Phoenix and Flagstaff
+AZ-SIERRAVISTA,Southeast Arizona,Sierra Vista,Canyon Vista Medical Center,AZ,Regional,Fort Huachuca military hub near Mexico border 70+ miles from Tucson serving Cochise County
+AZ-TUCSON,Greater Tucson,Tucson,Banner UMC Tucson; TMC Healthcare; Northwest Medical Center,AZ,Core Metro,Southern Arizona anchor 120 miles from Phoenix separated by 2-hour I-10 desert drive with University of Arizona medical school
+AZ-YUMA,Southwest Arizona,Yuma,Yuma Regional Medical Center,AZ,Regional,Colorado River border city 180 miles from Phoenix and 240 miles from Tucson serving southwest agricultural region near California
 CO-ALAMOSA,San Luis Valley,Alamosa,San Luis Valley Health,CO,Rural Hub,High valley isolated by Sangre de Cristo Mountains serving south-central Colorado with limited mountain pass access
 CO-ASPEN,Roaring Fork Valley,Aspen,Aspen Valley Hospital,CO,Regional,Ski resort market with year-round healthcare infrastructure serving seasonal population despite mountain isolation
 CO-BOULDER,Boulder County,Boulder,UCHealth Boulder; Boulder Community Health,CO,Suburban,Separate from Denver by 30+ miles with distinct university town culture and independent healthcare anchors
