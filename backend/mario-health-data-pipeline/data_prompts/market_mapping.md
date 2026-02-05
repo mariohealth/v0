@@ -16,12 +16,12 @@ Before mapping, you must explicitly reference:
    - Governs travel-friction logic and the 45-minute rule
    - Establishes behavioral realism principles
 
-2. **Regional Market Prompt (`markets_<region>_UPDATED.md`)**  
+2. **Regional Market Prompt (`markets_<region>.md`)**  
    - Provides region-specific geography, transit, and barriers
    - Documents congestion corridors, water barriers, mountain passes
    - Explains regional mobility factors and friction patterns
 
-3. **Regional Market File (`markets_<region>_COMPLETE.csv`)**  
+3. **Regional Market File (`markets_<region>.csv`)**  
    - Authoritative list of valid `market_id` values for this region
    - Market notes contain catchment area guidance
    - **435 total markets across 8 regions covering 49 states + DC**
@@ -73,7 +73,7 @@ Each run of this prompt applies to **one region only**.
 - Cross-border ZIPs that integrate with regional markets (e.g., Southern Indiana ZIPs → KY-LOUISVILLE-METRO)
 
 **Market Scope:**
-- Only use market_ids from `markets_<region>_COMPLETE.csv`
+- Only use market_ids from `markets_<region>.csv`
 - Cross-region secondary mappings allowed when behaviorally justified (e.g., complex cases referred to academic centers in adjacent regions)
 
 **Exclude:**
@@ -579,7 +579,7 @@ Examples:
 ## What NOT to Do
 
 ❌ **Do NOT redefine, rename, merge, or split markets**
-- Only use market_ids from `markets_<region>_COMPLETE.csv`
+- Only use market_ids from `markets_<region>.csv`
 - If you think a market is missing, flag it but do NOT invent
 
 ❌ **Do NOT assign every ZIP to many markets**
@@ -636,7 +636,7 @@ Before finalizing each ZIP mapping, confirm:
    - Would someone familiar with the area nod in agreement?
 
 4. ✅ **Market IDs exist in regional CSV**
-   - Every market_id is in `markets_<region>_COMPLETE.csv`
+   - Every market_id is in `markets_<region>.csv`
    - No typos, no invented markets
 
 5. ✅ **Travel friction is realistic**
@@ -762,8 +762,8 @@ zip_code,market_id,relationship_type,mapping_rationale
 ### Before Starting
 
 - [ ] Load `master_market.md` (national framework)
-- [ ] Load `markets_<region>_UPDATED.md` (regional mobility factors)
-- [ ] Load `markets_<region>_COMPLETE.csv` (valid market_ids)
+- [ ] Load `markets_<region>.md` (regional mobility factors)
+- [ ] Load `markets_<region>.csv` (valid market_ids)
 - [ ] Obtain ZIP code database for region's states
 - [ ] Review regional barrier documentation (water, mountains, congestion)
 
