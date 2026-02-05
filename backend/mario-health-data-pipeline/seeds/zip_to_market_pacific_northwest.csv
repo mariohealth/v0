@@ -133,7 +133,7 @@ zip_code,market_id,relationship_type,mapping_rationale
 97327,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
 97329,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
 97330,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
-97330,OR-SALEM,primary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
+97330,OR-SALEM,secondary,State capital with Salem Health 50 miles south of Portland separate market within 15-30 min
 97331,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
 97333,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
 97335,OR-CORVALLIS,primary,Mid-Willamette with Samaritan Health OSU town between Salem and Eugene separate from both
@@ -796,7 +796,6 @@ zip_code,market_id,relationship_type,mapping_rationale
 99174,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
 99176,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
 99179,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
-99179,WA-WALLA,primary,Southeast corner with Providence St Mary near Oregon border separated from Tri-Cities by distance
 99180,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
 99181,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
 99201,WA-SPOKANE,primary,Eastern Washington hub with Providence Sacred Heart MultiCare separated from Seattle by Cascade barrier
