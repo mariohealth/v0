@@ -29,8 +29,6 @@ NJ-TOMS-RIVER,Ocean County,Toms River,RWJBarnabas Health; Hackensack Meridian He
 NJ-TRENTON,Greater Trenton,Trenton,Capital Health System,NJ,Regional,Capital region between Philadelphia and NYC with Delaware River friction and independent anchors
 NY-ALBANY,Capital District,Albany,Albany Medical Center; St. Peter's Health Partners,NY,Regional,Upstate hub serving northeastern New York with independent academic center
 NY-BINGHAMTON,Greater Binghamton,Binghamton,United Health Services,NY,Regional,Southern Tier hub 60+ min from Syracuse with Pennsylvania border catchment
-NY-BRONX,The Bronx,Bronx,Montefiore Health System,NY,Core Metro,Borough-level market with dominant single system and limited East River crossing alternatives
-NY-BROOKLYN,Brooklyn,Brooklyn,NYC Health + Hospitals; Maimonides Medical Center; NYU Langone Brooklyn,NY,Core Metro,Independent borough market with East River bottlenecks creating 45+ min to Manhattan
 NY-BUFFALO,Buffalo-Niagara,Buffalo,Kaleida Health; Catholic Health System,NY,Regional,Western New York anchor 60+ min from Rochester with balanced dual-system competition
 NY-ELMIRA,Southern Tier,Elmira,Arnot Ogden Medical Center,NY,Regional,Rural hub serving Pennsylvania border isolated from Binghamton and Syracuse
 NY-GLENS-FALLS,Adirondack Gateway,Glens Falls,Glens Falls Hospital,NY,Regional,Northern market isolated from Albany by Adirondack terrain barriers
@@ -38,6 +36,8 @@ NY-HUDSON-VALLEY,Hudson Valley,Poughkeepsie,Vassar Brothers Medical Center; Heal
 NY-ITHACA,Finger Lakes South,Ithaca,Cayuga Medical Center,NY,Regional,College town hub isolated from Syracuse and Binghamton by rural distance
 NY-KINGSTON,Ulster County,Kingston,HealthAlliance Hospital,NY,Regional,Mid-Hudson market separate from Poughkeepsie and Albany
 NY-LONGISLAND,Long Island,Mineola,Northwell Health,NY,Suburban,LIRR requires transfers to Manhattan and most routine care stays local despite system integration
+NY-NYC-BRONX,The Bronx,Bronx,Montefiore Health System,NY,Core Metro,Borough-level market with dominant single system and limited East River crossing alternatives
+NY-NYC-BROOKLYN,Brooklyn,Brooklyn,NYC Health + Hospitals; Maimonides Medical Center; NYU Langone Brooklyn,NY,Core Metro,Independent borough market with East River bottlenecks creating 45+ min to Manhattan
 NY-NYC-MANHATTAN,Manhattan,New York,NYU Langone Health; Mount Sinai Health System; NewYork-Presbyterian,NY,Core Metro,Dense urban core with subway access to multiple academic medical centers and high provider substitutability
 NY-NYC-QUEENS,Queens,Queens,NYC Health + Hospitals; Northwell Health,NY,Core Metro,Borough-level market with limited East River crossings creating 45+ min friction to Manhattan
 NY-NYC-STATEN,Staten Island,Staten Island,Staten Island University Hospital; Richmond University Medical Center,NY,Core Metro,Island geography with Verrazano Bridge bottleneck despite free ferry creating separate routine care patterns
