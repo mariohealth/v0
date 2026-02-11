@@ -22,7 +22,7 @@ WITH t0 AS (
     WHERE
         entity_type_code = '2'
         AND provider_business_practice_location_address_country_code = 'US'
-        AND provider_business_practice_location_address_state_name <> 'PR'
+        AND provider_business_practice_location_address_state_name NOT IN ('AA', 'AE', 'AP', 'AS', 'GU', 'MP', 'PR', 'VI')
         AND healthcare_provider_taxonomy_group_1 = ''
         AND healthcare_provider_primary_taxonomy_switch_1 = 'Y'
         AND healthcare_provider_taxonomy_code_1 IN (
