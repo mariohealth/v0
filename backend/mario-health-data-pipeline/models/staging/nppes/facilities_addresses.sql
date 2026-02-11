@@ -56,7 +56,7 @@ WITH t0 AS (
 t1 AS (
     SELECT
     t0.* EXCEPT(healthcare_provider_taxonomy_code_1),
-
+    CONCAT(t0.address_first_line, ', ', t0.city, ', ', t0.state, ' ', t0.zip, ', USA') AS full_address,
     nucc_specialty.display_name AS healthcare_provider_taxonomy,
     FROM
         t0
