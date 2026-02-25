@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
@@ -15,6 +15,8 @@ import {
   Store
 } from 'lucide-react';
 import type { MedicationData } from '@/lib/data/mario-medication-data';
+import { getMedicationPrices } from '@/lib/api';
+import { transformMedicationComparePrices } from '@/lib/transforms/medications';
 import { toast } from 'sonner@2.0.3';
 
 interface PharmacyComparison {
@@ -49,101 +51,247 @@ export function MarioMedicationComparePrices({
   const [zipModalOpen, setZipModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUsingMockData, setIsUsingMockData] = useState(false);
+  const quantityCacheRef = useRef<Record<string, Set<string>>>({});
 
-  // Mock pharmacy data based on medication type
-  const pharmacyData: PharmacyComparison[] = medication.name.includes('Atorvastatin') ? [
-    {
-      name: 'Cost Plus Drugs',
-      distance: 'Mail',
-      distanceValue: 0,
-      price: '$8.50',
-      priceValue: 8.50,
-      marioPick: true,
-      savings: 'Save $6.50',
-      delivery: true
-    },
-    {
-      name: 'Walmart Pharmacy',
-      distance: '1.2 mi',
-      distanceValue: 1.2,
-      price: '$12.00',
-      priceValue: 12.00
-    },
-    {
-      name: 'Amazon Pharmacy',
-      distance: 'Delivery',
-      distanceValue: 0,
-      price: '$13.75',
-      priceValue: 13.75,
-      delivery: true
-    },
-    {
-      name: 'CVS Pharmacy',
-      distance: '2.4 mi',
-      distanceValue: 2.4,
-      price: '$14.50',
-      priceValue: 14.50
-    },
-    {
-      name: 'Walgreens',
-      distance: '2.6 mi',
-      distanceValue: 2.6,
-      price: '$15.00',
-      priceValue: 15.00
-    },
-    {
-      name: 'Rite Aid',
-      distance: '3.2 mi',
-      distanceValue: 3.2,
-      price: '$16.00',
-      priceValue: 16.00
-    },
-  ] : [
-    {
-      name: 'Walmart Pharmacy',
-      distance: '0.8 mi',
-      distanceValue: 0.8,
-      price: '$5.00',
-      priceValue: 5.00,
-      marioPick: true,
-      savings: 'Save $5.00'
-    },
-    {
-      name: 'Costco Pharmacy',
-      distance: '1.5 mi',
-      distanceValue: 1.5,
-      price: '$6.25',
-      priceValue: 6.25
-    },
-    {
-      name: 'CVS Pharmacy',
-      distance: '2.1 mi',
-      distanceValue: 2.1,
-      price: '$7.50',
-      priceValue: 7.50
-    },
-    {
-      name: 'Capsule',
-      distance: 'Delivery',
-      distanceValue: 0,
-      price: '$8.25',
-      priceValue: 8.25,
-      delivery: true
-    },
-    {
-      name: 'Walgreens',
-      distance: '2.7 mi',
-      distanceValue: 2.7,
-      price: '$9.00',
-      priceValue: 9.00
-    },
-  ];
+  const mockPharmacyData: PharmacyComparison[] = useMemo(() => (
+    medication.name.includes('Atorvastatin') ? [
+      {
+        name: 'Cost Plus Drugs',
+        distance: 'Mail',
+        distanceValue: 0,
+        price: '$8.50',
+        priceValue: 8.50,
+        marioPick: true,
+        savings: 'Save $6.50',
+        delivery: true
+      },
+      {
+        name: 'Walmart Pharmacy',
+        distance: '1.2 mi',
+        distanceValue: 1.2,
+        price: '$12.00',
+        priceValue: 12.00
+      },
+      {
+        name: 'Amazon Pharmacy',
+        distance: 'Delivery',
+        distanceValue: 0,
+        price: '$13.75',
+        priceValue: 13.75,
+        delivery: true
+      },
+      {
+        name: 'CVS Pharmacy',
+        distance: '2.4 mi',
+        distanceValue: 2.4,
+        price: '$14.50',
+        priceValue: 14.50
+      },
+      {
+        name: 'Walgreens',
+        distance: '2.6 mi',
+        distanceValue: 2.6,
+        price: '$15.00',
+        priceValue: 15.00
+      },
+      {
+        name: 'Rite Aid',
+        distance: '3.2 mi',
+        distanceValue: 3.2,
+        price: '$16.00',
+        priceValue: 16.00
+      },
+    ] : [
+      {
+        name: 'Walmart Pharmacy',
+        distance: '0.8 mi',
+        distanceValue: 0.8,
+        price: '$5.00',
+        priceValue: 5.00,
+        marioPick: true,
+        savings: 'Save $5.00'
+      },
+      {
+        name: 'Costco Pharmacy',
+        distance: '1.5 mi',
+        distanceValue: 1.5,
+        price: '$6.25',
+        priceValue: 6.25
+      },
+      {
+        name: 'CVS Pharmacy',
+        distance: '2.1 mi',
+        distanceValue: 2.1,
+        price: '$7.50',
+        priceValue: 7.50
+      },
+      {
+        name: 'Capsule',
+        distance: 'Delivery',
+        distanceValue: 0,
+        price: '$8.25',
+        priceValue: 8.25,
+        delivery: true
+      },
+      {
+        name: 'Walgreens',
+        distance: '2.7 mi',
+        distanceValue: 2.7,
+        price: '$9.00',
+        priceValue: 9.00
+      },
+    ]
+  ), [medication.name]);
+
+  const [pharmacyData, setPharmacyData] = useState<PharmacyComparison[]>(mockPharmacyData);
+
+  const quantityValue = useMemo(() => {
+    const match = selectedQuantity.match(/\d+/);
+    return match ? match[0] : selectedQuantity;
+  }, [selectedQuantity]);
+
+  const normalizeQuantity = (value: string | null | undefined): string | null => {
+    if (!value) return null;
+    const match = String(value).match(/\d+(\.\d+)?/);
+    return match ? match[0] : null;
+  };
+
+  const updateQuantityCache = (rxcui: string, rows: Array<{ quantity?: string | null }>) => {
+    const cacheKey = rxcui.trim();
+    if (!cacheKey) return;
+    const quantities = rows
+      .map((row) => normalizeQuantity(row.quantity ?? null))
+      .filter((value): value is string => Boolean(value));
+    if (!quantities.length) return;
+    quantityCacheRef.current[cacheKey] = new Set(quantities);
+  };
+
+  const logMetforminComboWarning = (rows: Array<{ product_url?: string | null }>) => {
+    if (!medication.name.toLowerCase().includes('metformin')) return;
+    const comboIngredients = [
+      'alogliptin',
+      'canagliflozin',
+      'dapagliflozin',
+      'empagliflozin',
+      'sitagliptin',
+      'linagliptin',
+      'saxagliptin',
+      'glyburide',
+      'glipizide',
+      'pioglitazone',
+    ];
+    const offendingUrl = rows
+      .map((row) => row.product_url)
+      .find((url) =>
+        url ? comboIngredients.some((ingredient) => url.toLowerCase().includes(ingredient)) : false
+      );
+    if (offendingUrl) {
+      console.warn('[MedicationComparePrices] Metformin mapping may be combo drug.', {
+        rxcui_scd: medication.rxcui_scd,
+        product_url: offendingUrl,
+      });
+    }
+  };
+
+  useEffect(() => {
+    let isActive = true;
+
+    const fetchPrices = async () => {
+      setIsUsingMockData(false);
+
+      if (!medication.rxcui_scd) {
+        console.warn(
+          '[MedicationComparePrices] Missing rxcui_scd, using mock data.',
+          { rxcui_scd: medication.rxcui_scd, quantity: quantityValue }
+        );
+        setPharmacyData(mockPharmacyData);
+        setIsUsingMockData(true);
+        return;
+      }
+
+      setIsLoading(true);
+
+      try {
+        const normalizedRequested = normalizeQuantity(quantityValue);
+        const cache = quantityCacheRef.current[medication.rxcui_scd] ?? new Set<string>();
+        const shouldRequestQuantity = Boolean(normalizedRequested && cache.has(normalizedRequested));
+
+        const fetchRows = (withQuantity: boolean) =>
+          getMedicationPrices(
+            medication.rxcui_scd,
+            withQuantity ? quantityValue : undefined
+          );
+
+        let rows = await fetchRows(shouldRequestQuantity);
+        if (!isActive) return;
+
+        if (shouldRequestQuantity && !rows.length && normalizedRequested) {
+          console.warn(
+            '[MedicationComparePrices] Quantity request returned 0 rows, retrying without quantity.',
+            { rxcui_scd: medication.rxcui_scd, quantity: quantityValue }
+          );
+          rows = await fetchRows(false);
+          if (!isActive) return;
+        }
+
+        if (!shouldRequestQuantity && rows.length) {
+          updateQuantityCache(medication.rxcui_scd, rows);
+        }
+
+        if (rows.length) {
+          logMetforminComboWarning(rows);
+        }
+
+        if (!rows.length) {
+          console.warn(
+            '[MedicationComparePrices] Empty API response, using mock data.',
+            { rxcui_scd: medication.rxcui_scd, quantity: quantityValue }
+          );
+          setPharmacyData(mockPharmacyData);
+          setIsUsingMockData(true);
+          return;
+        }
+
+        setPharmacyData(transformMedicationComparePrices(rows));
+        setIsUsingMockData(false);
+      } catch (error) {
+        if (!isActive) return;
+        console.warn(
+          '[MedicationComparePrices] Failed to load API prices, using mock data.',
+          { rxcui_scd: medication.rxcui_scd, quantity: quantityValue, error }
+        );
+        setPharmacyData(mockPharmacyData);
+        setIsUsingMockData(true);
+      } finally {
+        if (isActive) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchPrices();
+
+    return () => {
+      isActive = false;
+    };
+  }, [medication.rxcui_scd, mockPharmacyData, quantityValue]);
+
+  const hasDistance = pharmacyData.some((pharmacy) => pharmacy.distanceValue < 999);
+
+  useEffect(() => {
+    if (!hasDistance && sortBy === 'distance') {
+      setSortBy('price');
+    }
+  }, [hasDistance, sortBy]);
+
+  const effectiveSort = sortBy === 'distance' && !hasDistance ? 'price' : sortBy;
 
   // Sort pharmacies based on selected option
   const sortedPharmacies = [...pharmacyData].sort((a, b) => {
-    if (sortBy === 'price') {
+    if (effectiveSort === 'price') {
       return a.priceValue - b.priceValue;
-    } else if (sortBy === 'distance') {
+    } else if (effectiveSort === 'distance') {
       // Delivery/Mail should come last
       if (a.delivery && !b.delivery) return 1;
       if (!a.delivery && b.delivery) return -1;
@@ -241,6 +389,27 @@ export function MarioMedicationComparePrices({
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-4">
+        {/* Limited Data Banner */}
+        {isUsingMockData && (
+          <div 
+            className="p-3 rounded-lg border"
+            style={{
+              backgroundColor: '#FEF3C7',
+              borderColor: '#F59E0B',
+              color: '#92400E'
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <span style={{ fontSize: '14px', fontWeight: '600' }}>
+                ⚠️ Limited Data
+              </span>
+              <span style={{ fontSize: '13px' }}>
+                Showing sample prices. Real-time pricing temporarily unavailable for this medication.
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Filter Row */}
         <Card 
           className="p-4"
@@ -283,6 +452,7 @@ export function MarioMedicationComparePrices({
                 <Button
                   onClick={() => setSortBy('distance')}
                   variant={sortBy === 'distance' ? 'default' : 'outline'}
+                  disabled={!hasDistance}
                   style={{
                     backgroundColor: sortBy === 'distance' ? '#2E5077' : 'white',
                     color: sortBy === 'distance' ? 'white' : '#2E5077',
@@ -416,6 +586,7 @@ export function MarioMedicationComparePrices({
                   sortedPharmacies.map((pharmacy, idx) => (
                     <div
                       key={idx}
+                      data-testid="pharmacy-row"
                       className="grid grid-cols-12 gap-4 px-6 py-4 mario-transition hover:bg-gray-50"
                       style={{
                         borderBottom: idx < sortedPharmacies.length - 1 ? '1px solid #E5E7EB' : 'none',

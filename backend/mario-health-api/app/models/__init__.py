@@ -46,6 +46,11 @@ from app.models.provider import (
     ProviderProcedureDetail,
 )
 
+# Medication models
+from app.models.medication import (
+    MedicationPriceRow,
+)
+
 # Specialty nmodels
 from app.models.specialty import (
     NuccSpecialty,
@@ -99,6 +104,8 @@ __all__ = [
     "ProviderProcedurePricing",
     "ProviderDetail",
     "ProviderProcedureDetail",
+    # Medication
+    "MedicationPriceRow",
     # Specialty
     "NuccSpecialty",
     "NuccSpecialtiesResponse",

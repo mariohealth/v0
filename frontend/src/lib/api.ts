@@ -5,6 +5,7 @@ import { getMockProvidersForProcedure, type MockProviderFallback } from '@/mock/
 import { getApiBaseUrl } from './api-base';
 import { getEffectiveCarrier, getEffectiveZip } from './user-locale';
 import { logSearchContext } from './dev-assertions/search-context-log';
+import type { MedicationPriceApiRow } from './transforms/medications';
 
 
 
@@ -278,6 +279,50 @@ async function fetchSmartAuth(url: string, options: RequestInit = {}): Promise<R
         // Catch network errors (likely CORS preflight failures on Gateway)
         console.error('[API] fetchWithAuth failed, likely CORS or Network issue. Retrying without auth...', error);
         return fetch(url, options);
+    }
+}
+
+export async function getMedicationPrices(
+    rxcui_scd: string,
+    quantity?: string | number | null,
+): Promise<MedicationPriceApiRow[]> {
+    const params = new URLSearchParams({ rxcui_scd });
+    if (quantity !== undefined && quantity !== null && String(quantity).length > 0) {
+        params.append('quantity', String(quantity));
+    }
+
+    const url = `${getApiBaseUrl()}/medications/prices?${params.toString()}`;
+
+    try {
+        const response = await fetchSmartAuth(url, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
+            try {
+                const errorData = JSON.parse(errorText);
+                errorMessage = errorData.message || errorData.detail || errorMessage;
+            } catch {
+                errorMessage = errorText || errorMessage;
+            }
+            console.error('[API] Medication prices error:', {
+                status: response.status,
+                statusText: response.statusText,
+                error: errorMessage,
+            });
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+        return Array.isArray(data) ? (data as MedicationPriceApiRow[]) : [];
+    } catch (error) {
+        console.error('[API] Error fetching medication prices:', error);
+        if (error instanceof Error) {
+            throw error;
+        }
+        throw new Error('Failed to fetch medication prices');
     }
 }
 

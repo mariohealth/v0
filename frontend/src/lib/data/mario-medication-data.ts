@@ -1,5 +1,6 @@
 export interface MedicationData {
   id?: string;
+  rxcui_scd?: string;
   name: string;
   genericFor: string;
   category?: string;
@@ -36,6 +37,7 @@ export const medicationDatabase: { drugs: MedicationData[] } = {
   "drugs": [
     {
       "id": "metformin-500",
+      "rxcui_scd": "860975",
       "name": "Metformin 500 mg",
       "genericFor": "Glucophage",
       "category": "Type 2 Diabetes",
@@ -72,6 +74,7 @@ export const medicationDatabase: { drugs: MedicationData[] } = {
     },
     {
       "id": "atorvastatin-20",
+      "rxcui_scd": "617312",
       "name": "Atorvastatin 20 mg",
       "genericFor": "Lipitor",
       "category": "High Cholesterol",
@@ -104,6 +107,7 @@ export const medicationDatabase: { drugs: MedicationData[] } = {
     },
     {
       "id": "ozempic-2",
+      "rxcui_scd": "1246288",
       "name": "Ozempic 2 mg pen",
       "genericFor": "Semaglutide Injection",
       "brandVsGeneric": ["Brand only"],
