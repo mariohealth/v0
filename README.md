@@ -159,7 +159,7 @@ GET /api/v1/codes/{code}?code_type=CPT
 
 ### Frontend ↔ Backend API Overview
 
-For a comprehensive overview of all API endpoints, see **[API Overview](./docs/API_OVERVIEW.md)**.
+For a comprehensive overview of all API endpoints, see **[API Overview](./docs/engineering/API-Overview.md)**.
 
 The API Overview includes:
 - Complete endpoint reference table
@@ -177,11 +177,11 @@ The API Overview includes:
 Note: Newly added endpoints contain stub responses and are marked for full implementation.
 
 ### Integration Documentation
-- **[Complete Integration Guide](./docs/INTEGRATION_GUIDE.md)** - Detailed API specs, types, and examples
-- **[Monday Integration Call](./docs/MONDAY_INTEGRATION.md)** - Handoff checklist and success criteria
-- **[API Contract](./docs/API_CONTRACT.md)** - Formal API specification
-- **[Routing + Entity Identity Contract](./docs/ROUTING_ENTITY_IDENTITY_CONTRACT.md)** - Canonical routes and entity model
-- **[Deployment Checklist](./docs/DEPLOYMENT_CHECKLIST.md)** - Pre-deployment verification guide
+- **[Complete Integration Guide](./docs/engineering/Integration-Guide.md)** - Detailed API specs, types, and examples
+- **[Monday Integration Call](./docs/archives/2025-10-29--engineering--monday-integration-handoff.md)** - Handoff checklist and success criteria
+- **[API Contract](./docs/decisions/API-Contract.md)** - Formal API specification
+- **[Routing + Entity Identity Contract](./docs/decisions/Routing-Entity-Identity-Contract.md)** - Canonical routes and entity model
+- **[Deployment Checklist](./docs/ops/Deployment-Checklist.md)** - Pre-deployment verification guide
 - **[Swagger API Docs](https://mario-health-api-72178908097.us-central1.run.app/docs)** - Interactive API documentation
 
 ### TypeScript Types
@@ -257,9 +257,9 @@ python -m pytest
    - Tests all endpoints automatically
 
 ### Integration Testing Resources
-- Use the [Integration Guide](./docs/INTEGRATION_GUIDE.md) for API testing
-- Follow the [Monday Integration Checklist](./docs/MONDAY_INTEGRATION.md) for handoff testing
-- Check [Deployment Checklist](./docs/DEPLOYMENT_CHECKLIST.md) for pre-deployment verification
+- Use the [Integration Guide](./docs/engineering/Integration-Guide.md) for API testing
+- Follow the [Monday Integration Checklist](./docs/archives/2025-10-29--engineering--monday-integration-handoff.md) for handoff testing
+- Check [Deployment Checklist](./docs/ops/Deployment-Checklist.md) for pre-deployment verification
 
 ## 🛠️ Development Workflow
 
@@ -330,8 +330,8 @@ python -m pytest
 ## 🤝 Contributing
 
 ### For Backend Engineers (AC)
-1. Review the [Integration Guide](./docs/INTEGRATION_GUIDE.md)
-2. Follow the [Monday Integration Checklist](./docs/MONDAY_INTEGRATION.md)
+1. Review the [Integration Guide](./docs/engineering/Integration-Guide.md)
+2. Follow the [Monday Integration Checklist](./docs/archives/2025-10-29--engineering--monday-integration-handoff.md)
 3. Implement missing endpoints in priority order
 4. Ensure TypeScript type compatibility
 

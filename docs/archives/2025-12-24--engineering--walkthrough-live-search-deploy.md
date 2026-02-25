@@ -18,7 +18,7 @@ I have successfully restored the search functionality and unblocked the deployme
 ### Production Search Verification
 I verified the live site (`mario-mrf-data.web.app`) using a browser subagent. The search now correctly pulls live data:
 
-![Autocomplete suggestions for 'brain' showing live results](file:///Users/az/Projects/mario-health/docs/development/media/20251224_search_verification.png)
+![Autocomplete suggestions for 'brain' showing live results](./2025-12-24--engineering--walkthrough-live-search-deploy.media/20251224_search_verification.png)
 
 > [!NOTE]
 > The autocomplete dropdown successfully shows **12 providers** for "MRI - Brain", confirming that the API connection and data mapping are fully functional in production.

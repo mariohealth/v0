@@ -1,3 +1,11 @@
+---
+created: 2026-01-02
+last_updated: 2026-02-26
+owner: mario-health-team
+status: active
+stage: mvp
+---
+
 # Frontend ↔ Backend API Overview
 
 This document provides a comprehensive overview of all API endpoints available in the Mario Health backend API.
@@ -151,8 +159,8 @@ Test endpoints using:
 
 ## Related Documentation
 
-- **[API Mapping Table](../API_MAPPING_TABLE.md)** - Detailed frontend-backend route mapping
-- **[API Contract](./API_CONTRACT.md)** - Formal API specification
-- **[Routing + Entity Identity Contract](./ROUTING_ENTITY_IDENTITY_CONTRACT.md)** - Canonical routes and entity model
-- **[Integration Guide](./INTEGRATION_GUIDE.md)** - Frontend integration guide
+- **[API Mapping Table](./API-Mapping-Table.md)** - Detailed frontend-backend route mapping
+- **[API Contract](../decisions/API-Contract.md)** - Formal API specification
+- **[Routing + Entity Identity Contract](../decisions/Routing-Entity-Identity-Contract.md)** - Canonical routes and entity model
+- **[Integration Guide](./Integration-Guide.md)** - Frontend integration guide
 
