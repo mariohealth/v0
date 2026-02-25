@@ -5,7 +5,7 @@ This is the entry point for Mario Health documentation.
 ## Canonical Living Docs
 
 - [API Overview](../engineering/API-Overview.md)
-- [API Contract](../decisions/API-Contract.md)
+- [API Contract](../engineering/API-Contract.md)
 - [Routing + Entity Identity Contract](../decisions/Routing-Entity-Identity-Contract.md)
 - [Integration Guide](../engineering/Integration-Guide.md)
 - [API Types Documentation](../engineering/API-Types-Documentation.md)
@@ -36,7 +36,7 @@ This is the entry point for Mario Health documentation.
 
 ## Decisions / ADRs
 
-- [API Contract](../decisions/API-Contract.md)
+- [API Contract](../engineering/API-Contract.md)
 - [Routing + Entity Identity Contract](../decisions/Routing-Entity-Identity-Contract.md)
 
 ## Area Folders
