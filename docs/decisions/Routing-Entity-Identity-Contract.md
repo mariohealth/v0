@@ -1,3 +1,11 @@
+---
+created: 2026-01-02
+last_updated: 2026-02-26
+owner: mario-health-team
+status: active
+stage: mvp
+---
+
 # Routing + Entity Identity Contract
 
 **Version:** 1.0  

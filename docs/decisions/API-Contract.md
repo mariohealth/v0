@@ -1,3 +1,11 @@
+---
+created: 2025-10-29
+last_updated: 2026-02-26
+owner: mario-health-team
+status: active
+stage: mvp
+---
+
 # Mario Health API Contract
 
 This document outlines the API endpoints and data structures expected by the Mario Health frontend application.

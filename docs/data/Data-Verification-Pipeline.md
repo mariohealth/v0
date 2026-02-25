@@ -1,3 +1,11 @@
+---
+created: 2025-11-11
+last_updated: 2026-02-26
+owner: mario-health-team
+status: active
+stage: mvp
+---
+
 # Mario Health Data Verification Workflow
 
 **Last Updated:** 2025-11-11

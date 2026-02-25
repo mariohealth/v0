@@ -31,7 +31,7 @@ This document summarizes all work completed since the last git commit (`18709fe`
 
 I've verified that procedures and specialties are correctly appearing in the autocomplete:
 
-![Search Autocomplete Verification](./media/brain_search_results_1766464009495.png)
+![Search Autocomplete Verification](./2025-12-23--engineering--walkthrough-emergency-stability.media/brain_search_results_1766464009495.png)
 
 ## 🎬 Phase 1: Fake Doctor Removal & API Readiness
 
@@ -46,7 +46,7 @@ I have completed the cleanup of mock data and refactored the search for real bac
 ### 🎥 Final Verification
 I've verified that procedures still work via fallback, while fake doctors are gone:
 
-![Phase 1 Verification](./media/verify_search_restoration_v2_1766502204265.webp)
+![Phase 1 Verification](./2025-12-23--engineering--walkthrough-emergency-stability.media/verify_search_restoration_v2_1766502204265.webp)
 
 **Verification Results:**
 - Search "MRI": ✅ Shows procedures.

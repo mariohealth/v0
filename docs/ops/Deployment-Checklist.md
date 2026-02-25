@@ -1,3 +1,11 @@
+---
+created: 2025-10-29
+last_updated: 2026-02-26
+owner: mario-health-team
+status: active
+stage: mvp
+---
+
 # Deployment Checklist
 
 This checklist ensures a smooth deployment to production.
@@ -212,5 +220,5 @@ After successful deployment:
 
 - [Vercel Deployment Docs](https://vercel.com/docs/deployments/overview)
 - [Next.js Deployment Guide](https://nextjs.org/docs/deployment)
-- [API Integration Guide](./INTEGRATION_GUIDE.md)
-- [Troubleshooting Guide](./TROUBLESHOOTING.md)
+- [API Integration Guide](../engineering/Integration-Guide.md)
+- [Troubleshooting Guide](./Troubleshooting.md)
