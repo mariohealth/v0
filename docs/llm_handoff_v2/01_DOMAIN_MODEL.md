@@ -2,7 +2,7 @@
 
 This document describes the domain model as evidenced in the repository.
 It is intended to help an engineer/LLM understand core entities, relationships, and invariants.
-Claims must be grounded in file paths. Anything not directly evidenced is labeled **NOT EVIDENCED**.
+Claims must be grounded in file paths. Anything not directly evidenced is labeled **EVIDENCE TBD**.
 
 Last updated: `2026-02-27`  
 Current git commit hash: `67969a83`
@@ -33,18 +33,18 @@ Current git commit hash: `67969a83`
 - Fact-layer table lineage artifact is defined in `backend/mario-health-data-pipeline/models/facts/fact_drug_prices.sql`.
 - Ingestion/orchestration lineage entrypoints are defined in `backend/mario-health-data-pipeline/scripts/ingest_uhc_data.py` and `backend/mario-health-data-pipeline/orchestrate.py`.
 
-## Relationships (NOT EVIDENCED until mapped)
+## Relationships (EVIDENCE TBD until mapped)
 - Provider ↔ Locations — evidenced by provider/location search artifacts in `backend/mario-health-api/app/services/specialty_service.py` and `backend/bigquery-to-postgres/config/sql/03_indexes/provider_location_lat_lng.sql`.
 - Provider ↔ Specialties — evidenced by specialty-provider flow artifacts in `backend/mario-health-api/app/services/specialty_service.py` and `backend/mario-health-api/app/api/v1/endpoints/specialties.py`.
 - Procedure ↔ Bundles — **Not evidenced in paths** (`backend/mario-health-api/app/api/v1/endpoints/procedures.py`, `backend/mario-health-api/app/api/v1/endpoints/bundles.py`, `backend/mario-health-api/app/services/bundle_service.py`).
 - Specialty ↔ Procedures — **Not evidenced in paths** (`backend/mario-health-api/app/api/v1/endpoints/specialties.py`, `backend/mario-health-api/app/api/v1/endpoints/procedures.py`, `backend/bigquery-to-postgres/config/sql/01_functions_search_v3.sql`).
 
-## Identifiers and keys (NOT EVIDENCED until mapped)
+## Identifiers and keys (EVIDENCE TBD until mapped)
 - Provider IDs — **Not evidenced in paths** (`backend/bigquery-to-postgres/config/sql/02_tables/`, `backend/bigquery-to-postgres/config/tables.py`, `backend/mario-health-api/app/api/v1/endpoints/providers.py`).
 - Specialty slugs — **Not evidenced in paths** (`backend/mario-health-api/app/api/v1/endpoints/specialties.py`, `backend/mario-health-api/app/services/specialty_service.py`, `backend/mario-health-api/app/api/v1/endpoints/`).
 - Bundle IDs — **Not evidenced in paths** (`backend/mario-health-api/app/api/v1/endpoints/bundles.py`, `backend/mario-health-api/app/services/bundle_service.py`, `backend/bigquery-to-postgres/config/sql/02_tables/`).
 
-## Validation and invariants (NOT EVIDENCED until mapped)
+## Validation and invariants (EVIDENCE TBD until mapped)
 - Deduplication rules — evidenced in `backend/bigquery-to-postgres/scripts/sync_data.py` (duplicate removal), `backend/mario-health-data-pipeline/scripts/ingest_uhc_data.py` (ingestion deduplication), and `backend/bigquery-to-postgres/config/sql/01_functions_search_v3.sql` (`candidates_dedup` logic).
 - Required fields / constraints — evidenced in `backend/bigquery-to-postgres/config/tables.py` (required columns contract) and `backend/bigquery-to-postgres/config/sql/05_constraints.sql` (constraint definitions).
 - Search ranking weights — **Not evidenced in paths** (`backend/bigquery-to-postgres/config/sql/01_functions_search_v3.sql` shows ranking/distance logic but no explicit weights in evidence index text).
@@ -52,7 +52,7 @@ Current git commit hash: `67969a83`
 ## Next step to complete this doc (manual/evidence-driven)
 1) Open `docs/llm_handoff/_evidence_index.md`
 2) Extract explicit schema/model paths (SQL tables, dbt models, seeds, migrations)
-3) Replace each **NOT EVIDENCED** block with:
+3) Replace each **EVIDENCE TBD** block with:
    - concrete entity definition
    - file path citations
    - relationship + join keys
