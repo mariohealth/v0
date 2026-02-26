@@ -1,3 +1,11 @@
+---
+created: 2025-10-29
+last_updated: 2026-02-26
+owner: mario-health-team
+status: active
+stage: mvp
+---
+
 # GCP Cloud Run Authentication Setup
 
 This document explains how authentication is configured for GCP Cloud Run API calls.

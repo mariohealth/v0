@@ -1,3 +1,11 @@
+---
+created: 2025-11-05
+last_updated: 2026-02-26
+owner: mario-health-team
+status: active
+stage: mvp
+---
+
 # Frontend API Calls to Backend Routes Mapping
 
 ## Summary

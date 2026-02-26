@@ -1,3 +1,11 @@
+---
+created: 2025-10-29
+last_updated: 2026-02-26
+owner: mario-health-team
+status: active
+stage: mvp
+---
+
 # Mario Health API Integration Guide
 
 **Backend Engineer Handoff Documentation**  
