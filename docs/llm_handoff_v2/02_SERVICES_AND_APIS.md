@@ -22,7 +22,7 @@ Current git commit hash: `63cb3073`
 - Supporting runtime wiring evidence (`docs/llm_handoff/_evidence_index.md`): `backend/mario-health-api/app/api/v1/endpoints/` is the mounted API endpoint module directory, and `backend/mario-health-api/Dockerfile` runs `uvicorn app.main:app --host 0.0.0.0 --port 8080`.
 
 ### API v1 endpoints
-- **NOT EVIDENCED until cited**: list of endpoint modules and their routes.
+- Evidence (`docs/llm_handoff/_evidence_index.md`): endpoint modules under `backend/mario-health-api/app/api/v1/endpoints/` include `categories`, `families`, `procedures`, `search`, `providers`, `doctors`, `bookings`, `insurance`, `specialties`, `bundles`, `whoami`; evidenced purposes: `search.py` + `app/services/search_service.py` (search API chain to Supabase RPC), `providers.py` + `app/services/provider_service.py` (provider detail chain with fallback path), `doctors.py` + `app/services/provider_service.py` (doctor search/autocomplete), `bundles.py` + `app/services/bundle_service.py` (bundle estimate flow), `bookings.py` (stub responses/TODO), `insurance.py` (verification stub + static providers list); purpose details for `categories`, `families`, `procedures`, `specialties`, and `whoami` are NOT EVIDENCED beyond module presence in the index.
 
 ### Auth / permissions
 - **NOT EVIDENCED until cited**: token validation, dependency injection, protected routes.
