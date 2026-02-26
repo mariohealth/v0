@@ -14,12 +14,12 @@ Current git commit hash: `67969a83`
 > NOTE: This v2 document is intentionally conservative to avoid hallucination under unstable tooling.
 > Fill in specific entities/relationships only when you can point to concrete evidence paths (models/migrations/sql/seeds).
 
-## Core entities (NOT EVIDENCED until mapped)
-- User / Auth identity — **NOT EVIDENCED** (confirm via backend auth deps + frontend auth context)
-- Provider — **NOT EVIDENCED** (confirm via provider schema/SQL + service usage)
-- Specialty — **NOT EVIDENCED**
-- Procedure / Bundle — **NOT EVIDENCED**
-- Medication / Drug — **NOT EVIDENCED** (medications endpoint noted as missing on some branches previously)
+## Core entities
+- Provider — provider-facing records and lookup flows are evidenced in `backend/mario-health-api/app/api/v1/endpoints/providers.py`, `backend/mario-health-api/app/services/provider_service.py`, and table DDL scope at `backend/bigquery-to-postgres/config/sql/02_tables/`.
+- Specialty — specialty-specific provider flow is evidenced in `backend/mario-health-api/app/services/specialty_service.py` and `backend/mario-health-api/app/api/v1/endpoints/specialties.py`.
+- Procedure — procedure search domain is evidenced in `backend/bigquery-to-postgres/config/sql/01_functions_search_v3.sql` and endpoint/module presence at `backend/mario-health-api/app/api/v1/endpoints/procedures.py`.
+- Bundle — bundle estimate flow is evidenced in `backend/mario-health-api/app/api/v1/endpoints/bundles.py` and `backend/mario-health-api/app/services/bundle_service.py`.
+- Drug pricing — medication/drug pricing domain is evidenced in `backend/mario-health-data-pipeline/models/facts/fact_drug_prices.sql`, `backend/database-loader/function/get_medication_prices.sql`, and DDL scope at `backend/bigquery-to-postgres/config/sql/02_tables/`.
 
 ## Data stores and schemas (evidence required)
 ### Postgres / Supabase
