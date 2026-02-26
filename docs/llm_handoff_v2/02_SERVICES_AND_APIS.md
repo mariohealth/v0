@@ -31,7 +31,9 @@ Current git commit hash: `63cb3073`
 
 ## Frontend (Next.js)
 ### Route groups and auth gating
-- **NOT EVIDENCED until cited**: authed route group, AuthGuard, login redirect.
+- Authenticated route-group layout is evidenced at `frontend/src/app/(authed)/layout.tsx`.
+- Auth guard component is evidenced at `frontend/src/components/auth/AuthGuard.tsx`.
+- Login redirect behavior with return URL is evidenced by `frontend/src/app/(authed)/layout.tsx` + `frontend/src/components/auth/AuthGuard.tsx`.
 
 ### API client boundary
 - **NOT EVIDENCED until cited**: API base URL logic, fetch wrapper, auth header injection.
