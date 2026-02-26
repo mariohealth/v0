@@ -23,7 +23,8 @@ Current git commit hash: `67969a83`
 
 ## Data stores and schemas (evidence required)
 ### Postgres / Supabase
-- Primary schema definition paths — **NOT EVIDENCED** (pull from Phase A: migrations/sql table definitions)
+- Postgres schema primitives are defined in `backend/bigquery-to-postgres/config/sql/00_extensions.sql`, `backend/bigquery-to-postgres/config/sql/01_functions.sql`, `backend/bigquery-to-postgres/config/sql/04_triggers.sql`, `backend/bigquery-to-postgres/config/sql/05_constraints.sql`, and `backend/bigquery-to-postgres/config/sql/06_views.sql`.
+- Postgres table/index contracts are defined in `backend/bigquery-to-postgres/config/sql/02_tables/`, `backend/bigquery-to-postgres/config/sql/03_indexes.sql`, `backend/bigquery-to-postgres/config/sql/03_indexes/`, and `backend/bigquery-to-postgres/config/tables.py`; Supabase client dependency is evidenced in `backend/mario-health-api/app/core/dependencies.py`.
 
 ### BigQuery
 - Dataset/table definitions and lineage — **NOT EVIDENCED** (pull from Phase A: dbt models + orchestrate scripts)
