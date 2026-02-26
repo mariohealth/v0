@@ -27,7 +27,11 @@ Current git commit hash: `67969a83`
 - Postgres table/index contracts are defined in `backend/bigquery-to-postgres/config/sql/02_tables/`, `backend/bigquery-to-postgres/config/sql/03_indexes.sql`, `backend/bigquery-to-postgres/config/sql/03_indexes/`, and `backend/bigquery-to-postgres/config/tables.py`; Supabase client dependency is evidenced in `backend/mario-health-api/app/core/dependencies.py`.
 
 ### BigQuery
-- Dataset/table definitions and lineage — **NOT EVIDENCED** (pull from Phase A: dbt models + orchestrate scripts)
+- Source declarations for BigQuery-facing lineage are defined in `backend/mario-health-data-pipeline/models/sources.yml`.
+- Project-level model/seed lineage configuration is defined in `backend/mario-health-data-pipeline/dbt_project.yml`.
+- Staging-layer table lineage artifacts are defined in `backend/mario-health-data-pipeline/models/staging/`.
+- Fact-layer table lineage artifact is defined in `backend/mario-health-data-pipeline/models/facts/fact_drug_prices.sql`.
+- Ingestion/orchestration lineage entrypoints are defined in `backend/mario-health-data-pipeline/scripts/ingest_uhc_data.py` and `backend/mario-health-data-pipeline/orchestrate.py`.
 
 ## Relationships (NOT EVIDENCED until mapped)
 - Provider ↔ Locations — **NOT EVIDENCED**
