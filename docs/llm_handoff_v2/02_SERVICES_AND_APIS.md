@@ -18,7 +18,8 @@ Current git commit hash: `63cb3073`
 
 ## Backend API (FastAPI)
 ### Entrypoint and app wiring
-- **NOT EVIDENCED until cited**: backend entrypoint path, router registration, middleware stack.
+- Evidence (`docs/llm_handoff/_evidence_index.md`): `backend/mario-health-api/app/main.py` is the FastAPI app entrypoint and includes router mounting plus middleware wiring (`FastAPI app entrypoint, router mounting, middleware wiring, root and /health endpoints`).
+- Supporting runtime wiring evidence (`docs/llm_handoff/_evidence_index.md`): `backend/mario-health-api/app/api/v1/endpoints/` is the mounted API endpoint module directory, and `backend/mario-health-api/Dockerfile` runs `uvicorn app.main:app --host 0.0.0.0 --port 8080`.
 
 ### API v1 endpoints
 - **NOT EVIDENCED until cited**: list of endpoint modules and their routes.
