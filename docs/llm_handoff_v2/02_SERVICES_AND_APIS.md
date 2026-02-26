@@ -25,7 +25,9 @@ Current git commit hash: `63cb3073`
 - Evidence (`docs/llm_handoff/_evidence_index.md`): endpoint modules under `backend/mario-health-api/app/api/v1/endpoints/` include `categories`, `families`, `procedures`, `search`, `providers`, `doctors`, `bookings`, `insurance`, `specialties`, `bundles`, `whoami`; evidenced purposes: `search.py` + `app/services/search_service.py` (search API chain to Supabase RPC), `providers.py` + `app/services/provider_service.py` (provider detail chain with fallback path), `doctors.py` + `app/services/provider_service.py` (doctor search/autocomplete), `bundles.py` + `app/services/bundle_service.py` (bundle estimate flow), `bookings.py` (stub responses/TODO), `insurance.py` (verification stub + static providers list); purpose details for `categories`, `families`, `procedures`, `specialties`, and `whoami` are NOT EVIDENCED beyond module presence in the index.
 
 ### Auth / permissions
-- **NOT EVIDENCED until cited**: token validation, dependency injection, protected routes.
+- Token validation is evidenced in `backend/mario-health-api/app/auth/firebase_auth.py` (Firebase Admin SDK token verification with ADC) and `backend/mario-health-api/app/core/auth.py` (Bearer-token auth dependency).
+- Dependency injection for backend integrations is evidenced in `backend/mario-health-api/app/core/dependencies.py` (Supabase client dependency).
+- Protected-route behavior is evidenced in `frontend/src/components/auth/AuthGuard.tsx` and `frontend/src/app/(authed)/layout.tsx` (auth guard and redirect flow).
 
 ## Frontend (Next.js)
 ### Route groups and auth gating
