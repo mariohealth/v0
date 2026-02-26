@@ -1,7 +1,8 @@
 # 02_SERVICES_AND_APIS
 
 This document enumerates runtime services and API surface areas evidenced in the repository.
-All claims must be grounded in file paths from Phase A evidence. Anything not directly evidenced is **NOT EVIDENCED**.
+- Evidence baseline for runtime/API claims: `backend/mario-health-api/app/main.py`, `backend/mario-health-api/app/api/v1/endpoints/`, `backend/mario-health-api/app/services/`.
+- Evidence baseline for client/integration claims: `frontend/src/lib/api.ts`, `frontend/src/lib/api-base.ts`, `backend/mario-health-api/app/core/auth.py`, `backend/mario-health-api/app/core/dependencies.py`.
 
 Last updated: `2026-02-27`  
 Current git commit hash: `63cb3073`
